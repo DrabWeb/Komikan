@@ -12,6 +12,10 @@
 		5D7365731C344C6900D28942 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D7365711C344C6900D28942 /* MainMenu.xib */; };
 		5D73657E1C344C6900D28942 /* KomikanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D73657D1C344C6900D28942 /* KomikanTests.swift */; };
 		5D7365891C344C6900D28942 /* KomikanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7365881C344C6900D28942 /* KomikanUITests.swift */; };
+		5D8B24BF1C345C65008BBDAD /* KMWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8B24BE1C345C65008BBDAD /* KMWindow.swift */; settings = {ASSET_TAGS = (); }; };
+		5D8B24C61C34728C008BBDAD /* KMMangaGridItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D8B24C51C34728C008BBDAD /* KMMangaGridItem.xib */; settings = {ASSET_TAGS = (); }; };
+		5D8B24C91C3473E3008BBDAD /* KMMangaGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8B24C81C3473E3008BBDAD /* KMMangaGridItem.swift */; settings = {ASSET_TAGS = (); }; };
+		5D8B24CB1C3473FE008BBDAD /* KMMangaGridController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8B24CA1C3473FE008BBDAD /* KMMangaGridController.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +47,10 @@
 		5D7365841C344C6900D28942 /* KomikanUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KomikanUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D7365881C344C6900D28942 /* KomikanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KomikanUITests.swift; sourceTree = "<group>"; };
 		5D73658A1C344C6900D28942 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5D8B24BE1C345C65008BBDAD /* KMWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMWindow.swift; sourceTree = "<group>"; };
+		5D8B24C51C34728C008BBDAD /* KMMangaGridItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KMMangaGridItem.xib; sourceTree = "<group>"; };
+		5D8B24C81C3473E3008BBDAD /* KMMangaGridItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaGridItem.swift; sourceTree = "<group>"; };
+		5D8B24CA1C3473FE008BBDAD /* KMMangaGridController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaGridController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,8 +102,10 @@
 			isa = PBXGroup;
 			children = (
 				5D73656D1C344C6900D28942 /* AppDelegate.swift */,
-				5D73656F1C344C6900D28942 /* Assets.xcassets */,
 				5D7365711C344C6900D28942 /* MainMenu.xib */,
+				5D8B24C21C346822008BBDAD /* View Classes */,
+				5D8B24C71C347297008BBDAD /* Views */,
+				5D73656F1C344C6900D28942 /* Assets.xcassets */,
 				5D7365741C344C6900D28942 /* Info.plist */,
 			);
 			path = Komikan;
@@ -117,6 +127,24 @@
 				5D73658A1C344C6900D28942 /* Info.plist */,
 			);
 			path = KomikanUITests;
+			sourceTree = "<group>";
+		};
+		5D8B24C21C346822008BBDAD /* View Classes */ = {
+			isa = PBXGroup;
+			children = (
+				5D8B24BE1C345C65008BBDAD /* KMWindow.swift */,
+				5D8B24C81C3473E3008BBDAD /* KMMangaGridItem.swift */,
+				5D8B24CA1C3473FE008BBDAD /* KMMangaGridController.swift */,
+			);
+			name = "View Classes";
+			sourceTree = "<group>";
+		};
+		5D8B24C71C347297008BBDAD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5D8B24C51C34728C008BBDAD /* KMMangaGridItem.xib */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,6 +250,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D8B24C61C34728C008BBDAD /* KMMangaGridItem.xib in Resources */,
 				5D7365701C344C6900D28942 /* Assets.xcassets in Resources */,
 				5D7365731C344C6900D28942 /* MainMenu.xib in Resources */,
 			);
@@ -248,7 +277,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D8B24CB1C3473FE008BBDAD /* KMMangaGridController.swift in Sources */,
 				5D73656E1C344C6900D28942 /* AppDelegate.swift in Sources */,
+				5D8B24C91C3473E3008BBDAD /* KMMangaGridItem.swift in Sources */,
+				5D8B24BF1C345C65008BBDAD /* KMWindow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,6 +502,7 @@
 				5D73658F1C344C6900D28942 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5D7365901C344C6900D28942 /* Build configuration list for PBXNativeTarget "KomikanTests" */ = {
 			isa = XCConfigurationList;
@@ -478,6 +511,7 @@
 				5D7365921C344C6900D28942 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5D7365931C344C6900D28942 /* Build configuration list for PBXNativeTarget "KomikanUITests" */ = {
 			isa = XCConfigurationList;
@@ -486,6 +520,7 @@
 				5D7365951C344C6900D28942 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

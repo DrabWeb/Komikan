@@ -15,6 +15,8 @@
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Komikan" customModuleProvider="target">
             <connections>
                 <outlet property="backgroundVisualEffectView" destination="tnN-wk-I7Y" id="wv6-4P-N3d"/>
+                <outlet property="mangaGridArray" destination="lLC-x4-m4b" id="yxi-zU-k4o"/>
+                <outlet property="mangaGridCollectionView" destination="bxz-sR-opk" id="x7N-UX-vlf"/>
                 <outlet property="titlebarVisualEffectView" destination="22c-I1-SHW" id="OUB-lu-X7g"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
@@ -669,9 +671,9 @@
                 </menuItem>
             </items>
         </menu>
-        <window title="Komikan" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
+        <window title="Komikan" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g" customClass="KMWindow" customModule="Komikan" customModuleProvider="target">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES" fullSizeContentView="YES"/>
-            <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="480" height="360"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1600" height="900"/>
@@ -692,7 +694,7 @@
                                 <tabViewItems>
                                     <tabViewItem label="All Manga" identifier="1" id="D2F-LI-g6a">
                                         <view key="view" id="ORv-47-bf4">
-                                            <rect key="frame" x="10" y="33" width="476" height="0.0"/>
+                                            <rect key="frame" x="10" y="33" width="474" height="0.0"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <animations/>
                                         </view>
@@ -724,6 +726,44 @@
                     </visualEffectView>
                     <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="tnN-wk-I7Y" userLabel="Background Effect View">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="323"/>
+                        <subviews>
+                            <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5pG-fY-DFe">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="323"/>
+                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="edn-tw-1Vc">
+                                    <rect key="frame" x="0.0" y="0.0" width="480" height="323"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <collectionView maxNumberOfRows="4" maxNumberOfColumns="100" id="bxz-sR-opk">
+                                            <rect key="frame" x="0.0" y="0.0" width="480" height="323"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <animations/>
+                                            <color key="primaryBackgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
+                                            <connections>
+                                                <binding destination="lLC-x4-m4b" name="content" keyPath="arrangedObjects.coverImage" id="Rfl-zf-eGh"/>
+                                            </connections>
+                                        </collectionView>
+                                    </subviews>
+                                    <animations/>
+                                </clipView>
+                                <animations/>
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="mv2-N4-zzC">
+                                    <rect key="frame" x="-100" y="-100" width="233" height="15"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
+                                </scroller>
+                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="mZb-Od-jwZ">
+                                    <rect key="frame" x="464" y="4" width="16" height="319"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
+                                </scroller>
+                            </scrollView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="5pG-fY-DFe" firstAttribute="top" secondItem="tnN-wk-I7Y" secondAttribute="top" id="2oU-fR-TM8"/>
+                            <constraint firstItem="5pG-fY-DFe" firstAttribute="leading" secondItem="tnN-wk-I7Y" secondAttribute="leading" id="Scf-RW-4u4"/>
+                            <constraint firstAttribute="trailing" secondItem="5pG-fY-DFe" secondAttribute="trailing" id="n3h-hR-Ar5"/>
+                            <constraint firstAttribute="bottom" secondItem="5pG-fY-DFe" secondAttribute="bottom" id="reb-XN-MTX"/>
+                        </constraints>
                         <animations/>
                     </visualEffectView>
                 </subviews>
@@ -750,5 +790,19 @@
             </toolbar>
             <point key="canvasLocation" x="426" y="450"/>
         </window>
+        <customObject id="FMm-Eq-LWj" customClass="KMMangaGridController" customModule="Komikan" customModuleProvider="target">
+            <connections>
+                <outlet property="arrayController" destination="lLC-x4-m4b" id="uER-1m-YyG"/>
+            </connections>
+        </customObject>
+        <arrayController objectClassName="KMMangaGridItem" id="lLC-x4-m4b" userLabel="Manga Grid Array Controller">
+            <declaredKeys>
+                <string>coverImage</string>
+            </declaredKeys>
+            <connections>
+                <binding destination="FMm-Eq-LWj" name="contentArray" keyPath="self.coverImages" id="3oI-pe-8Bo"/>
+            </connections>
+        </arrayController>
+        <userDefaultsController representsSharedInstance="YES" id="p8k-af-f6q"/>
     </objects>
 </document>
