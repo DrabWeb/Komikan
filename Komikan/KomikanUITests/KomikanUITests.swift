@@ -2,7 +2,7 @@
 //  KomikanUITests.swift
 //  KomikanUITests
 //
-//  Created by Seth on 2015-12-30.
+//  Created by Seth on 2015-12-31.
 //  Copyright © 2015 DrabWeb. All rights reserved.
 //
 
