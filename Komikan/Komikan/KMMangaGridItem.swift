@@ -9,5 +9,6 @@
 import Cocoa
 
 class KMMangaGridItem: NSObject {
+    // The cover image for this grid item
     var coverImage : NSImage = NSImage(named: "NSCaution")!;
 }

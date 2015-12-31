@@ -15,6 +15,7 @@
 		5D5DBEEC1C3584F5004D8C5D /* KomikanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBEEB1C3584F5004D8C5D /* KomikanUITests.swift */; };
 		5D5DBEFA1C358BD3004D8C5D /* KMMangaGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBEF91C358BD3004D8C5D /* KMMangaGridItem.swift */; settings = {ASSET_TAGS = (); }; };
 		5D5DBEFC1C358BE0004D8C5D /* KMMangaGridController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBEFB1C358BE0004D8C5D /* KMMangaGridController.swift */; settings = {ASSET_TAGS = (); }; };
+		5D5DBF021C35923F004D8C5D /* KMReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBF011C35923F004D8C5D /* KMReaderViewController.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		5D5DBEED1C3584F5004D8C5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5D5DBEF91C358BD3004D8C5D /* KMMangaGridItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaGridItem.swift; sourceTree = "<group>"; };
 		5D5DBEFB1C358BE0004D8C5D /* KMMangaGridController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaGridController.swift; sourceTree = "<group>"; };
+		5D5DBF011C35923F004D8C5D /* KMReaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMReaderViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,10 +103,9 @@
 			children = (
 				5D5DBECE1C3584F5004D8C5D /* AppDelegate.swift */,
 				5D5DBED01C3584F5004D8C5D /* ViewController.swift */,
-				5D5DBEF91C358BD3004D8C5D /* KMMangaGridItem.swift */,
-				5D5DBEFB1C358BE0004D8C5D /* KMMangaGridController.swift */,
+				5D5DBEFE1C35914E004D8C5D /* Storyboards */,
+				5D5DBEFD1C35913F004D8C5D /* View Managers */,
 				5D5DBED21C3584F5004D8C5D /* Assets.xcassets */,
-				5D5DBED41C3584F5004D8C5D /* Main.storyboard */,
 				5D5DBED71C3584F5004D8C5D /* Info.plist */,
 			);
 			path = Komikan;
@@ -126,6 +127,24 @@
 				5D5DBEED1C3584F5004D8C5D /* Info.plist */,
 			);
 			path = KomikanUITests;
+			sourceTree = "<group>";
+		};
+		5D5DBEFD1C35913F004D8C5D /* View Managers */ = {
+			isa = PBXGroup;
+			children = (
+				5D5DBF011C35923F004D8C5D /* KMReaderViewController.swift */,
+				5D5DBEF91C358BD3004D8C5D /* KMMangaGridItem.swift */,
+				5D5DBEFB1C358BE0004D8C5D /* KMMangaGridController.swift */,
+			);
+			name = "View Managers";
+			sourceTree = "<group>";
+		};
+		5D5DBEFE1C35914E004D8C5D /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				5D5DBED41C3584F5004D8C5D /* Main.storyboard */,
+			);
+			name = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D5DBEFC1C358BE0004D8C5D /* KMMangaGridController.swift in Sources */,
+				5D5DBF021C35923F004D8C5D /* KMReaderViewController.swift in Sources */,
 				5D5DBEFA1C358BD3004D8C5D /* KMMangaGridItem.swift in Sources */,
 				5D5DBED11C3584F5004D8C5D /* ViewController.swift in Sources */,
 				5D5DBECF1C3584F5004D8C5D /* AppDelegate.swift in Sources */,
