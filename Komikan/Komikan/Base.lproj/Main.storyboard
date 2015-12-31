@@ -706,7 +706,7 @@
                                 <animations/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSColorPanel" id="pAU-GU-k0Z"/>
                             </imageView>
-                            <visualEffectView appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="eRx-Sv-XZm">
+                            <visualEffectView appearanceType="vibrantDark" blendingMode="withinWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="eRx-Sv-XZm">
                                 <rect key="frame" x="0.0" y="248" width="480" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="iXo-PB-W7s"/>
