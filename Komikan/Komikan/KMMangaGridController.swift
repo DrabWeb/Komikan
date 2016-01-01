@@ -16,10 +16,11 @@ class KMMangaGridController: NSObject {
     var coverImages : NSMutableArray = NSMutableArray();
     
     override func awakeFromNib() {
-        // Load 100 pictures of the example manga cover to the collection view
+        // Load 100 pictures of the example manga cover and the title "Ushio Diary" to the collection view
         for _ in 1...100 {
             let newCoverImage : KMMangaGridItem = KMMangaGridItem();
             newCoverImage.coverImage = NSImage(named: "example-cover")!;
+            newCoverImage.title = "Ushio Diary"
             arrayController.addObject(newCoverImage);
         }
     }

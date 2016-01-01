@@ -238,5 +238,8 @@ class KMReaderViewController: NSViewController {
         
         // Set the appearance
         readerWindow.appearance = NSAppearance(named: NSAppearanceNameVibrantDark);
+        
+        // Set the window background color
+        readerWindow.backgroundColor = NSColor.blackColor();
     }
 }

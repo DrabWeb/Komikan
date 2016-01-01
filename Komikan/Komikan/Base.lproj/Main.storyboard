@@ -901,6 +901,7 @@
                 <arrayController objectClassName="KMMangaGridItem" id="fTr-R0-e41" userLabel="Manga Grid Array Controller">
                     <declaredKeys>
                         <string>coverImage</string>
+                        <string>title</string>
                     </declaredKeys>
                     <connections>
                         <binding destination="rwH-XF-ldC" name="contentArray" keyPath="coverImages" id="Lhp-CZ-fbm"/>
@@ -917,20 +918,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eTX-po-Lb6">
-                                <rect key="frame" x="12" y="12" width="276" height="276"/>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eTX-po-Lb6">
+                                <rect key="frame" x="12" y="288" width="276" height="0.0"/>
                                 <animations/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="xCy-Ll-DDd"/>
                                 <connections>
                                     <binding destination="H6C-sh-Guu" name="value" keyPath="representedObject.coverImage" id="lNI-3X-v2k"/>
                                 </connections>
                             </imageView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Fsn-as-jfw">
+                                <rect key="frame" x="10" y="12" width="280" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="17" id="PVK-lK-TFd"/>
+                                </constraints>
+                                <animations/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="rGh-7U-250">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="0.94999999999999996" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <binding destination="H6C-sh-Guu" name="value" keyPath="representedObject.title" id="K6n-xw-uLE"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Fsn-as-jfw" secondAttribute="trailing" constant="12" id="0hs-J9-lkl"/>
+                            <constraint firstItem="Fsn-as-jfw" firstAttribute="leading" secondItem="s6v-rn-nM4" secondAttribute="leading" constant="12" id="8EY-73-Mwc"/>
                             <constraint firstItem="eTX-po-Lb6" firstAttribute="leading" secondItem="s6v-rn-nM4" secondAttribute="leading" constant="12" id="X5w-f9-qd8"/>
-                            <constraint firstAttribute="bottom" secondItem="eTX-po-Lb6" secondAttribute="bottom" constant="12" id="anW-Uo-BEN"/>
                             <constraint firstItem="eTX-po-Lb6" firstAttribute="top" secondItem="s6v-rn-nM4" secondAttribute="top" constant="12" id="f8I-hc-8Y3"/>
+                            <constraint firstItem="Fsn-as-jfw" firstAttribute="top" secondItem="eTX-po-Lb6" secondAttribute="bottom" constant="12" id="pjw-lG-RSh"/>
                             <constraint firstAttribute="trailing" secondItem="eTX-po-Lb6" secondAttribute="trailing" constant="12" id="ugq-ab-zWk"/>
+                            <constraint firstAttribute="bottom" secondItem="Fsn-as-jfw" secondAttribute="bottom" constant="12" id="zoG-iw-gxP"/>
                         </constraints>
                         <animations/>
                     </view>
@@ -938,7 +957,7 @@
                 <customObject id="ZWb-wE-cKj" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <userDefaultsController representsSharedInstance="YES" id="Yvt-Ka-dIZ"/>
             </objects>
-            <point key="canvasLocation" x="624" y="918"/>
+            <point key="canvasLocation" x="786" y="912"/>
         </scene>
     </scenes>
     <resources>
