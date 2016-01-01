@@ -86,6 +86,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5D5A11771C370EDC00C7A6A5 /* Manga Grid */ = {
+			isa = PBXGroup;
+			children = (
+				5D5DBEF91C358BD3004D8C5D /* KMMangaGridItem.swift */,
+				5D5DBEFB1C358BE0004D8C5D /* KMMangaGridController.swift */,
+			);
+			name = "Manga Grid";
+			sourceTree = "<group>";
+		};
 		5D5DBEC21C3584F5004D8C5D = {
 			isa = PBXGroup;
 			children = (
@@ -145,8 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				5D5DBF011C35923F004D8C5D /* KMReaderViewController.swift */,
-				5D5DBEF91C358BD3004D8C5D /* KMMangaGridItem.swift */,
-				5D5DBEFB1C358BE0004D8C5D /* KMMangaGridController.swift */,
+				5D5A11771C370EDC00C7A6A5 /* Manga Grid */,
 			);
 			name = "View Managers";
 			sourceTree = "<group>";

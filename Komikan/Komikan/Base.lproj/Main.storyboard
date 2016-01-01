@@ -763,7 +763,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="DI5-9c-AHp" userLabel="Background Visual Effect View">
+                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="DI5-9c-AHp" userLabel="Background Visual Effect View">
                                 <rect key="frame" x="0.0" y="0.0" width="640" height="443"/>
                                 <subviews>
                                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pwJ-e1-0oZ" userLabel="Manga Collection View">
@@ -772,7 +772,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="640" height="443"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <collectionView allowsEmptySelection="NO" id="4kf-pV-6YA">
+                                                <collectionView selectable="YES" id="4kf-pV-6YA">
                                                     <rect key="frame" x="0.0" y="0.0" width="640" height="443"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <animations/>
@@ -889,6 +889,7 @@
                     <connections>
                         <outlet property="backgroundVisualEffectView" destination="DI5-9c-AHp" id="0Ki-1K-xDE"/>
                         <outlet property="mangaCollectionView" destination="4kf-pV-6YA" id="rpB-Er-tRk"/>
+                        <outlet property="mangaCollectionViewArray" destination="fTr-R0-e41" id="cr6-k6-HyI"/>
                         <outlet property="titlebarVisualEffectView" destination="xeH-9s-Llt" id="y4w-Cx-qCa"/>
                     </connections>
                 </viewController>
@@ -902,6 +903,7 @@
                     <declaredKeys>
                         <string>coverImage</string>
                         <string>title</string>
+                        <string>artist</string>
                     </declaredKeys>
                     <connections>
                         <binding destination="rwH-XF-ldC" name="contentArray" keyPath="coverImages" id="Lhp-CZ-fbm"/>
@@ -914,28 +916,36 @@
         <scene sceneID="nsn-SP-i81">
             <objects>
                 <collectionViewItem storyboardIdentifier="mangaCollectionViewItem" id="H6C-sh-Guu" userLabel="Manga Grid Collection View Item" sceneMemberID="viewController">
-                    <view key="view" id="s6v-rn-nM4">
+                    <view key="view" wantsLayer="YES" id="s6v-rn-nM4">
                         <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eTX-po-Lb6">
-                                <rect key="frame" x="12" y="288" width="276" height="0.0"/>
+                            <imageView wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eTX-po-Lb6">
+                                <rect key="frame" x="12" y="41" width="276" height="247"/>
+                                <shadow key="shadow" blurRadius="8">
+                                    <size key="offset" width="0.0" height="-8"/>
+                                    <color key="color" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
+                                </shadow>
                                 <animations/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="xCy-Ll-DDd"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="example-cover" id="xCy-Ll-DDd"/>
                                 <connections>
                                     <binding destination="H6C-sh-Guu" name="value" keyPath="representedObject.coverImage" id="lNI-3X-v2k"/>
                                 </connections>
                             </imageView>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Fsn-as-jfw">
+                            <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Fsn-as-jfw">
                                 <rect key="frame" x="10" y="12" width="280" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="PVK-lK-TFd"/>
                                 </constraints>
+                                <shadow key="shadow" blurRadius="1">
+                                    <size key="offset" width="0.0" height="1"/>
+                                    <color key="color" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
+                                </shadow>
                                 <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="rGh-7U-250">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" red="1" green="1" blue="1" alpha="0.94999999999999996" colorSpace="calibratedRGB"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" red="0.48033760000000003" green="0.65488994721261851" blue="0.80000000000000004" alpha="0.5" colorSpace="deviceRGB"/>
                                 </textFieldCell>
                                 <connections>
                                     <binding destination="H6C-sh-Guu" name="value" keyPath="representedObject.title" id="K6n-xw-uLE"/>

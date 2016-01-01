@@ -13,5 +13,8 @@ class KMMangaGridItem: NSObject {
     var coverImage : NSImage = NSImage(named: "NSCaution")!;
     
     // The title for the manga
-    var title : String = "Failed to load";
+    var title : String = "Failed to load title";
+    
+    // The artist for the manga
+    var artist : String = "Failed to load artist";
 }
