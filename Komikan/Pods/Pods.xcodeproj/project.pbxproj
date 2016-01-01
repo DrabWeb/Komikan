@@ -1,0 +1,480 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0578F40326194AEA638AAE050CEE3DC8 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CA6EBC2E57D96052268211209D6AA52 /* Cocoa.framework */; };
+		07F0027207DB7D9381737D0570179B3C /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 5A4E084527A669A04E0C7950C1A66DCB /* unzip.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		16C0B674E8E18921785549F6E9DFA682 /* mztools.h in Headers */ = {isa = PBXBuildFile; fileRef = 7960D39A7AAEFBE8BF34DAF3CDD8013E /* mztools.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		284498AF76C9F15105C9FD50D8735C27 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CA6EBC2E57D96052268211209D6AA52 /* Cocoa.framework */; };
+		31A93782D632229670193EF269EDB17B /* zip.h in Headers */ = {isa = PBXBuildFile; fileRef = 18368B5CDB0B828A678AB1A52448F2BF /* zip.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		600E8CFEE20B08EA6517A97B54E20C18 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = CDC71608DEC0E878634E194DF1D5C9E0 /* mztools.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		6417CBE3A46D22D47BB7E7261B2985F2 /* unzip.h in Headers */ = {isa = PBXBuildFile; fileRef = 2636C7CE48DDD9C7930139B15C62B049 /* unzip.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		64B032FBD074F42784AF08EA72CAC9D9 /* Common.h in Headers */ = {isa = PBXBuildFile; fileRef = DA0D979F1D12C33BA60DCA3E5F59EF7F /* Common.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		70182C9EDBF9ACA93FA20094D80C36BD /* Pods-Komikan-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A5BA14B0DC28EE449FB418EAD3602217 /* Pods-Komikan-dummy.m */; };
+		72E4FBB17380A98F056C9673231D6144 /* crypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 477C865966E24ABE1CB9C3C62CB280AC /* crypt.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		80045ECCAA06A62FD76447EFBFB0FEA4 /* ioapi.h in Headers */ = {isa = PBXBuildFile; fileRef = DA7D54FA70E506D663A218A8FB19B219 /* ioapi.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		8A0341252BDA5D46D5888D9EB3F526A6 /* WPZipArchive.h in Headers */ = {isa = PBXBuildFile; fileRef = F02A9C4FC9D6B02DBF7D438080CE211F /* WPZipArchive.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B537C3AF340A313E66FB5DFE1F72572D /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = A1E814AEF3218A1D45089065E7D62AAC /* zip.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		CAA0080C68DED22D55B0171C72BAD48D /* WPZipArchive-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2FF243A435B114741DA1EF0BDFCCD6 /* WPZipArchive-dummy.m */; };
+		D2CF6BF929E9DAA6D29FA544A1984C79 /* WPZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 25084FE496B7ED743083A1ACAA13BC36 /* WPZipArchive.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		EB77AC5EAA3EED4C1FEE349DB0296897 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = FDE88A9027A194637AFDE75361C696C7 /* ioapi.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D64EBCBF3FEE725A9EA92942B8AC0EBA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3C06D61B178227D6B7FBFBA8F9850C66;
+			remoteInfo = WPZipArchive;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		00B754021FE78A920B49F689061F353A /* WPZipArchive.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = WPZipArchive.xcconfig; sourceTree = "<group>"; };
+		08C4349F788D2B9696F52E5E3AF2FECD /* Pods-Komikan-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Komikan-acknowledgements.plist"; sourceTree = "<group>"; };
+		18368B5CDB0B828A678AB1A52448F2BF /* zip.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = zip.h; path = WPZipArchive/minizip/zip.h; sourceTree = "<group>"; };
+		1CA6EBC2E57D96052268211209D6AA52 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		25084FE496B7ED743083A1ACAA13BC36 /* WPZipArchive.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = WPZipArchive.m; path = WPZipArchive/WPZipArchive.m; sourceTree = "<group>"; };
+		2636C7CE48DDD9C7930139B15C62B049 /* unzip.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = unzip.h; path = WPZipArchive/minizip/unzip.h; sourceTree = "<group>"; };
+		3054F9FC11B06962650C6D7A1C330664 /* Pods-Komikan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Komikan.release.xcconfig"; sourceTree = "<group>"; };
+		477C865966E24ABE1CB9C3C62CB280AC /* crypt.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypt.h; path = WPZipArchive/minizip/crypt.h; sourceTree = "<group>"; };
+		50EC7366E80C28EC2627CB48B442009B /* libPods-Komikan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Komikan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A4E084527A669A04E0C7950C1A66DCB /* unzip.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = unzip.c; path = WPZipArchive/minizip/unzip.c; sourceTree = "<group>"; };
+		5C6F43055FE864AAAC8054BC5C5744F3 /* WPZipArchive-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "WPZipArchive-prefix.pch"; sourceTree = "<group>"; };
+		618BFBE87C7CDBB693571A3E7D6FC113 /* Pods-Komikan-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Komikan-frameworks.sh"; sourceTree = "<group>"; };
+		7960D39A7AAEFBE8BF34DAF3CDD8013E /* mztools.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = mztools.h; path = WPZipArchive/minizip/mztools.h; sourceTree = "<group>"; };
+		81ACB1A4393AC91C0E0C3AD4424D3390 /* Pods-Komikan-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Komikan-acknowledgements.markdown"; sourceTree = "<group>"; };
+		8A2FF243A435B114741DA1EF0BDFCCD6 /* WPZipArchive-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "WPZipArchive-dummy.m"; sourceTree = "<group>"; };
+		9CB9C52A3089B736E816F8FC7A47A0A4 /* Pods-Komikan-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Komikan-resources.sh"; sourceTree = "<group>"; };
+		A1E814AEF3218A1D45089065E7D62AAC /* zip.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = zip.c; path = WPZipArchive/minizip/zip.c; sourceTree = "<group>"; };
+		A5BA14B0DC28EE449FB418EAD3602217 /* Pods-Komikan-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Komikan-dummy.m"; sourceTree = "<group>"; };
+		B1CF8BF636159B960C370B681FBA2FB2 /* libWPZipArchive.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libWPZipArchive.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		C390E156A4729FE85F37A4EAD0E50E03 /* Pods-Komikan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Komikan.debug.xcconfig"; sourceTree = "<group>"; };
+		CDC71608DEC0E878634E194DF1D5C9E0 /* mztools.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = mztools.c; path = WPZipArchive/minizip/mztools.c; sourceTree = "<group>"; };
+		DA0D979F1D12C33BA60DCA3E5F59EF7F /* Common.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Common.h; path = WPZipArchive/Common.h; sourceTree = "<group>"; };
+		DA7D54FA70E506D663A218A8FB19B219 /* ioapi.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ioapi.h; path = WPZipArchive/minizip/ioapi.h; sourceTree = "<group>"; };
+		F02A9C4FC9D6B02DBF7D438080CE211F /* WPZipArchive.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WPZipArchive.h; path = WPZipArchive/WPZipArchive.h; sourceTree = "<group>"; };
+		FDE88A9027A194637AFDE75361C696C7 /* ioapi.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = ioapi.c; path = WPZipArchive/minizip/ioapi.c; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6E568F6BB58482E534413A91F7059F87 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				284498AF76C9F15105C9FD50D8735C27 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEC2C09D3397F61E889E8A32BFBA7FA0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0578F40326194AEA638AAE050CEE3DC8 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		28C17CEF104526ACA07B6EEE217EC43E /* OS X */ = {
+			isa = PBXGroup;
+			children = (
+				1CA6EBC2E57D96052268211209D6AA52 /* Cocoa.framework */,
+			);
+			name = "OS X";
+			sourceTree = "<group>";
+		};
+		39E9EE8210D861DFD82346C1F5EB7218 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				28C17CEF104526ACA07B6EEE217EC43E /* OS X */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4AEC8794BA18698392C94CC5F8140264 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				00B754021FE78A920B49F689061F353A /* WPZipArchive.xcconfig */,
+				8A2FF243A435B114741DA1EF0BDFCCD6 /* WPZipArchive-dummy.m */,
+				5C6F43055FE864AAAC8054BC5C5744F3 /* WPZipArchive-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/WPZipArchive";
+			sourceTree = "<group>";
+		};
+		58E34CCB47C2BB8DABF9174F4873E9CE /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				619899F7C10AC5B0CD78841B8301872F /* Pods-Komikan */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		619899F7C10AC5B0CD78841B8301872F /* Pods-Komikan */ = {
+			isa = PBXGroup;
+			children = (
+				81ACB1A4393AC91C0E0C3AD4424D3390 /* Pods-Komikan-acknowledgements.markdown */,
+				08C4349F788D2B9696F52E5E3AF2FECD /* Pods-Komikan-acknowledgements.plist */,
+				A5BA14B0DC28EE449FB418EAD3602217 /* Pods-Komikan-dummy.m */,
+				618BFBE87C7CDBB693571A3E7D6FC113 /* Pods-Komikan-frameworks.sh */,
+				9CB9C52A3089B736E816F8FC7A47A0A4 /* Pods-Komikan-resources.sh */,
+				C390E156A4729FE85F37A4EAD0E50E03 /* Pods-Komikan.debug.xcconfig */,
+				3054F9FC11B06962650C6D7A1C330664 /* Pods-Komikan.release.xcconfig */,
+			);
+			name = "Pods-Komikan";
+			path = "Target Support Files/Pods-Komikan";
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
+				39E9EE8210D861DFD82346C1F5EB7218 /* Frameworks */,
+				D5183325B176B9D257DDF4629FB655AE /* Pods */,
+				F1BD9BC1BAA2E1CB25DCC61BD1700546 /* Products */,
+				58E34CCB47C2BB8DABF9174F4873E9CE /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		9EB623CE284A1B1EB93472A957622C4A /* WPZipArchive */ = {
+			isa = PBXGroup;
+			children = (
+				DA0D979F1D12C33BA60DCA3E5F59EF7F /* Common.h */,
+				477C865966E24ABE1CB9C3C62CB280AC /* crypt.h */,
+				FDE88A9027A194637AFDE75361C696C7 /* ioapi.c */,
+				DA7D54FA70E506D663A218A8FB19B219 /* ioapi.h */,
+				CDC71608DEC0E878634E194DF1D5C9E0 /* mztools.c */,
+				7960D39A7AAEFBE8BF34DAF3CDD8013E /* mztools.h */,
+				5A4E084527A669A04E0C7950C1A66DCB /* unzip.c */,
+				2636C7CE48DDD9C7930139B15C62B049 /* unzip.h */,
+				F02A9C4FC9D6B02DBF7D438080CE211F /* WPZipArchive.h */,
+				25084FE496B7ED743083A1ACAA13BC36 /* WPZipArchive.m */,
+				A1E814AEF3218A1D45089065E7D62AAC /* zip.c */,
+				18368B5CDB0B828A678AB1A52448F2BF /* zip.h */,
+				4AEC8794BA18698392C94CC5F8140264 /* Support Files */,
+			);
+			path = WPZipArchive;
+			sourceTree = "<group>";
+		};
+		D5183325B176B9D257DDF4629FB655AE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9EB623CE284A1B1EB93472A957622C4A /* WPZipArchive */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F1BD9BC1BAA2E1CB25DCC61BD1700546 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				50EC7366E80C28EC2627CB48B442009B /* libPods-Komikan.a */,
+				B1CF8BF636159B960C370B681FBA2FB2 /* libWPZipArchive.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D74825949F8742380A55815633DF5134 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64B032FBD074F42784AF08EA72CAC9D9 /* Common.h in Headers */,
+				72E4FBB17380A98F056C9673231D6144 /* crypt.h in Headers */,
+				80045ECCAA06A62FD76447EFBFB0FEA4 /* ioapi.h in Headers */,
+				16C0B674E8E18921785549F6E9DFA682 /* mztools.h in Headers */,
+				6417CBE3A46D22D47BB7E7261B2985F2 /* unzip.h in Headers */,
+				8A0341252BDA5D46D5888D9EB3F526A6 /* WPZipArchive.h in Headers */,
+				31A93782D632229670193EF269EDB17B /* zip.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		3C06D61B178227D6B7FBFBA8F9850C66 /* WPZipArchive */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2ED2B3407D1A7C984072A7B93A5FDB9B /* Build configuration list for PBXNativeTarget "WPZipArchive" */;
+			buildPhases = (
+				4EE49855D5021598DAE719E178041D61 /* Sources */,
+				CEC2C09D3397F61E889E8A32BFBA7FA0 /* Frameworks */,
+				D74825949F8742380A55815633DF5134 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WPZipArchive;
+			productName = WPZipArchive;
+			productReference = B1CF8BF636159B960C370B681FBA2FB2 /* libWPZipArchive.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		B2F877A2EEF50DF1C56740FD546BEE65 /* Pods-Komikan */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D50335FC442E186ECDF6B623D715802 /* Build configuration list for PBXNativeTarget "Pods-Komikan" */;
+			buildPhases = (
+				A99E1DA85AD68CA873A7483F704A93DB /* Sources */,
+				6E568F6BB58482E534413A91F7059F87 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3745AEB028CAC071DFF31EE46C57FB75 /* PBXTargetDependency */,
+			);
+			name = "Pods-Komikan";
+			productName = "Pods-Komikan";
+			productReference = 50EC7366E80C28EC2627CB48B442009B /* libPods-Komikan.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = F1BD9BC1BAA2E1CB25DCC61BD1700546 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B2F877A2EEF50DF1C56740FD546BEE65 /* Pods-Komikan */,
+				3C06D61B178227D6B7FBFBA8F9850C66 /* WPZipArchive */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4EE49855D5021598DAE719E178041D61 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EB77AC5EAA3EED4C1FEE349DB0296897 /* ioapi.c in Sources */,
+				600E8CFEE20B08EA6517A97B54E20C18 /* mztools.c in Sources */,
+				07F0027207DB7D9381737D0570179B3C /* unzip.c in Sources */,
+				CAA0080C68DED22D55B0171C72BAD48D /* WPZipArchive-dummy.m in Sources */,
+				D2CF6BF929E9DAA6D29FA544A1984C79 /* WPZipArchive.m in Sources */,
+				B537C3AF340A313E66FB5DFE1F72572D /* zip.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A99E1DA85AD68CA873A7483F704A93DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				70182C9EDBF9ACA93FA20094D80C36BD /* Pods-Komikan-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3745AEB028CAC071DFF31EE46C57FB75 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = WPZipArchive;
+			target = 3C06D61B178227D6B7FBFBA8F9850C66 /* WPZipArchive */;
+			targetProxy = D64EBCBF3FEE725A9EA92942B8AC0EBA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		10B2EE21B5D67EE2C819831CCC43832B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		293C66697E88A08F39E4809151CCEC78 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C390E156A4729FE85F37A4EAD0E50E03 /* Pods-Komikan.debug.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		2D973D01DEC4B5621EF9FC05522C95BF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3054F9FC11B06962650C6D7A1C330664 /* Pods-Komikan.release.xcconfig */;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		4135F2D5AA30A54254A55A77B1BDF3D4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 00B754021FE78A920B49F689061F353A /* WPZipArchive.xcconfig */;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREFIX_HEADER = "Target Support Files/WPZipArchive/WPZipArchive-prefix.pch";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		7C07D96CC7C445E83983A6C6420BC692 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C9D86F553231272A553928A937693761 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 00B754021FE78A920B49F689061F353A /* WPZipArchive.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREFIX_HEADER = "Target Support Files/WPZipArchive/WPZipArchive-prefix.pch";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D50335FC442E186ECDF6B623D715802 /* Build configuration list for PBXNativeTarget "Pods-Komikan" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				293C66697E88A08F39E4809151CCEC78 /* Debug */,
+				2D973D01DEC4B5621EF9FC05522C95BF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				10B2EE21B5D67EE2C819831CCC43832B /* Debug */,
+				7C07D96CC7C445E83983A6C6420BC692 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2ED2B3407D1A7C984072A7B93A5FDB9B /* Build configuration list for PBXNativeTarget "WPZipArchive" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9D86F553231272A553928A937693761 /* Debug */,
+				4135F2D5AA30A54254A55A77B1BDF3D4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

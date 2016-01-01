@@ -338,6 +338,19 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="Manga" id="osh-hQ-pDU" userLabel="Manga">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Manga" id="lPz-3E-Gva">
+                                    <items>
+                                        <menuItem title="Next Page" keyEquivalent="" id="8P2-Bj-ZHO">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Previous Page" keyEquivalent="" id="lL1-EK-QfJ" userLabel="Previous Page">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
                             <menuItem title="Format" id="jxT-CU-nIS">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Format" id="GEO-Iw-cKr">
@@ -642,7 +655,12 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Komikan" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Komikan" customModuleProvider="target">
+                    <connections>
+                        <outlet property="nextPageMenubarItem" destination="8P2-Bj-ZHO" id="maC-a5-1g2"/>
+                        <outlet property="previousPageMenubarItem" destination="lL1-EK-QfJ" id="pyL-3Y-eLp"/>
+                    </connections>
+                </customObject>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="-197"/>
@@ -701,10 +719,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ryj-w3-DuN">
-                                <rect key="frame" x="-150" y="-255" width="780" height="780"/>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Ui2-6j-ybs">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                 <animations/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSColorPanel" id="pAU-GU-k0Z"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="example-cover" id="D4R-Z6-mAb"/>
                             </imageView>
                             <visualEffectView appearanceType="vibrantDark" blendingMode="withinWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="eRx-Sv-XZm">
                                 <rect key="frame" x="0.0" y="248" width="480" height="22"/>
@@ -719,16 +737,17 @@
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="eRx-Sv-XZm" secondAttribute="trailing" id="3Hx-xt-Ypz"/>
-                            <constraint firstAttribute="trailing" secondItem="ryj-w3-DuN" secondAttribute="trailing" constant="-150" id="3W9-Od-Hn8"/>
-                            <constraint firstItem="ryj-w3-DuN" firstAttribute="leading" secondItem="NNO-Yh-cxl" secondAttribute="leading" constant="-150" id="KA2-xk-aq9"/>
-                            <constraint firstAttribute="bottom" secondItem="ryj-w3-DuN" secondAttribute="bottom" constant="-255" id="Y3c-bS-R7k"/>
+                            <constraint firstAttribute="bottom" secondItem="Ui2-6j-ybs" secondAttribute="bottom" id="9X3-lI-Rhj"/>
+                            <constraint firstAttribute="trailing" secondItem="Ui2-6j-ybs" secondAttribute="trailing" id="Da3-Vh-8bU"/>
+                            <constraint firstItem="Ui2-6j-ybs" firstAttribute="leading" secondItem="NNO-Yh-cxl" secondAttribute="leading" id="OLd-jR-rHs"/>
+                            <constraint firstItem="Ui2-6j-ybs" firstAttribute="top" secondItem="NNO-Yh-cxl" secondAttribute="top" id="eEB-pg-Lyq"/>
                             <constraint firstItem="eRx-Sv-XZm" firstAttribute="top" secondItem="NNO-Yh-cxl" secondAttribute="top" id="f4y-OG-XCO"/>
-                            <constraint firstItem="ryj-w3-DuN" firstAttribute="top" secondItem="NNO-Yh-cxl" secondAttribute="top" constant="-255" id="q14-2m-UCF"/>
                             <constraint firstItem="eRx-Sv-XZm" firstAttribute="leading" secondItem="NNO-Yh-cxl" secondAttribute="leading" id="ygX-7X-o4s"/>
                         </constraints>
                         <animations/>
                     </view>
                     <connections>
+                        <outlet property="readerImageView" destination="Ui2-6j-ybs" id="3Na-xG-GHe"/>
                         <outlet property="titlebarVisualEffectView" destination="eRx-Sv-XZm" id="NXI-bG-JFU"/>
                     </connections>
                 </viewController>
@@ -923,6 +942,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="NSColorPanel" width="32" height="32"/>
+        <image name="example-cover" width="158.605712890625" height="205.71427917480469"/>
     </resources>
 </document>

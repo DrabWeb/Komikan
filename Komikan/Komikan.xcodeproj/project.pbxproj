@@ -16,6 +16,8 @@
 		5D5DBEFA1C358BD3004D8C5D /* KMMangaGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBEF91C358BD3004D8C5D /* KMMangaGridItem.swift */; settings = {ASSET_TAGS = (); }; };
 		5D5DBEFC1C358BE0004D8C5D /* KMMangaGridController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBEFB1C358BE0004D8C5D /* KMMangaGridController.swift */; settings = {ASSET_TAGS = (); }; };
 		5D5DBF021C35923F004D8C5D /* KMReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBF011C35923F004D8C5D /* KMReaderViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		5DBB0DFF1C36DA0000495985 /* KMFileUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBB0DFE1C36DA0000495985 /* KMFileUtilities.swift */; settings = {ASSET_TAGS = (); }; };
+		EAB1D1094B8F846BBC4E817B /* libPods-Komikan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E156E51E568758DF0A8884 /* libPods-Komikan.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,11 @@
 		5D5DBEF91C358BD3004D8C5D /* KMMangaGridItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaGridItem.swift; sourceTree = "<group>"; };
 		5D5DBEFB1C358BE0004D8C5D /* KMMangaGridController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaGridController.swift; sourceTree = "<group>"; };
 		5D5DBF011C35923F004D8C5D /* KMReaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMReaderViewController.swift; sourceTree = "<group>"; };
+		5DBB0DFE1C36DA0000495985 /* KMFileUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMFileUtilities.swift; sourceTree = "<group>"; };
+		5DBB0E061C36E2C700495985 /* Komikan-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Komikan-Bridging-Header.h"; sourceTree = "<group>"; };
+		B086CA4387890A79C8FD3E35 /* Pods-Komikan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Komikan.release.xcconfig"; path = "Pods/Target Support Files/Pods-Komikan/Pods-Komikan.release.xcconfig"; sourceTree = "<group>"; };
+		CB22335385156945A0ABCB06 /* Pods-Komikan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Komikan.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Komikan/Pods-Komikan.debug.xcconfig"; sourceTree = "<group>"; };
+		F5E156E51E568758DF0A8884 /* libPods-Komikan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Komikan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAB1D1094B8F846BBC4E817B /* libPods-Komikan.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +93,8 @@
 				5D5DBEDF1C3584F5004D8C5D /* KomikanTests */,
 				5D5DBEEA1C3584F5004D8C5D /* KomikanUITests */,
 				5D5DBECC1C3584F5004D8C5D /* Products */,
+				DFB5AF07552EBB28896A006B /* Pods */,
+				66B68D79869D1A6E84FB159B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -104,7 +114,9 @@
 				5D5DBECE1C3584F5004D8C5D /* AppDelegate.swift */,
 				5D5DBED01C3584F5004D8C5D /* ViewController.swift */,
 				5D5DBEFE1C35914E004D8C5D /* Storyboards */,
+				5DBB0DFD1C36D9E400495985 /* Utilities */,
 				5D5DBEFD1C35913F004D8C5D /* View Managers */,
+				5DBB0E091C36E2D500495985 /* Objective-C */,
 				5D5DBED21C3584F5004D8C5D /* Assets.xcassets */,
 				5D5DBED71C3584F5004D8C5D /* Info.plist */,
 			);
@@ -147,6 +159,39 @@
 			name = Storyboards;
 			sourceTree = "<group>";
 		};
+		5DBB0DFD1C36D9E400495985 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				5DBB0DFE1C36DA0000495985 /* KMFileUtilities.swift */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		5DBB0E091C36E2D500495985 /* Objective-C */ = {
+			isa = PBXGroup;
+			children = (
+				5DBB0E061C36E2C700495985 /* Komikan-Bridging-Header.h */,
+			);
+			name = "Objective-C";
+			sourceTree = "<group>";
+		};
+		66B68D79869D1A6E84FB159B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F5E156E51E568758DF0A8884 /* libPods-Komikan.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DFB5AF07552EBB28896A006B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CB22335385156945A0ABCB06 /* Pods-Komikan.debug.xcconfig */,
+				B086CA4387890A79C8FD3E35 /* Pods-Komikan.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -154,9 +199,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5D5DBEF01C3584F5004D8C5D /* Build configuration list for PBXNativeTarget "Komikan" */;
 			buildPhases = (
+				80387E2EBE34800A09D34490 /* Check Pods Manifest.lock */,
 				5D5DBEC71C3584F5004D8C5D /* Sources */,
 				5D5DBEC81C3584F5004D8C5D /* Frameworks */,
 				5D5DBEC91C3584F5004D8C5D /* Resources */,
+				04D991387765BEF37DEB3178 /* Embed Pods Frameworks */,
+				690F17290B7B5E14B42AF418 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -209,6 +257,7 @@
 		5D5DBEC31C3584F5004D8C5D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = DrabWeb;
 				TargetAttributes = {
@@ -271,6 +320,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		04D991387765BEF37DEB3178 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Komikan/Pods-Komikan-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		690F17290B7B5E14B42AF418 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Komikan/Pods-Komikan-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		80387E2EBE34800A09D34490 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		5D5DBEC71C3584F5004D8C5D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -280,6 +377,7 @@
 				5D5DBF021C35923F004D8C5D /* KMReaderViewController.swift in Sources */,
 				5D5DBEFA1C358BD3004D8C5D /* KMMangaGridItem.swift in Sources */,
 				5D5DBED11C3584F5004D8C5D /* ViewController.swift in Sources */,
+				5DBB0DFF1C36DA0000495985 /* KMFileUtilities.swift in Sources */,
 				5D5DBECF1C3584F5004D8C5D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -409,25 +507,32 @@
 		};
 		5D5DBEF11C3584F5004D8C5D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CB22335385156945A0ABCB06 /* Pods-Komikan.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Komikan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = drabweb.Komikan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Komikan/Komikan-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		5D5DBEF21C3584F5004D8C5D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B086CA4387890A79C8FD3E35 /* Pods-Komikan.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Komikan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = drabweb.Komikan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Komikan/Komikan-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -502,6 +607,7 @@
 				5D5DBEF21C3584F5004D8C5D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5D5DBEF31C3584F5004D8C5D /* Build configuration list for PBXNativeTarget "KomikanTests" */ = {
 			isa = XCConfigurationList;
@@ -510,6 +616,7 @@
 				5D5DBEF51C3584F5004D8C5D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5D5DBEF61C3584F5004D8C5D /* Build configuration list for PBXNativeTarget "KomikanUITests" */ = {
 			isa = XCConfigurationList;
@@ -518,6 +625,7 @@
 				5D5DBEF81C3584F5004D8C5D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

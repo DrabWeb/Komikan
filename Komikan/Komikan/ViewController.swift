@@ -22,6 +22,10 @@ class ViewController: NSViewController {
     // The collection view that manages displayig manga covers in the main window
     @IBOutlet weak var mangaCollectionView: NSCollectionView!
     
+    @IBAction func nextPage(sender : AnyObject?) {
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -57,8 +61,8 @@ class ViewController: NSViewController {
     }
     
     func deleteTitlebarInFullscreen() {
-        // If the window is in fullscreen(Window frame matches the screen frame)
-        if(window.frame == NSScreen.mainScreen()?.frame) {
+        // If the window is in fullscreen(Window height matches the screen height(This is really cheaty and I need to find a better way to do this))
+        if(window.frame.height == NSScreen.mainScreen()?.frame.height) {
             // Hide the toolbar so we dont get a grey bar at the top
             window.toolbar?.visible = false;
         }
