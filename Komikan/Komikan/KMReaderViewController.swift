@@ -109,10 +109,10 @@ class KMReaderViewController: NSViewController {
         var canOpen : Bool = false;
         
         // Create a variable to store the files URL without %20s, because NSURL adds them and I dont know how to stop that from happening
-        var mangaPathWithoutOnlineMarkers : String = KMFileUtilities().removeURLEncoding(mangaPath.absoluteString);
+        let mangaPathWithoutOnlineMarkers : String = KMFileUtilities().removeURLEncoding(mangaPath.absoluteString);
         
         // Check if it is a CBZ or a CBR(The file formats we support)
-        var mangaExtension : String = KMFileUtilities().getFileExtension(mangaPath);
+        let mangaExtension : String = KMFileUtilities().getFileExtension(mangaPath);
         
         // If the manga we are trying to open is a CBZ or a CBR...
         if(mangaExtension == "cbz" || mangaExtension == "cbr") {
@@ -153,7 +153,7 @@ class KMReaderViewController: NSViewController {
                 // Print to the log that we deleted it
                 print("Deleted the __MACOSX folder in \"" + mangaTitle + "\"");
             // If there is an error...
-            } catch let _ as NSError {
+            } catch _ as NSError {
                 // Print to the log that there is no __MACOSX folder to delete
                 print("No __MACOSX folder to delete in \"" + mangaTitle + "\"");
             }
@@ -304,16 +304,16 @@ class KMReaderViewController: NSViewController {
         }
         
         // Create a new CGEventRef, for the mouse position
-        var mouseEvent : CGEventRef = CGEventCreate(nil)!;
+        let mouseEvent : CGEventRef = CGEventCreate(nil)!;
         
         // Get the mouse point onscreen from ourEvent
-        var mousePosition = CGEventGetLocation(mouseEvent);
+        let mousePosition = CGEventGetLocation(mouseEvent);
         
         // Store the windows frame temporarly, so we dont retype a millino times
-        var windowFrame : NSRect! = readerWindow.frame;
+        let windowFrame : NSRect! = readerWindow.frame;
         
         // Create a variable to store the cursors location y where 0 0 is the bottom left
-        var pointY = abs(mousePosition.y - NSScreen.mainScreen()!.frame.height);
+        let pointY = abs(mousePosition.y - NSScreen.mainScreen()!.frame.height);
         
         // if we arent fullscreen...
         if(!fullscreen) {
