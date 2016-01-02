@@ -103,6 +103,19 @@ class KMReaderViewController: NSViewController {
             // Unzip the manga we are opening to /tmp/komikanmanga
             WPZipArchive.unzipFileAtPath(mangaPathWithoutOnlineMarkers.stringByReplacingOccurrencesOfString("file://", withString: ""), toDestination: "/tmp/komikan/" + mangaDirectory);
             
+            // Some archives will create a __MACOSX folder in the extracted folder, lets delete that
+            do {
+                // Remove the possible __MACOSX folder
+                try NSFileManager().removeItemAtPath("/tmp/komikan/" + mangaDirectory + "/__MACOSX");
+                
+                // Print to the log that we deleted it
+                print("Deleted the __MACOSX folder in \"" + mangaTitle + "\"");
+            // If there is an error...
+            } catch let _ as NSError {
+                // Print to the log that there is no __MACOSX folder to delete
+                print("No __MACOSX folder to delete in \"" + mangaTitle + "\"");
+            }
+            
             // Set openMangaPages to all the pages in /tmp/komikanmanga
             do {
                 // For every file in /tmp/komikanmanga...
@@ -174,6 +187,15 @@ class KMReaderViewController: NSViewController {
         // A bool to say if we are hovering the window
         var insideWindow : Bool = false;
         
+        // Are we fullscreen?
+        var fullscreen : Bool = false;
+        
+        // If the window is in fullscreen(Window height matches the screen height(This is really cheaty and I need to find a better way to do this))
+        if(readerWindow.frame.height == NSScreen.mainScreen()?.frame.height) {
+            // Say we are in fullscreen
+            fullscreen = true;
+        }
+        
         // Create a new CGEventRef, for the mouse position
         var mouseEvent : CGEventRef = CGEventCreate(nil)!;
         
@@ -186,24 +208,34 @@ class KMReaderViewController: NSViewController {
         // Create a variable to store the cursors location y where 0 0 is the bottom left
         var pointY = abs(mousePosition.y - NSScreen.mainScreen()!.frame.height);
         
-        // If the mouse position is inside the window on the x...
-        if(mousePosition.x > windowFrame.origin.x && mousePosition.x < windowFrame.origin.x + windowFrame.width) {
-            // If the mouse position is inside the window on the y...
-            if(pointY > windowFrame.origin.y && pointY < windowFrame.origin.y + windowFrame.height) {
-                // The cursor is inside the window, say so
-                insideWindow = true;
+        // if we arent fullscreen...
+        if(!fullscreen) {
+            // If the mouse position is inside the window on the x...
+            if(mousePosition.x > windowFrame.origin.x && mousePosition.x < windowFrame.origin.x + windowFrame.width) {
+                // If the mouse position is inside the window on the y...
+                if(pointY > windowFrame.origin.y && pointY < windowFrame.origin.y + windowFrame.height) {
+                    // The cursor is inside the window, say so
+                    insideWindow = true;
+                }
+            }
+            
+            // If the cursor is inside the window...
+            if(insideWindow) {
+                // Fade in the titlebar
+                fadeInTitlebar();
+            }
+                // If the cursor is outside the window...
+            else {
+                // Fade out the titlebar
+                fadeOutTitlebar();
             }
         }
-        
-        // If the cursor is inside the window...
-        if(insideWindow) {
-            // Fade in the titlebar
-            fadeInTitlebar();
-        }
-        // If the cursor is outside the window...
         else {
-            // Fade out the titlebar
-            fadeOutTitlebar();
+            // Hide the titlebar visual effect view
+            titlebarVisualEffectView.alphaValue = 0;
+            
+            // Show the window titlebar
+            readerWindow.standardWindowButton(NSWindowButton.CloseButton)?.superview?.superview?.alphaValue = 1;
         }
     }
     
