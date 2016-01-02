@@ -348,6 +348,7 @@
                                         <menuItem title="Previous Page" keyEquivalent="" id="lL1-EK-QfJ" userLabel="Previous Page">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
+                                        <menuItem title="Jump to Page" keyEquivalent="J" id="I7g-H0-J3h"/>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -657,6 +658,7 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Komikan" customModuleProvider="target">
                     <connections>
+                        <outlet property="jumpToPageMenuItem" destination="I7g-H0-J3h" id="2f3-MH-hPT"/>
                         <outlet property="nextPageMenubarItem" destination="8P2-Bj-ZHO" id="maC-a5-1g2"/>
                         <outlet property="previousPageMenubarItem" destination="lL1-EK-QfJ" id="pyL-3Y-eLp"/>
                     </connections>
@@ -702,6 +704,7 @@
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="229" y="249" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1600" height="900"/>
+                        <value key="minSize" type="size" width="480" height="270"/>
                     </window>
                     <connections>
                         <segue destination="OyT-nZ-UQJ" kind="relationship" relationship="window.shadowedContentViewController" id="U8J-hb-UNu"/>
@@ -715,7 +718,7 @@
         <scene sceneID="4Fi-m5-gvR">
             <objects>
                 <viewController id="OyT-nZ-UQJ" customClass="KMReaderViewController" customModule="Komikan" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="NNO-Yh-cxl">
+                    <view key="view" wantsLayer="YES" id="NNO-Yh-cxl">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
@@ -734,12 +737,162 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="wantsLayer" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </visualEffectView>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="KGp-UH-dRu" userLabel="Reader Panel Container" customClass="KMReaderPanelView" customModule="Komikan" customModuleProvider="target">
+                                <rect key="frame" x="20" y="20" width="440" height="64"/>
+                                <subviews>
+                                    <visualEffectView appearanceType="vibrantDark" blendingMode="withinWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="T3C-g4-I63" userLabel="Reader Panel">
+                                        <rect key="frame" x="0.0" y="0.0" width="440" height="64"/>
+                                        <subviews>
+                                            <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DZH-10-jIm" userLabel="Settings Button">
+                                                <rect key="frame" x="398" y="22" width="20" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="Mmi-SI-h46"/>
+                                                    <constraint firstAttribute="width" constant="20" id="eKN-HL-G3L"/>
+                                                </constraints>
+                                                <animations/>
+                                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSActionTemplate" imagePosition="only" alignment="center" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="4B1-b7-oqZ">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="readerSettingsButtonPressed:" target="OyT-nZ-UQJ" id="saE-ry-VhN"/>
+                                                </connections>
+                                            </button>
+                                            <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oOA-Me-Hgv" userLabel="Page Jump Button">
+                                                <rect key="frame" x="22" y="22" width="20" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="1bT-NB-2lZ"/>
+                                                    <constraint firstAttribute="width" constant="20" id="Mqb-sy-oRR"/>
+                                                </constraints>
+                                                <animations/>
+                                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSShareTemplate" imagePosition="only" alignment="center" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="5bB-By-TJH">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="readerPageJumpButtonPressed:" target="OyT-nZ-UQJ" id="Npn-gw-R37"/>
+                                                </connections>
+                                            </button>
+                                            <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="djj-Je-nYR" userLabel="Bookmark Button">
+                                                <rect key="frame" x="356" y="22" width="20" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="FHL-EF-WR3"/>
+                                                    <constraint firstAttribute="width" constant="20" id="pvx-sb-RDz"/>
+                                                </constraints>
+                                                <animations/>
+                                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSBookmarksTemplate" imagePosition="only" alignment="center" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="7pQ-xx-Qlb">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="readerBookmarkButtonPressed:" target="OyT-nZ-UQJ" id="i6R-Sc-yQX"/>
+                                                </connections>
+                                            </button>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KbI-5a-d0M" userLabel="Page Number Label">
+                                                <rect key="frame" x="149" y="24" width="142" height="17"/>
+                                                <animations/>
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="TIa-Sv-Snr">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="DZH-10-jIm" firstAttribute="top" secondItem="T3C-g4-I63" secondAttribute="top" constant="22" id="1kw-zR-zfA"/>
+                                            <constraint firstItem="oOA-Me-Hgv" firstAttribute="top" secondItem="T3C-g4-I63" secondAttribute="top" constant="22" id="8Qy-JE-0D8"/>
+                                            <constraint firstAttribute="bottom" secondItem="djj-Je-nYR" secondAttribute="bottom" constant="22" id="IWy-Qk-7NC"/>
+                                            <constraint firstItem="DZH-10-jIm" firstAttribute="leading" secondItem="djj-Je-nYR" secondAttribute="trailing" constant="22" id="UNc-gQ-dQJ"/>
+                                            <constraint firstItem="djj-Je-nYR" firstAttribute="top" secondItem="T3C-g4-I63" secondAttribute="top" constant="22" id="Yt1-6l-FT8"/>
+                                            <constraint firstAttribute="bottom" secondItem="oOA-Me-Hgv" secondAttribute="bottom" constant="22" id="hfq-w7-xf1"/>
+                                            <constraint firstAttribute="trailing" secondItem="DZH-10-jIm" secondAttribute="trailing" constant="22" id="o6E-UV-S1Z"/>
+                                            <constraint firstItem="oOA-Me-Hgv" firstAttribute="leading" secondItem="T3C-g4-I63" secondAttribute="leading" constant="22" id="tsx-4d-ghi"/>
+                                            <constraint firstAttribute="bottom" secondItem="DZH-10-jIm" secondAttribute="bottom" constant="22" id="whr-4c-ewa"/>
+                                        </constraints>
+                                        <animations/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="wantsLayer" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </visualEffectView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="T3C-g4-I63" secondAttribute="bottom" id="EmA-Hl-ZI5"/>
+                                    <constraint firstItem="T3C-g4-I63" firstAttribute="top" secondItem="KGp-UH-dRu" secondAttribute="top" id="FRJ-Rx-fdf"/>
+                                    <constraint firstAttribute="height" constant="64" id="Plj-JB-YCp"/>
+                                    <constraint firstItem="T3C-g4-I63" firstAttribute="leading" secondItem="KGp-UH-dRu" secondAttribute="leading" id="S1K-eZ-R1y"/>
+                                    <constraint firstAttribute="trailing" secondItem="T3C-g4-I63" secondAttribute="trailing" id="X6Q-7V-k8q"/>
+                                    <constraint firstAttribute="width" constant="440" id="yUB-Pj-IY6"/>
+                                </constraints>
+                                <animations/>
+                            </customView>
+                            <customView hidden="YES" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F0K-x5-Vdc" userLabel="Page Jump View">
+                                <rect key="frame" x="0.0" y="84" width="480" height="164"/>
+                                <subviews>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="ucn-Ft-T4y" userLabel="Round Corners" customClass="KMReaderPanelView" customModule="Komikan" customModuleProvider="target">
+                                        <rect key="frame" x="140" y="57" width="200" height="50"/>
+                                        <subviews>
+                                            <visualEffectView appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="dOa-SM-OE9">
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
+                                                <subviews>
+                                                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iWP-20-fdZ" userLabel="Number Field">
+                                                        <rect key="frame" x="12" y="14" width="176" height="22"/>
+                                                        <animations/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" focusRingType="none" alignment="center" id="Qbg-EQ-Vzm">
+                                                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="h46-xS-qUR"/>
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                        <connections>
+                                                            <action selector="readerPageJumpNumberFieldInteracted:" target="OyT-nZ-UQJ" id="Al5-q1-3tF"/>
+                                                        </connections>
+                                                    </textField>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="iWP-20-fdZ" secondAttribute="bottom" constant="14" id="63o-Gd-tle"/>
+                                                    <constraint firstItem="iWP-20-fdZ" firstAttribute="leading" secondItem="dOa-SM-OE9" secondAttribute="leading" constant="14" id="6Ap-sP-AEm"/>
+                                                    <constraint firstAttribute="trailing" secondItem="iWP-20-fdZ" secondAttribute="trailing" constant="14" id="Vn9-cT-41D"/>
+                                                    <constraint firstItem="iWP-20-fdZ" firstAttribute="top" secondItem="dOa-SM-OE9" secondAttribute="top" constant="14" id="ca1-xy-jbV"/>
+                                                </constraints>
+                                                <shadow key="shadow" blurRadius="5">
+                                                    <size key="offset" width="0.0" height="10"/>
+                                                    <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                </shadow>
+                                                <animations/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="wantsLayer" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </visualEffectView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="dOa-SM-OE9" secondAttribute="trailing" id="Bcn-UV-YIk"/>
+                                            <constraint firstItem="dOa-SM-OE9" firstAttribute="leading" secondItem="ucn-Ft-T4y" secondAttribute="leading" id="MYE-Mm-YTy"/>
+                                            <constraint firstAttribute="width" constant="200" id="Rvn-eM-1av"/>
+                                            <constraint firstAttribute="height" constant="50" id="USs-Cl-kQA"/>
+                                            <constraint firstAttribute="bottom" secondItem="dOa-SM-OE9" secondAttribute="bottom" id="Xgw-Zm-AgV"/>
+                                            <constraint firstItem="dOa-SM-OE9" firstAttribute="top" secondItem="ucn-Ft-T4y" secondAttribute="top" id="fJd-tJ-eZS"/>
+                                        </constraints>
+                                        <animations/>
+                                    </customView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="ucn-Ft-T4y" firstAttribute="centerX" secondItem="F0K-x5-Vdc" secondAttribute="centerX" id="mJP-7E-RgE"/>
+                                    <constraint firstItem="ucn-Ft-T4y" firstAttribute="centerY" secondItem="F0K-x5-Vdc" secondAttribute="centerY" id="xPz-Zp-M0Y"/>
+                                </constraints>
+                                <animations/>
+                            </customView>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="eRx-Sv-XZm" secondAttribute="trailing" id="3Hx-xt-Ypz"/>
+                            <constraint firstItem="KGp-UH-dRu" firstAttribute="top" secondItem="F0K-x5-Vdc" secondAttribute="bottom" id="4Au-C3-X6M"/>
+                            <constraint firstAttribute="bottom" secondItem="KGp-UH-dRu" secondAttribute="bottom" constant="20" id="5gL-FS-BCl"/>
                             <constraint firstAttribute="bottom" secondItem="Ui2-6j-ybs" secondAttribute="bottom" id="9X3-lI-Rhj"/>
                             <constraint firstAttribute="trailing" secondItem="Ui2-6j-ybs" secondAttribute="trailing" id="Da3-Vh-8bU"/>
+                            <constraint firstItem="F0K-x5-Vdc" firstAttribute="leading" secondItem="NNO-Yh-cxl" secondAttribute="leading" id="MFn-cj-XfN"/>
+                            <constraint firstItem="KGp-UH-dRu" firstAttribute="centerX" secondItem="NNO-Yh-cxl" secondAttribute="centerX" id="Nf1-rc-HAH"/>
                             <constraint firstItem="Ui2-6j-ybs" firstAttribute="leading" secondItem="NNO-Yh-cxl" secondAttribute="leading" id="OLd-jR-rHs"/>
+                            <constraint firstItem="F0K-x5-Vdc" firstAttribute="top" secondItem="eRx-Sv-XZm" secondAttribute="bottom" id="Xzb-Ng-8Ui"/>
+                            <constraint firstAttribute="trailing" secondItem="F0K-x5-Vdc" secondAttribute="trailing" id="b0U-z8-O7X"/>
                             <constraint firstItem="Ui2-6j-ybs" firstAttribute="top" secondItem="NNO-Yh-cxl" secondAttribute="top" id="eEB-pg-Lyq"/>
                             <constraint firstItem="eRx-Sv-XZm" firstAttribute="top" secondItem="NNO-Yh-cxl" secondAttribute="top" id="f4y-OG-XCO"/>
                             <constraint firstItem="eRx-Sv-XZm" firstAttribute="leading" secondItem="NNO-Yh-cxl" secondAttribute="leading" id="ygX-7X-o4s"/>
@@ -747,7 +900,15 @@
                         <animations/>
                     </view>
                     <connections>
+                        <outlet property="readerBookmarkButton" destination="djj-Je-nYR" id="8II-Ot-hvr"/>
                         <outlet property="readerImageView" destination="Ui2-6j-ybs" id="3Na-xG-GHe"/>
+                        <outlet property="readerPageJumpButton" destination="oOA-Me-Hgv" id="VAu-G8-RGb"/>
+                        <outlet property="readerPageJumpNumberField" destination="iWP-20-fdZ" id="EFI-Mc-hBe"/>
+                        <outlet property="readerPageJumpView" destination="F0K-x5-Vdc" id="HlJ-Mx-ybc"/>
+                        <outlet property="readerPageJumpVisualEffectView" destination="dOa-SM-OE9" id="teN-sC-N8J"/>
+                        <outlet property="readerPageNumberLabel" destination="KbI-5a-d0M" id="toS-Dw-3EQ"/>
+                        <outlet property="readerPanelVisualEffectView" destination="T3C-g4-I63" id="IDz-2Z-4M5"/>
+                        <outlet property="readerSettingsButton" destination="DZH-10-jIm" id="Ya1-Tg-GwB"/>
                         <outlet property="titlebarVisualEffectView" destination="eRx-Sv-XZm" id="NXI-bG-JFU"/>
                     </connections>
                 </viewController>
@@ -971,6 +1132,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="NSActionTemplate" width="14" height="14"/>
+        <image name="NSBookmarksTemplate" width="17" height="18"/>
+        <image name="NSShareTemplate" width="11" height="16"/>
         <image name="example-cover" width="158.605712890625" height="205.71427917480469"/>
     </resources>
 </document>

@@ -15,6 +15,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var previousPageMenubarItem: NSMenuItem!
     
+    @IBOutlet weak var jumpToPageMenuItem: NSMenuItem!
+    
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         // Insert code here to initialize your application
     }

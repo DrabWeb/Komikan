@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D1388CC1C3836C200B5EAAD /* KMReaderPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1388CB1C3836C200B5EAAD /* KMReaderPanelView.swift */; settings = {ASSET_TAGS = (); }; };
 		5D5DBECF1C3584F5004D8C5D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBECE1C3584F5004D8C5D /* AppDelegate.swift */; };
 		5D5DBED11C3584F5004D8C5D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBED01C3584F5004D8C5D /* ViewController.swift */; };
 		5D5DBED31C3584F5004D8C5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D5DBED21C3584F5004D8C5D /* Assets.xcassets */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5D1388CB1C3836C200B5EAAD /* KMReaderPanelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMReaderPanelView.swift; sourceTree = "<group>"; };
 		5D5DBECB1C3584F5004D8C5D /* Komikan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Komikan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D5DBECE1C3584F5004D8C5D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5D5DBED01C3584F5004D8C5D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +88,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5D1388CF1C384A2300B5EAAD /* Reader */ = {
+			isa = PBXGroup;
+			children = (
+				5D5DBF011C35923F004D8C5D /* KMReaderViewController.swift */,
+				5D1388CB1C3836C200B5EAAD /* KMReaderPanelView.swift */,
+			);
+			name = Reader;
+			sourceTree = "<group>";
+		};
 		5D5A11771C370EDC00C7A6A5 /* Manga Grid */ = {
 			isa = PBXGroup;
 			children = (
@@ -153,7 +164,7 @@
 		5D5DBEFD1C35913F004D8C5D /* View Managers */ = {
 			isa = PBXGroup;
 			children = (
-				5D5DBF011C35923F004D8C5D /* KMReaderViewController.swift */,
+				5D1388CF1C384A2300B5EAAD /* Reader */,
 				5D5A11771C370EDC00C7A6A5 /* Manga Grid */,
 			);
 			name = "View Managers";
@@ -383,6 +394,7 @@
 			files = (
 				5D5DBEFC1C358BE0004D8C5D /* KMMangaGridController.swift in Sources */,
 				5D5DBF021C35923F004D8C5D /* KMReaderViewController.swift in Sources */,
+				5D1388CC1C3836C200B5EAAD /* KMReaderPanelView.swift in Sources */,
 				5D5DBEFA1C358BD3004D8C5D /* KMMangaGridItem.swift in Sources */,
 				5D5DBED11C3584F5004D8C5D /* ViewController.swift in Sources */,
 				5DBB0DFF1C36DA0000495985 /* KMFileUtilities.swift in Sources */,

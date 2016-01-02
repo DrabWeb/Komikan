@@ -22,6 +22,7 @@ class ViewController: NSViewController {
     // The collection view that manages displayig manga covers in the main window
     @IBOutlet weak var mangaCollectionView: NSCollectionView!
     
+    // The array controller for the manga collection view
     @IBOutlet var mangaCollectionViewArray: NSArrayController!
     
     override func viewDidLoad() {

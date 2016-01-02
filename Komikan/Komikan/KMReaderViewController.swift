@@ -19,6 +19,52 @@ class KMReaderViewController: NSViewController {
     // The visual effect view for the reader windows titlebar
     @IBOutlet weak var titlebarVisualEffectView: NSVisualEffectView!
     
+    // The visual effect for the reader panel
+    @IBOutlet weak var readerPanelVisualEffectView: NSVisualEffectView!
+    
+    // The label on the reader panel that shows what page you are on and how many pages there are
+    @IBOutlet weak var readerPageNumberLabel: NSTextField!
+    
+    // The button on the reader panel that lets you jump to a page
+    @IBOutlet weak var readerPageJumpButton: NSButton!
+    
+    var inspectorController: NSWindowController?
+    // When readerPageJumpButton is pressed...
+    @IBAction func readerPageJumpButtonPressed(sender: AnyObject) {
+        // Prompt the user to jump to a page
+        promptToJumpToPage();
+    }
+    
+    // The button on the reader panel that lets you bookmark the current page
+    @IBOutlet weak var readerBookmarkButton: NSButton!
+    
+    // When readerBookmarkButton is pressed...
+    @IBAction func readerBookmarkButtonPressed(sender: AnyObject) {
+    }
+    
+    // The button on the reader panel that brings you to the settings for the reader with color controls among other things
+    @IBOutlet weak var readerSettingsButton: NSButton!
+    
+    // When readerSettingsButton is pressed...
+    @IBAction func readerSettingsButtonPressed(sender: AnyObject) {
+        
+    }
+    
+    // The view hat holds the page jump dialog
+    @IBOutlet weak var readerPageJumpView: NSView!
+    
+    // The visual effect view for the background of the page jump dialog
+    @IBOutlet weak var readerPageJumpVisualEffectView: NSVisualEffectView!
+    
+    // The text field for the page to jump to
+    @IBOutlet weak var readerPageJumpNumberField: NSTextField!
+    
+    // WHen the user presses enter in readerPageJumpNumberField...
+    @IBAction func readerPageJumpNumberFieldInteracted(sender: AnyObject) {
+        // Close the dialog
+        closeJumpToPageDialog();
+    }
+    
     // The pages of manga we have open
     var openMangaPages : [NSImage] = [NSImage()];
     
@@ -30,6 +76,9 @@ class KMReaderViewController: NSViewController {
     
     // The current manga page
     var mangaCurrentPage : Int = 0;
+    
+    // The amount of pages in the currently open manga
+    var mangaPageCount : Int = 0;
     
     var openPanel : NSOpenPanel = NSOpenPanel();
     
@@ -81,13 +130,6 @@ class KMReaderViewController: NSViewController {
             // Print to the log what we are opening
             print("Opening \"" + mangaPathWithoutOnlineMarkers + "\"");
             
-            // Remove any old manga we opened by deleting /tmp/komikanmanga
-//            do {
-//                try NSFileManager().removeItemAtPath("/tmp/komikanmanga");
-//            } catch let error as NSError {
-//                print(error.description)
-//            }
-            
             // Reset openMangaPages
             openMangaPages = [NSImage()];
             
@@ -135,21 +177,25 @@ class KMReaderViewController: NSViewController {
             // Remove the first image in openMangaPages(Its always nil for no reason)
             openMangaPages.removeAtIndex(0);
             
+            // Set mangaPageCount
+            mangaPageCount = openMangaPages.count;
+            
             // Set the current manga page to the page we said to open to
             mangaCurrentPage = page;
             
             // Open the first image, so we open on the cover
-            readerImageView.image = openMangaPages[mangaCurrentPage];
+            updatePage();
             
-            // Setup the next and previous page menubar items actions
+            // Setup the menubar items actions
             (NSApplication.sharedApplication().delegate as? AppDelegate)?.nextPageMenubarItem.action = Selector("nextPage");
             (NSApplication.sharedApplication().delegate as? AppDelegate)?.previousPageMenubarItem.action = Selector("previousPage");
+            (NSApplication.sharedApplication().delegate as? AppDelegate)?.jumpToPageMenuItem.action = Selector("promptToJumpToPage");
         }
     }
     
     func nextPage() {
         // If we were to add 1 to mangaCurrentPage and it would be less than the openMangaPages count...
-        if(mangaCurrentPage + 1 < openMangaPages.count) {
+        if(mangaCurrentPage + 1 < mangaPageCount) {
             // Print to the log that we are going to the next page
             print("Loading next page in \"" + mangaTitle + "\"");
             
@@ -157,12 +203,45 @@ class KMReaderViewController: NSViewController {
             mangaCurrentPage++;
             
             // Load the new page
-            readerImageView.image = openMangaPages[mangaCurrentPage];
+            updatePage();
         }
         else {
             // Print to the log that there is no next page
             print("There is no next page in \"" + mangaTitle + "\"");
         }
+    }
+    
+    // Brings up the dialog for the user to jump to a page
+    func promptToJumpToPage() {
+        // Reset the page jump text fields value
+        readerPageJumpNumberField.stringValue = "";
+        
+        // Show the view
+        readerPageJumpView.hidden = false;
+        
+        // Select the text field
+        readerWindow.makeFirstResponder(readerPageJumpNumberField);
+        
+        // Animate in the vibrancy view
+        readerPageJumpVisualEffectView.animator().alphaValue = 1;
+    }
+    
+    // Closes the dialog that prompts the user to jump to a page, and jumps to the inputted page
+    func closeJumpToPageDialog() {
+        // Fade out the view
+        readerPageJumpVisualEffectView.animator().alphaValue = 0;
+        
+        // Do the 0.2 second wait to hide the page jump dialog
+        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.2), target:self, selector: Selector("hideJumpToPageDialog"), userInfo: nil, repeats:false);
+        
+        // Jump to the inputted page
+        jumpToPage(readerPageJumpNumberField.integerValue - 1);
+    }
+    
+    // Actually hides the jump to page dialog
+    func hideJumpToPageDialog() {
+        // Hide the view
+        readerPageJumpView.hidden = true;
     }
     
     func previousPage() {
@@ -175,12 +254,40 @@ class KMReaderViewController: NSViewController {
             mangaCurrentPage--;
             
             // Load the new page
-            readerImageView.image = openMangaPages[mangaCurrentPage];
+            updatePage();
         }
         else {
             // Print to the log that there is no previous page
             print("There is no previous page in \"" + mangaTitle + "\"");
         }
+    }
+    
+    // The page number starts at 0, keep that in mind
+    func jumpToPage(page : Int) {
+        // See if the page we are trying to jump to is existant
+        if(page > 0 && page < mangaPageCount) {
+            // Print to the log that we are jumping to a page
+            print("Jumping to page " + String(page) + " in \"" + mangaTitle + "\"");
+            
+            // Set the current page to the page we want to jump to
+            mangaCurrentPage = page;
+            
+            // Load the new page
+            updatePage();
+        }
+        else {
+            // Print to the log that we cant jump to that page
+            print("Cant jump to page " + String(page) + " in \"" + mangaTitle + "\"");
+        }
+    }
+    
+    // Updates the manga page image view to the new page (Specified by mangaCurrentPage) and updates the reader panel labels value
+    func updatePage() {
+        // Load the new page
+        readerImageView.image = openMangaPages[mangaCurrentPage];
+        
+        // Set the reader panels labels value
+        readerPageNumberLabel.stringValue = String(mangaCurrentPage + 1) + "/" + String(mangaPageCount);
     }
     
     func mouseHoverHandling() {
@@ -236,6 +343,9 @@ class KMReaderViewController: NSViewController {
             
             // Show the window titlebar
             readerWindow.standardWindowButton(NSWindowButton.CloseButton)?.superview?.superview?.alphaValue = 1;
+            
+            // Hide the reader panel
+            readerPanelVisualEffectView.alphaValue = 0;
         }
     }
     
@@ -245,6 +355,9 @@ class KMReaderViewController: NSViewController {
         
         // Use the animator to fade out the windows titlebar
         readerWindow.standardWindowButton(NSWindowButton.CloseButton)?.superview?.superview?.animator().alphaValue = 0;
+        
+        // Use the animator to fade out the reader panel
+        readerPanelVisualEffectView.animator().alphaValue = 0;
     }
     
     func fadeInTitlebar() {
@@ -253,6 +366,9 @@ class KMReaderViewController: NSViewController {
         
         // Use the animator to fade in the windows titlebar
         readerWindow.standardWindowButton(NSWindowButton.CloseButton)?.superview?.superview?.animator().alphaValue = 1;
+        
+        // Use the animator to fade in the reader panel
+        readerPanelVisualEffectView.animator().alphaValue = 1;
     }
     
     func styleWindow() {
@@ -261,6 +377,9 @@ class KMReaderViewController: NSViewController {
         
         // Hide the titlebar
         readerWindow.standardWindowButton(NSWindowButton.CloseButton)?.superview?.superview?.alphaValue = 0;
+        
+        // Hide the reader panels visual effect view
+        readerPanelVisualEffectView.alphaValue = 0;
         
         // Set it to have a full size content view
         readerWindow.styleMask |= NSFullSizeContentViewWindowMask;
