@@ -19,8 +19,14 @@ class KMManga {
     // The title of this manga
     var title : String = "Failed to load title";
     
-    // The artist of this manga
+    // The series this manga belongs to
+    var series : String = "Failed to load series";
+    
+    // The artist(s) of this manga
     var artist : String = "Failed to load artist";
+    
+    // The person(s) who wrote this manga
+    var writer : String = "Failed to load writer";
     
     // The directory of this mangas CBZ/CBR
     var directory : String = ""

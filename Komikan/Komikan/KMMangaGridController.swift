@@ -17,11 +17,34 @@ class KMMangaGridController: NSObject {
     
     override func awakeFromNib() {
         // Load 100 pictures of the example manga cover and the title "Ushio Diary" to the collection view
-        for _ in 1...100 {
-            let newCoverImage : KMMangaGridItem = KMMangaGridItem();
-            newCoverImage.coverImage = NSImage(named: "example-cover")!;
-            newCoverImage.title = "Ushio Diary"
-            arrayController.addObject(newCoverImage);
-        }
+//        for _ in 1...100 {
+//            let newManga : KMManga = KMManga();
+//            
+//            newManga.coverImage = NSImage(named: "example-cover")!;
+//            newManga.title = "Ushio Diary";
+//            
+//            addManga(newManga);
+//        }
+    }
+    
+    // Adds a given manga to the array
+    func addManga(manga : KMManga) {
+        // Print to the log that we are adding a manga to the grid and what its name is
+        print("Adding manga \"" + manga.title + "\" to the manga grid");
+        
+        // Create a new item
+        let newItem : KMMangaGridItem = KMMangaGridItem();
+        
+        // Set the cover image to the mangas cover image
+        newItem.coverImage = manga.coverImage;
+        
+        // Set the title to the mangas title
+        newItem.title = manga.title;
+        
+        // Set the manga to the manga
+        newItem.manga = manga;
+        
+        // Add the object
+        arrayController.addObject(newItem);
     }
 }

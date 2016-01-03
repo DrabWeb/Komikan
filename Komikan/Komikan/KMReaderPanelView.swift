@@ -14,7 +14,10 @@ class KMReaderPanelView: NSView {
         super.drawRect(dirtyRect)
 
         // Drawing code here.
-        self.wantsLayer = true
+        // Set it so we can have a CGLayer
+        self.wantsLayer = true;
+        
+        // Set the corner radius to 10(Round)
         self.layer!.cornerRadius = 10;
     }
 }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5D0D2A4C1C39830D00E3B8D0 /* KMManga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0D2A4B1C39830D00E3B8D0 /* KMManga.swift */; settings = {ASSET_TAGS = (); }; };
+		5D0D2A521C39A11000E3B8D0 /* KMAddMangaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0D2A501C39A11000E3B8D0 /* KMAddMangaViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		5D1388CC1C3836C200B5EAAD /* KMReaderPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1388CB1C3836C200B5EAAD /* KMReaderPanelView.swift */; settings = {ASSET_TAGS = (); }; };
 		5D5DBECF1C3584F5004D8C5D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBECE1C3584F5004D8C5D /* AppDelegate.swift */; };
 		5D5DBED11C3584F5004D8C5D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBED01C3584F5004D8C5D /* ViewController.swift */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		5D0D2A4B1C39830D00E3B8D0 /* KMManga.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMManga.swift; sourceTree = "<group>"; };
+		5D0D2A501C39A11000E3B8D0 /* KMAddMangaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMAddMangaViewController.swift; sourceTree = "<group>"; };
 		5D1388CB1C3836C200B5EAAD /* KMReaderPanelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMReaderPanelView.swift; sourceTree = "<group>"; };
 		5D5DBECB1C3584F5004D8C5D /* Komikan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Komikan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D5DBECE1C3584F5004D8C5D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +98,14 @@
 				5D0D2A4B1C39830D00E3B8D0 /* KMManga.swift */,
 			);
 			name = Objects;
+			sourceTree = "<group>";
+		};
+		5D0D2A4D1C39A0EC00E3B8D0 /* Add Manga */ = {
+			isa = PBXGroup;
+			children = (
+				5D0D2A501C39A11000E3B8D0 /* KMAddMangaViewController.swift */,
+			);
+			name = "Add Manga";
 			sourceTree = "<group>";
 		};
 		5D1388CF1C384A2300B5EAAD /* Reader */ = {
@@ -175,6 +185,7 @@
 		5D5DBEFD1C35913F004D8C5D /* View Managers */ = {
 			isa = PBXGroup;
 			children = (
+				5D0D2A4D1C39A0EC00E3B8D0 /* Add Manga */,
 				5D1388CF1C384A2300B5EAAD /* Reader */,
 				5D5A11771C370EDC00C7A6A5 /* Manga Grid */,
 			);
@@ -403,6 +414,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D0D2A521C39A11000E3B8D0 /* KMAddMangaViewController.swift in Sources */,
 				5D5DBEFC1C358BE0004D8C5D /* KMMangaGridController.swift in Sources */,
 				5D5DBF021C35923F004D8C5D /* KMReaderViewController.swift in Sources */,
 				5D1388CC1C3836C200B5EAAD /* KMReaderPanelView.swift in Sources */,

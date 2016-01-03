@@ -25,6 +25,62 @@ class ViewController: NSViewController {
     // The array controller for the manga collection view
     @IBOutlet var mangaCollectionViewArray: NSArrayController!
     
+    // The grid controller for the manga grid
+    @IBOutlet var mangaGridController: KMMangaGridController!
+    
+    // The tab view for the titlebar that lets you sort
+    @IBOutlet weak var titlebarTabView: NSTabView!
+    
+    // The search field in the titlebar
+    @IBOutlet weak var titlebarSearchField: NSTextField!
+    
+    // When we finish editing the titlebarSearchField...
+    @IBAction func titlebarSearchFieldInteracted(sender: AnyObject) {
+        
+    }
+    
+    // The view controller we will load for the add manga popover
+    var addMangaViewController: KMAddMangaViewController?
+    
+    // Is this the first time weve clicked on the add button in the titlebar?
+    var addMangaViewFirstLoad : Bool = true;
+    
+    // The button in the titlebar that lets us add manga
+    @IBOutlet weak var titlebarAddMangaButton: NSButton!
+    
+    // When we click titlebarAddMangaButton...
+    @IBAction func titlebarAddMangaButtonInteracted(sender: AnyObject) {
+        // If addMangaViewController is nil...
+        if(addMangaViewController == nil) {
+            // Get the main storyboard
+            let storyboard = NSStoryboard(name: "Main", bundle: nil);
+            
+            // Instanstiate the view controller for the add manga view controller
+            addMangaViewController = storyboard.instantiateControllerWithIdentifier("addMangaViewController") as? KMAddMangaViewController;
+        }
+        
+        // Present the addMangaViewController as a popover using the add buttons rect, on the max y edge, and with a semitransient behaviour
+        addMangaViewController!.presentViewController(addMangaViewController!, asPopoverRelativeToRect: (sender as! NSButton).bounds, ofView: ((sender as? NSButton))!, preferredEdge: NSRectEdge.MaxY, behavior: NSPopoverBehavior.Semitransient);
+        
+        // If this is the first time we have pushed this button...
+        if(addMangaViewFirstLoad) {
+            // Subscribe to the popovers finished notification
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "addMangaFromAddMangaPopover:", name:"KMAddMangaViewController.Finished", object: nil);
+            
+            // Say that all the next loads are not the first
+            addMangaViewFirstLoad = false;
+        }
+    }
+    
+    // Called when we hit "Add" in the addmanga popover
+    func addMangaFromAddMangaPopover(notification: NSNotification) {
+        // Print to the log that we have recieved it and its name
+        print("Recieving manga \"" + ((notification.object as? KMManga)?.title)! + "\" from Add Manga popover...");
+        
+        // Add the manga to the grid
+        mangaGridController.addManga((notification.object as? KMManga)!);
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,6 +93,18 @@ class ViewController: NSViewController {
         
         // Start a 0.1 second loop that will fix the windows look in fullscreen
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("deleteTitlebarInFullscreen"), userInfo: nil, repeats:true);
+        
+        // Example manga for the grid
+        let nonNonBiyori : KMManga = KMManga();
+        nonNonBiyori.coverImage = NSImage(named: "example-cover-two")!;
+        nonNonBiyori.artist = "Media Factory";
+        // Path for my machine
+        nonNonBiyori.directory = "/Volumes/Storage/Japanese/Manga/Non Non Biyori/Non Non Biyori - Chapter 013.cbz";
+        nonNonBiyori.title = "Non Non Biyori - Chapter 13";
+        nonNonBiyori.writer = "Atto";
+        nonNonBiyori.series = "Non Non Biyori";
+        
+        mangaGridController.addManga(nonNonBiyori);
     }
     
     func styleWindow() {
@@ -73,10 +141,8 @@ class ViewController: NSViewController {
 
     override var representedObject: AnyObject? {
         didSet {
-        // Update the view, if already loaded.
+            // Update the view, if already loaded.
         }
     }
-
-
 }
 

@@ -17,4 +17,7 @@ class KMMangaGridItem: NSObject {
     
     // The artist for the manga
     var artist : String = "Failed to load artist";
+    
+    // The manga that this grid item represents
+    var manga : KMManga = KMManga();
 }

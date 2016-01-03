@@ -87,8 +87,8 @@ class KMReaderViewController: NSViewController {
         // Dont allow the open panel to allow multiple image selections
         openPanel.allowsMultipleSelection = false;
         
-        // Set the open panels allowed file types to only CBZ and CBR
-        openPanel.allowedFileTypes = ["cbz", "cbr"];
+        // Set the open panels allowed file types to only CBZ and CBR(CBR is disabled until I can get it to work, need a RAR library for swift)
+        openPanel.allowedFileTypes = ["cbz"/*, "cbr"*/];
         
         // Show the open panel modal
         openPanel.runModal();
