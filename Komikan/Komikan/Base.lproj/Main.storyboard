@@ -720,7 +720,7 @@
         <scene sceneID="4Fi-m5-gvR">
             <objects>
                 <viewController id="OyT-nZ-UQJ" customClass="KMReaderViewController" customModule="Komikan" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" wantsLayer="YES" id="NNO-Yh-cxl">
+                    <view key="view" id="NNO-Yh-cxl">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>

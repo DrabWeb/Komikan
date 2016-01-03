@@ -220,6 +220,9 @@ class KMReaderViewController: NSViewController {
             // Print to the log that we are bookmarking this page
             print("Bookmarked page " + String(page + 1) + " in \"" + manga.title + "\"");
         }
+        
+        // Update the page page to show that the page is bookmarked
+        updatePage();
     }
     
     // Brings up the dialog for the user to jump to a page
@@ -344,6 +347,32 @@ class KMReaderViewController: NSViewController {
         
         // Set the reader panels labels value
         readerPageNumberLabel.stringValue = String(manga.currentPage + 1) + "/" + String(manga.pageCount);
+        
+        var pageBookmarked = false;
+        
+        // Iterate through manga.bookmarks
+        for (bookmarksIndex, bookmarksElement) in manga.bookmarks.enumerate() {
+            // If the current element in manga.bookmarks is the current page...
+            if(bookmarksElement == manga.currentPage) {
+                // Set the manga bookmarks button to have a border
+                readerBookmarkButton.alphaValue = 1;
+                
+                // Also add a check mark next to the bookmark menu item
+                (NSApplication.sharedApplication().delegate as? AppDelegate)?.bookmarkCurrentPageMenuItem.state = 1;
+                
+                // Set pageBookmarked to true
+                pageBookmarked = true;
+            }
+        }
+        
+        // If pageBookmarked is false...
+        if(!pageBookmarked) {
+            // Set the manga bookmarks button alpha value to 0.2, as to indicate to the user this page is not boomarked
+            readerBookmarkButton.animator().alphaValue = 0.2;
+            
+            // Also remove the check mark next to the bookmark menu item
+            (NSApplication.sharedApplication().delegate as? AppDelegate)?.bookmarkCurrentPageMenuItem.state = 0;
+        }
     }
     
     func mouseHoverHandling() {
