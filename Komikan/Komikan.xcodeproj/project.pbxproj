@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D0D2A4C1C39830D00E3B8D0 /* KMManga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0D2A4B1C39830D00E3B8D0 /* KMManga.swift */; settings = {ASSET_TAGS = (); }; };
 		5D1388CC1C3836C200B5EAAD /* KMReaderPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1388CB1C3836C200B5EAAD /* KMReaderPanelView.swift */; settings = {ASSET_TAGS = (); }; };
 		5D5DBECF1C3584F5004D8C5D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBECE1C3584F5004D8C5D /* AppDelegate.swift */; };
 		5D5DBED11C3584F5004D8C5D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBED01C3584F5004D8C5D /* ViewController.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5D0D2A4B1C39830D00E3B8D0 /* KMManga.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMManga.swift; sourceTree = "<group>"; };
 		5D1388CB1C3836C200B5EAAD /* KMReaderPanelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMReaderPanelView.swift; sourceTree = "<group>"; };
 		5D5DBECB1C3584F5004D8C5D /* Komikan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Komikan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D5DBECE1C3584F5004D8C5D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -88,6 +90,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5D0D2A4A1C39830000E3B8D0 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				5D0D2A4B1C39830D00E3B8D0 /* KMManga.swift */,
+			);
+			name = Objects;
+			sourceTree = "<group>";
+		};
 		5D1388CF1C384A2300B5EAAD /* Reader */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +144,7 @@
 				5D5DBECE1C3584F5004D8C5D /* AppDelegate.swift */,
 				5D5DBED01C3584F5004D8C5D /* ViewController.swift */,
 				5D5DBEFE1C35914E004D8C5D /* Storyboards */,
+				5D0D2A4A1C39830000E3B8D0 /* Objects */,
 				5DBB0DFD1C36D9E400495985 /* Utilities */,
 				5D5DBEFD1C35913F004D8C5D /* View Managers */,
 				5DBB0E091C36E2D500495985 /* Objective-C */,
@@ -396,6 +407,7 @@
 				5D5DBF021C35923F004D8C5D /* KMReaderViewController.swift in Sources */,
 				5D1388CC1C3836C200B5EAAD /* KMReaderPanelView.swift in Sources */,
 				5D5DBEFA1C358BD3004D8C5D /* KMMangaGridItem.swift in Sources */,
+				5D0D2A4C1C39830D00E3B8D0 /* KMManga.swift in Sources */,
 				5D5DBED11C3584F5004D8C5D /* ViewController.swift in Sources */,
 				5DBB0DFF1C36DA0000495985 /* KMFileUtilities.swift in Sources */,
 				5D5DBECF1C3584F5004D8C5D /* AppDelegate.swift in Sources */,

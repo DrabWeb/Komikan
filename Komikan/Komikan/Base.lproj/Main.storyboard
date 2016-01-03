@@ -349,6 +349,7 @@
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
                                         <menuItem title="Jump to Page" keyEquivalent="J" id="I7g-H0-J3h"/>
+                                        <menuItem title="Bookmark" keyEquivalent="B" id="2T2-cT-5ni"/>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -658,6 +659,7 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Komikan" customModuleProvider="target">
                     <connections>
+                        <outlet property="bookmarkCurrentPageMenuItem" destination="2T2-cT-5ni" id="vFe-FV-c0N"/>
                         <outlet property="jumpToPageMenuItem" destination="I7g-H0-J3h" id="2f3-MH-hPT"/>
                         <outlet property="nextPageMenubarItem" destination="8P2-Bj-ZHO" id="maC-a5-1g2"/>
                         <outlet property="previousPageMenubarItem" destination="lL1-EK-QfJ" id="pyL-3Y-eLp"/>

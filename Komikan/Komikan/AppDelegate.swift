@@ -17,6 +17,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var jumpToPageMenuItem: NSMenuItem!
     
+    @IBOutlet weak var bookmarkCurrentPageMenuItem: NSMenuItem!
+    
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         // Insert code here to initialize your application
     }

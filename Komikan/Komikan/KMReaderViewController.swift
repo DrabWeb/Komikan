@@ -31,8 +31,10 @@ class KMReaderViewController: NSViewController {
     var inspectorController: NSWindowController?
     // When readerPageJumpButton is pressed...
     @IBAction func readerPageJumpButtonPressed(sender: AnyObject) {
-        // Prompt the user to jump to a page
-        promptToJumpToPage();
+        if(readerPageJumpView.hidden) {
+            // Prompt the user to jump to a page
+            promptToJumpToPage();
+        }
     }
     
     // The button on the reader panel that lets you bookmark the current page
@@ -40,6 +42,8 @@ class KMReaderViewController: NSViewController {
     
     // When readerBookmarkButton is pressed...
     @IBAction func readerBookmarkButtonPressed(sender: AnyObject) {
+        // Bookmark the current page
+        bookmarkCurrentPage();
     }
     
     // The button on the reader panel that brings you to the settings for the reader with color controls among other things
@@ -65,20 +69,8 @@ class KMReaderViewController: NSViewController {
         closeJumpToPageDialog();
     }
     
-    // The pages of manga we have open
-    var openMangaPages : [NSImage] = [NSImage()];
-    
-    // The title of the currently open manga
-    var mangaTitle : String = "Title failed to load";
-    
-    // The unique identifier for this mangas /tmp/folder
-    var mangaDirectory : String = "/komikanmanga-";
-    
-    // The current manga page
-    var mangaCurrentPage : Int = 0;
-    
-    // The amount of pages in the currently open manga
-    var mangaPageCount : Int = 0;
+    // The manga we have open
+    var manga : KMManga = KMManga();
     
     var openPanel : NSOpenPanel = NSOpenPanel();
     
@@ -114,6 +106,9 @@ class KMReaderViewController: NSViewController {
         // Check if it is a CBZ or a CBR(The file formats we support)
         let mangaExtension : String = KMFileUtilities().getFileExtension(mangaPath);
         
+        // Set manga.directory to mangaPath
+        manga.directory = mangaPath.absoluteString;
+        
         // If the manga we are trying to open is a CBZ or a CBR...
         if(mangaExtension == "cbz" || mangaExtension == "cbr") {
             // Say we can open it
@@ -130,43 +125,43 @@ class KMReaderViewController: NSViewController {
             // Print to the log what we are opening
             print("Opening \"" + mangaPathWithoutOnlineMarkers + "\"");
             
-            // Reset openMangaPages
-            openMangaPages = [NSImage()];
+            // Reset the mangas pages
+            manga.pages = [NSImage()];
             
-            // Set mangaTitle to the manga we are openings title
-            mangaTitle = KMFileUtilities().getFileNameWithoutExtension(mangaPath);
+            // Set the mangas title to the manga we are openings title
+            manga.title = KMFileUtilities().getFileNameWithoutExtension(mangaPath);
             
             // Set the windows title to match the mangas name
-            readerWindow.title = mangaTitle;
+            readerWindow.title = manga.title;
             
             // Set mangaDirectory to /tmp/komikan/komikanmanga-(Archive name)
-            mangaDirectory += mangaTitle + "/";
+            manga.tmpDirectory += manga.title + "/";
             
             // Unzip the manga we are opening to /tmp/komikanmanga
-            WPZipArchive.unzipFileAtPath(mangaPathWithoutOnlineMarkers.stringByReplacingOccurrencesOfString("file://", withString: ""), toDestination: "/tmp/komikan/" + mangaDirectory);
+            WPZipArchive.unzipFileAtPath(mangaPathWithoutOnlineMarkers.stringByReplacingOccurrencesOfString("file://", withString: ""), toDestination: manga.tmpDirectory);
             
             // Some archives will create a __MACOSX folder in the extracted folder, lets delete that
             do {
                 // Remove the possible __MACOSX folder
-                try NSFileManager().removeItemAtPath("/tmp/komikan/" + mangaDirectory + "/__MACOSX");
+                try NSFileManager().removeItemAtPath(manga.tmpDirectory + "/__MACOSX");
                 
                 // Print to the log that we deleted it
-                print("Deleted the __MACOSX folder in \"" + mangaTitle + "\"");
+                print("Deleted the __MACOSX folder in \"" + manga.title + "\"");
             // If there is an error...
             } catch _ as NSError {
                 // Print to the log that there is no __MACOSX folder to delete
-                print("No __MACOSX folder to delete in \"" + mangaTitle + "\"");
+                print("No __MACOSX folder to delete in \"" + manga.title + "\"");
             }
             
             // Set openMangaPages to all the pages in /tmp/komikanmanga
             do {
                 // For every file in /tmp/komikanmanga...
-                for currentPage in try NSFileManager().contentsOfDirectoryAtPath("/tmp/komikan/" + mangaDirectory).enumerate() {
+                for currentPage in try NSFileManager().contentsOfDirectoryAtPath(manga.tmpDirectory).enumerate() {
                     // Print to the log what file we found
                     print("Found page \"" + currentPage.element + "\"");
                     
                     // Append this image to the openMangaPages array
-                    openMangaPages.append(NSImage(contentsOfFile: "/tmp/komikan/" + mangaDirectory + currentPage.element)!);
+                    manga.pages.append(NSImage(contentsOfFile: manga.tmpDirectory + currentPage.element)!);
                 }
             // If there is an error...
             } catch let error as NSError {
@@ -175,39 +170,55 @@ class KMReaderViewController: NSViewController {
             }
             
             // Remove the first image in openMangaPages(Its always nil for no reason)
-            openMangaPages.removeAtIndex(0);
+            manga.pages.removeAtIndex(0);
             
             // Set mangaPageCount
-            mangaPageCount = openMangaPages.count;
+            manga.pageCount = manga.pages.count;
             
-            // Set the current manga page to the page we said to open to
-            mangaCurrentPage = page;
-            
-            // Open the first image, so we open on the cover
-            updatePage();
+            // Jump to the page we said to start at
+            jumpToPage(page, round: false);
             
             // Setup the menubar items actions
             (NSApplication.sharedApplication().delegate as? AppDelegate)?.nextPageMenubarItem.action = Selector("nextPage");
             (NSApplication.sharedApplication().delegate as? AppDelegate)?.previousPageMenubarItem.action = Selector("previousPage");
             (NSApplication.sharedApplication().delegate as? AppDelegate)?.jumpToPageMenuItem.action = Selector("promptToJumpToPage");
+            (NSApplication.sharedApplication().delegate as? AppDelegate)?.bookmarkCurrentPageMenuItem.action = Selector("bookmarkCurrentPage");
         }
     }
     
-    func nextPage() {
-        // If we were to add 1 to mangaCurrentPage and it would be less than the openMangaPages count...
-        if(mangaCurrentPage + 1 < mangaPageCount) {
-            // Print to the log that we are going to the next page
-            print("Loading next page in \"" + mangaTitle + "\"");
-            
-            // Add 1 to mangaCurrentPage
-            mangaCurrentPage++;
-            
-            // Load the new page
-            updatePage();
+    // Calls bookmarkPage with the current page number
+    func bookmarkCurrentPage() {
+        // Call bookmarkPage with the current page number
+        bookmarkPage(manga.currentPage);
+    }
+    
+    // Bookmarks the current page(Starts at 0). If it is already bookmarked, it removes that bookmark
+    func bookmarkPage(page : Int) {
+        // A bool to say if we already bookmarked this page
+        var alreadyBookmarked = false;
+        
+        // Iterate through mangaBookmarks
+        for (bookmarksIndex, bookmarksElement) in manga.bookmarks.enumerate() {
+            // If the current element we are iterating is equal to the page we are trying to bookmark...
+            if(bookmarksElement == page) {
+                // Remove that element
+                manga.bookmarks.removeAtIndex(bookmarksIndex);
+                
+                // Say it was already bookmarked
+                alreadyBookmarked = true;
+                
+                // Print to the log that we removed that bookmark
+                print("Removed bookmarked for page " + String(page + 1) + " in \"" + manga.title + "\"");
+            }
         }
-        else {
-            // Print to the log that there is no next page
-            print("There is no next page in \"" + mangaTitle + "\"");
+        
+        // If we didnt already bookmark this page...
+        if(!alreadyBookmarked) {
+            // Append the page we are trying to bookmark
+            manga.bookmarks.append(page);
+            
+            // Print to the log that we are bookmarking this page
+            print("Bookmarked page " + String(page + 1) + " in \"" + manga.title + "\"");
         }
     }
     
@@ -223,7 +234,7 @@ class KMReaderViewController: NSViewController {
         readerWindow.makeFirstResponder(readerPageJumpNumberField);
         
         // Animate in the vibrancy view
-        readerPageJumpVisualEffectView.animator().alphaValue = 1;
+        readerPageJumpVisualEffectView.alphaValue = 1;
     }
     
     // Closes the dialog that prompts the user to jump to a page, and jumps to the inputted page
@@ -235,7 +246,7 @@ class KMReaderViewController: NSViewController {
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.2), target:self, selector: Selector("hideJumpToPageDialog"), userInfo: nil, repeats:false);
         
         // Jump to the inputted page
-        jumpToPage(readerPageJumpNumberField.integerValue - 1);
+        jumpToPage(readerPageJumpNumberField.integerValue - 1, round: true);
     }
     
     // Actually hides the jump to page dialog
@@ -244,50 +255,95 @@ class KMReaderViewController: NSViewController {
         readerPageJumpView.hidden = true;
     }
     
+    func nextPage() {
+        // If we were to add 1 to mangaCurrentPage and it would be less than the openMangaPages count...
+        if(manga.currentPage + 1 < manga.pageCount) {
+            // Print to the log that we are going to the next page
+            print("Loading next page in \"" + manga.title + "\"");
+            
+            // Add 1 to mangaCurrentPage
+            manga.currentPage++;
+            
+            // Load the new page
+            updatePage();
+        }
+        else {
+            // Print to the log that there is no next page
+            print("There is no next page in \"" + manga.title + "\"");
+        }
+    }
+    
     func previousPage() {
         // If we were to subtract 1 from mangaCurrentPage and it would be greater than 0...
-        if(mangaCurrentPage - 1 > -1) {
+        if(manga.currentPage - 1 > -1) {
             // Print to the log that we are going to the previous page
-            print("Loading previous page in \"" + mangaTitle + "\"");
+            print("Loading previous page in \"" + manga.title + "\"");
             
             // Subtract 1 from mangaCurrentPage
-            mangaCurrentPage--;
+            manga.currentPage--;
             
             // Load the new page
             updatePage();
         }
         else {
             // Print to the log that there is no previous page
-            print("There is no previous page in \"" + mangaTitle + "\"");
+            print("There is no previous page in \"" + manga.title + "\"");
         }
     }
     
     // The page number starts at 0, keep that in mind
-    func jumpToPage(page : Int) {
+    func jumpToPage(page : Int, round : Bool) {
         // See if the page we are trying to jump to is existant
-        if(page > 0 && page < mangaPageCount) {
+        if(page >= 0 && page < manga.pageCount) {
             // Print to the log that we are jumping to a page
-            print("Jumping to page " + String(page) + " in \"" + mangaTitle + "\"");
+            print("Jumping to page " + String(page) + " in \"" + manga.title + "\"");
             
             // Set the current page to the page we want to jump to
-            mangaCurrentPage = page;
+            manga.currentPage = page;
             
             // Load the new page
             updatePage();
         }
         else {
-            // Print to the log that we cant jump to that page
-            print("Cant jump to page " + String(page) + " in \"" + mangaTitle + "\"");
+            // If we said to round off the number...
+            if(round) {
+                // Create a variable to store the page number we will round it off to
+                var roundedPage : Int = page;
+                
+                // If roundedPage is bigger than the page count...
+                if(roundedPage > manga.pageCount) {
+                    // Set roundedPage to the page count minus 1
+                    roundedPage = manga.pageCount - 1;
+                }
+                // If roundedPage is less than 0
+                else if(roundedPage < 0) {
+                    // Set roundedPage to 0
+                    roundedPage = 0;
+                }
+                
+                // Print to the log that we are jumping to roundedPage, and what page that is
+                print("Jumping to rounded off page " + String(roundedPage) + " in \"" + manga.title + "\"");
+                
+                // Set the current page to roundedPage
+                manga.currentPage = roundedPage;
+                
+                // Load the new page
+                updatePage();
+            }
+            else {
+                // Print to the log that we cant jump to that page
+                print("Cant jump to page " + String(page) + " in \"" + manga.title + "\"");
+            }
         }
     }
     
     // Updates the manga page image view to the new page (Specified by mangaCurrentPage) and updates the reader panel labels value
     func updatePage() {
         // Load the new page
-        readerImageView.image = openMangaPages[mangaCurrentPage];
+        readerImageView.image = manga.pages[manga.currentPage];
         
         // Set the reader panels labels value
-        readerPageNumberLabel.stringValue = String(mangaCurrentPage + 1) + "/" + String(mangaPageCount);
+        readerPageNumberLabel.stringValue = String(manga.currentPage + 1) + "/" + String(manga.pageCount);
     }
     
     func mouseHoverHandling() {
