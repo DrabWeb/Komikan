@@ -1108,8 +1108,11 @@
                             <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="Zas-Qb-QC2" userLabel="Background Visual Effect View">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                 <subviews>
-                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j5Z-Uz-rcA">
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="j5Z-Uz-rcA">
                                         <rect key="frame" x="385" y="13" width="81" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="69" id="asm-5h-oI9"/>
+                                        </constraints>
                                         <animations/>
                                         <buttonCell key="cell" type="push" title="Add" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="y0p-fS-nHO">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1119,7 +1122,88 @@
                                             <action selector="addButtonPressed:" target="dFC-MJ-KGP" id="YPA-wR-Xfh"/>
                                         </connections>
                                     </button>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="phb-On-nnz" userLabel="Title Text Field">
+                                        <rect key="frame" x="240" y="228" width="220" height="22"/>
+                                        <animations/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Title" bezelStyle="round" id="Lr8-G5-Y0x">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oMa-wR-kJR" userLabel="Series Text Field">
+                                        <rect key="frame" x="240" y="186" width="220" height="22"/>
+                                        <animations/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Series" bezelStyle="round" id="Vch-Dd-Hi5">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0h6-Q8-SRO" userLabel="Artist Text Field">
+                                        <rect key="frame" x="240" y="144" width="220" height="22"/>
+                                        <animations/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Artist" bezelStyle="round" id="9ar-Gs-pfz">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8CQ-rx-DuO" userLabel="Writer Text Field">
+                                        <rect key="frame" x="240" y="102" width="220" height="22"/>
+                                        <animations/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Writer" bezelStyle="round" id="NWn-YZ-S8f">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aHF-zD-YNV">
+                                        <rect key="frame" x="20" y="60" width="200" height="190"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="eKa-MS-RVY"/>
+                                        </constraints>
+                                        <animations/>
+                                        <imageCell key="cell" selectable="YES" editable="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSRevealFreestandingTemplate" id="ltW-7K-Mp4"/>
+                                    </imageView>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="40T-69-Lew">
+                                        <rect key="frame" x="234" y="54" width="232" height="32"/>
+                                        <animations/>
+                                        <buttonCell key="cell" type="push" title="Choose Directory" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="BKy-51-dff">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="chooseDirectoryButtonPressed:" target="dFC-MJ-KGP" id="zGC-hm-Fo2"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="aHF-zD-YNV" secondAttribute="bottom" constant="60" id="9ty-kK-Ed3"/>
+                                    <constraint firstAttribute="trailing" secondItem="oMa-wR-kJR" secondAttribute="trailing" constant="20" id="9yw-pz-MBG"/>
+                                    <constraint firstItem="40T-69-Lew" firstAttribute="top" secondItem="8CQ-rx-DuO" secondAttribute="bottom" constant="20" id="Ax1-An-2FG"/>
+                                    <constraint firstAttribute="bottom" secondItem="j5Z-Uz-rcA" secondAttribute="bottom" constant="20" id="E4C-kn-bBC"/>
+                                    <constraint firstItem="8CQ-rx-DuO" firstAttribute="leading" secondItem="aHF-zD-YNV" secondAttribute="trailing" constant="20" id="GjU-bY-mdI"/>
+                                    <constraint firstItem="aHF-zD-YNV" firstAttribute="leading" secondItem="Zas-Qb-QC2" secondAttribute="leading" constant="20" id="I8P-3w-QrJ"/>
+                                    <constraint firstItem="aHF-zD-YNV" firstAttribute="top" secondItem="Zas-Qb-QC2" secondAttribute="top" constant="20" id="Kud-HK-O48"/>
+                                    <constraint firstItem="phb-On-nnz" firstAttribute="top" secondItem="Zas-Qb-QC2" secondAttribute="top" constant="20" id="MMg-X2-Kff"/>
+                                    <constraint firstAttribute="trailing" secondItem="8CQ-rx-DuO" secondAttribute="trailing" constant="20" id="N7d-c6-6gc"/>
+                                    <constraint firstItem="0h6-Q8-SRO" firstAttribute="top" secondItem="oMa-wR-kJR" secondAttribute="bottom" constant="20" id="QKI-nu-FxC"/>
+                                    <constraint firstItem="j5Z-Uz-rcA" firstAttribute="top" secondItem="40T-69-Lew" secondAttribute="bottom" constant="20" id="Taa-Xd-H45"/>
+                                    <constraint firstItem="8CQ-rx-DuO" firstAttribute="top" secondItem="0h6-Q8-SRO" secondAttribute="bottom" constant="20" id="Xhb-63-gvx"/>
+                                    <constraint firstItem="0h6-Q8-SRO" firstAttribute="leading" secondItem="aHF-zD-YNV" secondAttribute="trailing" constant="20" id="ZuY-5Y-iH6"/>
+                                    <constraint firstItem="oMa-wR-kJR" firstAttribute="top" secondItem="phb-On-nnz" secondAttribute="bottom" constant="20" id="d9L-ju-xht"/>
+                                    <constraint firstItem="8CQ-rx-DuO" firstAttribute="top" secondItem="0h6-Q8-SRO" secondAttribute="bottom" constant="20" id="dnB-R0-tuC"/>
+                                    <constraint firstItem="0h6-Q8-SRO" firstAttribute="top" secondItem="oMa-wR-kJR" secondAttribute="bottom" constant="20" id="eDo-T5-Y8R"/>
+                                    <constraint firstItem="phb-On-nnz" firstAttribute="leading" secondItem="aHF-zD-YNV" secondAttribute="trailing" constant="20" id="f0h-bV-pZH"/>
+                                    <constraint firstAttribute="trailing" secondItem="j5Z-Uz-rcA" secondAttribute="trailing" constant="20" id="fQ7-en-787"/>
+                                    <constraint firstItem="40T-69-Lew" firstAttribute="leading" secondItem="aHF-zD-YNV" secondAttribute="trailing" constant="20" id="fu5-ur-fUt"/>
+                                    <constraint firstAttribute="trailing" secondItem="0h6-Q8-SRO" secondAttribute="trailing" constant="20" id="jVF-kV-5yJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="phb-On-nnz" secondAttribute="trailing" constant="20" id="mvX-qg-dFG"/>
+                                    <constraint firstAttribute="trailing" secondItem="40T-69-Lew" secondAttribute="trailing" constant="20" id="qqY-FV-hWm"/>
+                                    <constraint firstItem="oMa-wR-kJR" firstAttribute="leading" secondItem="aHF-zD-YNV" secondAttribute="trailing" constant="20" id="ydp-Ex-b37"/>
+                                    <constraint firstItem="oMa-wR-kJR" firstAttribute="top" secondItem="phb-On-nnz" secondAttribute="bottom" constant="20" id="zam-md-z2u"/>
+                                </constraints>
                                 <animations/>
                             </visualEffectView>
                         </subviews>
@@ -1132,12 +1216,17 @@
                         <animations/>
                     </view>
                     <connections>
+                        <outlet property="artistTextField" destination="0h6-Q8-SRO" id="cOk-Us-c0q"/>
                         <outlet property="backgroundVisualEffectView" destination="Zas-Qb-QC2" id="1RW-L0-HQF"/>
+                        <outlet property="coverImageView" destination="aHF-zD-YNV" id="6dw-HN-JUr"/>
+                        <outlet property="seriesTextField" destination="oMa-wR-kJR" id="ihN-Iv-grq"/>
+                        <outlet property="titleTextField" destination="phb-On-nnz" id="B2C-k9-qir"/>
+                        <outlet property="writerTextField" destination="8CQ-rx-DuO" id="EeU-VR-pZ4"/>
                     </connections>
                 </viewController>
                 <customObject id="GKs-JD-4Ai" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="81" y="1461"/>
+            <point key="canvasLocation" x="81" y="1460.5"/>
         </scene>
         <!--Manga Grid Collection View Item-->
         <scene sceneID="nsn-SP-i81">
@@ -1201,6 +1290,7 @@
         <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSBookmarksTemplate" width="17" height="18"/>
+        <image name="NSRevealFreestandingTemplate" width="14" height="14"/>
         <image name="NSShareTemplate" width="11" height="16"/>
         <image name="example-cover" width="158.605712890625" height="205.71427917480469"/>
     </resources>

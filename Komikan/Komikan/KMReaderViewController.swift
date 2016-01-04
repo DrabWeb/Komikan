@@ -211,18 +211,26 @@ class KMReaderViewController: NSViewController {
     
     // Bookmarks the current page(Starts at 0). If it is already bookmarked, it removes that bookmark
     func bookmarkPage(page : Int) {
-        // Is the page alrady bookmarked?
-        let alreadyBookmarked = isPageBookmarked(page);
+        // A bool to say if we already bookmarked this page
+        var alreadyBookmarked = false;
         
-        // If the page is already bookmarked...
-        if(alreadyBookmarked) {
-            // Remove that element
-            manga.bookmarks.removeAtIndex(page);
-            
-            // Print to the log that we removed that bookmark
-            print("Removed bookmarked for page " + String(page + 1) + " in \"" + manga.title + "\"");
+        // Iterate through mangaBookmarks
+        for (bookmarksIndex, bookmarksElement) in manga.bookmarks.enumerate() {
+            // If the current element we are iterating is equal to the page we are trying to bookmark...
+            if(bookmarksElement == page) {
+                // Remove that element
+                manga.bookmarks.removeAtIndex(bookmarksIndex);
+                
+                // Say it was already bookmarked
+                alreadyBookmarked = true;
+                
+                // Print to the log that we removed that bookmark
+                print("Removed bookmarked for page " + String(page + 1) + " in \"" + manga.title + "\"");
+            }
         }
-        else {
+        
+        // If we didnt already bookmark this page...
+        if(!alreadyBookmarked) {
             // Append the page we are trying to bookmark
             manga.bookmarks.append(page);
             
