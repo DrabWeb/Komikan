@@ -186,6 +186,23 @@ class KMReaderViewController: NSViewController {
         }
     }
     
+    func isPageBookmarked(page : Int) -> Bool {
+        // Is the page bookmarked?
+        var bookmarked : Bool = false;
+        
+        // Iterate through manga.bookmarks
+        for (_, bookmarksElement) in manga.bookmarks.enumerate() {
+            // If the current element we are iterating is equal to the page we are wanting to see if it is bookmarked...
+            if(bookmarksElement == page) {
+                // Set bookmarked to true
+                bookmarked = true;
+            }
+        }
+        
+        // Return bookmarked
+        return bookmarked;
+    }
+    
     // Calls bookmarkPage with the current page number
     func bookmarkCurrentPage() {
         // Call bookmarkPage with the current page number
@@ -194,26 +211,18 @@ class KMReaderViewController: NSViewController {
     
     // Bookmarks the current page(Starts at 0). If it is already bookmarked, it removes that bookmark
     func bookmarkPage(page : Int) {
-        // A bool to say if we already bookmarked this page
-        var alreadyBookmarked = false;
+        // Is the page alrady bookmarked?
+        let alreadyBookmarked = isPageBookmarked(page);
         
-        // Iterate through mangaBookmarks
-        for (bookmarksIndex, bookmarksElement) in manga.bookmarks.enumerate() {
-            // If the current element we are iterating is equal to the page we are trying to bookmark...
-            if(bookmarksElement == page) {
-                // Remove that element
-                manga.bookmarks.removeAtIndex(bookmarksIndex);
-                
-                // Say it was already bookmarked
-                alreadyBookmarked = true;
-                
-                // Print to the log that we removed that bookmark
-                print("Removed bookmarked for page " + String(page + 1) + " in \"" + manga.title + "\"");
-            }
+        // If the page is already bookmarked...
+        if(alreadyBookmarked) {
+            // Remove that element
+            manga.bookmarks.removeAtIndex(page);
+            
+            // Print to the log that we removed that bookmark
+            print("Removed bookmarked for page " + String(page + 1) + " in \"" + manga.title + "\"");
         }
-        
-        // If we didnt already bookmark this page...
-        if(!alreadyBookmarked) {
+        else {
             // Append the page we are trying to bookmark
             manga.bookmarks.append(page);
             
@@ -348,25 +357,17 @@ class KMReaderViewController: NSViewController {
         // Set the reader panels labels value
         readerPageNumberLabel.stringValue = String(manga.currentPage + 1) + "/" + String(manga.pageCount);
         
-        var pageBookmarked = false;
+        let pageBookmarked = isPageBookmarked(manga.currentPage);
         
-        // Iterate through manga.bookmarks
-        for (bookmarksIndex, bookmarksElement) in manga.bookmarks.enumerate() {
-            // If the current element in manga.bookmarks is the current page...
-            if(bookmarksElement == manga.currentPage) {
-                // Set the manga bookmarks button to have a border
-                readerBookmarkButton.alphaValue = 1;
-                
-                // Also add a check mark next to the bookmark menu item
-                (NSApplication.sharedApplication().delegate as? AppDelegate)?.bookmarkCurrentPageMenuItem.state = 1;
-                
-                // Set pageBookmarked to true
-                pageBookmarked = true;
-            }
+        // If the page is bookmarked...
+        if(pageBookmarked) {
+            // Set the manga bookmarks button to have a border
+            readerBookmarkButton.alphaValue = 1;
+            
+            // Also add a check mark next to the bookmark menu item
+            (NSApplication.sharedApplication().delegate as? AppDelegate)?.bookmarkCurrentPageMenuItem.state = 1;
         }
-        
-        // If pageBookmarked is false...
-        if(!pageBookmarked) {
+        else {
             // Set the manga bookmarks button alpha value to 0.2, as to indicate to the user this page is not boomarked
             readerBookmarkButton.animator().alphaValue = 0.2;
             
