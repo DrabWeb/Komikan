@@ -50,14 +50,11 @@ class ViewController: NSViewController {
     
     // When we click titlebarAddMangaButton...
     @IBAction func titlebarAddMangaButtonInteracted(sender: AnyObject) {
-        // If addMangaViewController is nil...
-        if(addMangaViewController == nil) {
-            // Get the main storyboard
-            let storyboard = NSStoryboard(name: "Main", bundle: nil);
-            
-            // Instanstiate the view controller for the add manga view controller
-            addMangaViewController = storyboard.instantiateControllerWithIdentifier("addMangaViewController") as? KMAddMangaViewController;
-        }
+        // Get the main storyboard
+        let storyboard = NSStoryboard(name: "Main", bundle: nil);
+        
+        // Instanstiate the view controller for the add manga view controller
+        addMangaViewController = storyboard.instantiateControllerWithIdentifier("addMangaViewController") as? KMAddMangaViewController;
         
         // Present the addMangaViewController as a popover using the add buttons rect, on the max y edge, and with a semitransient behaviour
         addMangaViewController!.presentViewController(addMangaViewController!, asPopoverRelativeToRect: (sender as! NSButton).bounds, ofView: ((sender as? NSButton))!, preferredEdge: NSRectEdge.MaxY, behavior: NSPopoverBehavior.Semitransient);
@@ -79,6 +76,9 @@ class ViewController: NSViewController {
         
         // Add the manga to the grid
         mangaGridController.addManga((notification.object as? KMManga)!);
+        
+        // Stop addMangaViewController.addButtonUpdateLoop, so it stops eating resources when it doesnt need to
+        addMangaViewController?.addButtonUpdateLoop.invalidate();
     }
     
     override func viewDidLoad() {

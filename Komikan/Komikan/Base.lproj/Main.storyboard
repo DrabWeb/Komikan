@@ -1114,7 +1114,7 @@
                                             <constraint firstAttribute="width" constant="69" id="asm-5h-oI9"/>
                                         </constraints>
                                         <animations/>
-                                        <buttonCell key="cell" type="push" title="Add" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="y0p-fS-nHO">
+                                        <buttonCell key="cell" type="push" title="Add" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="y0p-fS-nHO">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -1216,6 +1216,7 @@
                         <animations/>
                     </view>
                     <connections>
+                        <outlet property="addButton" destination="j5Z-Uz-rcA" id="CBy-Hw-7Ga"/>
                         <outlet property="artistTextField" destination="0h6-Q8-SRO" id="cOk-Us-c0q"/>
                         <outlet property="backgroundVisualEffectView" destination="Zas-Qb-QC2" id="1RW-L0-HQF"/>
                         <outlet property="coverImageView" destination="aHF-zD-YNV" id="6dw-HN-JUr"/>
