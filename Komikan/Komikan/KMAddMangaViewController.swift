@@ -73,11 +73,33 @@ class KMAddMangaViewController: NSViewController {
         NSNotificationCenter.defaultCenter().postNotificationName("KMAddMangaViewController.Finished", object: newManga);
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do view setup here.
+        // Style the window
+        styleWindow();
+        
+        // Setup the choose directory open panel
+        // Dont allow multiple files
+        chooseDirectoryOpenPanel.allowsMultipleSelection = false;
+        
+        // Only allow CBZ and CBR(Still need to find a RAR lib for swift before I can enable CBR)
+        chooseDirectoryOpenPanel.allowedFileTypes = ["cbz", /*"cbr"*/];
+        
+        // Set the Open button to say choose
+        chooseDirectoryOpenPanel.prompt = "Choose";
+        
+        // Start a 0.1 second loop that will set if we can add this manga or not
+        addButtonUpdateLoop = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("updateAddButton"), userInfo: nil, repeats:true);
+        
+        // Prompt for a manga
+        startPrompt();
+    }
+    
     // Updates the add buttons enabled state
     func updateAddButton() {
         // A variable to say if we can add the manga with the given values
         var canAdd : Bool = false;
-        
         // If the cover image selected is not the default one...
         if(coverImageView.image != NSImage(named: "NSRevealFreestandingTemplate")) {
             // If the title is not nothing...
@@ -101,21 +123,47 @@ class KMAddMangaViewController: NSViewController {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do view setup here.
-        // Style the window
-        styleWindow();
+    // Asks for a manga, and deletes the old ones tmp folder
+    func promptForManga() {
+        // Delete /tmp/komikan/addmanga
+        do {
+            // Remove /tmp/komikan/addmanga
+            try NSFileManager().removeItemAtPath("/tmp/komikan/addmanga");
+            // If there is an error...
+        } catch _ as NSError {
+            // Do nothing
+        }
         
-        // Setup the choose directory open panel
-        // Dont allow multiple files
-        chooseDirectoryOpenPanel.allowsMultipleSelection = false;
+        // Ask for the mangas directory
+        chooseDirectoryOpenPanel.runModal();
+    }
+    
+    // The prompt you get when you open this view with the open panel
+    func startPrompt() {
+        // Prompt for a file
+        promptForManga();
         
-        // Only allow CBZ and CBR(Still need to find a RAR lib for swift before I can enable CBR)
-        chooseDirectoryOpenPanel.allowedFileTypes = ["cbz", /*"cbr"*/];
+        // Extract the chosen manga to /tmp/komikan/addmanga
+        WPZipArchive.unzipFileAtPath(chooseDirectoryOpenPanel.URL?.absoluteString.stringByRemovingPercentEncoding!.stringByReplacingOccurrencesOfString("file://", withString: ""), toDestination: "/tmp/komikan/addmanga");
         
-        // Start a 0.1 second loop that will set if we can add this manga or not
-        addButtonUpdateLoop = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("updateAddButton"), userInfo: nil, repeats:true);
+        // Get the first image in the folder, and set the cover image selection views image to it
+        do {
+            // Get the first item in /tmp/komikan/addmanga as an NSImage
+            let firstImage : NSImage = NSImage(byReferencingURL: NSURL(fileURLWithPath: "/tmp/komikan/addmanga/" + String(try NSFileManager().contentsOfDirectoryAtPath("/tmp/komikan/addmanga")[0])));
+            
+            // Set the cover image selecting views image to firstImage
+            coverImageView.image = firstImage;
+            
+            // If there is an error...
+        } catch _ as NSError {
+            // Do nothing
+        }
+        
+        // If the URL of the open panel is not nil...
+        if(chooseDirectoryOpenPanel.URL?.absoluteString != nil) {
+            // Set the title field to the selected mangas archive name
+            titleTextField.stringValue = KMFileUtilities().getFileNameWithoutExtension(NSURL(fileURLWithPath: (chooseDirectoryOpenPanel.URL?.absoluteString)!)).stringByRemovingPercentEncoding!;
+        }
     }
     
     func styleWindow() {

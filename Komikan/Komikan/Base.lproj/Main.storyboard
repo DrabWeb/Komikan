@@ -1089,9 +1089,10 @@
                         <string>coverImage</string>
                         <string>title</string>
                         <string>artist</string>
+                        <string>selected</string>
                     </declaredKeys>
                     <connections>
-                        <binding destination="rwH-XF-ldC" name="contentArray" keyPath="coverImages" id="Lhp-CZ-fbm"/>
+                        <binding destination="rwH-XF-ldC" name="contentArray" keyPath="manga" id="LsF-tY-Vwt"/>
                     </connections>
                 </arrayController>
             </objects>
@@ -1169,7 +1170,7 @@
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="40T-69-Lew">
                                         <rect key="frame" x="234" y="54" width="232" height="32"/>
                                         <animations/>
-                                        <buttonCell key="cell" type="push" title="Choose Directory" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="BKy-51-dff">
+                                        <buttonCell key="cell" type="push" title="Change Directory" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="BKy-51-dff">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -1233,11 +1234,22 @@
         <scene sceneID="nsn-SP-i81">
             <objects>
                 <collectionViewItem storyboardIdentifier="mangaCollectionViewItem" id="H6C-sh-Guu" userLabel="Manga Grid Collection View Item" sceneMemberID="viewController">
-                    <view key="view" wantsLayer="YES" id="s6v-rn-nM4">
+                    <view key="view" wantsLayer="YES" appearanceType="aqua" id="s6v-rn-nM4">
                         <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <imageView wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eTX-po-Lb6">
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3D5-uK-2Mo" userLabel="Selection Box" customClass="KMMangaGridSelectionBox" customModule="Komikan" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                                <animations/>
+                                <connections>
+                                    <binding destination="H6C-sh-Guu" name="hidden" keyPath="representedObject.selected" id="Jr8-Mp-Nvx">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </customView>
+                            <imageView wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eTX-po-Lb6" userLabel="Cover Image View">
                                 <rect key="frame" x="12" y="41" width="276" height="247"/>
                                 <shadow key="shadow" blurRadius="8">
                                     <size key="offset" width="0.0" height="-8"/>
@@ -1249,7 +1261,7 @@
                                     <binding destination="H6C-sh-Guu" name="value" keyPath="representedObject.coverImage" id="lNI-3X-v2k"/>
                                 </connections>
                             </imageView>
-                            <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Fsn-as-jfw">
+                            <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Fsn-as-jfw" userLabel="Title Label">
                                 <rect key="frame" x="10" y="12" width="280" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="PVK-lK-TFd"/>
