@@ -23,6 +23,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // The Manga/Bookmark menu item
     @IBOutlet weak var bookmarkCurrentPageMenuItem: NSMenuItem!
     
+    // Deletes everything in /tmp/komikan/. This houldnt be necessary unless you never turn off your computer and open a whole ton of different manga
+    @IBAction func clearMangaCacheMenuItemInteracted(sender: AnyObject) {
+        // Clear the cache
+        clearCache();
+    }
+    
     // The view controller we will load for the reader
     var mangaReaderViewController: KMReaderViewController?;
     
@@ -40,10 +46,31 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Get the view controller from the window
         mangaReaderViewController = (mangaReaderWindowController.contentViewController as? KMReaderViewController);
         
+        // Tell the view controller to open the manga we passed at the page we passed
         mangaReaderViewController?.openManga(manga, page: page);
         
         // Present mangaReaderWindowController
         mangaReaderWindowController.showWindow(self);
+    }
+    
+    // Clears the cache
+    func clearCache() {
+        // Get everything in /tmp/komikan and delete it
+        do {
+            // Get all files in /tmp/komikan
+            let files = try NSFileManager.defaultManager().contentsOfDirectoryAtPath("/tmp/komikan");
+            
+            // Delete all of them
+            for (_, currentFile) in files.enumerate() {
+                print("Deleting /tmp/komikan/" + currentFile);
+                try NSFileManager.defaultManager().removeItemAtPath("/tmp/komikan/" + currentFile);
+            }
+            
+            // If there is an error...
+        } catch _ as NSError {
+            // Print to the log that the cache is already cleared
+            print("Cache is already cleared");
+        }
     }
     
     func applicationDidFinishLaunching(aNotification: NSNotification) {
