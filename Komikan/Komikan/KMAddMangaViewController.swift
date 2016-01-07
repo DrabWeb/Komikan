@@ -64,7 +64,7 @@ class KMAddMangaViewController: NSViewController {
         newManga.artist = artistTextField.stringValue;
         
         // Set the new mangas directory
-        newManga.directory = (chooseDirectoryOpenPanel.URL?.absoluteString.stringByRemovingPercentEncoding!)!;
+        newManga.directory = (chooseDirectoryOpenPanel.URL?.absoluteString.stringByRemovingPercentEncoding!)!.stringByReplacingOccurrencesOfString("file://", withString: "");
         
         // Set the new mangas writer
         newManga.writer = writerTextField.stringValue;

@@ -700,7 +700,7 @@
         <!--Reader Window Controller-->
         <scene sceneID="dZE-lJ-d2y">
             <objects>
-                <windowController id="hqT-Ww-2fl" userLabel="Reader Window Controller" sceneMemberID="viewController">
+                <windowController storyboardIdentifier="reader" id="hqT-Ww-2fl" userLabel="Reader Window Controller" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="eRb-FN-blj">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -959,17 +959,6 @@
                                             <animations/>
                                         </scroller>
                                     </scrollView>
-                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FgP-hO-snQ">
-                                        <rect key="frame" x="14" y="395" width="113" height="32"/>
-                                        <animations/>
-                                        <buttonCell key="cell" type="push" title="Reader Test" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Q0x-9I-ZL5">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <segue destination="hqT-Ww-2fl" kind="show" id="Huo-gi-lVx"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="pwJ-e1-0oZ" secondAttribute="trailing" id="ETK-1O-rA8"/>

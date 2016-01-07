@@ -23,6 +23,29 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // The Manga/Bookmark menu item
     @IBOutlet weak var bookmarkCurrentPageMenuItem: NSMenuItem!
     
+    // The view controller we will load for the reader
+    var mangaReaderViewController: KMReaderViewController?;
+    
+    // The controller for the reader window
+    var mangaReaderWindowController : NSWindowController!;
+    
+    // Opens the specified manga in the reader at the specified page
+    func openManga(manga : KMManga, page : Int) {
+        // Get the main storyboard
+        let storyboard = NSStoryboard(name: "Main", bundle: nil);
+        
+        // Instanstiate the view controller for the reader
+        mangaReaderWindowController = storyboard.instantiateControllerWithIdentifier("reader") as? NSWindowController;
+        
+        // Get the view controller from the window
+        mangaReaderViewController = (mangaReaderWindowController.contentViewController as? KMReaderViewController);
+        
+        mangaReaderViewController?.openManga(manga, page: page);
+        
+        // Present mangaReaderWindowController
+        mangaReaderWindowController.showWindow(self);
+    }
+    
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         // Insert code here to initialize your application
     }

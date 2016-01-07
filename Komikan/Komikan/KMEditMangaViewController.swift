@@ -9,8 +9,6 @@
 import Cocoa
 
 class KMEditMangaViewController: NSViewController {
-
-    // NSNotificationCenter.defaultCenter().postNotificationName("KMEditMangaViewController.Finished", object: newManga);
     
     // The visual effect view for the background of the popover
     @IBOutlet weak var backgroundVisualEffectView: NSVisualEffectView!
@@ -47,7 +45,11 @@ class KMEditMangaViewController: NSViewController {
     
     // When we press openButton...
     @IBAction func openButtonPressed(sender: AnyObject) {
+        // Close the popover
+        self.dismissController(self);
         
+        // Open the manga we have
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.openManga(manga, page: 0);
     }
     
     // The button to save our edits to the manga

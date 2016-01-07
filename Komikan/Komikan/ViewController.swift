@@ -93,20 +93,6 @@ class ViewController: NSViewController {
         
         // Start a 0.1 second loop that will fix the windows look in fullscreen
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("deleteTitlebarInFullscreen"), userInfo: nil, repeats:true);
-        
-        // Example manga for the grid
-        let nonNonBiyori : KMManga = KMManga();
-        nonNonBiyori.coverImage = NSImage(named: "example-cover-two")!;
-        nonNonBiyori.artist = "Media Factory";
-        
-        // Path for my machine
-        nonNonBiyori.directory = "/Volumes/Storage/Japanese/Manga/Non Non Biyori/Non Non Biyori - Chapter 013.cbz";
-        
-        nonNonBiyori.title = "Non Non Biyori - Chapter 13";
-        nonNonBiyori.writer = "Atto";
-        nonNonBiyori.series = "Non Non Biyori";
-        
-        mangaGridController.addManga(nonNonBiyori);
     }
     
     func styleWindow() {

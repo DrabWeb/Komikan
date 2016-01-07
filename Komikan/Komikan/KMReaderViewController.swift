@@ -82,108 +82,69 @@ class KMReaderViewController: NSViewController {
         
         // Start the 0.1 second loop for the mouse hovering
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("mouseHoverHandling"), userInfo: nil, repeats:true);
-        
-        // Testing reader.
-        // Dont allow the open panel to allow multiple image selections
-        openPanel.allowsMultipleSelection = false;
-        
-        // Set the open panels allowed file types to only CBZ and CBR(CBR is disabled until I can get it to work, need a RAR library for swift)
-        openPanel.allowedFileTypes = ["cbz"/*, "cbr"*/];
-        
-        // Show the open panel modal
-        openPanel.runModal();
-        
-        openManga(openPanel.URL!, page: 0);
     }
     
-    func openManga(mangaPath : NSURL, page : Int) {
-        // Create a variable to say if we can open the passed file(Default is false)
-        var canOpen : Bool = false;
+    func openManga(openingManga : KMManga, page : Int) {
+        manga = openingManga;
         
-        // Create a variable to store the files URL without %20s, because NSURL adds them and I dont know how to stop that from happening
-        let mangaPathWithoutOnlineMarkers : String = KMFileUtilities().removeURLEncoding(mangaPath.absoluteString);
+        // Print to the log what we are opening
+        print("Opening \"" + manga.title + "\"");
         
-        // Check if it is a CBZ or a CBR(The file formats we support)
-        let mangaExtension : String = KMFileUtilities().getFileExtension(mangaPath);
+        // Reset the mangas pages
+        manga.pages = [NSImage()];
+    
+        // Set the windows title to match the mangas name
+        readerWindow.title = manga.title;
         
-        // Set manga.directory to mangaPath
-        manga.directory = mangaPath.absoluteString;
+        // Set mangaDirectory to /tmp/komikan/komikanmanga-(Archive name)
+        manga.tmpDirectory += manga.title + "/";
         
-        // If the manga we are trying to open is a CBZ or a CBR...
-        if(mangaExtension == "cbz" || mangaExtension == "cbr") {
-            // Say we can open it
-            canOpen = true;
+        // Unzip the manga we are opening to /tmp/komikanmanga
+        WPZipArchive.unzipFileAtPath(manga.directory, toDestination: manga.tmpDirectory);
+        
+        // Some archives will create a __MACOSX folder in the extracted folder, lets delete that
+        do {
+            // Remove the possible __MACOSX folder
+            try NSFileManager().removeItemAtPath(manga.tmpDirectory + "/__MACOSX");
+            
+            // Print to the log that we deleted it
+            print("Deleted the __MACOSX folder in \"" + manga.title + "\"");
+        // If there is an error...
+        } catch _ as NSError {
+            // Print to the log that there is no __MACOSX folder to delete
+            print("No __MACOSX folder to delete in \"" + manga.title + "\"");
         }
         
-        // If we cant open it...
-        if(!canOpen) {
-            print("Unsupported extension \"" + mangaExtension + "\". Unable to open \"" + mangaPathWithoutOnlineMarkers + "\"");
-        }
-        // If we can open it...
-        else {
-            // Open it!
-            // Print to the log what we are opening
-            print("Opening \"" + mangaPathWithoutOnlineMarkers + "\"");
-            
-            // Reset the mangas pages
-            manga.pages = [NSImage()];
-            
-            // Set the mangas title to the manga we are openings title
-            manga.title = KMFileUtilities().getFileNameWithoutExtension(mangaPath);
-            
-            // Set the windows title to match the mangas name
-            readerWindow.title = manga.title;
-            
-            // Set mangaDirectory to /tmp/komikan/komikanmanga-(Archive name)
-            manga.tmpDirectory += manga.title + "/";
-            
-            // Unzip the manga we are opening to /tmp/komikanmanga
-            WPZipArchive.unzipFileAtPath(mangaPathWithoutOnlineMarkers.stringByReplacingOccurrencesOfString("file://", withString: ""), toDestination: manga.tmpDirectory);
-            
-            // Some archives will create a __MACOSX folder in the extracted folder, lets delete that
-            do {
-                // Remove the possible __MACOSX folder
-                try NSFileManager().removeItemAtPath(manga.tmpDirectory + "/__MACOSX");
+        // Set openMangaPages to all the pages in /tmp/komikanmanga
+        do {
+            // For every file in /tmp/komikanmanga...
+            for currentPage in try NSFileManager().contentsOfDirectoryAtPath(manga.tmpDirectory).enumerate() {
+                // Print to the log what file we found
+                print("Found page \"" + currentPage.element + "\"");
                 
-                // Print to the log that we deleted it
-                print("Deleted the __MACOSX folder in \"" + manga.title + "\"");
-            // If there is an error...
-            } catch _ as NSError {
-                // Print to the log that there is no __MACOSX folder to delete
-                print("No __MACOSX folder to delete in \"" + manga.title + "\"");
+                // Append this image to the openMangaPages array
+                manga.pages.append(NSImage(contentsOfFile: manga.tmpDirectory + currentPage.element)!);
             }
-            
-            // Set openMangaPages to all the pages in /tmp/komikanmanga
-            do {
-                // For every file in /tmp/komikanmanga...
-                for currentPage in try NSFileManager().contentsOfDirectoryAtPath(manga.tmpDirectory).enumerate() {
-                    // Print to the log what file we found
-                    print("Found page \"" + currentPage.element + "\"");
-                    
-                    // Append this image to the openMangaPages array
-                    manga.pages.append(NSImage(contentsOfFile: manga.tmpDirectory + currentPage.element)!);
-                }
-            // If there is an error...
-            } catch let error as NSError {
-                // Print the error description to the log
-                print(error.description);
-            }
-            
-            // Remove the first image in openMangaPages(Its always nil for no reason)
-            manga.pages.removeAtIndex(0);
-            
-            // Set mangaPageCount
-            manga.pageCount = manga.pages.count;
-            
-            // Jump to the page we said to start at
-            jumpToPage(page, round: false);
-            
-            // Setup the menubar items actions
-            (NSApplication.sharedApplication().delegate as? AppDelegate)?.nextPageMenubarItem.action = Selector("nextPage");
-            (NSApplication.sharedApplication().delegate as? AppDelegate)?.previousPageMenubarItem.action = Selector("previousPage");
-            (NSApplication.sharedApplication().delegate as? AppDelegate)?.jumpToPageMenuItem.action = Selector("promptToJumpToPage");
-            (NSApplication.sharedApplication().delegate as? AppDelegate)?.bookmarkCurrentPageMenuItem.action = Selector("bookmarkCurrentPage");
+        // If there is an error...
+        } catch let error as NSError {
+            // Print the error description to the log
+            print(error.description);
         }
+        
+        // Remove the first image in openMangaPages(Its always nil for no reason)
+        manga.pages.removeAtIndex(0);
+        
+        // Set mangaPageCount
+        manga.pageCount = manga.pages.count;
+        
+        // Jump to the page we said to start at
+        jumpToPage(page, round: false);
+        
+        // Setup the menubar items actions
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.nextPageMenubarItem.action = Selector("nextPage");
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.previousPageMenubarItem.action = Selector("previousPage");
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.jumpToPageMenuItem.action = Selector("promptToJumpToPage");
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.bookmarkCurrentPageMenuItem.action = Selector("bookmarkCurrentPage");
     }
     
     func isPageBookmarked(page : Int) -> Bool {
