@@ -98,8 +98,10 @@ class ViewController: NSViewController {
         let nonNonBiyori : KMManga = KMManga();
         nonNonBiyori.coverImage = NSImage(named: "example-cover-two")!;
         nonNonBiyori.artist = "Media Factory";
+        
         // Path for my machine
         nonNonBiyori.directory = "/Volumes/Storage/Japanese/Manga/Non Non Biyori/Non Non Biyori - Chapter 013.cbz";
+        
         nonNonBiyori.title = "Non Non Biyori - Chapter 13";
         nonNonBiyori.writer = "Atto";
         nonNonBiyori.series = "Non Non Biyori";
