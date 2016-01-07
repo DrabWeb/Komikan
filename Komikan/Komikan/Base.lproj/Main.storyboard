@@ -1089,7 +1089,6 @@
                         <string>coverImage</string>
                         <string>title</string>
                         <string>artist</string>
-                        <string>selected</string>
                     </declaredKeys>
                     <connections>
                         <binding destination="rwH-XF-ldC" name="contentArray" keyPath="manga" id="LsF-tY-Vwt"/>
@@ -1242,7 +1241,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                                 <animations/>
                                 <connections>
-                                    <binding destination="H6C-sh-Guu" name="hidden" keyPath="representedObject.selected" id="Jr8-Mp-Nvx">
+                                    <binding destination="H6C-sh-Guu" name="hidden" keyPath="self.selected" id="CTE-GC-H9g">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
@@ -1266,10 +1265,6 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="PVK-lK-TFd"/>
                                 </constraints>
-                                <shadow key="shadow" blurRadius="1">
-                                    <size key="offset" width="0.0" height="1"/>
-                                    <color key="color" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
-                                </shadow>
                                 <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="rGh-7U-250">
                                     <font key="font" metaFont="system"/>
