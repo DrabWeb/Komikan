@@ -17,16 +17,16 @@ class KMManga {
     var pages : [NSImage] = [NSImage()];
     
     // The title of this manga
-    var title : String = "Failed to load title";
+    var title : String = "";
     
     // The series this manga belongs to
-    var series : String = "Failed to load series";
+    var series : String = "";
     
     // The artist(s) of this manga
-    var artist : String = "Failed to load artist";
+    var artist : String = "";
     
     // The person(s) who wrote this manga
-    var writer : String = "Failed to load writer";
+    var writer : String = "";
     
     // The directory of this mangas CBZ/CBR
     var directory : String = ""

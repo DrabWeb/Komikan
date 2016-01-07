@@ -72,7 +72,7 @@ class ViewController: NSViewController {
     // Called when we hit "Add" in the addmanga popover
     func addMangaFromAddMangaPopover(notification: NSNotification) {
         // Print to the log that we have recieved it and its name
-        print("Recieving manga \"" + ((notification.object as? KMManga)?.title)! + "\" from Add Manga popover...");
+        print("Recieving manga \"" + ((notification.object as? KMManga)?.title)! + "\" from Add Manga popover");
         
         // Add the manga to the grid
         mangaGridController.addManga((notification.object as? KMManga)!);

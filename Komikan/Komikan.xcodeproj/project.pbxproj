@@ -19,6 +19,7 @@
 		5D5DBEFA1C358BD3004D8C5D /* KMMangaGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBEF91C358BD3004D8C5D /* KMMangaGridItem.swift */; settings = {ASSET_TAGS = (); }; };
 		5D5DBEFC1C358BE0004D8C5D /* KMMangaGridController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBEFB1C358BE0004D8C5D /* KMMangaGridController.swift */; settings = {ASSET_TAGS = (); }; };
 		5D5DBF021C35923F004D8C5D /* KMReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBF011C35923F004D8C5D /* KMReaderViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		5D8C1CAA1C3F09E5001AD41B /* KMEditMangaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8C1CA91C3F09E5001AD41B /* KMEditMangaViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		5DBB0DFF1C36DA0000495985 /* KMFileUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBB0DFE1C36DA0000495985 /* KMFileUtilities.swift */; settings = {ASSET_TAGS = (); }; };
 		5DC97D691C3EFF8200CC1006 /* KMMangaGridCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC97D681C3EFF8200CC1006 /* KMMangaGridCollectionItem.swift */; settings = {ASSET_TAGS = (); }; };
 		5DFBC77D1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFBC77C1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift */; settings = {ASSET_TAGS = (); }; };
@@ -61,6 +62,7 @@
 		5D5DBEF91C358BD3004D8C5D /* KMMangaGridItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaGridItem.swift; sourceTree = "<group>"; };
 		5D5DBEFB1C358BE0004D8C5D /* KMMangaGridController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaGridController.swift; sourceTree = "<group>"; };
 		5D5DBF011C35923F004D8C5D /* KMReaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMReaderViewController.swift; sourceTree = "<group>"; };
+		5D8C1CA91C3F09E5001AD41B /* KMEditMangaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMEditMangaViewController.swift; sourceTree = "<group>"; };
 		5DBB0DFE1C36DA0000495985 /* KMFileUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMFileUtilities.swift; sourceTree = "<group>"; };
 		5DBB0E061C36E2C700495985 /* Komikan-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Komikan-Bridging-Header.h"; sourceTree = "<group>"; };
 		5DC97D681C3EFF8200CC1006 /* KMMangaGridCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaGridCollectionItem.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 		5D5A11771C370EDC00C7A6A5 /* Manga Grid */ = {
 			isa = PBXGroup;
 			children = (
+				5D8C1CAB1C3F0DBA001AD41B /* Edit Manga */,
 				5D5DBEF91C358BD3004D8C5D /* KMMangaGridItem.swift */,
 				5DC97D681C3EFF8200CC1006 /* KMMangaGridCollectionItem.swift */,
 				5D5DBEFB1C358BE0004D8C5D /* KMMangaGridController.swift */,
@@ -204,6 +207,14 @@
 				5D5DBED41C3584F5004D8C5D /* Main.storyboard */,
 			);
 			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		5D8C1CAB1C3F0DBA001AD41B /* Edit Manga */ = {
+			isa = PBXGroup;
+			children = (
+				5D8C1CA91C3F09E5001AD41B /* KMEditMangaViewController.swift */,
+			);
+			name = "Edit Manga";
 			sourceTree = "<group>";
 		};
 		5DBB0DFD1C36D9E400495985 /* Utilities */ = {
@@ -423,6 +434,7 @@
 				5D0D2A521C39A11000E3B8D0 /* KMAddMangaViewController.swift in Sources */,
 				5DFBC77D1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift in Sources */,
 				5D5DBEFC1C358BE0004D8C5D /* KMMangaGridController.swift in Sources */,
+				5D8C1CAA1C3F09E5001AD41B /* KMEditMangaViewController.swift in Sources */,
 				5D5DBF021C35923F004D8C5D /* KMReaderViewController.swift in Sources */,
 				5D1388CC1C3836C200B5EAAD /* KMReaderPanelView.swift in Sources */,
 				5D5DBEFA1C358BD3004D8C5D /* KMMangaGridItem.swift in Sources */,
