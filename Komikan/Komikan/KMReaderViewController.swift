@@ -115,14 +115,14 @@ class KMReaderViewController: NSViewController {
             print("No __MACOSX folder to delete in \"" + manga.title + "\"");
         }
         
-        // Set openMangaPages to all the pages in /tmp/komikanmanga
+        // Set manga.pages to all the pages in /tmp/komikanmanga
         do {
             // For every file in /tmp/komikanmanga...
             for currentPage in try NSFileManager().contentsOfDirectoryAtPath(manga.tmpDirectory).enumerate() {
                 // Print to the log what file we found
                 print("Found page \"" + currentPage.element + "\"");
                 
-                // Append this image to the openMangaPages array
+                // Append this image to the manga.pages array
                 manga.pages.append(NSImage(contentsOfFile: manga.tmpDirectory + currentPage.element)!);
             }
         // If there is an error...
