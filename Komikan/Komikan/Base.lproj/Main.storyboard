@@ -1402,6 +1402,21 @@
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Xrn-Lr-W43">
+                                        <rect key="frame" x="14" y="13" width="82" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="70" id="3E1-pC-9ah"/>
+                                            <constraint firstAttribute="height" constant="21" id="xTj-T8-cmV"/>
+                                        </constraints>
+                                        <animations/>
+                                        <buttonCell key="cell" type="push" title="Remove" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="y10-pZ-ga6">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="removeButtonPressed:" target="ZeA-Vi-1xn" id="giq-c9-eyg"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="pCb-h2-X68" firstAttribute="leading" secondItem="YPg-C4-Ta2" secondAttribute="trailing" constant="20" id="0Dn-BC-3Rm"/>
@@ -1418,7 +1433,9 @@
                                     <constraint firstItem="YPg-C4-Ta2" firstAttribute="leading" secondItem="xDm-lb-sT6" secondAttribute="leading" constant="20" id="SOj-4g-Kn1"/>
                                     <constraint firstItem="zqt-LM-HAn" firstAttribute="top" secondItem="CH2-PF-IT1" secondAttribute="bottom" constant="20" id="Sv8-HL-OI5"/>
                                     <constraint firstAttribute="bottom" secondItem="Q4U-r9-qZk" secondAttribute="bottom" constant="20" id="UEg-Ws-zy0"/>
+                                    <constraint firstItem="Xrn-Lr-W43" firstAttribute="leading" secondItem="xDm-lb-sT6" secondAttribute="leading" constant="20" id="Xee-DI-7fk"/>
                                     <constraint firstItem="CH2-PF-IT1" firstAttribute="leading" secondItem="YPg-C4-Ta2" secondAttribute="trailing" constant="20" id="Y0e-LE-PW2"/>
+                                    <constraint firstAttribute="bottom" secondItem="Xrn-Lr-W43" secondAttribute="bottom" constant="20" id="Zdj-sg-N7e"/>
                                     <constraint firstAttribute="trailing" secondItem="uMj-mL-fzg" secondAttribute="trailing" constant="20" id="bc5-xb-bYm"/>
                                     <constraint firstItem="A3a-9C-RTX" firstAttribute="leading" secondItem="YPg-C4-Ta2" secondAttribute="trailing" constant="20" id="eYg-i5-A3b"/>
                                     <constraint firstAttribute="trailing" secondItem="CH2-PF-IT1" secondAttribute="trailing" constant="20" id="frM-KO-frx"/>

@@ -19,6 +19,9 @@ class KMMangaGridCollectionItem: NSCollectionViewItem {
             // Open the edit/open popover
             openPopover();
         }
+        
+        // Select this item
+        self.selected = true;
     }
     
     func openPopover() {

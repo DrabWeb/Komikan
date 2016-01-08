@@ -96,6 +96,18 @@ class ViewController: NSViewController {
         
         // Load the manga we had in the grid
         loadManga();
+        
+        // Subscribe to the edit manga popovers remove function
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "removeSelectItemFromMangaGrid:", name:"KMEditMangaViewController.Remove", object: nil);
+    }
+    
+    // Removes the selected item from the manga grid
+    func removeSelectItemFromMangaGrid(notification : NSNotification) {
+        // Print to the log that we are removing this manga
+        print("Removing \"" + (notification.object as? KMManga)!.title + "\" from the manga grid");
+        
+        // Remove this item from the collection view
+        mangaCollectionViewArray.removeObjectsAtArrangedObjectIndexes(NSIndexSet(index: mangaCollectionView.selectionIndexes.lastIndex));
     }
     
     func styleWindow() {

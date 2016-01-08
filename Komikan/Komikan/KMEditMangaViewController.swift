@@ -61,6 +61,14 @@ class KMEditMangaViewController: NSViewController {
         saveBackToGrid();
     }
     
+    @IBAction func removeButtonPressed(sender: AnyObject) {
+        // Close the popover
+        self.dismissController(self);
+        
+        // Post the notification back to the collection view item so it can remove itself
+        NSNotificationCenter.defaultCenter().postNotificationName("KMEditMangaViewController.Remove", object: manga);
+    }
+    
     // The manga we were passed
     var manga : KMManga = KMManga();
     
