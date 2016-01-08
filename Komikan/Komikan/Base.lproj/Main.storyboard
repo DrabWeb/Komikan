@@ -1077,7 +1077,6 @@
                     <declaredKeys>
                         <string>coverImage</string>
                         <string>title</string>
-                        <string>artist</string>
                     </declaredKeys>
                     <connections>
                         <binding destination="rwH-XF-ldC" name="contentArray" keyPath="manga" id="LsF-tY-Vwt"/>
@@ -1153,7 +1152,7 @@
                                             <constraint firstAttribute="width" constant="200" id="eKa-MS-RVY"/>
                                         </constraints>
                                         <animations/>
-                                        <imageCell key="cell" selectable="YES" editable="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSRevealFreestandingTemplate" id="ltW-7K-Mp4"/>
+                                        <imageCell key="cell" selectable="YES" editable="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSFlowViewTemplate" id="ltW-7K-Mp4"/>
                                     </imageView>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="40T-69-Lew">
                                         <rect key="frame" x="234" y="54" width="232" height="32"/>
@@ -1208,6 +1207,7 @@
                         <outlet property="addButton" destination="j5Z-Uz-rcA" id="CBy-Hw-7Ga"/>
                         <outlet property="artistTextField" destination="0h6-Q8-SRO" id="cOk-Us-c0q"/>
                         <outlet property="backgroundVisualEffectView" destination="Zas-Qb-QC2" id="1RW-L0-HQF"/>
+                        <outlet property="chooseDirectoryButton" destination="40T-69-Lew" id="reX-mZ-8KZ"/>
                         <outlet property="coverImageView" destination="aHF-zD-YNV" id="6dw-HN-JUr"/>
                         <outlet property="seriesTextField" destination="oMa-wR-kJR" id="ihN-Iv-grq"/>
                         <outlet property="titleTextField" destination="phb-On-nnz" id="B2C-k9-qir"/>
@@ -1475,6 +1475,7 @@
         <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSBookmarksTemplate" width="17" height="18"/>
+        <image name="NSFlowViewTemplate" width="18" height="10"/>
         <image name="NSRevealFreestandingTemplate" width="14" height="14"/>
         <image name="NSShareTemplate" width="11" height="16"/>
         <image name="example-cover" width="158.605712890625" height="205.71427917480469"/>

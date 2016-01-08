@@ -71,6 +71,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to initialize your application
         // Clear the cache on load
         clearCache();
+        
+        // Clears the manga grid, used for debugging
+//        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(NSBundle.mainBundle().bundleIdentifier!);
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {

@@ -71,11 +71,24 @@ class ViewController: NSViewController {
     
     // Called when we hit "Add" in the addmanga popover
     func addMangaFromAddMangaPopover(notification: NSNotification) {
-        // Print to the log that we have recieved it and its name
-        print("Recieving manga \"" + ((notification.object as? KMManga)?.title)! + "\" from Add Manga popover");
+        print("Adding...");
         
-        // Add the manga to the grid
-        mangaGridController.addManga((notification.object as? KMManga)!);
+        // If we were passed an array of manga...
+        if((notification.object as? [KMManga]) != nil) {
+            print("Batch adding manga");
+            
+            for (_, currentManga) in ((notification.object as? [KMManga])?.enumerate())! {
+                // Add the current manga to the grid
+                mangaGridController.addManga(currentManga);
+            }
+        }
+        else {
+            // Print to the log that we have recieved it and its name
+            print("Recieving manga \"" + ((notification.object as? KMManga)?.title)! + "\" from Add Manga popover");
+            
+            // Add the manga to the grid
+            mangaGridController.addManga((notification.object as? KMManga)!);
+        }
         
         // Stop addMangaViewController.addButtonUpdateLoop, so it stops eating resources when it doesnt need to
         addMangaViewController?.addButtonUpdateLoop.invalidate();
