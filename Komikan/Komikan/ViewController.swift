@@ -93,6 +93,9 @@ class ViewController: NSViewController {
         
         // Start a 0.1 second loop that will fix the windows look in fullscreen
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("deleteTitlebarInFullscreen"), userInfo: nil, repeats:true);
+        
+        // Load the manga we had in the grid
+        loadManga();
     }
     
     func styleWindow() {
@@ -126,11 +129,40 @@ class ViewController: NSViewController {
             window.toolbar?.visible = true;
         }
     }
+    
+    // Saves the manga in the grid
+    func saveManga() {
+        // Create a NSKeyedArchiver data with the manga array controllers objects
+        let data = NSKeyedArchiver.archivedDataWithRootObject(mangaCollectionViewArray.arrangedObjects);
+        
+        // Set the standard user defaults mangaArray key to that data
+        NSUserDefaults.standardUserDefaults().setObject(data, forKey: "mangaArray");
+        
+        // Synchronize the data
+        NSUserDefaults.standardUserDefaults().synchronize();
+    }
+    
+    // Load the saved manga back to the grid
+    func loadManga() {
+        // If we have any data to load...
+        if let data = NSUserDefaults.standardUserDefaults().objectForKey("mangaArray") as? NSData {
+            // For every KMMangaGridItem in the saved manga grids items...
+            for (_, currentManga) in (NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [KMMangaGridItem]).enumerate() {
+                // Add the current object to the manga grid
+                mangaCollectionViewArray.addObject(currentManga);
+            }
+        }
+    }
 
     override var representedObject: AnyObject? {
         didSet {
             // Update the view, if already loaded.
         }
+    }
+    
+    override func viewWillDisappear() {
+        // Save the manga in the grid
+        saveManga();
     }
 }
 

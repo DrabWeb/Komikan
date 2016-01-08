@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class KMMangaGridItem: NSObject {
+class KMMangaGridItem: NSObject, NSCoding {
     // The cover image for this grid item
     var coverImage : NSImage = NSImage(named: "NSCaution")!;
     
@@ -31,5 +31,38 @@ class KMMangaGridItem: NSObject {
         
         // Set the title to the mangas title
         title = manga.title;
+    }
+    
+    func encodeWithCoder(coder: NSCoder) {
+        // Encode the mangas values
+        // The image must be saved as NSData
+        coder.encodeObject(self.manga.coverImage.TIFFRepresentation, forKey: "manga.coverImage");
+        
+        coder.encodeObject(self.manga.title, forKey: "manga.title");
+        coder.encodeObject(self.manga.series, forKey: "manga.series");
+        coder.encodeObject(self.manga.artist, forKey: "manga.artist");
+        coder.encodeObject(self.manga.writer, forKey: "manga.writer");
+        coder.encodeObject(self.manga.directory, forKey: "manga.directory");
+        coder.encodeObject(self.manga.bookmarks, forKey: "manga.bookmarks");
+    }
+    
+    required convenience init(coder decoder: NSCoder) {
+        self.init()
+        // Decode and laod the mangas values
+        // Convert the data to an image
+        self.manga.coverImage = NSImage(data: (decoder.decodeObjectForKey("manga.coverImage") as! NSData?)!)!;
+        
+        self.manga.title = (decoder.decodeObjectForKey("manga.title") as! String?)!;
+        self.manga.series = (decoder.decodeObjectForKey("manga.series") as! String?)!;
+        self.manga.artist = (decoder.decodeObjectForKey("manga.artist") as! String?)!;
+        self.manga.writer = (decoder.decodeObjectForKey("manga.writer") as! String?)!;
+        self.manga.directory = (decoder.decodeObjectForKey("manga.directory") as! String?)!;
+        self.manga.bookmarks = (decoder.decodeObjectForKey("manga.bookmarks") as! [Int]?)!;
+        
+        // Set the title
+        self.title = manga.title;
+        
+        // Set the cover image
+        self.coverImage = manga.coverImage;
     }
 }
