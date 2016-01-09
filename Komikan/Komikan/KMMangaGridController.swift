@@ -83,12 +83,15 @@ class KMMangaGridController: NSObject {
             // Print to the log what we are searching for
             print("Searching for \"" + searchText + "\"");
             
+            // Remove all items from the array controller
+            arrayController.removeObjects(arrayController.arrangedObjects as! [AnyObject]);
+            
             // For every item in the manga grid...
             for (_, currentItem) in oldItems.enumerate() {
-                // If the current items title does not include the search string...
-                if(!(currentItem as? KMMangaGridItem)!.title.lowercaseString.containsString(searchText.lowercaseString)) {
-                    // Remove that object
-                    arrayController.removeObject(currentItem);
+                // If the current items title includes the search string...
+                if(currentItem.title.lowercaseString.containsString(searchText.lowercaseString)) {
+                    // Add the current object
+                    arrayController.addObject(currentItem);
                 }
             }
         }
