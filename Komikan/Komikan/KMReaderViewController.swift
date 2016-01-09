@@ -140,6 +140,12 @@ class KMReaderViewController: NSViewController {
         // Jump to the page we said to start at
         jumpToPage(page, round: false);
         
+        // Set the reader window frame to the first images frame
+        readerWindow.setFrame(NSRect(x: 0, y: 0, width: manga.pages[0].size.width, height: manga.pages[0].size.height), display: false);
+        
+        // Center the window
+        readerWindow.center();
+        
         // Setup the menubar items actions
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.nextPageMenubarItem.action = Selector("nextPage");
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.previousPageMenubarItem.action = Selector("previousPage");
