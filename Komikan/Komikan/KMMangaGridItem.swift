@@ -57,6 +57,7 @@ class KMMangaGridItem: NSObject, NSCoding {
         coder.encodeObject(self.manga.directory, forKey: "manga.directory");
         coder.encodeObject(self.manga.bookmarks, forKey: "manga.bookmarks");
         coder.encodeObject(self.manga.currentPage, forKey: "manga.currentPage");
+        coder.encodeObject(self.manga.tags, forKey: "manga.tags");
     }
     
     required convenience init(coder decoder: NSCoder) {
@@ -72,6 +73,7 @@ class KMMangaGridItem: NSObject, NSCoding {
         self.manga.directory = (decoder.decodeObjectForKey("manga.directory") as! String?)!;
         self.manga.bookmarks = (decoder.decodeObjectForKey("manga.bookmarks") as! [Int]?)!;
         self.manga.currentPage = (decoder.decodeObjectForKey("manga.currentPage") as! Int?)!;
+        self.manga.tags = (decoder.decodeObjectForKey("manga.tags") as! [String]?)!;
         
         // Set the title
         self.title = manga.title;

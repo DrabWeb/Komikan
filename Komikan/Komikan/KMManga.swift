@@ -28,6 +28,9 @@ class KMManga {
     // The person(s) who wrote this manga
     var writer : String = "";
     
+    // The tags for this manga
+    var tags : [String] = [];
+    
     // The directory of this mangas CBZ/CBR
     var directory : String = ""
     

@@ -15,18 +15,6 @@ class KMMangaGridController: NSObject {
     // An array to store all of the manga we are displaying in the collection view
     var manga : NSMutableArray = NSMutableArray();
     
-    override func awakeFromNib() {
-        // Load 100 pictures of the example manga cover and the title "Ushio Diary" to the collection view
-//        for _ in 1...100 {
-//            let newManga : KMManga = KMManga();
-//            
-//            newManga.coverImage = NSImage(named: "example-cover")!;
-//            newManga.title = "Ushio Diary";
-//            
-//            addManga(newManga);
-//        }
-    }
-    
     // Adds a given manga to the array
     func addManga(manga : KMManga) {
         // Print to the log that we are adding a manga to the grid and what its name is

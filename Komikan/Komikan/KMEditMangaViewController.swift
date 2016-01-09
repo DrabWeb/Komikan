@@ -28,6 +28,9 @@ class KMEditMangaViewController: NSViewController {
     // The text field for the mangas writer
     @IBOutlet weak var writerTextField: NSTextField!
     
+    // The text field for the mangas tags
+    @IBOutlet weak var tagsTextField: NSTextField!
+    
     // When we press the change directory button...
     @IBAction func changeDirectoryButtonPressed(sender: AnyObject) {
         // Show the change directory open panel
@@ -128,6 +131,15 @@ class KMEditMangaViewController: NSViewController {
         // Set the writer
         manga.writer = writerTextField.stringValue;
         
+        // Reset the mangas tags
+        manga.tags = [];
+        
+        // For every part of the tags text field's string value split at every ", "...
+        for (_, currentTag) in tagsTextField.stringValue.componentsSeparatedByString(", ").enumerate() {
+            // Append the current tags to the mangas tags
+            manga.tags.append(currentTag);
+        }
+        
         // Post the notification back to the collection view item so it can deal with it
         NSNotificationCenter.defaultCenter().postNotificationName("KMEditMangaViewController.Saving", object: manga);
     }
@@ -162,6 +174,20 @@ class KMEditMangaViewController: NSViewController {
         for (_, currentBookmark) in manga.bookmarks.enumerate() {
             // Add a menu item to the bookmarks dropdown with the title being Page and the bookmarked page
             bookmarksDropDown.addItemWithTitle("Page " + String(currentBookmark + 1));
+        }
+        
+        // For every tag in manga.tags...
+        for (currentIndex, currentTag) in manga.tags.enumerate() {
+            // If this is not the last one...
+            if(currentIndex < manga.tags.count - 1) {
+                // Append the current tag and ", "
+                tagsTextField.stringValue.appendContentsOf(currentTag + ", ");
+            }
+            // If this is the last one...
+            else {
+                // Append just the current tag
+                tagsTextField.stringValue.appendContentsOf(currentTag);
+            }
         }
     }
     

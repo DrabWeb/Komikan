@@ -59,7 +59,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             
             // Delete all of them
             for (_, currentFile) in files.enumerate() {
+                // Print to the log what we are removing
                 print("Deleting /tmp/komikan/" + currentFile);
+                
+                // Try to remove it
                 try NSFileManager.defaultManager().removeItemAtPath("/tmp/komikan/" + currentFile);
             }
             

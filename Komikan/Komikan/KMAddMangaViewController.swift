@@ -40,6 +40,9 @@ class KMAddMangaViewController: NSViewController {
     // The text field for the mangas writer
     @IBOutlet weak var writerTextField: NSTextField!
     
+    // The text field for the mangas tags
+    @IBOutlet weak var tagsTextField: NSTextField!
+    
     // The open panel to let the user choose the mangas directory
     var chooseDirectoryOpenPanel : NSOpenPanel = NSOpenPanel();
     
@@ -80,6 +83,15 @@ class KMAddMangaViewController: NSViewController {
             // Set the new mangas writer
             newManga.writer = writerTextField.stringValue;
             
+            // For every part of the tags text field's string value split at every ", "...
+            for (_, currentTag) in tagsTextField.stringValue.componentsSeparatedByString(", ").enumerate() {
+                // Print to the log what tag we are adding and what manga we are adding it to
+                print("Adding tag \"" + currentTag + "\" to \"" + newManga.title + "\"");
+                
+                // Append the current tags to the mangas tags
+                newManga.tags.append(currentTag);
+            }
+            
             // Post the notification saying we are done and sending back the manga
             NSNotificationCenter.defaultCenter().postNotificationName("KMAddMangaViewController.Finished", object: newManga);
         }
@@ -102,6 +114,15 @@ class KMAddMangaViewController: NSViewController {
                 
                 // Set the manga's writer
                 currentManga.writer = writerTextField.stringValue;
+                
+                // For every part of the tags text field's string value split at every ", "...
+                for (_, currentTag) in tagsTextField.stringValue.componentsSeparatedByString(", ").enumerate() {
+                    // Print to the log what tag we are adding and what manga we are adding it to
+                    print("Adding tag \"" + currentTag + "\" to \"" + newManga.title + "\"");
+                    
+                    // Append the current tags to the mangas tags
+                    newManga.tags.append(currentTag);
+                }
                 
                 // Add curentManga to the newMangaMultiple array
                 newMangaMultiple.append(currentManga);
