@@ -84,6 +84,9 @@ class KMReaderViewController: NSViewController {
     // Are we wanting to read in dual page mode?
     var dualPage : Bool = false;
     
+    // Are we fullscreen?
+    var isFullscreen : Bool = false;
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
@@ -167,6 +170,48 @@ class KMReaderViewController: NSViewController {
     func toggleDualPage() {
         // Toggle the dualPage bool
         dualPage = !dualPage;
+        
+        // Set the windows frame to match the first pages we open in dual page mode
+        // If we are in dualPage mode...
+        if(dualPage && !isFullscreen) {
+            var leftImageSize : NSSize = NSSize();
+            var rightImageSize : NSSize = NSSize();
+            
+            // If we add 1 to manga.currentPage and there would be an image at that index in manga.pages...
+            if(manga.currentPage + 1 < manga.pages.count) {
+                // Set leftImageSize to be the currentPage + 1's size
+                leftImageSize = manga.pages[manga.currentPage + 1].size;
+            }
+            else {
+                // Set leftImageSize to be the other pages size
+                leftImageSize = manga.pages[manga.currentPage].size;
+            }
+            
+            // Set rightImageSize to be the ucrrent pages image size
+            rightImageSize = manga.pages[manga.currentPage].size;
+            
+            // Set the reader windows frame to be two times the width of the current open page
+            readerWindow.setFrame(NSRect(x: 0, y: 0, width: leftImageSize.width + rightImageSize.width, height: rightImageSize.height), display: false);
+            
+            readerWindow.center();
+        }
+        else if(!dualPage && !isFullscreen) {
+            // Set the reader windows frame to be the reader image views image size
+            readerWindow.setFrame(NSRect(x: 0, y: 0, width: (readerImageView.image?.size.width)!, height: (readerImageView.image?.size.height)!), display: false);
+            
+            // Center the window
+            readerWindow.center();
+        }
+        
+        // If we are in dualpage mode...
+        if(dualPage) {
+            print(manga.currentPage % 2);
+            // If the current page number is even...
+            if(manga.currentPage % 2 == 1) {
+                // Subtract one from current page to make it odd
+                manga.currentPage = manga.currentPage - 1;
+            }
+        }
         
         // Update the page
         updatePage();
@@ -388,8 +433,15 @@ class KMReaderViewController: NSViewController {
         
         // If we are in dual page mode...
         if(dualPage) {
-            // Set the reader panels labels value
-            readerPageNumberLabel.stringValue = String(manga.currentPage + 1) + " - " + String(manga.currentPage + 2) + "/" + String(manga.pageCount);
+            // If we add 1 to the current page and it wont be above the page count...
+            if(!(manga.currentPage + 1 < manga.pages.count)) {
+                // Set the label to be "(Current page + 1) / (Page count)"
+                readerPageNumberLabel.stringValue = String(manga.currentPage + 1) + "/" + String(manga.pageCount);
+            }
+            else {
+                // Set the label to be "(Current page + 1) - (Current page + 2) / (Page count)"
+                readerPageNumberLabel.stringValue = String(manga.currentPage + 1) + " - " + String(manga.currentPage + 2) + "/" + String(manga.pageCount);
+            }
         }
         else {
             // Set the reader panels labels value
@@ -446,11 +498,14 @@ class KMReaderViewController: NSViewController {
     }
     
     func mouseHoverHandling() {
-        // A bool to say if we are hovering the window
-        var insideWindow : Bool = false;
-        
         // Are we fullscreen?
         var fullscreen : Bool = false;
+        
+        // Set isFullscreen to fullscreen
+        isFullscreen = fullscreen;
+        
+        // A bool to say if we are hovering the window
+        var insideWindow : Bool = false;
         
         // If the window is in fullscreen(Window height matches the screen height(This is really cheaty and I need to find a better way to do this))
         if(readerWindow.frame.height == NSScreen.mainScreen()?.frame.height) {
