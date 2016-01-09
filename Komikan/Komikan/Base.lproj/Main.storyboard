@@ -1418,6 +1418,25 @@
                                             <action selector="removeButtonPressed:" target="ZeA-Vi-1xn" id="giq-c9-eyg"/>
                                         </connections>
                                     </button>
+                                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="g5l-ZM-rna">
+                                        <rect key="frame" x="107" y="17" width="106" height="26"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="uop-3h-6TA"/>
+                                        </constraints>
+                                        <animations/>
+                                        <popUpButtonCell key="cell" type="push" title="Bookmarks" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" id="cLF-Zf-H7F">
+                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="menu"/>
+                                            <menu key="menu" id="F7n-la-roS">
+                                                <items>
+                                                    <menuItem title="Bookmarks" state="on" hidden="YES" id="B4o-5K-McJ"/>
+                                                </items>
+                                            </menu>
+                                        </popUpButtonCell>
+                                        <connections>
+                                            <action selector="bookmarksDropDownPressed:" target="ZeA-Vi-1xn" id="Asr-Ij-dlg"/>
+                                        </connections>
+                                    </popUpButton>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="pCb-h2-X68" firstAttribute="leading" secondItem="YPg-C4-Ta2" secondAttribute="trailing" constant="20" id="0Dn-BC-3Rm"/>
@@ -1425,7 +1444,9 @@
                                     <constraint firstItem="ipr-84-RQP" firstAttribute="top" secondItem="pCb-h2-X68" secondAttribute="bottom" constant="20" id="99k-6d-0OP"/>
                                     <constraint firstItem="Q4U-r9-qZk" firstAttribute="top" secondItem="CH2-PF-IT1" secondAttribute="bottom" constant="20" id="BCs-l6-TcY"/>
                                     <constraint firstAttribute="trailing" secondItem="ipr-84-RQP" secondAttribute="trailing" constant="20" id="Csb-mC-vJg"/>
+                                    <constraint firstAttribute="bottom" secondItem="g5l-ZM-rna" secondAttribute="bottom" constant="20" id="F7Y-2w-PcC"/>
                                     <constraint firstAttribute="bottom" secondItem="YPg-C4-Ta2" secondAttribute="bottom" constant="60" id="H6Q-X3-vwg"/>
+                                    <constraint firstItem="g5l-ZM-rna" firstAttribute="leading" secondItem="Xrn-Lr-W43" secondAttribute="trailing" constant="20" id="Hky-cC-zVv"/>
                                     <constraint firstAttribute="trailing" secondItem="A3a-9C-RTX" secondAttribute="trailing" constant="20" id="IMM-kZ-Wrh"/>
                                     <constraint firstItem="pCb-h2-X68" firstAttribute="top" secondItem="uMj-mL-fzg" secondAttribute="bottom" constant="20" id="JfB-a4-glx"/>
                                     <constraint firstItem="CH2-PF-IT1" firstAttribute="top" secondItem="ipr-84-RQP" secondAttribute="bottom" constant="20" id="JuX-qd-EmA"/>
@@ -1466,6 +1487,7 @@
                     <connections>
                         <outlet property="artistTextField" destination="pCb-h2-X68" id="vta-Yd-IYc"/>
                         <outlet property="backgroundVisualEffectView" destination="xDm-lb-sT6" id="5Mq-DK-HsO"/>
+                        <outlet property="bookmarksDropDown" destination="g5l-ZM-rna" id="TZg-5n-DEw"/>
                         <outlet property="coverImageView" destination="YPg-C4-Ta2" id="2NZ-Jk-o9b"/>
                         <outlet property="openButton" destination="Q4U-r9-qZk" id="0xf-mO-GLD"/>
                         <outlet property="saveButton" destination="zqt-LM-HAn" id="u9L-it-0yj"/>

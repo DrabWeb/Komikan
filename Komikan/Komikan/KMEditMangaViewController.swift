@@ -69,6 +69,18 @@ class KMEditMangaViewController: NSViewController {
         NSNotificationCenter.defaultCenter().postNotificationName("KMEditMangaViewController.Remove", object: manga);
     }
     
+    // The dropdown that lets us open our bookmarks
+    @IBOutlet weak var bookmarksDropDown: NSPopUpButton!
+    
+    // When we click an item in bookmarksDropDown
+    @IBAction func bookmarksDropDownPressed(sender: AnyObject) {
+        // Close the popover
+        self.dismissController(self);
+        
+        // Open the manga we have, at the bookmark we selected(The page is gotten by taking the selected items title, removing "Page " from it and converting it to an int)
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.openManga(manga, page: Int((bookmarksDropDown.selectedItem?.title.stringByReplacingOccurrencesOfString("Page ", withString: ""))!)! - 1);
+    }
+    
     // The manga we were passed
     var manga : KMManga = KMManga();
     
@@ -136,6 +148,21 @@ class KMEditMangaViewController: NSViewController {
         
         // Set the writer text field
         writerTextField.stringValue = manga.writer;
+        
+        // If there are no bookmarks...
+        if(manga.bookmarks.count == 0) {
+            // Hide the bookmarks dropdown
+            bookmarksDropDown.hidden = true;
+        }
+        
+        // Sort the bookmarks
+        manga.bookmarks = manga.bookmarks.sort();
+        
+        // For every bookmark in manga.bookmarks...
+        for (_, currentBookmark) in manga.bookmarks.enumerate() {
+            // Add a menu item to the bookmarks dropdown with the title being Page and the bookmarked page
+            bookmarksDropDown.addItemWithTitle("Page " + String(currentBookmark + 1));
+        }
     }
     
     func getMangaFromGrid(notification : NSNotification) {
