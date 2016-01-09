@@ -1004,8 +1004,8 @@
                                             </tabViewItem>
                                         </tabViewItems>
                                     </tabView>
-                                    <button focusRingType="none" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CDI-VA-JTT" userLabel="Add Manga Button">
-                                        <rect key="frame" x="430" y="3" width="49" height="30"/>
+                                    <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CDI-VA-JTT" userLabel="Add Manga Button">
+                                        <rect key="frame" x="429" y="3" width="49" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="45" id="tdd-bA-PV9"/>
                                         </constraints>
@@ -1018,8 +1018,8 @@
                                             <action selector="titlebarAddMangaButtonInteracted:" target="XfG-lQ-9wD" id="NEz-tp-e5e"/>
                                         </connections>
                                     </button>
-                                    <searchField wantsLayer="YES" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CEc-Ey-c9l">
-                                        <rect key="frame" x="483" y="7" width="150" height="22"/>
+                                    <searchField wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CEc-Ey-c9l">
+                                        <rect key="frame" x="483" y="7" width="150" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="150" id="kWQ-W1-5DX"/>
                                         </constraints>
