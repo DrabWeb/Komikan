@@ -36,6 +36,23 @@ class KMMangaGridController: NSObject {
         arrayController.addObject(newItem);
     }
     
+    func willQuit() {
+        // Remove all items from the array controller
+        arrayController.removeObjects(arrayController.arrangedObjects as! [AnyObject]);
+        
+        // Say we arent searching
+        searching = false;
+        
+        // For each of the manga we have in oldItems...
+        for (_, currentItem) in oldItems.enumerate() {
+            // Add the current item as a KMMangaGridItem to the manga grid array
+            arrayController.addObject(currentItem as! KMMangaGridItem);
+        }
+        
+        // Remove the observer so we dont get duplicate calls
+        NSNotificationCenter.defaultCenter().removeObserver(self);
+    }
+    
     // A bool to say if we are currently searching
     var searching : Bool = false;
     
@@ -44,6 +61,9 @@ class KMMangaGridController: NSObject {
     
     // Searches the manga grid for the passed string, and updates it accordingly
     func searchFor(searchText : String) {
+        // Subscribe to AppDelegate's WillQuit notification
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "willQuit", name:"Application.WillQuit", object: nil);
+        
         // If we arent searching for anything..
         if(searchText == "") {
             // Remove all items from the array controller
