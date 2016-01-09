@@ -16,6 +16,15 @@ class KMReaderViewController: NSViewController {
     // The image view for the reader window
     @IBOutlet weak var readerImageView: NSImageView!
     
+    // The stack view for dual page mode
+    @IBOutlet weak var dualPageStackView: NSStackView!
+    
+    // The left page image view for dual page mode
+    @IBOutlet weak var leftPageReaderImageView: NSImageView!
+    
+    // The right page image view for dual page mode
+    @IBOutlet weak var rightPageReaderImageView: NSImageView!
+    
     // The visual effect view for the reader windows titlebar
     @IBOutlet weak var titlebarVisualEffectView: NSVisualEffectView!
     
@@ -72,7 +81,8 @@ class KMReaderViewController: NSViewController {
     // The manga we have open
     var manga : KMManga = KMManga();
     
-    var openPanel : NSOpenPanel = NSOpenPanel();
+    // Are we wanting to read in dual page mode?
+    var dualPage : Bool = false;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -151,6 +161,15 @@ class KMReaderViewController: NSViewController {
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.previousPageMenubarItem.action = Selector("previousPage");
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.jumpToPageMenuItem.action = Selector("promptToJumpToPage");
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.bookmarkCurrentPageMenuItem.action = Selector("bookmarkCurrentPage");
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.dualPageMenuItem.action = Selector("toggleDualPage");
+    }
+    
+    func toggleDualPage() {
+        // Toggle the dualPage bool
+        dualPage = !dualPage;
+        
+        // Update the page
+        updatePage();
     }
     
     func isPageBookmarked(page : Int) -> Bool {
@@ -243,38 +262,76 @@ class KMReaderViewController: NSViewController {
     }
     
     func nextPage() {
-        // If we were to add 1 to mangaCurrentPage and it would be less than the openMangaPages count...
-        if(manga.currentPage + 1 < manga.pageCount) {
-            // Print to the log that we are going to the next page
-            print("Loading next page in \"" + manga.title + "\"");
-            
-            // Add 1 to mangaCurrentPage
-            manga.currentPage++;
-            
-            // Load the new page
-            updatePage();
+        if(dualPage) {
+            // If we were to add 2 to mangaCurrentPage and it would be less than the openMangaPages count...
+            if(manga.currentPage + 2 < manga.pageCount) {
+                // Print to the log that we are going to the next page
+                print("Loading next page in \"" + manga.title + "\"");
+                
+                // Add 2 to mangaCurrentPage
+                manga.currentPage += 2;
+                
+                // Load the new page
+                updatePage();
+            }
+            else {
+                // Print to the log that there is no next page
+                print("There is no next page in \"" + manga.title + "\"");
+            }
         }
         else {
-            // Print to the log that there is no next page
-            print("There is no next page in \"" + manga.title + "\"");
+            // If we were to add 1 to mangaCurrentPage and it would be less than the openMangaPages count...
+            if(manga.currentPage + 1 < manga.pageCount) {
+                // Print to the log that we are going to the next page
+                print("Loading next page in \"" + manga.title + "\"");
+                
+                // Add 1 to mangaCurrentPage
+                manga.currentPage++;
+                
+                // Load the new page
+                updatePage();
+            }
+            else {
+                // Print to the log that there is no next page
+                print("There is no next page in \"" + manga.title + "\"");
+            }
         }
     }
     
     func previousPage() {
-        // If we were to subtract 1 from mangaCurrentPage and it would be greater than 0...
-        if(manga.currentPage - 1 > -1) {
-            // Print to the log that we are going to the previous page
-            print("Loading previous page in \"" + manga.title + "\"");
-            
-            // Subtract 1 from mangaCurrentPage
-            manga.currentPage--;
-            
-            // Load the new page
-            updatePage();
+        if(dualPage) {
+            // If we were to subtract 2 from mangaCurrentPage and it would be greater than 0...
+            if(manga.currentPage - 2 > -1) {
+                // Print to the log that we are going to the previous page
+                print("Loading previous page in \"" + manga.title + "\"");
+                
+                // Subtract 2 from mangaCurrentPage
+                manga.currentPage -= 2;
+                
+                // Load the new page
+                updatePage();
+            }
+            else {
+                // Print to the log that there is no previous page
+                print("There is no previous page in \"" + manga.title + "\"");
+            }
         }
         else {
-            // Print to the log that there is no previous page
-            print("There is no previous page in \"" + manga.title + "\"");
+            // If we were to subtract 1 from mangaCurrentPage and it would be greater than 0...
+            if(manga.currentPage - 1 > -1) {
+                // Print to the log that we are going to the previous page
+                print("Loading previous page in \"" + manga.title + "\"");
+                
+                // Subtract 1 from mangaCurrentPage
+                manga.currentPage--;
+                
+                // Load the new page
+                updatePage();
+            }
+            else {
+                // Print to the log that there is no previous page
+                print("There is no previous page in \"" + manga.title + "\"");
+            }
         }
     }
     
@@ -329,9 +386,17 @@ class KMReaderViewController: NSViewController {
         // Load the new page
         readerImageView.image = manga.pages[manga.currentPage];
         
-        // Set the reader panels labels value
-        readerPageNumberLabel.stringValue = String(manga.currentPage + 1) + "/" + String(manga.pageCount);
+        // If we are in dual page mode...
+        if(dualPage) {
+            // Set the reader panels labels value
+            readerPageNumberLabel.stringValue = String(manga.currentPage + 1) + " - " + String(manga.currentPage + 2) + "/" + String(manga.pageCount);
+        }
+        else {
+            // Set the reader panels labels value
+            readerPageNumberLabel.stringValue = String(manga.currentPage + 1) + "/" + String(manga.pageCount);
+        }
         
+        // Is the current page bookmarked?
         let pageBookmarked = isPageBookmarked(manga.currentPage);
         
         // If the page is bookmarked...
@@ -348,6 +413,35 @@ class KMReaderViewController: NSViewController {
             
             // Also remove the check mark next to the bookmark menu item
             (NSApplication.sharedApplication().delegate as? AppDelegate)?.bookmarkCurrentPageMenuItem.state = 0;
+        }
+        
+        // If we are in dualPage mode...
+        if(dualPage) {
+            // Hide the one page image view
+            readerImageView.hidden = true;
+            
+            // Show yje dual page stack view for dual page mode
+            dualPageStackView.hidden = false;
+            
+            // If we add 1 to manga.currentPage and there would be an image at that index in manga.pages...
+            if(manga.currentPage + 1 < manga.pages.count) {
+                // Set the left sides image to the ucrrent page + 1
+                leftPageReaderImageView.image = manga.pages[manga.currentPage + 1];
+            }
+            else {
+                // Set the left image views to nothing
+                leftPageReaderImageView.image = NSImage();
+            }
+            
+            // Set the right sides image to the current page
+            rightPageReaderImageView.image = manga.pages[manga.currentPage];
+        }
+        else {
+            // Show the one page image view
+            readerImageView.hidden = false;
+            
+            // Hide the dual page stack view
+            dualPageStackView.hidden = true;
         }
     }
     

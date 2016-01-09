@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
+        <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -354,6 +355,7 @@
                                         </menuItem>
                                         <menuItem title="Jump to Page" keyEquivalent="J" id="I7g-H0-J3h"/>
                                         <menuItem title="Bookmark" keyEquivalent="B" id="2T2-cT-5ni"/>
+                                        <menuItem title="Dual Page" keyEquivalent="D" id="TH4-sc-e7y"/>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -404,6 +406,7 @@
                     <connections>
                         <outlet property="bookmarkCurrentPageMenuItem" destination="2T2-cT-5ni" id="vFe-FV-c0N"/>
                         <outlet property="deleteAllMangaMenuItem" destination="h7o-qK-yLj" id="9XF-TE-2JL"/>
+                        <outlet property="dualPageMenuItem" destination="TH4-sc-e7y" id="Obj-0B-Shs"/>
                         <outlet property="jumpToPageMenuItem" destination="I7g-H0-J3h" id="2f3-MH-hPT"/>
                         <outlet property="nextPageMenubarItem" destination="8P2-Bj-ZHO" id="maC-a5-1g2"/>
                         <outlet property="previousPageMenubarItem" destination="lL1-EK-QfJ" id="pyL-3Y-eLp"/>
@@ -473,6 +476,36 @@
                                 <animations/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="example-cover" id="D4R-Z6-mAb"/>
                             </imageView>
+                            <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6uu-3X-D41" userLabel="Double Page Stack View">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                                <subviews>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="fri-7a-35C" userLabel="Left Page">
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="270"/>
+                                        <animations/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="5FT-Ch-kxe"/>
+                                    </imageView>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="dMo-Mj-DAm" userLabel="Right Page">
+                                        <rect key="frame" x="240" y="0.0" width="240" height="270"/>
+                                        <animations/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="XKX-oY-Phq"/>
+                                    </imageView>
+                                </subviews>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstItem="fri-7a-35C" firstAttribute="top" secondItem="6uu-3X-D41" secondAttribute="top" id="5wp-As-wIY"/>
+                                    <constraint firstItem="dMo-Mj-DAm" firstAttribute="top" secondItem="6uu-3X-D41" secondAttribute="top" id="IUC-rc-H2h"/>
+                                    <constraint firstAttribute="bottom" secondItem="fri-7a-35C" secondAttribute="bottom" id="ZcK-eE-npV"/>
+                                    <constraint firstAttribute="bottom" secondItem="dMo-Mj-DAm" secondAttribute="bottom" id="b2V-XU-aLU"/>
+                                </constraints>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
                             <visualEffectView appearanceType="vibrantDark" blendingMode="withinWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="eRx-Sv-XZm">
                                 <rect key="frame" x="0.0" y="248" width="480" height="22"/>
                                 <constraints>
@@ -632,20 +665,26 @@
                             <constraint firstAttribute="trailing" secondItem="eRx-Sv-XZm" secondAttribute="trailing" id="3Hx-xt-Ypz"/>
                             <constraint firstItem="KGp-UH-dRu" firstAttribute="top" secondItem="F0K-x5-Vdc" secondAttribute="bottom" id="4Au-C3-X6M"/>
                             <constraint firstAttribute="bottom" secondItem="KGp-UH-dRu" secondAttribute="bottom" constant="20" id="5gL-FS-BCl"/>
+                            <constraint firstItem="6uu-3X-D41" firstAttribute="top" secondItem="NNO-Yh-cxl" secondAttribute="top" id="8eJ-Xj-Bvr"/>
                             <constraint firstAttribute="bottom" secondItem="Ui2-6j-ybs" secondAttribute="bottom" id="9X3-lI-Rhj"/>
                             <constraint firstAttribute="trailing" secondItem="Ui2-6j-ybs" secondAttribute="trailing" id="Da3-Vh-8bU"/>
                             <constraint firstItem="F0K-x5-Vdc" firstAttribute="leading" secondItem="NNO-Yh-cxl" secondAttribute="leading" id="MFn-cj-XfN"/>
                             <constraint firstItem="KGp-UH-dRu" firstAttribute="centerX" secondItem="NNO-Yh-cxl" secondAttribute="centerX" id="Nf1-rc-HAH"/>
+                            <constraint firstAttribute="trailing" secondItem="6uu-3X-D41" secondAttribute="trailing" id="O2X-g9-jFK"/>
                             <constraint firstItem="Ui2-6j-ybs" firstAttribute="leading" secondItem="NNO-Yh-cxl" secondAttribute="leading" id="OLd-jR-rHs"/>
                             <constraint firstItem="F0K-x5-Vdc" firstAttribute="top" secondItem="eRx-Sv-XZm" secondAttribute="bottom" id="Xzb-Ng-8Ui"/>
                             <constraint firstAttribute="trailing" secondItem="F0K-x5-Vdc" secondAttribute="trailing" id="b0U-z8-O7X"/>
                             <constraint firstItem="Ui2-6j-ybs" firstAttribute="top" secondItem="NNO-Yh-cxl" secondAttribute="top" id="eEB-pg-Lyq"/>
                             <constraint firstItem="eRx-Sv-XZm" firstAttribute="top" secondItem="NNO-Yh-cxl" secondAttribute="top" id="f4y-OG-XCO"/>
+                            <constraint firstAttribute="bottom" secondItem="6uu-3X-D41" secondAttribute="bottom" id="gK0-Wt-iNn"/>
+                            <constraint firstItem="6uu-3X-D41" firstAttribute="leading" secondItem="NNO-Yh-cxl" secondAttribute="leading" id="pRM-Tx-2Pg"/>
                             <constraint firstItem="eRx-Sv-XZm" firstAttribute="leading" secondItem="NNO-Yh-cxl" secondAttribute="leading" id="ygX-7X-o4s"/>
                         </constraints>
                         <animations/>
                     </view>
                     <connections>
+                        <outlet property="dualPageStackView" destination="6uu-3X-D41" id="uoN-HK-VL1"/>
+                        <outlet property="leftPageReaderImageView" destination="fri-7a-35C" id="7ah-s4-9Uh"/>
                         <outlet property="readerBookmarkButton" destination="djj-Je-nYR" id="8II-Ot-hvr"/>
                         <outlet property="readerImageView" destination="Ui2-6j-ybs" id="3Na-xG-GHe"/>
                         <outlet property="readerPageJumpButton" destination="oOA-Me-Hgv" id="VAu-G8-RGb"/>
@@ -655,6 +694,7 @@
                         <outlet property="readerPageNumberLabel" destination="KbI-5a-d0M" id="toS-Dw-3EQ"/>
                         <outlet property="readerPanelVisualEffectView" destination="T3C-g4-I63" id="IDz-2Z-4M5"/>
                         <outlet property="readerSettingsButton" destination="DZH-10-jIm" id="Ya1-Tg-GwB"/>
+                        <outlet property="rightPageReaderImageView" destination="dMo-Mj-DAm" id="fsN-i7-x13"/>
                         <outlet property="titlebarVisualEffectView" destination="eRx-Sv-XZm" id="NXI-bG-JFU"/>
                     </connections>
                 </viewController>

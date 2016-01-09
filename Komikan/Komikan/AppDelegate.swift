@@ -23,6 +23,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // The Manga/Bookmark menu item
     @IBOutlet weak var bookmarkCurrentPageMenuItem: NSMenuItem!
     
+    // The Manga/Dual Page menu item
+    @IBOutlet weak var dualPageMenuItem: NSMenuItem!
+    
     // The Komikan/Delete All Manga menu item
     @IBOutlet weak var deleteAllMangaMenuItem: NSMenuItem!
     
