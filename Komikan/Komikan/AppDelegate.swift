@@ -17,11 +17,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // The Manga/Previous Page menu item
     @IBOutlet weak var previousPageMenubarItem: NSMenuItem!
     
-    // Thhe Manga/Jump to Page menu item
+    // The Manga/Jump to Page menu item
     @IBOutlet weak var jumpToPageMenuItem: NSMenuItem!
     
     // The Manga/Bookmark menu item
     @IBOutlet weak var bookmarkCurrentPageMenuItem: NSMenuItem!
+    
+    // The Komikan/Delete All Manga menu item
+    @IBOutlet weak var deleteAllMangaMenuItem: NSMenuItem!
     
     // The view controller we will load for the reader
     var mangaReaderViewController: KMReaderViewController?;
@@ -71,9 +74,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to initialize your application
         // Clear the cache on load
         clearCache();
-        
-        // Clears the manga grid, used for debugging
-//        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(NSBundle.mainBundle().bundleIdentifier!);
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {

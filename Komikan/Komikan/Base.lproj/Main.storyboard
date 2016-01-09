@@ -23,6 +23,10 @@
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
                                         <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
+                                        <menuItem isSeparatorItem="YES" id="VYR-Hw-BAf"/>
+                                        <menuItem title="Delete All Manga" id="h7o-qK-yLj">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                                         <menuItem title="Services" id="NMo-om-nkz">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -660,6 +664,7 @@
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Komikan" customModuleProvider="target">
                     <connections>
                         <outlet property="bookmarkCurrentPageMenuItem" destination="2T2-cT-5ni" id="vFe-FV-c0N"/>
+                        <outlet property="deleteAllMangaMenuItem" destination="h7o-qK-yLj" id="9XF-TE-2JL"/>
                         <outlet property="jumpToPageMenuItem" destination="I7g-H0-J3h" id="2f3-MH-hPT"/>
                         <outlet property="nextPageMenubarItem" destination="8P2-Bj-ZHO" id="maC-a5-1g2"/>
                         <outlet property="previousPageMenubarItem" destination="lL1-EK-QfJ" id="pyL-3Y-eLp"/>
@@ -976,7 +981,7 @@
                                         <animations/>
                                         <font key="font" metaFont="system"/>
                                         <tabViewItems>
-                                            <tabViewItem label="All" identifier="" id="g4h-0F-r9M">
+                                            <tabViewItem label="Title" identifier="" id="g4h-0F-r9M">
                                                 <view key="view" id="EDE-Sz-sH4">
                                                     <rect key="frame" x="10" y="33" width="634" height="0.0"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1063,6 +1068,7 @@
                         <outlet property="mangaGridController" destination="rwH-XF-ldC" id="xkS-7x-lUZ"/>
                         <outlet property="titlebarAddMangaButton" destination="CDI-VA-JTT" id="t7c-FZ-zu0"/>
                         <outlet property="titlebarSearchField" destination="2xx-vA-gaV" id="YUt-WY-pYO"/>
+                        <outlet property="titlebarSortingTabView" destination="QhM-D5-BGg" id="8hF-kC-siy"/>
                         <outlet property="titlebarTabView" destination="QhM-D5-BGg" id="WYX-TG-gTS"/>
                         <outlet property="titlebarVisualEffectView" destination="xeH-9s-Llt" id="y4w-Cx-qCa"/>
                     </connections>
@@ -1077,6 +1083,8 @@
                     <declaredKeys>
                         <string>coverImage</string>
                         <string>title</string>
+                        <string>series</string>
+                        <string>artist</string>
                     </declaredKeys>
                     <connections>
                         <binding destination="rwH-XF-ldC" name="contentArray" keyPath="manga" id="LsF-tY-Vwt"/>

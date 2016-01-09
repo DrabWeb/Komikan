@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, NSTabViewDelegate {
     
     // The main window of the application
     var window : NSWindow! = NSWindow();
@@ -69,6 +69,9 @@ class ViewController: NSViewController {
         }
     }
     
+    // The tab view in the titlebar that lets us sort the manga grid
+    @IBOutlet weak var titlebarSortingTabView: NSTabView!
+    
     // Called when we hit "Add" in the addmanga popover
     func addMangaFromAddMangaPopover(notification: NSNotification) {
         print("Adding...");
@@ -107,11 +110,23 @@ class ViewController: NSViewController {
         // Start a 0.1 second loop that will fix the windows look in fullscreen
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("deleteTitlebarInFullscreen"), userInfo: nil, repeats:true);
         
+        // Set the titlebar tab views delegate to self
+        titlebarTabView.delegate = self;
+        
         // Load the manga we had in the grid
         loadManga();
         
+        // Set he delete all manga menubar items action
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.deleteAllMangaMenuItem.action = Selector("deleteAllManga");
+        
         // Subscribe to the edit manga popovers remove function
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "removeSelectItemFromMangaGrid:", name:"KMEditMangaViewController.Remove", object: nil);
+    }
+    
+    // Deletes all the manga in the manga grid array controller
+    func deleteAllManga() {
+        // Remove all the objects in mangaCollectionViewArray
+        mangaCollectionViewArray.removeObjects(mangaCollectionViewArray.arrangedObjects as! [AnyObject]);
     }
     
     // Removes the selected item from the manga grid
@@ -176,6 +191,15 @@ class ViewController: NSViewController {
                 // Add the current object to the manga grid
                 mangaCollectionViewArray.addObject(currentManga);
             }
+        }
+    }
+    
+    func tabView(tabView: NSTabView, didSelectTabViewItem tabViewItem: NSTabViewItem?) {
+        if(tabViewItem!.label == "Title") {
+            mangaGridController.sort(KMMangaGridSortType.Title, ascending: true);
+        }
+        else if(tabViewItem!.label == "Series") {
+            mangaGridController.sort(KMMangaGridSortType.Series, ascending: true);
         }
     }
 

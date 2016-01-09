@@ -47,4 +47,30 @@ class KMMangaGridController: NSObject {
         // Add the object
         arrayController.addObject(newItem);
     }
+    
+    func sort(sortType : KMMangaGridSortType, ascending : Bool) {
+        print("Sorting manga grid by " + String(sortType));
+        
+        if(sortType == KMMangaGridSortType.Series) {
+            arrayController.sortDescriptors = [NSSortDescriptor(key: "series", ascending: ascending)];
+        }
+        else if(sortType == KMMangaGridSortType.Artist) {
+            arrayController.sortDescriptors = [NSSortDescriptor(key: "artist", ascending: ascending)];
+        }
+        else if(sortType == KMMangaGridSortType.Title) {
+            arrayController.sortDescriptors = [NSSortDescriptor(key: "title", ascending: ascending)];
+        }
+    }
+}
+
+// Used to describe how to sort the manga grid
+enum KMMangaGridSortType {
+    // Sorts by series
+    case Series
+    
+    // Sorts by artist
+    case Artist
+    
+    // Sorts by title
+    case Title
 }

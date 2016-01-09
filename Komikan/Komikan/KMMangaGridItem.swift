@@ -15,6 +15,12 @@ class KMMangaGridItem: NSObject, NSCoding {
     // The title for the manga
     var title : String = "Failed to load title";
     
+    // The series for the manga, used for sorting
+    var series : String = "";
+    
+    // The artist for the manga, used for sorting
+    var artist : String = "";
+    
     // The manga that this grid item represents
     var manga : KMManga = KMManga();
     
@@ -31,6 +37,12 @@ class KMMangaGridItem: NSObject, NSCoding {
         
         // Set the title to the mangas title
         title = manga.title;
+        
+        // Set the series to the mangas series
+        series = manga.series;
+        
+        // Set the artist to the mangas artist
+        artist = manga.artist;
     }
     
     func encodeWithCoder(coder: NSCoder) {
@@ -44,6 +56,7 @@ class KMMangaGridItem: NSObject, NSCoding {
         coder.encodeObject(self.manga.writer, forKey: "manga.writer");
         coder.encodeObject(self.manga.directory, forKey: "manga.directory");
         coder.encodeObject(self.manga.bookmarks, forKey: "manga.bookmarks");
+        coder.encodeObject(self.manga.currentPage, forKey: "manga.currentPage");
     }
     
     required convenience init(coder decoder: NSCoder) {
@@ -58,6 +71,7 @@ class KMMangaGridItem: NSObject, NSCoding {
         self.manga.writer = (decoder.decodeObjectForKey("manga.writer") as! String?)!;
         self.manga.directory = (decoder.decodeObjectForKey("manga.directory") as! String?)!;
         self.manga.bookmarks = (decoder.decodeObjectForKey("manga.bookmarks") as! [Int]?)!;
+        self.manga.currentPage = (decoder.decodeObjectForKey("manga.currentPage") as! Int?)!;
         
         // Set the title
         self.title = manga.title;

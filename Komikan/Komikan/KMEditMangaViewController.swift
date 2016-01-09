@@ -48,8 +48,8 @@ class KMEditMangaViewController: NSViewController {
         // Close the popover
         self.dismissController(self);
         
-        // Open the manga we have
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.openManga(manga, page: 0);
+        // Open the manga we have, at the last open page
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.openManga(manga, page: manga.currentPage);
     }
     
     // The button to save our edits to the manga
