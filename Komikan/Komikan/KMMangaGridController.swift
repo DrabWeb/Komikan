@@ -40,7 +40,7 @@ class KMMangaGridController: NSObject {
     var searching : Bool = false;
     
     // An array to store all the manga we have so we can restore it when we are done searching
-    var oldItems : [AnyObject] = [];
+    var oldItems : [KMMangaGridItem] = [];
     
     // Searches the manga grid for the passed string, and updates it accordingly
     func searchFor(searchText : String) {
@@ -62,7 +62,7 @@ class KMMangaGridController: NSObject {
             // If we havent already started searching...
             if(!searching) {
                 // Store all the current manga in oldItems
-                oldItems = (arrayController.arrangedObjects as? [AnyObject])!;
+                oldItems = (arrayController.arrangedObjects as? [KMMangaGridItem])!;
             }
             
             // Say we are searching
@@ -74,12 +74,52 @@ class KMMangaGridController: NSObject {
             // Remove all items from the array controller
             arrayController.removeObjects(arrayController.arrangedObjects as! [AnyObject]);
             
+            // The tags we are searching for, if any
+            var searchTags : [String] = [];
+            
+            // The search tags direct value
+            var searchTagsUnsplit : String = "";
+            
+            // substring between tags: and ;
+            if let startRange = searchText.rangeOfString("tags:"), endRange = searchText.rangeOfString(";") where startRange.endIndex <= endRange.startIndex {
+                // Set searchTagsUnsplit to the text between tags: and ;
+                searchTagsUnsplit = searchText[startRange.endIndex..<endRange.startIndex];
+                
+                // Set search tags to searchTagsUnsplit split at every ", "
+                searchTags = searchTagsUnsplit.componentsSeparatedByString(", ");
+            }
+            
             // For every item in the manga grid...
             for (_, currentItem) in oldItems.enumerate() {
-                // If the current items title includes the search string...
-                if(currentItem.title.lowercaseString.containsString(searchText.lowercaseString)) {
-                    // Add the current object
-                    arrayController.addObject(currentItem);
+                // Do we have matching tags?
+                var matchingTags : Bool = false;
+                
+                // For every tag in the current manga...
+                for (_, currentTag) in currentItem.manga.tags.enumerate() {
+                    // For every tag we are searching for...
+                    for (_, currentSearchTag) in searchTags.enumerate() {
+                        // If the two tags match...
+                        if(currentTag == currentSearchTag) {
+                            // Say we have matching tags
+                            matchingTags = true;
+                        }
+                    }
+                }
+                
+                // If the current items title includes the search string or has a matching tag...
+                if(matchingTags || currentItem.title.lowercaseString.containsString(searchText.stringByReplacingOccurrencesOfString("tags:" + searchTagsUnsplit + ";", withString: "").lowercaseString)) {
+                    // If we are searching for tags...
+                    if(searchTagsUnsplit != "") {
+                        // If we have matching tags...
+                        if(matchingTags) {
+                            // Add the current object
+                            arrayController.addObject(currentItem);
+                        }
+                    }
+                    else {
+                        // Add the current object
+                        arrayController.addObject(currentItem);
+                    }
                 }
             }
         }

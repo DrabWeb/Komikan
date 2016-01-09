@@ -121,7 +121,7 @@ class KMAddMangaViewController: NSViewController {
                     print("Adding tag \"" + currentTag + "\" to \"" + newManga.title + "\"");
                     
                     // Append the current tags to the mangas tags
-                    newManga.tags.append(currentTag);
+                    currentManga.tags.append(currentTag);
                 }
                 
                 // Add curentManga to the newMangaMultiple array
