@@ -1004,22 +1004,7 @@
                                             </tabViewItem>
                                         </tabViewItems>
                                     </tabView>
-                                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2xx-vA-gaV" userLabel="Search Field">
-                                        <rect key="frame" x="483" y="7" width="150" height="23"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="150" id="myj-oi-KWy"/>
-                                        </constraints>
-                                        <animations/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" focusRingType="none" alignment="center" placeholderString="Search..." usesSingleLineMode="YES" bezelStyle="round" id="r2q-vD-uyu">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                        <connections>
-                                            <action selector="titlebarSearchFieldInteracted:" target="XfG-lQ-9wD" id="bH8-Ty-qoY"/>
-                                        </connections>
-                                    </textField>
-                                    <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CDI-VA-JTT" userLabel="Add Manga Button">
+                                    <button focusRingType="none" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CDI-VA-JTT" userLabel="Add Manga Button">
                                         <rect key="frame" x="430" y="3" width="49" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="45" id="tdd-bA-PV9"/>
@@ -1033,18 +1018,33 @@
                                             <action selector="titlebarAddMangaButtonInteracted:" target="XfG-lQ-9wD" id="NEz-tp-e5e"/>
                                         </connections>
                                     </button>
+                                    <searchField wantsLayer="YES" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CEc-Ey-c9l">
+                                        <rect key="frame" x="483" y="7" width="150" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="150" id="kWQ-W1-5DX"/>
+                                        </constraints>
+                                        <animations/>
+                                        <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="8N2-9n-9Sw">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </searchFieldCell>
+                                        <connections>
+                                            <action selector="titlebarSearchFieldInteracted:" target="XfG-lQ-9wD" id="Ud2-48-bu3"/>
+                                        </connections>
+                                    </searchField>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="QhM-D5-BGg" secondAttribute="trailing" id="5WP-Eh-71Z"/>
                                     <constraint firstAttribute="bottom" secondItem="CDI-VA-JTT" secondAttribute="bottom" constant="6" id="8f1-f9-EKZ"/>
-                                    <constraint firstItem="2xx-vA-gaV" firstAttribute="top" secondItem="xeH-9s-Llt" secondAttribute="top" constant="7" id="8lb-13-tEG"/>
                                     <constraint firstItem="QhM-D5-BGg" firstAttribute="leading" secondItem="xeH-9s-Llt" secondAttribute="leading" id="CmL-YF-LYE"/>
+                                    <constraint firstAttribute="bottom" secondItem="CEc-Ey-c9l" secondAttribute="bottom" constant="7" id="HQX-aC-Xip"/>
                                     <constraint firstAttribute="height" constant="37" id="Kdz-75-IVb"/>
+                                    <constraint firstAttribute="trailing" secondItem="CEc-Ey-c9l" secondAttribute="trailing" constant="7" id="OeZ-WV-awl"/>
                                     <constraint firstItem="QhM-D5-BGg" firstAttribute="top" secondItem="xeH-9s-Llt" secondAttribute="top" constant="8" id="Ui1-Yu-246"/>
                                     <constraint firstItem="CDI-VA-JTT" firstAttribute="top" secondItem="xeH-9s-Llt" secondAttribute="top" constant="6" id="ZhV-D9-DFZ"/>
-                                    <constraint firstAttribute="trailing" secondItem="2xx-vA-gaV" secondAttribute="trailing" constant="7" id="ckB-Fo-u30"/>
-                                    <constraint firstAttribute="bottom" secondItem="2xx-vA-gaV" secondAttribute="bottom" constant="7" id="lJ3-yX-X3O"/>
-                                    <constraint firstItem="2xx-vA-gaV" firstAttribute="leading" secondItem="CDI-VA-JTT" secondAttribute="trailing" constant="6" id="oB6-hA-5q8"/>
+                                    <constraint firstItem="CEc-Ey-c9l" firstAttribute="leading" secondItem="CDI-VA-JTT" secondAttribute="trailing" constant="7" id="lTc-jh-HVM"/>
+                                    <constraint firstItem="CEc-Ey-c9l" firstAttribute="top" secondItem="xeH-9s-Llt" secondAttribute="top" constant="7" id="mD0-Xi-OfM"/>
                                     <constraint firstAttribute="bottom" secondItem="QhM-D5-BGg" secondAttribute="bottom" id="xez-YZ-833"/>
                                 </constraints>
                                 <animations/>
@@ -1067,7 +1067,7 @@
                         <outlet property="mangaCollectionViewArray" destination="fTr-R0-e41" id="cr6-k6-HyI"/>
                         <outlet property="mangaGridController" destination="rwH-XF-ldC" id="xkS-7x-lUZ"/>
                         <outlet property="titlebarAddMangaButton" destination="CDI-VA-JTT" id="t7c-FZ-zu0"/>
-                        <outlet property="titlebarSearchField" destination="2xx-vA-gaV" id="YUt-WY-pYO"/>
+                        <outlet property="titlebarSearchField" destination="CEc-Ey-c9l" id="FTN-5K-xRR"/>
                         <outlet property="titlebarSortingTabView" destination="QhM-D5-BGg" id="8hF-kC-siy"/>
                         <outlet property="titlebarTabView" destination="QhM-D5-BGg" id="WYX-TG-gTS"/>
                         <outlet property="titlebarVisualEffectView" destination="xeH-9s-Llt" id="y4w-Cx-qCa"/>
