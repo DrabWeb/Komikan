@@ -246,6 +246,9 @@ class KMAddMangaViewController: NSViewController {
             
             // Dont allow us to change the directory
             chooseDirectoryButton.enabled = false;
+            
+            // Set the cover image image views image to NSFlowViewTemplate
+            coverImageView.image = NSImage(named: "NSFlowViewTemplate");
         }
         else {
             // If the directory is not nothing...
