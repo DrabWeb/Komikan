@@ -36,7 +36,8 @@ class ViewController: NSViewController, NSTabViewDelegate {
     
     // When we finish editing the titlebarSearchField...
     @IBAction func titlebarSearchFieldInteracted(sender: AnyObject) {
-        
+        // Search for the passed string
+        mangaGridController.searchFor((sender as? NSTextField)!.stringValue);
     }
     
     // The view controller we will load for the add manga popover
@@ -119,6 +120,23 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Set he delete all manga menubar items action
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.deleteAllMangaMenuItem.action = Selector("deleteAllManga");
         
+        // Sort the manga grid by the tab view item we have selected at start
+        // If the tab view item we have selected is the Title sort one...
+        if(titlebarTabView.selectedTabViewItem!.label == "Title") {
+            // Sort the manga grid by title
+            mangaGridController.sort(KMMangaGridSortType.Title, ascending: true);
+        }
+            // If the tab view item we have selected is the Series sort one...
+        else if(titlebarTabView.selectedTabViewItem!.label == "Series") {
+            // Sort the manga grid by series
+            mangaGridController.sort(KMMangaGridSortType.Series, ascending: true);
+        }
+            // If the tab view item we have selected is the Artist sort one...
+        else if(titlebarTabView.selectedTabViewItem!.label == "Artist") {
+            // Sort the manga grid by artist
+            mangaGridController.sort(KMMangaGridSortType.Artist, ascending: true);
+        }
+        
         // Subscribe to the edit manga popovers remove function
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "removeSelectItemFromMangaGrid:", name:"KMEditMangaViewController.Remove", object: nil);
     }
@@ -195,11 +213,20 @@ class ViewController: NSViewController, NSTabViewDelegate {
     }
     
     func tabView(tabView: NSTabView, didSelectTabViewItem tabViewItem: NSTabViewItem?) {
+        // If the tab view item we selected was the Title sort one...
         if(tabViewItem!.label == "Title") {
+            // Sort the manga grid by title
             mangaGridController.sort(KMMangaGridSortType.Title, ascending: true);
         }
+            // If the tab view item we selected was the Series sort one...
         else if(tabViewItem!.label == "Series") {
+            // Sort the manga grid by series
             mangaGridController.sort(KMMangaGridSortType.Series, ascending: true);
+        }
+        // If the tab view item we selected was the Artist sort one...
+        else if(tabViewItem!.label == "Artist") {
+            // Sort the manga grid by artist
+            mangaGridController.sort(KMMangaGridSortType.Artist, ascending: true);
         }
     }
 

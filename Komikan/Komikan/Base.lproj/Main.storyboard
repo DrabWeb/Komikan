@@ -995,7 +995,7 @@
                                                     <animations/>
                                                 </view>
                                             </tabViewItem>
-                                            <tabViewItem label="Artists" identifier="" id="qan-Zr-faL">
+                                            <tabViewItem label="Artist" identifier="" id="qan-Zr-faL">
                                                 <view key="view" id="k2U-U9-2Nq">
                                                     <rect key="frame" x="10" y="33" width="634" height="0.0"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1010,7 +1010,7 @@
                                             <constraint firstAttribute="width" constant="150" id="myj-oi-KWy"/>
                                         </constraints>
                                         <animations/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" focusRingType="none" alignment="center" placeholderString="Search..." usesSingleLineMode="YES" bezelStyle="round" id="r2q-vD-uyu">
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" focusRingType="none" alignment="center" placeholderString="Search..." usesSingleLineMode="YES" bezelStyle="round" id="r2q-vD-uyu">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
