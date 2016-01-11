@@ -169,7 +169,6 @@ class KMReaderViewController: NSViewController {
     }
     
     func fitWindowToManga() {
-        print(isFullscreen);
         // If we are in dualPage mode...
         if(dualPage && !isFullscreen) {
             var leftImageSize : NSSize = NSSize();

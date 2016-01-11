@@ -43,11 +43,8 @@ class KMMangaGridController: NSObject {
         // Say we arent searching
         searching = false;
         
-        // For each of the manga we have in oldItems...
-        for (_, currentItem) in oldItems.enumerate() {
-            // Add the current item as a KMMangaGridItem to the manga grid array
-            arrayController.addObject(currentItem as! KMMangaGridItem);
-        }
+        // Let the collection view show our manga again
+        arrayController.addObjects(oldItems);
         
         // Remove the observer so we dont get duplicate calls
         NSNotificationCenter.defaultCenter().removeObserver(self);
@@ -66,8 +63,18 @@ class KMMangaGridController: NSObject {
         
         // If we arent searching for anything..
         if(searchText == "") {
+            print(arrayController.arrangedObjects);
+            
             // Remove all items from the array controller
             arrayController.removeObjects(arrayController.arrangedObjects as! [AnyObject]);
+            
+            print(arrayController.arrangedObjects);
+            
+            if(arrayController.arrangedObjects.count == 0) {
+                print("/-------------------------\\");
+                print("| Array controller empty! |");
+                print("\\-------------------------/");
+            }
             
             // Say we arent searching
             searching = false;
@@ -75,7 +82,7 @@ class KMMangaGridController: NSObject {
             // For each of the manga we have in oldItems...
             for (_, currentItem) in oldItems.enumerate() {
                 // Add the current item as a KMMangaGridItem to the manga grid array
-                arrayController.addObject(currentItem as! KMMangaGridItem);
+                arrayController.addObject(currentItem);
             }
         }
         else {
@@ -114,16 +121,28 @@ class KMMangaGridController: NSObject {
                 // Do we have matching tags?
                 var matchingTags : Bool = false;
                 
+                // How maby mtahcing tags we had
+                var matchingTagCount : Int = 0;
+                
                 // For every tag in the current manga...
-                for (_, currentTag) in currentItem.manga.tags.enumerate() {
+                for (_, currentSearchTag) in searchTags.enumerate() {
                     // For every tag we are searching for...
-                    for (_, currentSearchTag) in searchTags.enumerate() {
+                    for (_, currentTag) in currentItem.manga.tags.enumerate() {
                         // If the two tags match...
                         if(currentTag == currentSearchTag) {
                             // Say we have matching tags
                             matchingTags = true;
+                            
+                            // Add one to the matching tag count
+                            matchingTagCount++;
                         }
                     }
+                }
+                
+                // If we have less matching tags then we searched for...
+                if(matchingTagCount < searchTags.count) {
+                    // Say that the tags didnt match
+                    matchingTags = false;
                 }
                 
                 // If the current items title includes the search string or has a matching tag...
