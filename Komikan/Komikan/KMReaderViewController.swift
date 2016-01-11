@@ -165,13 +165,11 @@ class KMReaderViewController: NSViewController {
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.jumpToPageMenuItem.action = Selector("promptToJumpToPage");
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.bookmarkCurrentPageMenuItem.action = Selector("bookmarkCurrentPage");
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.dualPageMenuItem.action = Selector("toggleDualPage");
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.fitWindowToPageMenuItem.action = Selector("fitWindowToManga");
     }
     
-    func toggleDualPage() {
-        // Toggle the dualPage bool
-        dualPage = !dualPage;
-        
-        // Set the windows frame to match the first pages we open in dual page mode
+    func fitWindowToManga() {
+        print(isFullscreen);
         // If we are in dualPage mode...
         if(dualPage && !isFullscreen) {
             var leftImageSize : NSSize = NSSize();
@@ -202,6 +200,14 @@ class KMReaderViewController: NSViewController {
             // Center the window
             readerWindow.center();
         }
+    }
+    
+    func toggleDualPage() {
+        // Toggle the dualPage bool
+        dualPage = !dualPage;
+        
+        // Fit the window to match the mangas size
+        fitWindowToManga();
         
         // If we are in dualpage mode...
         if(dualPage) {
@@ -501,9 +507,6 @@ class KMReaderViewController: NSViewController {
         // Are we fullscreen?
         var fullscreen : Bool = false;
         
-        // Set isFullscreen to fullscreen
-        isFullscreen = fullscreen;
-        
         // A bool to say if we are hovering the window
         var insideWindow : Bool = false;
         
@@ -557,6 +560,9 @@ class KMReaderViewController: NSViewController {
             // Hide the reader panel
             readerPanelVisualEffectView.alphaValue = 0;
         }
+        
+        // Set isFullscreen to fullscreen
+        isFullscreen = fullscreen;
     }
     
     func fadeOutTitlebar() {

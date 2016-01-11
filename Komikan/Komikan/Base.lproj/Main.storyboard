@@ -356,6 +356,7 @@
                                         <menuItem title="Jump to Page" keyEquivalent="J" id="I7g-H0-J3h"/>
                                         <menuItem title="Bookmark" keyEquivalent="B" id="2T2-cT-5ni"/>
                                         <menuItem title="Dual Page" keyEquivalent="D" id="TH4-sc-e7y"/>
+                                        <menuItem title="Fit Window to Page" keyEquivalent="1" id="tub-ce-tVP"/>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -407,6 +408,7 @@
                         <outlet property="bookmarkCurrentPageMenuItem" destination="2T2-cT-5ni" id="vFe-FV-c0N"/>
                         <outlet property="deleteAllMangaMenuItem" destination="h7o-qK-yLj" id="9XF-TE-2JL"/>
                         <outlet property="dualPageMenuItem" destination="TH4-sc-e7y" id="Obj-0B-Shs"/>
+                        <outlet property="fitWindowToPageMenuItem" destination="tub-ce-tVP" id="hmo-vl-Clh"/>
                         <outlet property="jumpToPageMenuItem" destination="I7g-H0-J3h" id="2f3-MH-hPT"/>
                         <outlet property="nextPageMenubarItem" destination="8P2-Bj-ZHO" id="maC-a5-1g2"/>
                         <outlet property="previousPageMenubarItem" destination="lL1-EK-QfJ" id="pyL-3Y-eLp"/>
@@ -482,12 +484,12 @@
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="fri-7a-35C" userLabel="Left Page">
                                         <rect key="frame" x="0.0" y="0.0" width="240" height="270"/>
                                         <animations/>
-                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="5FT-Ch-kxe"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="right" imageScaling="proportionallyUpOrDown" id="5FT-Ch-kxe"/>
                                     </imageView>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="dMo-Mj-DAm" userLabel="Right Page">
                                         <rect key="frame" x="240" y="0.0" width="240" height="270"/>
                                         <animations/>
-                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="XKX-oY-Phq"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="proportionallyUpOrDown" id="XKX-oY-Phq"/>
                                     </imageView>
                                 </subviews>
                                 <animations/>

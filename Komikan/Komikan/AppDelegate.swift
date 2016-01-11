@@ -26,6 +26,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // The Manga/Dual Page menu item
     @IBOutlet weak var dualPageMenuItem: NSMenuItem!
     
+    // The Manga/Fit Window to Page menu item
+    @IBOutlet weak var fitWindowToPageMenuItem: NSMenuItem!
+    
     // The Komikan/Delete All Manga menu item
     @IBOutlet weak var deleteAllMangaMenuItem: NSMenuItem!
     
