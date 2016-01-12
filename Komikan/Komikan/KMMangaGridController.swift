@@ -23,7 +23,7 @@ class KMMangaGridController: NSObject {
     
     override func awakeFromNib() {
         // Subscribe to the MangaGrid.Resort notification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "getMangaFromGrid:", name:"MangaGrid.Resort", object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "resort", name:"MangaGrid.Resort", object: nil);
     }
     
     // Adds a given manga to the array
@@ -70,7 +70,7 @@ class KMMangaGridController: NSObject {
     // Searches the manga grid for the passed string, and updates it accordingly
     func searchFor(searchText : String) {
         // Subscribe to AppDelegate's WillQuit notification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "resort", name:"Application.WillQuit", object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "willQuit", name:"Application.WillQuit", object: nil);
         
         // Resort the grid
         resort();
