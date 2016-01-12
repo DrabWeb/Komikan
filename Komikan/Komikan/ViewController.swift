@@ -96,6 +96,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
         
         // Stop addMangaViewController.addButtonUpdateLoop, so it stops eating resources when it doesnt need to
         addMangaViewController?.addButtonUpdateLoop.invalidate();
+        
+        // Tell the manga grid to resort itself
+        NSNotificationCenter.defaultCenter().postNotificationName("MangaGrid.Resort", object: nil);
     }
     
     override func viewDidLoad() {

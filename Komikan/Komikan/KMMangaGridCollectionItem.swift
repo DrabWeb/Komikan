@@ -56,5 +56,8 @@ class KMMangaGridCollectionItem: NSCollectionViewItem {
         
         // Redraw the collection view to match the updated content
         self.collectionView.itemPrototype = storyboard.instantiateControllerWithIdentifier("mangaCollectionViewItem") as? NSCollectionViewItem;
+        
+        // Tell the manga grid to resort itself
+        NSNotificationCenter.defaultCenter().postNotificationName("MangaGrid.Resort", object: nil);
     }
 }

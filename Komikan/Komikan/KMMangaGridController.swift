@@ -12,8 +12,19 @@ class KMMangaGridController: NSObject {
     // The array controller for the collection view
     @IBOutlet weak var arrayController : NSArrayController!;
     
+    // The current way we are sorting the grid
+    var currentSortOrder : KMMangaGridSortType = KMMangaGridSortType.Title;
+    
+    // Are we currently ascending the grids sort?
+    var currentSortAscending : Bool = false;
+    
     // An array to store all of the manga we are displaying in the collection view
     var manga : NSMutableArray = NSMutableArray();
+    
+    override func awakeFromNib() {
+        // Subscribe to the MangaGrid.Resort notification
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "getMangaFromGrid:", name:"MangaGrid.Resort", object: nil);
+    }
     
     // Adds a given manga to the array
     func addManga(manga : KMManga) {
@@ -59,7 +70,10 @@ class KMMangaGridController: NSObject {
     // Searches the manga grid for the passed string, and updates it accordingly
     func searchFor(searchText : String) {
         // Subscribe to AppDelegate's WillQuit notification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "willQuit", name:"Application.WillQuit", object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "resort", name:"Application.WillQuit", object: nil);
+        
+        // Resort the grid
+        resort();
         
         // If we arent searching for anything..
         if(searchText == "") {
@@ -164,10 +178,22 @@ class KMMangaGridController: NSObject {
         }
     }
     
+    // Resorts the grid with the last entered sort details
+    func resort() {
+        // Resort the grid, its gets messy when searching and add/deleting/editing manga
+        sort(currentSortOrder, ascending: currentSortAscending);
+    }
+    
     // Sorts the manga grid by sortType and ascends/decends based on ascending
     func sort(sortType : KMMangaGridSortType, ascending : Bool) {
         // Print to the log how we are sorting
         print("Sorting manga grid by " + String(sortType));
+        
+        // Set the current sort type to be the type we are sorting as
+        currentSortOrder = sortType;
+        
+        // Set the current sort ascending to be what we are passing
+        currentSortAscending = ascending;
         
         // If the sort type is by series...
         if(sortType == KMMangaGridSortType.Series) {

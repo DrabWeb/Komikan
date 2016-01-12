@@ -23,7 +23,11 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
+                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
+                                            <connections>
+                                                <segue destination="z1q-Wg-GYM" kind="show" id="egR-5Z-10X"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VYR-Hw-BAf"/>
                                         <menuItem title="Delete All Manga" id="h7o-qK-yLj">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -416,7 +420,111 @@
                 </customObject>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="-197"/>
+            <point key="canvasLocation" x="-32" y="-357"/>
+        </scene>
+        <!--Preferences Window Controller-->
+        <scene sceneID="Lh1-2B-Yh9">
+            <objects>
+                <windowController id="z1q-Wg-GYM" userLabel="Preferences Window Controller" sceneMemberID="viewController">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="Kkf-ou-N9x">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+                        <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
+                        <rect key="contentRect" x="229" y="249" width="480" height="270"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1600" height="900"/>
+                    </window>
+                    <connections>
+                        <segue destination="Mlh-Lm-xg9" kind="relationship" relationship="window.shadowedContentViewController" id="TgO-pG-1eb"/>
+                    </connections>
+                </windowController>
+                <customObject id="0Fk-Zq-0EU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="639" y="-347"/>
+        </scene>
+        <!--Preferences View Controller-->
+        <scene sceneID="HHY-TL-Web">
+            <objects>
+                <viewController id="Mlh-Lm-xg9" userLabel="Preferences View Controller" customClass="KMPreferencesController" customModule="Komikan" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="Mgu-Bm-WYO">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="Koz-iq-GVn" userLabel="Background Visual Effect View">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="248"/>
+                                <subviews>
+                                    <tabView focusRingType="none" allowsTruncatedLabels="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1HL-q2-fni" userLabel="Preferences Tab View">
+                                        <rect key="frame" x="13" y="10" width="454" height="232"/>
+                                        <animations/>
+                                        <font key="font" metaFont="system"/>
+                                        <tabViewItems>
+                                            <tabViewItem label="General" identifier="1" id="ura-Ce-PgE">
+                                                <view key="view" id="ZcC-yb-TAH">
+                                                    <rect key="frame" x="10" y="33" width="434" height="186"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <animations/>
+                                                </view>
+                                            </tabViewItem>
+                                            <tabViewItem label="Other" identifier="2" id="5Gn-3C-eGK">
+                                                <view key="view" id="VCh-W0-pih">
+                                                    <rect key="frame" x="10" y="33" width="434" height="186"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="BAM-5b-AXZ">
+                                                            <rect key="frame" x="15" y="167" width="142" height="18"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="138" id="HUa-kE-1fL"/>
+                                                                <constraint firstAttribute="height" constant="14" id="a03-xi-jGr"/>
+                                                            </constraints>
+                                                            <animations/>
+                                                            <buttonCell key="cell" type="check" title="Enable l-lewd mode" bezelStyle="regularSquare" imagePosition="left" inset="2" id="TZh-Lp-O4r">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                        </button>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="BAM-5b-AXZ" firstAttribute="top" secondItem="VCh-W0-pih" secondAttribute="top" constant="3" id="4l4-Oc-ioc"/>
+                                                        <constraint firstItem="BAM-5b-AXZ" firstAttribute="leading" secondItem="VCh-W0-pih" secondAttribute="leading" constant="17" id="lYa-HC-ZTu"/>
+                                                    </constraints>
+                                                    <animations/>
+                                                </view>
+                                            </tabViewItem>
+                                        </tabViewItems>
+                                    </tabView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="1HL-q2-fni" secondAttribute="bottom" constant="20" id="9jC-yX-i9t"/>
+                                    <constraint firstItem="1HL-q2-fni" firstAttribute="top" secondItem="Koz-iq-GVn" secondAttribute="top" constant="12" id="AvR-1M-PfK"/>
+                                    <constraint firstAttribute="trailing" secondItem="1HL-q2-fni" secondAttribute="trailing" constant="20" id="f3e-N5-Ofg"/>
+                                    <constraint firstItem="1HL-q2-fni" firstAttribute="leading" secondItem="Koz-iq-GVn" secondAttribute="leading" constant="20" id="nTM-XU-iba"/>
+                                </constraints>
+                                <animations/>
+                            </visualEffectView>
+                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="2kW-Hv-9Uh" userLabel="Titlebar Visual Effect View">
+                                <rect key="frame" x="0.0" y="248" width="480" height="22"/>
+                                <animations/>
+                            </visualEffectView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="Koz-iq-GVn" firstAttribute="leading" secondItem="Mgu-Bm-WYO" secondAttribute="leading" id="0bW-w0-e5z"/>
+                            <constraint firstAttribute="bottom" secondItem="Koz-iq-GVn" secondAttribute="bottom" id="DDf-uA-pJe"/>
+                            <constraint firstItem="2kW-Hv-9Uh" firstAttribute="top" secondItem="Mgu-Bm-WYO" secondAttribute="top" id="EK2-JN-yke"/>
+                            <constraint firstItem="2kW-Hv-9Uh" firstAttribute="leading" secondItem="Koz-iq-GVn" secondAttribute="leading" id="Pen-O4-QUt"/>
+                            <constraint firstItem="Koz-iq-GVn" firstAttribute="top" secondItem="Mgu-Bm-WYO" secondAttribute="top" constant="22" id="SY8-aC-DFX"/>
+                            <constraint firstItem="Koz-iq-GVn" firstAttribute="top" secondItem="2kW-Hv-9Uh" secondAttribute="bottom" id="Yq0-cd-WaS"/>
+                            <constraint firstAttribute="trailing" secondItem="Koz-iq-GVn" secondAttribute="trailing" id="k8J-0H-cWe"/>
+                            <constraint firstAttribute="trailing" secondItem="2kW-Hv-9Uh" secondAttribute="trailing" id="pOL-Zl-vxZ"/>
+                        </constraints>
+                        <animations/>
+                    </view>
+                    <connections>
+                        <outlet property="backgroundVisualEffectView" destination="Koz-iq-GVn" id="e03-Zb-a8B"/>
+                        <outlet property="tabView" destination="1HL-q2-fni" id="UYG-f9-Khe"/>
+                        <outlet property="titlebarVisualEffectView" destination="2kW-Hv-9Uh" id="Yvb-mK-eer"/>
+                    </connections>
+                </viewController>
+                <customObject id="60m-Ai-2T0" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1303" y="-347"/>
         </scene>
         <!--Main Window Controller-->
         <scene sceneID="R2V-B0-nI4">

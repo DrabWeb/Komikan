@@ -45,4 +45,50 @@ class KMManga {
     
     // All the bookmarks for this manga(Each array element is a bookmarked page)
     var bookmarks : [Int]! = [];
+    
+    func extractToTmpFolder() {
+        // Reset this mangas pages
+        pages = [NSImage()];
+        
+        // Set tmpDirectory to /tmp/komikan/komikanmanga-(Title)
+        tmpDirectory += title + "/";
+        
+        // Unzip this manga to /tmp/komikanmanga
+        WPZipArchive.unzipFileAtPath(directory, toDestination: tmpDirectory);
+        
+        // Some archives will create a __MACOSX folder in the extracted folder, lets delete that
+        do {
+            // Remove the possible __MACOSX folder
+            try NSFileManager().removeItemAtPath(tmpDirectory + "/__MACOSX");
+            
+            // Print to the log that we deleted it
+            print("Deleted the __MACOSX folder in \"" + title + "\"");
+            // If there is an error...
+        } catch _ as NSError {
+            // Print to the log that there is no __MACOSX folder to delete
+            print("No __MACOSX folder to delete in \"" + title + "\"");
+        }
+        
+        // Set pages to all the pages in /tmp/komikanmanga
+        do {
+            // For every file in this mangas tmp folder...
+            for currentPage in try NSFileManager().contentsOfDirectoryAtPath(tmpDirectory).enumerate() {
+                // Print to the log what file we found
+                print("Found page \"" + currentPage.element + "\"");
+                
+                // Append this image to the manga.pages array
+                pages.append(NSImage(contentsOfFile: tmpDirectory + currentPage.element)!);
+            }
+            // If there is an error...
+        } catch let error as NSError {
+            // Print the error description to the log
+            print(error.description);
+        }
+        
+        // Remove the first image in pages(Its always nil for no reason)
+        pages.removeAtIndex(0);
+        
+        // Set pageCount
+        pageCount = pages.count;
+    }
 }

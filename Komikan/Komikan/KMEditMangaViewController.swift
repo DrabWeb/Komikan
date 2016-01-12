@@ -170,10 +170,28 @@ class KMEditMangaViewController: NSViewController {
         // Sort the bookmarks
         manga.bookmarks = manga.bookmarks.sort();
         
+        // Extract the manga to tmp
+        manga.extractToTmpFolder();
+        
         // For every bookmark in manga.bookmarks...
         for (_, currentBookmark) in manga.bookmarks.enumerate() {
             // Add a menu item to the bookmarks dropdown with the title being Page and the bookmarked page
             bookmarksDropDown.addItemWithTitle("Page " + String(currentBookmark + 1));
+            
+            // Get the preview image
+            var previewImage : NSImage = manga.pages[currentBookmark];
+            
+            // Get the aspect ratio of the image
+            var aspectRatio = previewImage.size.width / previewImage.size.height;
+            
+            // Figure out what the width will be
+            var width = aspectRatio * 100;
+            
+            // Set the image size
+            previewImage.size = NSSize(width: width, height: 100);
+            
+            // Set the items image to previewImage
+            bookmarksDropDown.itemArray.last?.image = previewImage;
         }
         
         // For every tag in manga.tags...

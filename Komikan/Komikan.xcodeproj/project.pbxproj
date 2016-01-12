@@ -10,6 +10,8 @@
 		5D0D2A4C1C39830D00E3B8D0 /* KMManga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0D2A4B1C39830D00E3B8D0 /* KMManga.swift */; settings = {ASSET_TAGS = (); }; };
 		5D0D2A521C39A11000E3B8D0 /* KMAddMangaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0D2A501C39A11000E3B8D0 /* KMAddMangaViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		5D1388CC1C3836C200B5EAAD /* KMReaderPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1388CB1C3836C200B5EAAD /* KMReaderPanelView.swift */; settings = {ASSET_TAGS = (); }; };
+		5D22C3FD1C4454C50010746F /* KMPreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D22C3FC1C4454C50010746F /* KMPreferencesController.swift */; settings = {ASSET_TAGS = (); }; };
+		5D22C4011C445BA20010746F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D22C4001C445BA20010746F /* SwiftyJSON.swift */; settings = {ASSET_TAGS = (); }; };
 		5D5DBECF1C3584F5004D8C5D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBECE1C3584F5004D8C5D /* AppDelegate.swift */; };
 		5D5DBED11C3584F5004D8C5D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBED01C3584F5004D8C5D /* ViewController.swift */; };
 		5D5DBED31C3584F5004D8C5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D5DBED21C3584F5004D8C5D /* Assets.xcassets */; };
@@ -23,7 +25,7 @@
 		5DBB0DFF1C36DA0000495985 /* KMFileUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBB0DFE1C36DA0000495985 /* KMFileUtilities.swift */; settings = {ASSET_TAGS = (); }; };
 		5DC97D691C3EFF8200CC1006 /* KMMangaGridCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC97D681C3EFF8200CC1006 /* KMMangaGridCollectionItem.swift */; settings = {ASSET_TAGS = (); }; };
 		5DFBC77D1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFBC77C1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift */; settings = {ASSET_TAGS = (); }; };
-		EAB1D1094B8F846BBC4E817B /* libPods-Komikan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E156E51E568758DF0A8884 /* libPods-Komikan.a */; };
+		78C43558540D55F3A47610FE /* libPods-Komikan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03474BD8F11917D38B91DF2A /* libPods-Komikan.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,9 +46,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		03474BD8F11917D38B91DF2A /* libPods-Komikan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Komikan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D0D2A4B1C39830D00E3B8D0 /* KMManga.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMManga.swift; sourceTree = "<group>"; };
 		5D0D2A501C39A11000E3B8D0 /* KMAddMangaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMAddMangaViewController.swift; sourceTree = "<group>"; };
 		5D1388CB1C3836C200B5EAAD /* KMReaderPanelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMReaderPanelView.swift; sourceTree = "<group>"; };
+		5D22C3FC1C4454C50010746F /* KMPreferencesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMPreferencesController.swift; sourceTree = "<group>"; };
+		5D22C4001C445BA20010746F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		5D5DBECB1C3584F5004D8C5D /* Komikan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Komikan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D5DBECE1C3584F5004D8C5D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5D5DBED01C3584F5004D8C5D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -69,7 +74,6 @@
 		5DFBC77C1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaGridSelectionBox.swift; sourceTree = "<group>"; };
 		B086CA4387890A79C8FD3E35 /* Pods-Komikan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Komikan.release.xcconfig"; path = "Pods/Target Support Files/Pods-Komikan/Pods-Komikan.release.xcconfig"; sourceTree = "<group>"; };
 		CB22335385156945A0ABCB06 /* Pods-Komikan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Komikan.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Komikan/Pods-Komikan.debug.xcconfig"; sourceTree = "<group>"; };
-		F5E156E51E568758DF0A8884 /* libPods-Komikan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Komikan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,7 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAB1D1094B8F846BBC4E817B /* libPods-Komikan.a in Frameworks */,
+				78C43558540D55F3A47610FE /* libPods-Komikan.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,6 +127,30 @@
 			name = Reader;
 			sourceTree = "<group>";
 		};
+		5D22C3FB1C44548F0010746F /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				5D22C3FC1C4454C50010746F /* KMPreferencesController.swift */,
+			);
+			name = Preferences;
+			sourceTree = "<group>";
+		};
+		5D22C3FE1C445B820010746F /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				5D22C3FF1C445B990010746F /* SwiftyJSON */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		5D22C3FF1C445B990010746F /* SwiftyJSON */ = {
+			isa = PBXGroup;
+			children = (
+				5D22C4001C445BA20010746F /* SwiftyJSON.swift */,
+			);
+			name = SwiftyJSON;
+			sourceTree = "<group>";
+		};
 		5D5A11771C370EDC00C7A6A5 /* Manga Grid */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,6 +194,7 @@
 				5D0D2A4A1C39830000E3B8D0 /* Objects */,
 				5DBB0DFD1C36D9E400495985 /* Utilities */,
 				5D5DBEFD1C35913F004D8C5D /* View Managers */,
+				5D22C3FE1C445B820010746F /* Libraries */,
 				5DBB0E091C36E2D500495985 /* Objective-C */,
 				5D5DBED21C3584F5004D8C5D /* Assets.xcassets */,
 				5D5DBED71C3584F5004D8C5D /* Info.plist */,
@@ -194,6 +223,7 @@
 		5D5DBEFD1C35913F004D8C5D /* View Managers */ = {
 			isa = PBXGroup;
 			children = (
+				5D22C3FB1C44548F0010746F /* Preferences */,
 				5D0D2A4D1C39A0EC00E3B8D0 /* Add Manga */,
 				5D1388CF1C384A2300B5EAAD /* Reader */,
 				5D5A11771C370EDC00C7A6A5 /* Manga Grid */,
@@ -236,7 +266,7 @@
 		66B68D79869D1A6E84FB159B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F5E156E51E568758DF0A8884 /* libPods-Komikan.a */,
+				03474BD8F11917D38B91DF2A /* libPods-Komikan.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -436,6 +466,7 @@
 				5D5DBEFC1C358BE0004D8C5D /* KMMangaGridController.swift in Sources */,
 				5D8C1CAA1C3F09E5001AD41B /* KMEditMangaViewController.swift in Sources */,
 				5D5DBF021C35923F004D8C5D /* KMReaderViewController.swift in Sources */,
+				5D22C4011C445BA20010746F /* SwiftyJSON.swift in Sources */,
 				5D1388CC1C3836C200B5EAAD /* KMReaderPanelView.swift in Sources */,
 				5D5DBEFA1C358BD3004D8C5D /* KMMangaGridItem.swift in Sources */,
 				5DC97D691C3EFF8200CC1006 /* KMMangaGridCollectionItem.swift in Sources */,
@@ -443,6 +474,7 @@
 				5D5DBED11C3584F5004D8C5D /* ViewController.swift in Sources */,
 				5DBB0DFF1C36DA0000495985 /* KMFileUtilities.swift in Sources */,
 				5D5DBECF1C3584F5004D8C5D /* AppDelegate.swift in Sources */,
+				5D22C3FD1C4454C50010746F /* KMPreferencesController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
