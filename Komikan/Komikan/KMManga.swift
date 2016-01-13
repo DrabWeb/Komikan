@@ -46,6 +46,7 @@ class KMManga {
     // All the bookmarks for this manga(Each array element is a bookmarked page)
     var bookmarks : [Int]! = [];
     
+    // addManga : Bool - Should we extract it to /tmp/komikan/addmanga?
     func extractToTmpFolder() {
         // Reset this mangas pages
         pages = [NSImage()];
@@ -53,7 +54,7 @@ class KMManga {
         // Set tmpDirectory to /tmp/komikan/komikanmanga-(Title)
         tmpDirectory += title + "/";
         
-        // Unzip this manga to /tmp/komikanmanga
+        // Unzip this manga to /tmp/komikan/komikanmanga-(title)
         WPZipArchive.unzipFileAtPath(directory, toDestination: tmpDirectory);
         
         // Some archives will create a __MACOSX folder in the extracted folder, lets delete that
@@ -69,7 +70,10 @@ class KMManga {
             print("No __MACOSX folder to delete in \"" + title + "\"");
         }
         
-        // Set pages to all the pages in /tmp/komikanmanga
+        // Run the cleanmangadir binary to make the directory readable for us
+        KMCommandUtilities().runCommand(NSBundle.mainBundle().bundlePath + "/Contents/Resources/cleanmangadir", arguments: [tmpDirectory]);
+        
+        // Set pages to all the pages in /tmp/komikan/komikanmanga-(title)
         do {
             // For every file in this mangas tmp folder...
             for currentPage in try NSFileManager().contentsOfDirectoryAtPath(tmpDirectory).enumerate() {

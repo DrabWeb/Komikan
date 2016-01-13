@@ -214,10 +214,15 @@ class KMAddMangaViewController: NSViewController {
         // Extract the passed manga to /tmp/komikan/addmanga
         WPZipArchive.unzipFileAtPath(manga.directory.stringByReplacingOccurrencesOfString("file://", withString: ""), toDestination: "/tmp/komikan/addmanga");
         
+        // Clean up the directory
+        print(KMCommandUtilities().runCommand(NSBundle.mainBundle().bundlePath + "/Contents/Resources/cleanmangadir", arguments: ["/tmp/komikan/addmanga"]));
+        
         // Get the first image in the folder, and set the cover image selection views image to it
         do {
+            print(String(try NSFileManager().contentsOfDirectoryAtPath("/tmp/komikan/addmanga/")[0]));
+            
             // Get the first item in /tmp/komikan/addmanga as an NSImage
-            let firstImage : NSImage = NSImage(byReferencingURL: NSURL(fileURLWithPath: "/tmp/komikan/addmanga/" + String(try NSFileManager().contentsOfDirectoryAtPath("/tmp/komikan/addmanga")[0])));
+            let firstImage : NSImage = NSImage(byReferencingURL: NSURL(fileURLWithPath: "/tmp/komikan/addmanga/" + String(try NSFileManager().contentsOfDirectoryAtPath("/tmp/komikan/addmanga/")[0])));
             
             // Set the cover image selecting views image to firstImage
             manga.coverImage = firstImage;
