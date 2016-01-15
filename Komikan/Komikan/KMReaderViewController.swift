@@ -8,10 +8,18 @@
 
 import Cocoa
 
+// readerImagesCGContainer.contentFilters[0].setValue(#, forKey: "inputSaturation");
+// readerImagesCGContainer.contentFilters[0].setValue(#, forKey: "inputBrightness");
+// readerImagesCGContainer.contentFilters[0].setValue(#, forKey: "inputContrast");
+// readerImagesCGContainer.contentFilters[1].setValue(#, forKey: "inputSharpness");
+
 class KMReaderViewController: NSViewController {
 
     // The main window for the reader
     var readerWindow : NSWindow = NSWindow();
+    
+    // This view manages the CG controls of the readers images(Contrast, brightness, ETC.)
+    @IBOutlet weak var readerImagesCGContainer: NSView!
     
     // The image view for the reader window
     @IBOutlet weak var readerImageView: NSImageView!
@@ -31,6 +39,70 @@ class KMReaderViewController: NSViewController {
     // The visual effect for the reader panel
     @IBOutlet weak var readerPanelVisualEffectView: NSVisualEffectView!
     
+    // The visual effect view for the reader controls panel(Color, sharpness ETC.)
+    @IBOutlet weak var readerControlsPanelVisualEffectView: NSVisualEffectView!
+    
+    // When we press the save button in the reader control panel...
+    @IBAction func readerControlPanelSaveButtonPressed(sender: AnyObject) {
+        readerControlsOpen = false;
+        
+        closeControlsPanel();
+    }
+    
+    // When we press the reset button in the reader control panel...
+    @IBAction func readerControlPanelResetButtonPressed(sender: AnyObject) {
+        // Reset the values to default
+        resetCGValues();
+    }
+    
+    // The slider in the control panel that controls the readers saturation
+    @IBOutlet weak var readerControlPanelSaturationSlider : NSSlider!
+    
+    // When we interact with readerControlPanelSaturationSlider...
+    @IBAction func readerControlPanelSaturationSliderInteracted(sender: AnyObject) {
+        // Print to the log what value we are changing it to
+        print("Saturation: " + String(readerControlPanelSaturationSlider.floatValue));
+        
+        // Set the represented value to the represented sliders value
+        readerImagesCGContainer.contentFilters[0].setValue(readerControlPanelSaturationSlider.floatValue, forKey: "inputSaturation");
+    }
+    
+    // The slider in the control panel that controls the readers brightness
+    @IBOutlet weak var readerControlPanelBrightnessSlider : NSSlider!
+    
+    // When we interact with readerControlPanelBrightnessSlider...
+    @IBAction func readerControlPanelBrightnessSliderInteracted(sender: AnyObject) {
+        // Print to the log what value we are changing it to
+        print("Brightness: " + String(readerControlPanelBrightnessSlider.floatValue));
+        
+        // Set the represented value to the represented sliders value
+        readerImagesCGContainer.contentFilters[0].setValue(readerControlPanelBrightnessSlider.floatValue, forKey: "inputBrightness");
+    }
+    
+    // The slider in the control panel that controls the readers contrast
+    @IBOutlet weak var readerControlPanelContrastSlider : NSSlider!
+    
+    // When we interact with readerControlPanelContrastSlider...
+    @IBAction func readerControlPanelContrastSliderInteracted(sender: AnyObject) {
+        // Print to the log what value we are changing it to
+        print("Contrast: " + String(readerControlPanelContrastSlider.floatValue));
+        
+        // Set the represented value to the represented sliders value
+        readerImagesCGContainer.contentFilters[0].setValue(readerControlPanelContrastSlider.floatValue, forKey: "inputContrast");
+    }
+    
+    // The slider in the control panel that controls the readers sharpness
+    @IBOutlet weak var readerControlPanelSharpnessSlider : NSSlider!
+    
+    // When we interact with readerControlPanelSharpnessSlider...
+    @IBAction func readerControlPanelSharpnessSliderInteracted(sender: AnyObject) {
+        // Print to the log what value we are changing it to
+        print("Sharpness: " + String(readerControlPanelSharpnessSlider.floatValue));
+        
+        // Set the represented value to the represented sliders value
+        readerImagesCGContainer.contentFilters[1].setValue(readerControlPanelSharpnessSlider.floatValue, forKey: "inputSharpness");
+    }
+    
     // The label on the reader panel that shows what page you are on and how many pages there are
     @IBOutlet weak var readerPageNumberLabel: NSTextField!
     
@@ -38,6 +110,7 @@ class KMReaderViewController: NSViewController {
     @IBOutlet weak var readerPageJumpButton: NSButton!
     
     var inspectorController: NSWindowController?
+    
     // When readerPageJumpButton is pressed...
     @IBAction func readerPageJumpButtonPressed(sender: AnyObject) {
         if(readerPageJumpView.hidden) {
@@ -55,12 +128,19 @@ class KMReaderViewController: NSViewController {
         bookmarkCurrentPage();
     }
     
+    // Do we have the reader controls open?
+    var readerControlsOpen : Bool = false;
+    
     // The button on the reader panel that brings you to the settings for the reader with color controls among other things
     @IBOutlet weak var readerSettingsButton: NSButton!
     
     // When readerSettingsButton is pressed...
     @IBAction func readerSettingsButtonPressed(sender: AnyObject) {
+        // Say that the controls panel is open
+        readerControlsOpen = true;
         
+        // Open the controls panel
+        openControlsPanel();
     }
     
     // The view hat holds the page jump dialog
@@ -158,6 +238,51 @@ class KMReaderViewController: NSViewController {
             // Center the window
             readerWindow.center();
         }
+    }
+    
+    // Resets things like the Contrast, Saturation, ETC.
+    func resetCGValues() {
+        // Update the sliders
+        readerControlPanelSaturationSlider.floatValue = 1;
+        readerControlPanelBrightnessSlider.floatValue = 0;
+        readerControlPanelContrastSlider.floatValue = 1;
+        readerControlPanelSharpnessSlider.floatValue = 0.4;
+        
+        // Reset the values
+        readerImagesCGContainer.contentFilters[0].setValue(1, forKey: "inputSaturation");
+        readerImagesCGContainer.contentFilters[0].setValue(0, forKey: "inputBrightness");
+        readerImagesCGContainer.contentFilters[0].setValue(1, forKey: "inputContrast");
+        readerImagesCGContainer.contentFilters[1].setValue(0.4, forKey: "inputSharpness");
+    }
+    
+    // Opens the control panel for the user to modify the Saturation, Contrast, ETC.
+    func openControlsPanel() {
+        // For every item in the reader panel...
+        for (_, currentItem) in readerPanelVisualEffectView.subviews.enumerate() {
+            // Disable it(Cast it to a NSControl first so we can disable it)
+            (currentItem as! NSControl).enabled = false;
+        }
+        
+        // Animate out the reader panel
+        readerPanelVisualEffectView.animator().alphaValue = 0;
+        
+        // Animate in the reader control panel
+        readerControlsPanelVisualEffectView.animator().alphaValue = 1;
+    }
+    
+    // Closes the control panel for the user to modify the Saturation, Contrast, ETC.
+    func closeControlsPanel() {
+        // For every item in the reader panel...
+        for (_, currentItem) in readerPanelVisualEffectView.subviews.enumerate() {
+            // Enable it(Cast it to a NSControl first so we can enable it)
+            (currentItem as! NSControl).enabled = true;
+        }
+        
+        // Animate in the reader panel
+        readerPanelVisualEffectView.animator().alphaValue = 1;
+        
+        // Animate out the control panel
+        readerControlsPanelVisualEffectView.animator().alphaValue = 0;
     }
     
     func toggleDualPage() {
@@ -541,8 +666,11 @@ class KMReaderViewController: NSViewController {
         // Use the animator to fade in the windows titlebar
         readerWindow.standardWindowButton(NSWindowButton.CloseButton)?.superview?.superview?.animator().alphaValue = 1;
         
-        // Use the animator to fade in the reader panel
-        readerPanelVisualEffectView.animator().alphaValue = 1;
+        // If we dont have the reader controls open...
+        if(!readerControlsOpen) {
+            // Use the animator to fade in the reader panel
+            readerPanelVisualEffectView.animator().alphaValue = 1;
+        }
     }
     
     func styleWindow() {
@@ -554,6 +682,9 @@ class KMReaderViewController: NSViewController {
         
         // Hide the reader panels visual effect view
         readerPanelVisualEffectView.alphaValue = 0;
+        
+        // Hide the reader controls panel visual effect view
+        readerControlsPanelVisualEffectView.alphaValue = 0;
         
         // Set it to have a full size content view
         readerWindow.styleMask |= NSFullSizeContentViewWindowMask;

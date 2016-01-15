@@ -581,41 +581,57 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Ui2-6j-ybs">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-                                <animations/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="example-cover" id="D4R-Z6-mAb"/>
-                            </imageView>
-                            <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6uu-3X-D41" userLabel="Double Page Stack View">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="I3H-33-XbX" userLabel="Pages CG Control">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                 <subviews>
-                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="fri-7a-35C" userLabel="Left Page">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="270"/>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Ui2-6j-ybs">
+                                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                         <animations/>
-                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="right" imageScaling="proportionallyUpOrDown" id="5FT-Ch-kxe"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="example-cover" id="D4R-Z6-mAb"/>
                                     </imageView>
-                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="dMo-Mj-DAm" userLabel="Right Page">
-                                        <rect key="frame" x="240" y="0.0" width="240" height="270"/>
+                                    <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6uu-3X-D41" userLabel="Double Page Stack View">
+                                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                                        <subviews>
+                                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="fri-7a-35C" userLabel="Left Page">
+                                                <rect key="frame" x="0.0" y="0.0" width="240" height="270"/>
+                                                <animations/>
+                                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="right" imageScaling="proportionallyUpOrDown" id="5FT-Ch-kxe"/>
+                                            </imageView>
+                                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="dMo-Mj-DAm" userLabel="Right Page">
+                                                <rect key="frame" x="240" y="0.0" width="240" height="270"/>
+                                                <animations/>
+                                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="proportionallyUpOrDown" id="XKX-oY-Phq"/>
+                                            </imageView>
+                                        </subviews>
                                         <animations/>
-                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="proportionallyUpOrDown" id="XKX-oY-Phq"/>
-                                    </imageView>
+                                        <constraints>
+                                            <constraint firstItem="fri-7a-35C" firstAttribute="top" secondItem="6uu-3X-D41" secondAttribute="top" id="5wp-As-wIY"/>
+                                            <constraint firstItem="dMo-Mj-DAm" firstAttribute="top" secondItem="6uu-3X-D41" secondAttribute="top" id="IUC-rc-H2h"/>
+                                            <constraint firstAttribute="bottom" secondItem="fri-7a-35C" secondAttribute="bottom" id="ZcK-eE-npV"/>
+                                            <constraint firstAttribute="bottom" secondItem="dMo-Mj-DAm" secondAttribute="bottom" id="b2V-XU-aLU"/>
+                                        </constraints>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
                                 </subviews>
-                                <animations/>
                                 <constraints>
-                                    <constraint firstItem="fri-7a-35C" firstAttribute="top" secondItem="6uu-3X-D41" secondAttribute="top" id="5wp-As-wIY"/>
-                                    <constraint firstItem="dMo-Mj-DAm" firstAttribute="top" secondItem="6uu-3X-D41" secondAttribute="top" id="IUC-rc-H2h"/>
-                                    <constraint firstAttribute="bottom" secondItem="fri-7a-35C" secondAttribute="bottom" id="ZcK-eE-npV"/>
-                                    <constraint firstAttribute="bottom" secondItem="dMo-Mj-DAm" secondAttribute="bottom" id="b2V-XU-aLU"/>
+                                    <constraint firstAttribute="bottom" secondItem="6uu-3X-D41" secondAttribute="bottom" id="5k2-OU-EaN"/>
+                                    <constraint firstItem="6uu-3X-D41" firstAttribute="top" secondItem="I3H-33-XbX" secondAttribute="top" id="G1H-fs-q5S"/>
+                                    <constraint firstItem="6uu-3X-D41" firstAttribute="leading" secondItem="I3H-33-XbX" secondAttribute="leading" id="GvF-S7-1h8"/>
+                                    <constraint firstItem="6uu-3X-D41" firstAttribute="top" secondItem="Ui2-6j-ybs" secondAttribute="top" id="hon-u7-zvn"/>
+                                    <constraint firstItem="6uu-3X-D41" firstAttribute="bottom" secondItem="Ui2-6j-ybs" secondAttribute="bottom" id="ldX-Hn-D3Y"/>
+                                    <constraint firstAttribute="trailing" secondItem="6uu-3X-D41" secondAttribute="trailing" id="qlR-ta-LZx"/>
+                                    <constraint firstItem="6uu-3X-D41" firstAttribute="leading" secondItem="Ui2-6j-ybs" secondAttribute="leading" id="rnh-FU-FLw"/>
+                                    <constraint firstItem="6uu-3X-D41" firstAttribute="trailing" secondItem="Ui2-6j-ybs" secondAttribute="trailing" id="zxe-kw-2bN"/>
                                 </constraints>
-                                <visibilityPriorities>
-                                    <integer value="1000"/>
-                                    <integer value="1000"/>
-                                </visibilityPriorities>
-                                <customSpacing>
-                                    <real value="3.4028234663852886e+38"/>
-                                    <real value="3.4028234663852886e+38"/>
-                                </customSpacing>
-                            </stackView>
+                                <animations/>
+                            </customView>
                             <visualEffectView appearanceType="vibrantDark" blendingMode="withinWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="eRx-Sv-XZm">
                                 <rect key="frame" x="0.0" y="248" width="480" height="22"/>
                                 <constraints>
@@ -626,6 +642,213 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="wantsLayer" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </visualEffectView>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="td9-P8-Stw" userLabel="Reader Controls Panel Round Corners" customClass="KMReaderPanelView" customModule="Komikan" customModuleProvider="target">
+                                <rect key="frame" x="20" y="20" width="440" height="104"/>
+                                <subviews>
+                                    <visualEffectView appearanceType="vibrantDark" blendingMode="withinWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="Uv0-1J-uxr" userLabel="Reader Controls Panel">
+                                        <rect key="frame" x="0.0" y="0.0" width="440" height="104"/>
+                                        <subviews>
+                                            <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MSw-7S-JQy">
+                                                <rect key="frame" x="20" y="47" width="400" height="37"/>
+                                                <subviews>
+                                                    <customView ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L69-tD-FHc" userLabel="Saturation">
+                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="37"/>
+                                                        <subviews>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Avl-AI-b0f" userLabel="Saturation Label">
+                                                                <rect key="frame" x="-2" y="0.0" width="104" height="17"/>
+                                                                <animations/>
+                                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Saturation" id="lTO-EN-LZu">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                            <slider focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VBJ-h2-Ua4" userLabel="Saturation Slider">
+                                                                <rect key="frame" x="-2" y="18" width="104" height="21"/>
+                                                                <animations/>
+                                                                <sliderCell key="cell" state="on" focusRingType="none" alignment="left" minValue="-5" maxValue="5" tickMarkPosition="above" sliderType="linear" id="ONG-dt-LIy"/>
+                                                                <connections>
+                                                                    <action selector="readerControlPanelSaturationSliderInteracted:" target="OyT-nZ-UQJ" id="1u0-x0-Mdx"/>
+                                                                </connections>
+                                                            </slider>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="VBJ-h2-Ua4" firstAttribute="top" secondItem="L69-tD-FHc" secondAttribute="top" id="1V0-k6-gdP"/>
+                                                            <constraint firstItem="Avl-AI-b0f" firstAttribute="leading" secondItem="L69-tD-FHc" secondAttribute="leading" id="3A0-sP-qNN"/>
+                                                            <constraint firstAttribute="bottom" secondItem="Avl-AI-b0f" secondAttribute="bottom" id="G8l-ia-n3w"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Avl-AI-b0f" secondAttribute="trailing" id="L6I-R1-iea"/>
+                                                            <constraint firstItem="VBJ-h2-Ua4" firstAttribute="leading" secondItem="L69-tD-FHc" secondAttribute="leading" id="Las-ci-bd5"/>
+                                                            <constraint firstAttribute="trailing" secondItem="VBJ-h2-Ua4" secondAttribute="trailing" id="aBD-fb-frY"/>
+                                                        </constraints>
+                                                        <animations/>
+                                                    </customView>
+                                                    <customView ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9h2-K1-YQh" userLabel="Brightness">
+                                                        <rect key="frame" x="108" y="0.0" width="92" height="37"/>
+                                                        <subviews>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z5B-U8-Yy2" userLabel="Brightness Label">
+                                                                <rect key="frame" x="-2" y="0.0" width="96" height="17"/>
+                                                                <animations/>
+                                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Brightness" id="w2g-eK-Vzo">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                            <slider focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kvG-pg-f6J" userLabel="Brightness Slider">
+                                                                <rect key="frame" x="-2" y="18" width="96" height="21"/>
+                                                                <animations/>
+                                                                <sliderCell key="cell" state="on" focusRingType="none" alignment="left" minValue="-5" maxValue="5" tickMarkPosition="above" sliderType="linear" id="WQi-lS-LUe"/>
+                                                                <connections>
+                                                                    <action selector="readerControlPanelBrightnessSliderInteracted:" target="OyT-nZ-UQJ" id="3gg-mX-oc5"/>
+                                                                </connections>
+                                                            </slider>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="kvG-pg-f6J" firstAttribute="top" secondItem="9h2-K1-YQh" secondAttribute="top" id="6jy-nm-qoh"/>
+                                                            <constraint firstItem="z5B-U8-Yy2" firstAttribute="leading" secondItem="9h2-K1-YQh" secondAttribute="leading" id="8pD-fr-Gym"/>
+                                                            <constraint firstAttribute="trailing" secondItem="z5B-U8-Yy2" secondAttribute="trailing" id="cK2-Dg-FXY"/>
+                                                            <constraint firstItem="kvG-pg-f6J" firstAttribute="leading" secondItem="9h2-K1-YQh" secondAttribute="leading" id="l43-v5-qRq"/>
+                                                            <constraint firstAttribute="trailing" secondItem="kvG-pg-f6J" secondAttribute="trailing" id="oOc-LX-w01"/>
+                                                            <constraint firstAttribute="bottom" secondItem="z5B-U8-Yy2" secondAttribute="bottom" id="vDS-DU-iJD"/>
+                                                        </constraints>
+                                                        <animations/>
+                                                    </customView>
+                                                    <customView ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="te5-5m-xNP" userLabel="Contrast">
+                                                        <rect key="frame" x="208" y="0.0" width="92" height="37"/>
+                                                        <subviews>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2O1-6Z-g7p" userLabel="Contrast Label">
+                                                                <rect key="frame" x="-2" y="0.0" width="96" height="17"/>
+                                                                <animations/>
+                                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Contrast" id="Wue-8Q-5h6">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                            <slider focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LId-WD-5l0" userLabel="Contrast Slider">
+                                                                <rect key="frame" x="-2" y="18" width="96" height="21"/>
+                                                                <animations/>
+                                                                <sliderCell key="cell" state="on" focusRingType="none" alignment="left" minValue="-5" maxValue="5" tickMarkPosition="above" sliderType="linear" id="XYw-oy-Zlh"/>
+                                                                <connections>
+                                                                    <action selector="readerControlPanelContrastSliderInteracted:" target="OyT-nZ-UQJ" id="AyX-22-a0J"/>
+                                                                </connections>
+                                                            </slider>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="2O1-6Z-g7p" secondAttribute="trailing" id="CI3-rv-9HS"/>
+                                                            <constraint firstItem="LId-WD-5l0" firstAttribute="leading" secondItem="te5-5m-xNP" secondAttribute="leading" id="PK8-f6-yR2"/>
+                                                            <constraint firstAttribute="trailing" secondItem="LId-WD-5l0" secondAttribute="trailing" id="QaT-Ua-wmv"/>
+                                                            <constraint firstItem="2O1-6Z-g7p" firstAttribute="leading" secondItem="te5-5m-xNP" secondAttribute="leading" id="VQU-0G-w2G"/>
+                                                            <constraint firstAttribute="bottom" secondItem="2O1-6Z-g7p" secondAttribute="bottom" id="mYZ-zW-Wlx"/>
+                                                            <constraint firstItem="LId-WD-5l0" firstAttribute="top" secondItem="te5-5m-xNP" secondAttribute="top" id="zuA-22-aAh"/>
+                                                        </constraints>
+                                                        <animations/>
+                                                    </customView>
+                                                    <customView ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U2P-wC-tp0" userLabel="Sharpness">
+                                                        <rect key="frame" x="308" y="0.0" width="92" height="37"/>
+                                                        <subviews>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xhv-l8-0hu" userLabel="Sharpness Label">
+                                                                <rect key="frame" x="-2" y="0.0" width="96" height="17"/>
+                                                                <animations/>
+                                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Sharpness" id="c2e-bI-ded">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                            <slider focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dfA-Fu-29e" userLabel="Sharpness Slider">
+                                                                <rect key="frame" x="-2" y="18" width="96" height="23"/>
+                                                                <animations/>
+                                                                <sliderCell key="cell" state="on" focusRingType="none" alignment="left" minValue="-5" maxValue="5" tickMarkPosition="above" sliderType="linear" id="J1h-rP-UMC"/>
+                                                                <connections>
+                                                                    <action selector="readerControlPanelSharpnessSliderInteracted:" target="OyT-nZ-UQJ" id="hJn-VY-F9u"/>
+                                                                </connections>
+                                                            </slider>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="bottom" secondItem="xhv-l8-0hu" secondAttribute="bottom" id="3wD-SF-EnB"/>
+                                                            <constraint firstAttribute="trailing" secondItem="dfA-Fu-29e" secondAttribute="trailing" id="GbF-DF-bUN"/>
+                                                            <constraint firstItem="dfA-Fu-29e" firstAttribute="top" secondItem="U2P-wC-tp0" secondAttribute="top" id="WmC-YB-4JN"/>
+                                                            <constraint firstItem="xhv-l8-0hu" firstAttribute="leading" secondItem="U2P-wC-tp0" secondAttribute="leading" id="byk-XY-Yth"/>
+                                                            <constraint firstAttribute="trailing" secondItem="xhv-l8-0hu" secondAttribute="trailing" id="ggM-5B-idN"/>
+                                                            <constraint firstItem="dfA-Fu-29e" firstAttribute="leading" secondItem="U2P-wC-tp0" secondAttribute="leading" id="tFX-3g-B7F"/>
+                                                        </constraints>
+                                                        <animations/>
+                                                    </customView>
+                                                </subviews>
+                                                <animations/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="37" id="iei-NF-3AY"/>
+                                                </constraints>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
+                                            <button focusRingType="none" horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fku-Ec-tjs" userLabel="Reset Button">
+                                                <rect key="frame" x="14" y="13" width="202" height="31"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="U3w-4O-dcF"/>
+                                                    <constraint firstAttribute="width" constant="190" id="a7n-jW-5ni"/>
+                                                </constraints>
+                                                <animations/>
+                                                <buttonCell key="cell" type="push" title="Reset" bezelStyle="rounded" alignment="center" borderStyle="border" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="uuZ-9W-ojF">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="readerControlPanelResetButtonPressed:" target="OyT-nZ-UQJ" id="an0-Bu-zbY"/>
+                                                </connections>
+                                            </button>
+                                            <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hkx-L3-eX7" userLabel="Save Button">
+                                                <rect key="frame" x="224" y="13" width="202" height="31"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="McH-QG-gk5"/>
+                                                    <constraint firstAttribute="width" constant="190" id="RZS-Y3-6QW"/>
+                                                </constraints>
+                                                <animations/>
+                                                <buttonCell key="cell" type="push" title="Save" bezelStyle="rounded" alignment="center" borderStyle="border" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="Oby-1x-EHx">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="readerControlPanelSaveButtonPressed:" target="OyT-nZ-UQJ" id="zF5-Ng-kYV"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="hkx-L3-eX7" secondAttribute="bottom" constant="20" id="1B8-MG-VQC"/>
+                                            <constraint firstItem="MSw-7S-JQy" firstAttribute="leading" secondItem="Uv0-1J-uxr" secondAttribute="leading" constant="20" id="XZK-OL-dze"/>
+                                            <constraint firstAttribute="bottom" secondItem="fku-Ec-tjs" secondAttribute="bottom" constant="20" id="YbD-2g-yGx"/>
+                                            <constraint firstItem="hkx-L3-eX7" firstAttribute="leading" secondItem="fku-Ec-tjs" secondAttribute="trailing" constant="20" id="jP9-jK-zli"/>
+                                            <constraint firstAttribute="trailing" secondItem="MSw-7S-JQy" secondAttribute="trailing" constant="20" id="ozb-ej-aSf"/>
+                                            <constraint firstItem="fku-Ec-tjs" firstAttribute="leading" secondItem="Uv0-1J-uxr" secondAttribute="leading" constant="20" id="pwn-Iq-YTi"/>
+                                            <constraint firstItem="MSw-7S-JQy" firstAttribute="top" secondItem="Uv0-1J-uxr" secondAttribute="top" constant="20" id="yGP-F6-5sP"/>
+                                        </constraints>
+                                        <animations/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="wantsLayer" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </visualEffectView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Uv0-1J-uxr" secondAttribute="bottom" id="0Jy-sp-obe"/>
+                                    <constraint firstItem="Uv0-1J-uxr" firstAttribute="top" secondItem="td9-P8-Stw" secondAttribute="top" id="1RD-66-alJ"/>
+                                    <constraint firstAttribute="height" constant="104" id="647-jt-wpO"/>
+                                    <constraint firstAttribute="trailing" secondItem="Uv0-1J-uxr" secondAttribute="trailing" id="BfX-er-COC"/>
+                                    <constraint firstItem="Uv0-1J-uxr" firstAttribute="leading" secondItem="td9-P8-Stw" secondAttribute="leading" id="DzU-L0-QFK"/>
+                                    <constraint firstAttribute="width" constant="440" id="VPV-Y3-Z1R"/>
+                                </constraints>
+                                <animations/>
+                            </customView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="KGp-UH-dRu" userLabel="Reader Panel Container" customClass="KMReaderPanelView" customModule="Komikan" customModuleProvider="target">
                                 <rect key="frame" x="20" y="20" width="440" height="64"/>
                                 <subviews>
@@ -677,8 +900,8 @@
                                                     <action selector="readerBookmarkButtonPressed:" target="OyT-nZ-UQJ" id="i6R-Sc-yQX"/>
                                                 </connections>
                                             </button>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KbI-5a-d0M" userLabel="Page Number Label">
-                                                <rect key="frame" x="149" y="24" width="142" height="17"/>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KbI-5a-d0M" userLabel="Page Number Label">
+                                                <rect key="frame" x="103" y="24" width="234" height="17"/>
                                                 <animations/>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="TIa-Sv-Snr">
                                                     <font key="font" metaFont="system"/>
@@ -689,10 +912,12 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="DZH-10-jIm" firstAttribute="top" secondItem="T3C-g4-I63" secondAttribute="top" constant="22" id="1kw-zR-zfA"/>
+                                            <constraint firstItem="KbI-5a-d0M" firstAttribute="centerY" secondItem="T3C-g4-I63" secondAttribute="centerY" id="6jZ-0h-h3r"/>
                                             <constraint firstItem="oOA-Me-Hgv" firstAttribute="top" secondItem="T3C-g4-I63" secondAttribute="top" constant="22" id="8Qy-JE-0D8"/>
                                             <constraint firstAttribute="bottom" secondItem="djj-Je-nYR" secondAttribute="bottom" constant="22" id="IWy-Qk-7NC"/>
                                             <constraint firstItem="DZH-10-jIm" firstAttribute="leading" secondItem="djj-Je-nYR" secondAttribute="trailing" constant="22" id="UNc-gQ-dQJ"/>
                                             <constraint firstItem="djj-Je-nYR" firstAttribute="top" secondItem="T3C-g4-I63" secondAttribute="top" constant="22" id="Yt1-6l-FT8"/>
+                                            <constraint firstItem="KbI-5a-d0M" firstAttribute="centerX" secondItem="T3C-g4-I63" secondAttribute="centerX" id="bwE-cV-Qb8"/>
                                             <constraint firstAttribute="bottom" secondItem="oOA-Me-Hgv" secondAttribute="bottom" constant="22" id="hfq-w7-xf1"/>
                                             <constraint firstAttribute="trailing" secondItem="DZH-10-jIm" secondAttribute="trailing" constant="22" id="o6E-UV-S1Z"/>
                                             <constraint firstItem="oOA-Me-Hgv" firstAttribute="leading" secondItem="T3C-g4-I63" secondAttribute="leading" constant="22" id="tsx-4d-ghi"/>
@@ -775,19 +1000,17 @@
                             <constraint firstAttribute="trailing" secondItem="eRx-Sv-XZm" secondAttribute="trailing" id="3Hx-xt-Ypz"/>
                             <constraint firstItem="KGp-UH-dRu" firstAttribute="top" secondItem="F0K-x5-Vdc" secondAttribute="bottom" id="4Au-C3-X6M"/>
                             <constraint firstAttribute="bottom" secondItem="KGp-UH-dRu" secondAttribute="bottom" constant="20" id="5gL-FS-BCl"/>
-                            <constraint firstItem="6uu-3X-D41" firstAttribute="top" secondItem="NNO-Yh-cxl" secondAttribute="top" id="8eJ-Xj-Bvr"/>
-                            <constraint firstAttribute="bottom" secondItem="Ui2-6j-ybs" secondAttribute="bottom" id="9X3-lI-Rhj"/>
-                            <constraint firstAttribute="trailing" secondItem="Ui2-6j-ybs" secondAttribute="trailing" id="Da3-Vh-8bU"/>
                             <constraint firstItem="F0K-x5-Vdc" firstAttribute="leading" secondItem="NNO-Yh-cxl" secondAttribute="leading" id="MFn-cj-XfN"/>
                             <constraint firstItem="KGp-UH-dRu" firstAttribute="centerX" secondItem="NNO-Yh-cxl" secondAttribute="centerX" id="Nf1-rc-HAH"/>
-                            <constraint firstAttribute="trailing" secondItem="6uu-3X-D41" secondAttribute="trailing" id="O2X-g9-jFK"/>
-                            <constraint firstItem="Ui2-6j-ybs" firstAttribute="leading" secondItem="NNO-Yh-cxl" secondAttribute="leading" id="OLd-jR-rHs"/>
+                            <constraint firstItem="td9-P8-Stw" firstAttribute="centerX" secondItem="NNO-Yh-cxl" secondAttribute="centerX" id="RHX-Kz-Unx"/>
+                            <constraint firstAttribute="trailing" secondItem="I3H-33-XbX" secondAttribute="trailing" id="SCW-Kb-ubZ"/>
+                            <constraint firstItem="I3H-33-XbX" firstAttribute="top" secondItem="NNO-Yh-cxl" secondAttribute="top" id="XGx-8H-Ule"/>
+                            <constraint firstItem="I3H-33-XbX" firstAttribute="leading" secondItem="NNO-Yh-cxl" secondAttribute="leading" id="XNG-rH-qzZ"/>
                             <constraint firstItem="F0K-x5-Vdc" firstAttribute="top" secondItem="eRx-Sv-XZm" secondAttribute="bottom" id="Xzb-Ng-8Ui"/>
+                            <constraint firstAttribute="bottom" secondItem="td9-P8-Stw" secondAttribute="bottom" constant="20" id="aLE-zX-m0B"/>
                             <constraint firstAttribute="trailing" secondItem="F0K-x5-Vdc" secondAttribute="trailing" id="b0U-z8-O7X"/>
-                            <constraint firstItem="Ui2-6j-ybs" firstAttribute="top" secondItem="NNO-Yh-cxl" secondAttribute="top" id="eEB-pg-Lyq"/>
                             <constraint firstItem="eRx-Sv-XZm" firstAttribute="top" secondItem="NNO-Yh-cxl" secondAttribute="top" id="f4y-OG-XCO"/>
-                            <constraint firstAttribute="bottom" secondItem="6uu-3X-D41" secondAttribute="bottom" id="gK0-Wt-iNn"/>
-                            <constraint firstItem="6uu-3X-D41" firstAttribute="leading" secondItem="NNO-Yh-cxl" secondAttribute="leading" id="pRM-Tx-2Pg"/>
+                            <constraint firstAttribute="bottom" secondItem="I3H-33-XbX" secondAttribute="bottom" id="l9U-nR-fAg"/>
                             <constraint firstItem="eRx-Sv-XZm" firstAttribute="leading" secondItem="NNO-Yh-cxl" secondAttribute="leading" id="ygX-7X-o4s"/>
                         </constraints>
                         <animations/>
@@ -796,7 +1019,13 @@
                         <outlet property="dualPageStackView" destination="6uu-3X-D41" id="uoN-HK-VL1"/>
                         <outlet property="leftPageReaderImageView" destination="fri-7a-35C" id="7ah-s4-9Uh"/>
                         <outlet property="readerBookmarkButton" destination="djj-Je-nYR" id="8II-Ot-hvr"/>
+                        <outlet property="readerControlPanelBrightnessSlider" destination="kvG-pg-f6J" id="XUG-VK-Qut"/>
+                        <outlet property="readerControlPanelContrastSlider" destination="LId-WD-5l0" id="Ax3-RP-LbB"/>
+                        <outlet property="readerControlPanelSaturationSlider" destination="VBJ-h2-Ua4" id="aNr-QR-y2n"/>
+                        <outlet property="readerControlPanelSharpnessSlider" destination="dfA-Fu-29e" id="rds-SA-KJN"/>
+                        <outlet property="readerControlsPanelVisualEffectView" destination="Uv0-1J-uxr" id="NNx-T7-I4l"/>
                         <outlet property="readerImageView" destination="Ui2-6j-ybs" id="3Na-xG-GHe"/>
+                        <outlet property="readerImagesCGContainer" destination="I3H-33-XbX" id="ZnB-AY-l8r"/>
                         <outlet property="readerPageJumpButton" destination="oOA-Me-Hgv" id="VAu-G8-RGb"/>
                         <outlet property="readerPageJumpNumberField" destination="iWP-20-fdZ" id="EFI-Mc-hBe"/>
                         <outlet property="readerPageJumpView" destination="F0K-x5-Vdc" id="HlJ-Mx-ybc"/>
@@ -810,7 +1039,7 @@
                 </viewController>
                 <customObject id="gfr-hh-QRM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1408" y="250"/>
+            <point key="canvasLocation" x="1393" y="250"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="hIz-AP-VOD">
