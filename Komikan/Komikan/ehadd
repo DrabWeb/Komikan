@@ -1,0 +1,3 @@
+#!/bin/bash
+./ehinfo $1
+./ehdownload $1

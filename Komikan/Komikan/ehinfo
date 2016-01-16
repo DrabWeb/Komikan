@@ -1,0 +1,33 @@
+#!/bin/bash
+# Delete the old file
+rm ~/Library/Application\ Support/Komikan/newehdata.json
+
+# Init the GID variables
+GIDONE=""
+GIDTWO=""
+
+# Parsethe two GID values from the array
+for i in $(echo $1 | tr "/" "\n")
+do
+	if [ $COUNT == 3 ]; then
+		GIDONE=$i;
+	elif [ $COUNT == 4 ]; then
+		GIDTWO=$i;
+	fi
+
+	COUNT=$(($COUNT + 1))
+done
+
+# Set the JSON to post
+JSON='{"method": "gdata", "gidlist": [['$GIDONE',"'$GIDTWO'"]]}'
+
+# Make the post request to the EH API, and set INFO to the output
+INFO=$(curl -H "Content-Type: application/json" \
+	-X POST \
+	-d "$JSON" \
+	http://g.e-hentai.org/api.php)
+
+# Put the info in ~/Library/Application\ Support/Komikan/newehdata.json
+echo $INFO > ~/Library/Application\ Support/Komikan/newehdata.json
+
+# > ~/Library/Application\ Support/Komikan/newehdata.json

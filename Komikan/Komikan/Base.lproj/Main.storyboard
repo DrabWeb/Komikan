@@ -469,15 +469,18 @@
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="BAM-5b-AXZ">
-                                                            <rect key="frame" x="15" y="167" width="142" height="18"/>
+                                                            <rect key="frame" x="15" y="167" width="153" height="18"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="138" id="HUa-kE-1fL"/>
+                                                                <constraint firstAttribute="width" constant="149" id="HlD-JP-bkE"/>
                                                                 <constraint firstAttribute="height" constant="14" id="a03-xi-jGr"/>
                                                             </constraints>
                                                             <animations/>
-                                                            <buttonCell key="cell" type="check" title="Enable l-lewd mode" bezelStyle="regularSquare" imagePosition="left" inset="2" id="TZh-Lp-O4r">
+                                                            <buttonCell key="cell" type="check" title="Enable l-lewd... mode" bezelStyle="regularSquare" imagePosition="left" inset="2" id="TZh-Lp-O4r">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
+                                                                <connections>
+                                                                    <action selector="llewdModeEnabledCheckboxInteracted:" target="Mlh-Lm-xg9" id="vZf-Bx-i2a"/>
+                                                                </connections>
                                                             </buttonCell>
                                                         </button>
                                                     </subviews>
@@ -518,6 +521,7 @@
                     </view>
                     <connections>
                         <outlet property="backgroundVisualEffectView" destination="Koz-iq-GVn" id="e03-Zb-a8B"/>
+                        <outlet property="llewdModeEnabledCheckbox" destination="BAM-5b-AXZ" id="n5J-ey-Hjb"/>
                         <outlet property="tabView" destination="1HL-q2-fni" id="UYG-f9-Khe"/>
                         <outlet property="titlebarVisualEffectView" destination="2kW-Hv-9Uh" id="Yvb-mK-eer"/>
                     </connections>
@@ -757,7 +761,7 @@
                                                                 </textFieldCell>
                                                             </textField>
                                                             <slider focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dfA-Fu-29e" userLabel="Sharpness Slider">
-                                                                <rect key="frame" x="-2" y="18" width="96" height="23"/>
+                                                                <rect key="frame" x="-2" y="18" width="96" height="21"/>
                                                                 <animations/>
                                                                 <sliderCell key="cell" state="on" focusRingType="none" alignment="left" minValue="-5" maxValue="5" tickMarkPosition="above" sliderType="linear" id="J1h-rP-UMC"/>
                                                                 <connections>

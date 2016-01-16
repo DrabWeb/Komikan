@@ -22,11 +22,29 @@ class KMPreferencesController: NSViewController {
     // The visual effect view for the titlebar of the window
     @IBOutlet weak var titlebarVisualEffectView: NSVisualEffectView!
     
+    // The checkbox to say if we want to havel-lewd... mode enabled
+    @IBOutlet weak var llewdModeEnabledCheckbox: NSButton!
+    
+    // When we interact llewdModeEnabledCheckbox...
+    @IBAction func llewdModeEnabledCheckboxInteracted(sender: AnyObject) {
+        // Set the global preferences keepers value to the checkboxes value
+        (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.llewdModeEnabled = Bool(llewdModeEnabledCheckbox.state);
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
         // Style the window
         styleWindow();
+        
+        // Load the preferences
+        loadPreferences();
+    }
+    
+    // Lods the preferences from the global preferences keeper object
+    func loadPreferences() {
+        // Load the l-lewd... mode enabled value
+        llewdModeEnabledCheckbox.state = Int((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.llewdModeEnabled);
     }
     
     func styleWindow() {

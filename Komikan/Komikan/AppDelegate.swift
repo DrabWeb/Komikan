@@ -38,6 +38,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // The controller for the reader window
     var mangaReaderWindowController : NSWindowController!;
     
+    // The preferences keeper(Kept in app delegate because it should be globally accesable)
+    var preferencesKepper : KMPreferencesKeeper = KMPreferencesKeeper();
+    
     // Opens the specified manga in the reader at the specified page
     func openManga(manga : KMManga, page : Int) {
         // Get the main storyboard
@@ -54,6 +57,51 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Present mangaReaderWindowController
         mangaReaderWindowController.showWindow(self);
+    }
+    
+    func savePreferences() {
+        // Create a string to store our preferences values
+        var preferencesString : String = "";
+        
+        // Add the l-lewd... mode enabled bool to the end of it
+        preferencesString.appendContentsOf(String(preferencesKepper.llewdModeEnabled));
+        
+        // Write the preferences to the preferences file in Komikan's application support
+        do {
+            // Try to write to the preferences file in Komikan's application support directory
+            try preferencesString.writeToFile(NSHomeDirectory() + "/Library/Application Support/Komikan/preferences", atomically: true, encoding: NSUTF8StringEncoding);
+            // If there is an error...
+        } catch let error as NSError {
+            // Print the error description to the log
+            print(error.description);
+        }
+    }
+    
+    func loadPreferences() {
+        // Make sure the preferences file exists
+        if(NSFileManager.defaultManager().fileExistsAtPath(NSHomeDirectory() + "/Library/Application Support/Komikan/preferences")) {
+            // Create a variable to hold the preferences
+            var preferencesString : String = "";
+            
+            // Load the preferences
+            do {
+                // Try to get the contents of the preferences file in our application support folder
+                preferencesString = String(data: NSFileManager.defaultManager().contentsAtPath(NSHomeDirectory() + "/Library/Application Support/Komikan/preferences")!, encoding: NSUTF8StringEncoding)!;
+                // If there is an error...
+            } catch _ as NSError {
+                // Print to the log that there is no preferences to load
+                print("No preferences file to load");
+            }
+            
+            // For every line in the preferences string
+            for (currentIndex, currentElement) in preferencesString.componentsSeparatedByString("\n").enumerate() {
+                // If this is the first line...
+                if(currentIndex == 0) {
+                    // Set the l-lewd... mode enabled bool to be this lines value
+                    preferencesKepper.llewdModeEnabled = KMFileUtilities().stringToBool(currentElement);
+                }
+            }
+        }
     }
     
     // Clears the cache
@@ -81,12 +129,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         // Insert code here to initialize your application
+        // Make sure we have an application support folder
+        KMCommandUtilities().runCommand("/bin/mkdir", arguments: [NSHomeDirectory() + "/Library/Application Support/Komikan"]);
+        
         // Clear the cache on load
         clearCache();
+        
+        // Load the preferences
+        loadPreferences();
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {
         // Insert code here to tear down your application
+        // Save the preferences
+        savePreferences();
+        
         // Post the notification saying the app will quit
         NSNotificationCenter.defaultCenter().postNotificationName("Application.WillQuit", object: nil);
     }

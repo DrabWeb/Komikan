@@ -51,4 +51,19 @@ class KMFileUtilities {
         // Return file name
         return fileName;
     }
+    
+    // Returns a bool from a string(If the string is "true", it returns true, otherwise false)
+    func stringToBool(string : String) -> Bool {
+        // The variable we will return
+        var bool : Bool = false;
+        
+        // If the string is "true"...
+        if(string == "true") {
+            // Set bool to true
+            bool = true;
+        }
+        
+        // Return bool
+        return bool;
+    }
 }

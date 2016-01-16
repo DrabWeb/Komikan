@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Quartz
 
 // readerImagesCGContainer.contentFilters[0].setValue(#, forKey: "inputSaturation");
 // readerImagesCGContainer.contentFilters[0].setValue(#, forKey: "inputBrightness");
@@ -136,11 +137,12 @@ class KMReaderViewController: NSViewController {
     
     // When readerSettingsButton is pressed...
     @IBAction func readerSettingsButtonPressed(sender: AnyObject) {
-        // Say that the controls panel is open
-        readerControlsOpen = true;
-        
-        // Open the controls panel
-        openControlsPanel();
+        // Disabled for now, need to find out how to apply filters directly to an NSImage
+//        // Say that the controls panel is open
+//        readerControlsOpen = true;
+//        
+//        // Open the controls panel
+//        openControlsPanel();
     }
     
     // The view hat holds the page jump dialog
