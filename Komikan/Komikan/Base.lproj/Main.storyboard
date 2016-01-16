@@ -1212,7 +1212,7 @@
                                         <animations/>
                                         <font key="font" metaFont="system"/>
                                         <tabViewItems>
-                                            <tabViewItem label="EH" identifier="1" id="ZnI-ge-sux">
+                                            <tabViewItem label="E-Hentai" identifier="1" id="ZnI-ge-sux">
                                                 <view key="view" id="NF7-J6-4b1">
                                                     <rect key="frame" x="10" y="33" width="404" height="113"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1271,7 +1271,7 @@
                                                     <animations/>
                                                 </view>
                                             </tabViewItem>
-                                            <tabViewItem label="EX" identifier="2" id="0Qe-vd-MEq">
+                                            <tabViewItem label="ExHentai" identifier="2" id="0Qe-vd-MEq">
                                                 <view key="view" id="xN0-hr-5Dw">
                                                     <rect key="frame" x="10" y="33" width="404" height="113"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

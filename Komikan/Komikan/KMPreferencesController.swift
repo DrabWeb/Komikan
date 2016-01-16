@@ -41,6 +41,11 @@ class KMPreferencesController: NSViewController {
         loadPreferences();
     }
     
+    override func viewWillDisappear() {
+        // Send out the notification that we have modified the preferences
+        NSNotificationCenter.defaultCenter().postNotificationName("KMPreferencesController.Modified", object: nil);
+    }
+    
     // Lods the preferences from the global preferences keeper object
     func loadPreferences() {
         // Load the l-lewd... mode enabled value

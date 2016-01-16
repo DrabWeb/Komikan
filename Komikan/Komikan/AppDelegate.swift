@@ -130,6 +130,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
+    func actOnPreferences() {
+        // Hide/show the Add From EH Menu Item depending on if we have l-lewd... mode enabled
+        addFromEHMenuItem.hidden = !preferencesKepper.llewdModeEnabled;
+    }
+    
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         // Insert code here to initialize your application
         // Make sure we have an application support folder
@@ -140,6 +145,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Load the preferences
         loadPreferences();
+        
+        // Subscribe to the KMPreferencesController.Modified notification, so that we can act upon our changed preferences
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "actOnPreferences", name:"KMPreferencesController.Modified", object: nil);
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {
