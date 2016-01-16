@@ -97,34 +97,6 @@
                                                 <action selector="performClose:" target="Ady-hI-5gd" id="HmO-Ls-i7Q"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Save…" keyEquivalent="s" id="pxx-59-PXV">
-                                            <connections>
-                                                <action selector="saveDocument:" target="Ady-hI-5gd" id="teZ-XB-qJY"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Save As…" keyEquivalent="S" id="Bw7-FT-i3A">
-                                            <connections>
-                                                <action selector="saveDocumentAs:" target="Ady-hI-5gd" id="mDf-zr-I0C"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Revert to Saved" id="KaW-ft-85H">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="revertDocumentToSaved:" target="Ady-hI-5gd" id="iJ3-Pv-kwq"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
-                                        <menuItem title="Page Setup…" keyEquivalent="P" id="qIS-W8-SiK">
-                                            <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
-                                            <connections>
-                                                <action selector="runPageLayout:" target="Ady-hI-5gd" id="Din-rz-gC5"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Print…" keyEquivalent="p" id="aTl-1u-JFS">
-                                            <connections>
-                                                <action selector="print:" target="Ady-hI-5gd" id="qaZ-4w-aoO"/>
-                                            </connections>
-                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -364,6 +336,14 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="Collection" id="NiB-j8-GYS" userLabel="Collection">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Collection" id="eKm-yz-jaz">
+                                    <items>
+                                        <menuItem title="Add From EH" keyEquivalent="E" id="9EF-r5-N5K"/>
+                                    </items>
+                                </menu>
+                            </menuItem>
                             <menuItem title="Window" id="aUF-d1-5bR">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
@@ -409,6 +389,7 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Komikan" customModuleProvider="target">
                     <connections>
+                        <outlet property="addFromEHMenuItem" destination="9EF-r5-N5K" id="LeC-08-cxh"/>
                         <outlet property="bookmarkCurrentPageMenuItem" destination="2T2-cT-5ni" id="vFe-FV-c0N"/>
                         <outlet property="deleteAllMangaMenuItem" destination="h7o-qK-yLj" id="9XF-TE-2JL"/>
                         <outlet property="dualPageMenuItem" destination="TH4-sc-e7y" id="Obj-0B-Shs"/>
@@ -420,7 +401,7 @@
                 </customObject>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-32" y="-357"/>
+            <point key="canvasLocation" x="-371.5" y="-364"/>
         </scene>
         <!--Preferences Window Controller-->
         <scene sceneID="Lh1-2B-Yh9">
@@ -1214,6 +1195,177 @@
                 </arrayController>
             </objects>
             <point key="canvasLocation" x="81" y="912"/>
+        </scene>
+        <!--Add From EH View Controller-->
+        <scene sceneID="UQv-Xr-ECy">
+            <objects>
+                <viewController storyboardIdentifier="addFromEHViewController" id="2qy-gv-b8W" userLabel="Add From EH View Controller" customClass="KMEHViewController" customModule="Komikan" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="WtU-Zr-ZmK">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="175"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="dhk-XQ-V9x">
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="175"/>
+                                <subviews>
+                                    <tabView focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="8uV-a8-opw" userLabel="Tab View">
+                                        <rect key="frame" x="13" y="10" width="424" height="159"/>
+                                        <animations/>
+                                        <font key="font" metaFont="system"/>
+                                        <tabViewItems>
+                                            <tabViewItem label="EH" identifier="1" id="ZnI-ge-sux">
+                                                <view key="view" id="NF7-J6-4b1">
+                                                    <rect key="frame" x="10" y="33" width="404" height="113"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nWc-AK-fzG" userLabel="Add From EH Text Field">
+                                                            <rect key="frame" x="17" y="88" width="370" height="22"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="370" id="kQe-TH-AGz"/>
+                                                            </constraints>
+                                                            <animations/>
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" focusRingType="none" alignment="center" placeholderString="URL" bezelStyle="round" id="mbh-pC-MDp">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <connections>
+                                                                <action selector="addFromEHTextFieldInteracted:" target="2qy-gv-b8W" id="hHO-fc-yyT"/>
+                                                            </connections>
+                                                        </textField>
+                                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZUe-hr-v8k" userLabel="Warning">
+                                                            <rect key="frame" x="15" y="46" width="374" height="34"/>
+                                                            <animations/>
+                                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" focusRingType="none" title="When you click add, the app may beachball for a while. This is normal and you just have to wait for it to finish" id="Qku-5f-Tg0">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                        <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CwZ-g2-HRr" userLabel="Add Button">
+                                                            <rect key="frame" x="312" y="10" width="81" height="32"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="69" id="GO5-0j-yfr"/>
+                                                                <constraint firstAttribute="height" constant="21" id="iy1-oz-JzR"/>
+                                                            </constraints>
+                                                            <animations/>
+                                                            <buttonCell key="cell" type="push" title="Add" bezelStyle="rounded" alignment="center" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="SAq-tN-Ius">
+                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="addFromEHButtonInteracted:" target="2qy-gv-b8W" id="cZe-PW-uwN"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="nWc-AK-fzG" firstAttribute="leading" secondItem="NF7-J6-4b1" secondAttribute="leading" constant="17" id="BsG-Ni-VU8"/>
+                                                        <constraint firstAttribute="trailing" secondItem="nWc-AK-fzG" secondAttribute="trailing" constant="17" id="Kzy-El-uPy"/>
+                                                        <constraint firstItem="ZUe-hr-v8k" firstAttribute="leading" secondItem="NF7-J6-4b1" secondAttribute="leading" constant="17" id="MyV-Sb-ETi"/>
+                                                        <constraint firstAttribute="bottom" secondItem="CwZ-g2-HRr" secondAttribute="bottom" constant="17" id="aMm-iT-Nab"/>
+                                                        <constraint firstAttribute="trailing" secondItem="ZUe-hr-v8k" secondAttribute="trailing" constant="17" id="baP-0z-hU5"/>
+                                                        <constraint firstAttribute="trailing" secondItem="CwZ-g2-HRr" secondAttribute="trailing" constant="17" id="bkc-xe-mvq"/>
+                                                        <constraint firstItem="nWc-AK-fzG" firstAttribute="top" secondItem="NF7-J6-4b1" secondAttribute="top" constant="3" id="bvS-oO-9Fg"/>
+                                                        <constraint firstItem="CwZ-g2-HRr" firstAttribute="top" secondItem="ZUe-hr-v8k" secondAttribute="bottom" constant="8" id="gJx-YS-nmO"/>
+                                                        <constraint firstItem="ZUe-hr-v8k" firstAttribute="top" secondItem="nWc-AK-fzG" secondAttribute="bottom" constant="8" id="pt5-dw-Vem"/>
+                                                    </constraints>
+                                                    <animations/>
+                                                </view>
+                                            </tabViewItem>
+                                            <tabViewItem label="EX" identifier="2" id="0Qe-vd-MEq">
+                                                <view key="view" id="xN0-hr-5Dw">
+                                                    <rect key="frame" x="10" y="33" width="404" height="113"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wt0-Vd-jTo" userLabel="Warning">
+                                                            <rect key="frame" x="15" y="46" width="374" height="34"/>
+                                                            <animations/>
+                                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" focusRingType="none" title="When you click add, the app may beachball for a while. This is normal and you just have to wait for it to finish" id="sfY-yK-2e5">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                        <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IzM-u9-cAL" userLabel="Add From EX Text Field">
+                                                            <rect key="frame" x="17" y="88" width="370" height="22"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="22" id="OQV-pM-n4B"/>
+                                                                <constraint firstAttribute="width" constant="370" id="Tfk-fj-erE"/>
+                                                            </constraints>
+                                                            <animations/>
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" focusRingType="none" alignment="center" placeholderString="URL" bezelStyle="round" id="7Ff-p1-imi">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <connections>
+                                                                <action selector="addFromEXTextFieldInteracted:" target="2qy-gv-b8W" id="hRt-Sv-iUb"/>
+                                                            </connections>
+                                                        </textField>
+                                                        <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s5w-Kd-5iy" userLabel="Add From EX Button">
+                                                            <rect key="frame" x="312" y="10" width="81" height="32"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="KPh-6w-dzQ"/>
+                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="69" id="Vs8-2p-g9s"/>
+                                                                <constraint firstAttribute="height" constant="21" id="a3O-Ug-KEN"/>
+                                                                <constraint firstAttribute="width" constant="69" id="gpa-j7-UG7"/>
+                                                            </constraints>
+                                                            <animations/>
+                                                            <buttonCell key="cell" type="push" title="Add" bezelStyle="rounded" alignment="center" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="NCH-iX-LeH">
+                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="addFromEXButtonInteracted:" target="2qy-gv-b8W" id="MD7-Vu-Z2x"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="s5w-Kd-5iy" firstAttribute="top" secondItem="Wt0-Vd-jTo" secondAttribute="bottom" constant="8" id="6a0-WM-TrG"/>
+                                                        <constraint firstItem="IzM-u9-cAL" firstAttribute="top" secondItem="xN0-hr-5Dw" secondAttribute="top" constant="3" id="BvG-ph-0oJ"/>
+                                                        <constraint firstAttribute="bottom" secondItem="s5w-Kd-5iy" secondAttribute="bottom" constant="17" id="Edp-zw-rpx"/>
+                                                        <constraint firstItem="s5w-Kd-5iy" firstAttribute="top" secondItem="Wt0-Vd-jTo" secondAttribute="bottom" constant="8" id="XXn-gI-W6M"/>
+                                                        <constraint firstItem="Wt0-Vd-jTo" firstAttribute="top" secondItem="IzM-u9-cAL" secondAttribute="bottom" constant="8" id="ZK0-i8-vCW"/>
+                                                        <constraint firstItem="Wt0-Vd-jTo" firstAttribute="leading" secondItem="xN0-hr-5Dw" secondAttribute="leading" constant="17" id="a4o-Eh-QAn"/>
+                                                        <constraint firstItem="IzM-u9-cAL" firstAttribute="leading" secondItem="xN0-hr-5Dw" secondAttribute="leading" constant="17" id="eW4-lP-OCg"/>
+                                                        <constraint firstItem="Wt0-Vd-jTo" firstAttribute="top" secondItem="IzM-u9-cAL" secondAttribute="bottom" constant="8" id="hK5-np-nkp"/>
+                                                        <constraint firstAttribute="trailing" secondItem="s5w-Kd-5iy" secondAttribute="trailing" constant="17" id="oTl-fC-anC"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Wt0-Vd-jTo" secondAttribute="trailing" constant="17" id="vr3-do-kCp"/>
+                                                        <constraint firstAttribute="trailing" secondItem="IzM-u9-cAL" secondAttribute="trailing" constant="17" id="zoR-yE-QuN"/>
+                                                    </constraints>
+                                                    <animations/>
+                                                </view>
+                                            </tabViewItem>
+                                        </tabViewItems>
+                                    </tabView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="8uV-a8-opw" firstAttribute="top" secondItem="dhk-XQ-V9x" secondAttribute="top" constant="12" id="5Sx-cS-BuQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="8uV-a8-opw" secondAttribute="bottom" constant="20" id="KVq-9G-9Rt"/>
+                                    <constraint firstAttribute="trailing" secondItem="8uV-a8-opw" secondAttribute="trailing" constant="20" id="j4B-sE-wyz"/>
+                                    <constraint firstItem="8uV-a8-opw" firstAttribute="leading" secondItem="dhk-XQ-V9x" secondAttribute="leading" constant="20" id="nlF-kU-vEv"/>
+                                </constraints>
+                                <animations/>
+                            </visualEffectView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="dhk-XQ-V9x" firstAttribute="leading" secondItem="WtU-Zr-ZmK" secondAttribute="leading" id="Apb-UD-RF6"/>
+                            <constraint firstAttribute="trailing" secondItem="dhk-XQ-V9x" secondAttribute="trailing" id="ce4-eT-83g"/>
+                            <constraint firstAttribute="bottom" secondItem="dhk-XQ-V9x" secondAttribute="bottom" id="dkI-8O-Bh3"/>
+                            <constraint firstItem="dhk-XQ-V9x" firstAttribute="top" secondItem="WtU-Zr-ZmK" secondAttribute="top" id="lkD-eb-tUz"/>
+                        </constraints>
+                        <animations/>
+                    </view>
+                    <connections>
+                        <outlet property="addFromEHButton" destination="SAq-tN-Ius" id="DDV-NI-DPx"/>
+                        <outlet property="addFromEHTextField" destination="mbh-pC-MDp" id="d9W-zR-dfC"/>
+                        <outlet property="addFromEXButton" destination="s5w-Kd-5iy" id="VCB-rx-haf"/>
+                        <outlet property="addFromEXTextField" destination="IzM-u9-cAL" id="L5j-AD-rd3"/>
+                        <outlet property="backgroundVisualEffectView" destination="dhk-XQ-V9x" id="oVf-rC-ImB"/>
+                    </connections>
+                </viewController>
+                <customObject id="u39-Gu-cBn" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-463" y="1390.5"/>
         </scene>
         <!--Add Manga View Controller-->
         <scene sceneID="S1V-Dk-AXP">

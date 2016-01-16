@@ -32,6 +32,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // The Komikan/Delete All Manga menu item
     @IBOutlet weak var deleteAllMangaMenuItem: NSMenuItem!
     
+    // The Komikan/Add From E-Hentai menu item
+    @IBOutlet weak var addFromEHMenuItem: NSMenuItem!
+    
     // The view controller we will load for the reader
     var mangaReaderViewController: KMReaderViewController?;
     

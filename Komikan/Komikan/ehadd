@@ -1,3 +1,5 @@
 #!/bin/bash
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+cd "$2"
 ./ehinfo $1
-./ehdownload $1
+./ehdownload $1 regular

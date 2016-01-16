@@ -26,6 +26,7 @@
 		5D96AFB01C4A9EEC00120D70 /* ehdownload in Resources */ = {isa = PBXBuildFile; fileRef = 5D96AFAD1C4A9EEC00120D70 /* ehdownload */; settings = {ASSET_TAGS = (); }; };
 		5D96AFB11C4A9EEC00120D70 /* ehinfo in Resources */ = {isa = PBXBuildFile; fileRef = 5D96AFAE1C4A9EEC00120D70 /* ehinfo */; settings = {ASSET_TAGS = (); }; };
 		5D96AFB31C4A9F4E00120D70 /* KMPreferencesKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D96AFB21C4A9F4E00120D70 /* KMPreferencesKeeper.swift */; settings = {ASSET_TAGS = (); }; };
+		5D96AFB61C4AAFCB00120D70 /* KMEHViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D96AFB51C4AAFCB00120D70 /* KMEHViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		5D9912111C46A5A6008E6591 /* KMCommandUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9912101C46A5A6008E6591 /* KMCommandUtilities.swift */; settings = {ASSET_TAGS = (); }; };
 		5D9912141C46AE9B008E6591 /* cleanmangadir in Resources */ = {isa = PBXBuildFile; fileRef = 5D9912131C46AE9B008E6591 /* cleanmangadir */; settings = {ASSET_TAGS = (); }; };
 		5DBB0DFF1C36DA0000495985 /* KMFileUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBB0DFE1C36DA0000495985 /* KMFileUtilities.swift */; settings = {ASSET_TAGS = (); }; };
@@ -78,6 +79,7 @@
 		5D96AFAD1C4A9EEC00120D70 /* ehdownload */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = ehdownload; sourceTree = "<group>"; };
 		5D96AFAE1C4A9EEC00120D70 /* ehinfo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = ehinfo; sourceTree = "<group>"; };
 		5D96AFB21C4A9F4E00120D70 /* KMPreferencesKeeper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMPreferencesKeeper.swift; sourceTree = "<group>"; };
+		5D96AFB51C4AAFCB00120D70 /* KMEHViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMEHViewController.swift; sourceTree = "<group>"; };
 		5D9912101C46A5A6008E6591 /* KMCommandUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMCommandUtilities.swift; sourceTree = "<group>"; };
 		5D9912131C46AE9B008E6591 /* cleanmangadir */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cleanmangadir; sourceTree = "<group>"; };
 		5DBB0DFE1C36DA0000495985 /* KMFileUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMFileUtilities.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 		5D5DBEFD1C35913F004D8C5D /* View Managers */ = {
 			isa = PBXGroup;
 			children = (
+				5D96AFB41C4AAFAD00120D70 /* EH */,
 				5D22C3FB1C44548F0010746F /* Preferences */,
 				5D0D2A4D1C39A0EC00E3B8D0 /* Add Manga */,
 				5D1388CF1C384A2300B5EAAD /* Reader */,
@@ -259,6 +262,14 @@
 				5D8C1CA91C3F09E5001AD41B /* KMEditMangaViewController.swift */,
 			);
 			name = "Edit Manga";
+			sourceTree = "<group>";
+		};
+		5D96AFB41C4AAFAD00120D70 /* EH */ = {
+			isa = PBXGroup;
+			children = (
+				5D96AFB51C4AAFCB00120D70 /* KMEHViewController.swift */,
+			);
+			name = EH;
 			sourceTree = "<group>";
 		};
 		5D9912121C46AE71008E6591 /* Binaries */ = {
@@ -493,6 +504,7 @@
 			files = (
 				5D0D2A521C39A11000E3B8D0 /* KMAddMangaViewController.swift in Sources */,
 				5DFBC77D1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift in Sources */,
+				5D96AFB61C4AAFCB00120D70 /* KMEHViewController.swift in Sources */,
 				5D5DBEFC1C358BE0004D8C5D /* KMMangaGridController.swift in Sources */,
 				5D8C1CAA1C3F09E5001AD41B /* KMEditMangaViewController.swift in Sources */,
 				5D5DBF021C35923F004D8C5D /* KMReaderViewController.swift in Sources */,

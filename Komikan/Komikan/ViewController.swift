@@ -111,6 +111,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Set the collections views item prototype to the collection view item we created in Main.storyboard
         mangaCollectionView.itemPrototype = storyboard?.instantiateControllerWithIdentifier("mangaCollectionViewItem") as? NSCollectionViewItem;
         
+        // Set the addFromEHMenuItem's action
+        (NSApplication.sharedApplication().delegate as! AppDelegate).addFromEHMenuItem.action = Selector("showAddFromEHPopover");
+        
         // Start a 0.1 second loop that will fix the windows look in fullscreen
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("deleteTitlebarInFullscreen"), userInfo: nil, repeats:true);
         
@@ -142,6 +145,59 @@ class ViewController: NSViewController, NSTabViewDelegate {
         
         // Subscribe to the edit manga popovers remove function
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "removeSelectItemFromMangaGrid:", name:"KMEditMangaViewController.Remove", object: nil);
+    }
+    
+    // The view controller we will load for the add manga popover
+    var addFromEHViewController: KMEHViewController?
+    
+    // Is this the first time weve clicked on the add button in the titlebar?
+    var addFromEHViewFirstLoad : Bool = true;
+    
+    func showAddFromEHPopover() {
+        // Get the main storyboard
+        let storyboard = NSStoryboard(name: "Main", bundle: nil);
+        
+        // Instanstiate the view controller for the add from eh view controller
+        addFromEHViewController = storyboard.instantiateControllerWithIdentifier("addFromEHViewController") as? KMEHViewController;
+        
+        // Present the addFromEHViewController as a popover using the add buttons rect, on the max y edge, and with a semitransient behaviour
+        addFromEHViewController!.presentViewController(addFromEHViewController!, asPopoverRelativeToRect: titlebarAddMangaButton.bounds, ofView: titlebarAddMangaButton, preferredEdge: NSRectEdge.MaxY, behavior: NSPopoverBehavior.Semitransient);
+        
+        // If this is the first time we have opened the popover...
+        if(addFromEHViewFirstLoad) {
+            // Subscribe to the popovers finished notification
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "addMangaFromEHPopover:", name:"KMEHViewController.Finished", object: nil);
+            
+            // Say that all the next loads are not the first
+            addFromEHViewFirstLoad = false;
+        }
+    }
+    
+    func addMangaFromEHPopover(notification : NSNotification) {
+        print("Adding...");
+        
+        // If we were passed an array of manga...
+        if((notification.object as? [KMManga]) != nil) {
+            print("Batch adding manga");
+            
+            for (_, currentManga) in ((notification.object as? [KMManga])?.enumerate())! {
+                // Add the current manga to the grid
+                mangaGridController.addManga(currentManga);
+            }
+        }
+        else {
+            // Print to the log that we have recieved it and its name
+            print("Recieving manga \"" + ((notification.object as? KMManga)?.title)! + "\" from Add From EH Manga popover");
+            
+            // Add the manga to the grid
+            mangaGridController.addManga((notification.object as? KMManga)!);
+        }
+        
+        // Stop the loop so we dont take up precious memory
+        addFromEHViewController?.addButtonUpdateLoop.invalidate();
+        
+        // Tell the manga grid to resort itself
+        NSNotificationCenter.defaultCenter().postNotificationName("MangaGrid.Resort", object: nil);
     }
     
     // Deletes all the manga in the manga grid array controller
