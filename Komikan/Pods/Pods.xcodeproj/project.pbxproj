@@ -7,89 +7,518 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0578F40326194AEA638AAE050CEE3DC8 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CA6EBC2E57D96052268211209D6AA52 /* Cocoa.framework */; };
-		07F0027207DB7D9381737D0570179B3C /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 5A4E084527A669A04E0C7950C1A66DCB /* unzip.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		16C0B674E8E18921785549F6E9DFA682 /* mztools.h in Headers */ = {isa = PBXBuildFile; fileRef = 7960D39A7AAEFBE8BF34DAF3CDD8013E /* mztools.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		284498AF76C9F15105C9FD50D8735C27 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CA6EBC2E57D96052268211209D6AA52 /* Cocoa.framework */; };
-		31A93782D632229670193EF269EDB17B /* zip.h in Headers */ = {isa = PBXBuildFile; fileRef = 18368B5CDB0B828A678AB1A52448F2BF /* zip.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		600E8CFEE20B08EA6517A97B54E20C18 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = CDC71608DEC0E878634E194DF1D5C9E0 /* mztools.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		6417CBE3A46D22D47BB7E7261B2985F2 /* unzip.h in Headers */ = {isa = PBXBuildFile; fileRef = 2636C7CE48DDD9C7930139B15C62B049 /* unzip.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		64B032FBD074F42784AF08EA72CAC9D9 /* Common.h in Headers */ = {isa = PBXBuildFile; fileRef = DA0D979F1D12C33BA60DCA3E5F59EF7F /* Common.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		70182C9EDBF9ACA93FA20094D80C36BD /* Pods-Komikan-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A5BA14B0DC28EE449FB418EAD3602217 /* Pods-Komikan-dummy.m */; };
-		72E4FBB17380A98F056C9673231D6144 /* crypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 477C865966E24ABE1CB9C3C62CB280AC /* crypt.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		80045ECCAA06A62FD76447EFBFB0FEA4 /* ioapi.h in Headers */ = {isa = PBXBuildFile; fileRef = DA7D54FA70E506D663A218A8FB19B219 /* ioapi.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		8A0341252BDA5D46D5888D9EB3F526A6 /* WPZipArchive.h in Headers */ = {isa = PBXBuildFile; fileRef = F02A9C4FC9D6B02DBF7D438080CE211F /* WPZipArchive.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B537C3AF340A313E66FB5DFE1F72572D /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = A1E814AEF3218A1D45089065E7D62AAC /* zip.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		CAA0080C68DED22D55B0171C72BAD48D /* WPZipArchive-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2FF243A435B114741DA1EF0BDFCCD6 /* WPZipArchive-dummy.m */; };
-		D2CF6BF929E9DAA6D29FA544A1984C79 /* WPZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 25084FE496B7ED743083A1ACAA13BC36 /* WPZipArchive.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		EB77AC5EAA3EED4C1FEE349DB0296897 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = FDE88A9027A194637AFDE75361C696C7 /* ioapi.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		01062F6F6EE8133DF398DA57A24C133F /* ui.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8E9749A0CBB1180B61CDD3FF98FC1AA2 /* ui.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		019021871DF7CCA4ACD15D0A903FFD08 /* raros.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 15C9414D9741EC26FCB69E67DB32C495 /* raros.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		035374D8520EB81C6CD6C966F119FCE6 /* volume.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2D162F086FEBE83A1D52DFE064096E15 /* volume.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		05742E6A6C21B75DC39AC67894254F5E /* resource.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6CD8A4405BD6F026F6DD58F6F49BA35E /* resource.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		0DA1FB76A7D12034DD3D9792AF33E441 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = AB467BF7019D4A11B18B03DB68D8B354 /* unzip.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		0DF8E0F70B52CD7853F6C18E5AD1480B /* crypt.h in Headers */ = {isa = PBXBuildFile; fileRef = C0FABFD637277C15BDFA5D0D14BA0B06 /* crypt.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		0FA1C170B562BCCD6110E527E6C46C1D /* model.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 7AB8E27A79ECA854412FD78CF7FC4F46 /* model.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		1036804BC16F854BF3C34DE14E701549 /* rs16.hpp in Headers */ = {isa = PBXBuildFile; fileRef = B6D2CF9CEAD7D2BD878AE49B97F99B19 /* rs16.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		10ED70AFA64CFFFDC01F3BA2ADFEEBAA /* headers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 371C9D7F748555D6650B4CFC89F73635 /* headers.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		11B09588954AA439B7DEA879F0690952 /* Pods-Komikan-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 167E8CB648A83633D6D5C2A90444DFC9 /* Pods-Komikan-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		11F279EA6A4AF379243AF90C12F83441 /* Common.h in Headers */ = {isa = PBXBuildFile; fileRef = 44297781785C6ED942FBD97C671DD336 /* Common.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1387222C5CB443F258602847FB1BD0AA /* errhnd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B62C643E6F7BCCB64C73453547205F1A /* errhnd.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		1501CD375B2DFCCE1DC0535B2561EF97 /* extract.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 7F364982AF5584DA80505E1C8B6D9D8C /* extract.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		1A3D157C4063D6A5E62190C6127E00C5 /* blake2s.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04FB32D8B8042E32BB10622F5A0D7BE8 /* blake2s.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		1B43B911683DD2337DC2994836DFE84B /* options.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8E8169F72228EC280F6D8FBABF580951 /* options.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		1BB8D0C64004A148B6393F04DF3C22DE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CA6EBC2E57D96052268211209D6AA52 /* Cocoa.framework */; };
+		1CAFDF75D036AA6972FA785C67BF02BF /* options.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C301AAA3AF4E226B877ECFF70646F4B6 /* options.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		1E8B39B6291044B324C4DE62A5B7038D /* threadpool.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8D251BE93076CACC6F18ECB4B8F4A93F /* threadpool.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		20EAD0376C29BCE95EA459B1E438A0F5 /* mztools.h in Headers */ = {isa = PBXBuildFile; fileRef = 0DCD63832E0C6CE9FBED517BE08DB540 /* mztools.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		218C4EA9AC3D5F4FCB6C19C24253E84B /* consio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 75AF2BC20061A2DEC05B37A1768A1BB3 /* consio.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		224FCE184988D8AD0A95440899FC02EF /* rardefs.hpp in Headers */ = {isa = PBXBuildFile; fileRef = E494DA4D9D61FB3D987BCE41586F075B /* rardefs.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		22D0D78520A632C879867E1ECF6DAF75 /* resource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 70467A26529F8197687773EAD90DAE53 /* resource.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		238A4C4AF3083579D4C65C467BD1278B /* pathfn.hpp in Headers */ = {isa = PBXBuildFile; fileRef = E7D15DFB663BDC54DE1F33E74FD92209 /* pathfn.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		23941834DC267ACAB44D589E2BF9D390 /* rijndael.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3568CA02520D453567BBE5520BE6B64C /* rijndael.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		246060D6B5B77309AD5EE45120AD64B2 /* UnrarKit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A3A3D3CCA6D55D312B5E2ACFBB6D302 /* UnrarKit-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		25D4D35B6815C6786E47447AAC6C6BF2 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A48B536AEC70E7EC9F7709DF3B21C16 /* mztools.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		272D83CC67EF6D1F70DA7CD17A0AD313 /* system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99E8FD36F3FF003967D41C961270D7F2 /* system.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		27FA51493BF6E304401C02533AD56154 /* extinfo.hpp in Headers */ = {isa = PBXBuildFile; fileRef = DD2548855E2DBF52DD8B11EA68A49574 /* extinfo.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		27FADD922EB3C3015BF4813154229268 /* hash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99F6461BE6210B1308EB029B79DC86B4 /* hash.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		2A3CC70AB659AD046C96243EB6400369 /* rdwrfn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91FE963D41D85211E6DCACF1ABCD8D3D /* rdwrfn.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		2DD32D856570BC23F46A091A77049BC0 /* rs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B15144FEA08528D521420342858946F4 /* rs.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		2E128765E19FD36C9D9ABF50C6175866 /* qopen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DED53294C55B25C52F0B4A92F861FF00 /* qopen.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		2F7F008232BFD28D936B592553E4A4E5 /* archive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1BD94726762CD8965A9E7A129C6DA86E /* archive.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		35CE1E4A30A27C8795FFE005E75926C4 /* strlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CC92BED68294C39FA1AE4130AE11F5A /* strlist.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		396BDD273856EFFC459330AFEE6F1A15 /* dll.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9A2F6417FB095505A916BD131458FAB4 /* dll.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		40A93BEDD2B12146D9E20C58CC740FDF /* rar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1D95BF826D01F09879C4804DEB7D1AAB /* rar.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		4292020BF3B40BA759519A9A3BF869AB /* filcreat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27E3E60BFB41979D60A36179C8DA00FF /* filcreat.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		43A89225C3BBE4888473561910EE3B34 /* strlist.hpp in Headers */ = {isa = PBXBuildFile; fileRef = CEE120FC21FBFECBF6C73340DC858239 /* strlist.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		4534FEF1C02FADCABED3524066A56398 /* rdwrfn.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4C416C7D567D139C2C866F77F0EA2C15 /* rdwrfn.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		45D05A0CA82301D428407DB9158D919F /* rawread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31125AE2000F5D4D045C4CCDFB4DABC8 /* rawread.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		473100788A83CF1DF4120543FACBE973 /* UnrarKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 22B1A27339F631CDB33297AA15314F14 /* UnrarKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4BDBCD8AD11FD5A8256250CA57A7BF08 /* filcreat.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 618E8461B868B42AE244D61BB17494C6 /* filcreat.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		4F3BE69A4DA4D556F6599835C735D606 /* volume.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5DF4130D27192113ACA1E4C28ACF0A7B /* volume.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		5051BD06F73C84A6E101C5B057E6633C /* filefn.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9169BB1ADFA8543171ABC295AE191088 /* filefn.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		5118453A314E88534CF1F58A60C0712A /* find.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3857E5529E7B2B7E81F2F61A0D957F8D /* find.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		5A931901CB0F0FA491B7908F18DC5A8F /* array.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8A95F879D7FB02071160F77D56A5EC25 /* array.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		5C3B9F81BDF5275A32DCE14EF21EC730 /* strfn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35A09D7C1CB0A1BF3161498165014800 /* strfn.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		5D1B25BDE8258ED223473F0D6EB739C7 /* URKArchive.h in Headers */ = {isa = PBXBuildFile; fileRef = 0441FBEF6F08B6AEEACDD0925B405DD6 /* URKArchive.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5ED03FF0054B2DA23564496531579D0A /* sha256.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB4CBB1BE1FA7E3209A236A9923116BB /* sha256.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		5F835F8384D4BC8692B7486F775C9E49 /* blake2s.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F79F97DBAA1DEA7AB36AC8E3A69BB440 /* blake2s.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		60E92A9F44A8D64F9006E25F73BD85F6 /* unpack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F4BD1877F347A89BE52F290FC579E97 /* unpack.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		619D07C57CE0C7E7FAE2EAF41E819FFB /* archive.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9408B4A747F48AE0D0515E1E44D7172F /* archive.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		64E12B82A3FBC6348762C6188AF366BB /* coder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 5345B76F2495704E7C378ED4396B332F /* coder.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		64FB63204B584C2DF15193A9F4111E96 /* unicode.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4EBF7AE5FD9EEC46411A4DCD400328C4 /* unicode.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		65F6588B211F463D405AA98CD9F2F685 /* log.hpp in Headers */ = {isa = PBXBuildFile; fileRef = DC015CD2ABFF01B4E99C7C5179673ED2 /* log.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		6A205E49B9D1B99B4762633A4CA8FF46 /* global.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A70897D88BCCB5C2A3748FC0BCD073B9 /* global.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		6AD566F0EBA69E0D37BA8E31581033BC /* file.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 16592A64264E72BF65C4D67E8977587B /* file.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		6DB6AD738F333AA338FAA08EDA8528C8 /* getbits.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAB238BBF76B949A36F94C441E50F9F5 /* getbits.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		71F9D621482CD7BECFD3944AA658B040 /* strfn.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40B3B099E9C657EE8833C03F2C1D995A /* strfn.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		7218E540A1A92806F66F72E8787BA535 /* isnt.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0758EEEE90FAD304C3CDC236260873AD /* isnt.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		734F637B9803B00A0049725710343FBA /* os.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 7627C3C4BA9274CA7584C963A927496C /* os.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		78E10B0D3DB009E2D2EB40C77FECC3FB /* cmddata.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B7D52653B1AB6B7D3BB0AC0A3D62C2B9 /* cmddata.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		795C214B4B59FD2839A33616F1C0E0AE /* unzip.h in Headers */ = {isa = PBXBuildFile; fileRef = 179DF0724266CCC8E680533D5A79D6DF /* unzip.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		7BECC64029ECF3C9C4FE116CD6869A9D /* URKFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 328F83AE0DA8CE306B7D8A4349C4DF42 /* URKFileInfo.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		821E553A88269ECB92963031889FE96D /* rarvm.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0A5DB8A10C4A6FFDED9DA3B0E4CA1BB2 /* rarvm.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		828A600F154CF64AD3202C9BBF68A97C /* version.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0BEAE313CB66E21B47FB4F3D6796BC0C /* version.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		850C3C590262658A1B0ED1D46DE46F86 /* WPZipArchive.h in Headers */ = {isa = PBXBuildFile; fileRef = AE6221037DF922AE5EAE900E5794958B /* WPZipArchive.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		85672DFA679D31A9072CC6D64594F61C /* crc.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03BC05A9B1B982B32108D5159F32EA7A /* crc.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		86D9EE7C96A414AB7ACD69B822F23C66 /* WPZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 4979F4738AB231ACCF7090FF74F339FB /* WPZipArchive.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		8861E36590A0A1FF5EC4CEB8CF78DB1E /* getbits.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 47585EA7C4FBD65369AA2247F9BC09CC /* getbits.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		892E437B4BC879AEC6C2A85BD7E243BF /* ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F1081F3D3EDAC51D9D438778933C3B0C /* ui.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		8BE674FB096D81D2EA07731ECE59B423 /* pathfn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 971FF719E460148B3B6F51D518B6A535 /* pathfn.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		8ED1D795C4129C6EAF5B0F5A97BC41B1 /* crypt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BC5A8EBBE3CB6C7AD2C6B96BD97651A4 /* crypt.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		8F0143A648D39614ECF52DA15167A70D /* filestr.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FDF991CC8FAAD760ED38F0AA53BF84CA /* filestr.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		8FD282CB9C1E9323392BF6267DD05081 /* list.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD2A4B0BC89DDB4F669F35A16415BB /* list.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		918A69E7A03FAE00A9E1C9155E001D9F /* rartypes.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 379E9BDDA6E2141C3830AAAB75C62FB6 /* rartypes.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		91F413D9A50EFFA71A124C7877FBD103 /* savepos.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 852879041B598A91BFE9F58B84E28EA5 /* savepos.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		92FF3D4CEE232E6D7D2E5C683972DC02 /* crypt.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 46F5877D69E2D804ED6A49BACDB3A1D5 /* crypt.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		9754B0047839BD1D53E79352A3054432 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CA6EBC2E57D96052268211209D6AA52 /* Cocoa.framework */; };
+		984E017951185A0355A22AB6822DF492 /* zip.h in Headers */ = {isa = PBXBuildFile; fileRef = BCAD64850E91197BD1B116549EBFE7E3 /* zip.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		9BADB3D933C98991636E38A96308EF0E /* extract.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC55C2A2C38161DA24796338C70B0 /* extract.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		9C1C6953094624474D416A63C4BD59AF /* hash.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C759DE185C18184EC6A89641E091B129 /* hash.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		9D7CB1E66985F73D46009ACDF81CA359 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = E51C1D5827C2904DF7BDA3E0C594C55D /* zip.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		9E47A49420F61A67C09CABBD06AF90CE /* timefn.hpp in Headers */ = {isa = PBXBuildFile; fileRef = B1D5E6CD91F2499D6F163C1C5CE69368 /* timefn.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		A1D0D392C3B739A830C446A0CBE0CB27 /* qopen.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4B3FA6FFB7175C268B2EB79431305FEC /* qopen.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		A27397CAFA6420245154F124DBA68B24 /* system.hpp in Headers */ = {isa = PBXBuildFile; fileRef = B0E8C2D816B8FB08B94AA90888671FA7 /* system.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		A5DDA7948F5A242C0690F3C07814AC9F /* filestr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14AFFB766DD31024A7EF4481C2263A20 /* filestr.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		A7C0189FBD19FE5F73CCA97F94EAB8C4 /* UnrarKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 46C4031C6DF0E5A6F36B3A10F267EF66 /* UnrarKit-dummy.m */; };
+		A8E24AC787A5E52E0C04808F470C513C /* unicode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9952D23AFFDA523489FE64EC6129493B /* unicode.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		A92CD4D781ACEA9560C566827C06525C /* loclang.hpp in Headers */ = {isa = PBXBuildFile; fileRef = CB7EAE4D44E99043497C797EBB89A9FB /* loclang.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		A9E1739CB56719DC62C0D1B38216E456 /* crc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF20DDB01B3C0235E56F2458C96EF471 /* crc.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		AC1A90041BCD72584B54757DFFB3F6F2 /* rs16.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1FE812EBBFEE0DF8D708BF21CA0A871 /* rs16.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		AD4D8A313184485EF87AF83402F5E5F0 /* file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 832271D65579CF94415092A296494228 /* file.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		AE2ACE2867FB2AFEABF4223FB98DB435 /* rs.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6C08235FFCBF21A10425D5A347391A94 /* rs.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		B04599F42CD299689C945630EB180553 /* arcread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D8C114271217AF55748F1ECF5A955E /* arcread.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		B1C08F5C3B4258E4B65C5FADA07E1882 /* dll.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1D273F8B7051FAC8A9ADA35E1AD36BE /* dll.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		B4EBD1B8946422D99AE44F87D0B5A01F /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 5F0F1C9C45257BC574DED578958F0054 /* ioapi.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		B53AE838D5F9C120E02ED22020C3A248 /* secpassword.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5CCE3F12AEFC72A46D0ECD798B34CE21 /* secpassword.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		B8FC783502A179855B58ED98ED5CBBBE /* rarlang.hpp in Headers */ = {isa = PBXBuildFile; fileRef = B52426BA1241381B341A14950B4DD623 /* rarlang.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		B995227E6AD4A8057AED4AF10640A367 /* scantree.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D424E0236078C33021FB221A14B6F2F4 /* scantree.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		BB0D33E1F1CD2D48FAE623B45858CA7B /* consio.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 283CAB0C7D7C859A5C9FC36B2CD2C778 /* consio.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		BC273E7F1E4F4F977D3B4AABF177748D /* WPZipArchive-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 67B5E9BF3041B5FBE5A2FD47F94605BC /* WPZipArchive-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BC373CF59B7898940A6466F37D04C3B8 /* encname.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EC6CBE30FF3E957DBCEB1A18DD0B45F2 /* encname.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		C5F70DB7FFC75F08A78EE2E973B5EB6B /* sha1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A016118A25858032ABCBEBFFE3316BBA /* sha1.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		C6094E6E66EC7C2915A6C67DF57C36C8 /* Pods-Komikan-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C541A189362702E7B933684E28DDBA5 /* Pods-Komikan-dummy.m */; };
+		C88B672CCB5C3468B9D8A521D65D0E0C /* compress.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 824DB9656EF68334C3551F297F4A8C42 /* compress.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		CCB203A7D540AA21BE4D862BF3114EBC /* cmddata.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2342D3DEEC175265F1C1ACB6B0882AE5 /* cmddata.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		CF1B41CC3785C20FF3EBAFABA5FF97E3 /* recvol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22B3AAC18EF2EA52113102BF6D250F50 /* recvol.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		D086A9F2608EC585CFA2684DDDDA2A4F /* smallfn.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 00C83E6655E644E67E57CE14B68B9643 /* smallfn.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		D3ED4AE8830483805299EC6803C9B56A /* NSString+UnrarKit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 20036B2A050D7906A55A88BC55353056 /* NSString+UnrarKit.mm */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		D60EA1888B948E51075212F1C24BE597 /* rarvm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD4C2198E46BA08F44FA7BEC8476361C /* rarvm.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		D6AB78FC763CE80A88971D800CECDCEB /* WPZipArchive-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABBEE2B1AC1BFE31A59BA61B32C533F /* WPZipArchive-dummy.m */; };
+		D8E276DF684BDE5455E8188B6B6E4191 /* match.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CCAC3CEE117E7E8951D8423A1FCFFE5 /* match.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		DC396AF562DFC2660793B5C5EE64B9D6 /* list.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 97542252DDEC13F736A5795085CD0DC6 /* list.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		DC570581184E077311C49D11F1E3E7A5 /* headers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56C7D9AC55695155F5E243DB962F146B /* headers.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		DDD977D6111862880035C09BCFE340DF /* rawread.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8D1BA7A6CFEF91DA1F1F1B498AABCDE8 /* rawread.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		E0EEEB457C779E9BAA51CFBF4D039D36 /* secpassword.hpp in Headers */ = {isa = PBXBuildFile; fileRef = DCFE3FA0BC4DCDBB5F52D4D33AB6AC84 /* secpassword.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		E223249BE4CDD42FA435A5FDA35AF103 /* match.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1C1AEFBEB7CBF5EEB4A06828F5C1C7AF /* match.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		E27CC25992A6E0FEA4F938B6CE87C38E /* headers5.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 056F86B9E233655C1D46E157ED834735 /* headers5.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		E39A2FA1508F1325B92B7FBAE0E7DB32 /* threadpool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76ACF091B2AA221A32D067443693D6AB /* threadpool.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		E5564245C74FC261C13FC9EB455062FC /* encname.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49E7FCB89868FD668A552EF0B956DBB3 /* encname.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		E58B9CC14132DE114FD57DF15A01A017 /* sha1.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C66CCFBFD88B8612E9358322A3D4E089 /* sha1.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		E6AE843932058D899F083D7D1A2114B4 /* rar.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 06573AACA70D83AAC0ADE964A8CF9C6B /* rar.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		E7131BF38DAB76BA93ECFDD4C12B7CEA /* find.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A1559DCEB05A5D1E27ECBE32D02031A0 /* find.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		E91CCED75419C9027900565A2D36F874 /* suballoc.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 53776C34F3B5D208A0B9A1DE4A17A9F8 /* suballoc.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		E9CF202A37B64CF60F8156D47D1000ED /* extinfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEE8B543E67A4DC3B107632A815EE63C /* extinfo.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		ED18158E9164D84938739E4B3D705FB7 /* isnt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A5128D45A69924618193D97836FD2D4 /* isnt.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		F05EFBFBDC5CDA514458E8E64E9DDD9D /* global.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BD1DDF531A4D143FEA291173C1AA0DA0 /* global.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		F17E726E4BA83EB62C600E5150D641D1 /* unpack.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 49AF2EF8254651C3D00D106C7B61AB48 /* unpack.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		F22B79EABDD843F4D0B8E38CE1577C73 /* errhnd.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F777E0B9E394D57032723D29E24E2DDC /* errhnd.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		F378085FC037A48C0C6BDD084779E570 /* smallfn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F3ACC31A3112564D0DDB5ED72618E43 /* smallfn.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		F7403F485E548972FA739C6BA3182C96 /* URKArchive.mm in Sources */ = {isa = PBXBuildFile; fileRef = A9F505F42141E1DB74FEB6DF366F3185 /* URKArchive.mm */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		F78038D4B2C00D6D5D869F02E9D9BD67 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CA6EBC2E57D96052268211209D6AA52 /* Cocoa.framework */; };
+		F79DC348B61C8270EA07CAEE578A54A5 /* sha256.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 290DEF71CA5FCCBBB59C4E489513D97B /* sha256.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		F82628A1BACD7299DF4B938815230550 /* timefn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9BEBAC2BB0FE277F310101465E2F8C7 /* timefn.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		F9512A3A12E31AA6DEDB17122F6DF721 /* URKFileInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = EEBB52C6089E8A26C228EDC58CFA4317 /* URKFileInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FC1C0AA0D425E5E912CA837E89973A38 /* recvol.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3A87A501D3D939D06B274BCCF8746D4E /* recvol.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		FD666C5D0FAFCD35C7C7CEAFE2BC6671 /* NSString+UnrarKit.h in Headers */ = {isa = PBXBuildFile; fileRef = FFC0515E1FE31C9FA68DAC6AA65B3EEC /* NSString+UnrarKit.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		FDF594A5C80941C391F3D05FF8F72D41 /* ioapi.h in Headers */ = {isa = PBXBuildFile; fileRef = 537670B9BEC05798334EC9E72158F64D /* ioapi.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		FE7C3E5294AEE96BF2D3CD216A9C5804 /* rijndael.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F128DA69CFAD687675A7A895BA70AE79 /* rijndael.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		FF84ACBCA7AE3198D7CDD4C5B89CC5F6 /* filefn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2701A500F11EBB24730DC9C19F6950DC /* filefn.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
+		FFB35D802A1E45033B80A5228D2E6A97 /* ulinks.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EC04CA1D4D1A8E087F816C40D45ACB73 /* ulinks.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
+		FFBFCFA09BA75F8128B425A2365C6157 /* scantree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0BBD8901945574A429CE9DA404F9892C /* scantree.cpp */; settings = {COMPILER_FLAGS = "-Xanalyzer -analyzer-disable-all-checks -fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D64EBCBF3FEE725A9EA92942B8AC0EBA /* PBXContainerItemProxy */ = {
+		159E3775A18B123CD15DCE3B9233AF22 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 3C06D61B178227D6B7FBFBA8F9850C66;
+			remoteGlobalIDString = 3632E4B4E75E3FB268B890AAC90DB75A;
 			remoteInfo = WPZipArchive;
+		};
+		21CD589A0A3E82FEFC471FCB4EB400A2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FC4FEF81F7228B25D8DA7E626D98FF41;
+			remoteInfo = UnrarKit;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00B754021FE78A920B49F689061F353A /* WPZipArchive.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = WPZipArchive.xcconfig; sourceTree = "<group>"; };
-		08C4349F788D2B9696F52E5E3AF2FECD /* Pods-Komikan-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Komikan-acknowledgements.plist"; sourceTree = "<group>"; };
-		18368B5CDB0B828A678AB1A52448F2BF /* zip.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = zip.h; path = WPZipArchive/minizip/zip.h; sourceTree = "<group>"; };
+		00C83E6655E644E67E57CE14B68B9643 /* smallfn.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = smallfn.hpp; path = Libraries/unrar/smallfn.hpp; sourceTree = "<group>"; };
+		02F6411BF2A3026FF642DFF95A3AB4E9 /* Pods-Komikan.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Komikan.modulemap"; sourceTree = "<group>"; };
+		03BC05A9B1B982B32108D5159F32EA7A /* crc.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = crc.hpp; path = Libraries/unrar/crc.hpp; sourceTree = "<group>"; };
+		0441FBEF6F08B6AEEACDD0925B405DD6 /* URKArchive.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = URKArchive.h; path = Classes/URKArchive.h; sourceTree = "<group>"; };
+		04FB32D8B8042E32BB10622F5A0D7BE8 /* blake2s.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = blake2s.cpp; path = Libraries/unrar/blake2s.cpp; sourceTree = "<group>"; };
+		056F86B9E233655C1D46E157ED834735 /* headers5.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = headers5.hpp; path = Libraries/unrar/headers5.hpp; sourceTree = "<group>"; };
+		06573AACA70D83AAC0ADE964A8CF9C6B /* rar.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = rar.hpp; path = Libraries/unrar/rar.hpp; sourceTree = "<group>"; };
+		0758EEEE90FAD304C3CDC236260873AD /* isnt.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = isnt.hpp; path = Libraries/unrar/isnt.hpp; sourceTree = "<group>"; };
+		092D754E23D555C419A081ABA2FF1AC2 /* WPZipArchive.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = WPZipArchive.xcconfig; sourceTree = "<group>"; };
+		0A5DB8A10C4A6FFDED9DA3B0E4CA1BB2 /* rarvm.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = rarvm.hpp; path = Libraries/unrar/rarvm.hpp; sourceTree = "<group>"; };
+		0BBD8901945574A429CE9DA404F9892C /* scantree.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = scantree.cpp; path = Libraries/unrar/scantree.cpp; sourceTree = "<group>"; };
+		0BEAE313CB66E21B47FB4F3D6796BC0C /* version.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = version.hpp; path = Libraries/unrar/version.hpp; sourceTree = "<group>"; };
+		0DBE46427BD8CF60C4AE52B618EFA07C /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0DCD63832E0C6CE9FBED517BE08DB540 /* mztools.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = mztools.h; path = WPZipArchive/minizip/mztools.h; sourceTree = "<group>"; };
+		14AFFB766DD31024A7EF4481C2263A20 /* filestr.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = filestr.cpp; path = Libraries/unrar/filestr.cpp; sourceTree = "<group>"; };
+		15C9414D9741EC26FCB69E67DB32C495 /* raros.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = raros.hpp; path = Libraries/unrar/raros.hpp; sourceTree = "<group>"; };
+		16592A64264E72BF65C4D67E8977587B /* file.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = file.hpp; path = Libraries/unrar/file.hpp; sourceTree = "<group>"; };
+		167E8CB648A83633D6D5C2A90444DFC9 /* Pods-Komikan-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Komikan-umbrella.h"; sourceTree = "<group>"; };
+		179DF0724266CCC8E680533D5A79D6DF /* unzip.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = unzip.h; path = WPZipArchive/minizip/unzip.h; sourceTree = "<group>"; };
+		1A48B536AEC70E7EC9F7709DF3B21C16 /* mztools.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = mztools.c; path = WPZipArchive/minizip/mztools.c; sourceTree = "<group>"; };
+		1BD94726762CD8965A9E7A129C6DA86E /* archive.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = archive.cpp; path = Libraries/unrar/archive.cpp; sourceTree = "<group>"; };
+		1C1AEFBEB7CBF5EEB4A06828F5C1C7AF /* match.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = match.hpp; path = Libraries/unrar/match.hpp; sourceTree = "<group>"; };
 		1CA6EBC2E57D96052268211209D6AA52 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
-		25084FE496B7ED743083A1ACAA13BC36 /* WPZipArchive.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = WPZipArchive.m; path = WPZipArchive/WPZipArchive.m; sourceTree = "<group>"; };
-		2636C7CE48DDD9C7930139B15C62B049 /* unzip.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = unzip.h; path = WPZipArchive/minizip/unzip.h; sourceTree = "<group>"; };
-		3054F9FC11B06962650C6D7A1C330664 /* Pods-Komikan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Komikan.release.xcconfig"; sourceTree = "<group>"; };
-		477C865966E24ABE1CB9C3C62CB280AC /* crypt.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypt.h; path = WPZipArchive/minizip/crypt.h; sourceTree = "<group>"; };
-		50EC7366E80C28EC2627CB48B442009B /* libPods-Komikan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Komikan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5A4E084527A669A04E0C7950C1A66DCB /* unzip.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = unzip.c; path = WPZipArchive/minizip/unzip.c; sourceTree = "<group>"; };
-		5C6F43055FE864AAAC8054BC5C5744F3 /* WPZipArchive-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "WPZipArchive-prefix.pch"; sourceTree = "<group>"; };
-		618BFBE87C7CDBB693571A3E7D6FC113 /* Pods-Komikan-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Komikan-frameworks.sh"; sourceTree = "<group>"; };
-		7960D39A7AAEFBE8BF34DAF3CDD8013E /* mztools.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = mztools.h; path = WPZipArchive/minizip/mztools.h; sourceTree = "<group>"; };
-		81ACB1A4393AC91C0E0C3AD4424D3390 /* Pods-Komikan-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Komikan-acknowledgements.markdown"; sourceTree = "<group>"; };
-		8A2FF243A435B114741DA1EF0BDFCCD6 /* WPZipArchive-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "WPZipArchive-dummy.m"; sourceTree = "<group>"; };
-		9CB9C52A3089B736E816F8FC7A47A0A4 /* Pods-Komikan-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Komikan-resources.sh"; sourceTree = "<group>"; };
-		A1E814AEF3218A1D45089065E7D62AAC /* zip.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = zip.c; path = WPZipArchive/minizip/zip.c; sourceTree = "<group>"; };
-		A5BA14B0DC28EE449FB418EAD3602217 /* Pods-Komikan-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Komikan-dummy.m"; sourceTree = "<group>"; };
-		B1CF8BF636159B960C370B681FBA2FB2 /* libWPZipArchive.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libWPZipArchive.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D95BF826D01F09879C4804DEB7D1AAB /* rar.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = rar.cpp; path = Libraries/unrar/rar.cpp; sourceTree = "<group>"; };
+		1DC23FEE243ED9DF3E3AB7BBB19A4A64 /* WPZipArchive.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = WPZipArchive.modulemap; sourceTree = "<group>"; };
+		1FD44F730648CD21D88ACA8E8F5CF6CB /* Pods-Komikan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Komikan.debug.xcconfig"; sourceTree = "<group>"; };
+		20036B2A050D7906A55A88BC55353056 /* NSString+UnrarKit.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = "NSString+UnrarKit.mm"; path = "Classes/Categories/NSString+UnrarKit.mm"; sourceTree = "<group>"; };
+		22B1A27339F631CDB33297AA15314F14 /* UnrarKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = UnrarKit.h; path = Classes/UnrarKit.h; sourceTree = "<group>"; };
+		22B3AAC18EF2EA52113102BF6D250F50 /* recvol.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = recvol.cpp; path = Libraries/unrar/recvol.cpp; sourceTree = "<group>"; };
+		2342D3DEEC175265F1C1ACB6B0882AE5 /* cmddata.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = cmddata.hpp; path = Libraries/unrar/cmddata.hpp; sourceTree = "<group>"; };
+		2701A500F11EBB24730DC9C19F6950DC /* filefn.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = filefn.cpp; path = Libraries/unrar/filefn.cpp; sourceTree = "<group>"; };
+		27E3E60BFB41979D60A36179C8DA00FF /* filcreat.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = filcreat.cpp; path = Libraries/unrar/filcreat.cpp; sourceTree = "<group>"; };
+		283CAB0C7D7C859A5C9FC36B2CD2C778 /* consio.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = consio.hpp; path = Libraries/unrar/consio.hpp; sourceTree = "<group>"; };
+		290DEF71CA5FCCBBB59C4E489513D97B /* sha256.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = sha256.hpp; path = Libraries/unrar/sha256.hpp; sourceTree = "<group>"; };
+		2D162F086FEBE83A1D52DFE064096E15 /* volume.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = volume.hpp; path = Libraries/unrar/volume.hpp; sourceTree = "<group>"; };
+		31125AE2000F5D4D045C4CCDFB4DABC8 /* rawread.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = rawread.cpp; path = Libraries/unrar/rawread.cpp; sourceTree = "<group>"; };
+		328F83AE0DA8CE306B7D8A4349C4DF42 /* URKFileInfo.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = URKFileInfo.m; path = Classes/URKFileInfo.m; sourceTree = "<group>"; };
+		3568CA02520D453567BBE5520BE6B64C /* rijndael.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = rijndael.cpp; path = Libraries/unrar/rijndael.cpp; sourceTree = "<group>"; };
+		35A09D7C1CB0A1BF3161498165014800 /* strfn.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = strfn.cpp; path = Libraries/unrar/strfn.cpp; sourceTree = "<group>"; };
+		371C9D7F748555D6650B4CFC89F73635 /* headers.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = headers.hpp; path = Libraries/unrar/headers.hpp; sourceTree = "<group>"; };
+		379E9BDDA6E2141C3830AAAB75C62FB6 /* rartypes.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = rartypes.hpp; path = Libraries/unrar/rartypes.hpp; sourceTree = "<group>"; };
+		3857E5529E7B2B7E81F2F61A0D957F8D /* find.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = find.cpp; path = Libraries/unrar/find.cpp; sourceTree = "<group>"; };
+		3A5128D45A69924618193D97836FD2D4 /* isnt.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = isnt.cpp; path = Libraries/unrar/isnt.cpp; sourceTree = "<group>"; };
+		3A87A501D3D939D06B274BCCF8746D4E /* recvol.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = recvol.hpp; path = Libraries/unrar/recvol.hpp; sourceTree = "<group>"; };
+		3ABBEE2B1AC1BFE31A59BA61B32C533F /* WPZipArchive-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "WPZipArchive-dummy.m"; sourceTree = "<group>"; };
+		3F3ACC31A3112564D0DDB5ED72618E43 /* smallfn.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = smallfn.cpp; path = Libraries/unrar/smallfn.cpp; sourceTree = "<group>"; };
+		40B3B099E9C657EE8833C03F2C1D995A /* strfn.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = strfn.hpp; path = Libraries/unrar/strfn.hpp; sourceTree = "<group>"; };
+		44297781785C6ED942FBD97C671DD336 /* Common.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Common.h; path = WPZipArchive/Common.h; sourceTree = "<group>"; };
+		46C4031C6DF0E5A6F36B3A10F267EF66 /* UnrarKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UnrarKit-dummy.m"; sourceTree = "<group>"; };
+		46F5877D69E2D804ED6A49BACDB3A1D5 /* crypt.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = crypt.hpp; path = Libraries/unrar/crypt.hpp; sourceTree = "<group>"; };
+		47585EA7C4FBD65369AA2247F9BC09CC /* getbits.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = getbits.hpp; path = Libraries/unrar/getbits.hpp; sourceTree = "<group>"; };
+		4979F4738AB231ACCF7090FF74F339FB /* WPZipArchive.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = WPZipArchive.m; path = WPZipArchive/WPZipArchive.m; sourceTree = "<group>"; };
+		49AF2EF8254651C3D00D106C7B61AB48 /* unpack.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = unpack.hpp; path = Libraries/unrar/unpack.hpp; sourceTree = "<group>"; };
+		49E7FCB89868FD668A552EF0B956DBB3 /* encname.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = encname.cpp; path = Libraries/unrar/encname.cpp; sourceTree = "<group>"; };
+		4B3FA6FFB7175C268B2EB79431305FEC /* qopen.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = qopen.hpp; path = Libraries/unrar/qopen.hpp; sourceTree = "<group>"; };
+		4C416C7D567D139C2C866F77F0EA2C15 /* rdwrfn.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = rdwrfn.hpp; path = Libraries/unrar/rdwrfn.hpp; sourceTree = "<group>"; };
+		4CCAC3CEE117E7E8951D8423A1FCFFE5 /* match.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = match.cpp; path = Libraries/unrar/match.cpp; sourceTree = "<group>"; };
+		4EBF7AE5FD9EEC46411A4DCD400328C4 /* unicode.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = unicode.hpp; path = Libraries/unrar/unicode.hpp; sourceTree = "<group>"; };
+		50E42BECCBCCA23ACCB58F99B1893D8E /* UnrarKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UnrarKit-prefix.pch"; sourceTree = "<group>"; };
+		5345B76F2495704E7C378ED4396B332F /* coder.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = coder.hpp; path = Libraries/unrar/coder.hpp; sourceTree = "<group>"; };
+		537670B9BEC05798334EC9E72158F64D /* ioapi.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ioapi.h; path = WPZipArchive/minizip/ioapi.h; sourceTree = "<group>"; };
+		53776C34F3B5D208A0B9A1DE4A17A9F8 /* suballoc.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = suballoc.hpp; path = Libraries/unrar/suballoc.hpp; sourceTree = "<group>"; };
+		54787246EEE970AC850CECB61A650530 /* UnrarKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = UnrarKit.modulemap; sourceTree = "<group>"; };
+		54D8C114271217AF55748F1ECF5A955E /* arcread.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = arcread.cpp; path = Libraries/unrar/arcread.cpp; sourceTree = "<group>"; };
+		56C7D9AC55695155F5E243DB962F146B /* headers.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = headers.cpp; path = Libraries/unrar/headers.cpp; sourceTree = "<group>"; };
+		5A3A3D3CCA6D55D312B5E2ACFBB6D302 /* UnrarKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UnrarKit-umbrella.h"; sourceTree = "<group>"; };
+		5CCE3F12AEFC72A46D0ECD798B34CE21 /* secpassword.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = secpassword.cpp; path = Libraries/unrar/secpassword.cpp; sourceTree = "<group>"; };
+		5D530C58CF84374ED64A2DE58E752233 /* Pods_Komikan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Komikan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5DF4130D27192113ACA1E4C28ACF0A7B /* volume.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = volume.cpp; path = Libraries/unrar/volume.cpp; sourceTree = "<group>"; };
+		5F0F1C9C45257BC574DED578958F0054 /* ioapi.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = ioapi.c; path = WPZipArchive/minizip/ioapi.c; sourceTree = "<group>"; };
+		618E8461B868B42AE244D61BB17494C6 /* filcreat.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = filcreat.hpp; path = Libraries/unrar/filcreat.hpp; sourceTree = "<group>"; };
+		67B5E9BF3041B5FBE5A2FD47F94605BC /* WPZipArchive-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "WPZipArchive-umbrella.h"; sourceTree = "<group>"; };
+		6C08235FFCBF21A10425D5A347391A94 /* rs.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = rs.hpp; path = Libraries/unrar/rs.hpp; sourceTree = "<group>"; };
+		6C541A189362702E7B933684E28DDBA5 /* Pods-Komikan-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Komikan-dummy.m"; sourceTree = "<group>"; };
+		6CC92BED68294C39FA1AE4130AE11F5A /* strlist.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = strlist.cpp; path = Libraries/unrar/strlist.cpp; sourceTree = "<group>"; };
+		6CD8A4405BD6F026F6DD58F6F49BA35E /* resource.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = resource.hpp; path = Libraries/unrar/resource.hpp; sourceTree = "<group>"; };
+		70467A26529F8197687773EAD90DAE53 /* resource.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = resource.cpp; path = Libraries/unrar/resource.cpp; sourceTree = "<group>"; };
+		75AF2BC20061A2DEC05B37A1768A1BB3 /* consio.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = consio.cpp; path = Libraries/unrar/consio.cpp; sourceTree = "<group>"; };
+		7627C3C4BA9274CA7584C963A927496C /* os.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = os.hpp; path = Libraries/unrar/os.hpp; sourceTree = "<group>"; };
+		76ACF091B2AA221A32D067443693D6AB /* threadpool.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = threadpool.cpp; path = Libraries/unrar/threadpool.cpp; sourceTree = "<group>"; };
+		7AB8E27A79ECA854412FD78CF7FC4F46 /* model.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = model.hpp; path = Libraries/unrar/model.hpp; sourceTree = "<group>"; };
+		7F364982AF5584DA80505E1C8B6D9D8C /* extract.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = extract.hpp; path = Libraries/unrar/extract.hpp; sourceTree = "<group>"; };
+		824DB9656EF68334C3551F297F4A8C42 /* compress.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = compress.hpp; path = Libraries/unrar/compress.hpp; sourceTree = "<group>"; };
+		832271D65579CF94415092A296494228 /* file.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = file.cpp; path = Libraries/unrar/file.cpp; sourceTree = "<group>"; };
+		852879041B598A91BFE9F58B84E28EA5 /* savepos.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = savepos.hpp; path = Libraries/unrar/savepos.hpp; sourceTree = "<group>"; };
+		8A95F879D7FB02071160F77D56A5EC25 /* array.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = array.hpp; path = Libraries/unrar/array.hpp; sourceTree = "<group>"; };
+		8B1485D52F8494372DE8807115909975 /* Pods-Komikan-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Komikan-acknowledgements.markdown"; sourceTree = "<group>"; };
+		8D1BA7A6CFEF91DA1F1F1B498AABCDE8 /* rawread.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = rawread.hpp; path = Libraries/unrar/rawread.hpp; sourceTree = "<group>"; };
+		8D251BE93076CACC6F18ECB4B8F4A93F /* threadpool.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = threadpool.hpp; path = Libraries/unrar/threadpool.hpp; sourceTree = "<group>"; };
+		8E8169F72228EC280F6D8FBABF580951 /* options.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = options.hpp; path = Libraries/unrar/options.hpp; sourceTree = "<group>"; };
+		8E9749A0CBB1180B61CDD3FF98FC1AA2 /* ui.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = ui.hpp; path = Libraries/unrar/ui.hpp; sourceTree = "<group>"; };
+		8F4BD1877F347A89BE52F290FC579E97 /* unpack.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = unpack.cpp; path = Libraries/unrar/unpack.cpp; sourceTree = "<group>"; };
+		9169BB1ADFA8543171ABC295AE191088 /* filefn.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = filefn.hpp; path = Libraries/unrar/filefn.hpp; sourceTree = "<group>"; };
+		91FE963D41D85211E6DCACF1ABCD8D3D /* rdwrfn.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = rdwrfn.cpp; path = Libraries/unrar/rdwrfn.cpp; sourceTree = "<group>"; };
+		92BDC55C2A2C38161DA24796338C70B0 /* extract.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = extract.cpp; path = Libraries/unrar/extract.cpp; sourceTree = "<group>"; };
+		9408B4A747F48AE0D0515E1E44D7172F /* archive.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = archive.hpp; path = Libraries/unrar/archive.hpp; sourceTree = "<group>"; };
+		971FF719E460148B3B6F51D518B6A535 /* pathfn.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = pathfn.cpp; path = Libraries/unrar/pathfn.cpp; sourceTree = "<group>"; };
+		97542252DDEC13F736A5795085CD0DC6 /* list.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = list.hpp; path = Libraries/unrar/list.hpp; sourceTree = "<group>"; };
+		9952D23AFFDA523489FE64EC6129493B /* unicode.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = unicode.cpp; path = Libraries/unrar/unicode.cpp; sourceTree = "<group>"; };
+		99E8FD36F3FF003967D41C961270D7F2 /* system.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = system.cpp; path = Libraries/unrar/system.cpp; sourceTree = "<group>"; };
+		99F6461BE6210B1308EB029B79DC86B4 /* hash.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = hash.cpp; path = Libraries/unrar/hash.cpp; sourceTree = "<group>"; };
+		9A2F6417FB095505A916BD131458FAB4 /* dll.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = dll.hpp; path = Libraries/unrar/dll.hpp; sourceTree = "<group>"; };
+		9E398BB1322E76AD4CEB825B72AC6924 /* Pods-Komikan-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Komikan-acknowledgements.plist"; sourceTree = "<group>"; };
+		A016118A25858032ABCBEBFFE3316BBA /* sha1.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = sha1.cpp; path = Libraries/unrar/sha1.cpp; sourceTree = "<group>"; };
+		A0BF1297533F0E9B04957B7BD91BD9D4 /* Pods-Komikan-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Komikan-resources.sh"; sourceTree = "<group>"; };
+		A1559DCEB05A5D1E27ECBE32D02031A0 /* find.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = find.hpp; path = Libraries/unrar/find.hpp; sourceTree = "<group>"; };
+		A1D273F8B7051FAC8A9ADA35E1AD36BE /* dll.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = dll.cpp; path = Libraries/unrar/dll.cpp; sourceTree = "<group>"; };
+		A70897D88BCCB5C2A3748FC0BCD073B9 /* global.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = global.cpp; path = Libraries/unrar/global.cpp; sourceTree = "<group>"; };
+		A8B4DA7FEAB47ED693A208CC83B3C489 /* Pods-Komikan-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Komikan-frameworks.sh"; sourceTree = "<group>"; };
+		A9F505F42141E1DB74FEB6DF366F3185 /* URKArchive.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = URKArchive.mm; path = Classes/URKArchive.mm; sourceTree = "<group>"; };
+		AAB238BBF76B949A36F94C441E50F9F5 /* getbits.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = getbits.cpp; path = Libraries/unrar/getbits.cpp; sourceTree = "<group>"; };
+		AB467BF7019D4A11B18B03DB68D8B354 /* unzip.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = unzip.c; path = WPZipArchive/minizip/unzip.c; sourceTree = "<group>"; };
+		AE6221037DF922AE5EAE900E5794958B /* WPZipArchive.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WPZipArchive.h; path = WPZipArchive/WPZipArchive.h; sourceTree = "<group>"; };
+		B0E8C2D816B8FB08B94AA90888671FA7 /* system.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = system.hpp; path = Libraries/unrar/system.hpp; sourceTree = "<group>"; };
+		B15144FEA08528D521420342858946F4 /* rs.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = rs.cpp; path = Libraries/unrar/rs.cpp; sourceTree = "<group>"; };
+		B1632454515B4A6277412699CD320CB2 /* UnrarKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UnrarKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1D5E6CD91F2499D6F163C1C5CE69368 /* timefn.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = timefn.hpp; path = Libraries/unrar/timefn.hpp; sourceTree = "<group>"; };
+		B52426BA1241381B341A14950B4DD623 /* rarlang.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = rarlang.hpp; path = Libraries/unrar/rarlang.hpp; sourceTree = "<group>"; };
+		B62C643E6F7BCCB64C73453547205F1A /* errhnd.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = errhnd.cpp; path = Libraries/unrar/errhnd.cpp; sourceTree = "<group>"; };
+		B6D2CF9CEAD7D2BD878AE49B97F99B19 /* rs16.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = rs16.hpp; path = Libraries/unrar/rs16.hpp; sourceTree = "<group>"; };
+		B7D52653B1AB6B7D3BB0AC0A3D62C2B9 /* cmddata.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = cmddata.cpp; path = Libraries/unrar/cmddata.cpp; sourceTree = "<group>"; };
+		B9FD2A4B0BC89DDB4F669F35A16415BB /* list.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = list.cpp; path = Libraries/unrar/list.cpp; sourceTree = "<group>"; };
 		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		C390E156A4729FE85F37A4EAD0E50E03 /* Pods-Komikan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Komikan.debug.xcconfig"; sourceTree = "<group>"; };
-		CDC71608DEC0E878634E194DF1D5C9E0 /* mztools.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = mztools.c; path = WPZipArchive/minizip/mztools.c; sourceTree = "<group>"; };
-		DA0D979F1D12C33BA60DCA3E5F59EF7F /* Common.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Common.h; path = WPZipArchive/Common.h; sourceTree = "<group>"; };
-		DA7D54FA70E506D663A218A8FB19B219 /* ioapi.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ioapi.h; path = WPZipArchive/minizip/ioapi.h; sourceTree = "<group>"; };
-		F02A9C4FC9D6B02DBF7D438080CE211F /* WPZipArchive.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WPZipArchive.h; path = WPZipArchive/WPZipArchive.h; sourceTree = "<group>"; };
-		FDE88A9027A194637AFDE75361C696C7 /* ioapi.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = ioapi.c; path = WPZipArchive/minizip/ioapi.c; sourceTree = "<group>"; };
+		BB4CBB1BE1FA7E3209A236A9923116BB /* sha256.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = sha256.cpp; path = Libraries/unrar/sha256.cpp; sourceTree = "<group>"; };
+		BC5A8EBBE3CB6C7AD2C6B96BD97651A4 /* crypt.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = crypt.cpp; path = Libraries/unrar/crypt.cpp; sourceTree = "<group>"; };
+		BCAD64850E91197BD1B116549EBFE7E3 /* zip.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = zip.h; path = WPZipArchive/minizip/zip.h; sourceTree = "<group>"; };
+		BD1DDF531A4D143FEA291173C1AA0DA0 /* global.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = global.hpp; path = Libraries/unrar/global.hpp; sourceTree = "<group>"; };
+		C0FABFD637277C15BDFA5D0D14BA0B06 /* crypt.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypt.h; path = WPZipArchive/minizip/crypt.h; sourceTree = "<group>"; };
+		C301AAA3AF4E226B877ECFF70646F4B6 /* options.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = options.cpp; path = Libraries/unrar/options.cpp; sourceTree = "<group>"; };
+		C414EDAA670BBEAC574259E683E2FA4D /* WPZipArchive.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WPZipArchive.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C66CCFBFD88B8612E9358322A3D4E089 /* sha1.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = sha1.hpp; path = Libraries/unrar/sha1.hpp; sourceTree = "<group>"; };
+		C674CB85E7B99B1998D01A121173D94E /* UnrarKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = UnrarKit.xcconfig; sourceTree = "<group>"; };
+		C759DE185C18184EC6A89641E091B129 /* hash.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = hash.hpp; path = Libraries/unrar/hash.hpp; sourceTree = "<group>"; };
+		CB7EAE4D44E99043497C797EBB89A9FB /* loclang.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = loclang.hpp; path = Libraries/unrar/loclang.hpp; sourceTree = "<group>"; };
+		CEE120FC21FBFECBF6C73340DC858239 /* strlist.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = strlist.hpp; path = Libraries/unrar/strlist.hpp; sourceTree = "<group>"; };
+		D424E0236078C33021FB221A14B6F2F4 /* scantree.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = scantree.hpp; path = Libraries/unrar/scantree.hpp; sourceTree = "<group>"; };
+		D5A649EB5ECA5DE818F3C5E8E878A484 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DC015CD2ABFF01B4E99C7C5179673ED2 /* log.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = log.hpp; path = Libraries/unrar/log.hpp; sourceTree = "<group>"; };
+		DCFE3FA0BC4DCDBB5F52D4D33AB6AC84 /* secpassword.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = secpassword.hpp; path = Libraries/unrar/secpassword.hpp; sourceTree = "<group>"; };
+		DD2548855E2DBF52DD8B11EA68A49574 /* extinfo.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = extinfo.hpp; path = Libraries/unrar/extinfo.hpp; sourceTree = "<group>"; };
+		DED53294C55B25C52F0B4A92F861FF00 /* qopen.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = qopen.cpp; path = Libraries/unrar/qopen.cpp; sourceTree = "<group>"; };
+		DF20DDB01B3C0235E56F2458C96EF471 /* crc.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = crc.cpp; path = Libraries/unrar/crc.cpp; sourceTree = "<group>"; };
+		E017491E9B5C1863255F557397D83AD1 /* WPZipArchive-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "WPZipArchive-prefix.pch"; sourceTree = "<group>"; };
+		E1FE812EBBFEE0DF8D708BF21CA0A871 /* rs16.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = rs16.cpp; path = Libraries/unrar/rs16.cpp; sourceTree = "<group>"; };
+		E49175B40D7C5CB2F7192BDB715FC4AF /* Pods-Komikan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Komikan.release.xcconfig"; sourceTree = "<group>"; };
+		E494DA4D9D61FB3D987BCE41586F075B /* rardefs.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = rardefs.hpp; path = Libraries/unrar/rardefs.hpp; sourceTree = "<group>"; };
+		E51C1D5827C2904DF7BDA3E0C594C55D /* zip.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = zip.c; path = WPZipArchive/minizip/zip.c; sourceTree = "<group>"; };
+		E7D15DFB663BDC54DE1F33E74FD92209 /* pathfn.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = pathfn.hpp; path = Libraries/unrar/pathfn.hpp; sourceTree = "<group>"; };
+		EC04CA1D4D1A8E087F816C40D45ACB73 /* ulinks.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = ulinks.hpp; path = Libraries/unrar/ulinks.hpp; sourceTree = "<group>"; };
+		EC6CBE30FF3E957DBCEB1A18DD0B45F2 /* encname.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = encname.hpp; path = Libraries/unrar/encname.hpp; sourceTree = "<group>"; };
+		EEBB52C6089E8A26C228EDC58CFA4317 /* URKFileInfo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = URKFileInfo.h; path = Classes/URKFileInfo.h; sourceTree = "<group>"; };
+		EEE8B543E67A4DC3B107632A815EE63C /* extinfo.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = extinfo.cpp; path = Libraries/unrar/extinfo.cpp; sourceTree = "<group>"; };
+		F1081F3D3EDAC51D9D438778933C3B0C /* ui.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = ui.cpp; path = Libraries/unrar/ui.cpp; sourceTree = "<group>"; };
+		F128DA69CFAD687675A7A895BA70AE79 /* rijndael.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = rijndael.hpp; path = Libraries/unrar/rijndael.hpp; sourceTree = "<group>"; };
+		F777E0B9E394D57032723D29E24E2DDC /* errhnd.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = errhnd.hpp; path = Libraries/unrar/errhnd.hpp; sourceTree = "<group>"; };
+		F79F97DBAA1DEA7AB36AC8E3A69BB440 /* blake2s.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = blake2s.hpp; path = Libraries/unrar/blake2s.hpp; sourceTree = "<group>"; };
+		F9BEBAC2BB0FE277F310101465E2F8C7 /* timefn.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = timefn.cpp; path = Libraries/unrar/timefn.cpp; sourceTree = "<group>"; };
+		FD4C2198E46BA08F44FA7BEC8476361C /* rarvm.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = rarvm.cpp; path = Libraries/unrar/rarvm.cpp; sourceTree = "<group>"; };
+		FDF991CC8FAAD760ED38F0AA53BF84CA /* filestr.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = filestr.hpp; path = Libraries/unrar/filestr.hpp; sourceTree = "<group>"; };
+		FE4F381C61EC74BC7B0291BC1376F12C /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FFC0515E1FE31C9FA68DAC6AA65B3EEC /* NSString+UnrarKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSString+UnrarKit.h"; path = "Classes/Categories/NSString+UnrarKit.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		6E568F6BB58482E534413A91F7059F87 /* Frameworks */ = {
+		0A8FDB17710ED5EA6E148C3964CD0F90 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				284498AF76C9F15105C9FD50D8735C27 /* Cocoa.framework in Frameworks */,
+				9754B0047839BD1D53E79352A3054432 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CEC2C09D3397F61E889E8A32BFBA7FA0 /* Frameworks */ = {
+		B189CE04F0ADD10FCDDB10EFF311406C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0578F40326194AEA638AAE050CEE3DC8 /* Cocoa.framework in Frameworks */,
+				F78038D4B2C00D6D5D869F02E9D9BD67 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B290E4FE83BB918302FB3DB1891E2F99 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BB8D0C64004A148B6393F04DF3C22DE /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		21C5C8B5E8F347B31B531F14B89D52CB /* UnrarKit */ = {
+			isa = PBXGroup;
+			children = (
+				FFC0515E1FE31C9FA68DAC6AA65B3EEC /* NSString+UnrarKit.h */,
+				20036B2A050D7906A55A88BC55353056 /* NSString+UnrarKit.mm */,
+				22B1A27339F631CDB33297AA15314F14 /* UnrarKit.h */,
+				0441FBEF6F08B6AEEACDD0925B405DD6 /* URKArchive.h */,
+				A9F505F42141E1DB74FEB6DF366F3185 /* URKArchive.mm */,
+				EEBB52C6089E8A26C228EDC58CFA4317 /* URKFileInfo.h */,
+				328F83AE0DA8CE306B7D8A4349C4DF42 /* URKFileInfo.m */,
+				2CDD50031EBC0047382745C825277940 /* Support Files */,
+				31F36DB5DF7765436F5B1840AC4AA632 /* unrar-lib */,
+			);
+			path = UnrarKit;
+			sourceTree = "<group>";
+		};
 		28C17CEF104526ACA07B6EEE217EC43E /* OS X */ = {
 			isa = PBXGroup;
 			children = (
 				1CA6EBC2E57D96052268211209D6AA52 /* Cocoa.framework */,
 			);
 			name = "OS X";
+			sourceTree = "<group>";
+		};
+		2CDD50031EBC0047382745C825277940 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				FE4F381C61EC74BC7B0291BC1376F12C /* Info.plist */,
+				54787246EEE970AC850CECB61A650530 /* UnrarKit.modulemap */,
+				C674CB85E7B99B1998D01A121173D94E /* UnrarKit.xcconfig */,
+				46C4031C6DF0E5A6F36B3A10F267EF66 /* UnrarKit-dummy.m */,
+				50E42BECCBCCA23ACCB58F99B1893D8E /* UnrarKit-prefix.pch */,
+				5A3A3D3CCA6D55D312B5E2ACFBB6D302 /* UnrarKit-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/UnrarKit";
+			sourceTree = "<group>";
+		};
+		31F36DB5DF7765436F5B1840AC4AA632 /* unrar-lib */ = {
+			isa = PBXGroup;
+			children = (
+				1BD94726762CD8965A9E7A129C6DA86E /* archive.cpp */,
+				9408B4A747F48AE0D0515E1E44D7172F /* archive.hpp */,
+				54D8C114271217AF55748F1ECF5A955E /* arcread.cpp */,
+				8A95F879D7FB02071160F77D56A5EC25 /* array.hpp */,
+				04FB32D8B8042E32BB10622F5A0D7BE8 /* blake2s.cpp */,
+				F79F97DBAA1DEA7AB36AC8E3A69BB440 /* blake2s.hpp */,
+				B7D52653B1AB6B7D3BB0AC0A3D62C2B9 /* cmddata.cpp */,
+				2342D3DEEC175265F1C1ACB6B0882AE5 /* cmddata.hpp */,
+				5345B76F2495704E7C378ED4396B332F /* coder.hpp */,
+				824DB9656EF68334C3551F297F4A8C42 /* compress.hpp */,
+				75AF2BC20061A2DEC05B37A1768A1BB3 /* consio.cpp */,
+				283CAB0C7D7C859A5C9FC36B2CD2C778 /* consio.hpp */,
+				DF20DDB01B3C0235E56F2458C96EF471 /* crc.cpp */,
+				03BC05A9B1B982B32108D5159F32EA7A /* crc.hpp */,
+				BC5A8EBBE3CB6C7AD2C6B96BD97651A4 /* crypt.cpp */,
+				46F5877D69E2D804ED6A49BACDB3A1D5 /* crypt.hpp */,
+				A1D273F8B7051FAC8A9ADA35E1AD36BE /* dll.cpp */,
+				9A2F6417FB095505A916BD131458FAB4 /* dll.hpp */,
+				49E7FCB89868FD668A552EF0B956DBB3 /* encname.cpp */,
+				EC6CBE30FF3E957DBCEB1A18DD0B45F2 /* encname.hpp */,
+				B62C643E6F7BCCB64C73453547205F1A /* errhnd.cpp */,
+				F777E0B9E394D57032723D29E24E2DDC /* errhnd.hpp */,
+				EEE8B543E67A4DC3B107632A815EE63C /* extinfo.cpp */,
+				DD2548855E2DBF52DD8B11EA68A49574 /* extinfo.hpp */,
+				92BDC55C2A2C38161DA24796338C70B0 /* extract.cpp */,
+				7F364982AF5584DA80505E1C8B6D9D8C /* extract.hpp */,
+				27E3E60BFB41979D60A36179C8DA00FF /* filcreat.cpp */,
+				618E8461B868B42AE244D61BB17494C6 /* filcreat.hpp */,
+				832271D65579CF94415092A296494228 /* file.cpp */,
+				16592A64264E72BF65C4D67E8977587B /* file.hpp */,
+				2701A500F11EBB24730DC9C19F6950DC /* filefn.cpp */,
+				9169BB1ADFA8543171ABC295AE191088 /* filefn.hpp */,
+				14AFFB766DD31024A7EF4481C2263A20 /* filestr.cpp */,
+				FDF991CC8FAAD760ED38F0AA53BF84CA /* filestr.hpp */,
+				3857E5529E7B2B7E81F2F61A0D957F8D /* find.cpp */,
+				A1559DCEB05A5D1E27ECBE32D02031A0 /* find.hpp */,
+				AAB238BBF76B949A36F94C441E50F9F5 /* getbits.cpp */,
+				47585EA7C4FBD65369AA2247F9BC09CC /* getbits.hpp */,
+				A70897D88BCCB5C2A3748FC0BCD073B9 /* global.cpp */,
+				BD1DDF531A4D143FEA291173C1AA0DA0 /* global.hpp */,
+				99F6461BE6210B1308EB029B79DC86B4 /* hash.cpp */,
+				C759DE185C18184EC6A89641E091B129 /* hash.hpp */,
+				56C7D9AC55695155F5E243DB962F146B /* headers.cpp */,
+				371C9D7F748555D6650B4CFC89F73635 /* headers.hpp */,
+				056F86B9E233655C1D46E157ED834735 /* headers5.hpp */,
+				3A5128D45A69924618193D97836FD2D4 /* isnt.cpp */,
+				0758EEEE90FAD304C3CDC236260873AD /* isnt.hpp */,
+				B9FD2A4B0BC89DDB4F669F35A16415BB /* list.cpp */,
+				97542252DDEC13F736A5795085CD0DC6 /* list.hpp */,
+				CB7EAE4D44E99043497C797EBB89A9FB /* loclang.hpp */,
+				DC015CD2ABFF01B4E99C7C5179673ED2 /* log.hpp */,
+				4CCAC3CEE117E7E8951D8423A1FCFFE5 /* match.cpp */,
+				1C1AEFBEB7CBF5EEB4A06828F5C1C7AF /* match.hpp */,
+				7AB8E27A79ECA854412FD78CF7FC4F46 /* model.hpp */,
+				C301AAA3AF4E226B877ECFF70646F4B6 /* options.cpp */,
+				8E8169F72228EC280F6D8FBABF580951 /* options.hpp */,
+				7627C3C4BA9274CA7584C963A927496C /* os.hpp */,
+				971FF719E460148B3B6F51D518B6A535 /* pathfn.cpp */,
+				E7D15DFB663BDC54DE1F33E74FD92209 /* pathfn.hpp */,
+				DED53294C55B25C52F0B4A92F861FF00 /* qopen.cpp */,
+				4B3FA6FFB7175C268B2EB79431305FEC /* qopen.hpp */,
+				1D95BF826D01F09879C4804DEB7D1AAB /* rar.cpp */,
+				06573AACA70D83AAC0ADE964A8CF9C6B /* rar.hpp */,
+				E494DA4D9D61FB3D987BCE41586F075B /* rardefs.hpp */,
+				B52426BA1241381B341A14950B4DD623 /* rarlang.hpp */,
+				15C9414D9741EC26FCB69E67DB32C495 /* raros.hpp */,
+				379E9BDDA6E2141C3830AAAB75C62FB6 /* rartypes.hpp */,
+				FD4C2198E46BA08F44FA7BEC8476361C /* rarvm.cpp */,
+				0A5DB8A10C4A6FFDED9DA3B0E4CA1BB2 /* rarvm.hpp */,
+				31125AE2000F5D4D045C4CCDFB4DABC8 /* rawread.cpp */,
+				8D1BA7A6CFEF91DA1F1F1B498AABCDE8 /* rawread.hpp */,
+				91FE963D41D85211E6DCACF1ABCD8D3D /* rdwrfn.cpp */,
+				4C416C7D567D139C2C866F77F0EA2C15 /* rdwrfn.hpp */,
+				22B3AAC18EF2EA52113102BF6D250F50 /* recvol.cpp */,
+				3A87A501D3D939D06B274BCCF8746D4E /* recvol.hpp */,
+				70467A26529F8197687773EAD90DAE53 /* resource.cpp */,
+				6CD8A4405BD6F026F6DD58F6F49BA35E /* resource.hpp */,
+				3568CA02520D453567BBE5520BE6B64C /* rijndael.cpp */,
+				F128DA69CFAD687675A7A895BA70AE79 /* rijndael.hpp */,
+				B15144FEA08528D521420342858946F4 /* rs.cpp */,
+				6C08235FFCBF21A10425D5A347391A94 /* rs.hpp */,
+				E1FE812EBBFEE0DF8D708BF21CA0A871 /* rs16.cpp */,
+				B6D2CF9CEAD7D2BD878AE49B97F99B19 /* rs16.hpp */,
+				852879041B598A91BFE9F58B84E28EA5 /* savepos.hpp */,
+				0BBD8901945574A429CE9DA404F9892C /* scantree.cpp */,
+				D424E0236078C33021FB221A14B6F2F4 /* scantree.hpp */,
+				5CCE3F12AEFC72A46D0ECD798B34CE21 /* secpassword.cpp */,
+				DCFE3FA0BC4DCDBB5F52D4D33AB6AC84 /* secpassword.hpp */,
+				A016118A25858032ABCBEBFFE3316BBA /* sha1.cpp */,
+				C66CCFBFD88B8612E9358322A3D4E089 /* sha1.hpp */,
+				BB4CBB1BE1FA7E3209A236A9923116BB /* sha256.cpp */,
+				290DEF71CA5FCCBBB59C4E489513D97B /* sha256.hpp */,
+				3F3ACC31A3112564D0DDB5ED72618E43 /* smallfn.cpp */,
+				00C83E6655E644E67E57CE14B68B9643 /* smallfn.hpp */,
+				35A09D7C1CB0A1BF3161498165014800 /* strfn.cpp */,
+				40B3B099E9C657EE8833C03F2C1D995A /* strfn.hpp */,
+				6CC92BED68294C39FA1AE4130AE11F5A /* strlist.cpp */,
+				CEE120FC21FBFECBF6C73340DC858239 /* strlist.hpp */,
+				53776C34F3B5D208A0B9A1DE4A17A9F8 /* suballoc.hpp */,
+				99E8FD36F3FF003967D41C961270D7F2 /* system.cpp */,
+				B0E8C2D816B8FB08B94AA90888671FA7 /* system.hpp */,
+				76ACF091B2AA221A32D067443693D6AB /* threadpool.cpp */,
+				8D251BE93076CACC6F18ECB4B8F4A93F /* threadpool.hpp */,
+				F9BEBAC2BB0FE277F310101465E2F8C7 /* timefn.cpp */,
+				B1D5E6CD91F2499D6F163C1C5CE69368 /* timefn.hpp */,
+				F1081F3D3EDAC51D9D438778933C3B0C /* ui.cpp */,
+				8E9749A0CBB1180B61CDD3FF98FC1AA2 /* ui.hpp */,
+				EC04CA1D4D1A8E087F816C40D45ACB73 /* ulinks.hpp */,
+				9952D23AFFDA523489FE64EC6129493B /* unicode.cpp */,
+				4EBF7AE5FD9EEC46411A4DCD400328C4 /* unicode.hpp */,
+				8F4BD1877F347A89BE52F290FC579E97 /* unpack.cpp */,
+				49AF2EF8254651C3D00D106C7B61AB48 /* unpack.hpp */,
+				0BEAE313CB66E21B47FB4F3D6796BC0C /* version.hpp */,
+				5DF4130D27192113ACA1E4C28ACF0A7B /* volume.cpp */,
+				2D162F086FEBE83A1D52DFE064096E15 /* volume.hpp */,
+			);
+			name = "unrar-lib";
 			sourceTree = "<group>";
 		};
 		39E9EE8210D861DFD82346C1F5EB7218 /* Frameworks */ = {
@@ -100,38 +529,44 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		4AEC8794BA18698392C94CC5F8140264 /* Support Files */ = {
+		637F524D7B53E5AE1A096EEE3D479C2C /* Pods-Komikan */ = {
 			isa = PBXGroup;
 			children = (
-				00B754021FE78A920B49F689061F353A /* WPZipArchive.xcconfig */,
-				8A2FF243A435B114741DA1EF0BDFCCD6 /* WPZipArchive-dummy.m */,
-				5C6F43055FE864AAAC8054BC5C5744F3 /* WPZipArchive-prefix.pch */,
+				D5A649EB5ECA5DE818F3C5E8E878A484 /* Info.plist */,
+				02F6411BF2A3026FF642DFF95A3AB4E9 /* Pods-Komikan.modulemap */,
+				8B1485D52F8494372DE8807115909975 /* Pods-Komikan-acknowledgements.markdown */,
+				9E398BB1322E76AD4CEB825B72AC6924 /* Pods-Komikan-acknowledgements.plist */,
+				6C541A189362702E7B933684E28DDBA5 /* Pods-Komikan-dummy.m */,
+				A8B4DA7FEAB47ED693A208CC83B3C489 /* Pods-Komikan-frameworks.sh */,
+				A0BF1297533F0E9B04957B7BD91BD9D4 /* Pods-Komikan-resources.sh */,
+				167E8CB648A83633D6D5C2A90444DFC9 /* Pods-Komikan-umbrella.h */,
+				1FD44F730648CD21D88ACA8E8F5CF6CB /* Pods-Komikan.debug.xcconfig */,
+				E49175B40D7C5CB2F7192BDB715FC4AF /* Pods-Komikan.release.xcconfig */,
+			);
+			name = "Pods-Komikan";
+			path = "Target Support Files/Pods-Komikan";
+			sourceTree = "<group>";
+		};
+		7A369FD90355CAD09C57B46DB31F97C2 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				0DBE46427BD8CF60C4AE52B618EFA07C /* Info.plist */,
+				1DC23FEE243ED9DF3E3AB7BBB19A4A64 /* WPZipArchive.modulemap */,
+				092D754E23D555C419A081ABA2FF1AC2 /* WPZipArchive.xcconfig */,
+				3ABBEE2B1AC1BFE31A59BA61B32C533F /* WPZipArchive-dummy.m */,
+				E017491E9B5C1863255F557397D83AD1 /* WPZipArchive-prefix.pch */,
+				67B5E9BF3041B5FBE5A2FD47F94605BC /* WPZipArchive-umbrella.h */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/WPZipArchive";
 			sourceTree = "<group>";
 		};
-		58E34CCB47C2BB8DABF9174F4873E9CE /* Targets Support Files */ = {
+		7D4EE765E371BE568C865A584ACE58AA /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				619899F7C10AC5B0CD78841B8301872F /* Pods-Komikan */,
+				637F524D7B53E5AE1A096EEE3D479C2C /* Pods-Komikan */,
 			);
 			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		619899F7C10AC5B0CD78841B8301872F /* Pods-Komikan */ = {
-			isa = PBXGroup;
-			children = (
-				81ACB1A4393AC91C0E0C3AD4424D3390 /* Pods-Komikan-acknowledgements.markdown */,
-				08C4349F788D2B9696F52E5E3AF2FECD /* Pods-Komikan-acknowledgements.plist */,
-				A5BA14B0DC28EE449FB418EAD3602217 /* Pods-Komikan-dummy.m */,
-				618BFBE87C7CDBB693571A3E7D6FC113 /* Pods-Komikan-frameworks.sh */,
-				9CB9C52A3089B736E816F8FC7A47A0A4 /* Pods-Komikan-resources.sh */,
-				C390E156A4729FE85F37A4EAD0E50E03 /* Pods-Komikan.debug.xcconfig */,
-				3054F9FC11B06962650C6D7A1C330664 /* Pods-Komikan.release.xcconfig */,
-			);
-			name = "Pods-Komikan";
-			path = "Target Support Files/Pods-Komikan";
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
@@ -139,45 +574,47 @@
 			children = (
 				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
 				39E9EE8210D861DFD82346C1F5EB7218 /* Frameworks */,
-				D5183325B176B9D257DDF4629FB655AE /* Pods */,
-				F1BD9BC1BAA2E1CB25DCC61BD1700546 /* Products */,
-				58E34CCB47C2BB8DABF9174F4873E9CE /* Targets Support Files */,
+				909ADD97B2FD3BFA965867B480270C0F /* Pods */,
+				B63A010430473114325A9761B313DFA7 /* Products */,
+				7D4EE765E371BE568C865A584ACE58AA /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		9EB623CE284A1B1EB93472A957622C4A /* WPZipArchive */ = {
+		909ADD97B2FD3BFA965867B480270C0F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				DA0D979F1D12C33BA60DCA3E5F59EF7F /* Common.h */,
-				477C865966E24ABE1CB9C3C62CB280AC /* crypt.h */,
-				FDE88A9027A194637AFDE75361C696C7 /* ioapi.c */,
-				DA7D54FA70E506D663A218A8FB19B219 /* ioapi.h */,
-				CDC71608DEC0E878634E194DF1D5C9E0 /* mztools.c */,
-				7960D39A7AAEFBE8BF34DAF3CDD8013E /* mztools.h */,
-				5A4E084527A669A04E0C7950C1A66DCB /* unzip.c */,
-				2636C7CE48DDD9C7930139B15C62B049 /* unzip.h */,
-				F02A9C4FC9D6B02DBF7D438080CE211F /* WPZipArchive.h */,
-				25084FE496B7ED743083A1ACAA13BC36 /* WPZipArchive.m */,
-				A1E814AEF3218A1D45089065E7D62AAC /* zip.c */,
-				18368B5CDB0B828A678AB1A52448F2BF /* zip.h */,
-				4AEC8794BA18698392C94CC5F8140264 /* Support Files */,
-			);
-			path = WPZipArchive;
-			sourceTree = "<group>";
-		};
-		D5183325B176B9D257DDF4629FB655AE /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				9EB623CE284A1B1EB93472A957622C4A /* WPZipArchive */,
+				21C5C8B5E8F347B31B531F14B89D52CB /* UnrarKit */,
+				9887BE37D466F5616FAB616E7B8E7A0F /* WPZipArchive */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		F1BD9BC1BAA2E1CB25DCC61BD1700546 /* Products */ = {
+		9887BE37D466F5616FAB616E7B8E7A0F /* WPZipArchive */ = {
 			isa = PBXGroup;
 			children = (
-				50EC7366E80C28EC2627CB48B442009B /* libPods-Komikan.a */,
-				B1CF8BF636159B960C370B681FBA2FB2 /* libWPZipArchive.a */,
+				44297781785C6ED942FBD97C671DD336 /* Common.h */,
+				C0FABFD637277C15BDFA5D0D14BA0B06 /* crypt.h */,
+				5F0F1C9C45257BC574DED578958F0054 /* ioapi.c */,
+				537670B9BEC05798334EC9E72158F64D /* ioapi.h */,
+				1A48B536AEC70E7EC9F7709DF3B21C16 /* mztools.c */,
+				0DCD63832E0C6CE9FBED517BE08DB540 /* mztools.h */,
+				AB467BF7019D4A11B18B03DB68D8B354 /* unzip.c */,
+				179DF0724266CCC8E680533D5A79D6DF /* unzip.h */,
+				AE6221037DF922AE5EAE900E5794958B /* WPZipArchive.h */,
+				4979F4738AB231ACCF7090FF74F339FB /* WPZipArchive.m */,
+				E51C1D5827C2904DF7BDA3E0C594C55D /* zip.c */,
+				BCAD64850E91197BD1B116549EBFE7E3 /* zip.h */,
+				7A369FD90355CAD09C57B46DB31F97C2 /* Support Files */,
+			);
+			path = WPZipArchive;
+			sourceTree = "<group>";
+		};
+		B63A010430473114325A9761B313DFA7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5D530C58CF84374ED64A2DE58E752233 /* Pods_Komikan.framework */,
+				B1632454515B4A6277412699CD320CB2 /* UnrarKit.framework */,
+				C414EDAA670BBEAC574259E683E2FA4D /* WPZipArchive.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -185,30 +622,116 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		D74825949F8742380A55815633DF5134 /* Headers */ = {
+		7FD62AAB55D6E383105D735CF844D6B6 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				64B032FBD074F42784AF08EA72CAC9D9 /* Common.h in Headers */,
-				72E4FBB17380A98F056C9673231D6144 /* crypt.h in Headers */,
-				80045ECCAA06A62FD76447EFBFB0FEA4 /* ioapi.h in Headers */,
-				16C0B674E8E18921785549F6E9DFA682 /* mztools.h in Headers */,
-				6417CBE3A46D22D47BB7E7261B2985F2 /* unzip.h in Headers */,
-				8A0341252BDA5D46D5888D9EB3F526A6 /* WPZipArchive.h in Headers */,
-				31A93782D632229670193EF269EDB17B /* zip.h in Headers */,
+				619D07C57CE0C7E7FAE2EAF41E819FFB /* archive.hpp in Headers */,
+				5A931901CB0F0FA491B7908F18DC5A8F /* array.hpp in Headers */,
+				5F835F8384D4BC8692B7486F775C9E49 /* blake2s.hpp in Headers */,
+				CCB203A7D540AA21BE4D862BF3114EBC /* cmddata.hpp in Headers */,
+				64E12B82A3FBC6348762C6188AF366BB /* coder.hpp in Headers */,
+				C88B672CCB5C3468B9D8A521D65D0E0C /* compress.hpp in Headers */,
+				BB0D33E1F1CD2D48FAE623B45858CA7B /* consio.hpp in Headers */,
+				85672DFA679D31A9072CC6D64594F61C /* crc.hpp in Headers */,
+				92FF3D4CEE232E6D7D2E5C683972DC02 /* crypt.hpp in Headers */,
+				396BDD273856EFFC459330AFEE6F1A15 /* dll.hpp in Headers */,
+				BC373CF59B7898940A6466F37D04C3B8 /* encname.hpp in Headers */,
+				F22B79EABDD843F4D0B8E38CE1577C73 /* errhnd.hpp in Headers */,
+				27FA51493BF6E304401C02533AD56154 /* extinfo.hpp in Headers */,
+				1501CD375B2DFCCE1DC0535B2561EF97 /* extract.hpp in Headers */,
+				4BDBCD8AD11FD5A8256250CA57A7BF08 /* filcreat.hpp in Headers */,
+				6AD566F0EBA69E0D37BA8E31581033BC /* file.hpp in Headers */,
+				5051BD06F73C84A6E101C5B057E6633C /* filefn.hpp in Headers */,
+				8F0143A648D39614ECF52DA15167A70D /* filestr.hpp in Headers */,
+				E7131BF38DAB76BA93ECFDD4C12B7CEA /* find.hpp in Headers */,
+				8861E36590A0A1FF5EC4CEB8CF78DB1E /* getbits.hpp in Headers */,
+				F05EFBFBDC5CDA514458E8E64E9DDD9D /* global.hpp in Headers */,
+				9C1C6953094624474D416A63C4BD59AF /* hash.hpp in Headers */,
+				10ED70AFA64CFFFDC01F3BA2ADFEEBAA /* headers.hpp in Headers */,
+				E27CC25992A6E0FEA4F938B6CE87C38E /* headers5.hpp in Headers */,
+				7218E540A1A92806F66F72E8787BA535 /* isnt.hpp in Headers */,
+				DC396AF562DFC2660793B5C5EE64B9D6 /* list.hpp in Headers */,
+				A92CD4D781ACEA9560C566827C06525C /* loclang.hpp in Headers */,
+				65F6588B211F463D405AA98CD9F2F685 /* log.hpp in Headers */,
+				E223249BE4CDD42FA435A5FDA35AF103 /* match.hpp in Headers */,
+				0FA1C170B562BCCD6110E527E6C46C1D /* model.hpp in Headers */,
+				FD666C5D0FAFCD35C7C7CEAFE2BC6671 /* NSString+UnrarKit.h in Headers */,
+				1B43B911683DD2337DC2994836DFE84B /* options.hpp in Headers */,
+				734F637B9803B00A0049725710343FBA /* os.hpp in Headers */,
+				238A4C4AF3083579D4C65C467BD1278B /* pathfn.hpp in Headers */,
+				A1D0D392C3B739A830C446A0CBE0CB27 /* qopen.hpp in Headers */,
+				E6AE843932058D899F083D7D1A2114B4 /* rar.hpp in Headers */,
+				224FCE184988D8AD0A95440899FC02EF /* rardefs.hpp in Headers */,
+				B8FC783502A179855B58ED98ED5CBBBE /* rarlang.hpp in Headers */,
+				019021871DF7CCA4ACD15D0A903FFD08 /* raros.hpp in Headers */,
+				918A69E7A03FAE00A9E1C9155E001D9F /* rartypes.hpp in Headers */,
+				821E553A88269ECB92963031889FE96D /* rarvm.hpp in Headers */,
+				DDD977D6111862880035C09BCFE340DF /* rawread.hpp in Headers */,
+				4534FEF1C02FADCABED3524066A56398 /* rdwrfn.hpp in Headers */,
+				FC1C0AA0D425E5E912CA837E89973A38 /* recvol.hpp in Headers */,
+				05742E6A6C21B75DC39AC67894254F5E /* resource.hpp in Headers */,
+				FE7C3E5294AEE96BF2D3CD216A9C5804 /* rijndael.hpp in Headers */,
+				AE2ACE2867FB2AFEABF4223FB98DB435 /* rs.hpp in Headers */,
+				1036804BC16F854BF3C34DE14E701549 /* rs16.hpp in Headers */,
+				91F413D9A50EFFA71A124C7877FBD103 /* savepos.hpp in Headers */,
+				B995227E6AD4A8057AED4AF10640A367 /* scantree.hpp in Headers */,
+				E0EEEB457C779E9BAA51CFBF4D039D36 /* secpassword.hpp in Headers */,
+				E58B9CC14132DE114FD57DF15A01A017 /* sha1.hpp in Headers */,
+				F79DC348B61C8270EA07CAEE578A54A5 /* sha256.hpp in Headers */,
+				D086A9F2608EC585CFA2684DDDDA2A4F /* smallfn.hpp in Headers */,
+				71F9D621482CD7BECFD3944AA658B040 /* strfn.hpp in Headers */,
+				43A89225C3BBE4888473561910EE3B34 /* strlist.hpp in Headers */,
+				E91CCED75419C9027900565A2D36F874 /* suballoc.hpp in Headers */,
+				A27397CAFA6420245154F124DBA68B24 /* system.hpp in Headers */,
+				1E8B39B6291044B324C4DE62A5B7038D /* threadpool.hpp in Headers */,
+				9E47A49420F61A67C09CABBD06AF90CE /* timefn.hpp in Headers */,
+				01062F6F6EE8133DF398DA57A24C133F /* ui.hpp in Headers */,
+				FFB35D802A1E45033B80A5228D2E6A97 /* ulinks.hpp in Headers */,
+				64FB63204B584C2DF15193A9F4111E96 /* unicode.hpp in Headers */,
+				F17E726E4BA83EB62C600E5150D641D1 /* unpack.hpp in Headers */,
+				246060D6B5B77309AD5EE45120AD64B2 /* UnrarKit-umbrella.h in Headers */,
+				473100788A83CF1DF4120543FACBE973 /* UnrarKit.h in Headers */,
+				5D1B25BDE8258ED223473F0D6EB739C7 /* URKArchive.h in Headers */,
+				F9512A3A12E31AA6DEDB17122F6DF721 /* URKFileInfo.h in Headers */,
+				828A600F154CF64AD3202C9BBF68A97C /* version.hpp in Headers */,
+				035374D8520EB81C6CD6C966F119FCE6 /* volume.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9DC19648081FC98154017FBF66B64FC1 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11B09588954AA439B7DEA879F0690952 /* Pods-Komikan-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F3449109E7FFE4810BEF45049D7E5207 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11F279EA6A4AF379243AF90C12F83441 /* Common.h in Headers */,
+				0DF8E0F70B52CD7853F6C18E5AD1480B /* crypt.h in Headers */,
+				FDF594A5C80941C391F3D05FF8F72D41 /* ioapi.h in Headers */,
+				20EAD0376C29BCE95EA459B1E438A0F5 /* mztools.h in Headers */,
+				795C214B4B59FD2839A33616F1C0E0AE /* unzip.h in Headers */,
+				BC273E7F1E4F4F977D3B4AABF177748D /* WPZipArchive-umbrella.h in Headers */,
+				850C3C590262658A1B0ED1D46DE46F86 /* WPZipArchive.h in Headers */,
+				984E017951185A0355A22AB6822DF492 /* zip.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		3C06D61B178227D6B7FBFBA8F9850C66 /* WPZipArchive */ = {
+		3632E4B4E75E3FB268B890AAC90DB75A /* WPZipArchive */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2ED2B3407D1A7C984072A7B93A5FDB9B /* Build configuration list for PBXNativeTarget "WPZipArchive" */;
+			buildConfigurationList = 336BCB03C34BB7D06CE8EAF0A9B0332B /* Build configuration list for PBXNativeTarget "WPZipArchive" */;
 			buildPhases = (
-				4EE49855D5021598DAE719E178041D61 /* Sources */,
-				CEC2C09D3397F61E889E8A32BFBA7FA0 /* Frameworks */,
-				D74825949F8742380A55815633DF5134 /* Headers */,
+				B4EC554A0174B91897A12EE9208CC87F /* Sources */,
+				B189CE04F0ADD10FCDDB10EFF311406C /* Frameworks */,
+				F3449109E7FFE4810BEF45049D7E5207 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -216,25 +739,44 @@
 			);
 			name = WPZipArchive;
 			productName = WPZipArchive;
-			productReference = B1CF8BF636159B960C370B681FBA2FB2 /* libWPZipArchive.a */;
-			productType = "com.apple.product-type.library.static";
+			productReference = C414EDAA670BBEAC574259E683E2FA4D /* WPZipArchive.framework */;
+			productType = "com.apple.product-type.framework";
 		};
-		B2F877A2EEF50DF1C56740FD546BEE65 /* Pods-Komikan */ = {
+		A83C4C09B676EA103860B426F261D862 /* Pods-Komikan */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1D50335FC442E186ECDF6B623D715802 /* Build configuration list for PBXNativeTarget "Pods-Komikan" */;
+			buildConfigurationList = 9CEAF8C590B6FC6A3D0CCC6D0F3F8113 /* Build configuration list for PBXNativeTarget "Pods-Komikan" */;
 			buildPhases = (
-				A99E1DA85AD68CA873A7483F704A93DB /* Sources */,
-				6E568F6BB58482E534413A91F7059F87 /* Frameworks */,
+				584EAF78343E86A78D1825E9347A1F3E /* Sources */,
+				0A8FDB17710ED5EA6E148C3964CD0F90 /* Frameworks */,
+				9DC19648081FC98154017FBF66B64FC1 /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				3745AEB028CAC071DFF31EE46C57FB75 /* PBXTargetDependency */,
+				7B7BE335E1CB870EEE77D5CE2C63671F /* PBXTargetDependency */,
+				E0FDCCC5DDC5C73009A195181CFB4115 /* PBXTargetDependency */,
 			);
 			name = "Pods-Komikan";
 			productName = "Pods-Komikan";
-			productReference = 50EC7366E80C28EC2627CB48B442009B /* libPods-Komikan.a */;
-			productType = "com.apple.product-type.library.static";
+			productReference = 5D530C58CF84374ED64A2DE58E752233 /* Pods_Komikan.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		FC4FEF81F7228B25D8DA7E626D98FF41 /* UnrarKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 27CAFEFF37CDFFA8BCF0016741DE4B2A /* Build configuration list for PBXNativeTarget "UnrarKit" */;
+			buildPhases = (
+				C263052BE032F4DC2C189AE69D7D6E91 /* Sources */,
+				B290E4FE83BB918302FB3DB1891E2F99 /* Frameworks */,
+				7FD62AAB55D6E383105D735CF844D6B6 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = UnrarKit;
+			productName = UnrarKit;
+			productReference = B1632454515B4A6277412699CD320CB2 /* UnrarKit.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -253,46 +795,114 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = F1BD9BC1BAA2E1CB25DCC61BD1700546 /* Products */;
+			productRefGroup = B63A010430473114325A9761B313DFA7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B2F877A2EEF50DF1C56740FD546BEE65 /* Pods-Komikan */,
-				3C06D61B178227D6B7FBFBA8F9850C66 /* WPZipArchive */,
+				A83C4C09B676EA103860B426F261D862 /* Pods-Komikan */,
+				FC4FEF81F7228B25D8DA7E626D98FF41 /* UnrarKit */,
+				3632E4B4E75E3FB268B890AAC90DB75A /* WPZipArchive */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		4EE49855D5021598DAE719E178041D61 /* Sources */ = {
+		584EAF78343E86A78D1825E9347A1F3E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB77AC5EAA3EED4C1FEE349DB0296897 /* ioapi.c in Sources */,
-				600E8CFEE20B08EA6517A97B54E20C18 /* mztools.c in Sources */,
-				07F0027207DB7D9381737D0570179B3C /* unzip.c in Sources */,
-				CAA0080C68DED22D55B0171C72BAD48D /* WPZipArchive-dummy.m in Sources */,
-				D2CF6BF929E9DAA6D29FA544A1984C79 /* WPZipArchive.m in Sources */,
-				B537C3AF340A313E66FB5DFE1F72572D /* zip.c in Sources */,
+				C6094E6E66EC7C2915A6C67DF57C36C8 /* Pods-Komikan-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A99E1DA85AD68CA873A7483F704A93DB /* Sources */ = {
+		B4EC554A0174B91897A12EE9208CC87F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				70182C9EDBF9ACA93FA20094D80C36BD /* Pods-Komikan-dummy.m in Sources */,
+				B4EBD1B8946422D99AE44F87D0B5A01F /* ioapi.c in Sources */,
+				25D4D35B6815C6786E47447AAC6C6BF2 /* mztools.c in Sources */,
+				0DA1FB76A7D12034DD3D9792AF33E441 /* unzip.c in Sources */,
+				D6AB78FC763CE80A88971D800CECDCEB /* WPZipArchive-dummy.m in Sources */,
+				86D9EE7C96A414AB7ACD69B822F23C66 /* WPZipArchive.m in Sources */,
+				9D7CB1E66985F73D46009ACDF81CA359 /* zip.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C263052BE032F4DC2C189AE69D7D6E91 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2F7F008232BFD28D936B592553E4A4E5 /* archive.cpp in Sources */,
+				B04599F42CD299689C945630EB180553 /* arcread.cpp in Sources */,
+				1A3D157C4063D6A5E62190C6127E00C5 /* blake2s.cpp in Sources */,
+				78E10B0D3DB009E2D2EB40C77FECC3FB /* cmddata.cpp in Sources */,
+				218C4EA9AC3D5F4FCB6C19C24253E84B /* consio.cpp in Sources */,
+				A9E1739CB56719DC62C0D1B38216E456 /* crc.cpp in Sources */,
+				8ED1D795C4129C6EAF5B0F5A97BC41B1 /* crypt.cpp in Sources */,
+				B1C08F5C3B4258E4B65C5FADA07E1882 /* dll.cpp in Sources */,
+				E5564245C74FC261C13FC9EB455062FC /* encname.cpp in Sources */,
+				1387222C5CB443F258602847FB1BD0AA /* errhnd.cpp in Sources */,
+				E9CF202A37B64CF60F8156D47D1000ED /* extinfo.cpp in Sources */,
+				9BADB3D933C98991636E38A96308EF0E /* extract.cpp in Sources */,
+				4292020BF3B40BA759519A9A3BF869AB /* filcreat.cpp in Sources */,
+				AD4D8A313184485EF87AF83402F5E5F0 /* file.cpp in Sources */,
+				FF84ACBCA7AE3198D7CDD4C5B89CC5F6 /* filefn.cpp in Sources */,
+				A5DDA7948F5A242C0690F3C07814AC9F /* filestr.cpp in Sources */,
+				5118453A314E88534CF1F58A60C0712A /* find.cpp in Sources */,
+				6DB6AD738F333AA338FAA08EDA8528C8 /* getbits.cpp in Sources */,
+				6A205E49B9D1B99B4762633A4CA8FF46 /* global.cpp in Sources */,
+				27FADD922EB3C3015BF4813154229268 /* hash.cpp in Sources */,
+				DC570581184E077311C49D11F1E3E7A5 /* headers.cpp in Sources */,
+				ED18158E9164D84938739E4B3D705FB7 /* isnt.cpp in Sources */,
+				8FD282CB9C1E9323392BF6267DD05081 /* list.cpp in Sources */,
+				D8E276DF684BDE5455E8188B6B6E4191 /* match.cpp in Sources */,
+				D3ED4AE8830483805299EC6803C9B56A /* NSString+UnrarKit.mm in Sources */,
+				1CAFDF75D036AA6972FA785C67BF02BF /* options.cpp in Sources */,
+				8BE674FB096D81D2EA07731ECE59B423 /* pathfn.cpp in Sources */,
+				2E128765E19FD36C9D9ABF50C6175866 /* qopen.cpp in Sources */,
+				40A93BEDD2B12146D9E20C58CC740FDF /* rar.cpp in Sources */,
+				D60EA1888B948E51075212F1C24BE597 /* rarvm.cpp in Sources */,
+				45D05A0CA82301D428407DB9158D919F /* rawread.cpp in Sources */,
+				2A3CC70AB659AD046C96243EB6400369 /* rdwrfn.cpp in Sources */,
+				CF1B41CC3785C20FF3EBAFABA5FF97E3 /* recvol.cpp in Sources */,
+				22D0D78520A632C879867E1ECF6DAF75 /* resource.cpp in Sources */,
+				23941834DC267ACAB44D589E2BF9D390 /* rijndael.cpp in Sources */,
+				2DD32D856570BC23F46A091A77049BC0 /* rs.cpp in Sources */,
+				AC1A90041BCD72584B54757DFFB3F6F2 /* rs16.cpp in Sources */,
+				FFBFCFA09BA75F8128B425A2365C6157 /* scantree.cpp in Sources */,
+				B53AE838D5F9C120E02ED22020C3A248 /* secpassword.cpp in Sources */,
+				C5F70DB7FFC75F08A78EE2E973B5EB6B /* sha1.cpp in Sources */,
+				5ED03FF0054B2DA23564496531579D0A /* sha256.cpp in Sources */,
+				F378085FC037A48C0C6BDD084779E570 /* smallfn.cpp in Sources */,
+				5C3B9F81BDF5275A32DCE14EF21EC730 /* strfn.cpp in Sources */,
+				35CE1E4A30A27C8795FFE005E75926C4 /* strlist.cpp in Sources */,
+				272D83CC67EF6D1F70DA7CD17A0AD313 /* system.cpp in Sources */,
+				E39A2FA1508F1325B92B7FBAE0E7DB32 /* threadpool.cpp in Sources */,
+				F82628A1BACD7299DF4B938815230550 /* timefn.cpp in Sources */,
+				892E437B4BC879AEC6C2A85BD7E243BF /* ui.cpp in Sources */,
+				A8E24AC787A5E52E0C04808F470C513C /* unicode.cpp in Sources */,
+				60E92A9F44A8D64F9006E25F73BD85F6 /* unpack.cpp in Sources */,
+				A7C0189FBD19FE5F73CCA97F94EAB8C4 /* UnrarKit-dummy.m in Sources */,
+				F7403F485E548972FA739C6BA3182C96 /* URKArchive.mm in Sources */,
+				7BECC64029ECF3C9C4FE116CD6869A9D /* URKFileInfo.m in Sources */,
+				4F3BE69A4DA4D556F6599835C735D606 /* volume.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		3745AEB028CAC071DFF31EE46C57FB75 /* PBXTargetDependency */ = {
+		7B7BE335E1CB870EEE77D5CE2C63671F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = UnrarKit;
+			target = FC4FEF81F7228B25D8DA7E626D98FF41 /* UnrarKit */;
+			targetProxy = 21CD589A0A3E82FEFC471FCB4EB400A2 /* PBXContainerItemProxy */;
+		};
+		E0FDCCC5DDC5C73009A195181CFB4115 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = WPZipArchive;
-			target = 3C06D61B178227D6B7FBFBA8F9850C66 /* WPZipArchive */;
-			targetProxy = D64EBCBF3FEE725A9EA92942B8AC0EBA /* PBXContainerItemProxy */;
+			target = 3632E4B4E75E3FB268B890AAC90DB75A /* WPZipArchive */;
+			targetProxy = 159E3775A18B123CD15DCE3B9233AF22 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -336,59 +946,88 @@
 			};
 			name = Debug;
 		};
-		293C66697E88A08F39E4809151CCEC78 /* Debug */ = {
+		38EF1B425E936E071FF0DC9C7C58022F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C390E156A4729FE85F37A4EAD0E50E03 /* Pods-Komikan.debug.xcconfig */;
+			baseConfigurationReference = C674CB85E7B99B1998D01A121173D94E /* UnrarKit.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				EXECUTABLE_PREFIX = lib;
+				FRAMEWORK_VERSION = A;
+				GCC_PREFIX_HEADER = "Target Support Files/UnrarKit/UnrarKit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/UnrarKit/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MODULEMAP_FILE = "Target Support Files/UnrarKit/UnrarKit.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = UnrarKit;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		4E400B4441C283D1B1FC06A2ECD83FB8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1FD44F730648CD21D88ACA8E8F5CF6CB /* Pods-Komikan.debug.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "Target Support Files/Pods-Komikan/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MODULEMAP_FILE = "Target Support Files/Pods-Komikan/Pods-Komikan.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Pods_Komikan;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		2D973D01DEC4B5621EF9FC05522C95BF /* Release */ = {
+		70F67394ACCBED4587781CA5E888E5AF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3054F9FC11B06962650C6D7A1C330664 /* Pods-Komikan.release.xcconfig */;
+			baseConfigurationReference = 092D754E23D555C419A081ABA2FF1AC2 /* WPZipArchive.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				EXECUTABLE_PREFIX = lib;
-				MACH_O_TYPE = staticlib;
+				FRAMEWORK_VERSION = A;
+				GCC_PREFIX_HEADER = "Target Support Files/WPZipArchive/WPZipArchive-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/WPZipArchive/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MODULEMAP_FILE = "Target Support Files/WPZipArchive/WPZipArchive.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = WPZipArchive;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		4135F2D5AA30A54254A55A77B1BDF3D4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 00B754021FE78A920B49F689061F353A /* WPZipArchive.xcconfig */;
-			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "Target Support Files/WPZipArchive/WPZipArchive-prefix.pch";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -426,32 +1065,100 @@
 			};
 			name = Release;
 		};
-		C9D86F553231272A553928A937693761 /* Debug */ = {
+		B4DA05195B1DB820DA46C67A3B913B6B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 00B754021FE78A920B49F689061F353A /* WPZipArchive.xcconfig */;
+			baseConfigurationReference = 092D754E23D555C419A081ABA2FF1AC2 /* WPZipArchive.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				EXECUTABLE_PREFIX = lib;
+				FRAMEWORK_VERSION = A;
 				GCC_PREFIX_HEADER = "Target Support Files/WPZipArchive/WPZipArchive-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/WPZipArchive/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MODULEMAP_FILE = "Target Support Files/WPZipArchive/WPZipArchive.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = WPZipArchive;
 				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
+		};
+		E1A9BCBA68829D8CBBB9D5CB2A16FECF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E49175B40D7C5CB2F7192BDB715FC4AF /* Pods-Komikan.release.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "Target Support Files/Pods-Komikan/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MODULEMAP_FILE = "Target Support Files/Pods-Komikan/Pods-Komikan.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_Komikan;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		F014BB5703A9178EBBABEDAFB865DD00 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C674CB85E7B99B1998D01A121173D94E /* UnrarKit.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				GCC_PREFIX_HEADER = "Target Support Files/UnrarKit/UnrarKit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/UnrarKit/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MODULEMAP_FILE = "Target Support Files/UnrarKit/UnrarKit.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = UnrarKit;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1D50335FC442E186ECDF6B623D715802 /* Build configuration list for PBXNativeTarget "Pods-Komikan" */ = {
+		27CAFEFF37CDFFA8BCF0016741DE4B2A /* Build configuration list for PBXNativeTarget "UnrarKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				293C66697E88A08F39E4809151CCEC78 /* Debug */,
-				2D973D01DEC4B5621EF9FC05522C95BF /* Release */,
+				38EF1B425E936E071FF0DC9C7C58022F /* Debug */,
+				F014BB5703A9178EBBABEDAFB865DD00 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -465,11 +1172,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2ED2B3407D1A7C984072A7B93A5FDB9B /* Build configuration list for PBXNativeTarget "WPZipArchive" */ = {
+		336BCB03C34BB7D06CE8EAF0A9B0332B /* Build configuration list for PBXNativeTarget "WPZipArchive" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C9D86F553231272A553928A937693761 /* Debug */,
-				4135F2D5AA30A54254A55A77B1BDF3D4 /* Release */,
+				B4DA05195B1DB820DA46C67A3B913B6B /* Debug */,
+				70F67394ACCBED4587781CA5E888E5AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9CEAF8C590B6FC6A3D0CCC6D0F3F8113 /* Build configuration list for PBXNativeTarget "Pods-Komikan" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E400B4441C283D1B1FC06A2ECD83FB8 /* Debug */,
+				E1A9BCBA68829D8CBBB9D5CB2A16FECF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

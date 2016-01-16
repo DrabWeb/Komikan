@@ -1,0 +1,6 @@
+framework module WPZipArchive {
+  umbrella header "WPZipArchive-umbrella.h"
+
+  export *
+  module * { export * }
+}

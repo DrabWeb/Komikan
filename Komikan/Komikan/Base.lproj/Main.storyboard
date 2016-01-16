@@ -651,7 +651,7 @@
                                                             <slider focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VBJ-h2-Ua4" userLabel="Saturation Slider">
                                                                 <rect key="frame" x="-2" y="18" width="104" height="21"/>
                                                                 <animations/>
-                                                                <sliderCell key="cell" state="on" focusRingType="none" alignment="left" minValue="-5" maxValue="5" tickMarkPosition="above" sliderType="linear" id="ONG-dt-LIy"/>
+                                                                <sliderCell key="cell" state="on" focusRingType="none" alignment="left" minValue="-5" maxValue="5" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="ONG-dt-LIy"/>
                                                                 <connections>
                                                                     <action selector="readerControlPanelSaturationSliderInteracted:" target="OyT-nZ-UQJ" id="1u0-x0-Mdx"/>
                                                                 </connections>
@@ -713,7 +713,7 @@
                                                             <slider focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LId-WD-5l0" userLabel="Contrast Slider">
                                                                 <rect key="frame" x="-2" y="18" width="96" height="21"/>
                                                                 <animations/>
-                                                                <sliderCell key="cell" state="on" focusRingType="none" alignment="left" minValue="-5" maxValue="5" tickMarkPosition="above" sliderType="linear" id="XYw-oy-Zlh"/>
+                                                                <sliderCell key="cell" state="on" focusRingType="none" alignment="left" minValue="-5" maxValue="5" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="XYw-oy-Zlh"/>
                                                                 <connections>
                                                                     <action selector="readerControlPanelContrastSliderInteracted:" target="OyT-nZ-UQJ" id="AyX-22-a0J"/>
                                                                 </connections>

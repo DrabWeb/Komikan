@@ -77,18 +77,8 @@ class KMMangaGridController: NSObject {
         
         // If we arent searching for anything..
         if(searchText == "") {
-            print(arrayController.arrangedObjects);
-            
             // Remove all items from the array controller
             arrayController.removeObjects(arrayController.arrangedObjects as! [AnyObject]);
-            
-            print(arrayController.arrangedObjects);
-            
-            if(arrayController.arrangedObjects.count == 0) {
-                print("/-------------------------\\");
-                print("| Array controller empty! |");
-                print("\\-------------------------/");
-            }
             
             // Say we arent searching
             searching = false;

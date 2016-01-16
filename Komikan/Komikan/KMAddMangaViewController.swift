@@ -146,8 +146,8 @@ class KMAddMangaViewController: NSViewController {
         // Allow multiple files
         chooseDirectoryOpenPanel.allowsMultipleSelection = true;
         
-        // Only allow CBZ and CBR(Still need to find a RAR lib for swift before I can enable CBR)
-        chooseDirectoryOpenPanel.allowedFileTypes = ["cbz", /*"cbr"*/];
+        // Only allow CBZ and CBR
+        chooseDirectoryOpenPanel.allowedFileTypes = ["cbz", "cbr"];
         
         // Set the Open button to say choose
         chooseDirectoryOpenPanel.prompt = "Choose";
@@ -212,7 +212,8 @@ class KMAddMangaViewController: NSViewController {
         }
         
         // Extract the passed manga to /tmp/komikan/addmanga
-        WPZipArchive.unzipFileAtPath(manga.directory.stringByReplacingOccurrencesOfString("file://", withString: ""), toDestination: "/tmp/komikan/addmanga");
+        // WPZipArchive.unzipFileAtPath(manga.directory.stringByReplacingOccurrencesOfString("file://", withString: ""), toDestination: "/tmp/komikan/addmanga");
+        KMFileUtilities().extractArchive(manga.directory.stringByReplacingOccurrencesOfString("file://", withString: ""), toDirectory:  "/tmp/komikan/addmanga");
         
         // Clean up the directory
         print(KMCommandUtilities().runCommand(NSBundle.mainBundle().bundlePath + "/Contents/Resources/cleanmangadir", arguments: ["/tmp/komikan/addmanga"]));
