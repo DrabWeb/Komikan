@@ -115,6 +115,18 @@ class KMEHViewController: NSViewController {
         manga.directory = NSHomeDirectory() + "/Library/Application Support/Komikan/EH/" + newMangaFileName + ".cbz";
         print("Manga Directory: " + manga.directory);
         
+        // Create the new notification to tell the user the download has finished
+        let finishedNotification = NSUserNotification();
+        
+        // Set the title
+        finishedNotification.title = "Komikan";
+        
+        // Set the informative text
+        finishedNotification.informativeText = "Finished downloading \"" + manga.title + "\"";
+        
+        // Show the notification
+        NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(finishedNotification);
+        
         // Post the notification saying we are done and sending back the manga
         NSNotificationCenter.defaultCenter().postNotificationName("KMEHViewController.Finished", object: manga);
     }

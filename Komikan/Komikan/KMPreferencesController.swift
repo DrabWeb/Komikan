@@ -60,6 +60,9 @@ class KMPreferencesController: NSViewController {
     func loadPreferences() {
         // Load the l-lewd... mode enabled value
         llewdModeEnabledCheckbox.state = Int((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.llewdModeEnabled);
+        
+        // Load the l-lewd... delete after remove enabled value
+        llewdModeDeleteWhenRemovingCheckbox.state = Int((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.deleteLLewdMangaWhenRemovingFromTheGrid);
     }
     
     // Enables / disables all the checkboxes under the l-lewd... mode enabled checkbox

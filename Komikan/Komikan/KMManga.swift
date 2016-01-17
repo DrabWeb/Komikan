@@ -46,16 +46,45 @@ class KMManga {
     // All the bookmarks for this manga(Each array element is a bookmarked page)
     var bookmarks : [Int]! = [];
     
+    // A bool to say if we have already set tmpDirectory
+    private var alreadySetTmpDirectory : Bool = false;
+    
     // addManga : Bool - Should we extract it to /tmp/komikan/addmanga?
     func extractToTmpFolder() {
         // Reset this mangas pages
         pages = [NSImage()];
         
-        // Set tmpDirectory to /tmp/komikan/komikanmanga-(Title)
-        tmpDirectory += title + "/";
+        // If we havent already set tmpDirectory...
+        if(!alreadySetTmpDirectory) {
+            // Set tmpDirectory to /tmp/komikan/komikanmanga-(Title)
+            tmpDirectory += title + "/";
+            
+            // Say we alrady set tmpDirectory
+            alreadySetTmpDirectory = true;
+        }
         
-        // Unzip this manga to /tmp/komikan/komikanmanga-(title)
-        KMFileUtilities().extractArchive(directory, toDirectory: tmpDirectory);
+        // A variable to tell us all the folders in /tmp/komikan
+        var extractedFolders : [String] = [];
+        
+        // Get all the folders in /tmp/komikan/
+        do {
+            // Try to set extractedFolders to all the folders in /tmp/komikan/
+            extractedFolders = try NSFileManager.defaultManager().contentsOfDirectoryAtPath("/tmp/komikan/");
+        }
+        // If there is an error...
+        catch _ as NSError {
+            // Do nothing
+        }
+        
+        // If this manga hasnt already been extracted...
+        if(!extractedFolders.contains("komikanmanga-" + NSURL(fileURLWithPath: tmpDirectory).lastPathComponent!)) {
+            // Unzip this manga to /tmp/komikan/komikanmanga-(title)
+            KMFileUtilities().extractArchive(directory, toDirectory: tmpDirectory);
+        }
+        else {
+            // Print to the log that it has already been extracted
+            print("\"" + title + "\" has already been extracted to \"" + tmpDirectory + "\"");
+        }
         
         // Some archives will create a __MACOSX folder in the extracted folder, lets delete that
         do {
