@@ -213,8 +213,8 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Print to the log that we are removing this manga
         print("Removing \"" + (notification.object as? KMManga)!.title + "\" from the manga grid");
         
-        // If the manga is from EH...
-        if((notification.object as? KMManga)!.directory.containsString("/Library/Application Support/Komikan/EH")) {
+        // If the manga is from EH ad we said in the preferences to delete them...
+        if((notification.object as? KMManga)!.directory.containsString("/Library/Application Support/Komikan/EH") && (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.deleteLLewdMangaWhenRemovingFromTheGrid) {
             // Also delete the file
             do {
                 // Try to delete the file at the mangas directory

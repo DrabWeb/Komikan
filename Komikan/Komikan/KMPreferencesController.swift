@@ -25,10 +25,13 @@ class KMPreferencesController: NSViewController {
     // The checkbox to say if we want to havel-lewd... mode enabled
     @IBOutlet weak var llewdModeEnabledCheckbox: NSButton!
     
+    // The checkbox to say if we should delete a manga that is added from EH when we remove it from the grid
+    @IBOutlet weak var llewdModeDeleteWhenRemovingCheckbox: NSButton!
+    
     // When we interact llewdModeEnabledCheckbox...
     @IBAction func llewdModeEnabledCheckboxInteracted(sender: AnyObject) {
-        // Set the global preferences keepers value to the checkboxes value
-        (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.llewdModeEnabled = Bool(llewdModeEnabledCheckbox.state);
+        // Disable / enable all the checkboxes under it
+        enableOrDisableLLewdModeCheckboxes();
     }
     
     override func viewDidLoad() {
@@ -39,9 +42,16 @@ class KMPreferencesController: NSViewController {
         
         // Load the preferences
         loadPreferences();
+        
+        // Enable or disable the l-lewd... checkboxes
+        enableOrDisableLLewdModeCheckboxes();
     }
     
     override func viewWillDisappear() {
+        // Set the global preferences keepers value to the checkboxes value
+        (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.llewdModeEnabled = Bool(llewdModeEnabledCheckbox.state);
+        (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.deleteLLewdMangaWhenRemovingFromTheGrid = Bool(llewdModeDeleteWhenRemovingCheckbox.state);
+        
         // Send out the notification that we have modified the preferences
         NSNotificationCenter.defaultCenter().postNotificationName("KMPreferencesController.Modified", object: nil);
     }
@@ -50,6 +60,12 @@ class KMPreferencesController: NSViewController {
     func loadPreferences() {
         // Load the l-lewd... mode enabled value
         llewdModeEnabledCheckbox.state = Int((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.llewdModeEnabled);
+    }
+    
+    // Enables / disables all the checkboxes under the l-lewd... mode enabled checkbox
+    func enableOrDisableLLewdModeCheckboxes() {
+        // Do the delete when removing checkbox
+        llewdModeDeleteWhenRemovingCheckbox.enabled = Bool(llewdModeEnabledCheckbox.state);
     }
     
     func styleWindow() {

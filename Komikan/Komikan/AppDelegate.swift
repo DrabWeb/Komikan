@@ -72,6 +72,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Add the l-lewd... mode enabled bool to the end of it
         preferencesString.appendContentsOf(String(preferencesKepper.llewdModeEnabled));
         
+        // Add the l-lewd... mode delete when removing enabled bool to the end of it
+        preferencesString.appendContentsOf("\n" + String(preferencesKepper.deleteLLewdMangaWhenRemovingFromTheGrid));
+        
         // Write the preferences to the preferences file in Komikan's application support
         do {
             // Try to write to the preferences file in Komikan's application support directory
@@ -98,6 +101,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 if(currentIndex == 0) {
                     // Set the l-lewd... mode enabled bool to be this lines value
                     preferencesKepper.llewdModeEnabled = KMFileUtilities().stringToBool(currentElement);
+                }
+                // If this is the second line...
+                else if(currentIndex == 1) {
+                    // Set the l-lewd... mode delete when removing enabled bool to be this lines value
+                    preferencesKepper.deleteLLewdMangaWhenRemovingFromTheGrid = KMFileUtilities().stringToBool(currentElement);
                 }
             }
         }

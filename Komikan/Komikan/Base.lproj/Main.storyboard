@@ -461,14 +461,28 @@
                                                             <buttonCell key="cell" type="check" title="Enable l-lewd... mode" bezelStyle="regularSquare" imagePosition="left" inset="2" id="TZh-Lp-O4r">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
-                                                                <connections>
-                                                                    <action selector="llewdModeEnabledCheckboxInteracted:" target="Mlh-Lm-xg9" id="vZf-Bx-i2a"/>
-                                                                </connections>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="llewdModeEnabledCheckboxInteracted:" target="Mlh-Lm-xg9" id="Iux-hy-5s4"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="fpx-Ab-PHd">
+                                                            <rect key="frame" x="30" y="147" width="296" height="18"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="292" id="Czs-iC-reg"/>
+                                                                <constraint firstAttribute="height" constant="14" id="hgR-Tc-oHy"/>
+                                                            </constraints>
+                                                            <animations/>
+                                                            <buttonCell key="cell" type="check" title="Delete the file when removing it from the grid" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="lqb-sh-zBw">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
                                                             </buttonCell>
                                                         </button>
                                                     </subviews>
                                                     <constraints>
+                                                        <constraint firstItem="fpx-Ab-PHd" firstAttribute="top" secondItem="BAM-5b-AXZ" secondAttribute="bottom" constant="6" id="36C-pf-J2h"/>
                                                         <constraint firstItem="BAM-5b-AXZ" firstAttribute="top" secondItem="VCh-W0-pih" secondAttribute="top" constant="3" id="4l4-Oc-ioc"/>
+                                                        <constraint firstItem="fpx-Ab-PHd" firstAttribute="leading" secondItem="VCh-W0-pih" secondAttribute="leading" constant="32" id="7H5-qg-44T"/>
                                                         <constraint firstItem="BAM-5b-AXZ" firstAttribute="leading" secondItem="VCh-W0-pih" secondAttribute="leading" constant="17" id="lYa-HC-ZTu"/>
                                                     </constraints>
                                                     <animations/>
@@ -504,6 +518,7 @@
                     </view>
                     <connections>
                         <outlet property="backgroundVisualEffectView" destination="Koz-iq-GVn" id="e03-Zb-a8B"/>
+                        <outlet property="llewdModeDeleteWhenRemovingCheckbox" destination="fpx-Ab-PHd" id="BE3-Do-TnP"/>
                         <outlet property="llewdModeEnabledCheckbox" destination="BAM-5b-AXZ" id="n5J-ey-Hjb"/>
                         <outlet property="tabView" destination="1HL-q2-fni" id="UYG-f9-Khe"/>
                         <outlet property="titlebarVisualEffectView" destination="2kW-Hv-9Uh" id="Yvb-mK-eer"/>
