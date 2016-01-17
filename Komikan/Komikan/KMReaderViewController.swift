@@ -166,6 +166,9 @@ class KMReaderViewController: NSViewController {
     // Are we wanting to read in dual page mode?
     var dualPage : Bool = false;
     
+    // The direction we are reading(Default Right to Left)
+    var dualPageDirection : KMDualPageDirection = KMDualPageDirection.RightToLeft;
+    
     // Are we fullscreen?
     var isFullscreen : Bool = false;
     
@@ -207,6 +210,23 @@ class KMReaderViewController: NSViewController {
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.bookmarkCurrentPageMenuItem.action = Selector("bookmarkCurrentPage");
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.dualPageMenuItem.action = Selector("toggleDualPage");
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.fitWindowToPageMenuItem.action = Selector("fitWindowToManga");
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.switchDualPageDirectionMenuItem.action = Selector("switchDualPageDirection");
+    }
+    
+    func switchDualPageDirection() {
+        // If we are reading Right to Left...
+        if(dualPageDirection == KMDualPageDirection.RightToLeft) {
+            // Switch the direction to Left to Right
+            dualPageDirection = KMDualPageDirection.LeftToRight;
+        }
+        // If we are reading Left to Right...
+        else if(dualPageDirection == KMDualPageDirection.LeftToRight) {
+            // Switch the direction to Right to Left
+            dualPageDirection = KMDualPageDirection.RightToLeft;
+        }
+        
+        // Update the page
+        updatePage();
     }
     
     func fitWindowToManga() {
@@ -558,26 +578,44 @@ class KMReaderViewController: NSViewController {
             (NSApplication.sharedApplication().delegate as? AppDelegate)?.bookmarkCurrentPageMenuItem.state = 0;
         }
         
-        // If we are in dualPage mode...
+        // If we are in dual page mode...
         if(dualPage) {
             // Hide the one page image view
             readerImageView.hidden = true;
             
-            // Show yje dual page stack view for dual page mode
+            // Show the dual page stack view for dual page mode
             dualPageStackView.hidden = false;
             
-            // If we add 1 to manga.currentPage and there would be an image at that index in manga.pages...
-            if(manga.currentPage + 1 < manga.pages.count) {
-                // Set the left sides image to the ucrrent page + 1
-                leftPageReaderImageView.image = manga.pages[manga.currentPage + 1];
+            // If we are reading from Right to Left...
+            if(dualPageDirection == KMDualPageDirection.RightToLeft) {
+                // If we add 1 to manga.currentPage and there would be an image at that index in manga.pages...
+                if(manga.currentPage + 1 < manga.pages.count) {
+                    // Set the left sides image to the current page + 1
+                    leftPageReaderImageView.image = manga.pages[manga.currentPage + 1];
+                }
+                else {
+                    // Set the left image views to nothing
+                    leftPageReaderImageView.image = NSImage();
+                }
+                
+                // Set the right sides image to the current page
+                rightPageReaderImageView.image = manga.pages[manga.currentPage];
             }
-            else {
-                // Set the left image views to nothing
-                leftPageReaderImageView.image = NSImage();
+            // If we are reading from Left to Right...
+            else if(dualPageDirection == KMDualPageDirection.LeftToRight) {
+                // If we add 1 to manga.currentPage and there would be an image at that index in manga.pages...
+                if(manga.currentPage + 1 < manga.pages.count) {
+                    // Set the right sides image to the ucrrent page + 1
+                    rightPageReaderImageView.image = manga.pages[manga.currentPage + 1];
+                }
+                else {
+                    // Set the right image views to nothing
+                    rightPageReaderImageView.image = NSImage();
+                }
+                
+                // Set the left sides image to the current page
+                leftPageReaderImageView.image = manga.pages[manga.currentPage];
             }
-            
-            // Set the right sides image to the current page
-            rightPageReaderImageView.image = manga.pages[manga.currentPage];
         }
         else {
             // Show the one page image view

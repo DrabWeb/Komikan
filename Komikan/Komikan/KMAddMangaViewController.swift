@@ -212,7 +212,6 @@ class KMAddMangaViewController: NSViewController {
         }
         
         // Extract the passed manga to /tmp/komikan/addmanga
-        // WPZipArchive.unzipFileAtPath(manga.directory.stringByReplacingOccurrencesOfString("file://", withString: ""), toDestination: "/tmp/komikan/addmanga");
         KMFileUtilities().extractArchive(manga.directory.stringByReplacingOccurrencesOfString("file://", withString: ""), toDirectory:  "/tmp/komikan/addmanga");
         
         // Clean up the directory

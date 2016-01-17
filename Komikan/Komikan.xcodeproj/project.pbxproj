@@ -21,6 +21,7 @@
 		5D5DBEFA1C358BD3004D8C5D /* KMMangaGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBEF91C358BD3004D8C5D /* KMMangaGridItem.swift */; settings = {ASSET_TAGS = (); }; };
 		5D5DBEFC1C358BE0004D8C5D /* KMMangaGridController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBEFB1C358BE0004D8C5D /* KMMangaGridController.swift */; settings = {ASSET_TAGS = (); }; };
 		5D5DBF021C35923F004D8C5D /* KMReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBF011C35923F004D8C5D /* KMReaderViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		5D8125901C4BEDB600E3B000 /* KMEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D81258F1C4BEDB600E3B000 /* KMEnums.swift */; settings = {ASSET_TAGS = (); }; };
 		5D8C1CAA1C3F09E5001AD41B /* KMEditMangaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8C1CA91C3F09E5001AD41B /* KMEditMangaViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		5D96AFAF1C4A9EEC00120D70 /* ehadd in Resources */ = {isa = PBXBuildFile; fileRef = 5D96AFAC1C4A9EEC00120D70 /* ehadd */; settings = {ASSET_TAGS = (); }; };
 		5D96AFB01C4A9EEC00120D70 /* ehdownload in Resources */ = {isa = PBXBuildFile; fileRef = 5D96AFAD1C4A9EEC00120D70 /* ehdownload */; settings = {ASSET_TAGS = (); }; };
@@ -75,6 +76,7 @@
 		5D5DBEF91C358BD3004D8C5D /* KMMangaGridItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaGridItem.swift; sourceTree = "<group>"; };
 		5D5DBEFB1C358BE0004D8C5D /* KMMangaGridController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaGridController.swift; sourceTree = "<group>"; };
 		5D5DBF011C35923F004D8C5D /* KMReaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMReaderViewController.swift; sourceTree = "<group>"; };
+		5D81258F1C4BEDB600E3B000 /* KMEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMEnums.swift; sourceTree = "<group>"; };
 		5D8C1CA91C3F09E5001AD41B /* KMEditMangaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMEditMangaViewController.swift; sourceTree = "<group>"; };
 		5D96AFAC1C4A9EEC00120D70 /* ehadd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = ehadd; sourceTree = "<group>"; };
 		5D96AFAD1C4A9EEC00120D70 /* ehdownload */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = ehdownload; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 			children = (
 				5DBB0DFE1C36DA0000495985 /* KMFileUtilities.swift */,
 				5D9912101C46A5A6008E6591 /* KMCommandUtilities.swift */,
+				5D81258F1C4BEDB600E3B000 /* KMEnums.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -518,6 +521,7 @@
 				5D5DBEFA1C358BD3004D8C5D /* KMMangaGridItem.swift in Sources */,
 				5DC97D691C3EFF8200CC1006 /* KMMangaGridCollectionItem.swift in Sources */,
 				5D96AFB31C4A9F4E00120D70 /* KMPreferencesKeeper.swift in Sources */,
+				5D8125901C4BEDB600E3B000 /* KMEnums.swift in Sources */,
 				5D0D2A4C1C39830D00E3B8D0 /* KMManga.swift in Sources */,
 				5D5DBED11C3584F5004D8C5D /* ViewController.swift in Sources */,
 				5DBB0DFF1C36DA0000495985 /* KMFileUtilities.swift in Sources */,

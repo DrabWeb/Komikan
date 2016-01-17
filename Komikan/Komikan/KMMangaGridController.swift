@@ -77,16 +77,19 @@ class KMMangaGridController: NSObject {
         
         // If we arent searching for anything..
         if(searchText == "") {
-            // Remove all items from the array controller
-            arrayController.removeObjects(arrayController.arrangedObjects as! [AnyObject]);
-            
-            // Say we arent searching
-            searching = false;
-            
-            // For each of the manga we have in oldItems...
-            for (_, currentItem) in oldItems.enumerate() {
-                // Add the current item as a KMMangaGridItem to the manga grid array
-                arrayController.addObject(currentItem);
+            // If we have searched before...
+            if(searching) {
+                // Remove all items from the array controller
+                arrayController.removeObjects(arrayController.arrangedObjects as! [AnyObject]);
+                
+                // Say we arent searching
+                searching = false;
+                
+                // For each of the manga we have in oldItems...
+                for (_, currentItem) in oldItems.enumerate() {
+                    // Add the current item as a KMMangaGridItem to the manga grid array
+                    arrayController.addObject(currentItem);
+                }
             }
         }
         else {
@@ -201,16 +204,4 @@ class KMMangaGridController: NSObject {
             arrayController.sortDescriptors = [NSSortDescriptor(key: "title", ascending: ascending)];
         }
     }
-}
-
-// Used to describe how to sort the manga grid
-enum KMMangaGridSortType {
-    // Sorts by series
-    case Series
-    
-    // Sorts by artist
-    case Artist
-    
-    // Sorts by title
-    case Title
 }

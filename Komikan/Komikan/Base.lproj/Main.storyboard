@@ -331,7 +331,8 @@
                                         </menuItem>
                                         <menuItem title="Jump to Page" keyEquivalent="J" id="I7g-H0-J3h"/>
                                         <menuItem title="Bookmark" keyEquivalent="B" id="2T2-cT-5ni"/>
-                                        <menuItem title="Dual Page" keyEquivalent="D" id="TH4-sc-e7y"/>
+                                        <menuItem title="Dual Page" keyEquivalent="d" id="TH4-sc-e7y"/>
+                                        <menuItem title="Switch Dual Page Direction" keyEquivalent="D" id="ubh-G8-jVj"/>
                                         <menuItem title="Fit Window to Page" keyEquivalent="1" id="tub-ce-tVP"/>
                                     </items>
                                 </menu>
@@ -397,6 +398,7 @@
                         <outlet property="jumpToPageMenuItem" destination="I7g-H0-J3h" id="2f3-MH-hPT"/>
                         <outlet property="nextPageMenubarItem" destination="8P2-Bj-ZHO" id="maC-a5-1g2"/>
                         <outlet property="previousPageMenubarItem" destination="lL1-EK-QfJ" id="pyL-3Y-eLp"/>
+                        <outlet property="switchDualPageDirectionMenuItem" destination="ubh-G8-jVj" id="UF6-lc-LfP"/>
                     </connections>
                 </customObject>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -885,8 +887,8 @@
                                                     <action selector="readerBookmarkButtonPressed:" target="OyT-nZ-UQJ" id="i6R-Sc-yQX"/>
                                                 </connections>
                                             </button>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KbI-5a-d0M" userLabel="Page Number Label">
-                                                <rect key="frame" x="103" y="24" width="234" height="17"/>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KbI-5a-d0M" userLabel="Page Number Label">
+                                                <rect key="frame" x="200" y="24" width="41" height="17"/>
                                                 <animations/>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="TIa-Sv-Snr">
                                                     <font key="font" metaFont="system"/>

@@ -55,7 +55,6 @@ class KMManga {
         tmpDirectory += title + "/";
         
         // Unzip this manga to /tmp/komikan/komikanmanga-(title)
-//        WPZipArchive.unzipFileAtPath(directory, toDestination: tmpDirectory);
         KMFileUtilities().extractArchive(directory, toDirectory: tmpDirectory);
         
         // Some archives will create a __MACOSX folder in the extracted folder, lets delete that

@@ -26,6 +26,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // The Manga/Dual Page menu item
     @IBOutlet weak var dualPageMenuItem: NSMenuItem!
     
+    // The Manga/Switch Dual Page Direction menu item
+    @IBOutlet weak var switchDualPageDirectionMenuItem: NSMenuItem!
+    
     // The Manga/Fit Window to Page menu item
     @IBOutlet weak var fitWindowToPageMenuItem: NSMenuItem!
     
@@ -86,15 +89,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             // Create a variable to hold the preferences
             var preferencesString : String = "";
             
-            // Load the preferences
-            do {
-                // Try to get the contents of the preferences file in our application support folder
-                preferencesString = String(data: NSFileManager.defaultManager().contentsAtPath(NSHomeDirectory() + "/Library/Application Support/Komikan/preferences")!, encoding: NSUTF8StringEncoding)!;
-                // If there is an error...
-            } catch _ as NSError {
-                // Print to the log that there is no preferences to load
-                print("No preferences file to load");
-            }
+            // Try to get the contents of the preferences file in our application support folder
+            preferencesString = String(data: NSFileManager.defaultManager().contentsAtPath(NSHomeDirectory() + "/Library/Application Support/Komikan/preferences")!, encoding: NSUTF8StringEncoding)!;
             
             // For every line in the preferences string
             for (currentIndex, currentElement) in preferencesString.componentsSeparatedByString("\n").enumerate() {

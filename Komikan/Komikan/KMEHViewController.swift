@@ -77,26 +77,14 @@ class KMEHViewController: NSViewController {
         // Create a variable to store the name of the new manga
         var newMangaFileName : String = "";
         
-        // Get the mangas path
-        do {
-            // Try to get the contents of the newehpath in application support to fiure out what manga we are adding
-            newMangaFileName = String(data: try NSFileManager().contentsAtPath(NSHomeDirectory() + "/Library/Application Support/Komikan/newehpath")!, encoding: NSUTF8StringEncoding)!;
-            // If there is an error...
-        } catch _ as NSError {
-            // Do nothing
-        }
+        // Try to get the contents of the newehpath in application support to fiure out what manga we are adding
+        newMangaFileName = String(data: NSFileManager().contentsAtPath(NSHomeDirectory() + "/Library/Application Support/Komikan/newehpath")!, encoding: NSUTF8StringEncoding)!;
         
         // Create a variable to store the new mangas JSON
         var newMangaJson : JSON!;
         
-        // Get the mangas JSON
-        do {
-            // Try to get the contents of the newehdata.json in application support to find the information we need
-            newMangaJson = JSON(data: try NSFileManager().contentsAtPath(NSHomeDirectory() + "/Library/Application Support/Komikan/newehdata.json")!);
-            // If there is an error...
-        } catch _ as NSError {
-            // Do nothing
-        }
+        // Try to get the contents of the newehdata.json in application support to find the information we need
+        newMangaJson = JSON(data: NSFileManager().contentsAtPath(NSHomeDirectory() + "/Library/Application Support/Komikan/newehdata.json")!);
         
         // Set the mangas title to be the mangas json title
         manga.title = newMangaJson["gmetadata"][0]["title"].stringValue;
@@ -108,7 +96,7 @@ class KMEHViewController: NSViewController {
         manga.tags = (newMangaJson["gmetadata"][0]["tags"].arrayObject as? [String])!;
         
         // Set the mangas path
-        manga.directory = NSHomeDirectory() + "/Library/Application Support/Komikan/EH/" + manga.title + ".cbz";
+        manga.directory = NSHomeDirectory() + "/Library/Application Support/Komikan/EH/" + newMangaFileName + ".cbz";
         
         // Post the notification saying we are done and sending back the manga
         NSNotificationCenter.defaultCenter().postNotificationName("KMEHViewController.Finished", object: manga);
