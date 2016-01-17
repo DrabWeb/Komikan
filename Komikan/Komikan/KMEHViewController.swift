@@ -35,6 +35,9 @@ class KMEHViewController: NSViewController {
         addFromEH(addFromEHTextField.stringValue);
     }
     
+    // The checkbox to say if we want to use the Japanese title for downloading from E-Hentai
+    @IBOutlet weak var addFromEHUseJapaneseTitle: NSButton!
+    
     // The text field for the URL when adding from ExHentai
     @IBOutlet weak var addFromEXTextField: NSTextField!
     
@@ -52,6 +55,9 @@ class KMEHViewController: NSViewController {
         // Add the manga from exhentai, with the represented text fields string value
         addFromEX(addFromEXTextField.stringValue);
     }
+    
+    // The checkbox to say if we want to use the Japanese title for downloading from ExHentai
+    @IBOutlet weak var addFromEXUseJapaneseTitle: NSButton!
     
     // The manga we will pass back
     var manga : KMManga = KMManga();
@@ -86,8 +92,15 @@ class KMEHViewController: NSViewController {
         // Try to get the contents of the newehdata.json in application support to find the information we need
         newMangaJson = JSON(data: NSFileManager().contentsAtPath(NSHomeDirectory() + "/Library/Application Support/Komikan/newehdata.json")!);
         
-        // Set the mangas title to be the mangas json title
-        manga.title = newMangaJson["gmetadata"][0]["title"].stringValue;
+        // If we want to use the Japanese title...
+        if(Bool(addFromEHUseJapaneseTitle.state) == true) {
+            // Set the mangas title to be the mangas Japanese json title
+            manga.title = newMangaJson["gmetadata"][0]["title_jpn"].stringValue;
+        }
+        else {
+            // Set the mangas title to be the mangas English json title
+            manga.title = newMangaJson["gmetadata"][0]["title"].stringValue;
+        }
         
         // Set the mangas cover image
         manga.coverImage = NSImage(contentsOfURL: NSURL(string: newMangaJson["gmetadata"][0]["thumb"].stringValue)!)!;
@@ -95,8 +108,12 @@ class KMEHViewController: NSViewController {
         // Set the mangas tags
         manga.tags = (newMangaJson["gmetadata"][0]["tags"].arrayObject as? [String])!;
         
+        // Remove all the new lines from newMangaFileName(It adds a new line onto the end for some reason)
+        newMangaFileName = newMangaFileName.stringByReplacingOccurrencesOfString("\n", withString: "");
+        
         // Set the mangas path
         manga.directory = NSHomeDirectory() + "/Library/Application Support/Komikan/EH/" + newMangaFileName + ".cbz";
+        print("Manga Directory: " + manga.directory);
         
         // Post the notification saying we are done and sending back the manga
         NSNotificationCenter.defaultCenter().postNotificationName("KMEHViewController.Finished", object: manga);

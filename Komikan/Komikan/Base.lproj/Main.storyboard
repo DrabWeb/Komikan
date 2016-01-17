@@ -629,7 +629,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="wantsLayer" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </visualEffectView>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="td9-P8-Stw" userLabel="Reader Controls Panel Round Corners" customClass="KMReaderPanelView" customModule="Komikan" customModuleProvider="target">
+                            <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="td9-P8-Stw" userLabel="Reader Controls Panel Round Corners" customClass="KMReaderPanelView" customModule="Komikan" customModuleProvider="target">
                                 <rect key="frame" x="20" y="20" width="440" height="104"/>
                                 <subviews>
                                     <visualEffectView appearanceType="vibrantDark" blendingMode="withinWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="Uv0-1J-uxr" userLabel="Reader Controls Panel">
@@ -1258,17 +1258,31 @@
                                                                 <action selector="addFromEHButtonInteracted:" target="2qy-gv-b8W" id="cZe-PW-uwN"/>
                                                             </connections>
                                                         </button>
+                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="0ev-V5-NZ1">
+                                                            <rect key="frame" x="15" y="15" width="138" height="18"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="134" id="mTK-Jw-uXg"/>
+                                                                <constraint firstAttribute="height" constant="14" id="yk4-ro-32b"/>
+                                                            </constraints>
+                                                            <animations/>
+                                                            <buttonCell key="cell" type="check" title="Use Japanese Title" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="wwK-Pn-R0w">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                        </button>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="nWc-AK-fzG" firstAttribute="leading" secondItem="NF7-J6-4b1" secondAttribute="leading" constant="17" id="BsG-Ni-VU8"/>
                                                         <constraint firstAttribute="trailing" secondItem="nWc-AK-fzG" secondAttribute="trailing" constant="17" id="Kzy-El-uPy"/>
                                                         <constraint firstItem="ZUe-hr-v8k" firstAttribute="leading" secondItem="NF7-J6-4b1" secondAttribute="leading" constant="17" id="MyV-Sb-ETi"/>
+                                                        <constraint firstItem="0ev-V5-NZ1" firstAttribute="leading" secondItem="NF7-J6-4b1" secondAttribute="leading" constant="17" id="ZcU-uG-9cU"/>
                                                         <constraint firstAttribute="bottom" secondItem="CwZ-g2-HRr" secondAttribute="bottom" constant="17" id="aMm-iT-Nab"/>
                                                         <constraint firstAttribute="trailing" secondItem="ZUe-hr-v8k" secondAttribute="trailing" constant="17" id="baP-0z-hU5"/>
                                                         <constraint firstAttribute="trailing" secondItem="CwZ-g2-HRr" secondAttribute="trailing" constant="17" id="bkc-xe-mvq"/>
                                                         <constraint firstItem="nWc-AK-fzG" firstAttribute="top" secondItem="NF7-J6-4b1" secondAttribute="top" constant="3" id="bvS-oO-9Fg"/>
                                                         <constraint firstItem="CwZ-g2-HRr" firstAttribute="top" secondItem="ZUe-hr-v8k" secondAttribute="bottom" constant="8" id="gJx-YS-nmO"/>
                                                         <constraint firstItem="ZUe-hr-v8k" firstAttribute="top" secondItem="nWc-AK-fzG" secondAttribute="bottom" constant="8" id="pt5-dw-Vem"/>
+                                                        <constraint firstAttribute="bottom" secondItem="0ev-V5-NZ1" secondAttribute="bottom" constant="17" id="wA5-D6-0Hy"/>
                                                     </constraints>
                                                     <animations/>
                                                 </view>
@@ -1320,14 +1334,28 @@
                                                                 <action selector="addFromEXButtonInteracted:" target="2qy-gv-b8W" id="MD7-Vu-Z2x"/>
                                                             </connections>
                                                         </button>
+                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="0eP-fh-Q8Y">
+                                                            <rect key="frame" x="15" y="15" width="138" height="18"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="14" id="2la-W4-O3a"/>
+                                                                <constraint firstAttribute="width" constant="134" id="tAp-sw-3cO"/>
+                                                            </constraints>
+                                                            <animations/>
+                                                            <buttonCell key="cell" type="check" title="Use Japanese Title" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="OyQ-9F-6g5">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                        </button>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="s5w-Kd-5iy" firstAttribute="top" secondItem="Wt0-Vd-jTo" secondAttribute="bottom" constant="8" id="6a0-WM-TrG"/>
+                                                        <constraint firstItem="0eP-fh-Q8Y" firstAttribute="leading" secondItem="xN0-hr-5Dw" secondAttribute="leading" constant="17" id="70p-ST-k3S"/>
                                                         <constraint firstItem="IzM-u9-cAL" firstAttribute="top" secondItem="xN0-hr-5Dw" secondAttribute="top" constant="3" id="BvG-ph-0oJ"/>
                                                         <constraint firstAttribute="bottom" secondItem="s5w-Kd-5iy" secondAttribute="bottom" constant="17" id="Edp-zw-rpx"/>
                                                         <constraint firstItem="s5w-Kd-5iy" firstAttribute="top" secondItem="Wt0-Vd-jTo" secondAttribute="bottom" constant="8" id="XXn-gI-W6M"/>
                                                         <constraint firstItem="Wt0-Vd-jTo" firstAttribute="top" secondItem="IzM-u9-cAL" secondAttribute="bottom" constant="8" id="ZK0-i8-vCW"/>
                                                         <constraint firstItem="Wt0-Vd-jTo" firstAttribute="leading" secondItem="xN0-hr-5Dw" secondAttribute="leading" constant="17" id="a4o-Eh-QAn"/>
+                                                        <constraint firstAttribute="bottom" secondItem="0eP-fh-Q8Y" secondAttribute="bottom" constant="17" id="bey-Pq-thR"/>
                                                         <constraint firstItem="IzM-u9-cAL" firstAttribute="leading" secondItem="xN0-hr-5Dw" secondAttribute="leading" constant="17" id="eW4-lP-OCg"/>
                                                         <constraint firstItem="Wt0-Vd-jTo" firstAttribute="top" secondItem="IzM-u9-cAL" secondAttribute="bottom" constant="8" id="hK5-np-nkp"/>
                                                         <constraint firstAttribute="trailing" secondItem="s5w-Kd-5iy" secondAttribute="trailing" constant="17" id="oTl-fC-anC"/>
@@ -1360,8 +1388,10 @@
                     <connections>
                         <outlet property="addFromEHButton" destination="SAq-tN-Ius" id="DDV-NI-DPx"/>
                         <outlet property="addFromEHTextField" destination="mbh-pC-MDp" id="d9W-zR-dfC"/>
+                        <outlet property="addFromEHUseJapaneseTitle" destination="0ev-V5-NZ1" id="eY8-BN-EqN"/>
                         <outlet property="addFromEXButton" destination="s5w-Kd-5iy" id="VCB-rx-haf"/>
                         <outlet property="addFromEXTextField" destination="IzM-u9-cAL" id="L5j-AD-rd3"/>
+                        <outlet property="addFromEXUseJapaneseTitle" destination="0eP-fh-Q8Y" id="tmH-Og-CeI"/>
                         <outlet property="backgroundVisualEffectView" destination="dhk-XQ-V9x" id="oVf-rC-ImB"/>
                     </connections>
                 </viewController>
