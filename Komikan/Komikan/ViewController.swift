@@ -75,7 +75,8 @@ class ViewController: NSViewController, NSTabViewDelegate {
     
     // Called when we hit "Add" in the addmanga popover
     func addMangaFromAddMangaPopover(notification: NSNotification) {
-        print("Adding...");
+        // Print to the log that we are adding from the add popover
+        print("Adding from the add popover...");
         
         // If we were passed an array of manga...
         if((notification.object as? [KMManga]) != nil) {
@@ -174,7 +175,8 @@ class ViewController: NSViewController, NSTabViewDelegate {
     }
     
     func addMangaFromEHPopover(notification : NSNotification) {
-        print("Adding...");
+        // Print to the log that we are adding a manga from the EH popover
+        print("Adding from EH...");
         
         // If we were passed an array of manga...
         if((notification.object as? [KMManga]) != nil) {
@@ -210,6 +212,22 @@ class ViewController: NSViewController, NSTabViewDelegate {
     func removeSelectItemFromMangaGrid(notification : NSNotification) {
         // Print to the log that we are removing this manga
         print("Removing \"" + (notification.object as? KMManga)!.title + "\" from the manga grid");
+        
+        // If the manga is from EH...
+        if((notification.object as? KMManga)!.directory.containsString("/Library/Application Support/Komikan/EH")) {
+            // Also delete the file
+            do {
+                // Try to delete the file at the mangas directory
+                try NSFileManager.defaultManager().removeItemAtPath((notification.object as? KMManga)!.directory);
+                
+                // Print to the log that we deleted it
+                print("Deleted manga \"" + (notification.object as? KMManga)!.title + "\"'s file");
+            }
+            // If there is an error...
+            catch _ as NSError {
+                // Do nothing
+            }
+        }
         
         // Remove this item from the collection view
         mangaCollectionViewArray.removeObjectsAtArrangedObjectIndexes(NSIndexSet(index: mangaCollectionView.selectionIndexes.lastIndex));
