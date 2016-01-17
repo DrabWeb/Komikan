@@ -628,16 +628,10 @@ class KMReaderViewController: NSViewController {
     
     func mouseHoverHandling() {
         // Are we fullscreen?
-        var fullscreen : Bool = false;
+        let fullscreen : Bool = readerWindow.isFullscreen();
         
         // A bool to say if we are hovering the window
         var insideWindow : Bool = false;
-        
-        // If the window is in fullscreen(Window height matches the screen height(This is really cheaty and I need to find a better way to do this))
-        if(readerWindow.frame.height == NSScreen.mainScreen()?.frame.height) {
-            // Say we are in fullscreen
-            fullscreen = true;
-        }
         
         // Create a new CGEventRef, for the mouse position
         let mouseEvent : CGEventRef = CGEventCreate(nil)!;

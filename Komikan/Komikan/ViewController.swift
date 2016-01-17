@@ -251,11 +251,14 @@ class ViewController: NSViewController, NSTabViewDelegate {
         
         // Set the titlebar effect to be ultra dark
         titlebarVisualEffectView.material = NSVisualEffectMaterial.UltraDark;
+        
+        // Set the windows delegate to KMWindowDelegate
+        window.delegate = KMWindowDelegate();
     }
     
     func deleteTitlebarInFullscreen() {
         // If the window is in fullscreen(Window height matches the screen height(This is really cheaty and I need to find a better way to do this))
-        if(window.frame.height == NSScreen.mainScreen()?.frame.height) {
+        if(window.isFullscreen()) {
             // Hide the toolbar so we dont get a grey bar at the top
             window.toolbar?.visible = false;
         }
