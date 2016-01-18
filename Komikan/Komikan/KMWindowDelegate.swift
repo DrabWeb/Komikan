@@ -17,10 +17,8 @@ class KMWindowDelegate: NSWindowController, NSWindowDelegate {
     var didExitFullscreenSelector : Selector!;
     
     func windowDidEnterFullScreen(notification: NSNotification) {
-        print("Fullscreen! " + String(notification));
-        
         // Run the did enter fullscreen selector
-//        performSelector(didEnterFullscreenSelector);
+        performSelector(didEnterFullscreenSelector);
     }
     
     func windowDidExitFullScreen(notification: NSNotification) {

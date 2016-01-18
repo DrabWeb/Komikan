@@ -9,7 +9,7 @@
 import Cocoa
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDelegate {
 
     // The Manga/Next Page menu item
     @IBOutlet weak var nextPageMenubarItem: NSMenuItem!
@@ -35,8 +35,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // The Komikan/Delete All Manga menu item
     @IBOutlet weak var deleteAllMangaMenuItem: NSMenuItem!
     
-    // The Komikan/Add From E-Hentai menu item
+    // The Collection/Add From E-Hentai menu item
     @IBOutlet weak var addFromEHMenuItem: NSMenuItem!
+    
+    // The Komikan/Toggle Background Darken menu item
+    @IBOutlet weak var toggleBackgroundDarkenMenuItem: NSMenuItem!
     
     // The view controller we will load for the reader
     var mangaReaderViewController: KMReaderViewController?;
@@ -46,6 +49,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // The preferences keeper(Kept in app delegate because it should be globally accesable)
     var preferencesKepper : KMPreferencesKeeper = KMPreferencesKeeper();
+    
+    // The window controller that lets the user darken everything behind the window
+    var darkenBackgroundWindowController : NSWindowController!;
     
     // Opens the specified manga in the reader at the specified page
     func openManga(manga : KMManga, page : Int) {
@@ -139,6 +145,78 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         addFromEHMenuItem.hidden = !preferencesKepper.llewdModeEnabled;
     }
     
+    // How much to darken the background
+    var backgroundDarkenAmount : CGFloat = 0.4;
+    
+    // Do we have the background darkened?
+    var backgroundDarkened = false;
+    
+    func setupBackgroundDarkenWindow() {
+        // Get the main storyboard
+        let storyboard = NSStoryboard(name: "Main", bundle: nil);
+        
+        // Instantiate the window controller for darkening the background
+        darkenBackgroundWindowController = storyboard.instantiateControllerWithIdentifier("backgroundDarkenWindow") as? NSWindowController;
+        
+        // Set the darken background windows frame to be the same as the srceens frame
+        darkenBackgroundWindowController.window?.setFrame(NSRect(x: 0, y: 0, width: (NSScreen.mainScreen()?.frame.width)!, height: (NSScreen.mainScreen()?.frame.height)!), display: false);
+        
+        // Allow the window to be transparent
+        darkenBackgroundWindowController.window?.opaque = false;
+        
+        // Set the background color to black
+        darkenBackgroundWindowController.window?.backgroundColor = NSColor.blackColor();
+        
+        // Set the transpareny to something /comfy/
+        darkenBackgroundWindowController.window?.alphaValue = backgroundDarkenAmount;
+        
+        // Make the window borderless
+        darkenBackgroundWindowController.window?.styleMask |= NSBorderlessWindowMask;
+        
+        // Make it so you cant click the window
+        darkenBackgroundWindowController.window?.ignoresMouseEvents = true;
+        
+        // Set the windows level
+        darkenBackgroundWindowController.window?.level--;
+    }
+    
+    func fadeInDarken() {
+        // Order the window to show but not steal focus
+        darkenBackgroundWindowController.window?.orderFrontRegardless();
+        
+        // Animate the window in
+        darkenBackgroundWindowController.window?.animator().alphaValue = backgroundDarkenAmount;
+    }
+    
+    func fadeOutDarken() {
+        // Animate out the window
+        darkenBackgroundWindowController.window?.animator().alphaValue = 0;
+        
+        // Wait for the animation to finish and hide the window
+        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.2), target:self, selector: Selector("closeDarkenWindow"), userInfo: nil, repeats:false);
+    }
+    
+    func toggleDarken() {
+        // Toggle backgroundDarkened
+        backgroundDarkened = !backgroundDarkened;
+        
+        // If the background is now darkened...
+        if(backgroundDarkened) {
+            // Fade in the darken
+            fadeInDarken();
+        }
+        // If the background is now not darkened...
+        else if(!backgroundDarkened) {
+            // Fade out the darken
+            fadeOutDarken();
+        }
+    }
+    
+    private func closeDarkenWindow() {
+        // Order out the window
+        darkenBackgroundWindowController.window?.orderBack(self);
+    }
+    
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         // Insert code here to initialize your application
         // Make sure we have an application support folder
@@ -150,8 +228,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Load the preferences
         loadPreferences();
         
+        // Setup the window thats lets us dim the background
+        setupBackgroundDarkenWindow();
+        
+        // Setup the darken background menu items action
+        toggleBackgroundDarkenMenuItem.action = Selector("toggleDarken");
+        
         // Subscribe to the KMPreferencesController.Modified notification, so that we can act upon our changed preferences
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "actOnPreferences", name:"KMPreferencesController.Modified", object: nil);
+        
+        // Get the default notification center
+        let nc = NSUserNotificationCenter.defaultUserNotificationCenter();
+        
+        // Set its delegate to this class
+        nc.delegate = self;
+    }
+    
+    internal func userNotificationCenter(center: NSUserNotificationCenter, shouldPresentNotification notification: NSUserNotification) -> Bool {
+        // Always show notifications from this app, even if it is frontmost
+        return true
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {

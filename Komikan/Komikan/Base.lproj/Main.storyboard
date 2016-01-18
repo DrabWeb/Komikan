@@ -32,6 +32,9 @@
                                         <menuItem title="Delete All Manga" id="h7o-qK-yLj">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
+                                        <menuItem title="Toggle Distraction Free Mode" keyEquivalent="D" id="ZbJ-Yy-OIo">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                                         <menuItem title="Services" id="NMo-om-nkz">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -399,11 +402,45 @@
                         <outlet property="nextPageMenubarItem" destination="8P2-Bj-ZHO" id="maC-a5-1g2"/>
                         <outlet property="previousPageMenubarItem" destination="lL1-EK-QfJ" id="pyL-3Y-eLp"/>
                         <outlet property="switchDualPageDirectionMenuItem" destination="ubh-G8-jVj" id="UF6-lc-LfP"/>
+                        <outlet property="toggleBackgroundDarkenMenuItem" destination="ZbJ-Yy-OIo" id="kCW-1r-qf6"/>
                     </connections>
                 </customObject>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-371.5" y="-364"/>
+        </scene>
+        <!--Background Darken Window Controller-->
+        <scene sceneID="LLx-uU-hHc">
+            <objects>
+                <windowController storyboardIdentifier="backgroundDarkenWindow" id="ITi-RP-hjc" userLabel="Background Darken Window Controller" sceneMemberID="viewController">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="8oS-NN-v1u">
+                        <windowStyleMask key="styleMask" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowCollectionBehavior key="collectionBehavior" stationary="YES" ignoresCycle="YES" fullScreenAuxiliary="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="229" y="246" width="480" height="273"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1600" height="900"/>
+                    </window>
+                    <connections>
+                        <segue destination="ld9-Qb-xtN" kind="relationship" relationship="window.shadowedContentViewController" id="bRt-jH-s20"/>
+                    </connections>
+                </windowController>
+                <customObject id="6yH-kd-l2q" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1345" y="911.5"/>
+        </scene>
+        <!--Background Darken View Controller-->
+        <scene sceneID="fhZ-4Y-0NL">
+            <objects>
+                <viewController id="ld9-Qb-xtN" userLabel="Background Darken View Controller" sceneMemberID="viewController">
+                    <view key="view" id="5js-K8-Hxo">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </view>
+                </viewController>
+                <customObject id="gif-9I-UzO" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1930" y="954"/>
         </scene>
         <!--Preferences Window Controller-->
         <scene sceneID="Lh1-2B-Yh9">
@@ -533,7 +570,7 @@
             <objects>
                 <windowController showSeguePresentationStyle="single" id="B8D-0N-5wS" userLabel="Main Window Controller" sceneMemberID="viewController">
                     <window key="window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES" fullSizeContentView="YES"/>
+                        <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES" fullSizeContentView="YES"/>
                         <rect key="contentRect" x="196" y="240" width="639" height="480"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <value key="minSize" type="size" width="640" height="480"/>

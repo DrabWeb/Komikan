@@ -22,8 +22,26 @@ class KMEHViewController: NSViewController {
     
     // When we intreact with addFromEHTextField...
     @IBAction func addFromEHTextFieldInteracted(sender: AnyObject) {
+        // Create the new notification to tell the user the download has started
+        let startedNotification = NSUserNotification();
+        
+        // Set the title
+        startedNotification.title = "Komikan";
+        
+        // Set the informative text
+        startedNotification.informativeText = "Started download for \"" + addFromEHTextField.stringValue + "\"";
+        
+        // Show the notification
+        NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(startedNotification);
+        
+        // Disable the add from EH menu item
+        (NSApplication.sharedApplication().delegate as! AppDelegate).addFromEHMenuItem.enabled = false;
+        
         // Add the manga from e-hentai, with the represented text fields string value, in a seperate thread
         NSThread.detachNewThreadSelector(Selector("addFromEH:"), toTarget: self, withObject: addFromEHTextField.stringValue);
+        
+        // Dismiss the popover
+        self.dismissController(self);
     }
     
     // The button to add the manga add the inputted URL from E-Hentai
@@ -31,6 +49,21 @@ class KMEHViewController: NSViewController {
     
     // When we interact with addFromEHButton...
     @IBAction func addFromEHButtonInteracted(sender: AnyObject) {
+        // Create the new notification to tell the user the download has started
+        let startedNotification = NSUserNotification();
+        
+        // Set the title
+        startedNotification.title = "Komikan";
+        
+        // Set the informative text
+        startedNotification.informativeText = "Started download for \"" + addFromEHTextField.stringValue + "\"";
+        
+        // Show the notification
+        NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(startedNotification);
+        
+        // Disable the add from EH menu item
+        (NSApplication.sharedApplication().delegate as! AppDelegate).addFromEHMenuItem.enabled = false;
+        
         /// Add the manga from e-hentai, with the represented text fields string value, in a seperate thread
         NSThread.detachNewThreadSelector(Selector("addFromEH:"), toTarget: self, withObject: addFromEHTextField.stringValue);
         
@@ -129,6 +162,9 @@ class KMEHViewController: NSViewController {
         
         // Show the notification
         NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(finishedNotification);
+        
+        // Enable the add from EH menu item
+        (NSApplication.sharedApplication().delegate as! AppDelegate).addFromEHMenuItem.enabled = true;
         
         // Post the notification saying we are done and sending back the manga
         NSNotificationCenter.defaultCenter().postNotificationName("KMEHViewController.Finished", object: manga);
