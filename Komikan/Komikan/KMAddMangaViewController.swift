@@ -215,7 +215,7 @@ class KMAddMangaViewController: NSViewController {
         KMFileUtilities().extractArchive(manga.directory.stringByReplacingOccurrencesOfString("file://", withString: ""), toDirectory:  "/tmp/komikan/addmanga");
         
         // Clean up the directory
-        print(KMCommandUtilities().runCommand(NSBundle.mainBundle().bundlePath + "/Contents/Resources/cleanmangadir", arguments: ["/tmp/komikan/addmanga"]));
+        print(KMCommandUtilities().runCommand(NSBundle.mainBundle().bundlePath + "/Contents/Resources/cleanmangadir", arguments: ["/tmp/komikan/addmanga"], waitUntilExit: true));
         
         // Get the first image in the folder, and set the cover image selection views image to it
         do {

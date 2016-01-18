@@ -22,8 +22,8 @@ class KMEHViewController: NSViewController {
     
     // When we intreact with addFromEHTextField...
     @IBAction func addFromEHTextFieldInteracted(sender: AnyObject) {
-        // Add the manga from e-hentai, with the represented text fields string value
-        addFromEH(addFromEHTextField.stringValue);
+        // Add the manga from e-hentai, with the represented text fields string value, in a seperate thread
+        NSThread.detachNewThreadSelector(Selector("addFromEH:"), toTarget: self, withObject: addFromEHTextField.stringValue);
     }
     
     // The button to add the manga add the inputted URL from E-Hentai
@@ -31,8 +31,11 @@ class KMEHViewController: NSViewController {
     
     // When we interact with addFromEHButton...
     @IBAction func addFromEHButtonInteracted(sender: AnyObject) {
-        // Add the manga from e-hentai, with the represented text fields string value
-        addFromEH(addFromEHTextField.stringValue);
+        /// Add the manga from e-hentai, with the represented text fields string value, in a seperate thread
+        NSThread.detachNewThreadSelector(Selector("addFromEH:"), toTarget: self, withObject: addFromEHTextField.stringValue);
+        
+        // Dismiss the popover
+        self.dismissController(self);
     }
     
     // The checkbox to say if we want to use the Japanese title for downloading from E-Hentai
@@ -74,11 +77,11 @@ class KMEHViewController: NSViewController {
     
     // Adds the specified URL's manga from E-Hentai
     func addFromEH(url : String) {
-        // Call the command
-        KMCommandUtilities().runCommand(NSBundle.mainBundle().bundlePath + "/Contents/Resources/ehadd", arguments: [url, NSBundle.mainBundle().bundlePath + "/Contents/Resources/"]);
+        // A variable we will use so we can set the tasks finished action
+        let commandUtilities : KMCommandUtilities = KMCommandUtilities();
         
-        // Dismiss the popover
-        self.dismissController(self);
+        // Call the command
+        print(commandUtilities.runCommand(NSBundle.mainBundle().bundlePath + "/Contents/Resources/ehadd", arguments: [url, NSBundle.mainBundle().bundlePath + "/Contents/Resources/"], waitUntilExit: false));
         
         // Create a variable to store the name of the new manga
         var newMangaFileName : String = "";

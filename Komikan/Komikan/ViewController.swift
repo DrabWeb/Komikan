@@ -251,9 +251,6 @@ class ViewController: NSViewController, NSTabViewDelegate {
         
         // Set the titlebar effect to be ultra dark
         titlebarVisualEffectView.material = NSVisualEffectMaterial.UltraDark;
-        
-        // Set the windows delegate to KMWindowDelegate
-        window.delegate = KMWindowDelegate();
     }
     
     func deleteTitlebarInFullscreen() {

@@ -100,7 +100,7 @@ class KMManga {
         }
         
         // Run the cleanmangadir binary to make the directory readable for us
-        KMCommandUtilities().runCommand(NSBundle.mainBundle().bundlePath + "/Contents/Resources/cleanmangadir", arguments: [tmpDirectory]);
+        KMCommandUtilities().runCommand(NSBundle.mainBundle().bundlePath + "/Contents/Resources/cleanmangadir", arguments: [tmpDirectory], waitUntilExit: true);
         
         // Set pages to all the pages in /tmp/komikan/komikanmanga-(title)
         do {
