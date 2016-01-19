@@ -431,8 +431,17 @@ class KMReaderViewController: NSViewController {
                 updatePage();
             }
             else {
-                // Print to the log that there is no next page
-                print("There is no next page in \"" + manga.title + "\"");
+                // Print to the log that we have finished the book and are marking it as read
+                print("Finished \"" + manga.title + "\", marking it as read and exiting");
+                
+                // Set the mangas read variable to true
+                manga.read = true;
+                
+                // Close the window
+                readerWindow.close();
+                
+                // Reload the manga grid to match its contents
+                NSNotificationCenter.defaultCenter().postNotificationName("ViewController.UpdateMangaGrid", object: nil);
             }
         }
         else {
@@ -448,8 +457,17 @@ class KMReaderViewController: NSViewController {
                 updatePage();
             }
             else {
-                // Print to the log that there is no next page
-                print("There is no next page in \"" + manga.title + "\"");
+                // Print to the log that we have finished the book and are marking it as read
+                print("Finished \"" + manga.title + "\", marking it as read and exiting");
+                
+                // Set the mangas read variable to true
+                manga.read = true;
+                
+                // Close the window
+                readerWindow.close();
+                
+                // Reload the manga grid to match its contents
+                NSNotificationCenter.defaultCenter().postNotificationName("ViewController.UpdateMangaGrid", object: nil);
             }
         }
     }

@@ -124,6 +124,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Load the manga we had in the grid
         loadManga();
         
+        // Set the manga grid as the first responder
+        window.makeFirstResponder(mangaCollectionView);
+        
         // Set he delete all manga menubar items action
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.deleteAllMangaMenuItem.action = Selector("deleteAllManga");
         
@@ -146,6 +149,15 @@ class ViewController: NSViewController, NSTabViewDelegate {
         
         // Subscribe to the edit manga popovers remove function
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "removeSelectItemFromMangaGrid:", name:"KMEditMangaViewController.Remove", object: nil);
+        
+        // Subscribe to the global redraw manga grid function
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateMangaGrid", name:"ViewController.UpdateMangaGrid", object: nil);
+    }
+    
+    // When changing the values, it doesnt update right. Call this function to reload it
+    func updateMangaGrid() {
+        // Redraw the collection view to match the updated content
+        mangaCollectionView.itemPrototype = storyboard?.instantiateControllerWithIdentifier("mangaCollectionViewItem") as? NSCollectionViewItem;
     }
     
     // The view controller we will load for the add manga popover

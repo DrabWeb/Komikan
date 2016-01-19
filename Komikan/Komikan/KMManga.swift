@@ -46,6 +46,9 @@ class KMManga {
     // All the bookmarks for this manga(Each array element is a bookmarked page)
     var bookmarks : [Int]! = [];
     
+    // Has this Manga been read?
+    var read : Bool = false;
+    
     // A bool to say if we have already set tmpDirectory
     private var alreadySetTmpDirectory : Bool = false;
     

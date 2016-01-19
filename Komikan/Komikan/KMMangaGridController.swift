@@ -152,17 +152,42 @@ class KMMangaGridController: NSObject {
                     matchingTags = false;
                 }
                 
+                // The search string, but without the tags:;
+                var searchStringWithoutTags : String = searchText.stringByReplacingOccurrencesOfString("tags:" + searchTagsUnsplit + ";", withString: "").lowercaseString;
+                
+                // If we actually did a title search...
+                if(searchStringWithoutTags != "") {
+                    // If the last character in searchStringWithoutTags is a space...
+                    if(searchStringWithoutTags.substringFromIndex(searchStringWithoutTags.characters.endIndex.predecessor()) == " ") {
+                        // Remove the last character
+                        searchStringWithoutTags.removeAtIndex(searchStringWithoutTags.endIndex.predecessor());
+                    }
+                }
+                
+                // Do we have a matching title?
+                let matchingTitle : Bool = currentItem.title.lowercaseString.containsString(searchStringWithoutTags);
+                
+                // This was terrible to program, 0/10 would not recommend
                 // If the current items title includes the search string or has a matching tag...
-                if(matchingTags || currentItem.title.lowercaseString.containsString(searchText.stringByReplacingOccurrencesOfString("tags:" + searchTagsUnsplit + ";", withString: "").lowercaseString)) {
-                    // If we are searching for tags...
-                    if(searchTagsUnsplit != "") {
-                        // If we have matching tags...
-                        if(matchingTags) {
+                if(currentItem.title.lowercaseString.containsString(searchStringWithoutTags) || matchingTags) {
+                    // If we did actually search for a title...
+                    if(searchStringWithoutTags != "") {
+                        // If we have matching tags and title...
+                        if(matchingTags && matchingTitle) {
                             // Add the current object
                             arrayController.addObject(currentItem);
                         }
+                        // If we have no search tags...
+                        else if(searchTags.count == 0) {
+                            // If there is a matching title...
+                            if(matchingTitle) {
+                                // Add the current object
+                                arrayController.addObject(currentItem);
+                            }
+                        }
                     }
-                    else {
+                    // If we only have matching tags...
+                    else if(matchingTags) {
                         // Add the current object
                         arrayController.addObject(currentItem);
                     }

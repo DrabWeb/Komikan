@@ -21,6 +21,9 @@ class KMMangaGridItem: NSObject, NSCoding {
     // The artist for the manga, used for sorting
     var artist : String = "";
     
+    // Is the Manga read? Used for showing the unread marker
+    var read : Bool = false;
+    
     // The manga that this grid item represents
     var manga : KMManga = KMManga();
     
@@ -43,6 +46,9 @@ class KMMangaGridItem: NSObject, NSCoding {
         
         // Set the artist to the mangas artist
         artist = manga.artist;
+        
+        // Set read to the mangas read value
+        read = manga.read;
     }
     
     func encodeWithCoder(coder: NSCoder) {
@@ -58,6 +64,7 @@ class KMMangaGridItem: NSObject, NSCoding {
         coder.encodeObject(self.manga.bookmarks, forKey: "manga.bookmarks");
         coder.encodeObject(self.manga.currentPage, forKey: "manga.currentPage");
         coder.encodeObject(self.manga.tags, forKey: "manga.tags");
+        coder.encodeObject(self.manga.read, forKey: "manga.read");
     }
     
     required convenience init(coder decoder: NSCoder) {
@@ -75,10 +82,12 @@ class KMMangaGridItem: NSObject, NSCoding {
         self.manga.currentPage = (decoder.decodeObjectForKey("manga.currentPage") as! Int?)!;
         self.manga.tags = (decoder.decodeObjectForKey("manga.tags") as! [String]?)!;
         
-        // Set the title
-        self.title = manga.title;
+        // I need to stop breaking the app... This should help
+        if((decoder.decodeObjectForKey("manga.read") as? Bool) != nil) {
+            self.manga.read = (decoder.decodeObjectForKey("manga.read") as! Bool?)!;
+        }
         
-        // Set the cover image
-        self.coverImage = manga.coverImage;
+        // Load up the manga info
+        changeManga(self.manga);
     }
 }

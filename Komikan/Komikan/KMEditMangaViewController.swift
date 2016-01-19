@@ -64,6 +64,7 @@ class KMEditMangaViewController: NSViewController {
         saveBackToGrid();
     }
     
+    // When we click the remove button...
     @IBAction func removeButtonPressed(sender: AnyObject) {
         // Close the popover
         self.dismissController(self);
@@ -82,6 +83,30 @@ class KMEditMangaViewController: NSViewController {
         
         // Open the manga we have, at the bookmark we selected(The page is gotten by taking the selected items title, removing "Page " from it and converting it to an int)
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.openManga(manga, page: Int((bookmarksDropDown.selectedItem?.title.stringByReplacingOccurrencesOfString("Page ", withString: ""))!)! - 1);
+    }
+    
+    // When we click the "Mark Read" button...
+    @IBAction func markReadButtonPressed(sender: AnyObject) {
+        // Set the read variable of manga to true
+        manga.read = true;
+        
+        // Set the mangas last open page to the first
+        manga.currentPage = 0;
+        
+        // Save the manga back to the grid
+        saveBackToGrid();
+    }
+    
+    // When we click the "Mark Unread" button...
+    @IBAction func markUnreadButtonPressed(sender: AnyObject) {
+        // Set the read variable of manga to false
+        manga.read = false;
+        
+        // Set the mangas last open page to the first
+        manga.currentPage = 0;
+        
+        // Save the manga back to the grid
+        saveBackToGrid();
     }
     
     // The manga we were passed

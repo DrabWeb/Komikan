@@ -1242,6 +1242,7 @@
                         <string>title</string>
                         <string>series</string>
                         <string>artist</string>
+                        <string>read</string>
                     </declaredKeys>
                     <connections>
                         <binding destination="rwH-XF-ldC" name="contentArray" keyPath="manga" id="LsF-tY-Vwt"/>
@@ -1643,6 +1644,18 @@
                                     <binding destination="H6C-sh-Guu" name="value" keyPath="representedObject.title" id="K6n-xw-uLE"/>
                                 </connections>
                             </textField>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1wg-Fd-ohZ" userLabel="Unread Marker Image View">
+                                <rect key="frame" x="248" y="248" width="32" height="32"/>
+                                <shadow key="shadow" blurRadius="4">
+                                    <size key="offset" width="0.0" height="-3"/>
+                                    <color key="color" white="0.0" alpha="0.44481382978723405" colorSpace="calibratedWhite"/>
+                                </shadow>
+                                <animations/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="Unread Marker" id="ugL-9C-lck"/>
+                                <connections>
+                                    <binding destination="H6C-sh-Guu" name="hidden" keyPath="representedObject.read" id="4qw-N0-eGu"/>
+                                </connections>
+                            </imageView>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Fsn-as-jfw" secondAttribute="trailing" constant="12" id="0hs-J9-lkl"/>
@@ -1709,7 +1722,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YPg-C4-Ta2">
-                                        <rect key="frame" x="20" y="61" width="200" height="231"/>
+                                        <rect key="frame" x="20" y="102" width="200" height="190"/>
                                         <animations/>
                                         <imageCell key="cell" selectable="YES" editable="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSRevealFreestandingTemplate" id="JgY-Zi-XvZ"/>
                                     </imageView>
@@ -1810,11 +1823,38 @@
                                             <action selector="openButtonPressed:" target="ZeA-Vi-1xn" id="pOT-RR-JkI"/>
                                         </connections>
                                     </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5cw-yT-7dB" userLabel="Mark as Read Button">
+                                        <rect key="frame" x="14" y="54" width="97" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="85" id="0nu-pw-TuW"/>
+                                        </constraints>
+                                        <animations/>
+                                        <buttonCell key="cell" type="push" title="Mark Read" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Myq-eH-OmN">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="markReadButtonPressed:" target="ZeA-Vi-1xn" id="IFJ-YT-95d"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vtD-13-ID4" userLabel="Mark as Unread Button">
+                                        <rect key="frame" x="119" y="54" width="107" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="95" id="MrT-qa-j4H"/>
+                                        </constraints>
+                                        <animations/>
+                                        <buttonCell key="cell" type="push" title="Mark Unread" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9OV-hP-YsO">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="markUnreadButtonPressed:" target="ZeA-Vi-1xn" id="0km-fX-D7p"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="pCb-h2-X68" firstAttribute="top" secondItem="uMj-mL-fzg" secondAttribute="bottom" constant="20" id="0ZR-Bd-PtI"/>
                                     <constraint firstAttribute="bottom" secondItem="g5l-ZM-rna" secondAttribute="bottom" constant="20" id="3Qg-kl-bsB"/>
-                                    <constraint firstItem="g5l-ZM-rna" firstAttribute="top" secondItem="YPg-C4-Ta2" secondAttribute="bottom" constant="20" id="3kS-fN-mXL"/>
                                     <constraint firstItem="CH2-PF-IT1" firstAttribute="top" secondItem="NdR-QO-1tz" secondAttribute="bottom" constant="20" id="66a-Pq-Ftr"/>
                                     <constraint firstItem="Q4U-r9-qZk" firstAttribute="top" secondItem="CH2-PF-IT1" secondAttribute="bottom" constant="20" id="7bW-q0-t9q"/>
                                     <constraint firstAttribute="trailing" secondItem="NdR-QO-1tz" secondAttribute="trailing" constant="20" id="8iK-Ld-xoq"/>
@@ -1827,9 +1867,12 @@
                                     <constraint firstAttribute="trailing" secondItem="CH2-PF-IT1" secondAttribute="trailing" constant="20" id="HS0-Ke-GnV"/>
                                     <constraint firstItem="zqt-LM-HAn" firstAttribute="top" secondItem="CH2-PF-IT1" secondAttribute="bottom" constant="20" id="I0l-hM-jcf"/>
                                     <constraint firstItem="uMj-mL-fzg" firstAttribute="leading" secondItem="A3a-9C-RTX" secondAttribute="leading" id="JAD-iK-kaS"/>
+                                    <constraint firstItem="5cw-yT-7dB" firstAttribute="top" secondItem="YPg-C4-Ta2" secondAttribute="bottom" constant="20" id="Jd9-Qo-bdJ"/>
                                     <constraint firstItem="pCb-h2-X68" firstAttribute="top" secondItem="uMj-mL-fzg" secondAttribute="bottom" constant="20" id="JfB-a4-glx"/>
                                     <constraint firstItem="YPg-C4-Ta2" firstAttribute="leading" secondItem="xDm-lb-sT6" secondAttribute="leading" constant="20" id="Kb3-3H-SRL"/>
                                     <constraint firstItem="NdR-QO-1tz" firstAttribute="leading" secondItem="YPg-C4-Ta2" secondAttribute="trailing" constant="20" id="Kpf-mM-Shb"/>
+                                    <constraint firstItem="Xrn-Lr-W43" firstAttribute="top" secondItem="5cw-yT-7dB" secondAttribute="bottom" constant="20" id="Leu-ug-7bp"/>
+                                    <constraint firstItem="vtD-13-ID4" firstAttribute="leading" secondItem="5cw-yT-7dB" secondAttribute="trailing" constant="20" id="Nv3-60-Wxg"/>
                                     <constraint firstItem="uMj-mL-fzg" firstAttribute="leading" secondItem="CH2-PF-IT1" secondAttribute="leading" id="NzM-cq-lp5"/>
                                     <constraint firstAttribute="trailing" secondItem="A3a-9C-RTX" secondAttribute="trailing" constant="20" id="OyB-CU-G2W"/>
                                     <constraint firstItem="uMj-mL-fzg" firstAttribute="leading" secondItem="pCb-h2-X68" secondAttribute="leading" id="PVw-Xs-lYL"/>
@@ -1844,13 +1887,18 @@
                                     <constraint firstItem="ipr-84-RQP" firstAttribute="top" secondItem="pCb-h2-X68" secondAttribute="bottom" constant="20" id="hEf-ye-hUw"/>
                                     <constraint firstItem="CH2-PF-IT1" firstAttribute="top" secondItem="NdR-QO-1tz" secondAttribute="bottom" constant="20" id="ieq-eJ-q34"/>
                                     <constraint firstItem="uMj-mL-fzg" firstAttribute="top" secondItem="A3a-9C-RTX" secondAttribute="bottom" constant="20" id="ka2-F8-CO8"/>
+                                    <constraint firstItem="vtD-13-ID4" firstAttribute="leading" secondItem="5cw-yT-7dB" secondAttribute="trailing" constant="20" id="kgv-oE-iUW"/>
                                     <constraint firstAttribute="trailing" secondItem="ipr-84-RQP" secondAttribute="trailing" constant="20" id="ljV-Ba-ewz"/>
                                     <constraint firstAttribute="bottom" secondItem="zqt-LM-HAn" secondAttribute="bottom" constant="20" id="mIf-yH-TUt"/>
                                     <constraint firstItem="A3a-9C-RTX" firstAttribute="top" secondItem="xDm-lb-sT6" secondAttribute="top" constant="20" id="oPK-Jq-IoV"/>
                                     <constraint firstItem="pCb-h2-X68" firstAttribute="top" secondItem="uMj-mL-fzg" secondAttribute="bottom" constant="20" id="oTI-f0-gd4"/>
                                     <constraint firstAttribute="bottom" secondItem="Xrn-Lr-W43" secondAttribute="bottom" constant="20" id="qxA-EK-DuT"/>
                                     <constraint firstItem="g5l-ZM-rna" firstAttribute="leading" secondItem="Xrn-Lr-W43" secondAttribute="trailing" constant="20" id="stu-Vc-9lj"/>
+                                    <constraint firstItem="vtD-13-ID4" firstAttribute="top" secondItem="YPg-C4-Ta2" secondAttribute="bottom" constant="20" id="t0c-Np-xq1"/>
+                                    <constraint firstItem="g5l-ZM-rna" firstAttribute="top" secondItem="vtD-13-ID4" secondAttribute="bottom" constant="20" id="ttJ-kK-hom"/>
+                                    <constraint firstItem="5cw-yT-7dB" firstAttribute="leading" secondItem="xDm-lb-sT6" secondAttribute="leading" constant="20" id="u8c-vz-R0j"/>
                                     <constraint firstItem="uMj-mL-fzg" firstAttribute="leading" secondItem="NdR-QO-1tz" secondAttribute="leading" id="uqr-Cb-O2L"/>
+                                    <constraint firstItem="CH2-PF-IT1" firstAttribute="leading" secondItem="vtD-13-ID4" secondAttribute="trailing" constant="20" id="vN6-zA-6gA"/>
                                     <constraint firstAttribute="trailing" secondItem="zqt-LM-HAn" secondAttribute="trailing" constant="20" id="yhD-8E-tQK"/>
                                 </constraints>
                                 <animations/>
@@ -1888,6 +1936,7 @@
         <image name="NSBookmarksTemplate" width="17" height="18"/>
         <image name="NSRevealFreestandingTemplate" width="14" height="14"/>
         <image name="NSShareTemplate" width="11" height="16"/>
+        <image name="Unread Marker" width="128" height="128"/>
         <image name="example-cover" width="158.605712890625" height="205.71427917480469"/>
     </resources>
 </document>
