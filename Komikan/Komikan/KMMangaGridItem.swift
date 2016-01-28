@@ -65,6 +65,7 @@ class KMMangaGridItem: NSObject, NSCoding {
         coder.encodeObject(self.manga.currentPage, forKey: "manga.currentPage");
         coder.encodeObject(self.manga.tags, forKey: "manga.tags");
         coder.encodeObject(self.manga.read, forKey: "manga.read");
+        coder.encodeObject(self.manga.uuid, forKey: "manga.uuid");
     }
     
     required convenience init(coder decoder: NSCoder) {
@@ -85,6 +86,12 @@ class KMMangaGridItem: NSObject, NSCoding {
         // I need to stop breaking the app... This should help
         if((decoder.decodeObjectForKey("manga.read") as? Bool) != nil) {
             self.manga.read = (decoder.decodeObjectForKey("manga.read") as! Bool?)!;
+        }
+        
+        // Same here, if there is a UUID...
+        if((decoder.decodeObjectForKey("manga.uuid") as? String) != nil) {
+            // Load it
+            self.manga.uuid = (decoder.decodeObjectForKey("manga.uuid") as! String?)!;
         }
         
         // Load up the manga info

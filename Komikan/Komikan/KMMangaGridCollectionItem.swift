@@ -42,19 +42,32 @@ class KMMangaGridCollectionItem: NSCollectionViewItem {
     }
     
     func saveMangaFromPopover(notification : NSNotification) {
-        // Print to the log the manga we received
-        print("Saving manga \"" + ((self.representedObject as? KMMangaGridItem)?.manga.title)! + "\"");
-        
-        // Set this items manga to the notiifcations manga
-        (self.representedObject as? KMMangaGridItem)?.changeManga((notification.object as? KMManga)!);
-        
-        // Remove the observer so we dont get duplicate calls
-        NSNotificationCenter.defaultCenter().removeObserver(self);
-        
-        // Reload the view to match its contents
-        NSNotificationCenter.defaultCenter().postNotificationName("ViewController.UpdateMangaGrid", object: nil);
-        
-        // Tell the manga grid to resort itself
-        NSNotificationCenter.defaultCenter().postNotificationName("MangaGrid.Resort", object: nil);
+        // If the UUID matches...
+        if((self.representedObject as? KMMangaGridItem)?.manga.uuid == (notification.object as? KMManga)!.uuid) {
+            // Print to the log the manga we received
+            print("Saving manga \"" + ((self.representedObject as? KMMangaGridItem)?.manga.title)! + "\"");
+            
+            // Set this items manga to the notiifcations manga
+            (self.representedObject as? KMMangaGridItem)?.changeManga((notification.object as? KMManga)!);
+            
+            // Remove the observer so we dont get duplicate calls
+            NSNotificationCenter.defaultCenter().removeObserver(self);
+            
+            // Reload the view to match its contents
+            NSNotificationCenter.defaultCenter().postNotificationName("ViewController.UpdateMangaGrid", object: nil);
+            
+            // Tell the manga grid to resort itself
+            NSNotificationCenter.defaultCenter().postNotificationName("MangaGrid.Resort", object: nil);
+        }
+        else {
+            // Temporarly store the represented objects manga, so we dont have to retype it a whole bunch
+            let representedManga : KMManga = ((self.representedObject as? KMMangaGridItem)?.manga)!;
+            
+            // The UUID for the manga we are trying to save
+            let notificationMangaUUID : String = (notification.object as? KMManga)!.uuid;
+            
+            // Print to the log that the UUIDs dont match
+            print("UUID for \"" + representedManga.title + "\"(" + representedManga.uuid + ") doesnt match what is trying to be saved(" + notificationMangaUUID + ")");
+        }
     }
 }

@@ -49,6 +49,9 @@ class KMManga {
     // Has this Manga been read?
     var read : Bool = false;
     
+    // This manga's unique UUID so we dont cause the duplication bug among other things
+    var uuid : String = NSUUID().UUIDString.lowercaseString;
+    
     // A bool to say if we have already set tmpDirectory
     private var alreadySetTmpDirectory : Bool = false;
     

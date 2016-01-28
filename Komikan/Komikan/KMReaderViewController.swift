@@ -452,8 +452,8 @@ class KMReaderViewController: NSViewController {
                 // Close the window
                 readerWindow.close();
                 
-                // Reload the manga grid to match its contents
-                NSNotificationCenter.defaultCenter().postNotificationName("ViewController.UpdateMangaGrid", object: nil);
+                // Update the grid(For some reason I have to call this function instead of the update grid one)
+                NSNotificationCenter.defaultCenter().postNotificationName("KMEditMangaViewController.Saving", object: manga);
             }
         }
         else {
@@ -478,8 +478,8 @@ class KMReaderViewController: NSViewController {
                 // Close the window
                 readerWindow.close();
                 
-                // Reload the manga grid to match its contents
-                NSNotificationCenter.defaultCenter().postNotificationName("ViewController.UpdateMangaGrid", object: nil);
+                // Update the grid(For some reason I have to call this function instead of the update grid one)
+                NSNotificationCenter.defaultCenter().postNotificationName("KMEditMangaViewController.Saving", object: manga);
             }
         }
     }
