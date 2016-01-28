@@ -42,11 +42,11 @@ class KMMangaGridCollectionItem: NSCollectionViewItem {
     }
     
     func saveMangaFromPopover(notification : NSNotification) {
-        // Set this items manga to the notiifcations manga
-        (self.representedObject as? KMMangaGridItem)?.changeManga((notification.object as? KMManga)!);
-        
         // Print to the log the manga we received
         print("Saving manga \"" + ((self.representedObject as? KMMangaGridItem)?.manga.title)! + "\"");
+        
+        // Set this items manga to the notiifcations manga
+        (self.representedObject as? KMMangaGridItem)?.changeManga((notification.object as? KMManga)!);
         
         // Remove the observer so we dont get duplicate calls
         NSNotificationCenter.defaultCenter().removeObserver(self);

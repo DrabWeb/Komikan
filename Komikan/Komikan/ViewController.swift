@@ -154,6 +154,8 @@ class ViewController: NSViewController, NSTabViewDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateMangaGrid", name:"ViewController.UpdateMangaGrid", object: nil);
     }
     
+    var oldArrangedObjects : [AnyObject]!;
+    
     // When changing the values, it doesnt update right. Call this function to reload it
     func updateMangaGrid() {
         // Redraw the collection view to match the updated content

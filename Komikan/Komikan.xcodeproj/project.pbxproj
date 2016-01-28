@@ -7,36 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5D0D2A4C1C39830D00E3B8D0 /* KMManga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0D2A4B1C39830D00E3B8D0 /* KMManga.swift */; settings = {ASSET_TAGS = (); }; };
-		5D0D2A521C39A11000E3B8D0 /* KMAddMangaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0D2A501C39A11000E3B8D0 /* KMAddMangaViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		5D1388CC1C3836C200B5EAAD /* KMReaderPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1388CB1C3836C200B5EAAD /* KMReaderPanelView.swift */; settings = {ASSET_TAGS = (); }; };
-		5D22C3FD1C4454C50010746F /* KMPreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D22C3FC1C4454C50010746F /* KMPreferencesController.swift */; settings = {ASSET_TAGS = (); }; };
-		5D22C4011C445BA20010746F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D22C4001C445BA20010746F /* SwiftyJSON.swift */; settings = {ASSET_TAGS = (); }; };
-		5D2C37A91C4C3FA50089B7E1 /* KMExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2C37A81C4C3FA50089B7E1 /* KMExtensions.swift */; settings = {ASSET_TAGS = (); }; };
-		5D2C37AB1C4C48070089B7E1 /* KMWindowDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2C37AA1C4C48070089B7E1 /* KMWindowDelegate.swift */; settings = {ASSET_TAGS = (); }; };
+		5D0D2A4C1C39830D00E3B8D0 /* KMManga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0D2A4B1C39830D00E3B8D0 /* KMManga.swift */; };
+		5D0D2A521C39A11000E3B8D0 /* KMAddMangaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0D2A501C39A11000E3B8D0 /* KMAddMangaViewController.swift */; };
+		5D1388CC1C3836C200B5EAAD /* KMReaderPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1388CB1C3836C200B5EAAD /* KMReaderPanelView.swift */; };
+		5D22C3FD1C4454C50010746F /* KMPreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D22C3FC1C4454C50010746F /* KMPreferencesController.swift */; };
+		5D22C4011C445BA20010746F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D22C4001C445BA20010746F /* SwiftyJSON.swift */; };
+		5D2C37A91C4C3FA50089B7E1 /* KMExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2C37A81C4C3FA50089B7E1 /* KMExtensions.swift */; };
+		5D2C37AB1C4C48070089B7E1 /* KMWindowDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2C37AA1C4C48070089B7E1 /* KMWindowDelegate.swift */; };
 		5D5DBECF1C3584F5004D8C5D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBECE1C3584F5004D8C5D /* AppDelegate.swift */; };
 		5D5DBED11C3584F5004D8C5D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBED01C3584F5004D8C5D /* ViewController.swift */; };
 		5D5DBED31C3584F5004D8C5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D5DBED21C3584F5004D8C5D /* Assets.xcassets */; };
 		5D5DBED61C3584F5004D8C5D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D5DBED41C3584F5004D8C5D /* Main.storyboard */; };
 		5D5DBEE11C3584F5004D8C5D /* KomikanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBEE01C3584F5004D8C5D /* KomikanTests.swift */; };
 		5D5DBEEC1C3584F5004D8C5D /* KomikanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBEEB1C3584F5004D8C5D /* KomikanUITests.swift */; };
-		5D5DBEFA1C358BD3004D8C5D /* KMMangaGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBEF91C358BD3004D8C5D /* KMMangaGridItem.swift */; settings = {ASSET_TAGS = (); }; };
-		5D5DBEFC1C358BE0004D8C5D /* KMMangaGridController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBEFB1C358BE0004D8C5D /* KMMangaGridController.swift */; settings = {ASSET_TAGS = (); }; };
-		5D5DBF021C35923F004D8C5D /* KMReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBF011C35923F004D8C5D /* KMReaderViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		5D8125901C4BEDB600E3B000 /* KMEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D81258F1C4BEDB600E3B000 /* KMEnums.swift */; settings = {ASSET_TAGS = (); }; };
-		5D8C1CAA1C3F09E5001AD41B /* KMEditMangaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8C1CA91C3F09E5001AD41B /* KMEditMangaViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		5D96AFAF1C4A9EEC00120D70 /* ehadd in Resources */ = {isa = PBXBuildFile; fileRef = 5D96AFAC1C4A9EEC00120D70 /* ehadd */; settings = {ASSET_TAGS = (); }; };
-		5D96AFB01C4A9EEC00120D70 /* ehdownload in Resources */ = {isa = PBXBuildFile; fileRef = 5D96AFAD1C4A9EEC00120D70 /* ehdownload */; settings = {ASSET_TAGS = (); }; };
-		5D96AFB11C4A9EEC00120D70 /* ehinfo in Resources */ = {isa = PBXBuildFile; fileRef = 5D96AFAE1C4A9EEC00120D70 /* ehinfo */; settings = {ASSET_TAGS = (); }; };
-		5D96AFB31C4A9F4E00120D70 /* KMPreferencesKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D96AFB21C4A9F4E00120D70 /* KMPreferencesKeeper.swift */; settings = {ASSET_TAGS = (); }; };
-		5D96AFB61C4AAFCB00120D70 /* KMEHViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D96AFB51C4AAFCB00120D70 /* KMEHViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		5D9912111C46A5A6008E6591 /* KMCommandUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9912101C46A5A6008E6591 /* KMCommandUtilities.swift */; settings = {ASSET_TAGS = (); }; };
-		5D9912141C46AE9B008E6591 /* cleanmangadir in Resources */ = {isa = PBXBuildFile; fileRef = 5D9912131C46AE9B008E6591 /* cleanmangadir */; settings = {ASSET_TAGS = (); }; };
-		5DBB0DFF1C36DA0000495985 /* KMFileUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBB0DFE1C36DA0000495985 /* KMFileUtilities.swift */; settings = {ASSET_TAGS = (); }; };
-		5DC97D691C3EFF8200CC1006 /* KMMangaGridCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC97D681C3EFF8200CC1006 /* KMMangaGridCollectionItem.swift */; settings = {ASSET_TAGS = (); }; };
-		5DFBC77D1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFBC77C1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift */; settings = {ASSET_TAGS = (); }; };
-		6D6AE08024DBC4C9C2604F64 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39B1CCABE43DCFDDE2111753 /* libPods.a */; };
-		F6E2A44670033B046895F808 /* Pods_Komikan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF9D3DB8828EA3BAF7FABE48 /* Pods_Komikan.framework */; };
+		5D5DBEFA1C358BD3004D8C5D /* KMMangaGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBEF91C358BD3004D8C5D /* KMMangaGridItem.swift */; };
+		5D5DBEFC1C358BE0004D8C5D /* KMMangaGridController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBEFB1C358BE0004D8C5D /* KMMangaGridController.swift */; };
+		5D5DBF021C35923F004D8C5D /* KMReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBF011C35923F004D8C5D /* KMReaderViewController.swift */; };
+		5D8125901C4BEDB600E3B000 /* KMEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D81258F1C4BEDB600E3B000 /* KMEnums.swift */; };
+		5D8C1CAA1C3F09E5001AD41B /* KMEditMangaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8C1CA91C3F09E5001AD41B /* KMEditMangaViewController.swift */; };
+		5D96AFAF1C4A9EEC00120D70 /* ehadd in Resources */ = {isa = PBXBuildFile; fileRef = 5D96AFAC1C4A9EEC00120D70 /* ehadd */; };
+		5D96AFB01C4A9EEC00120D70 /* ehdownload in Resources */ = {isa = PBXBuildFile; fileRef = 5D96AFAD1C4A9EEC00120D70 /* ehdownload */; };
+		5D96AFB11C4A9EEC00120D70 /* ehinfo in Resources */ = {isa = PBXBuildFile; fileRef = 5D96AFAE1C4A9EEC00120D70 /* ehinfo */; };
+		5D96AFB31C4A9F4E00120D70 /* KMPreferencesKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D96AFB21C4A9F4E00120D70 /* KMPreferencesKeeper.swift */; };
+		5D96AFB61C4AAFCB00120D70 /* KMEHViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D96AFB51C4AAFCB00120D70 /* KMEHViewController.swift */; };
+		5D9912111C46A5A6008E6591 /* KMCommandUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9912101C46A5A6008E6591 /* KMCommandUtilities.swift */; };
+		5D9912141C46AE9B008E6591 /* cleanmangadir in Resources */ = {isa = PBXBuildFile; fileRef = 5D9912131C46AE9B008E6591 /* cleanmangadir */; };
+		5DBB0DFF1C36DA0000495985 /* KMFileUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBB0DFE1C36DA0000495985 /* KMFileUtilities.swift */; };
+		5DC97D691C3EFF8200CC1006 /* KMMangaGridCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC97D681C3EFF8200CC1006 /* KMMangaGridCollectionItem.swift */; };
+		5DFBC77D1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFBC77C1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift */; };
+		717FCF4154A9C753AAAA932A /* Pods_Komikan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7912A9E7FC4837CBB8157E2 /* Pods_Komikan.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,8 +93,8 @@
 		5DC97D681C3EFF8200CC1006 /* KMMangaGridCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaGridCollectionItem.swift; sourceTree = "<group>"; };
 		5DFBC77C1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaGridSelectionBox.swift; sourceTree = "<group>"; };
 		B086CA4387890A79C8FD3E35 /* Pods-Komikan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Komikan.release.xcconfig"; path = "Pods/Target Support Files/Pods-Komikan/Pods-Komikan.release.xcconfig"; sourceTree = "<group>"; };
+		B7912A9E7FC4837CBB8157E2 /* Pods_Komikan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Komikan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB22335385156945A0ABCB06 /* Pods-Komikan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Komikan.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Komikan/Pods-Komikan.debug.xcconfig"; sourceTree = "<group>"; };
-		DF9D3DB8828EA3BAF7FABE48 /* Pods_Komikan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Komikan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,8 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D6AE08024DBC4C9C2604F64 /* libPods.a in Frameworks */,
-				F6E2A44670033B046895F808 /* Pods_Komikan.framework in Frameworks */,
+				717FCF4154A9C753AAAA932A /* Pods_Komikan.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,7 +314,7 @@
 			isa = PBXGroup;
 			children = (
 				39B1CCABE43DCFDDE2111753 /* libPods.a */,
-				DF9D3DB8828EA3BAF7FABE48 /* Pods_Komikan.framework */,
+				B7912A9E7FC4837CBB8157E2 /* Pods_Komikan.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
