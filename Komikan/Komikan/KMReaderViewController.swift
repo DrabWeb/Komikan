@@ -443,17 +443,24 @@ class KMReaderViewController: NSViewController {
                 updatePage();
             }
             else {
-                // Print to the log that we have finished the book and are marking it as read
-                print("Finished \"" + manga.title + "\", marking it as read and exiting");
-                
-                // Set the mangas read variable to true
-                manga.read = true;
-                
-                // Close the window
-                readerWindow.close();
-                
-                // Update the grid(For some reason I have to call this function instead of the update grid one)
-                NSNotificationCenter.defaultCenter().postNotificationName("KMEditMangaViewController.Saving", object: manga);
+                // If we have mark as read when completed in reader enabled...
+                if((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.markAsReadWhenCompletedInReader) {
+                    // Print to the log that we have finished the book and are marking it as read
+                    print("Finished \"" + manga.title + "\", marking it as read and exiting");
+                    
+                    // Set the mangas read variable to true
+                    manga.read = true;
+                    
+                    // Close the window
+                    readerWindow.close();
+                    
+                    // Update the grid(For some reason I have to call this function instead of the update grid one)
+                    NSNotificationCenter.defaultCenter().postNotificationName("KMEditMangaViewController.Saving", object: manga);
+                }
+                else {
+                    // Close the window
+                    readerWindow.close();
+                }
             }
         }
         else {
@@ -469,17 +476,24 @@ class KMReaderViewController: NSViewController {
                 updatePage();
             }
             else {
-                // Print to the log that we have finished the book and are marking it as read
-                print("Finished \"" + manga.title + "\", marking it as read and exiting");
-                
-                // Set the mangas read variable to true
-                manga.read = true;
-                
-                // Close the window
-                readerWindow.close();
-                
-                // Update the grid(For some reason I have to call this function instead of the update grid one)
-                NSNotificationCenter.defaultCenter().postNotificationName("KMEditMangaViewController.Saving", object: manga);
+                // If we have mark as read when completed in reader enabled...
+                if((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.markAsReadWhenCompletedInReader) {
+                    // Print to the log that we have finished the book and are marking it as read
+                    print("Finished \"" + manga.title + "\", marking it as read and exiting");
+                    
+                    // Set the mangas read variable to true
+                    manga.read = true;
+                    
+                    // Close the window
+                    readerWindow.close();
+                    
+                    // Update the grid(For some reason I have to call this function instead of the update grid one)
+                    NSNotificationCenter.defaultCenter().postNotificationName("KMEditMangaViewController.Saving", object: manga);
+                }
+                else {
+                    // Close the window
+                    readerWindow.close();
+                }
             }
         }
     }

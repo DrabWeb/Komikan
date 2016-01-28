@@ -14,4 +14,7 @@ class KMPreferencesKeeper {
     
     // Should we delete a manga when its downloaded from EH and we remove it from the grid?
     var deleteLLewdMangaWhenRemovingFromTheGrid : Bool = false;
+    
+    // Should we mark a Manga as read when you finish it in the reader?
+    var markAsReadWhenCompletedInReader : Bool = true;
 }

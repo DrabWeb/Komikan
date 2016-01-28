@@ -478,6 +478,15 @@
                                                 <view key="view" id="ZcC-yb-TAH">
                                                     <rect key="frame" x="10" y="33" width="434" height="186"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="74O-zv-sD2">
+                                                            <rect key="frame" x="15" y="167" width="338" height="18"/>
+                                                            <buttonCell key="cell" type="check" title="Mark Manga as read when you  finish it in the reader" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="XNh-Xk-KX5">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                        </button>
+                                                    </subviews>
                                                 </view>
                                             </tabViewItem>
                                             <tabViewItem label="Other" identifier="2" id="5Gn-3C-eGK">
@@ -548,6 +557,7 @@
                         <outlet property="backgroundVisualEffectView" destination="Koz-iq-GVn" id="e03-Zb-a8B"/>
                         <outlet property="llewdModeDeleteWhenRemovingCheckbox" destination="fpx-Ab-PHd" id="BE3-Do-TnP"/>
                         <outlet property="llewdModeEnabledCheckbox" destination="BAM-5b-AXZ" id="n5J-ey-Hjb"/>
+                        <outlet property="markAsReadWhenCompletedInReaderCheckbox" destination="74O-zv-sD2" id="vTg-f4-XlF"/>
                         <outlet property="tabView" destination="1HL-q2-fni" id="UYG-f9-Khe"/>
                         <outlet property="titlebarVisualEffectView" destination="2kW-Hv-9Uh" id="Yvb-mK-eer"/>
                     </connections>

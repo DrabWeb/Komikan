@@ -81,6 +81,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         // Add the l-lewd... mode delete when removing enabled bool to the end of it
         preferencesString.appendContentsOf("\n" + String(preferencesKepper.deleteLLewdMangaWhenRemovingFromTheGrid));
         
+        // Add mark as read when completed in reader bool to the end of it
+        preferencesString.appendContentsOf("\n" + String(preferencesKepper.markAsReadWhenCompletedInReader));
+        
         // Write the preferences to the preferences file in Komikan's application support
         do {
             // Try to write to the preferences file in Komikan's application support directory
@@ -112,6 +115,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                 else if(currentIndex == 1) {
                     // Set the l-lewd... mode delete when removing enabled bool to be this lines value
                     preferencesKepper.deleteLLewdMangaWhenRemovingFromTheGrid = KMFileUtilities().stringToBool(currentElement);
+                }
+                // If this is the third line...
+                else if(currentIndex == 2) {
+                    // Set if we want to mark manga as read when we finish them in the reader to be this lines value
+                    preferencesKepper.markAsReadWhenCompletedInReader = KMFileUtilities().stringToBool(currentElement);
                 }
             }
         }

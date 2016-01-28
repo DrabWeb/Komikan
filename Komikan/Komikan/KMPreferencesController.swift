@@ -34,6 +34,9 @@ class KMPreferencesController: NSViewController {
         enableOrDisableLLewdModeCheckboxes();
     }
     
+    // The checkbox to say if we want to mark a manga as read when we complete it in the reader
+    @IBOutlet weak var markAsReadWhenCompletedInReaderCheckbox: NSButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
@@ -51,6 +54,7 @@ class KMPreferencesController: NSViewController {
         // Set the global preferences keepers value to the checkboxes value
         (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.llewdModeEnabled = Bool(llewdModeEnabledCheckbox.state);
         (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.deleteLLewdMangaWhenRemovingFromTheGrid = Bool(llewdModeDeleteWhenRemovingCheckbox.state);
+        (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.markAsReadWhenCompletedInReader = Bool(markAsReadWhenCompletedInReaderCheckbox.state);
         
         // Send out the notification that we have modified the preferences
         NSNotificationCenter.defaultCenter().postNotificationName("KMPreferencesController.Modified", object: nil);
@@ -63,6 +67,9 @@ class KMPreferencesController: NSViewController {
         
         // Load the l-lewd... delete after remove enabled value
         llewdModeDeleteWhenRemovingCheckbox.state = Int((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.deleteLLewdMangaWhenRemovingFromTheGrid);
+        
+        // Load the mark as read when completed in readers checkbox value
+        markAsReadWhenCompletedInReaderCheckbox.state = Int((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.markAsReadWhenCompletedInReader);
     }
     
     // Enables / disables all the checkboxes under the l-lewd... mode enabled checkbox
