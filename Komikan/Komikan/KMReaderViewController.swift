@@ -37,6 +37,9 @@ class KMReaderViewController: NSViewController {
     // The visual effect view for the reader windows titlebar
     @IBOutlet weak var titlebarVisualEffectView: NSVisualEffectView!
     
+    // The view that encloses the reader panel and makes it round
+    @IBOutlet weak var readerPanelCornerRounding: KMReaderPanelView!
+    
     // The visual effect for the reader panel
     @IBOutlet weak var readerPanelVisualEffectView: NSVisualEffectView!
     
@@ -172,6 +175,12 @@ class KMReaderViewController: NSViewController {
     // Are we fullscreen?
     var isFullscreen : Bool = false;
     
+    // The NSTimer to handle the mouse hovering when we arent in fullscreen
+    var mouseHoverHandlingTimer : NSTimer = NSTimer();
+    
+    // The NSTimer to handle the mouse hovering when we are in fullscreen
+    var mouseHoverHandlingFullscreenTimer : NSTimer = NSTimer();
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
@@ -179,7 +188,10 @@ class KMReaderViewController: NSViewController {
         styleWindow();
         
         // Start the 0.1 second loop for the mouse hovering
-        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("mouseHoverHandling"), userInfo: nil, repeats:true);
+        mouseHoverHandlingTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("mouseHoverHandling"), userInfo: nil, repeats:true);
+        
+        // Start the 0.1 second loop for the fullscreen mouse hover handling
+        mouseHoverHandlingFullscreenTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("fullscreenMouseHoverHandling"), userInfo: nil, repeats:true);
     }
     
     func openManga(openingManga : KMManga, page : Int) {
@@ -644,6 +656,83 @@ class KMReaderViewController: NSViewController {
         }
     }
     
+    func fadeOutTitlebarFullscreen() {
+        // Hide the cursor
+        NSCursor.hide();
+        
+        // Set cursorHidden to true
+        cursorHidden = true;
+        
+        // Fade out the titlebar
+        fadeOutTitlebar();
+    }
+    
+    func fadeInTitlebarFullscreen() {
+        // Show the cursor
+        NSCursor.unhide();
+        
+        // Set cursorHidden to false
+        cursorHidden = false;
+        
+        // Fade in the titlebar
+        fadeInTitlebar();
+    }
+    
+    // A variable to tell us where the mouse previously was
+    var oldMousePosition : CGPoint!;
+    
+    // The NSTimer to handle fading out the panel when we dont move the mouse
+    var fadeTimer : NSTimer = NSTimer();
+    
+    // Is the cursor hidden(Come on Apple, why isnt this part of NSCursor?)
+    var cursorHidden : Bool = false;
+    
+    func fullscreenMouseHoverHandling() {
+        // If we are in fullscreen...
+        if(isFullscreen) {
+            // Create a new CGEventRef, for the mouse position
+            let mouseEvent : CGEventRef = CGEventCreate(nil)!;
+            
+            // Get the mouse point onscreen from ourEvent
+            let mousePosition = CGEventGetLocation(mouseEvent);
+            
+            // If we have moved the mouse...
+            if(mousePosition != oldMousePosition) {
+                // Stop the fade timer
+                fadeTimer.invalidate();
+                
+                // Fade in the titlebar(Fullscreen mode)
+                fadeInTitlebarFullscreen();
+                
+                // Store the reader panels frame
+                let readerPanelFrame : NSRect = readerPanelCornerRounding.frame;
+                
+                // Create a variable to store the cursors location y where 0 0 is the bottom left
+                let pointY = abs(mousePosition.y - NSScreen.mainScreen()!.frame.height);
+                
+                // CReate a bool to indicate if we have the mouse in the reader panel(And set it)
+                let insideReaderPanel : Bool = readerPanelFrame.contains(CGPoint(x: mousePosition.x, y: pointY));
+                
+                // If we arent inside the reader panel...
+                if(!insideReaderPanel) {
+                    // Fade out the titlebar(Fullscreen mode)
+                    fadeTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(1), target:self, selector: Selector("fadeOutTitlebarFullscreen"), userInfo: nil, repeats:false);
+                }
+            }
+            
+            // Set oldMousePosition to the current mouse position
+            oldMousePosition = mousePosition;
+        }
+        // If we arent in fullscreen...
+        else {
+            // If the cursor is still hidden...
+            if(cursorHidden) {
+                // Show the cursor
+                NSCursor.unhide();
+            }
+        }
+    }
+    
     func mouseHoverHandling() {
         // Are we fullscreen?
         let fullscreen : Bool = readerWindow.isFullscreen();
@@ -665,6 +754,12 @@ class KMReaderViewController: NSViewController {
         
         // if we arent fullscreen...
         if(!fullscreen) {
+            // If the titlebar visual effect view is hidden...
+            if(titlebarVisualEffectView.hidden) {
+                // Show the titlebar visual effect view
+                titlebarVisualEffectView.hidden = false;
+            }
+            
             // If the mouse position is inside the window on the x...
             if(mousePosition.x > windowFrame.origin.x && mousePosition.x < windowFrame.origin.x + windowFrame.width) {
                 // If the mouse position is inside the window on the y...
@@ -687,13 +782,10 @@ class KMReaderViewController: NSViewController {
         }
         else {
             // Hide the titlebar visual effect view
-            titlebarVisualEffectView.alphaValue = 0;
+            titlebarVisualEffectView.hidden = true;
             
             // Show the window titlebar
             readerWindow.standardWindowButton(NSWindowButton.CloseButton)?.superview?.superview?.alphaValue = 1;
-            
-            // Hide the reader panel
-            readerPanelVisualEffectView.alphaValue = 0;
         }
         
         // Set isFullscreen to fullscreen

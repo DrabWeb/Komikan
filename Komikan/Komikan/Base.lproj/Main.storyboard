@@ -1027,6 +1027,7 @@
                         <outlet property="readerPageJumpView" destination="F0K-x5-Vdc" id="HlJ-Mx-ybc"/>
                         <outlet property="readerPageJumpVisualEffectView" destination="dOa-SM-OE9" id="teN-sC-N8J"/>
                         <outlet property="readerPageNumberLabel" destination="KbI-5a-d0M" id="toS-Dw-3EQ"/>
+                        <outlet property="readerPanelCornerRounding" destination="KGp-UH-dRu" id="jl0-8l-DhB"/>
                         <outlet property="readerPanelVisualEffectView" destination="T3C-g4-I63" id="IDz-2Z-4M5"/>
                         <outlet property="readerSettingsButton" destination="DZH-10-jIm" id="Ya1-Tg-GwB"/>
                         <outlet property="rightPageReaderImageView" destination="dMo-Mj-DAm" id="fsN-i7-x13"/>
@@ -1082,7 +1083,7 @@
                                     <constraint firstAttribute="trailing" secondItem="pwJ-e1-0oZ" secondAttribute="trailing" id="nFz-nv-ziu"/>
                                 </constraints>
                             </visualEffectView>
-                            <visualEffectView appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="xeH-9s-Llt" userLabel="Titlebar Visual Effect View">
+                            <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="xeH-9s-Llt" userLabel="Titlebar Visual Effect View">
                                 <rect key="frame" x="0.0" y="443" width="640" height="37"/>
                                 <subviews>
                                     <tabView focusRingType="none" drawsBackground="NO" allowsTruncatedLabels="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QhM-D5-BGg" userLabel="Tab View">
