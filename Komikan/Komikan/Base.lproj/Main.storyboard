@@ -1096,6 +1096,9 @@
                             <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="xeH-9s-Llt" userLabel="Titlebar Visual Effect View">
                                 <rect key="frame" x="0.0" y="443" width="640" height="37"/>
                                 <subviews>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="foJ-v5-5cU" userLabel="Gradient" customClass="KMGradientView" customModule="Komikan" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="640" height="37"/>
+                                    </customView>
                                     <tabView focusRingType="none" drawsBackground="NO" allowsTruncatedLabels="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QhM-D5-BGg" userLabel="Tab View">
                                         <rect key="frame" x="-7" y="-10" width="654" height="45"/>
                                         <font key="font" metaFont="system"/>
@@ -1155,10 +1158,14 @@
                                     <constraint firstAttribute="bottom" secondItem="CDI-VA-JTT" secondAttribute="bottom" constant="6" id="8f1-f9-EKZ"/>
                                     <constraint firstItem="QhM-D5-BGg" firstAttribute="leading" secondItem="xeH-9s-Llt" secondAttribute="leading" id="CmL-YF-LYE"/>
                                     <constraint firstAttribute="height" constant="37" id="Kdz-75-IVb"/>
+                                    <constraint firstItem="foJ-v5-5cU" firstAttribute="top" secondItem="xeH-9s-Llt" secondAttribute="top" id="MnN-p6-GoU"/>
                                     <constraint firstAttribute="bottom" secondItem="y9e-nS-8mf" secondAttribute="bottom" constant="7" id="POM-OE-vCT"/>
                                     <constraint firstItem="QhM-D5-BGg" firstAttribute="top" secondItem="xeH-9s-Llt" secondAttribute="top" constant="8" id="Ui1-Yu-246"/>
+                                    <constraint firstItem="foJ-v5-5cU" firstAttribute="leading" secondItem="xeH-9s-Llt" secondAttribute="leading" id="Y5P-vD-0Uz"/>
                                     <constraint firstItem="CDI-VA-JTT" firstAttribute="top" secondItem="xeH-9s-Llt" secondAttribute="top" constant="6" id="ZhV-D9-DFZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="foJ-v5-5cU" secondAttribute="bottom" id="hYe-nB-znB"/>
                                     <constraint firstItem="y9e-nS-8mf" firstAttribute="top" secondItem="xeH-9s-Llt" secondAttribute="top" constant="7" id="p4P-qb-cdz"/>
+                                    <constraint firstAttribute="trailing" secondItem="foJ-v5-5cU" secondAttribute="trailing" id="sYe-7l-HHp"/>
                                     <constraint firstAttribute="bottom" secondItem="QhM-D5-BGg" secondAttribute="bottom" id="xez-YZ-833"/>
                                 </constraints>
                             </visualEffectView>
