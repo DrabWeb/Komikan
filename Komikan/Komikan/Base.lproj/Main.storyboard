@@ -1243,7 +1243,7 @@
                                                         </textField>
                                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZUe-hr-v8k" userLabel="Warning">
                                                             <rect key="frame" x="15" y="46" width="374" height="34"/>
-                                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" focusRingType="none" title="When you click add, the app may beachball for a while. This is normal and you just have to wait for it to finish" id="Qku-5f-Tg0">
+                                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" focusRingType="none" title="When you click add, your download will be queued and you will be notified when its done." id="Qku-5f-Tg0">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1297,7 +1297,7 @@
                                                     <subviews>
                                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wt0-Vd-jTo" userLabel="Warning">
                                                             <rect key="frame" x="15" y="46" width="374" height="34"/>
-                                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" focusRingType="none" title="When you click add, the app may beachball for a while. This is normal and you just have to wait for it to finish" id="sfY-yK-2e5">
+                                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" focusRingType="none" title="When you click add, your download will be queued and you will be notified when its done." id="sfY-yK-2e5">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

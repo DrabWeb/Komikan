@@ -196,10 +196,9 @@ class KMMangaGridController: NSObject {
         }
     }
     
-    // Resorts the grid with the last entered sort details
     func resort() {
-        // Resort the grid, its gets messy when searching and add/deleting/editing manga
-        sort(currentSortOrder, ascending: currentSortAscending);
+        // Call the rearrange function on the array
+        arrayController.rearrangeObjects();
     }
     
     // Sorts the manga grid by sortType and ascends/decends based on ascending

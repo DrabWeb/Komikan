@@ -83,8 +83,10 @@ class ViewController: NSViewController, NSTabViewDelegate {
         
         // If we were passed an array of manga...
         if((notification.object as? [KMManga]) != nil) {
+            // Print to the log that we are batch adding
             print("Batch adding manga");
             
+            // For every manga in the notifications manga array...
             for (_, currentManga) in ((notification.object as? [KMManga])?.enumerate())! {
                 // Add the current manga to the grid
                 mangaGridController.addManga(currentManga);
@@ -94,7 +96,7 @@ class ViewController: NSViewController, NSTabViewDelegate {
             // Print to the log that we have recieved it and its name
             print("Recieving manga \"" + ((notification.object as? KMManga)?.title)! + "\" from Add Manga popover");
             
-            // Add the manga to the grid
+            // Add the manga to the grid, and store the item in a new variable
             mangaGridController.addManga((notification.object as? KMManga)!);
         }
         
