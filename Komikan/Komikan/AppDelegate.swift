@@ -53,6 +53,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     // The window controller that lets the user darken everything behind the window
     var darkenBackgroundWindowController : NSWindowController!;
     
+    // The download controller for downloading from E-Hentai and ExHentai
+    var ehDownloadController : KMEHDownloadController = KMEHDownloadController();
+    
     // Opens the specified manga in the reader at the specified page
     func openManga(manga : KMManga, page : Int) {
         // Get the main storyboard

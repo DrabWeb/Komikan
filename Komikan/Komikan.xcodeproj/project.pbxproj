@@ -14,6 +14,8 @@
 		5D22C4011C445BA20010746F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D22C4001C445BA20010746F /* SwiftyJSON.swift */; };
 		5D2C37A91C4C3FA50089B7E1 /* KMExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2C37A81C4C3FA50089B7E1 /* KMExtensions.swift */; };
 		5D2C37AB1C4C48070089B7E1 /* KMWindowDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2C37AA1C4C48070089B7E1 /* KMWindowDelegate.swift */; };
+		5D363FA51C5ABFB6004708FC /* KMEHDownloadController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D363FA41C5ABFB6004708FC /* KMEHDownloadController.swift */; };
+		5D363FA71C5AC116004708FC /* KMEHDownloadItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D363FA61C5AC116004708FC /* KMEHDownloadItem.swift */; };
 		5D5DBECF1C3584F5004D8C5D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBECE1C3584F5004D8C5D /* AppDelegate.swift */; };
 		5D5DBED11C3584F5004D8C5D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBED01C3584F5004D8C5D /* ViewController.swift */; };
 		5D5DBED31C3584F5004D8C5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D5DBED21C3584F5004D8C5D /* Assets.xcassets */; };
@@ -65,6 +67,8 @@
 		5D22C4001C445BA20010746F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		5D2C37A81C4C3FA50089B7E1 /* KMExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMExtensions.swift; sourceTree = "<group>"; };
 		5D2C37AA1C4C48070089B7E1 /* KMWindowDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMWindowDelegate.swift; sourceTree = "<group>"; };
+		5D363FA41C5ABFB6004708FC /* KMEHDownloadController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMEHDownloadController.swift; sourceTree = "<group>"; };
+		5D363FA61C5AC116004708FC /* KMEHDownloadItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMEHDownloadItem.swift; sourceTree = "<group>"; };
 		5D5DBECB1C3584F5004D8C5D /* Komikan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Komikan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D5DBECE1C3584F5004D8C5D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5D5DBED01C3584F5004D8C5D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +134,7 @@
 			children = (
 				5D0D2A4B1C39830D00E3B8D0 /* KMManga.swift */,
 				5D96AFB21C4A9F4E00120D70 /* KMPreferencesKeeper.swift */,
+				5D363FA61C5AC116004708FC /* KMEHDownloadItem.swift */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -301,6 +306,7 @@
 				5D2C37A81C4C3FA50089B7E1 /* KMExtensions.swift */,
 				5D2C37AA1C4C48070089B7E1 /* KMWindowDelegate.swift */,
 				5DC3A8F01C5AB25E0058D253 /* KMGradientView.swift */,
+				5D363FA41C5ABFB6004708FC /* KMEHDownloadController.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -522,10 +528,12 @@
 				5D96AFB61C4AAFCB00120D70 /* KMEHViewController.swift in Sources */,
 				5D5DBEFC1C358BE0004D8C5D /* KMMangaGridController.swift in Sources */,
 				5D8C1CAA1C3F09E5001AD41B /* KMEditMangaViewController.swift in Sources */,
+				5D363FA71C5AC116004708FC /* KMEHDownloadItem.swift in Sources */,
 				5D5DBF021C35923F004D8C5D /* KMReaderViewController.swift in Sources */,
 				5D22C4011C445BA20010746F /* SwiftyJSON.swift in Sources */,
 				5D2C37A91C4C3FA50089B7E1 /* KMExtensions.swift in Sources */,
 				5D1388CC1C3836C200B5EAAD /* KMReaderPanelView.swift in Sources */,
+				5D363FA51C5ABFB6004708FC /* KMEHDownloadController.swift in Sources */,
 				5D9912111C46A5A6008E6591 /* KMCommandUtilities.swift in Sources */,
 				5D5DBEFA1C358BD3004D8C5D /* KMMangaGridItem.swift in Sources */,
 				5DC97D691C3EFF8200CC1006 /* KMMangaGridCollectionItem.swift in Sources */,

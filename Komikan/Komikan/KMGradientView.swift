@@ -10,7 +10,7 @@ import Cocoa
 
 class KMGradientView: NSView {
 
-    // The color for the start of the gradiebt
+    // The color for the start of the gradient
     var startColor : NSColor = NSColor(calibratedRed: 0, green: 0, blue: 0, alpha: 0.5);
     
     // The color for the end of the gradient
