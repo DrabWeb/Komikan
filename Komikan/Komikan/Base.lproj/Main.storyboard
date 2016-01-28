@@ -1167,6 +1167,7 @@
                         <outlet property="backgroundVisualEffectView" destination="DI5-9c-AHp" id="0Ki-1K-xDE"/>
                         <outlet property="mangaCollectionView" destination="4kf-pV-6YA" id="rpB-Er-tRk"/>
                         <outlet property="mangaCollectionViewArray" destination="fTr-R0-e41" id="cr6-k6-HyI"/>
+                        <outlet property="mangaCollectionViewScrollView" destination="pwJ-e1-0oZ" id="16K-B2-H3u"/>
                         <outlet property="mangaGridController" destination="rwH-XF-ldC" id="xkS-7x-lUZ"/>
                         <outlet property="titlebarAddMangaButton" destination="CDI-VA-JTT" id="t7c-FZ-zu0"/>
                         <outlet property="titlebarSearchField" destination="y9e-nS-8mf" id="av4-HI-6jY"/>

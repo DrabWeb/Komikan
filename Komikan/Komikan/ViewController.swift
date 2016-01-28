@@ -22,6 +22,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
     // The collection view that manages displayig manga covers in the main window
     @IBOutlet weak var mangaCollectionView: NSCollectionView!
     
+    // The scroll view for the manga collection view
+    @IBOutlet weak var mangaCollectionViewScrollView: NSScrollView!
+    
     // The array controller for the manga collection view
     @IBOutlet var mangaCollectionViewArray: NSArrayController!
     
@@ -109,6 +112,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Style the window to be fancy
         styleWindow();
         
+        // Hide the window so we dont see any ugly loading "artifacts"
+        window.alphaValue = 0;
+        
         // Set the collections views item prototype to the collection view item we created in Main.storyboard
         mangaCollectionView.itemPrototype = storyboard?.instantiateControllerWithIdentifier("mangaCollectionViewItem") as? NSCollectionViewItem;
         
@@ -123,6 +129,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
         
         // Load the manga we had in the grid
         loadManga();
+        
+        // Scroll to the top of the manga grid
+        mangaCollectionViewScrollView.pageUp(self);
         
         // Set the manga grid as the first responder
         window.makeFirstResponder(mangaCollectionView);
@@ -147,6 +156,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
             mangaGridController.sort(KMMangaGridSortType.Artist, ascending: true);
         }
         
+        // Show the window after 0.1 seconds
+        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("showWindowAlpha"), userInfo: nil, repeats: false);
+        
         // Subscribe to the edit manga popovers remove function
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "removeSelectItemFromMangaGrid:", name:"KMEditMangaViewController.Remove", object: nil);
         
@@ -154,7 +166,10 @@ class ViewController: NSViewController, NSTabViewDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateMangaGrid", name:"ViewController.UpdateMangaGrid", object: nil);
     }
     
-    var oldArrangedObjects : [AnyObject]!;
+    func showWindowAlpha() {
+        // Set the windows alpha value to 1
+        window.alphaValue = 1;
+    }
     
     // When changing the values, it doesnt update right. Call this function to reload it
     func updateMangaGrid() {
