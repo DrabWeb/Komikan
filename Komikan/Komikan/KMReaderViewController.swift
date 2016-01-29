@@ -348,6 +348,14 @@ class KMReaderViewController: NSViewController {
         }
     }
     
+    override func viewWillDisappear() {
+        // Post the notification to update the percent finished
+        NSNotificationCenter.defaultCenter().postNotificationName("KMMangaGridCollectionItem.UpdatePercentFinished", object: manga);
+        
+        // Update the grid(For some reason I have to call this function instead of the update grid one)
+        NSNotificationCenter.defaultCenter().postNotificationName("KMEditMangaViewController.Saving", object: manga);
+    }
+    
     // Resets things like the Contrast, Saturation, ETC.
     func resetCGValues() {
         // Update the sliders
@@ -530,9 +538,6 @@ class KMReaderViewController: NSViewController {
                     
                     // Close the window
                     readerWindow.close();
-                    
-                    // Update the grid(For some reason I have to call this function instead of the update grid one)
-                    NSNotificationCenter.defaultCenter().postNotificationName("KMEditMangaViewController.Saving", object: manga);
                 }
                 else {
                     // Close the window
@@ -563,9 +568,6 @@ class KMReaderViewController: NSViewController {
                     
                     // Close the window
                     readerWindow.close();
-                    
-                    // Update the grid(For some reason I have to call this function instead of the update grid one)
-                    NSNotificationCenter.defaultCenter().postNotificationName("KMEditMangaViewController.Saving", object: manga);
                 }
                 else {
                     // Close the window

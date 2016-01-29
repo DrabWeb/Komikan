@@ -64,6 +64,9 @@ class KMManga {
     // The sharpness for the pages
     var sharpness : CGFloat = 0;
     
+    // How much we are finished this manga(From 0 to 100)
+    var percentFinished : Int = 0;
+    
     // A bool to say if we have already set tmpDirectory
     private var alreadySetTmpDirectory : Bool = false;
     
@@ -148,6 +151,24 @@ class KMManga {
         else {
             // Print to the log that we already have the pages
             print("Already got pages for \"" + title + "\"");
+        }
+    }
+    
+    func updatePercent() {
+        // If the page count minus one is not 0...
+        if(self.pageCount - 1 != 0) {
+            // Set the percent finished to the current page divided by the page count times 100
+            self.percentFinished = Int(Float((Float(self.currentPage) / Float(self.pageCount - 1)) * 100));
+        }
+        else {
+            // Set percent finished to 0
+            self.percentFinished = 0;
+        }
+        
+        // If the percent finished is 100...
+        if(self.percentFinished >= 100) {
+            // Set this manga as read
+            self.read = true;
         }
     }
 }

@@ -39,6 +39,9 @@ class KMMangaGridCollectionItem: NSCollectionViewItem {
         
         // Subscribe to the popovers saved function
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "saveMangaFromPopover:", name:"KMEditMangaViewController.Saving", object: nil);
+        
+        // Subscribe to the readers update percent finished function
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updatePercentFinished:", name:"KMMangaGridCollectionItem.UpdatePercentFinished", object: nil);
     }
     
     func saveMangaFromPopover(notification : NSNotification) {
@@ -59,15 +62,16 @@ class KMMangaGridCollectionItem: NSCollectionViewItem {
             // Tell the manga grid to resort itself
             NSNotificationCenter.defaultCenter().postNotificationName("MangaGrid.Resort", object: nil);
         }
-        else {
-            // Temporarly store the represented objects manga, so we dont have to retype it a whole bunch
-            let representedManga : KMManga = ((self.representedObject as? KMMangaGridItem)?.manga)!;
+    }
+    
+    func updatePercentFinished(notification : NSNotification) {
+        // If the UUID matches...
+        if((self.representedObject as? KMMangaGridItem)?.manga.uuid == (notification.object as? KMManga)!.uuid) {
+            // Update the passed mangas percent finished
+            (notification.object as? KMManga)!.updatePercent();
             
-            // The UUID for the manga we are trying to save
-            let notificationMangaUUID : String = (notification.object as? KMManga)!.uuid;
-            
-            // Print to the log that the UUIDs dont match
-            print("UUID for \"" + representedManga.title + "\"(" + representedManga.uuid + ") doesnt match what is trying to be saved(" + notificationMangaUUID + ")");
+            // Set this items mangas percent done to the passed mangas percent done
+            (self.representedObject as? KMMangaGridItem)?.manga.percentFinished = ((notification.object as? KMManga)!.percentFinished);
         }
     }
 }

@@ -30,6 +30,8 @@ class KMMangaGridItem: NSObject, NSCoding {
     // The manga that this grid item represents
     var manga : KMManga = KMManga();
     
+    var percentLabel : String = "";
+    
     // Updates the grid item with the passed mangas info
     func changeManga(newManga : KMManga) {
         // Set manga to newManga
@@ -49,6 +51,16 @@ class KMMangaGridItem: NSObject, NSCoding {
         
         // Set read to the mangas read value
         read = manga.read;
+        
+        // If the percent done is 0...
+        if(manga.percentFinished <= 0) {
+            // Set the label to nothing
+            percentLabel = "";
+        }
+        else {
+            // Set the label to the percent we are done with a % on the end
+            percentLabel = String(manga.percentFinished) + "%"
+        }
         
         // Print that we are changing manga info
         print("Loaded / Changed \"" + title + "\"");
@@ -74,6 +86,10 @@ class KMMangaGridItem: NSObject, NSCoding {
         coder.encodeObject(self.manga.brightness, forKey: "manga.brightness");
         coder.encodeObject(self.manga.contrast, forKey: "manga.contrast");
         coder.encodeObject(self.manga.sharpness, forKey: "manga.sharpness");
+        
+        coder.encodeObject(self.manga.pageCount, forKey: "manga.pageCount");
+        
+        coder.encodeObject(self.manga.percentFinished, forKey: "manga.percentFinished");
     }
     
     required convenience init(coder decoder: NSCoder) {
@@ -124,6 +140,18 @@ class KMMangaGridItem: NSObject, NSCoding {
         if((decoder.decodeObjectForKey("manga.sharpness") as? CGFloat) != nil) {
             // Load it
             self.manga.sharpness = (decoder.decodeObjectForKey("manga.sharpness") as! CGFloat?)!;
+        }
+        
+        // If there is a pageCount value...
+        if((decoder.decodeObjectForKey("manga.pageCount") as? Int) != nil) {
+            // Load it
+            self.manga.pageCount = (decoder.decodeObjectForKey("manga.pageCount") as! Int?)!;
+        }
+        
+        // If there is a percentFinished value...
+        if((decoder.decodeObjectForKey("manga.percentFinished") as? Int) != nil) {
+            // Load it
+            self.manga.percentFinished = (decoder.decodeObjectForKey("manga.percentFinished") as! Int?)!;
         }
         
         // Load up the manga info

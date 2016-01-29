@@ -1223,6 +1223,7 @@
                         <string>series</string>
                         <string>artist</string>
                         <string>read</string>
+                        <string>percentLabel</string>
                     </declaredKeys>
                     <connections>
                         <binding destination="rwH-XF-ldC" name="contentArray" keyPath="manga" id="LsF-tY-Vwt"/>
@@ -1599,7 +1600,7 @@
                                 </connections>
                             </textField>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1wg-Fd-ohZ" userLabel="Unread Marker Image View">
-                                <rect key="frame" x="248" y="248" width="32" height="32"/>
+                                <rect key="frame" x="240" y="240" width="40" height="40"/>
                                 <shadow key="shadow" blurRadius="4">
                                     <size key="offset" width="0.0" height="-3"/>
                                     <color key="color" white="0.0" alpha="0.44481382978723405" colorSpace="calibratedWhite"/>
@@ -1609,6 +1610,22 @@
                                     <binding destination="H6C-sh-Guu" name="hidden" keyPath="representedObject.read" id="4qw-N0-eGu"/>
                                 </connections>
                             </imageView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JMo-rN-38T" userLabel="Progress Percent">
+                                <rect key="frame" x="238" y="252" width="44" height="17"/>
+                                <shadow key="shadow" blurRadius="1">
+                                    <size key="offset" width="0.0" height="1"/>
+                                    <color key="color" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
+                                </shadow>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="99%" id="QeH-Pz-JJZ">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <binding destination="H6C-sh-Guu" name="hidden" keyPath="representedObject.read" id="e0C-MX-Rca"/>
+                                    <binding destination="H6C-sh-Guu" name="value" keyPath="representedObject.percentLabel" id="6Ih-cC-qCu"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Fsn-as-jfw" secondAttribute="trailing" constant="12" id="0hs-J9-lkl"/>
