@@ -9,18 +9,10 @@
 import Cocoa
 import Quartz
 
-// readerImagesCGContainer.contentFilters[0].setValue(#, forKey: "inputSaturation");
-// readerImagesCGContainer.contentFilters[0].setValue(#, forKey: "inputBrightness");
-// readerImagesCGContainer.contentFilters[0].setValue(#, forKey: "inputContrast");
-// readerImagesCGContainer.contentFilters[1].setValue(#, forKey: "inputSharpness");
-
 class KMReaderViewController: NSViewController {
 
     // The main window for the reader
     var readerWindow : NSWindow = NSWindow();
-    
-    // This view manages the CG controls of the readers images(Contrast, brightness, ETC.)
-    @IBOutlet weak var readerImagesCGContainer: NSView!
     
     // The image view for the reader window
     @IBOutlet weak var readerImageView: NSImageView!
@@ -48,9 +40,14 @@ class KMReaderViewController: NSViewController {
     
     // When we press the save button in the reader control panel...
     @IBAction func readerControlPanelSaveButtonPressed(sender: AnyObject) {
+        // Say the controls panel is closed
         readerControlsOpen = false;
         
+        // Close the controls panel
         closeControlsPanel();
+        
+        // Apply the new filter values to all pages
+        updateFiltersForAllPages();
     }
     
     // When we press the reset button in the reader control panel...
@@ -68,7 +65,10 @@ class KMReaderViewController: NSViewController {
         print("Saturation: " + String(readerControlPanelSaturationSlider.floatValue));
         
         // Set the represented value to the represented sliders value
-        readerImagesCGContainer.contentFilters[0].setValue(readerControlPanelSaturationSlider.floatValue, forKey: "inputSaturation");
+        saturation = CGFloat(readerControlPanelSaturationSlider.floatValue);
+        
+        // Apply the filters to the current page
+        updateFiltersForCurrentPage();
     }
     
     // The slider in the control panel that controls the readers brightness
@@ -80,7 +80,10 @@ class KMReaderViewController: NSViewController {
         print("Brightness: " + String(readerControlPanelBrightnessSlider.floatValue));
         
         // Set the represented value to the represented sliders value
-        readerImagesCGContainer.contentFilters[0].setValue(readerControlPanelBrightnessSlider.floatValue, forKey: "inputBrightness");
+        brightness = CGFloat(readerControlPanelBrightnessSlider.floatValue);
+        
+        // Apply the filters to the current page
+        updateFiltersForCurrentPage();
     }
     
     // The slider in the control panel that controls the readers contrast
@@ -92,7 +95,10 @@ class KMReaderViewController: NSViewController {
         print("Contrast: " + String(readerControlPanelContrastSlider.floatValue));
         
         // Set the represented value to the represented sliders value
-        readerImagesCGContainer.contentFilters[0].setValue(readerControlPanelContrastSlider.floatValue, forKey: "inputContrast");
+        contrast = CGFloat(readerControlPanelContrastSlider.floatValue);
+        
+        // Apply the filters to the current page
+        updateFiltersForCurrentPage();
     }
     
     // The slider in the control panel that controls the readers sharpness
@@ -104,7 +110,10 @@ class KMReaderViewController: NSViewController {
         print("Sharpness: " + String(readerControlPanelSharpnessSlider.floatValue));
         
         // Set the represented value to the represented sliders value
-        readerImagesCGContainer.contentFilters[1].setValue(readerControlPanelSharpnessSlider.floatValue, forKey: "inputSharpness");
+        sharpness = CGFloat(readerControlPanelSharpnessSlider.floatValue);
+        
+        // Apply the filters to the current page
+        updateFiltersForCurrentPage();
     }
     
     // The label on the reader panel that shows what page you are on and how many pages there are
@@ -141,11 +150,11 @@ class KMReaderViewController: NSViewController {
     // When readerSettingsButton is pressed...
     @IBAction func readerSettingsButtonPressed(sender: AnyObject) {
         // Disabled for now, need to find out how to apply filters directly to an NSImage
-//        // Say that the controls panel is open
-//        readerControlsOpen = true;
-//        
-//        // Open the controls panel
-//        openControlsPanel();
+        // Say that the controls panel is open
+        readerControlsOpen = true;
+        
+        // Open the controls panel
+        openControlsPanel();
     }
     
     // The view hat holds the page jump dialog
@@ -166,11 +175,26 @@ class KMReaderViewController: NSViewController {
     // The manga we have open
     var manga : KMManga = KMManga();
     
+    // The original pages for the manga
+    var mangaOriginalPages : [NSImage] = [NSImage()];
+    
     // Are we wanting to read in dual page mode?
     var dualPage : Bool = false;
     
     // The direction we are reading(Default Right to Left)
     var dualPageDirection : KMDualPageDirection = KMDualPageDirection.RightToLeft;
+    
+    // The saturation for the pages
+    var saturation : CGFloat = 1;
+    
+    // The brightness for the pages
+    var brightness : CGFloat = 0;
+    
+    // The contrast for the pages
+    var contrast : CGFloat = 1;
+    
+    // The sharpness for the pages
+    var sharpness : CGFloat = 0;
     
     // Are we fullscreen?
     var isFullscreen : Bool = false;
@@ -205,6 +229,9 @@ class KMReaderViewController: NSViewController {
         
         // Extract the archive and get the info from it
         manga.extractToTmpFolder();
+        
+        // Set mangaOriginalPages to the mangas current pages
+        mangaOriginalPages = manga.pages;
         
         // Jump to the page we said to start at
         jumpToPage(page, round: false);
@@ -280,13 +307,16 @@ class KMReaderViewController: NSViewController {
         readerControlPanelSaturationSlider.floatValue = 1;
         readerControlPanelBrightnessSlider.floatValue = 0;
         readerControlPanelContrastSlider.floatValue = 1;
-        readerControlPanelSharpnessSlider.floatValue = 0.4;
+        readerControlPanelSharpnessSlider.floatValue = 0;
         
         // Reset the values
-        readerImagesCGContainer.contentFilters[0].setValue(1, forKey: "inputSaturation");
-        readerImagesCGContainer.contentFilters[0].setValue(0, forKey: "inputBrightness");
-        readerImagesCGContainer.contentFilters[0].setValue(1, forKey: "inputContrast");
-        readerImagesCGContainer.contentFilters[1].setValue(0.4, forKey: "inputSharpness");
+        saturation = 1;
+        brightness = 0;
+        contrast = 1;
+        sharpness = 0;
+        
+        // Update the filters
+        updateFiltersForCurrentPage();
     }
     
     // Opens the control panel for the user to modify the Saturation, Contrast, ETC.
@@ -668,6 +698,23 @@ class KMReaderViewController: NSViewController {
             // Hide the dual page stack view
             dualPageStackView.hidden = true;
         }
+    }
+    
+    func updateFiltersForAllPages() {
+        // Set manga.pages to all its current pages, but filtered with our given variables
+        manga.pages = KMImageFilterUtilities().applyColorAndSharpnessMultiple(mangaOriginalPages, saturation: saturation, brightness: brightness, contrast: contrast, sharpness: sharpness);
+        
+        // Update the page
+        updatePage();
+    }
+    
+    func updateFiltersForCurrentPage() {
+        print(manga.currentPage);
+        // Set the current page to the current page with filters
+        manga.pages[manga.currentPage] = KMImageFilterUtilities().applyColorAndSharpness(mangaOriginalPages[manga.currentPage], saturation: saturation, brightness: brightness, contrast: contrast, sharpness: sharpness);
+        
+        // Update the page
+        updatePage();
     }
     
     func fadeOutTitlebarFullscreen() {
