@@ -189,6 +189,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         
         // Set the windows level
         darkenBackgroundWindowController.window?.level--;
+        
+        // Fade out the darken. If you dont do this, the first time you toggle distraction free mode it will only show and not fade in
+        fadeOutDarken();
     }
     
     func fadeInDarken() {

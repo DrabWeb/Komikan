@@ -1058,14 +1058,14 @@
                             <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="DI5-9c-AHp" userLabel="Background Visual Effect View">
                                 <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
                                 <subviews>
-                                    <scrollView misplaced="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pwJ-e1-0oZ" userLabel="Manga Collection View">
-                                        <rect key="frame" x="0.0" y="0.0" width="640" height="443"/>
+                                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pwJ-e1-0oZ" userLabel="Manga Collection View">
+                                        <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="AhG-rc-0CP">
-                                            <rect key="frame" x="0.0" y="0.0" width="640" height="443"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <collectionView selectable="YES" id="4kf-pV-6YA">
-                                                    <rect key="frame" x="0.0" y="0.0" width="640" height="443"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="primaryBackgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                                     <connections>
@@ -1080,7 +1080,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="0wb-fr-0cq">
-                                            <rect key="frame" x="624" y="37" width="16" height="406"/>
+                                            <rect key="frame" x="624" y="37" width="16" height="443"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
