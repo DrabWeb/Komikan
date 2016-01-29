@@ -24,6 +24,9 @@ class KMMangaGridItem: NSObject, NSCoding {
     // Is the Manga read? Used for showing the unread marker
     var read : Bool = false;
     
+    // Is this item selected?
+    var selected : Bool = false;
+    
     // The manga that this grid item represents
     var manga : KMManga = KMManga();
     

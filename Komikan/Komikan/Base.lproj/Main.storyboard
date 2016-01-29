@@ -479,14 +479,31 @@
                                                     <rect key="frame" x="10" y="33" width="434" height="186"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="74O-zv-sD2">
+                                                        <button ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="74O-zv-sD2">
                                                             <rect key="frame" x="15" y="167" width="338" height="18"/>
-                                                            <buttonCell key="cell" type="check" title="Mark Manga as read when you  finish it in the reader" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="XNh-Xk-KX5">
+                                                            <buttonCell key="cell" type="check" title="Mark Manga as read when you finish it in the reader" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="XNh-Xk-KX5">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                        </button>
+                                                        <button ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8QY-cq-ody">
+                                                            <rect key="frame" x="15" y="147" width="245" height="18"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="14" id="Dc5-0m-g4r"/>
+                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="241" id="Hjy-ub-DgN"/>
+                                                                <constraint firstAttribute="height" constant="14" id="Jgk-j3-wLG"/>
+                                                                <constraint firstAttribute="width" constant="241" id="On7-t0-PjC"/>
+                                                            </constraints>
+                                                            <buttonCell key="cell" type="check" title="Hide cursor in Distraction Free mode" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Kvn-xi-vD6">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
                                                         </button>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="8QY-cq-ody" firstAttribute="top" secondItem="74O-zv-sD2" secondAttribute="bottom" constant="6" id="3qm-Oo-Sx0"/>
+                                                        <constraint firstItem="8QY-cq-ody" firstAttribute="leading" secondItem="ZcC-yb-TAH" secondAttribute="leading" constant="17" id="OoW-2P-OJd"/>
+                                                    </constraints>
                                                 </view>
                                             </tabViewItem>
                                             <tabViewItem label="Other" identifier="2" id="5Gn-3C-eGK">
@@ -555,6 +572,7 @@
                     </view>
                     <connections>
                         <outlet property="backgroundVisualEffectView" destination="Koz-iq-GVn" id="e03-Zb-a8B"/>
+                        <outlet property="hideCursorInDistractionFreeModeCheckbox" destination="8QY-cq-ody" id="uO6-KA-47z"/>
                         <outlet property="llewdModeDeleteWhenRemovingCheckbox" destination="fpx-Ab-PHd" id="BE3-Do-TnP"/>
                         <outlet property="llewdModeEnabledCheckbox" destination="BAM-5b-AXZ" id="n5J-ey-Hjb"/>
                         <outlet property="markAsReadWhenCompletedInReaderCheckbox" destination="74O-zv-sD2" id="vTg-f4-XlF"/>

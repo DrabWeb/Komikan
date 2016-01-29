@@ -87,6 +87,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         // Add mark as read when completed in reader bool to the end of it
         preferencesString.appendContentsOf("\n" + String(preferencesKepper.markAsReadWhenCompletedInReader));
         
+        // Add hide cursor in distraction free mode bool to the end of it
+        preferencesString.appendContentsOf("\n" + String(preferencesKepper.hideCursorInDistractionFreeMode));
+        
         // Write the preferences to the preferences file in Komikan's application support
         do {
             // Try to write to the preferences file in Komikan's application support directory
@@ -123,6 +126,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                 else if(currentIndex == 2) {
                     // Set if we want to mark manga as read when we finish them in the reader to be this lines value
                     preferencesKepper.markAsReadWhenCompletedInReader = KMFileUtilities().stringToBool(currentElement);
+                }
+                // If this is the fourth line...
+                else if(currentIndex == 3) {
+                    // Set if we want to hide the cursor in distraction free mode to be this lines value
+                    preferencesKepper.hideCursorInDistractionFreeMode = KMFileUtilities().stringToBool(currentElement);
                 }
             }
         }
@@ -200,6 +208,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         
         // Animate the window in
         darkenBackgroundWindowController.window?.animator().alphaValue = backgroundDarkenAmount;
+        
+        // If we said to hide the cursor in distraction free mode...
+        if(preferencesKepper.hideCursorInDistractionFreeMode) {
+            // Hide the cursor
+            NSCursor.hide();
+        }
     }
     
     func fadeOutDarken() {
@@ -208,6 +222,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         
         // Wait for the animation to finish and hide the window
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.2), target:self, selector: Selector("closeDarkenWindow"), userInfo: nil, repeats:false);
+        
+        // If we said to hide the cursor in distraction free mode...
+        if(preferencesKepper.hideCursorInDistractionFreeMode) {
+            // Show the cursor
+            NSCursor.unhide();
+        }
     }
     
     func toggleDarken() {

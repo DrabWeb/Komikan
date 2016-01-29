@@ -17,4 +17,7 @@ class KMPreferencesKeeper {
     
     // Should we mark a Manga as read when you finish it in the reader?
     var markAsReadWhenCompletedInReader : Bool = true;
+    
+    // Should we hide the cursor in distraction free mode?
+    var hideCursorInDistractionFreeMode : Bool = false;
 }
