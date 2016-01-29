@@ -242,8 +242,8 @@ class KMReaderViewController: NSViewController {
         // Jump to the page we said to start at
         jumpToPage(page, round: false);
         
-        // Set the reader window frame to the first images frame
-        readerWindow.setFrame(NSRect(x: 0, y: 0, width: manga.pages[0].size.width, height: manga.pages[0].size.height), display: false);
+        // Resize the window to match the mangas size
+        fitWindowToManga();
         
         // Center the window
         readerWindow.center();
@@ -277,7 +277,10 @@ class KMReaderViewController: NSViewController {
     func fitWindowToManga() {
         // If we are in dualPage mode...
         if(dualPage && !isFullscreen) {
+            // Get the size of the left image
             var leftImageSize : NSSize = NSSize();
+            
+            // Get the size of the right image
             var rightImageSize : NSSize = NSSize();
             
             // If we add 1 to manga.currentPage and there would be an image at that index in manga.pages...
@@ -293,14 +296,52 @@ class KMReaderViewController: NSViewController {
             // Set rightImageSize to be the ucrrent pages image size
             rightImageSize = manga.pages[manga.currentPage].size;
             
-            // Set the reader windows frame to be two times the width of the current open page
-            readerWindow.setFrame(NSRect(x: 0, y: 0, width: leftImageSize.width + rightImageSize.width, height: rightImageSize.height), display: false);
+            // If the right pages height is smaller than the screen...
+            if(rightImageSize.height < NSScreen.mainScreen()?.frame.height) {
+                // Set the reader windows frame to be two times the width of the current open page
+                readerWindow.setFrame(NSRect(x: 0, y: 0, width: leftImageSize.width + rightImageSize.width, height: rightImageSize.height), display: false);
+            }
+            // If its larger vertically...
+            else {
+                // The height we want the window to have
+                let height = (NSScreen.mainScreen()?.frame.height)! - 50;
+                
+                // Get the aspect ratio of the image
+                let aspectRatio = (leftImageSize.width + rightImageSize.width) / (rightImageSize.height);
+                
+                // Figure out what the width would be if we kept the aspect ratio and set the height to the screens size with a nit of padding
+                let width = aspectRatio * height;
+                
+                // Set the windows size to the new size we calculated
+                readerWindow.setFrame(NSRect(x: 0, y: 0, width: width, height: height), display: false);
+            }
             
+            // Center the window
             readerWindow.center();
         }
         else if(!dualPage && !isFullscreen) {
-            // Set the reader windows frame to be the reader image views image size
-            readerWindow.setFrame(NSRect(x: 0, y: 0, width: (readerImageView.image?.size.width)!, height: (readerImageView.image?.size.height)!), display: false);
+            // If the current pages image is smaller than the screen vertically...
+            if((readerImageView.image?.size.height)! < NSScreen.mainScreen()?.frame.height) {
+                // Set the reader windows frame to be the reader image views image size
+                readerWindow.setFrame(NSRect(x: 0, y: 0, width: (readerImageView.image?.size.width)!, height: (readerImageView.image?.size.height)!), display: false);
+            }
+            // If its larger vertically...
+            else {
+                // The height we want the window to have
+                let height = (NSScreen.mainScreen()?.frame.height)! - 50;
+                
+                // Get the aspect ratio of the image
+                let aspectRatio = (readerImageView.image?.size.width)! / (readerImageView.image?.size.height)!;
+                
+                // Figure out what the width would be if we kept the aspect ratio and set the height to the screens size with a nit of padding
+                let width = aspectRatio * height;
+                
+                // Set the windows size to the new size we calculated
+                readerWindow.setFrame(NSRect(x: 0, y: 0, width: width, height: height), display: false);
+                
+                // Center the window
+                readerWindow.center();
+            }
             
             // Center the window
             readerWindow.center();
@@ -715,9 +756,22 @@ class KMReaderViewController: NSViewController {
     }
     
     func updateFiltersForCurrentPage() {
-        print(manga.currentPage);
-        // Set the current page to the current page with filters
-        manga.pages[manga.currentPage] = KMImageFilterUtilities().applyColorAndSharpness(mangaOriginalPages[manga.currentPage], saturation: manga.saturation, brightness: manga.brightness, contrast: manga.contrast, sharpness: manga.sharpness);
+        // If we arent in dual page mode...
+        if(!dualPage) {
+            // Set the current page to the current page with filters
+            manga.pages[manga.currentPage] = KMImageFilterUtilities().applyColorAndSharpness(mangaOriginalPages[manga.currentPage], saturation: manga.saturation, brightness: manga.brightness, contrast: manga.contrast, sharpness: manga.sharpness);
+        }
+        // If we are in dual page
+        else {
+            // If we add 1 to manga.currentPage and there would be an image at that index in manga.pages...
+            if(manga.currentPage + 1 < manga.pages.count) {
+                // Apply the filter to this image
+                manga.pages[manga.currentPage + 1] = KMImageFilterUtilities().applyColorAndSharpness(mangaOriginalPages[manga.currentPage + 1], saturation: manga.saturation, brightness: manga.brightness, contrast: manga.contrast, sharpness: manga.sharpness);
+            }
+                
+            // Set the current page to the current page with filters
+            manga.pages[manga.currentPage] = KMImageFilterUtilities().applyColorAndSharpness(mangaOriginalPages[manga.currentPage], saturation: manga.saturation, brightness: manga.brightness, contrast: manga.contrast, sharpness: manga.sharpness);
+        }
         
         // Update the page
         updatePage();
