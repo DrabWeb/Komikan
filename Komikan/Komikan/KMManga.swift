@@ -69,77 +69,85 @@ class KMManga {
     
     // addManga : Bool - Should we extract it to /tmp/komikan/addmanga?
     func extractToTmpFolder() {
-        // Reset this mangas pages
-        pages = [NSImage()];
-        
-        // If we havent already set tmpDirectory...
-        if(!alreadySetTmpDirectory) {
-            // Set tmpDirectory to /tmp/komikan/komikanmanga-(Title)
-            tmpDirectory += title + "/";
+        // If we didnt already get the pages(Im kind of cheating and doing this if there is only one page)...
+        if(pages.count < 2) {
+            // Reset this mangas pages
+            pages = [NSImage()];
             
-            // Say we alrady set tmpDirectory
-            alreadySetTmpDirectory = true;
-        }
-        
-        // A variable to tell us all the folders in /tmp/komikan
-        var extractedFolders : [String] = [];
-        
-        // Get all the folders in /tmp/komikan/
-        do {
-            // Try to set extractedFolders to all the folders in /tmp/komikan/
-            extractedFolders = try NSFileManager.defaultManager().contentsOfDirectoryAtPath("/tmp/komikan/");
-        }
-        // If there is an error...
-        catch _ as NSError {
-            // Do nothing
-        }
-        
-        // If this manga hasnt already been extracted...
-        if(!extractedFolders.contains("komikanmanga-" + NSURL(fileURLWithPath: tmpDirectory).lastPathComponent!)) {
-            // Unzip this manga to /tmp/komikan/komikanmanga-(title)
-            KMFileUtilities().extractArchive(directory, toDirectory: tmpDirectory);
-        }
-        else {
-            // Print to the log that it has already been extracted
-            print("\"" + title + "\" has already been extracted to \"" + tmpDirectory + "\"");
-        }
-        
-        // Some archives will create a __MACOSX folder in the extracted folder, lets delete that
-        do {
-            // Remove the possible __MACOSX folder
-            try NSFileManager().removeItemAtPath(tmpDirectory + "/__MACOSX");
-            
-            // Print to the log that we deleted it
-            print("Deleted the __MACOSX folder in \"" + title + "\"");
-            // If there is an error...
-        } catch _ as NSError {
-            // Print to the log that there is no __MACOSX folder to delete
-            print("No __MACOSX folder to delete in \"" + title + "\"");
-        }
-        
-        // Run the cleanmangadir binary to make the directory readable for us
-        KMCommandUtilities().runCommand(NSBundle.mainBundle().bundlePath + "/Contents/Resources/cleanmangadir", arguments: [tmpDirectory], waitUntilExit: true);
-        
-        // Set pages to all the pages in /tmp/komikan/komikanmanga-(title)
-        do {
-            // For every file in this mangas tmp folder...
-            for currentPage in try NSFileManager().contentsOfDirectoryAtPath(tmpDirectory).enumerate() {
-                // Print to the log what file we found
-                print("Found page \"" + currentPage.element + "\"");
+            // If we havent already set tmpDirectory...
+            if(!alreadySetTmpDirectory) {
+                // Set tmpDirectory to /tmp/komikan/komikanmanga-(Title)
+                tmpDirectory += title + "/";
                 
-                // Append this image to the manga.pages array
-                pages.append(NSImage(contentsOfFile: tmpDirectory + currentPage.element)!);
+                // Say we alrady set tmpDirectory
+                alreadySetTmpDirectory = true;
             }
-            // If there is an error...
-        } catch let error as NSError {
-            // Print the error description to the log
-            print(error.description);
+            
+            // A variable to tell us all the folders in /tmp/komikan
+            var extractedFolders : [String] = [];
+            
+            // Get all the folders in /tmp/komikan/
+            do {
+                // Try to set extractedFolders to all the folders in /tmp/komikan/
+                extractedFolders = try NSFileManager.defaultManager().contentsOfDirectoryAtPath("/tmp/komikan/");
+            }
+                // If there is an error...
+            catch _ as NSError {
+                // Do nothing
+            }
+            
+            // If this manga hasnt already been extracted...
+            if(!extractedFolders.contains("komikanmanga-" + NSURL(fileURLWithPath: tmpDirectory).lastPathComponent!)) {
+                // Unzip this manga to /tmp/komikan/komikanmanga-(title)
+                KMFileUtilities().extractArchive(directory, toDirectory: tmpDirectory);
+            }
+            else {
+                // Print to the log that it has already been extracted
+                print("\"" + title + "\" has already been extracted to \"" + tmpDirectory + "\"");
+            }
+            
+            // Some archives will create a __MACOSX folder in the extracted folder, lets delete that
+            do {
+                // Remove the possible __MACOSX folder
+                try NSFileManager().removeItemAtPath(tmpDirectory + "/__MACOSX");
+                
+                // Print to the log that we deleted it
+                print("Deleted the __MACOSX folder in \"" + title + "\"");
+                // If there is an error...
+            } catch _ as NSError {
+                // Print to the log that there is no __MACOSX folder to delete
+                print("No __MACOSX folder to delete in \"" + title + "\"");
+            }
+            
+            // Run the cleanmangadir binary to make the directory readable for us
+            KMCommandUtilities().runCommand(NSBundle.mainBundle().bundlePath + "/Contents/Resources/cleanmangadir", arguments: [tmpDirectory], waitUntilExit: true);
+            
+            // Set pages to all the pages in /tmp/komikan/komikanmanga-(title)
+            do {
+                // For every file in this mangas tmp folder...
+                for currentPage in try NSFileManager().contentsOfDirectoryAtPath(tmpDirectory).enumerate() {
+                    // Print to the log what file we found
+                    print("Found page \"" + currentPage.element + "\"");
+                    
+                    // Append this image to the manga.pages array
+                    pages.append(NSImage(contentsOfFile: tmpDirectory + currentPage.element)!);
+                }
+                // If there is an error...
+            } catch let error as NSError {
+                // Print the error description to the log
+                print(error.description);
+            }
+            
+            // Remove the first image in pages(Its always nil for no reason)
+            pages.removeAtIndex(0);
+            
+            // Set pageCount
+            pageCount = pages.count;
         }
-        
-        // Remove the first image in pages(Its always nil for no reason)
-        pages.removeAtIndex(0);
-        
-        // Set pageCount
-        pageCount = pages.count;
+        // If we did already get the pages...
+        else {
+            // Print to the log that we already have the pages
+            print("Already got pages for \"" + title + "\"");
+        }
     }
 }

@@ -1098,30 +1098,6 @@
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="foJ-v5-5cU" userLabel="Gradient" customClass="KMGradientView" customModule="Komikan" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="640" height="37"/>
                                     </customView>
-                                    <tabView focusRingType="none" drawsBackground="NO" allowsTruncatedLabels="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QhM-D5-BGg" userLabel="Tab View">
-                                        <rect key="frame" x="-7" y="-10" width="654" height="45"/>
-                                        <font key="font" metaFont="system"/>
-                                        <tabViewItems>
-                                            <tabViewItem label="Title" identifier="" id="g4h-0F-r9M">
-                                                <view key="view" id="EDE-Sz-sH4">
-                                                    <rect key="frame" x="10" y="33" width="634" height="0.0"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                </view>
-                                            </tabViewItem>
-                                            <tabViewItem label="Series" identifier="" id="EX0-BL-QOP">
-                                                <view key="view" id="Wsr-Ip-k2a">
-                                                    <rect key="frame" x="10" y="33" width="634" height="0.0"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                </view>
-                                            </tabViewItem>
-                                            <tabViewItem label="Artist" identifier="" id="qan-Zr-faL">
-                                                <view key="view" id="k2U-U9-2Nq">
-                                                    <rect key="frame" x="10" y="33" width="634" height="0.0"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                </view>
-                                            </tabViewItem>
-                                        </tabViewItems>
-                                    </tabView>
                                     <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CDI-VA-JTT" userLabel="Add Manga Button">
                                         <rect key="frame" x="429" y="3" width="49" height="30"/>
                                         <constraints>
@@ -1149,6 +1125,30 @@
                                             <action selector="titlebarSearchFieldInteracted:" target="XfG-lQ-9wD" id="gOx-oN-u8g"/>
                                         </connections>
                                     </textField>
+                                    <tabView focusRingType="none" drawsBackground="NO" allowsTruncatedLabels="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QhM-D5-BGg" userLabel="Tab View">
+                                        <rect key="frame" x="-7" y="-10" width="654" height="45"/>
+                                        <font key="font" metaFont="system"/>
+                                        <tabViewItems>
+                                            <tabViewItem label="Title" identifier="" id="g4h-0F-r9M">
+                                                <view key="view" id="EDE-Sz-sH4">
+                                                    <rect key="frame" x="10" y="33" width="634" height="0.0"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </view>
+                                            </tabViewItem>
+                                            <tabViewItem label="Series" identifier="" id="EX0-BL-QOP">
+                                                <view key="view" id="Wsr-Ip-k2a">
+                                                    <rect key="frame" x="10" y="33" width="634" height="0.0"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </view>
+                                            </tabViewItem>
+                                            <tabViewItem label="Artist" identifier="" id="qan-Zr-faL">
+                                                <view key="view" id="k2U-U9-2Nq">
+                                                    <rect key="frame" x="10" y="33" width="634" height="0.0"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </view>
+                                            </tabViewItem>
+                                        </tabViewItems>
+                                    </tabView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="y9e-nS-8mf" firstAttribute="leading" secondItem="CDI-VA-JTT" secondAttribute="trailing" constant="7" id="4ei-TQ-5Ov"/>

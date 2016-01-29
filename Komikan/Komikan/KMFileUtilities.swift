@@ -76,45 +76,53 @@ class KMFileUtilities {
     
     // Extracts the passed archive to the passed directory
     func extractArchive(archiveDirectory : String, toDirectory : String) {
-        // Print to the log what we are extracting and where to
-        print("Extracting \"" + archiveDirectory + "\" to \"" + toDirectory + "\"");
-        
-        // Get the extension
-        let archiveType : String = getFileExtension(NSURL(fileURLWithPath: archiveDirectory));
-        
-        // If the archive is a CBZ or ZIP...
-        if(archiveType == "cbz" || archiveType == "zip") {
-            // I like this library. One line to extract
-            // Extract the given file to the given directory
-            WPZipArchive.unzipFileAtPath(archiveDirectory, toDestination: toDirectory);
+        // If the directory we are trying to extract to doesnt already exist...
+        if(!NSFileManager.defaultManager().fileExistsAtPath(toDirectory)) {
+            // Print to the log what we are extracting and where to
+            print("Extracting \"" + archiveDirectory + "\" to \"" + toDirectory + "\"");
+            
+            // Get the extension
+            let archiveType : String = getFileExtension(NSURL(fileURLWithPath: archiveDirectory));
+            
+            // If the archive is a CBZ or ZIP...
+            if(archiveType == "cbz" || archiveType == "zip") {
+                // I like this library. One line to extract
+                // Extract the given file to the given directory
+                WPZipArchive.unzipFileAtPath(archiveDirectory, toDestination: toDirectory);
+            }
+                // If the archive is a CBR or RAR...
+            else if(archiveType == "cbr" || archiveType == "rar") {
+                // This one not so much
+                // Create a variable to store our archive
+                var archive : URKArchive!;
+                
+                // Set the archive
+                do {
+                    // Try to set it to the archive we passed
+                    archive = try URKArchive(path: archiveDirectory);
+                }
+                    // If there is an error...
+                catch let error as NSError {
+                    // Print the errors description
+                    print(error.description);
+                }
+                
+                // Extract the archive
+                do {
+                    // Try to extract the given archive to the given directory
+                    try archive.extractFilesTo(toDirectory, overwrite: true, progress: nil);
+                }
+                    // If there is an error...
+                catch let error as NSError {
+                    // Print the errors description
+                    print(error.description);
+                }
+            }
         }
-        // If the archive is a CBR or RAR...
-        else if(archiveType == "cbr" || archiveType == "rar") {
-            // This one not so much
-            // Create a variable to store our archive
-            var archive : URKArchive!;
-            
-            // Set the archive
-            do {
-                // Try to set it to the archive we passed
-                archive = try URKArchive(path: archiveDirectory);
-            }
-            // If there is an error...
-            catch let error as NSError {
-                // Print the errors description
-                print(error.description);
-            }
-            
-            // Extract the archive
-            do {
-                // Try to extract the given archive to the given directory
-                try archive.extractFilesTo(toDirectory, overwrite: true, progress: nil);
-            }
-            // If there is an error...
-            catch let error as NSError {
-                // Print the errors description
-                print(error.description);
-            }
+        // If we did already extract it...
+        else {
+            // Print to the log that it is already extracted
+            print("Already extracted \"" + archiveDirectory + "\" to \"" + toDirectory + "\"");
         }
     }
 }
