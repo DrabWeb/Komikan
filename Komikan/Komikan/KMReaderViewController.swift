@@ -65,7 +65,7 @@ class KMReaderViewController: NSViewController {
         print("Saturation: " + String(readerControlPanelSaturationSlider.floatValue));
         
         // Set the represented value to the represented sliders value
-        saturation = CGFloat(readerControlPanelSaturationSlider.floatValue);
+        manga.saturation = CGFloat(readerControlPanelSaturationSlider.floatValue);
         
         // Apply the filters to the current page
         updateFiltersForCurrentPage();
@@ -80,7 +80,7 @@ class KMReaderViewController: NSViewController {
         print("Brightness: " + String(readerControlPanelBrightnessSlider.floatValue));
         
         // Set the represented value to the represented sliders value
-        brightness = CGFloat(readerControlPanelBrightnessSlider.floatValue);
+        manga.brightness = CGFloat(readerControlPanelBrightnessSlider.floatValue);
         
         // Apply the filters to the current page
         updateFiltersForCurrentPage();
@@ -95,7 +95,7 @@ class KMReaderViewController: NSViewController {
         print("Contrast: " + String(readerControlPanelContrastSlider.floatValue));
         
         // Set the represented value to the represented sliders value
-        contrast = CGFloat(readerControlPanelContrastSlider.floatValue);
+        manga.contrast = CGFloat(readerControlPanelContrastSlider.floatValue);
         
         // Apply the filters to the current page
         updateFiltersForCurrentPage();
@@ -110,7 +110,7 @@ class KMReaderViewController: NSViewController {
         print("Sharpness: " + String(readerControlPanelSharpnessSlider.floatValue));
         
         // Set the represented value to the represented sliders value
-        sharpness = CGFloat(readerControlPanelSharpnessSlider.floatValue);
+        manga.sharpness = CGFloat(readerControlPanelSharpnessSlider.floatValue);
         
         // Apply the filters to the current page
         updateFiltersForCurrentPage();
@@ -184,18 +184,6 @@ class KMReaderViewController: NSViewController {
     // The direction we are reading(Default Right to Left)
     var dualPageDirection : KMDualPageDirection = KMDualPageDirection.RightToLeft;
     
-    // The saturation for the pages
-    var saturation : CGFloat = 1;
-    
-    // The brightness for the pages
-    var brightness : CGFloat = 0;
-    
-    // The contrast for the pages
-    var contrast : CGFloat = 1;
-    
-    // The sharpness for the pages
-    var sharpness : CGFloat = 0;
-    
     // Are we fullscreen?
     var isFullscreen : Bool = false;
     
@@ -232,6 +220,24 @@ class KMReaderViewController: NSViewController {
         
         // Set mangaOriginalPages to the mangas current pages
         mangaOriginalPages = manga.pages;
+        
+        // If the filters are not default...
+        if(manga.saturation != 1 || manga.brightness != 0 || manga.contrast != 1 || manga.sharpness != 0) {
+            // Load the saturation values
+            readerControlPanelSaturationSlider.floatValue = Float(manga.saturation);
+            
+            // Load the brightness values
+            readerControlPanelBrightnessSlider.floatValue = Float(manga.brightness);
+            
+            // Load the contrast values
+            readerControlPanelContrastSlider.floatValue = Float(manga.contrast);
+            
+            // Load the sharpness values
+            readerControlPanelSharpnessSlider.floatValue = Float(manga.sharpness);
+            
+            // Update the pages to match the filters
+            updateFiltersForAllPages();
+        }
         
         // Jump to the page we said to start at
         jumpToPage(page, round: false);
@@ -310,10 +316,10 @@ class KMReaderViewController: NSViewController {
         readerControlPanelSharpnessSlider.floatValue = 0;
         
         // Reset the values
-        saturation = 1;
-        brightness = 0;
-        contrast = 1;
-        sharpness = 0;
+        manga.saturation = 1;
+        manga.brightness = 0;
+        manga.contrast = 1;
+        manga.sharpness = 0;
         
         // Update the filters
         updateFiltersForCurrentPage();
@@ -702,7 +708,7 @@ class KMReaderViewController: NSViewController {
     
     func updateFiltersForAllPages() {
         // Set manga.pages to all its current pages, but filtered with our given variables
-        manga.pages = KMImageFilterUtilities().applyColorAndSharpnessMultiple(mangaOriginalPages, saturation: saturation, brightness: brightness, contrast: contrast, sharpness: sharpness);
+        manga.pages = KMImageFilterUtilities().applyColorAndSharpnessMultiple(mangaOriginalPages, saturation: manga.saturation, brightness: manga.brightness, contrast: manga.contrast, sharpness: manga.sharpness);
         
         // Update the page
         updatePage();
@@ -711,7 +717,7 @@ class KMReaderViewController: NSViewController {
     func updateFiltersForCurrentPage() {
         print(manga.currentPage);
         // Set the current page to the current page with filters
-        manga.pages[manga.currentPage] = KMImageFilterUtilities().applyColorAndSharpness(mangaOriginalPages[manga.currentPage], saturation: saturation, brightness: brightness, contrast: contrast, sharpness: sharpness);
+        manga.pages[manga.currentPage] = KMImageFilterUtilities().applyColorAndSharpness(mangaOriginalPages[manga.currentPage], saturation: manga.saturation, brightness: manga.brightness, contrast: manga.contrast, sharpness: manga.sharpness);
         
         // Update the page
         updatePage();

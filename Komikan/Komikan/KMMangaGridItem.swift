@@ -29,9 +29,6 @@ class KMMangaGridItem: NSObject, NSCoding {
     
     // Updates the grid item with the passed mangas info
     func changeManga(newManga : KMManga) {
-        // Print that we are changing manga info
-        print("Changing \"" + title + "\" info");
-        
         // Set manga to newManga
         manga = newManga;
         
@@ -49,6 +46,9 @@ class KMMangaGridItem: NSObject, NSCoding {
         
         // Set read to the mangas read value
         read = manga.read;
+        
+        // Print that we are changing manga info
+        print("Loaded / Changed \"" + title + "\"");
     }
     
     func encodeWithCoder(coder: NSCoder) {
@@ -66,6 +66,11 @@ class KMMangaGridItem: NSObject, NSCoding {
         coder.encodeObject(self.manga.tags, forKey: "manga.tags");
         coder.encodeObject(self.manga.read, forKey: "manga.read");
         coder.encodeObject(self.manga.uuid, forKey: "manga.uuid");
+        
+        coder.encodeObject(self.manga.saturation, forKey: "manga.saturation");
+        coder.encodeObject(self.manga.brightness, forKey: "manga.brightness");
+        coder.encodeObject(self.manga.contrast, forKey: "manga.contrast");
+        coder.encodeObject(self.manga.sharpness, forKey: "manga.sharpness");
     }
     
     required convenience init(coder decoder: NSCoder) {
@@ -92,6 +97,30 @@ class KMMangaGridItem: NSObject, NSCoding {
         if((decoder.decodeObjectForKey("manga.uuid") as? String) != nil) {
             // Load it
             self.manga.uuid = (decoder.decodeObjectForKey("manga.uuid") as! String?)!;
+        }
+        
+        // If there is a saturation value...
+        if((decoder.decodeObjectForKey("manga.saturation") as? CGFloat) != nil) {
+            // Load it
+            self.manga.saturation = (decoder.decodeObjectForKey("manga.saturation") as! CGFloat?)!;
+        }
+        
+        // If there is a brightness value...
+        if((decoder.decodeObjectForKey("manga.brightness") as? CGFloat) != nil) {
+            // Load it
+            self.manga.brightness = (decoder.decodeObjectForKey("manga.brightness") as! CGFloat?)!;
+        }
+        
+        // If there is a contrast value...
+        if((decoder.decodeObjectForKey("manga.contrast") as? CGFloat) != nil) {
+            // Load it
+            self.manga.contrast = (decoder.decodeObjectForKey("manga.contrast") as! CGFloat?)!;
+        }
+        
+        // If there is a sharpness value...
+        if((decoder.decodeObjectForKey("manga.sharpness") as? CGFloat) != nil) {
+            // Load it
+            self.manga.sharpness = (decoder.decodeObjectForKey("manga.sharpness") as! CGFloat?)!;
         }
         
         // Load up the manga info

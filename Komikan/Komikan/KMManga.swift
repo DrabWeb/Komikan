@@ -52,6 +52,18 @@ class KMManga {
     // This manga's unique UUID so we dont cause the duplication bug among other things
     var uuid : String = NSUUID().UUIDString.lowercaseString;
     
+    // The saturation for the pages
+    var saturation : CGFloat = 1;
+    
+    // The brightness for the pages
+    var brightness : CGFloat = 0;
+    
+    // The contrast for the pages
+    var contrast : CGFloat = 1;
+    
+    // The sharpness for the pages
+    var sharpness : CGFloat = 0;
+    
     // A bool to say if we have already set tmpDirectory
     private var alreadySetTmpDirectory : Bool = false;
     
