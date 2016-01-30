@@ -64,6 +64,9 @@ class KMManga {
     // The sharpness for the pages
     var sharpness : CGFloat = 0;
     
+    // Is this manga l-lewd...?
+    var lewd : Bool = false;
+    
     // How much we are finished this manga(From 0 to 100)
     var percentFinished : Int = 0;
     

@@ -24,8 +24,11 @@ class KMEHViewController: NSViewController {
         // Dismiss the popover
         self.dismissController(self);
         
-        // Add the new item we specified to the download queue
-        (NSApplication.sharedApplication().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: addFromEHTextField.stringValue, useJapaneseTitle: Bool(addFromEHUseJapaneseTitle.state)));
+        // For every URL in the add from EH text field (Seperated ast each space)...
+        for(_, currentURL) in addFromEHTextField.stringValue.componentsSeparatedByString(" ").enumerate() {
+            // Add the current URL to the download queue
+            (NSApplication.sharedApplication().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: currentURL, useJapaneseTitle: Bool(addFromEHUseJapaneseTitle.state)));
+        }
     }
     
     // The button to add the manga add the inputted URL from E-Hentai
@@ -37,8 +40,11 @@ class KMEHViewController: NSViewController {
         self.dismissController(self);
         
         // http://g.e-hentai.org/g/892676/e442d2c88e/
-        // Add the new item we specified to the download queue
-        (NSApplication.sharedApplication().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: addFromEHTextField.stringValue, useJapaneseTitle: Bool(addFromEHUseJapaneseTitle.state)));
+        // For every URL in the add from EH text field (Seperated ast each space)...
+        for(_, currentURL) in addFromEHTextField.stringValue.componentsSeparatedByString(" ").enumerate() {
+            // Add the current URL to the download queue
+            (NSApplication.sharedApplication().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: currentURL, useJapaneseTitle: Bool(addFromEHUseJapaneseTitle.state)));
+        }
     }
     
     // The checkbox to say if we want to use the Japanese title for downloading from E-Hentai
@@ -49,8 +55,11 @@ class KMEHViewController: NSViewController {
     
     // When we intreact with addFromEXTextField...
     @IBAction func addFromEXTextFieldInteracted(sender: AnyObject) {
-        // Add the manga from exhentai, with the represented text fields string value
-        (NSApplication.sharedApplication().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: addFromEXTextField.stringValue, useJapaneseTitle: Bool(addFromEXUseJapaneseTitle.state), onExHentai: true));
+        // For every URL in the add from EX text field (Seperated ast each space)...
+        for(_, currentURL) in addFromEXTextField.stringValue.componentsSeparatedByString(" ").enumerate() {
+            // Add the current URL to the download queue
+            (NSApplication.sharedApplication().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: currentURL, useJapaneseTitle: Bool(addFromEXUseJapaneseTitle.state), onExHentai: true));
+        }
     }
     
     // The button to add the manga add the inputted URL from ExHentai
@@ -58,8 +67,11 @@ class KMEHViewController: NSViewController {
     
     // When we interact with addFromEXButton...
     @IBAction func addFromEXButtonInteracted(sender: AnyObject) {
-        // Add the manga from exhentai, with the represented text fields string value
-        (NSApplication.sharedApplication().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: addFromEXTextField.stringValue, useJapaneseTitle: Bool(addFromEXUseJapaneseTitle.state), onExHentai: true));
+        // For every URL in the add from EX text field (Seperated ast each space)...
+        for(_, currentURL) in addFromEXTextField.stringValue.componentsSeparatedByString(" ").enumerate() {
+            // Add the current URL to the download queue
+            (NSApplication.sharedApplication().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: currentURL, useJapaneseTitle: Bool(addFromEXUseJapaneseTitle.state), onExHentai: true));
+        }
     }
     
     // The checkbox to say if we want to use the Japanese title for downloading from ExHentai

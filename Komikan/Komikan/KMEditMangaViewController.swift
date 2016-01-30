@@ -93,6 +93,9 @@ class KMEditMangaViewController: NSViewController {
         // Set the mangas last open page to the first
         manga.currentPage = 0;
         
+        // Update the percent finished
+        manga.updatePercent();
+        
         // Save the manga back to the grid
         saveBackToGrid();
     }
@@ -104,6 +107,9 @@ class KMEditMangaViewController: NSViewController {
         
         // Set the mangas last open page to the first
         manga.currentPage = 0;
+        
+        // Update the percent finished
+        manga.updatePercent();
         
         // Save the manga back to the grid
         saveBackToGrid();

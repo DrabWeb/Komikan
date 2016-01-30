@@ -43,6 +43,9 @@ class KMAddMangaViewController: NSViewController {
     // The text field for the mangas tags
     @IBOutlet weak var tagsTextField: NSTextField!
     
+    // The checkbox to say if this manga is l-lewd...
+    @IBOutlet weak var llewdCheckBox: NSButton!
+    
     // The open panel to let the user choose the mangas directory
     var chooseDirectoryOpenPanel : NSOpenPanel = NSOpenPanel();
     
@@ -76,6 +79,9 @@ class KMAddMangaViewController: NSViewController {
             
             // Set the new mangas artist
             newManga.artist = artistTextField.stringValue;
+            
+            // Set if the manga is l-lewd...
+            newManga.lewd = Bool(llewdCheckBox.state);
             
             // Set the new mangas directory
             newManga.directory = (chooseDirectoryOpenPanel.URL?.absoluteString.stringByRemovingPercentEncoding!)!.stringByReplacingOccurrencesOfString("file://", withString: "");
@@ -114,6 +120,9 @@ class KMAddMangaViewController: NSViewController {
                 
                 // Set the manga's writer
                 currentManga.writer = writerTextField.stringValue;
+                
+                // Set if the manga is l-lewd...
+                currentManga.lewd = Bool(llewdCheckBox.state);
                 
                 // For every part of the tags text field's string value split at every ", "...
                 for (_, currentTag) in tagsTextField.stringValue.componentsSeparatedByString(", ").enumerate() {
