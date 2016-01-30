@@ -1217,7 +1217,7 @@
                                             <constraint firstAttribute="width" constant="21" id="40i-gc-GkC"/>
                                             <constraint firstAttribute="height" constant="21" id="Muy-zr-7hg"/>
                                         </constraints>
-                                        <buttonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" imagePosition="only" alignment="center" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="lA2-US-K9x">
+                                        <buttonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" imagePosition="only" alignment="center" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="lA2-US-K9x">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>

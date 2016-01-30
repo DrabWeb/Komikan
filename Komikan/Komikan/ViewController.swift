@@ -404,7 +404,7 @@ class ViewController: NSViewController, NSTabViewDelegate {
         }
     }
     
-    override func viewWillDisappear() {
+    override func viewDidDisappear() {
         // Save the manga in the grid
         saveManga();
     }
