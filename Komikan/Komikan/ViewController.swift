@@ -52,6 +52,15 @@ class ViewController: NSViewController, NSTabViewDelegate {
         mangaGridController.searchFor((sender as? NSTextField)!.stringValue);
     }
     
+    // The disclosure button in the titlebatr that lets you ascend/descend the sort order of the manga grid
+    @IBOutlet weak var titlebarToggleSortDirectionButton: NSButton!
+    
+    // When we interact with titlebarToggleSortDirectionButton...
+    @IBAction func titlebarToggleSortDirectionButtonInteracted(sender: AnyObject) {
+        // Resort the grid based on which direction we said to sort it in
+        mangaGridController.sort(mangaGridController.currentSortOrder, ascending: Bool(titlebarToggleSortDirectionButton.state));
+    }
+    
     // The view controller we will load for the add manga popover
     var addMangaViewController: KMAddMangaViewController?
     

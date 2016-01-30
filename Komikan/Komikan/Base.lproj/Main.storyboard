@@ -1154,7 +1154,7 @@
                                     <constraint firstAttribute="trailing" secondItem="bQW-e4-pbA" secondAttribute="trailing" id="p9g-yA-wcE"/>
                                 </constraints>
                             </visualEffectView>
-                            <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="xeH-9s-Llt" userLabel="Titlebar Visual Effect View">
+                            <visualEffectView appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="xeH-9s-Llt" userLabel="Titlebar Visual Effect View">
                                 <rect key="frame" x="0.0" y="443" width="640" height="37"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="foJ-v5-5cU" userLabel="Gradient" customClass="KMGradientView" customModule="Komikan" customModuleProvider="target">
@@ -1211,14 +1211,30 @@
                                             </tabViewItem>
                                         </tabViewItems>
                                     </tabView>
+                                    <button focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3OY-Ks-0gq" userLabel="Ascending/Descending Button">
+                                        <rect key="frame" x="203" y="5" width="29" height="26"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="21" id="40i-gc-GkC"/>
+                                            <constraint firstAttribute="height" constant="21" id="Muy-zr-7hg"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" imagePosition="only" alignment="center" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="lA2-US-K9x">
+                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="titlebarToggleSortDirectionButtonInteracted:" target="XfG-lQ-9wD" id="fil-Xd-sy4"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="3OY-Ks-0gq" firstAttribute="centerX" secondItem="xeH-9s-Llt" secondAttribute="centerX" constant="-102.5" id="4T6-3Z-j9v"/>
                                     <constraint firstItem="y9e-nS-8mf" firstAttribute="leading" secondItem="CDI-VA-JTT" secondAttribute="trailing" constant="7" id="4ei-TQ-5Ov"/>
                                     <constraint firstAttribute="trailing" secondItem="y9e-nS-8mf" secondAttribute="trailing" constant="7" id="5IN-iD-BCX"/>
                                     <constraint firstAttribute="trailing" secondItem="QhM-D5-BGg" secondAttribute="trailing" id="5WP-Eh-71Z"/>
                                     <constraint firstAttribute="bottom" secondItem="CDI-VA-JTT" secondAttribute="bottom" constant="6" id="8f1-f9-EKZ"/>
                                     <constraint firstItem="QhM-D5-BGg" firstAttribute="leading" secondItem="xeH-9s-Llt" secondAttribute="leading" id="CmL-YF-LYE"/>
                                     <constraint firstAttribute="height" constant="37" id="Kdz-75-IVb"/>
+                                    <constraint firstItem="3OY-Ks-0gq" firstAttribute="centerY" secondItem="xeH-9s-Llt" secondAttribute="centerY" id="M4u-Rn-Uzb"/>
                                     <constraint firstItem="foJ-v5-5cU" firstAttribute="top" secondItem="xeH-9s-Llt" secondAttribute="top" id="MnN-p6-GoU"/>
                                     <constraint firstAttribute="bottom" secondItem="y9e-nS-8mf" secondAttribute="bottom" constant="7" id="POM-OE-vCT"/>
                                     <constraint firstItem="QhM-D5-BGg" firstAttribute="top" secondItem="xeH-9s-Llt" secondAttribute="top" constant="8" id="Ui1-Yu-246"/>
@@ -1254,6 +1270,7 @@
                         <outlet property="titlebarSearchField" destination="y9e-nS-8mf" id="av4-HI-6jY"/>
                         <outlet property="titlebarSortingTabView" destination="QhM-D5-BGg" id="8hF-kC-siy"/>
                         <outlet property="titlebarTabView" destination="QhM-D5-BGg" id="WYX-TG-gTS"/>
+                        <outlet property="titlebarToggleSortDirectionButton" destination="3OY-Ks-0gq" id="73y-2L-sub"/>
                         <outlet property="titlebarVisualEffectView" destination="xeH-9s-Llt" id="y4w-Cx-qCa"/>
                     </connections>
                 </viewController>
