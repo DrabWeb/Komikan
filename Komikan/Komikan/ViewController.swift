@@ -19,6 +19,15 @@ class ViewController: NSViewController, NSTabViewDelegate {
     // The visual effect view for the main windows background
     @IBOutlet weak var backgroundVisualEffectView: NSVisualEffectView!
     
+    // The visual effect view for the info bottom bar
+    @IBOutlet weak var infoBarVisualEffectView: NSVisualEffectView!
+    
+    // The container for the info bar
+    @IBOutlet weak var infoBarContainer: NSView!
+    
+    // The label on the info bar that shows how many manga you have
+    @IBOutlet weak var infoBarMangaCountLabel: NSTextField!
+    
     // The collection view that manages displayig manga covers in the main window
     @IBOutlet weak var mangaCollectionView: NSCollectionView!
     
@@ -46,8 +55,11 @@ class ViewController: NSViewController, NSTabViewDelegate {
     // The view controller we will load for the add manga popover
     var addMangaViewController: KMAddMangaViewController?
     
-    // Is this the first time weve clicked on the add button in the titlebar?
+    // Is this the first time we've clicked on the add button in the titlebar?
     var addMangaViewFirstLoad : Bool = true;
+    
+    // The bool to say if we have the info bar showing
+    var infoBarOpen : Bool = false;
     
     // The button in the titlebar that lets us add manga
     @IBOutlet weak var titlebarAddMangaButton: NSButton!
@@ -120,8 +132,11 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Set the collections views item prototype to the collection view item we created in Main.storyboard
         mangaCollectionView.itemPrototype = storyboard?.instantiateControllerWithIdentifier("mangaCollectionViewItem") as? NSCollectionViewItem;
         
-        // Set the addFromEHMenuItem's action
+        // Set the addFromEHMenuItem menu items action
         (NSApplication.sharedApplication().delegate as! AppDelegate).addFromEHMenuItem.action = Selector("showAddFromEHPopover");
+        
+        // Set the toggle info bar menu items action
+        (NSApplication.sharedApplication().delegate as! AppDelegate).toggleInfoBarMenuItem.action = Selector("toggleInfoBar");
         
         // Start a 0.1 second loop that will fix the windows look in fullscreen
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("deleteTitlebarInFullscreen"), userInfo: nil, repeats:true);
@@ -158,6 +173,12 @@ class ViewController: NSViewController, NSTabViewDelegate {
             mangaGridController.sort(KMMangaGridSortType.Artist, ascending: true);
         }
         
+        // Create some options for the manga grid KVO
+        let options = NSKeyValueObservingOptions([.New, .Old, .Initial, .Prior]);
+        
+        // Subscribe to when the manga grid changes its values in any way
+        mangaGridController.arrayController.addObserver(self, forKeyPath: "arrangedObjects", options: options, context: nil);
+        
         // Show the window after 0.1 seconds
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("showWindowAlpha"), userInfo: nil, repeats: false);
         
@@ -166,6 +187,14 @@ class ViewController: NSViewController, NSTabViewDelegate {
         
         // Subscribe to the global redraw manga grid function
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateMangaGrid", name:"ViewController.UpdateMangaGrid", object: nil);
+    }
+    
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        // If the keyPath is the one for the manga grids arranged objets...
+        if(keyPath == "arrangedObjects") {
+            // Update the manga count in the info bar
+            updateInfoBarMangaCountLabel();
+        }
     }
     
     func showWindowAlpha() {
@@ -264,6 +293,17 @@ class ViewController: NSViewController, NSTabViewDelegate {
         mangaCollectionViewArray.removeObjectsAtArrangedObjectIndexes(NSIndexSet(index: mangaCollectionView.selectionIndexes.lastIndex));
     }
     
+    func toggleInfoBar() {
+        infoBarOpen = !infoBarOpen;
+        
+        if(infoBarOpen) {
+            infoBarContainer.animator().alphaValue = 1;
+        }
+        else {
+            infoBarContainer.animator().alphaValue = 0;
+        }
+    }
+    
     func styleWindow() {
         // Get a reference to the main window
         window = NSApplication.sharedApplication().windows.last!;
@@ -277,11 +317,17 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Hide the titlebar title
         window.titleVisibility = NSWindowTitleVisibility.Hidden;
         
-        // Set the backgrouynd effect view to be dark
+        // Set the background visual effect view to be dark
         backgroundVisualEffectView.material = NSVisualEffectMaterial.Dark;
         
-        // Set the titlebar effect to be ultra dark
+        // Set the titlebar visual effect view to be ultra dark
         titlebarVisualEffectView.material = NSVisualEffectMaterial.UltraDark;
+        
+        // Set the info visual effect view to be ultra dark
+        infoBarVisualEffectView.material = NSVisualEffectMaterial.UltraDark;
+        
+        // Hide the info bar
+        infoBarContainer.alphaValue = 0;
     }
     
     func deleteTitlebarInFullscreen() {
@@ -294,6 +340,11 @@ class ViewController: NSViewController, NSTabViewDelegate {
             // Show the toolbar again in non-fullscreen(So we still get the traffic lights in the right place)
             window.toolbar?.visible = true;
         }
+    }
+    
+    func updateInfoBarMangaCountLabel() {
+        // Set the manga count labels label to the manga count awith "Manga" on the end
+        infoBarMangaCountLabel.stringValue = String(mangaGridController.arrayController.arrangedObjects.count) + " Manga";
     }
     
     // Saves the manga in the grid

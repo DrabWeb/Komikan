@@ -345,6 +345,7 @@
                                 <menu key="submenu" title="Collection" id="eKm-yz-jaz">
                                     <items>
                                         <menuItem title="Add From EH" keyEquivalent="E" id="9EF-r5-N5K"/>
+                                        <menuItem title="Debug Info Bar" keyEquivalent="i" id="7Zc-hP-7S6"/>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -403,6 +404,7 @@
                         <outlet property="previousPageMenubarItem" destination="lL1-EK-QfJ" id="pyL-3Y-eLp"/>
                         <outlet property="switchDualPageDirectionMenuItem" destination="ubh-G8-jVj" id="UF6-lc-LfP"/>
                         <outlet property="toggleBackgroundDarkenMenuItem" destination="ZbJ-Yy-OIo" id="kCW-1r-qf6"/>
+                        <outlet property="toggleInfoBarMenuItem" destination="7Zc-hP-7S6" id="lST-ck-asS"/>
                     </connections>
                 </customObject>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -1102,12 +1104,54 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="bQW-e4-pbA" userLabel="Info Bar Container">
+                                        <rect key="frame" x="0.0" y="0.0" width="640" height="22"/>
+                                        <subviews>
+                                            <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="9bU-fV-uIZ" userLabel="Info Visual Effect View">
+                                                <rect key="frame" x="0.0" y="0.0" width="640" height="22"/>
+                                                <subviews>
+                                                    <customView ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tNj-Pa-vqe" userLabel="Gradient" customClass="KMGradientView" customModule="Komikan" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="640" height="22"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="22" id="uJ0-gn-4Q5"/>
+                                                        </constraints>
+                                                    </customView>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uUd-gx-Gsh" userLabel="Manga Count">
+                                                        <rect key="frame" x="-2" y="3" width="644" height="17"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="17" id="HwC-94-Pg0"/>
+                                                        </constraints>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="X Manga" id="0hU-wH-tdU" userLabel="Manga Count">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="uUd-gx-Gsh" firstAttribute="leading" secondItem="9bU-fV-uIZ" secondAttribute="leading" id="Bqg-Al-DUi"/>
+                                                    <constraint firstAttribute="trailing" secondItem="uUd-gx-Gsh" secondAttribute="trailing" id="HcJ-3x-TmU"/>
+                                                    <constraint firstAttribute="bottom" secondItem="uUd-gx-Gsh" secondAttribute="bottom" constant="3" id="cpO-Wz-1j7"/>
+                                                </constraints>
+                                            </visualEffectView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="22" id="K32-la-qF8"/>
+                                            <constraint firstAttribute="bottom" secondItem="9bU-fV-uIZ" secondAttribute="bottom" id="LPf-O1-fGd"/>
+                                            <constraint firstAttribute="trailing" secondItem="9bU-fV-uIZ" secondAttribute="trailing" id="RgA-Oo-icB"/>
+                                            <constraint firstItem="9bU-fV-uIZ" firstAttribute="top" secondItem="bQW-e4-pbA" secondAttribute="top" id="guL-bw-7jj"/>
+                                            <constraint firstItem="9bU-fV-uIZ" firstAttribute="leading" secondItem="bQW-e4-pbA" secondAttribute="leading" id="qDB-Da-SAW"/>
+                                        </constraints>
+                                    </customView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="pwJ-e1-0oZ" secondAttribute="bottom" id="1yd-Uw-2Bs"/>
                                     <constraint firstItem="pwJ-e1-0oZ" firstAttribute="leading" secondItem="DI5-9c-AHp" secondAttribute="leading" id="6Ca-p4-OwU"/>
+                                    <constraint firstAttribute="bottom" secondItem="bQW-e4-pbA" secondAttribute="bottom" id="8PB-og-fHI"/>
+                                    <constraint firstItem="bQW-e4-pbA" firstAttribute="leading" secondItem="DI5-9c-AHp" secondAttribute="leading" id="CPA-fj-eVK"/>
                                     <constraint firstItem="pwJ-e1-0oZ" firstAttribute="top" secondItem="DI5-9c-AHp" secondAttribute="top" id="FFK-0I-bfR"/>
                                     <constraint firstAttribute="trailing" secondItem="pwJ-e1-0oZ" secondAttribute="trailing" id="nFz-nv-ziu"/>
+                                    <constraint firstAttribute="trailing" secondItem="bQW-e4-pbA" secondAttribute="trailing" id="p9g-yA-wcE"/>
                                 </constraints>
                             </visualEffectView>
                             <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="xeH-9s-Llt" userLabel="Titlebar Visual Effect View">
@@ -1199,6 +1243,9 @@
                     </view>
                     <connections>
                         <outlet property="backgroundVisualEffectView" destination="DI5-9c-AHp" id="0Ki-1K-xDE"/>
+                        <outlet property="infoBarContainer" destination="bQW-e4-pbA" id="I4T-Wo-rIZ"/>
+                        <outlet property="infoBarMangaCountLabel" destination="uUd-gx-Gsh" id="0ZT-hP-80G"/>
+                        <outlet property="infoBarVisualEffectView" destination="9bU-fV-uIZ" id="sNg-dt-G1s"/>
                         <outlet property="mangaCollectionView" destination="4kf-pV-6YA" id="rpB-Er-tRk"/>
                         <outlet property="mangaCollectionViewArray" destination="fTr-R0-e41" id="cr6-k6-HyI"/>
                         <outlet property="mangaCollectionViewScrollView" destination="pwJ-e1-0oZ" id="16K-B2-H3u"/>
@@ -1622,8 +1669,8 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="H6C-sh-Guu" name="hidden" keyPath="representedObject.read" id="e0C-MX-Rca"/>
                                     <binding destination="H6C-sh-Guu" name="value" keyPath="representedObject.percentLabel" id="6Ih-cC-qCu"/>
+                                    <binding destination="H6C-sh-Guu" name="hidden" keyPath="representedObject.read" id="e0C-MX-Rca"/>
                                 </connections>
                             </textField>
                         </subviews>

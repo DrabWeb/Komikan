@@ -41,6 +41,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     // The Komikan/Toggle Background Darken menu item
     @IBOutlet weak var toggleBackgroundDarkenMenuItem: NSMenuItem!
     
+    // The menu item that lets you toggle the info bar in the main window
+    @IBOutlet weak var toggleInfoBarMenuItem: NSMenuItem!
+    
     // The view controller we will load for the reader
     var mangaReaderViewController: KMReaderViewController?;
     
