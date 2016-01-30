@@ -123,6 +123,17 @@ class KMEHDownloadController : NSObject {
         // Set the mangas tags
         item.manga.tags = (newMangaJson["gmetadata"][0]["tags"].arrayObject as? [String])!;
         
+        // If the tags dont contains non-h...
+        if(!item.manga.tags.contains("non-h")) {
+            // Set this manga as l-lewd...
+            item.manga.lewd = true;
+        }
+        // If the tags do contain non-h...
+        else {
+            // Set this manga as not l-lewd...
+            item.manga.lewd = false;
+        }
+        
         // Remove all the new lines from newMangaFileName(It adds a new line onto the end for some reason)
         newMangaFileName = newMangaFileName.stringByReplacingOccurrencesOfString("\n", withString: "");
         
