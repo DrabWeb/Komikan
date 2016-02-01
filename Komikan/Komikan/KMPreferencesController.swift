@@ -60,8 +60,8 @@ class KMPreferencesController: NSViewController {
         (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.markAsReadWhenCompletedInReader = Bool(markAsReadWhenCompletedInReaderCheckbox.state);
         (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.hideCursorInDistractionFreeMode = Bool(hideCursorInDistractionFreeModeCheckbox.state);
         
-        // Send out the notification that we have modified the preferences
-        NSNotificationCenter.defaultCenter().postNotificationName("KMPreferencesController.Modified", object: nil);
+        // Tell AppDelegate to act upon the preferences
+        (NSApplication.sharedApplication().delegate as! AppDelegate).actOnPreferences();
     }
     
     // Lods the preferences from the global preferences keeper object

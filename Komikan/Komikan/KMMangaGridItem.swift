@@ -81,6 +81,7 @@ class KMMangaGridItem: NSObject, NSCoding {
         coder.encodeObject(self.manga.tags, forKey: "manga.tags");
         coder.encodeObject(self.manga.read, forKey: "manga.read");
         coder.encodeObject(self.manga.uuid, forKey: "manga.uuid");
+        coder.encodeObject(self.manga.lewd, forKey: "manga.lewd");
         
         coder.encodeObject(self.manga.saturation, forKey: "manga.saturation");
         coder.encodeObject(self.manga.brightness, forKey: "manga.brightness");
@@ -152,6 +153,12 @@ class KMMangaGridItem: NSObject, NSCoding {
         if((decoder.decodeObjectForKey("manga.percentFinished") as? Int) != nil) {
             // Load it
             self.manga.percentFinished = (decoder.decodeObjectForKey("manga.percentFinished") as! Int?)!;
+        }
+        
+        // If there is a l-lewd... value...
+        if((decoder.decodeObjectForKey("manga.lewd") as? Bool) != nil) {
+            // Load it
+            self.manga.lewd = (decoder.decodeObjectForKey("manga.lewd") as! Bool?)!;
         }
         
         // Load up the manga info

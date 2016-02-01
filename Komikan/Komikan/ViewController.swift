@@ -70,6 +70,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
     // The bool to say if we have the info bar showing
     var infoBarOpen : Bool = false;
     
+    // Is the sidebar open?
+    var sidebarOpen : Bool = false;
+    
     // The button in the titlebar that lets us add manga
     @IBOutlet weak var titlebarAddMangaButton: NSButton!
     
@@ -303,12 +306,17 @@ class ViewController: NSViewController, NSTabViewDelegate {
     }
     
     func toggleInfoBar() {
+        // Set infoBarOpen to the opposite of its current value
         infoBarOpen = !infoBarOpen;
         
+        // If the info bar is now open...
         if(infoBarOpen) {
+            // Fade it in
             infoBarContainer.animator().alphaValue = 1;
         }
+        // If the info bar is now closed...
         else {
+            // Fade it out
             infoBarContainer.animator().alphaValue = 0;
         }
     }

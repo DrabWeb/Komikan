@@ -1148,16 +1148,16 @@
                                     </customView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="pwJ-e1-0oZ" secondAttribute="bottom" id="1yd-Uw-2Bs"/>
-                                    <constraint firstItem="pwJ-e1-0oZ" firstAttribute="leading" secondItem="DI5-9c-AHp" secondAttribute="leading" id="6Ca-p4-OwU"/>
+                                    <constraint firstItem="pwJ-e1-0oZ" firstAttribute="leading" secondItem="DI5-9c-AHp" secondAttribute="leading" id="3gZ-Pv-mAm"/>
                                     <constraint firstAttribute="bottom" secondItem="bQW-e4-pbA" secondAttribute="bottom" id="8PB-og-fHI"/>
                                     <constraint firstItem="bQW-e4-pbA" firstAttribute="leading" secondItem="DI5-9c-AHp" secondAttribute="leading" id="CPA-fj-eVK"/>
-                                    <constraint firstItem="pwJ-e1-0oZ" firstAttribute="top" secondItem="DI5-9c-AHp" secondAttribute="top" id="FFK-0I-bfR"/>
-                                    <constraint firstAttribute="trailing" secondItem="pwJ-e1-0oZ" secondAttribute="trailing" id="nFz-nv-ziu"/>
+                                    <constraint firstItem="pwJ-e1-0oZ" firstAttribute="top" secondItem="DI5-9c-AHp" secondAttribute="top" id="cRA-cx-CWQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="pwJ-e1-0oZ" secondAttribute="bottom" id="j7R-hw-7i7"/>
+                                    <constraint firstAttribute="trailing" secondItem="pwJ-e1-0oZ" secondAttribute="trailing" id="nkj-gz-ZZ0"/>
                                     <constraint firstAttribute="trailing" secondItem="bQW-e4-pbA" secondAttribute="trailing" id="p9g-yA-wcE"/>
                                 </constraints>
                             </visualEffectView>
-                            <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="xeH-9s-Llt" userLabel="Titlebar Visual Effect View">
+                            <visualEffectView appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="xeH-9s-Llt" userLabel="Titlebar Visual Effect View">
                                 <rect key="frame" x="0.0" y="443" width="640" height="37"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="foJ-v5-5cU" userLabel="Gradient" customClass="KMGradientView" customModule="Komikan" customModuleProvider="target">

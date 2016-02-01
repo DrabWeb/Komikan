@@ -66,6 +66,34 @@ class KMAddMangaViewController: NSViewController {
         // Dismiss the popver
         self.dismissController(self);
         
+        // Add the manga we described in the open panel
+        addSelf();
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do view setup here.
+        // Style the window
+        styleWindow();
+        
+        // Setup the choose directory open panel
+        // Allow multiple files
+        chooseDirectoryOpenPanel.allowsMultipleSelection = true;
+        
+        // Only allow CBZ and CBR
+        chooseDirectoryOpenPanel.allowedFileTypes = ["cbz", "cbr"];
+        
+        // Set the Open button to say choose
+        chooseDirectoryOpenPanel.prompt = "Choose";
+        
+        // Start a 0.1 second loop that will set if we can add this manga or not
+        addButtonUpdateLoop = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("updateAddButton"), userInfo: nil, repeats:true);
+        
+        // Prompt for a manga
+        startPrompt();
+    }
+    
+    func addSelf() {
         // If we are only adding one...
         if(!addingMultiple) {
             // Set the new mangas cover image
@@ -143,29 +171,6 @@ class KMAddMangaViewController: NSViewController {
             // Post the notification saying we are done and sending back the manga
             NSNotificationCenter.defaultCenter().postNotificationName("KMAddMangaViewController.Finished", object: newMangaMultiple);
         }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do view setup here.
-        // Style the window
-        styleWindow();
-        
-        // Setup the choose directory open panel
-        // Allow multiple files
-        chooseDirectoryOpenPanel.allowsMultipleSelection = true;
-        
-        // Only allow CBZ and CBR
-        chooseDirectoryOpenPanel.allowedFileTypes = ["cbz", "cbr"];
-        
-        // Set the Open button to say choose
-        chooseDirectoryOpenPanel.prompt = "Choose";
-        
-        // Start a 0.1 second loop that will set if we can add this manga or not
-        addButtonUpdateLoop = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("updateAddButton"), userInfo: nil, repeats:true);
-        
-        // Prompt for a manga
-        startPrompt();
     }
     
     // Updates the add buttons enabled state

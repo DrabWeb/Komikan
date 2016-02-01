@@ -163,6 +163,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     }
     
     func actOnPreferences() {
+        // Print to the log that we are acting upon preferences
+        print("Acting On Preferences");
+        
         // Hide/show the Add From EH Menu Item depending on if we have l-lewd... mode enabled
         addFromEHMenuItem.hidden = !preferencesKepper.llewdModeEnabled;
     }
@@ -201,7 +204,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         // Set the windows level
         darkenBackgroundWindowController.window?.level--;
         
-        // Fade out the darken. If you dont do this, the first time you toggle distraction free mode it will only show and not fade in
+        // Fade out the darken. If you dont do this, the first time you toggle distraction free mode it will only show and not fade in(This however outputs a long error starting with "unrecognized selector sent to instance". If you see it, ignore it)
         fadeOutDarken();
     }
     
@@ -265,14 +268,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         // Load the preferences
         loadPreferences();
         
+        // Act upon the loaded preferences
+        actOnPreferences();
+        
         // Setup the window thats lets us dim the background
         setupBackgroundDarkenWindow();
         
         // Setup the darken background menu items action
         toggleBackgroundDarkenMenuItem.action = Selector("toggleDarken");
-        
-        // Subscribe to the KMPreferencesController.Modified notification, so that we can act upon our changed preferences
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "actOnPreferences", name:"KMPreferencesController.Modified", object: nil);
         
         // Get the default notification center
         let nc = NSUserNotificationCenter.defaultUserNotificationCenter();

@@ -9,6 +9,7 @@
 import Cocoa
 
 class KMMangaGridController: NSObject {
+    
     // The array controller for the collection view
     @IBOutlet weak var arrayController : NSArrayController!;
     
@@ -20,6 +21,9 @@ class KMMangaGridController: NSObject {
     
     // An array to store all of the manga we are displaying in the collection view
     var manga : NSMutableArray = NSMutableArray();
+    
+    // Are we showing lewd manga?
+    var showingLewdManga : Bool = false;
     
     override func awakeFromNib() {
         // Subscribe to the MangaGrid.Resort notification
@@ -93,8 +97,8 @@ class KMMangaGridController: NSObject {
             }
         }
         else {
-            // If we havent already started searching...
-            if(!searching) {
+            // If we havent already started searching and are not showing l-lewd... manga...
+            if(!searching && !showingLewdManga) {
                 // Store all the current manga in oldItems
                 oldItems = (arrayController.arrangedObjects as? [KMMangaGridItem])!;
             }

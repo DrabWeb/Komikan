@@ -55,6 +55,9 @@ class KMEHViewController: NSViewController {
     
     // When we intreact with addFromEXTextField...
     @IBAction func addFromEXTextFieldInteracted(sender: AnyObject) {
+        // Dismiss the popover
+        self.dismissController(self);
+        
         // For every URL in the add from EX text field (Seperated ast each space)...
         for(_, currentURL) in addFromEXTextField.stringValue.componentsSeparatedByString(" ").enumerate() {
             // Add the current URL to the download queue
@@ -67,6 +70,9 @@ class KMEHViewController: NSViewController {
     
     // When we interact with addFromEXButton...
     @IBAction func addFromEXButtonInteracted(sender: AnyObject) {
+        // Dismiss the popover
+        self.dismissController(self);
+        
         // For every URL in the add from EX text field (Seperated ast each space)...
         for(_, currentURL) in addFromEXTextField.stringValue.componentsSeparatedByString(" ").enumerate() {
             // Add the current URL to the download queue

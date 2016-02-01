@@ -1,0 +1,9 @@
+#!/bin/bash
+# Set a standard path, with homebrew support
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+
+# cd to the app bundles resources directory
+cd "$2"
+
+./exinfo $1
+./exdownload $1 regular

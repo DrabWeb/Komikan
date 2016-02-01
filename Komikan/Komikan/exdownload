@@ -1,0 +1,171 @@
+#!/bin/bash
+ 
+# Make sure you palce your ExHentai cookies in ~/Library/Application Support/Komikan/excookies (In the document.cookie format)
+cookies=$(cat $HOME/Library/Application\ Support/Komikan/excookies)
+ 
+# Time to wait between downloading pages and between galleries. Without this exhentai will eventually block you
+# Set this higher if having trouble
+page_sleep_time=1
+gallery_sleep_time=1m
+
+print_usage() {
+    echo "First arguement should be a link to a gallery or search page"
+    echo  "Example usage: exdownload http://exhentai.org/g/845193/ac3bc49652/"
+}
+ 
+exget() {
+    curl -b "$cookies" -o $2 "$1"
+    #wget "$1" --load-cookies="$cookies" -O $2
+}
+ 
+zipup() {
+    cd "/tmp/edownload/$gallery_name"
+    zip -q -r "$gallery_name".cbz ./*
+
+    move
+}
+
+move() {
+    mkdir -p ~/Library/Application\ Support/Komikan/EH/
+    mv "/tmp/edownload/$gallery_name/$gallery_name.cbz" ~/Library/Application\ Support/Komikan/EH/
+
+    echo "$gallery_name" > ~/Library/Application\ Support/Komikan/newehpath
+}
+
+exhentai_dl() {
+    # gallery_page=$(mktemp --suffix=.exhentai)
+    # preview_links=$(mktemp --suffix=.exhentai)
+    # cache_preview_link=$(mktemp --suffix=.exhentai)
+    # image_tuples=$(mktemp --suffix=.exhentai)
+
+    mkdir /tmp/edownload/
+
+    cd /tmp/edownload/
+
+    touch /tmp/edownload/gallery_page
+    touch /tmp/edownload/preview_links
+    touch /tmp/edownload/cache_preview_link
+    touch /tmp/edownload/image_tuples
+
+    gallery_page="/tmp/edownload/gallery_page"
+    preview_links="/tmp/edownload/preview_links"
+    cache_preview_link="/tmp/edownload/cache_preview_link"
+    image_tuples="/tmp/edownload/image_tuples"
+
+    exget $1 $gallery_page
+   
+    gallery_name=$(grep -o 'id="gn".*</h1><h1' $gallery_page | sed -e 's/id="gn">//g' -e 's/<\/h1><h1//g')
+   
+    echo $gallery_name
+    mkdir -p "$gallery_name"
+    pushd "$gallery_name"
+   
+    amount_of_gallery_pages=$(grep -o 'false">[0-9]*<' $gallery_page | tail -n 1 | sed s/[^0-9]//g)
+   
+    for ((i=0; i<$amount_of_gallery_pages; i++)) ; do
+        exget $1?p=$i - | grep -o 'http://exhentai.org/s/[a-zA-Z0-9]*/[0-9]*-[0-9]*' >> $preview_links
+        sleep $page_sleep_time
+    done
+   
+    while read preview_link ; do
+        exget $preview_link $cache_preview_link
+       
+        if [ "$2" = "full" ]; then
+            image_link=$(grep -o 'http://exhentai.org/fullimg.php.*">D' $cache_preview_link | sed -e 's/amp;//g' -e 's/">D//g')
+        else        
+            image_link=$(grep -o 'http://[0-9].*style=' $cache_preview_link | sed -e 's/" style=//g' -e 's/amp;//g')
+        fi
+
+        # echo $image_link
+       
+        echo "$preview_link $image_link" >> $image_tuples
+        rm $cache_preview_link
+        sleep $page_sleep_time
+ 
+    done < $preview_links
+   
+    while read -u 3 image_tuple ; do
+        image_preview=$(echo $image_tuple | awk '{print $1}')
+        image=$(echo $image_tuple | awk '{print $2}')
+ 
+        if [[ $image == *"image.php?"* ]] ; then
+            filename="-O $(echo $image | grep -o n=.* | sed 's/n=//g')"
+        elif [[ $image == *"fullimg.php?"* ]] ; then
+                home_page=$(exget http://exhentai.org/home.php - | grep -o '[0-9]*</strong>.*</strong>. T' | sed 's/[^0-9]/ /g')
+                used_images=$(echo $home_page | awk '{print $1}')
+                image_limit=$(echo $home_page | awk '{print $2}')
+                image_limit=$((image_limit-5))
+                if [[ $used_images -ge $image_limit ]] ; then
+                    read -p $'Fullsize image limit exceeded. Go here to reset: http://exhentai.org/home.php\nPress enter when you have reset'
+                fi
+                filename="-O $(exget $image_preview - | grep -o 'stamp=[0-9]*-[a-z0-9]*/.*style=' | grep -o '/.*' | sed -e 's/\///g' -e 's/\" style=//g')"
+        else
+            filename=
+        fi
+
+        # echo "----- INFO -----"
+        # echo $image
+        # echo $myfilename
+        # echo "----------------"
+
+        myfilename=$(basename $(echo "${image%%\"*}"))
+        curl -b "$cookies" --connect-timeout 10 --retry 1 -o $myfilename $image
+        #wget --load-cookies="$cookies" --timeout=10 --tries=1 --quiet -O $myfilename $image
+       
+        # Retry downloading image if a H@H server is down (which isn't uncommon)
+        # This could probably be integrated here without breaking out into another loop, but I like keeping it contained
+       
+        if [[ $? != 0 ]] ; then
+            server=1
+            while true ; do
+                echo "Timeout failure on $image_preview"
+                retry_image=$(exget "$image_preview?nl=$server" - | grep -o 'http://[0-9].*style=' | sed -e 's/" style=//g' -e 's/amp;//g')
+                if [[ $retry_image == *"image.php?"* ]] ; then
+                    retry_filename="-O $(echo $retry_image | grep -o n=.* | sed 's/n=//g')"
+                else
+                    retry_filename=
+                fi
+                curl -b "$cookies" --connect-timeout 10 --retry 1 -o $retry_filename $retry_image
+                #wget --timeout=10 --tries=1 --quiet -q $retry_image $retry_filename
+                if [[ $? == 0 ]] ; then
+                    break
+                else
+                   let server+=1
+                fi
+            done
+        fi
+ 
+    done 3< $image_tuples
+
+    zipup
+
+    popd
+}
+ 
+trap 'rm -r /tmp/edownload/' EXIT
+ 
+if [[ $1 == *"exhentai.org/g/"* ]] ; then
+    exhentai_dl $1
+elif [[ $1 == *"exhentai.org/?"* ]] ; then
+    filter=$(echo $1 | grep -o f_.*)
+ 
+    amount_of_pages=$(exget $1 - | grep -o 'false">[0-9]*<' | tail -n 1 | sed s/[^0-9]//g)
+ 
+    # gallery_links=$(mktemp --suffix=.exhentai)
+
+    touch /tmp/edownload/gallery_links
+    gallery_links=$(echo "/tmp/edownload/gallery_links")
+   
+    for ((i=0; i<$amount_of_pages; i++)) ; do
+        exget "exhentai.org/?page=$i&$filter" - | grep -o 'http://exhentai.org/g/[0-9]*/[a-zA-Z0-9]*' >> $gallery_links
+    done
+   
+    while read gallery_link ; do
+        exhentai_dl $gallery_link
+        sleep $gallery_sleep_time
+    done < $gallery_links
+else
+    print_usage
+fi
+
+echo "Done!"
