@@ -386,6 +386,8 @@ class ViewController: NSViewController, NSTabViewDelegate {
                 mangaCollectionViewArray.addObject(currentManga);
             }
         }
+        
+        updateMangaGrid();
     }
     
     func tabView(tabView: NSTabView, didSelectTabViewItem tabViewItem: NSTabViewItem?) {

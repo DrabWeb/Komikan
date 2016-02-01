@@ -192,6 +192,15 @@
 			name = SwiftyJSON;
 			sourceTree = "<group>";
 		};
+		5D388A491C60083900E5DE7B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5DC3A8F01C5AB25E0058D253 /* KMGradientView.swift */,
+				5D9E07781C5E635500B35C91 /* KMDarkenView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		5D5A11771C370EDC00C7A6A5 /* Manga Grid */ = {
 			isa = PBXGroup;
 			children = (
@@ -324,15 +333,14 @@
 		5DBB0DFD1C36D9E400495985 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				5D388A491C60083900E5DE7B /* Views */,
 				5DBB0DFE1C36DA0000495985 /* KMFileUtilities.swift */,
 				5D9912101C46A5A6008E6591 /* KMCommandUtilities.swift */,
 				5D81258F1C4BEDB600E3B000 /* KMEnums.swift */,
 				5D2C37A81C4C3FA50089B7E1 /* KMExtensions.swift */,
 				5D2C37AA1C4C48070089B7E1 /* KMWindowDelegate.swift */,
-				5DC3A8F01C5AB25E0058D253 /* KMGradientView.swift */,
 				5D363FA41C5ABFB6004708FC /* KMEHDownloadController.swift */,
 				5DC23A891C5BBEFF00916751 /* KMImageFilterUtilities.swift */,
-				5D9E07781C5E635500B35C91 /* KMDarkenView.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
