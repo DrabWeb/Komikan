@@ -25,12 +25,15 @@ class KMMangaGridController: NSObject {
     /// An array to store all of the manga we are displaying in the collection view
     var manga : NSMutableArray = NSMutableArray();
     
-    /// Are we showing lewd manga?
+    /// Are we showing l-lewd... manga?
     var showingLewdManga : Bool = false;
     
     override func awakeFromNib() {
         // Subscribe to the MangaGrid.Resort notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "resort", name:"MangaGrid.Resort", object: nil);
+        
+        // Subscribe to the Application.PreferencesSaved notification
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "displayLewdMangaAppDelegate", name:"Application.PreferencesSaved", object: nil);
     }
     
     /// Removes gridItem from the manga grid
@@ -75,7 +78,7 @@ class KMMangaGridController: NSObject {
     /// Updates the manga grid to match the items in gridItems
     func updateGridToMatchGridItems() {
         // Remove all the grid items from the array controller
-        arrayController.removeObjects(arrayController.arrangedObjects as! [AnyObject]);
+        removeAllGridItems(false);
         
         // Add all the items in gridItems
         setGridToItems(gridItems);
@@ -86,12 +89,18 @@ class KMMangaGridController: NSObject {
     
     /// Shows all the items in objects to the manga grid
     func setGridToItems(objects : [KMMangaGridItem]) {
+        // Clear the grid
+        removeAllGridItems(false);
+        
         // Add objects to the manga grid
         arrayController.addObjects(objects);
+        
+        // Resort the grid
+        resort();
     }
     
-    /// Adds the given manga to the manga grid
-    func addManga(manga : KMManga) {
+    /// Adds the given manga to the manga grid, and redos the search / show/hide l-lewd... manga
+    func addManga(manga : KMManga, updateFilters : Bool) {
         // Print to the log that we are adding a manga to the grid and what its name is
         print("Adding manga \"" + manga.title + "\" to the manga grid");
         
@@ -109,25 +118,45 @@ class KMMangaGridController: NSObject {
         
         // Add the object
         addGridItem(newItem);
+        
+        // If we said to update the grid filters on add...
+        if(updateFilters) {
+            // Reload the l-lewd... manga filter
+            displayLewdMangaAppDelegate();
+            
+            // If we are searching
+            if(searching) {
+                // Redo the search so if the item doesnt match the query it gets hidden
+                searchFor(lastSearchText);
+            }
+        }
     }
     
     // A bool to say if we are currently searching
     var searching : Bool = false;
+    
+    var lastSearchText : String = "";
     
     // Stores all the items that match the search
     var searchItems : [KMMangaGridItem] = [];
     
     /// Searches the manga grid for the passed string, and updates it accordingly
     func searchFor(searchText : String) {
-        // Resort the grid
-        resort();
+        // Reset searchItems
+        searchItems.removeAll();
+        
+        // Set lastSearchText to the search text
+        lastSearchText = searchText;
         
         // If we arent searching for anything..
         if(searchText == "") {
             // If we have searched before...
             if(searching) {
-                removeAllGridItems(false);
+                // Restore the grid back to gridItems
                 updateGridToMatchGridItems();
+                
+                // Say we arent searching
+                searching = false;
             }
         }
         else {
@@ -232,6 +261,49 @@ class KMMangaGridController: NSObject {
             // Resort the grid
             resort();
         }
+    }
+    
+    // All the non l-lewd... manga
+    var nonLewdManga : [KMMangaGridItem] = [];
+    
+    /// Shows/hides all the l-lewd... manga based on show
+    func displayLewdManga(show : Bool) {
+        // Make sure nonLewdManga is empty
+        nonLewdManga.removeAll();
+        
+        // Set showingLewdManga to show
+        showingLewdManga = show;
+        
+        // If we said to show l-lewd... manga...
+        if(show) {
+            // Print to the log that we are showing l-lewd... manga
+            print("Showing l-lewd... manga");
+            
+            // Set the manga grid to show gridItems
+            setGridToItems(gridItems);
+        }
+        // If we said to show l-lewd... manga(B-but thats l-lewd...!)
+        else {
+            // Print to the log that we are hiding l-lewd... manga
+            print("Hiding l-lewd... manga");
+            
+            // For every item in gridItems...
+            for(_, currentItem) in gridItems.enumerate() {
+                // If the current item's manga isnt l-lewd...
+                if(!currentItem.manga.lewd) {
+                    // Add the current manga to the grid
+                    nonLewdManga.append(currentItem);
+                }
+            }
+            
+            // Show all items in nonLewdManga in the manga grid
+            setGridToItems(nonLewdManga);
+        }
+    }
+    
+    /// Shows/hides all the l-lewd... manga based on the preferences keeper in AppDelegate
+    func displayLewdMangaAppDelegate() {
+        displayLewdManga((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.llewdModeEnabled);
     }
     
     /// Resort the manga grid(Based on the last chosen sorting method)

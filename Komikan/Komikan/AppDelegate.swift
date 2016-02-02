@@ -168,6 +168,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         
         // Hide/show the Add From EH Menu Item depending on if we have l-lewd... mode enabled
         addFromEHMenuItem.hidden = !preferencesKepper.llewdModeEnabled;
+        
+        // Post the notification saying the preferences have been saved
+        NSNotificationCenter.defaultCenter().postNotificationName("Application.PreferencesSaved", object: nil);
     }
     
     // How much to darken the background

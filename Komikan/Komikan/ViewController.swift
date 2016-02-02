@@ -113,7 +113,16 @@ class ViewController: NSViewController, NSTabViewDelegate {
             // For every manga in the notifications manga array...
             for (_, currentManga) in ((notification.object as? [KMManga])?.enumerate())! {
                 // Add the current manga to the grid
-                mangaGridController.addManga(currentManga);
+                mangaGridController.addManga(currentManga, updateFilters: false);
+            }
+            
+            // Reload the l-lewd... manga filter
+            mangaGridController.displayLewdMangaAppDelegate();
+            
+            // If we are searching
+            if(mangaGridController.searching) {
+                // Redo the search so if the item doesnt match the query it gets hidden
+                mangaGridController.searchFor(mangaGridController.lastSearchText);
             }
         }
         else {
@@ -121,7 +130,7 @@ class ViewController: NSViewController, NSTabViewDelegate {
             print("Recieving manga \"" + ((notification.object as? KMManga)?.title)! + "\" from Add Manga popover");
             
             // Add the manga to the grid, and store the item in a new variable
-            mangaGridController.addManga((notification.object as? KMManga)!);
+            mangaGridController.addManga((notification.object as? KMManga)!, updateFilters: true);
         }
         
         // Stop addMangaViewController.addButtonUpdateLoop, so it stops eating resources when it doesnt need to
@@ -194,11 +203,14 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Show the window after 0.1 seconds
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("showWindowAlpha"), userInfo: nil, repeats: false);
         
-        // Subscribe to the edit manga popovers remove function
+        // Subscribe to the edit manga popovers remove notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "removeSelectItemFromMangaGrid:", name:"KMEditMangaViewController.Remove", object: nil);
         
-        // Subscribe to the global redraw manga grid function
+        // Subscribe to the global redraw manga grid notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateMangaGrid", name:"ViewController.UpdateMangaGrid", object: nil);
+        
+        // Subscribe to the global application will quit notification
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "saveManga", name:"Application.WillQuit", object: nil);
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
@@ -256,7 +268,16 @@ class ViewController: NSViewController, NSTabViewDelegate {
             
             for (_, currentManga) in ((notification.object as? [KMManga])?.enumerate())! {
                 // Add the current manga to the grid
-                mangaGridController.addManga(currentManga);
+                mangaGridController.addManga(currentManga, updateFilters: false);
+            }
+            
+            // Reload the l-lewd... manga filter
+            mangaGridController.displayLewdMangaAppDelegate();
+            
+            // If we are searching
+            if(mangaGridController.searching) {
+                // Redo the search so if the item doesnt match the query it gets hidden
+                mangaGridController.searchFor(mangaGridController.lastSearchText);
             }
         }
         else {
@@ -264,7 +285,7 @@ class ViewController: NSViewController, NSTabViewDelegate {
             print("Recieving manga \"" + ((notification.object as? KMManga)?.title)! + "\" from Add From EH Manga popover");
             
             // Add the manga to the grid
-            mangaGridController.addManga((notification.object as? KMManga)!);
+            mangaGridController.addManga((notification.object as? KMManga)!, updateFilters: true);
         }
         
         // Stop the loop so we dont take up precious memory
@@ -413,11 +434,6 @@ class ViewController: NSViewController, NSTabViewDelegate {
         didSet {
             // Update the view, if already loaded.
         }
-    }
-    
-    override func viewDidDisappear() {
-        // Save the manga in the grid
-        saveManga();
     }
 }
 
