@@ -10,19 +10,22 @@ import Cocoa
 
 class KMMangaGridController: NSObject {
     
-    // The array controller for the collection view
+    /// The array controller for the collection view
     @IBOutlet weak var arrayController : NSArrayController!;
     
-    // The current way we are sorting the grid
+    /// The items for the manga collection view. THIS IS NOT TO BE MODIFIED DIRECTLY
+    var gridItems : [KMMangaGridItem] = [];
+    
+    /// The current way we are sorting the grid
     var currentSortOrder : KMMangaGridSortType = KMMangaGridSortType.Title;
     
-    // Are we currently ascending the grids sort?
+    /// Are we currently ascending the grids sort?
     var currentSortAscending : Bool = false;
     
-    // An array to store all of the manga we are displaying in the collection view
+    /// An array to store all of the manga we are displaying in the collection view
     var manga : NSMutableArray = NSMutableArray();
     
-    // Are we showing lewd manga?
+    /// Are we showing lewd manga?
     var showingLewdManga : Bool = false;
     
     override func awakeFromNib() {
@@ -30,7 +33,64 @@ class KMMangaGridController: NSObject {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "resort", name:"MangaGrid.Resort", object: nil);
     }
     
-    // Adds a given manga to the array
+    /// Removes gridItem from the manga grid
+    func removeGridItem(gridItem : KMMangaGridItem) {
+        // For every item in gridItems...
+        for(currentIndex, currentItem) in gridItems.enumerate() {
+            // If the current item is the same as the grid item we want to remove...
+            if(currentItem == gridItem) {
+                // Remove the object at the current index from gridItems
+                gridItems.removeAtIndex(currentIndex);
+                
+                // Remove the current object from the array controller
+                arrayController.removeObject(currentItem);
+            }
+        }
+        
+        // Resort the grid
+        resort();
+    }
+    
+    /// Adds the passed KMMangaGridItem to the manga grid
+    func addGridItem(gridItem : KMMangaGridItem) {
+        // Append gridItem to gridItems
+        gridItems.append(gridItem);
+        
+        // Add gridItem to the array controller
+        arrayController.addObject(gridItem);
+    }
+    
+    /// Clears the entire manga grid (If clearGridItems is true, it also clears gridItems)
+    func removeAllGridItems(clearGridItems : Bool) {
+        // Remove all objects from the array controller
+        arrayController.removeObjects(arrayController.arrangedObjects as! [AnyObject]);
+        
+        // If we said to clear gridItems...
+        if(clearGridItems) {
+            // Clear gridItems
+            gridItems.removeAll();
+        }
+    }
+    
+    /// Updates the manga grid to match the items in gridItems
+    func updateGridToMatchGridItems() {
+        // Remove all the grid items from the array controller
+        arrayController.removeObjects(arrayController.arrangedObjects as! [AnyObject]);
+        
+        // Add all the items in gridItems
+        setGridToItems(gridItems);
+        
+        // Resort the grid
+        resort();
+    }
+    
+    /// Shows all the items in objects to the manga grid
+    func setGridToItems(objects : [KMMangaGridItem]) {
+        // Add objects to the manga grid
+        arrayController.addObjects(objects);
+    }
+    
+    /// Adds the given manga to the manga grid
     func addManga(manga : KMManga) {
         // Print to the log that we are adding a manga to the grid and what its name is
         print("Adding manga \"" + manga.title + "\" to the manga grid");
@@ -48,34 +108,17 @@ class KMMangaGridController: NSObject {
         newItem.manga = manga;
         
         // Add the object
-        arrayController.addObject(newItem);
-    }
-    
-    func willQuit() {
-        // Remove all items from the array controller
-        arrayController.removeObjects(arrayController.arrangedObjects as! [AnyObject]);
-        
-        // Say we arent searching
-        searching = false;
-        
-        // Let the collection view show our manga again
-        arrayController.addObjects(oldItems);
-        
-        // Remove the observer so we dont get duplicate calls
-        NSNotificationCenter.defaultCenter().removeObserver(self);
+        addGridItem(newItem);
     }
     
     // A bool to say if we are currently searching
     var searching : Bool = false;
     
-    // An array to store all the manga we have so we can restore it when we are done searching
-    var oldItems : [KMMangaGridItem] = [];
+    // Stores all the items that match the search
+    var searchItems : [KMMangaGridItem] = [];
     
-    // Searches the manga grid for the passed string, and updates it accordingly
+    /// Searches the manga grid for the passed string, and updates it accordingly
     func searchFor(searchText : String) {
-        // Subscribe to AppDelegate's WillQuit notification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "willQuit", name:"Application.WillQuit", object: nil);
-        
         // Resort the grid
         resort();
         
@@ -83,26 +126,11 @@ class KMMangaGridController: NSObject {
         if(searchText == "") {
             // If we have searched before...
             if(searching) {
-                // Remove all items from the array controller
-                arrayController.removeObjects(arrayController.arrangedObjects as! [AnyObject]);
-                
-                // Say we arent searching
-                searching = false;
-                
-                // For each of the manga we have in oldItems...
-                for (_, currentItem) in oldItems.enumerate() {
-                    // Add the current item as a KMMangaGridItem to the manga grid array
-                    arrayController.addObject(currentItem);
-                }
+                removeAllGridItems(false);
+                updateGridToMatchGridItems();
             }
         }
         else {
-            // If we havent already started searching and are not showing l-lewd... manga...
-            if(!searching && !showingLewdManga) {
-                // Store all the current manga in oldItems
-                oldItems = (arrayController.arrangedObjects as? [KMMangaGridItem])!;
-            }
-            
             // Say we are searching
             searching = true;
             
@@ -110,7 +138,7 @@ class KMMangaGridController: NSObject {
             print("Searching for \"" + searchText + "\"");
             
             // Remove all items from the array controller
-            arrayController.removeObjects(arrayController.arrangedObjects as! [AnyObject]);
+            removeAllGridItems(false);
             
             // The tags we are searching for, if any
             var searchTags : [String] = [];
@@ -128,7 +156,7 @@ class KMMangaGridController: NSObject {
             }
             
             // For every item in the manga grid...
-            for (_, currentItem) in oldItems.enumerate() {
+            for (_, currentItem) in gridItems.enumerate() {
                 // Do we have matching tags?
                 var matchingTags : Bool = false;
                 
@@ -179,33 +207,40 @@ class KMMangaGridController: NSObject {
                         // If we have matching tags and title...
                         if(matchingTags && matchingTitle) {
                             // Add the current object
-                            arrayController.addObject(currentItem);
+                            searchItems.append(currentItem);
                         }
                         // If we have no search tags...
                         else if(searchTags.count == 0) {
                             // If there is a matching title...
                             if(matchingTitle) {
                                 // Add the current object
-                                arrayController.addObject(currentItem);
+                                searchItems.append(currentItem);
                             }
                         }
                     }
                     // If we only have matching tags...
                     else if(matchingTags) {
                         // Add the current object
-                        arrayController.addObject(currentItem);
+                        searchItems.append(currentItem);
                     }
                 }
             }
+            
+            // Set the grid to show all the items that match the search
+            setGridToItems(searchItems);
+            
+            // Resort the grid
+            resort();
         }
     }
     
+    /// Resort the manga grid(Based on the last chosen sorting method)
     func resort() {
         // Call the rearrange function on the array
         arrayController.rearrangeObjects();
     }
     
-    // Sorts the manga grid by sortType and ascends/decends based on ascending
+    /// Sorts the manga grid by sortType and ascends/decends based on ascending
     func sort(sortType : KMMangaGridSortType, ascending : Bool) {
         // Print to the log how we are sorting
         print("Sorting manga grid by " + String(sortType));

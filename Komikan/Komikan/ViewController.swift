@@ -276,8 +276,8 @@ class ViewController: NSViewController, NSTabViewDelegate {
     
     // Deletes all the manga in the manga grid array controller
     func deleteAllManga() {
-        // Remove all the objects in mangaCollectionViewArray
-        mangaCollectionViewArray.removeObjects(mangaCollectionViewArray.arrangedObjects as! [AnyObject]);
+        // Remove all the objects from the collection view
+        mangaGridController.removeAllGridItems(true);
     }
     
     // Removes the selected item from the manga grid
@@ -302,7 +302,7 @@ class ViewController: NSViewController, NSTabViewDelegate {
         }
         
         // Remove this item from the collection view
-        mangaCollectionViewArray.removeObjectsAtArrangedObjectIndexes(NSIndexSet(index: mangaCollectionView.selectionIndexes.lastIndex));
+        mangaGridController.removeGridItem((mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])![mangaCollectionView.selectionIndexes.lastIndex]);
     }
     
     func toggleInfoBar() {
@@ -366,8 +366,8 @@ class ViewController: NSViewController, NSTabViewDelegate {
     
     // Saves the manga in the grid
     func saveManga() {
-        // Create a NSKeyedArchiver data with the manga array controllers objects
-        let data = NSKeyedArchiver.archivedDataWithRootObject(mangaCollectionViewArray.arrangedObjects);
+        // Create a NSKeyedArchiver data with the manga grid controllers grid items
+        let data = NSKeyedArchiver.archivedDataWithRootObject(mangaGridController.gridItems);
         
         // Set the standard user defaults mangaArray key to that data
         NSUserDefaults.standardUserDefaults().setObject(data, forKey: "mangaArray");
@@ -383,10 +383,11 @@ class ViewController: NSViewController, NSTabViewDelegate {
             // For every KMMangaGridItem in the saved manga grids items...
             for (_, currentManga) in (NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [KMMangaGridItem]).enumerate() {
                 // Add the current object to the manga grid
-                mangaCollectionViewArray.addObject(currentManga);
+                mangaGridController.addGridItem(currentManga);
             }
         }
         
+        // Update the grid
         updateMangaGrid();
     }
     
