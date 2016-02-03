@@ -99,6 +99,9 @@ class KMAddMangaViewController: NSViewController {
             // Set the new mangas cover image
             newManga.coverImage = coverImageView.image!;
             
+            // Resize the cover image to be compressed for faster loading
+            newManga.coverImage = newManga.coverImage.resizeToHeight(400);
+            
             // Set the new mangas title
             newManga.title = titleTextField.stringValue;
             
@@ -240,6 +243,9 @@ class KMAddMangaViewController: NSViewController {
             
             // Set the cover image selecting views image to firstImage
             manga.coverImage = firstImage;
+            
+            // Resize the cover image to be compressed for faster loading
+            manga.coverImage = manga.coverImage.resizeToHeight(400);
             
             // Print the image to the log(It for some reason needs this print or it wont work)
             print(firstImage);

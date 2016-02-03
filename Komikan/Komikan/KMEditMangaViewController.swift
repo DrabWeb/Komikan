@@ -171,6 +171,12 @@ class KMEditMangaViewController: NSViewController {
             manga.tags.append(currentTag);
         }
         
+        // If the cover images height isnt the compressed one(400)...
+        if(manga.coverImage.size.height != 400) {
+            // Resize the cover image to be compressed for faster loading
+            manga.coverImage = manga.coverImage.resizeToHeight(400);
+        }
+        
         // Post the notification back to the collection view item so it can deal with it
         NSNotificationCenter.defaultCenter().postNotificationName("KMEditMangaViewController.Saving", object: manga);
     }

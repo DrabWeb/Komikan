@@ -40,6 +40,7 @@
 		5D9E07791C5E635500B35C91 /* KMDarkenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9E07781C5E635500B35C91 /* KMDarkenView.swift */; };
 		5D9E077C1C5E648F00B35C91 /* KMSidebarSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9E077B1C5E648F00B35C91 /* KMSidebarSplitView.swift */; };
 		5DBB0DFF1C36DA0000495985 /* KMFileUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBB0DFE1C36DA0000495985 /* KMFileUtilities.swift */; };
+		5DBC7C6B1C629BBC00FAD428 /* KMImageUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBC7C6A1C629BBC00FAD428 /* KMImageUtilities.swift */; };
 		5DC23A8A1C5BBEFF00916751 /* KMImageFilterUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC23A891C5BBEFF00916751 /* KMImageFilterUtilities.swift */; };
 		5DC3A8F11C5AB25E0058D253 /* KMGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC3A8F01C5AB25E0058D253 /* KMGradientView.swift */; };
 		5DC97D691C3EFF8200CC1006 /* KMMangaGridCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC97D681C3EFF8200CC1006 /* KMMangaGridCollectionItem.swift */; };
@@ -106,6 +107,7 @@
 		5D9E077B1C5E648F00B35C91 /* KMSidebarSplitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMSidebarSplitView.swift; sourceTree = "<group>"; };
 		5DBB0DFE1C36DA0000495985 /* KMFileUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMFileUtilities.swift; sourceTree = "<group>"; };
 		5DBB0E061C36E2C700495985 /* Komikan-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Komikan-Bridging-Header.h"; sourceTree = "<group>"; };
+		5DBC7C6A1C629BBC00FAD428 /* KMImageUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMImageUtilities.swift; sourceTree = "<group>"; };
 		5DC23A891C5BBEFF00916751 /* KMImageFilterUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMImageFilterUtilities.swift; sourceTree = "<group>"; };
 		5DC3A8F01C5AB25E0058D253 /* KMGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMGradientView.swift; sourceTree = "<group>"; };
 		5DC97D681C3EFF8200CC1006 /* KMMangaGridCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaGridCollectionItem.swift; sourceTree = "<group>"; };
@@ -341,6 +343,7 @@
 				5D2C37AA1C4C48070089B7E1 /* KMWindowDelegate.swift */,
 				5D363FA41C5ABFB6004708FC /* KMEHDownloadController.swift */,
 				5DC23A891C5BBEFF00916751 /* KMImageFilterUtilities.swift */,
+				5DBC7C6A1C629BBC00FAD428 /* KMImageUtilities.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -573,6 +576,7 @@
 				5D1388CC1C3836C200B5EAAD /* KMReaderPanelView.swift in Sources */,
 				5D363FA51C5ABFB6004708FC /* KMEHDownloadController.swift in Sources */,
 				5DC23A8A1C5BBEFF00916751 /* KMImageFilterUtilities.swift in Sources */,
+				5DBC7C6B1C629BBC00FAD428 /* KMImageUtilities.swift in Sources */,
 				5D9912111C46A5A6008E6591 /* KMCommandUtilities.swift in Sources */,
 				5D5DBEFA1C358BD3004D8C5D /* KMMangaGridItem.swift in Sources */,
 				5DC97D691C3EFF8200CC1006 /* KMMangaGridCollectionItem.swift in Sources */,

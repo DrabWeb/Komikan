@@ -116,6 +116,21 @@ class ViewController: NSViewController, NSTabViewDelegate {
                 mangaGridController.addManga(currentManga, updateFilters: false);
             }
             
+            // Create the new notification to tell the user the import has finished
+            let finishedImportNotification = NSUserNotification();
+            
+            // Set the title
+            finishedImportNotification.title = "Komikan";
+            
+            // Set the informative text
+            finishedImportNotification.informativeText = "Finished importing \"" + (notification.object as? [KMManga])![0].series + "\"";
+            
+            // Set the notifications identifier to be an obscure string, so we can show multiple at once
+            finishedImportNotification.identifier = NSUUID().UUIDString;
+            
+            // Deliver the notification
+            NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(finishedImportNotification);
+            
             // Reload the l-lewd... manga filter
             mangaGridController.displayLewdMangaAppDelegate();
             
