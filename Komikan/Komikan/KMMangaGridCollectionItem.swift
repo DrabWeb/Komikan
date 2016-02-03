@@ -20,6 +20,15 @@ class KMMangaGridCollectionItem: NSCollectionViewItem {
             openPopover();
         }
         
+        // Get the modifier value and store it in a temporary variable
+        let modifierValue : Int = Int((NSApplication.sharedApplication().delegate as! AppDelegate).modifierValue);
+        
+        // If we arent holding CMD or Shift...
+        if(!(modifierValue == 1048840 || modifierValue == 131330)) {
+            // Deselect all the items
+            self.collectionView.deselectAll(self);
+        }
+        
         // Select this item
         self.selected = true;
     }

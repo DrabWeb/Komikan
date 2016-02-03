@@ -59,6 +59,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     // The download controller for downloading from E-Hentai and ExHentai
     var ehDownloadController : KMEHDownloadController = KMEHDownloadController();
     
+    /// An Int that indicates what modifier keys are being held(These are defined by NSEvent, not me)
+    var modifierValue : Int = 0;
+    
     // Opens the specified manga in the reader at the specified page
     func openManga(manga : KMManga, page : Int) {
         // Get the main storyboard
@@ -260,6 +263,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         darkenBackgroundWindowController.window?.orderBack(self);
     }
     
+    func modifierKeyEventHandler(theEvent : NSEvent) -> NSEvent {
+        // Set modifierValue to the raw modifier key values
+        self.modifierValue = Int(theEvent.modifierFlags.rawValue);
+        
+        // Return the event(Required for some reason)
+        return theEvent;
+    }
+    
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         // Insert code here to initialize your application
         // Make sure we have an application support folder
@@ -285,6 +296,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         
         // Set its delegate to this class
         nc.delegate = self;
+        
+        // Subscribe to the modifier key changed event
+        NSEvent.addLocalMonitorForEventsMatchingMask(NSEventMask.FlagsChangedMask, handler: modifierKeyEventHandler);
     }
     
     internal func userNotificationCenter(center: NSUserNotificationCenter, shouldPresentNotification notification: NSUserNotification) -> Bool {
