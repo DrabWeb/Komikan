@@ -142,6 +142,7 @@ class KMMangaGridController: NSObject {
     
     /// Searches the manga grid for the passed string, and updates it accordingly
     func searchFor(searchText : String) {
+        // RIP old search, you werent good enough. 2016-2016
         // Reset searchItems
         searchItems.removeAll();
         
@@ -169,89 +170,210 @@ class KMMangaGridController: NSObject {
             // Remove all items from the array controller
             removeAllGridItems(false);
             
-            // The tags we are searching for, if any
-            var searchTags : [String] = [];
+            /// The title search content(If we search for a title)
+            var titleSearch : String = "";
             
-            // The search tags direct value
-            var searchTagsUnsplit : String = "";
+            /// The series search content(If we search for a series)
+            var seriesSearch : String = "";
             
-            // substring between tags: and ;
-            if let startRange = searchText.rangeOfString("tags:"), endRange = searchText.rangeOfString(";") where startRange.endIndex <= endRange.startIndex {
-                // Set searchTagsUnsplit to the text between tags: and ;
-                searchTagsUnsplit = searchText[startRange.endIndex..<endRange.startIndex];
-                
-                // Set search tags to searchTagsUnsplit split at every ", "
-                searchTags = searchTagsUnsplit.componentsSeparatedByString(", ");
+            /// The artist search content(If we search for a artist)
+            var artistSearch : String = "";
+            
+            /// The writer search content(If we search for a writer)
+            var writerSearch : String = "";
+            
+            /// The tags search content(If we search for a tags)(Already split into an array)
+            var tagsSearch : [String] = [];
+            
+            /// The search string without the possible ; on the end
+            var cleanedSearchText : String = searchText;
+            
+            // If the last character in the search string is a ;...
+            if(cleanedSearchText.characters.last! == ";") {
+                // Remove the last character of the string(Why does Swift make you do this like this?)
+                cleanedSearchText = cleanedSearchText.substringToIndex(cleanedSearchText.endIndex.predecessor());
             }
             
-            // For every item in the manga grid...
-            for (_, currentItem) in gridItems.enumerate() {
-                // Do we have matching tags?
+            /// Tjhe search string split at every "; "
+            let searchStringSplit : [String] = cleanedSearchText.componentsSeparatedByString("; ");
+            
+            // Print the split search string
+            print("Search string split at every \"; \": " + String(searchStringSplit));
+            
+            // For every item in the split search string
+            for(_, currentString) in searchStringSplit.enumerate() {
+                // Switch for the first part of the current search item(The type(title, writer, tags, ETC.))
+                switch currentString.componentsSeparatedByString(":").first! {
+                    // If its title...
+                    case "title":
+                        // Set the appropriate variable to the current strings search content
+                        titleSearch = currentString.componentsSeparatedByString(":").last!;
+                        break;
+                    // If its series...
+                    case "series":
+                        // Set the appropriate variable to the current strings search content
+                        seriesSearch = currentString.componentsSeparatedByString(":").last!;
+                        break;
+                    // If its artist...
+                    case "artist":
+                        // Set the appropriate variable to the current strings search content
+                        artistSearch = currentString.componentsSeparatedByString(":").last!;
+                        break;
+                    // If its writer...
+                    case "writer":
+                        // Set the appropriate variable to the current strings search content
+                        writerSearch = currentString.componentsSeparatedByString(":").last!;
+                        break;
+                    // If its tags...
+                    case "tags":
+                        // Set the appropriate variable to the current strings search content
+                        tagsSearch = currentString.componentsSeparatedByString(":").last!.componentsSeparatedByString(", ");
+                        break;
+                    // If it is one that we dont have...
+                    default:
+                        // Print to the log that it didnt match any types we search by
+                        print("Did not match any search types");
+                        break;
+                }
+            }
+            
+            /// Did we search by a title?
+            let searchedByTitle : Bool = (titleSearch != "");
+            
+            /// Did we search by a series?
+            let searchedBySeries : Bool = (seriesSearch != "");
+            
+            /// Did we search by an artist?
+            let searchedByArtist : Bool = (artistSearch != "");
+            
+            /// Did we search by a writer?
+            let searchedByWriter : Bool = (writerSearch != "");
+            
+            /// Did we search by tags?
+            let searchedByTags : Bool = (tagsSearch != []);
+            
+            // For every manga we have...
+            for(_, currentItem) in gridItems.enumerate() {
+                /// Does this manga overall match the search?
+                var matching : Bool = false;
+                
+                /// Do we have a matching title?
+                var matchingTitle : Bool = false;
+                
+                /// Do we have a matching writer?
+                var matchingSeries : Bool = false;
+                
+                // Do we have a matching artist?
+                var matchingArtist : Bool = false;
+                
+                /// Do we have a matching writer?
+                var matchingWriter : Bool = false;
+                
+                /// Do we have matching tags?
                 var matchingTags : Bool = false;
                 
-                // How maby mtahcing tags we had
-                var matchingTagCount : Int = 0;
-                
-                // For every tag in the current manga...
-                for (_, currentSearchTag) in searchTags.enumerate() {
-                    // For every tag we are searching for...
-                    for (_, currentTag) in currentItem.manga.tags.enumerate() {
-                        // If the two tags match...
-                        if(currentTag == currentSearchTag) {
-                            // Say we have matching tags
-                            matchingTags = true;
-                            
-                            // Add one to the matching tag count
-                            matchingTagCount++;
-                        }
+                // If we searched by title...
+                if(searchedByTitle) {
+                    // If the current items title contain the title search... (In lowercase to be case insensitive)
+                    if(currentItem.manga.title.lowercaseString.containsString(titleSearch.lowercaseString)) {
+                        // Say there is a matching title
+                        matchingTitle = true;
                     }
                 }
                 
-                // If we have less matching tags then we searched for...
-                if(matchingTagCount < searchTags.count) {
-                    // Say that the tags didnt match
-                    matchingTags = false;
-                }
-                
-                // The search string, but without the tags:;
-                var searchStringWithoutTags : String = searchText.stringByReplacingOccurrencesOfString("tags:" + searchTagsUnsplit + ";", withString: "").lowercaseString;
-                
-                // If we actually did a title search...
-                if(searchStringWithoutTags != "") {
-                    // If the last character in searchStringWithoutTags is a space...
-                    if(searchStringWithoutTags.substringFromIndex(searchStringWithoutTags.characters.endIndex.predecessor()) == " ") {
-                        // Remove the last character
-                        searchStringWithoutTags.removeAtIndex(searchStringWithoutTags.endIndex.predecessor());
+                // If we searched by series...
+                if(searchedBySeries) {
+                    // If the current items series contain the series search... (In lowercase to be case insensitive)
+                    if(currentItem.manga.series.lowercaseString.containsString(seriesSearch.lowercaseString)) {
+                        // Say there is a matching series
+                        matchingSeries = true;
                     }
                 }
                 
-                // Do we have a matching title?
-                let matchingTitle : Bool = currentItem.title.lowercaseString.containsString(searchStringWithoutTags);
+                // If we searched by artist...
+                if(searchedByArtist) {
+                    // If the current items artist contain the artist search... (In lowercase to be case insensitive)
+                    if(currentItem.manga.artist.lowercaseString.containsString(artistSearch.lowercaseString)) {
+                        // Say there is a matching artist
+                        matchingArtist = true;
+                    }
+                }
                 
-                // This was terrible to program, 0/10 would not recommend
-                // If the current items title includes the search string or has a matching tag...
-                if(currentItem.title.lowercaseString.containsString(searchStringWithoutTags) || matchingTags) {
-                    // If we did actually search for a title...
-                    if(searchStringWithoutTags != "") {
-                        // If we have matching tags and title...
-                        if(matchingTags && matchingTitle) {
-                            // Add the current object
-                            searchItems.append(currentItem);
-                        }
-                        // If we have no search tags...
-                        else if(searchTags.count == 0) {
-                            // If there is a matching title...
-                            if(matchingTitle) {
-                                // Add the current object
-                                searchItems.append(currentItem);
+                // If we searched by writer...
+                if(searchedByWriter) {
+                    // If the current items writer contain the writer search... (In lowercase to be case insensitive)
+                    if(currentItem.manga.artist.lowercaseString.containsString(writerSearch.lowercaseString)) {
+                        // Say there is a matching writer
+                        matchingWriter = true;
+                    }
+                }
+                
+                // If we searched by tags...
+                if(searchedByTags) {
+                    /// How many matching tags do we have?
+                    var matchingTagCount : Int = 0;
+                    
+                    // For every tag in the current items tags...
+                    for(_, currentTag) in currentItem.manga.tags.enumerate() {
+                        // For every tag in the search tags....
+                        for(_, currentSearchTag) in tagsSearch.enumerate() {
+                            // If the current tag matches the current search tag... (In lowercase to be case insensitive)
+                            if(currentTag.lowercaseString.containsString(currentSearchTag.lowercaseString)) {
+                                // Say we have matching tags
+                                matchingTags = true;
+                                
+                                // Add one to the matching tag count
+                                matchingTagCount++;
                             }
                         }
                     }
-                    // If we only have matching tags...
-                    else if(matchingTags) {
-                        // Add the current object
-                        searchItems.append(currentItem);
+                    
+                    // If the amount of matching tags is less than the search tags count...
+                    if(matchingTagCount < tagsSearch.count) {
+                        // Say the tags dont match
+                        matchingTags = false;
                     }
+                }
+                
+                // Example search
+                // title:v007; series:Yuru Yuri; artist:namori; writer:namori; tags:school, comedy;
+                
+                // If we didnt search by title...
+                if(!searchedByTitle) {
+                    // Say the title matched
+                    matchingTitle = true;
+                }
+                // If we didnt search by series...
+                if(!searchedBySeries) {
+                    // Say the series matched
+                    matchingSeries = true;
+                }
+                // If we didnt search by artist...
+                if(!searchedByArtist) {
+                    // Say the artist matched
+                    matchingArtist = true;
+                }
+                // If we didnt search by writer...
+                if(!searchedByWriter) {
+                    // Say we searched by writer
+                    matchingWriter = true;
+                }
+                // If we didnt search by tags...
+                if(!searchedByTags) {
+                    // Say the tags matched
+                    matchingTags = true;
+                }
+                
+                // If everything matched...
+                if(matchingTitle && matchingSeries && matchingArtist && matchingWriter && matchingTags) {
+                    // Say the manga passed, and matches everything
+                    matching = true;
+                }
+                
+                // If the manga matched...
+                if(matching) {
+                    // Add this manga to the search items
+                    searchItems.append(currentItem);
                 }
             }
             
