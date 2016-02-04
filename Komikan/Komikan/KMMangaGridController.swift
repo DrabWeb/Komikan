@@ -37,7 +37,7 @@ class KMMangaGridController: NSObject {
     }
     
     /// Removes gridItem from the manga grid
-    func removeGridItem(gridItem : KMMangaGridItem) {
+    func removeGridItem(gridItem : KMMangaGridItem, resort : Bool) {
         // For every item in gridItems...
         for(currentIndex, currentItem) in gridItems.enumerate() {
             // If the current item is the same as the grid item we want to remove...
@@ -47,11 +47,30 @@ class KMMangaGridController: NSObject {
                 
                 // Remove the current object from the array controller
                 arrayController.removeObject(currentItem);
+                
+                // If the manga is from EH and we said in the preferences to delete them...
+                if(currentItem.manga.directory.containsString("/Library/Application Support/Komikan/EH") && (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.deleteLLewdMangaWhenRemovingFromTheGrid) {
+                    // Also delete the file
+                    do {
+                        // Try to delete the file at the mangas directory
+                        try NSFileManager.defaultManager().removeItemAtPath(currentItem.manga.directory);
+                        
+                        // Print to the log that we deleted it
+                        print("Deleted manga \"" + currentItem.manga.title + "\"'s file");
+                    }
+                        // If there is an error...
+                    catch _ as NSError {
+                        // Do nothing
+                    }
+                }
             }
         }
         
-        // Resort the grid
-        resort();
+        // If we said to resort...
+        if(resort) {
+            // Resort the grid
+            self.resort();
+        }
     }
     
     /// Adds the passed KMMangaGridItem to the manga grid

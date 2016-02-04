@@ -78,23 +78,8 @@ class ViewController: NSViewController, NSTabViewDelegate {
     
     // When we click titlebarAddMangaButton...
     @IBAction func titlebarAddMangaButtonInteracted(sender: AnyObject) {
-        // Get the main storyboard
-        let storyboard = NSStoryboard(name: "Main", bundle: nil);
-        
-        // Instanstiate the view controller for the add manga view controller
-        addMangaViewController = storyboard.instantiateControllerWithIdentifier("addMangaViewController") as? KMAddMangaViewController;
-        
-        // Present the addMangaViewController as a popover using the add buttons rect, on the max y edge, and with a semitransient behaviour
-        addMangaViewController!.presentViewController(addMangaViewController!, asPopoverRelativeToRect: (sender as! NSButton).bounds, ofView: ((sender as? NSButton))!, preferredEdge: NSRectEdge.MaxY, behavior: NSPopoverBehavior.Semitransient);
-        
-        // If this is the first time we have pushed this button...
-        if(addMangaViewFirstLoad) {
-            // Subscribe to the popovers finished notification
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "addMangaFromAddMangaPopover:", name:"KMAddMangaViewController.Finished", object: nil);
-            
-            // Say that all the next loads are not the first
-            addMangaViewFirstLoad = false;
-        }
+        // Show the add / import popover
+        showAddImportPopover(titlebarAddMangaButton.bounds, preferredEdge: NSRectEdge.MaxY);
     }
     
     // The tab view in the titlebar that lets us sort the manga grid
@@ -174,6 +159,12 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Set the toggle info bar menu items action
         (NSApplication.sharedApplication().delegate as! AppDelegate).toggleInfoBarMenuItem.action = Selector("toggleInfoBar");
         
+        // Set the delete selected manga menu items action
+        (NSApplication.sharedApplication().delegate as! AppDelegate).deleteSelectedMangaMenuItem.action = Selector("removeSelectedItemsFromMangaGrid");
+        
+        // Set the mark selected manga as read menu items action
+        (NSApplication.sharedApplication().delegate as! AppDelegate).markSelectedAsReadMenuItem.action = Selector("markSelectedItemsAsRead");
+        
         // Start a 0.1 second loop that will fix the windows look in fullscreen
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("deleteTitlebarInFullscreen"), userInfo: nil, repeats:true);
         
@@ -189,8 +180,11 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Set the manga grid as the first responder
         window.makeFirstResponder(mangaCollectionView);
         
-        // Set he delete all manga menubar items action
+        // Set the delete all manga menubar items action
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.deleteAllMangaMenuItem.action = Selector("deleteAllManga");
+        
+        // Set the add / import manga menubar items action
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.importAddMenuItem.action = Selector("showAddImportPopoverMenuItem");
         
         // Sort the manga grid by the tab view item we have selected at start
         // If the tab view item we have selected is the Title sort one...
@@ -233,6 +227,33 @@ class ViewController: NSViewController, NSTabViewDelegate {
         if(keyPath == "arrangedObjects") {
             // Update the manga count in the info bar
             updateInfoBarMangaCountLabel();
+        }
+    }
+    
+    /// Shows the add / import popover, without passing variables for the menu item
+    func showAddImportPopoverMenuItem() {
+        // Show the add / import popover
+        showAddImportPopover(titlebarAddMangaButton.bounds, preferredEdge: NSRectEdge.MaxY);
+    }
+    
+    /// Shows the add / import popover with the origin rect as where the arrow comes from, and the preferredEdge as to which side to come from
+    func showAddImportPopover(origin : NSRect, preferredEdge : NSRectEdge) {
+        // Get the main storyboard
+        let storyboard = NSStoryboard(name: "Main", bundle: nil);
+        
+        // Instanstiate the view controller for the add manga view controller
+        addMangaViewController = storyboard.instantiateControllerWithIdentifier("addMangaViewController") as? KMAddMangaViewController;
+        
+        // Present the addMangaViewController as a popover using the add buttons rect, on the max y edge, and with a semitransient behaviour
+        addMangaViewController!.presentViewController(addMangaViewController!, asPopoverRelativeToRect: origin, ofView: titlebarAddMangaButton, preferredEdge: preferredEdge, behavior: NSPopoverBehavior.Semitransient);
+        
+        // If this is the first time we have pushed this button...
+        if(addMangaViewFirstLoad) {
+            // Subscribe to the popovers finished notification
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "addMangaFromAddMangaPopover:", name:"KMAddMangaViewController.Finished", object: nil);
+            
+            // Say that all the next loads are not the first
+            addMangaViewFirstLoad = false;
         }
     }
     
@@ -321,24 +342,60 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Print to the log that we are removing this manga
         print("Removing \"" + (notification.object as? KMManga)!.title + "\" from the manga grid");
         
-        // If the manga is from EH ad we said in the preferences to delete them...
-        if((notification.object as? KMManga)!.directory.containsString("/Library/Application Support/Komikan/EH") && (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.deleteLLewdMangaWhenRemovingFromTheGrid) {
-            // Also delete the file
-            do {
-                // Try to delete the file at the mangas directory
-                try NSFileManager.defaultManager().removeItemAtPath((notification.object as? KMManga)!.directory);
-                
-                // Print to the log that we deleted it
-                print("Deleted manga \"" + (notification.object as? KMManga)!.title + "\"'s file");
-            }
-            // If there is an error...
-            catch _ as NSError {
-                // Do nothing
-            }
+        // Remove this item from the collection view
+        mangaGridController.removeGridItem((mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])![mangaCollectionView.selectionIndexes.lastIndex], resort: true);
+    }
+    
+    /// Removes all the selected manga in the grid(Use this for multiple)
+    func removeSelectedItemsFromMangaGrid() {
+        // Print to the lgo that we are removing multiple manga from the grid
+        print("Removing multiple manga from the grid");
+        
+        /// The manga grid items that we want to remove
+        var selectionItemsToRemove : [KMMangaGridItem] = [];
+        
+        // This breaks because the indexes change during the for loop, and it then gets items it shouldnt.
+        for(_, currentIndex) in mangaCollectionView.selectionIndexes.enumerate() {
+            selectionItemsToRemove.append((mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])![currentIndex]);
         }
         
-        // Remove this item from the collection view
-        mangaGridController.removeGridItem((mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])![mangaCollectionView.selectionIndexes.lastIndex]);
+        // For every item in the manga ggrid items we want to remove...
+        for(_, currentItem) in selectionItemsToRemove.enumerate() {
+            // Remove the curent item from the grid, with resorting
+            mangaGridController.removeGridItem(currentItem, resort: true);
+        }
+        
+        // Deselect all the items
+        mangaCollectionView.deselectAll(self);
+    }
+    
+    /// Removes all the selected manga in the grid(Use this for multiple)
+    func markSelectedItemsAsRead() {
+        // Print to the lgo that we are removing multiple manga from the grid
+        print("Marking multiple manga as read from the grid");
+        
+        /// The manga grid items that we want to mark as read
+        var selectionItemsToMarkAsRead : [KMMangaGridItem] = [];
+        
+        // This breaks because the indexes change during the for loop, and it then gets items it shouldnt.
+        for(_, currentIndex) in mangaCollectionView.selectionIndexes.enumerate() {
+            selectionItemsToMarkAsRead.append((mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])![currentIndex]);
+        }
+        
+        // For every item in the manga grid that we want to mark as read...
+        for(_, currentItem) in selectionItemsToMarkAsRead.enumerate() {
+            // Mark the current manga as read
+            currentItem.manga.read = true;
+            
+            // Update the current manga's percent finished
+            currentItem.manga.updatePercent();
+        }
+        
+        // Deselect all the items
+        mangaCollectionView.deselectAll(self);
+        
+        // Update the grid
+        updateMangaGrid();
     }
     
     func toggleInfoBar() {

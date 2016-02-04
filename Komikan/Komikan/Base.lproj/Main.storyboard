@@ -71,7 +71,7 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="File" id="bib-Uj-vzu">
                                     <items>
-                                        <menuItem title="New" keyEquivalent="n" id="Was-JA-tGl">
+                                        <menuItem title="Import / Add" keyEquivalent="n" id="Was-JA-tGl">
                                             <connections>
                                                 <action selector="newDocument:" target="Ady-hI-5gd" id="4Si-XN-c54"/>
                                             </connections>
@@ -346,6 +346,24 @@
                                     <items>
                                         <menuItem title="Add From EH" keyEquivalent="E" id="9EF-r5-N5K"/>
                                         <menuItem title="Debug Info Bar" keyEquivalent="i" id="7Zc-hP-7S6"/>
+                                        <menuItem title="Manage" id="yga-4c-m1k">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Manage" id="7n6-yn-QTn">
+                                                <items>
+                                                    <menuItem title="Delete Selected" id="84P-fK-Tc8">
+                                                        <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                                                    </menuItem>
+                                                    <menuItem title="Mark Selected as Read" keyEquivalent="r" id="ug2-Jz-y1o">
+                                                        <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                                    </menuItem>
+                                                    <menuItem title="Mark Selected as Unread" keyEquivalent="u" id="6KB-cw-D9H">
+                                                        <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -397,9 +415,13 @@
                         <outlet property="addFromEHMenuItem" destination="9EF-r5-N5K" id="LeC-08-cxh"/>
                         <outlet property="bookmarkCurrentPageMenuItem" destination="2T2-cT-5ni" id="vFe-FV-c0N"/>
                         <outlet property="deleteAllMangaMenuItem" destination="h7o-qK-yLj" id="9XF-TE-2JL"/>
+                        <outlet property="deleteSelectedMangaMenuItem" destination="84P-fK-Tc8" id="Q6j-hC-vv6"/>
                         <outlet property="dualPageMenuItem" destination="TH4-sc-e7y" id="Obj-0B-Shs"/>
                         <outlet property="fitWindowToPageMenuItem" destination="tub-ce-tVP" id="hmo-vl-Clh"/>
+                        <outlet property="importAddMenuItem" destination="Was-JA-tGl" id="mNS-F0-PAQ"/>
                         <outlet property="jumpToPageMenuItem" destination="I7g-H0-J3h" id="2f3-MH-hPT"/>
+                        <outlet property="markSelectedAsReadMenuItem" destination="ug2-Jz-y1o" id="Lp7-Bk-MZw"/>
+                        <outlet property="markSelectedAsUnreadMenuItem" destination="6KB-cw-D9H" id="uJr-51-3Di"/>
                         <outlet property="nextPageMenubarItem" destination="8P2-Bj-ZHO" id="maC-a5-1g2"/>
                         <outlet property="previousPageMenubarItem" destination="lL1-EK-QfJ" id="pyL-3Y-eLp"/>
                         <outlet property="switchDualPageDirectionMenuItem" destination="ubh-G8-jVj" id="UF6-lc-LfP"/>

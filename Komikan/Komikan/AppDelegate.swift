@@ -44,6 +44,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     // The menu item that lets you toggle the info bar in the main window
     @IBOutlet weak var toggleInfoBarMenuItem: NSMenuItem!
     
+    // The Collection/Manage/Delete Selected menu item
+    @IBOutlet weak var deleteSelectedMangaMenuItem: NSMenuItem!
+    
+    // The Collection/Manage/Mark Selected as Read menu item
+    @IBOutlet weak var markSelectedAsReadMenuItem: NSMenuItem!
+    
+    // The Collection/Manage/Mark Selected as Unread menu item
+    @IBOutlet weak var markSelectedAsUnreadMenuItem: NSMenuItem!
+    
+    // The File/Import / Add menu item
+    @IBOutlet weak var importAddMenuItem: NSMenuItem!
+    
     // The view controller we will load for the reader
     var mangaReaderViewController: KMReaderViewController?;
     
