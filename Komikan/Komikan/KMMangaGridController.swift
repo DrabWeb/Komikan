@@ -33,9 +33,12 @@ class KMMangaGridController: NSObject {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "resort", name:"MangaGrid.Resort", object: nil);
         
 <<<<<<< HEAD
+<<<<<<< HEAD
         // Subscribe to the MangaGrid.DisplayGroups notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "sidebarTableViewDisplayGroups", name:"MangaGrid.DisplayGroups", object: nil);
         
+=======
+>>>>>>> parent of 16a2ccc... Grouping is now functional. Removes the group from a manga if the group gets deleted, always shows manga that have no group, and shows / hides manga basbased on l-lewd... mode enabled even when in a group. There could still be bugs though, so keep a look out
 =======
 >>>>>>> parent of 16a2ccc... Grouping is now functional. Removes the group from a manga if the group gets deleted, always shows manga that have no group, and shows / hides manga basbased on l-lewd... mode enabled even when in a group. There could still be bugs though, so keep a look out
         // Subscribe to the Application.PreferencesSaved notification
@@ -48,6 +51,7 @@ class KMMangaGridController: NSObject {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadAllFilters", name:"GridController.ReloadFilters", object: nil);
     }
     
+<<<<<<< HEAD
     /// Reloads all the filters
     func reloadAllFilters() {
         // Reload the filters
@@ -138,6 +142,8 @@ class KMMangaGridController: NSObject {
         displayGroups(sidebarDataItems);
     }
     
+=======
+>>>>>>> parent of 16a2ccc... Grouping is now functional. Removes the group from a manga if the group gets deleted, always shows manga that have no group, and shows / hides manga basbased on l-lewd... mode enabled even when in a group. There could still be bugs though, so keep a look out
 =======
 >>>>>>> parent of 16a2ccc... Grouping is now functional. Removes the group from a manga if the group gets deleted, always shows manga that have no group, and shows / hides manga basbased on l-lewd... mode enabled even when in a group. There could still be bugs though, so keep a look out
     /// Removes gridItem from the manga grid
@@ -291,6 +297,9 @@ class KMMangaGridController: NSObject {
                 
                 // Say we arent searching
                 searching = false;
+<<<<<<< HEAD
+>>>>>>> parent of 16a2ccc... Grouping is now functional. Removes the group from a manga if the group gets deleted, always shows manga that have no group, and shows / hides manga basbased on l-lewd... mode enabled even when in a group. There could still be bugs though, so keep a look out
+=======
 >>>>>>> parent of 16a2ccc... Grouping is now functional. Removes the group from a manga if the group gets deleted, always shows manga that have no group, and shows / hides manga basbased on l-lewd... mode enabled even when in a group. There could still be bugs though, so keep a look out
             }
         }
