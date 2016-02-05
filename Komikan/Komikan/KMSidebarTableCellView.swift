@@ -20,9 +20,6 @@ class KMSidebarTableCellView: NSTableCellView {
     @IBAction func checkboxInteracted(sender: AnyObject) {
         // Set the datas group showing bool to the checkboxes state
         data.groupShowing = Bool(checkbox.state);
-        
-        // Post the notification to update what groups we are displaying in the grid
-        NSNotificationCenter.defaultCenter().postNotificationName("MangaGrid.DisplayGroups", object: nil);
     }
     
     /// When we interact with the textfield...

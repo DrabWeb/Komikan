@@ -1490,7 +1490,6 @@ CA
                 <customObject id="fq9-lH-DIC" userLabel="Sidebar Controller" customClass="KMSidebarController" customModule="Komikan" customModuleProvider="target">
                     <connections>
                         <outlet property="addButton" destination="rua-2j-kSv" id="pUF-6B-lFa"/>
-                        <outlet property="mangaGridController" destination="rwH-XF-ldC" id="aPU-xh-fL3"/>
                         <outlet property="removeButton" destination="9UW-1g-V4q" id="xQU-gS-AQQ"/>
                         <outlet property="sidebarTableView" destination="uLB-Y7-L31" id="hzK-5S-uiX"/>
                         <outlet property="splitView" destination="Z0Z-Pf-S0u" id="7a2-gE-Bhp"/>

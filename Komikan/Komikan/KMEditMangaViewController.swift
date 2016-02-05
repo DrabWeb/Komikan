@@ -189,8 +189,8 @@ class KMEditMangaViewController: NSViewController {
         // Set the mangas group
         manga.group = groupSelectionComboBox.stringValue;
         
-        // If the group we chose doesnt already exist and the group isnt nothing...
-        if(!((NSApplication.sharedApplication().delegate as! AppDelegate).sidebarController.sidebarGroups().contains(groupSelectionComboBox.stringValue)) && groupSelectionComboBox.stringValue != "") {
+        // If the group we chose doesnt already exist...
+        if(!((NSApplication.sharedApplication().delegate as! AppDelegate).sidebarController.sidebarGroups().contains(groupSelectionComboBox.stringValue))) {
             // add a new group with the group we chose
             (NSApplication.sharedApplication().delegate as! AppDelegate).sidebarController.addItemToSidebar(KMSidebarItemDoc(groupName: groupSelectionComboBox.stringValue));
         }
