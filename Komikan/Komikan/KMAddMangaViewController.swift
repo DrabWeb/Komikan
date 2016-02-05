@@ -126,8 +126,8 @@ class KMAddMangaViewController: NSViewController {
             // Set the manga's group
             newManga.group = groupSelectionComboBox.stringValue;
             
-            // If the group we chose doesnt already exist...
-            if(!((NSApplication.sharedApplication().delegate as! AppDelegate).sidebarController.sidebarGroups().contains(newManga.group))) {
+            // If the group we chose doesnt already exist and the group isnt nothing...
+            if(!((NSApplication.sharedApplication().delegate as! AppDelegate).sidebarController.sidebarGroups().contains(newManga.group)) && newManga.group != "") {
                 // add a new group with the group we chose
                 (NSApplication.sharedApplication().delegate as! AppDelegate).sidebarController.addItemToSidebar(KMSidebarItemDoc(groupName: newManga.group));
             }
@@ -189,8 +189,8 @@ class KMAddMangaViewController: NSViewController {
                 newMangaMultiple.append(currentManga);
             }
             
-            // If the group we chose doesnt already exist...
-            if(!((NSApplication.sharedApplication().delegate as! AppDelegate).sidebarController.sidebarGroups().contains(groupSelectionComboBox.stringValue))) {
+            // If the group we chose doesnt already exist and the group isnt nothing...
+            if(!((NSApplication.sharedApplication().delegate as! AppDelegate).sidebarController.sidebarGroups().contains(groupSelectionComboBox.stringValue)) && groupSelectionComboBox.stringValue != "") {
                 // add a new group with the group we chose
                 (NSApplication.sharedApplication().delegate as! AppDelegate).sidebarController.addItemToSidebar(KMSidebarItemDoc(groupName: groupSelectionComboBox.stringValue));
             }

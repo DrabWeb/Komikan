@@ -16,6 +16,9 @@ class KMSidebarController : NSObject {
     /// The items in the table view of the sidebar
     var sidebarTableViewItems : [KMSidebarItemDoc] = [];
     
+    /// A reference to the manga grid controller
+    @IBOutlet weak var mangaGridController: KMMangaGridController!
+    
     /// The table view that holds all the sidebar items
     @IBOutlet weak var sidebarTableView: NSTableView!
     
@@ -44,13 +47,43 @@ class KMSidebarController : NSObject {
     func removeSelectedItem() {
         // If the selected item is not -1(Which means nothing is selected...)
         if(sidebarTableView.selectedRow != -1) {
-            // Remove the selected item from the sidebar items model
-            self.sidebarTableViewItems.removeAtIndex(self.sidebarTableView.selectedRow);
-            
-            // Remove the selected item from the sidebar table view
-            self.sidebarTableView.removeRowsAtIndexes(NSIndexSet(index:self.sidebarTableView.selectedRow),
-                withAnimation: NSTableViewAnimationOptions.SlideLeft);
+            // Remove the selected item from the sidebar
+            removeItemFromSidebar(sidebarTableViewItems[sidebarTableView.selectedRow]);
         }
+    }
+    
+    /// Removes item from the sidebar, while also removing that group from any manga that had it
+    func removeItemFromSidebar(item : KMSidebarItemDoc) {
+        // For every item in the sidebar table views items...
+        for(currentIndex, currentItem) in sidebarTableViewItems.enumerate() {
+            // if the current item is the item we were searching for...
+            if(currentItem == item) {
+                // Set this item to show
+                sidebarTableViewItems[currentIndex].data.groupShowing = true;
+                
+                // Post the notification to update what groups we are displaying in the grid
+                NSNotificationCenter.defaultCenter().postNotificationName("MangaGrid.DisplayGroups", object: nil);
+                
+                // For every manga in the manga grid...
+                for(_, currentManga) in mangaGridController.gridItems.enumerate() {
+                    // If the current items group is the one we are removing...
+                    if(currentManga.manga.group == item.data.groupName) {
+                        // Set the current mangas group to none
+                        currentManga.manga.group = "";
+                    }
+                }
+                
+                // Remove the item at the current index from the sidebar items model
+                self.sidebarTableViewItems.removeAtIndex(currentIndex);
+                
+                // Remove the item at the current index from the sidebar table view
+                self.sidebarTableView.removeRowsAtIndexes(NSIndexSet(index: currentIndex),
+                    withAnimation: NSTableViewAnimationOptions.SlideLeft);
+            }
+        }
+        
+        // Re hide / show the groups
+        mangaGridController.displayGroupsSidebarController();
     }
     
     /// Adds item to the sidebar

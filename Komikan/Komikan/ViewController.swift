@@ -244,6 +244,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
         
         // Subscribe to the ViewController.SelectMangaGrid
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "makeMangaGridFirstResponder", name:"ViewController.SelectMangaGrid", object: nil);
+        
+        // Post the notification to update what groups we are displaying in the grid
+        mangaGridController.displayGroupsSidebarController();
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
