@@ -70,6 +70,9 @@ class KMAddMangaViewController: NSViewController {
         addSelf();
     }
     
+    /// The combo box that lets you set the manga's group
+    @IBOutlet weak var groupSelectionComboBox: NSComboBox!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
@@ -85,6 +88,12 @@ class KMAddMangaViewController: NSViewController {
         
         // Set the Open button to say choose
         chooseDirectoryOpenPanel.prompt = "Choose";
+        
+        // Remove all the items from the combo box
+        groupSelectionComboBox.removeAllItems();
+        
+        // Set the combo boxes dropdown to contain all the existing groups
+        groupSelectionComboBox.addItemsWithObjectValues((NSApplication.sharedApplication().delegate as! AppDelegate).sidebarController.sidebarGroups());
         
         // Start a 0.1 second loop that will set if we can add this manga or not
         addButtonUpdateLoop = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("updateAddButton"), userInfo: nil, repeats:true);
@@ -113,6 +122,15 @@ class KMAddMangaViewController: NSViewController {
             
             // Set if the manga is l-lewd...
             newManga.lewd = Bool(llewdCheckBox.state);
+            
+            // Set the manga's group
+            newManga.group = groupSelectionComboBox.stringValue;
+            
+            // If the group we chose doesnt already exist...
+            if(!((NSApplication.sharedApplication().delegate as! AppDelegate).sidebarController.sidebarGroups().contains(newManga.group))) {
+                // add a new group with the group we chose
+                (NSApplication.sharedApplication().delegate as! AppDelegate).sidebarController.addItemToSidebar(KMSidebarItemDoc(groupName: newManga.group));
+            }
             
             // Set the new mangas directory
             newManga.directory = (chooseDirectoryOpenPanel.URL?.absoluteString.stringByRemovingPercentEncoding!)!.stringByReplacingOccurrencesOfString("file://", withString: "");
@@ -155,6 +173,9 @@ class KMAddMangaViewController: NSViewController {
                 // Set if the manga is l-lewd...
                 currentManga.lewd = Bool(llewdCheckBox.state);
                 
+                // Set the manga's group
+                currentManga.group = groupSelectionComboBox.stringValue;
+                
                 // For every part of the tags text field's string value split at every ", "...
                 for (_, currentTag) in tagsTextField.stringValue.componentsSeparatedByString(", ").enumerate() {
                     // Print to the log what tag we are adding and what manga we are adding it to
@@ -166,6 +187,12 @@ class KMAddMangaViewController: NSViewController {
                 
                 // Add curentManga to the newMangaMultiple array
                 newMangaMultiple.append(currentManga);
+            }
+            
+            // If the group we chose doesnt already exist...
+            if(!((NSApplication.sharedApplication().delegate as! AppDelegate).sidebarController.sidebarGroups().contains(groupSelectionComboBox.stringValue))) {
+                // add a new group with the group we chose
+                (NSApplication.sharedApplication().delegate as! AppDelegate).sidebarController.addItemToSidebar(KMSidebarItemDoc(groupName: groupSelectionComboBox.stringValue));
             }
             
             // Remove the first element in newMangaMultiple, for some reason its always empty

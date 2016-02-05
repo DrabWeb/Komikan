@@ -62,6 +62,21 @@ class KMSidebarController : NSObject {
         sidebarTableView.reloadData();
     }
     
+    /// Returns a list of strings for all teh groups that currently exist
+    func sidebarGroups() -> [String] {
+        /// Hodls all the groups there are
+        var groups : [String] = [];
+        
+        // For every item in the sidebar table view items...
+        for(_, currentItem) in sidebarTableViewItems.enumerate() {
+            // Append the current item to groups
+            groups.append(currentItem.data.groupName);
+        }
+        
+        // Return the groups array
+        return groups;
+    }
+    
     /// The old position of the split view
     var oldSplitViewPosition : CGFloat = 200;
     

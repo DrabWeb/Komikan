@@ -115,6 +115,9 @@ class KMEditMangaViewController: NSViewController {
         saveBackToGrid();
     }
     
+    /// The combo box that lets us select what group the manga is in
+    @IBOutlet weak var groupSelectionComboBox: NSComboBox!
+    
     // The manga we were passed
     var manga : KMManga = KMManga();
     
@@ -136,6 +139,12 @@ class KMEditMangaViewController: NSViewController {
         
         // Set the Open button to say choose
         changeDirectoryOpenPanel.prompt = "Choose";
+        
+        // Remove all the items from the group selection combo boxes dropdown
+        groupSelectionComboBox.removeAllItems();
+        
+        // Set the manga group selection combo boxes dropdown values to all the existent groups
+        groupSelectionComboBox.addItemsWithObjectValues((NSApplication.sharedApplication().delegate as! AppDelegate).sidebarController.sidebarGroups());
         
         // Subscribe to the popovers finished notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "getMangaFromGrid:", name:"KMMangaGridCollectionItem.Editing", object: nil);
@@ -175,6 +184,15 @@ class KMEditMangaViewController: NSViewController {
         if(manga.coverImage.size.height != 400) {
             // Resize the cover image to be compressed for faster loading
             manga.coverImage = manga.coverImage.resizeToHeight(400);
+        }
+        
+        // Set the mangas group
+        manga.group = groupSelectionComboBox.stringValue;
+        
+        // If the group we chose doesnt already exist...
+        if(!((NSApplication.sharedApplication().delegate as! AppDelegate).sidebarController.sidebarGroups().contains(groupSelectionComboBox.stringValue))) {
+            // add a new group with the group we chose
+            (NSApplication.sharedApplication().delegate as! AppDelegate).sidebarController.addItemToSidebar(KMSidebarItemDoc(groupName: groupSelectionComboBox.stringValue));
         }
         
         // Post the notification back to the collection view item so it can deal with it
@@ -244,6 +262,9 @@ class KMEditMangaViewController: NSViewController {
                 tagsTextField.stringValue.appendContentsOf(currentTag);
             }
         }
+        
+        // Set the group selection combo boxes value
+        groupSelectionComboBox.stringValue = manga.group;
     }
     
     func getMangaFromGrid(notification : NSNotification) {
