@@ -16,6 +16,9 @@ class KMSidebarController : NSObject {
     /// The items in the table view of the sidebar
     var sidebarTableViewItems : [KMSidebarItemDoc] = [];
     
+    /// The manga grid controller
+    @IBOutlet weak var mangaGridController: KMMangaGridController!
+    
     /// The table view that holds all the sidebar items
     @IBOutlet weak var sidebarTableView: NSTableView!
     
@@ -51,15 +54,9 @@ class KMSidebarController : NSObject {
             self.sidebarTableView.removeRowsAtIndexes(NSIndexSet(index:self.sidebarTableView.selectedRow),
                 withAnimation: NSTableViewAnimationOptions.SlideLeft);
         }
-<<<<<<< HEAD
-<<<<<<< HEAD
         
         // Re hide / show the groups
         mangaGridController.reloadFilters(true, reloadSearch: true, reloadGroups: true, reloadSort: true);
-=======
->>>>>>> parent of 16a2ccc... Grouping is now functional. Removes the group from a manga if the group gets deleted, always shows manga that have no group, and shows / hides manga basbased on l-lewd... mode enabled even when in a group. There could still be bugs though, so keep a look out
-=======
->>>>>>> parent of 16a2ccc... Grouping is now functional. Removes the group from a manga if the group gets deleted, always shows manga that have no group, and shows / hides manga basbased on l-lewd... mode enabled even when in a group. There could still be bugs though, so keep a look out
     }
     
     /// Adds item to the sidebar

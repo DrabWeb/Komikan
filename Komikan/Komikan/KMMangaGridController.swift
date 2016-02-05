@@ -16,6 +16,9 @@ class KMMangaGridController: NSObject {
     /// The items for the manga collection view. THIS IS NOT TO BE MODIFIED DIRECTLY
     var gridItems : [KMMangaGridItem] = [];
     
+    /// All the grid items that we use to search from
+    private var searchingGridItems : [KMMangaGridItem] = [];
+    
     /// The current way we are sorting the grid
     var currentSortOrder : KMMangaGridSortType = KMMangaGridSortType.Title;
     
@@ -28,67 +31,20 @@ class KMMangaGridController: NSObject {
     /// Are we showing l-lewd... manga?
     var showingLewdManga : Bool = false;
     
+    /// All the groups we are showing
+    var showingGroups : [String] = [];
+    
     override func awakeFromNib() {
         // Subscribe to the MangaGrid.Resort notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "resort", name:"MangaGrid.Resort", object: nil);
         
-<<<<<<< HEAD
-<<<<<<< HEAD
         // Subscribe to the MangaGrid.DisplayGroups notification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "sidebarTableViewDisplayGroups", name:"MangaGrid.DisplayGroups", object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "displayGroupsSidebarController", name:"MangaGrid.DisplayGroups", object: nil);
         
-=======
->>>>>>> parent of 16a2ccc... Grouping is now functional. Removes the group from a manga if the group gets deleted, always shows manga that have no group, and shows / hides manga basbased on l-lewd... mode enabled even when in a group. There could still be bugs though, so keep a look out
-=======
->>>>>>> parent of 16a2ccc... Grouping is now functional. Removes the group from a manga if the group gets deleted, always shows manga that have no group, and shows / hides manga basbased on l-lewd... mode enabled even when in a group. There could still be bugs though, so keep a look out
         // Subscribe to the Application.PreferencesSaved notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "displayLewdMangaAppDelegate", name:"Application.PreferencesSaved", object: nil);
-        
-        // Subscribe to the Application.PreferencesSaved notification to reload all filters
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadAllFilters", name:"Application.PreferencesSaved", object: nil);
-        
-        // Subscribe to the GridController.ReloadFilters notification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadAllFilters", name:"GridController.ReloadFilters", object: nil);
     }
     
-<<<<<<< HEAD
-    /// Reloads all the filters
-    func reloadAllFilters() {
-        // Reload the filters
-        reloadFilters(true, reloadSearch: true, reloadGroups: true, reloadSort: true);
-    }
-    
-    /// Reloads all the filters like l-lewd... mode, groups, etc. Only reloads the ones whose bools you set to true
-    func reloadFilters(reloadLewdFilter : Bool, reloadSearch : Bool, reloadGroups : Bool, reloadSort : Bool) {
-        // If we said to reload the l-lewd... filter...
-        if(reloadLewdFilter) {
-            // Reload the l-lewd... filter
-            displayLewdMangaAppDelegate();
-        }
-        
-        // If we said to reload the search...
-        if(reloadSearch) {
-            // If we are searching...
-            if(searching) {
-                // Redo the last search
-                searchFor(lastSearchText);
-            }
-        }
-        
-        // If we said to reload groups...
-        if(reloadGroups) {
-            // Reload the groups
-            displayGroupsSidebarController();
-        }
-        
-        // If we said to resort...
-        if(reloadSort) {
-            // Resort the grid
-            resort();
-        }
-    }
-    
-<<<<<<< HEAD
     /// Shows / hides all the passed item datas(Groups) based on their groupShowing variable
     func displayGroups(groups : [KMSidebarItemData]) {
         // Print to the log that we are showing / hiding manga groups
@@ -108,23 +64,11 @@ class KMMangaGridController: NSObject {
                         arrayController.addObject(currentGridItem);
                     }
                 }
-                // If the manga doesnt have a group...
-                else if(currentGridItem.manga.group == "") {
-                    // Add the current item to the array controller
-                    arrayController.addObject(currentGridItem);
-                    
-                    print("No group match");
-                }
             }
         }
         
-        // Resort
+        // Resort the grid
         resort();
-    }
-    
-    /// The special function only meant for the sidebar table view to call
-    func sidebarTableViewDisplayGroups() {
-        reloadFilters(true, reloadSearch: true, reloadGroups: true, reloadSort: true);
     }
     
     /// Shows / hides all the groups from the sidebar controller based on their groupShowing variable
@@ -140,12 +84,11 @@ class KMMangaGridController: NSObject {
         
         // Call displayGroups with the new data we got
         displayGroups(sidebarDataItems);
+        
+        // Re hide / show the l-lewd... manga
+        displayLewdMangaAppDelegate();
     }
     
-=======
->>>>>>> parent of 16a2ccc... Grouping is now functional. Removes the group from a manga if the group gets deleted, always shows manga that have no group, and shows / hides manga basbased on l-lewd... mode enabled even when in a group. There could still be bugs though, so keep a look out
-=======
->>>>>>> parent of 16a2ccc... Grouping is now functional. Removes the group from a manga if the group gets deleted, always shows manga that have no group, and shows / hides manga basbased on l-lewd... mode enabled even when in a group. There could still be bugs though, so keep a look out
     /// Removes gridItem from the manga grid
     func removeGridItem(gridItem : KMMangaGridItem, resort : Bool) {
         // For every item in gridItems...
@@ -210,25 +153,22 @@ class KMMangaGridController: NSObject {
         removeAllGridItems(false);
         
         // Add all the items in gridItems
-        setGridToItems(gridItems, shouldReloadFilters: true);
+        setGridToItems(gridItems);
         
         // Resort the grid
         resort();
     }
     
-    /// Shows all the items in objects to the manga grid. Reloads the filters if shouldReloadFilters is true
-    func setGridToItems(objects : [KMMangaGridItem], shouldReloadFilters : Bool) {
+    /// Shows all the items in objects to the manga grid
+    func setGridToItems(objects : [KMMangaGridItem]) {
         // Clear the grid
         removeAllGridItems(false);
         
         // Add objects to the manga grid
         arrayController.addObjects(objects);
         
-        // If we said to reload the filters...
-        if(shouldReloadFilters) {
-            // Reload the filters
-            reloadFilters(true, reloadSearch: true, reloadGroups: true, reloadSort: true);
-        }
+        // Resort the grid
+        resort();
     }
     
     /// Adds the given manga to the manga grid, and redos the search / show/hide l-lewd... manga
@@ -285,25 +225,29 @@ class KMMangaGridController: NSObject {
         if(searchText == "") {
             // If we have searched before...
             if(searching) {
-<<<<<<< HEAD
-                // Reload all the filters except search
-                reloadFilters(false, reloadSearch: false, reloadGroups: true, reloadSort: true);
-                
-                // Remove all the objects in searchingGridItems
-                searchingGridItems.removeAll();
-=======
                 // Restore the grid back to gridItems
                 updateGridToMatchGridItems();
                 
+                // Re show / hide l-lewd... manga
+                displayLewdMangaAppDelegate();
+                
+                // Re show / hide the groups
+                displayGroupsSidebarController();
+                
                 // Say we arent searching
                 searching = false;
-<<<<<<< HEAD
->>>>>>> parent of 16a2ccc... Grouping is now functional. Removes the group from a manga if the group gets deleted, always shows manga that have no group, and shows / hides manga basbased on l-lewd... mode enabled even when in a group. There could still be bugs though, so keep a look out
-=======
->>>>>>> parent of 16a2ccc... Grouping is now functional. Removes the group from a manga if the group gets deleted, always shows manga that have no group, and shows / hides manga basbased on l-lewd... mode enabled even when in a group. There could still be bugs though, so keep a look out
+                
+                // Remove all the objects in searchingGridItems
+                searchingGridItems.removeAll();
             }
         }
         else {
+            // If we havent started searching yet...
+            if(!searching) {
+                // Set searchingGridItems to the objects in the array controller
+                searchingGridItems = (arrayController.arrangedObjects as? [KMMangaGridItem])!;
+            }
+            
             // Say we are searching
             searching = true;
             
@@ -348,35 +292,35 @@ class KMMangaGridController: NSObject {
                 // Switch for the first part of the current search item(The type(title, writer, tags, ETC.))
                 switch currentString.componentsSeparatedByString(":").first! {
                     // If its title...
-                    case "title":
-                        // Set the appropriate variable to the current strings search content
-                        titleSearch = currentString.componentsSeparatedByString(":").last!;
-                        break;
+                case "title":
+                    // Set the appropriate variable to the current strings search content
+                    titleSearch = currentString.componentsSeparatedByString(":").last!;
+                    break;
                     // If its series...
-                    case "series":
-                        // Set the appropriate variable to the current strings search content
-                        seriesSearch = currentString.componentsSeparatedByString(":").last!;
-                        break;
+                case "series":
+                    // Set the appropriate variable to the current strings search content
+                    seriesSearch = currentString.componentsSeparatedByString(":").last!;
+                    break;
                     // If its artist...
-                    case "artist":
-                        // Set the appropriate variable to the current strings search content
-                        artistSearch = currentString.componentsSeparatedByString(":").last!;
-                        break;
+                case "artist":
+                    // Set the appropriate variable to the current strings search content
+                    artistSearch = currentString.componentsSeparatedByString(":").last!;
+                    break;
                     // If its writer...
-                    case "writer":
-                        // Set the appropriate variable to the current strings search content
-                        writerSearch = currentString.componentsSeparatedByString(":").last!;
-                        break;
+                case "writer":
+                    // Set the appropriate variable to the current strings search content
+                    writerSearch = currentString.componentsSeparatedByString(":").last!;
+                    break;
                     // If its tags...
-                    case "tags":
-                        // Set the appropriate variable to the current strings search content
-                        tagsSearch = currentString.componentsSeparatedByString(":").last!.componentsSeparatedByString(", ");
-                        break;
+                case "tags":
+                    // Set the appropriate variable to the current strings search content
+                    tagsSearch = currentString.componentsSeparatedByString(":").last!.componentsSeparatedByString(", ");
+                    break;
                     // If it is one that we dont have...
-                    default:
-                        // Print to the log that it didnt match any types we search by
-                        print("Did not match any search types");
-                        break;
+                default:
+                    // Print to the log that it didnt match any types we search by
+                    print("Did not match any search types");
+                    break;
                 }
             }
             
@@ -396,7 +340,7 @@ class KMMangaGridController: NSObject {
             let searchedByTags : Bool = (tagsSearch != []);
             
             // For every manga we have...
-            for(_, currentItem) in gridItems.enumerate() {
+            for(_, currentItem) in searchingGridItems.enumerate() {
                 /// Does this manga overall match the search?
                 var matching : Bool = false;
                 
@@ -521,7 +465,7 @@ class KMMangaGridController: NSObject {
             }
             
             // Set the grid to show all the items that match the search
-            setGridToItems(searchItems, shouldReloadFilters: false);
+            setGridToItems(searchItems);
             
             // Resort the grid
             resort();
@@ -545,12 +489,9 @@ class KMMangaGridController: NSObject {
             print("Showing l-lewd... manga");
             
             // Set the manga grid to show gridItems
-            setGridToItems(nonLewdManga, shouldReloadFilters: false);
-            
-            // Reload the filters
-            reloadFilters(false, reloadSearch: true, reloadGroups: false, reloadSort: true);
+            setGridToItems(gridItems);
         }
-        // If we said to show l-lewd... manga(B-but thats l-lewd...!)
+            // If we said to show l-lewd... manga(B-but thats l-lewd...!)
         else {
             // Print to the log that we are hiding l-lewd... manga
             print("Hiding l-lewd... manga");
@@ -565,16 +506,25 @@ class KMMangaGridController: NSObject {
             }
             
             // Show all items in nonLewdManga in the manga grid
-            setGridToItems(nonLewdManga, shouldReloadFilters: false);
-            
-            // Reload the filters
-            reloadFilters(false, reloadSearch: true, reloadGroups: false, reloadSort: true);
+            setGridToItems(nonLewdManga);
         }
     }
+    
+    /// Is this the first time we have called displayLewdMangaAppDelegate since launch?
+    var firstLewdMangaDisplayAppDelegate : Bool = true;
     
     /// Shows/hides all the l-lewd... manga based on the preferences keeper in AppDelegate
     func displayLewdMangaAppDelegate() {
         displayLewdManga((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.llewdModeEnabled);
+        
+        // If firstLewdMangaDisplayAppDelegate is true...
+        if(firstLewdMangaDisplayAppDelegate) {
+            // Set it to false
+            firstLewdMangaDisplayAppDelegate = false;
+            
+            // Display the groups
+            displayGroupsSidebarController();
+        }
     }
     
     /// Resort the manga grid(Based on the last chosen sorting method)
@@ -599,12 +549,12 @@ class KMMangaGridController: NSObject {
             // Sort by series
             arrayController.sortDescriptors = [NSSortDescriptor(key: "series", ascending: ascending)];
         }
-        // If the sort type is by artist...
+            // If the sort type is by artist...
         else if(sortType == KMMangaGridSortType.Artist) {
             // Sort by artist
             arrayController.sortDescriptors = [NSSortDescriptor(key: "artist", ascending: ascending)];
         }
-        // If the sort type is by title...
+            // If the sort type is by title...
         else if(sortType == KMMangaGridSortType.Title) {
             // Sort by title
             arrayController.sortDescriptors = [NSSortDescriptor(key: "title", ascending: ascending)];
