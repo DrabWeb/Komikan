@@ -83,7 +83,7 @@ class KMSidebarController : NSObject {
         }
         
         // Re hide / show the groups
-        mangaGridController.displayGroupsSidebarController();
+        mangaGridController.reloadFilters(true, reloadSearch: true, reloadGroups: true, reloadSort: true);
     }
     
     /// Adds item to the sidebar

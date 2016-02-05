@@ -127,15 +127,6 @@ class ViewController: NSViewController, NSTabViewDelegate {
             
             // Deliver the notification
             NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(finishedImportNotification);
-            
-            // Reload the l-lewd... manga filter
-            mangaGridController.displayLewdMangaAppDelegate();
-            
-            // If we are searching
-            if(mangaGridController.searching) {
-                // Redo the search so if the item doesnt match the query it gets hidden
-                mangaGridController.searchFor(mangaGridController.lastSearchText);
-            }
         }
         else {
             // Print to the log that we have recieved it and its name
@@ -148,8 +139,8 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Stop addMangaViewController.addButtonUpdateLoop, so it stops eating resources when it doesnt need to
         addMangaViewController?.addButtonUpdateLoop.invalidate();
         
-        // Tell the manga grid to resort itself
-        NSNotificationCenter.defaultCenter().postNotificationName("MangaGrid.Resort", object: nil);
+        // Reload the filters
+        mangaGridController.reloadFilters(true, reloadSearch: true, reloadGroups: true, reloadSort: true);
     }
     
     override func viewDidLoad() {
@@ -185,6 +176,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
         
         // Set the toggle sidebar menubar items action
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.toggleSidebarMenuItem.action = Selector("toggleSidebar");
+        
+        // Set the set selected manga's group menubar items action
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.setGroupForSelectedMenuItem.action = Selector("setSelectedMangaGroup");
         
         // Start a 0.1 second loop that will fix the windows look in fullscreen
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("deleteTitlebarInFullscreen"), userInfo: nil, repeats:true);
@@ -244,9 +238,6 @@ class ViewController: NSViewController, NSTabViewDelegate {
         
         // Subscribe to the ViewController.SelectMangaGrid
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "makeMangaGridFirstResponder", name:"ViewController.SelectMangaGrid", object: nil);
-        
-        // Post the notification to update what groups we are displaying in the grid
-        mangaGridController.displayGroupsSidebarController();
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
@@ -255,6 +246,37 @@ class ViewController: NSViewController, NSTabViewDelegate {
             // Update the manga count in the info bar
             updateInfoBarMangaCountLabel();
         }
+    }
+    
+    /// The view controller for the mass set selected manga's group popover
+    var massSetGroupViewController : NSViewController = NSViewController();
+    
+    /// Is this the ifrst time going through setSelectedMangaGroup?
+    var massSetGroupViewFirstLoad : Bool = false;
+    
+    /// Sets the selected manga's group
+    func setSelectedMangaGroup() {
+        // Get the main storyboard
+        let storyboard = NSStoryboard(name: "Main", bundle: nil);
+        
+        // Instanstiate the view controller for the mass set group view controller
+        massSetGroupViewController = (storyboard.instantiateControllerWithIdentifier("massSetGroupViewController") as? KMMassSetGroupViewController)!;
+        
+        // Present the massSetGroupViewController as a popover using the add buttons rect, on the max y edge, and with a semitransient behaviour
+        massSetGroupViewController.presentViewController(massSetGroupViewController, asPopoverRelativeToRect: NSRect(x: 0, y: 0, width: window.contentView!.bounds.width, height: window.contentView!.bounds.height / 2), ofView: backgroundVisualEffectView, preferredEdge: NSRectEdge.MaxY, behavior: NSPopoverBehavior.Semitransient);
+        
+        // If this is the first time we have called this function...
+        if(massSetGroupViewFirstLoad) {
+            // Subscribe to the popovers finished notification
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveFromSetSelectedMangaGroup:", name:"KMMassSetGroupViewController.Finished", object: nil);
+            
+            // Say that all the next loads are not the first
+            massSetGroupViewFirstLoad = false;
+        }
+    }
+    
+    func receiveFromSetSelectedMangaGroup(notification : NSNotification) {
+    
     }
     
     /// Just a wrapper for the menu item to toggle the sidebar
@@ -339,15 +361,6 @@ class ViewController: NSViewController, NSTabViewDelegate {
                 // Add the current manga to the grid
                 mangaGridController.addManga(currentManga, updateFilters: false);
             }
-            
-            // Reload the l-lewd... manga filter
-            mangaGridController.displayLewdMangaAppDelegate();
-            
-            // If we are searching
-            if(mangaGridController.searching) {
-                // Redo the search so if the item doesnt match the query it gets hidden
-                mangaGridController.searchFor(mangaGridController.lastSearchText);
-            }
         }
         else {
             // Print to the log that we have recieved it and its name
@@ -357,11 +370,11 @@ class ViewController: NSViewController, NSTabViewDelegate {
             mangaGridController.addManga((notification.object as? KMManga)!, updateFilters: true);
         }
         
+        // Reload the filters
+        mangaGridController.reloadFilters(true, reloadSearch: true, reloadGroups: true, reloadSort: true);
+        
         // Stop the loop so we dont take up precious memory
         addFromEHViewController?.addButtonUpdateLoop.invalidate();
-        
-        // Tell the manga grid to resort itself
-        NSNotificationCenter.defaultCenter().postNotificationName("MangaGrid.Resort", object: nil);
     }
     
     /// Makes the manga grid the first responder

@@ -39,10 +39,52 @@ class KMMangaGridController: NSObject {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "resort", name:"MangaGrid.Resort", object: nil);
         
         // Subscribe to the MangaGrid.DisplayGroups notification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "displayGroupsSidebarController", name:"MangaGrid.DisplayGroups", object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "sidebarTableViewDisplayGroups", name:"MangaGrid.DisplayGroups", object: nil);
         
         // Subscribe to the Application.PreferencesSaved notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "displayLewdMangaAppDelegate", name:"Application.PreferencesSaved", object: nil);
+        
+        // Subscribe to the Application.PreferencesSaved notification to reload all filters
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadAllFilters", name:"Application.PreferencesSaved", object: nil);
+        
+        // Subscribe to the GridController.ReloadFilters notification
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadAllFilters", name:"GridController.ReloadFilters", object: nil);
+    }
+    
+    /// Reloads all the filters
+    func reloadAllFilters() {
+        // Reload the filters
+        reloadFilters(true, reloadSearch: true, reloadGroups: true, reloadSort: true);
+    }
+    
+    /// Reloads all the filters like l-lewd... mode, groups, etc. Only reloads the ones whose bools you set to true
+    func reloadFilters(reloadLewdFilter : Bool, reloadSearch : Bool, reloadGroups : Bool, reloadSort : Bool) {
+        // If we said to reload the l-lewd... filter...
+        if(reloadLewdFilter) {
+            // Reload the l-lewd... filter
+            displayLewdMangaAppDelegate();
+        }
+        
+        // If we said to reload the search...
+        if(reloadSearch) {
+            // If we are searching...
+            if(searching) {
+                // Redo the last search
+                searchFor(lastSearchText);
+            }
+        }
+        
+        // If we said to reload groups...
+        if(reloadGroups) {
+            // Reload the groups
+            displayGroupsSidebarController();
+        }
+        
+        // If we said to resort...
+        if(reloadSort) {
+            // Resort the grid
+            resort();
+        }
     }
     
     /// Shows / hides all the passed item datas(Groups) based on their groupShowing variable
@@ -64,11 +106,23 @@ class KMMangaGridController: NSObject {
                         arrayController.addObject(currentGridItem);
                     }
                 }
+                // If the manga doesnt have a group...
+                else if(currentGridItem.manga.group == "") {
+                    // Add the current item to the array controller
+                    arrayController.addObject(currentGridItem);
+                    
+                    print("No group match");
+                }
             }
         }
         
-        // Resort the grid
+        // Resort
         resort();
+    }
+    
+    /// The special function only meant for the sidebar table view to call
+    func sidebarTableViewDisplayGroups() {
+        reloadFilters(true, reloadSearch: true, reloadGroups: true, reloadSort: true);
     }
     
     /// Shows / hides all the groups from the sidebar controller based on their groupShowing variable
@@ -84,9 +138,6 @@ class KMMangaGridController: NSObject {
         
         // Call displayGroups with the new data we got
         displayGroups(sidebarDataItems);
-        
-        // Re hide / show the l-lewd... manga
-        displayLewdMangaAppDelegate();
     }
     
     /// Removes gridItem from the manga grid
@@ -153,22 +204,25 @@ class KMMangaGridController: NSObject {
         removeAllGridItems(false);
         
         // Add all the items in gridItems
-        setGridToItems(gridItems);
+        setGridToItems(gridItems, shouldReloadFilters: true);
         
         // Resort the grid
         resort();
     }
     
-    /// Shows all the items in objects to the manga grid
-    func setGridToItems(objects : [KMMangaGridItem]) {
+    /// Shows all the items in objects to the manga grid. Reloads the filters if shouldReloadFilters is true
+    func setGridToItems(objects : [KMMangaGridItem], shouldReloadFilters : Bool) {
         // Clear the grid
         removeAllGridItems(false);
         
         // Add objects to the manga grid
         arrayController.addObjects(objects);
         
-        // Resort the grid
-        resort();
+        // If we said to reload the filters...
+        if(shouldReloadFilters) {
+            // Reload the filters
+            reloadFilters(true, reloadSearch: true, reloadGroups: true, reloadSort: true);
+        }
     }
     
     /// Adds the given manga to the manga grid, and redos the search / show/hide l-lewd... manga
@@ -225,17 +279,8 @@ class KMMangaGridController: NSObject {
         if(searchText == "") {
             // If we have searched before...
             if(searching) {
-                // Restore the grid back to gridItems
-                updateGridToMatchGridItems();
-                
-                // Re show / hide l-lewd... manga
-                displayLewdMangaAppDelegate();
-                
-                // Re show / hide the groups
-                displayGroupsSidebarController();
-                
-                // Say we arent searching
-                searching = false;
+                // Reload all the filters except search
+                reloadFilters(false, reloadSearch: false, reloadGroups: true, reloadSort: true);
                 
                 // Remove all the objects in searchingGridItems
                 searchingGridItems.removeAll();
@@ -465,7 +510,7 @@ class KMMangaGridController: NSObject {
             }
             
             // Set the grid to show all the items that match the search
-            setGridToItems(searchItems);
+            setGridToItems(searchItems, shouldReloadFilters: false);
             
             // Resort the grid
             resort();
@@ -489,7 +534,10 @@ class KMMangaGridController: NSObject {
             print("Showing l-lewd... manga");
             
             // Set the manga grid to show gridItems
-            setGridToItems(gridItems);
+            setGridToItems(nonLewdManga, shouldReloadFilters: false);
+            
+            // Reload the filters
+            reloadFilters(false, reloadSearch: true, reloadGroups: false, reloadSort: true);
         }
         // If we said to show l-lewd... manga(B-but thats l-lewd...!)
         else {
@@ -506,25 +554,16 @@ class KMMangaGridController: NSObject {
             }
             
             // Show all items in nonLewdManga in the manga grid
-            setGridToItems(nonLewdManga);
+            setGridToItems(nonLewdManga, shouldReloadFilters: false);
+            
+            // Reload the filters
+            reloadFilters(false, reloadSearch: true, reloadGroups: false, reloadSort: true);
         }
     }
-    
-    /// Is this the first time we have called displayLewdMangaAppDelegate since launch?
-    var firstLewdMangaDisplayAppDelegate : Bool = true;
     
     /// Shows/hides all the l-lewd... manga based on the preferences keeper in AppDelegate
     func displayLewdMangaAppDelegate() {
         displayLewdManga((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.llewdModeEnabled);
-        
-        // If firstLewdMangaDisplayAppDelegate is true...
-        if(firstLewdMangaDisplayAppDelegate) {
-            // Set it to false
-            firstLewdMangaDisplayAppDelegate = false;
-            
-            // Display the groups
-            displayGroupsSidebarController();
-        }
     }
     
     /// Resort the manga grid(Based on the last chosen sorting method)

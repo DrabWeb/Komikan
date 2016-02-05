@@ -59,6 +59,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     /// The Collection/Toggle Sidebar menu item
     @IBOutlet weak var toggleSidebarMenuItem: NSMenuItem!
     
+    /// The Collection/Manage/Set Group for Selected
+    @IBOutlet weak var setGroupForSelectedMenuItem: NSMenuItem!
+    
     // The view controller we will load for the reader
     var mangaReaderViewController: KMReaderViewController?;
     
