@@ -362,9 +362,6 @@ CA
                                                     <menuItem title="Mark Selected as Unread" keyEquivalent="u" id="6KB-cw-D9H">
                                                         <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                                     </menuItem>
-                                                    <menuItem title="Set Group for Selected" keyEquivalent="g" id="EYD-4q-dfc">
-                                                        <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
-                                                    </menuItem>
                                                 </items>
                                             </menu>
                                         </menuItem>
@@ -428,7 +425,6 @@ CA
                         <outlet property="markSelectedAsUnreadMenuItem" destination="6KB-cw-D9H" id="uJr-51-3Di"/>
                         <outlet property="nextPageMenubarItem" destination="8P2-Bj-ZHO" id="maC-a5-1g2"/>
                         <outlet property="previousPageMenubarItem" destination="lL1-EK-QfJ" id="pyL-3Y-eLp"/>
-                        <outlet property="setGroupForSelectedMenuItem" destination="EYD-4q-dfc" id="feC-K7-2RF"/>
                         <outlet property="switchDualPageDirectionMenuItem" destination="ubh-G8-jVj" id="UF6-lc-LfP"/>
                         <outlet property="toggleBackgroundDarkenMenuItem" destination="ZbJ-Yy-OIo" id="kCW-1r-qf6"/>
                         <outlet property="toggleInfoBarMenuItem" destination="7Zc-hP-7S6" id="lST-ck-asS"/>
@@ -2091,7 +2087,7 @@ AwEVARgBHQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAEfA
                                         <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Group" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="a9A-Td-FIe">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <objectValues>
                                                 <string>Item 1</string>
                                                 <string>Item 2</string>
@@ -2180,69 +2176,6 @@ AwEVARgBHQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAEfA
                 <customObject id="1cK-9I-x0J" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="631" y="1510"/>
-        </scene>
-        <!--Mass Set Group View Controller-->
-        <scene sceneID="GEq-9W-slh">
-            <objects>
-                <viewController storyboardIdentifier="massSetGroupViewController" id="hvs-5Q-AGR" userLabel="Mass Set Group View Controller" customClass="KMMassSetGroupViewController" customModule="Komikan" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="5Rr-RG-DkP">
-                        <rect key="frame" x="0.0" y="0.0" width="187" height="94"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="rGh-eY-4Xj" userLabel="Background Visual Effect View">
-                                <rect key="frame" x="0.0" y="0.0" width="187" height="94"/>
-                                <subviews>
-                                    <comboBox focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f5u-eA-L39">
-                                        <rect key="frame" x="20" y="16" width="150" height="23"/>
-                                        <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" focusRingType="none" placeholderString="Group" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="1Ny-Ke-yoh">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
-                                            <objectValues>
-                                                <string>Item 1</string>
-                                                <string>Item 2</string>
-                                                <string>Item 3</string>
-                                            </objectValues>
-                                        </comboBoxCell>
-                                        <connections>
-                                            <action selector="groupSelectionComboBoxInteracted:" target="hvs-5Q-AGR" id="1rd-8k-ZCG"/>
-                                        </connections>
-                                    </comboBox>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="J0a-VN-5if">
-                                        <rect key="frame" x="18" y="57" width="151" height="17"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Set Group" id="kr3-qz-5xt">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="J0a-VN-5if" secondAttribute="trailing" constant="20" id="2hr-ed-gYd"/>
-                                    <constraint firstItem="J0a-VN-5if" firstAttribute="leading" secondItem="rGh-eY-4Xj" secondAttribute="leading" constant="20" id="APS-01-nEA"/>
-                                    <constraint firstAttribute="trailing" secondItem="f5u-eA-L39" secondAttribute="trailing" constant="20" id="JlS-V2-3cZ"/>
-                                    <constraint firstAttribute="bottom" secondItem="f5u-eA-L39" secondAttribute="bottom" constant="20" id="Sam-ql-bk2"/>
-                                    <constraint firstItem="f5u-eA-L39" firstAttribute="leading" secondItem="rGh-eY-4Xj" secondAttribute="leading" constant="20" id="Xdg-Fs-1tR"/>
-                                    <constraint firstItem="f5u-eA-L39" firstAttribute="top" secondItem="J0a-VN-5if" secondAttribute="bottom" constant="20" id="hlI-9A-2n4"/>
-                                    <constraint firstItem="J0a-VN-5if" firstAttribute="top" secondItem="rGh-eY-4Xj" secondAttribute="top" constant="20" id="kAs-it-D6E"/>
-                                </constraints>
-                            </visualEffectView>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="rGh-eY-4Xj" firstAttribute="top" secondItem="5Rr-RG-DkP" secondAttribute="top" id="CG8-NZ-J70"/>
-                            <constraint firstAttribute="bottom" secondItem="rGh-eY-4Xj" secondAttribute="bottom" id="UWk-yW-uE6"/>
-                            <constraint firstAttribute="trailing" secondItem="rGh-eY-4Xj" secondAttribute="trailing" id="gNd-rX-niz"/>
-                            <constraint firstItem="rGh-eY-4Xj" firstAttribute="leading" secondItem="5Rr-RG-DkP" secondAttribute="leading" id="zaZ-SG-eDu"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="backgroundVisualEffectView" destination="rGh-eY-4Xj" id="7Tz-UJ-tJG"/>
-                        <outlet property="groupSelectionComboBox" destination="f5u-eA-L39" id="p8a-Ay-V14"/>
-                    </connections>
-                </viewController>
-                <customObject id="nUO-qf-8KJ" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1100.5" y="1419"/>
         </scene>
     </scenes>
     <resources>
