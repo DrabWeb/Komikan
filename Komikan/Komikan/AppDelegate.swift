@@ -11,50 +11,53 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDelegate {
 
-    // The Manga/Next Page menu item
+    /// The Manga/Next Page menu item
     @IBOutlet weak var nextPageMenubarItem: NSMenuItem!
     
-    // The Manga/Previous Page menu item
+    /// The Manga/Previous Page menu item
     @IBOutlet weak var previousPageMenubarItem: NSMenuItem!
     
-    // The Manga/Jump to Page menu item
+    /// The Manga/Jump to Page menu item
     @IBOutlet weak var jumpToPageMenuItem: NSMenuItem!
     
-    // The Manga/Bookmark menu item
+    /// The Manga/Bookmark menu item
     @IBOutlet weak var bookmarkCurrentPageMenuItem: NSMenuItem!
     
-    // The Manga/Dual Page menu item
+    /// The Manga/Dual Page menu item
     @IBOutlet weak var dualPageMenuItem: NSMenuItem!
     
-    // The Manga/Switch Dual Page Direction menu item
+    /// The Manga/Switch Dual Page Direction menu item
     @IBOutlet weak var switchDualPageDirectionMenuItem: NSMenuItem!
     
-    // The Manga/Fit Window to Page menu item
+    /// The Manga/Fit Window to Page menu item
     @IBOutlet weak var fitWindowToPageMenuItem: NSMenuItem!
     
-    // The Komikan/Delete All Manga menu item
+    /// The Komikan/Delete All Manga menu item
     @IBOutlet weak var deleteAllMangaMenuItem: NSMenuItem!
     
-    // The Collection/Add From E-Hentai menu item
+    /// The Collection/Add From E-Hentai menu item
     @IBOutlet weak var addFromEHMenuItem: NSMenuItem!
     
-    // The Komikan/Toggle Background Darken menu item
+    /// The Komikan/Toggle Background Darken menu item
     @IBOutlet weak var toggleBackgroundDarkenMenuItem: NSMenuItem!
     
-    // The menu item that lets you toggle the info bar in the main window
+    /// The menu item that lets you toggle the info bar in the main window
     @IBOutlet weak var toggleInfoBarMenuItem: NSMenuItem!
     
-    // The Collection/Manage/Delete Selected menu item
+    /// The Collection/Manage/Delete Selected menu item
     @IBOutlet weak var deleteSelectedMangaMenuItem: NSMenuItem!
     
-    // The Collection/Manage/Mark Selected as Read menu item
+    /// The Collection/Manage/Mark Selected as Read menu item
     @IBOutlet weak var markSelectedAsReadMenuItem: NSMenuItem!
     
-    // The Collection/Manage/Mark Selected as Unread menu item
+    /// The Collection/Manage/Mark Selected as Unread menu item
     @IBOutlet weak var markSelectedAsUnreadMenuItem: NSMenuItem!
     
-    // The File/Import / Add menu item
+    /// The File/Import / Add menu item
     @IBOutlet weak var importAddMenuItem: NSMenuItem!
+    
+    /// The Collection/Toggle Sidebar menu item
+    @IBOutlet weak var toggleSidebarMenuItem: NSMenuItem!
     
     // The view controller we will load for the reader
     var mangaReaderViewController: KMReaderViewController?;

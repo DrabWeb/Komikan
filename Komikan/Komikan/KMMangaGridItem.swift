@@ -95,7 +95,7 @@ class KMMangaGridItem: NSObject, NSCoding {
     
     required convenience init(coder decoder: NSCoder) {
         self.init()
-        // Decode and laod the mangas values
+        // Decode and load the mangas values
         // Convert the data to an image
         self.manga.coverImage = NSImage(data: (decoder.decodeObjectForKey("manga.coverImage") as! NSData?)!)!;
         

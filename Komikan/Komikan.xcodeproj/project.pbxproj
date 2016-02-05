@@ -25,6 +25,10 @@
 		5D5DBEFA1C358BD3004D8C5D /* KMMangaGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBEF91C358BD3004D8C5D /* KMMangaGridItem.swift */; };
 		5D5DBEFC1C358BE0004D8C5D /* KMMangaGridController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBEFB1C358BE0004D8C5D /* KMMangaGridController.swift */; };
 		5D5DBF021C35923F004D8C5D /* KMReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBF011C35923F004D8C5D /* KMReaderViewController.swift */; };
+		5D5E7C221C64F1EE00F52116 /* KMSidebarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E7C211C64F1EE00F52116 /* KMSidebarController.swift */; };
+		5D5E7C251C64F44000F52116 /* KMSidebarItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E7C241C64F44000F52116 /* KMSidebarItemData.swift */; };
+		5D5E7C271C64F4CF00F52116 /* KMSidebarItemDoc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E7C261C64F4CF00F52116 /* KMSidebarItemDoc.swift */; };
+		5D5E7C2B1C65056200F52116 /* KMSidebarTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E7C2A1C65056200F52116 /* KMSidebarTableCellView.swift */; };
 		5D8125901C4BEDB600E3B000 /* KMEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D81258F1C4BEDB600E3B000 /* KMEnums.swift */; };
 		5D8C1CAA1C3F09E5001AD41B /* KMEditMangaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8C1CA91C3F09E5001AD41B /* KMEditMangaViewController.swift */; };
 		5D9238AD1C5FBDB3006EBAB2 /* exadd in Resources */ = {isa = PBXBuildFile; fileRef = 5D9238AA1C5FBDB3006EBAB2 /* exadd */; };
@@ -91,6 +95,10 @@
 		5D5DBEF91C358BD3004D8C5D /* KMMangaGridItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaGridItem.swift; sourceTree = "<group>"; };
 		5D5DBEFB1C358BE0004D8C5D /* KMMangaGridController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaGridController.swift; sourceTree = "<group>"; };
 		5D5DBF011C35923F004D8C5D /* KMReaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMReaderViewController.swift; sourceTree = "<group>"; };
+		5D5E7C211C64F1EE00F52116 /* KMSidebarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMSidebarController.swift; sourceTree = "<group>"; };
+		5D5E7C241C64F44000F52116 /* KMSidebarItemData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMSidebarItemData.swift; sourceTree = "<group>"; };
+		5D5E7C261C64F4CF00F52116 /* KMSidebarItemDoc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMSidebarItemDoc.swift; sourceTree = "<group>"; };
+		5D5E7C2A1C65056200F52116 /* KMSidebarTableCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMSidebarTableCellView.swift; sourceTree = "<group>"; };
 		5D81258F1C4BEDB600E3B000 /* KMEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMEnums.swift; sourceTree = "<group>"; };
 		5D8C1CA91C3F09E5001AD41B /* KMEditMangaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMEditMangaViewController.swift; sourceTree = "<group>"; };
 		5D9238AA1C5FBDB3006EBAB2 /* exadd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = exadd; sourceTree = "<group>"; };
@@ -146,6 +154,7 @@
 		5D0D2A4A1C39830000E3B8D0 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				5D5E7C231C64F42000F52116 /* Sidebar */,
 				5D0D2A4B1C39830D00E3B8D0 /* KMManga.swift */,
 				5D96AFB21C4A9F4E00120D70 /* KMPreferencesKeeper.swift */,
 				5D363FA61C5AC116004708FC /* KMEHDownloadItem.swift */,
@@ -294,6 +303,15 @@
 			name = Storyboards;
 			sourceTree = "<group>";
 		};
+		5D5E7C231C64F42000F52116 /* Sidebar */ = {
+			isa = PBXGroup;
+			children = (
+				5D5E7C241C64F44000F52116 /* KMSidebarItemData.swift */,
+				5D5E7C261C64F4CF00F52116 /* KMSidebarItemDoc.swift */,
+			);
+			name = Sidebar;
+			sourceTree = "<group>";
+		};
 		5D8C1CAB1C3F0DBA001AD41B /* Edit Manga */ = {
 			isa = PBXGroup;
 			children = (
@@ -328,6 +346,8 @@
 			isa = PBXGroup;
 			children = (
 				5D9E077B1C5E648F00B35C91 /* KMSidebarSplitView.swift */,
+				5D5E7C211C64F1EE00F52116 /* KMSidebarController.swift */,
+				5D5E7C2A1C65056200F52116 /* KMSidebarTableCellView.swift */,
 			);
 			name = Sidebar;
 			sourceTree = "<group>";
@@ -583,9 +603,13 @@
 				5D2C37AB1C4C48070089B7E1 /* KMWindowDelegate.swift in Sources */,
 				5D96AFB31C4A9F4E00120D70 /* KMPreferencesKeeper.swift in Sources */,
 				5D8125901C4BEDB600E3B000 /* KMEnums.swift in Sources */,
+				5D5E7C2B1C65056200F52116 /* KMSidebarTableCellView.swift in Sources */,
+				5D5E7C251C64F44000F52116 /* KMSidebarItemData.swift in Sources */,
 				5D0D2A4C1C39830D00E3B8D0 /* KMManga.swift in Sources */,
+				5D5E7C221C64F1EE00F52116 /* KMSidebarController.swift in Sources */,
 				5D5DBED11C3584F5004D8C5D /* ViewController.swift in Sources */,
 				5D9E077C1C5E648F00B35C91 /* KMSidebarSplitView.swift in Sources */,
+				5D5E7C271C64F4CF00F52116 /* KMSidebarItemDoc.swift in Sources */,
 				5DBB0DFF1C36DA0000495985 /* KMFileUtilities.swift in Sources */,
 				5D5DBECF1C3584F5004D8C5D /* AppDelegate.swift in Sources */,
 				5D22C3FD1C4454C50010746F /* KMPreferencesController.swift in Sources */,

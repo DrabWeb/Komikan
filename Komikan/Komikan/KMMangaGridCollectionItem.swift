@@ -31,6 +31,9 @@ class KMMangaGridCollectionItem: NSCollectionViewItem {
         
         // Select this item
         self.selected = true;
+        
+        // Make the first window set the collection view as the first responder
+        NSApplication.sharedApplication().windows[0].makeFirstResponder(self.collectionView);
     }
     
     func openPopover() {

@@ -61,8 +61,20 @@ class ViewController: NSViewController, NSTabViewDelegate {
         mangaGridController.sort(mangaGridController.currentSortOrder, ascending: Bool(titlebarToggleSortDirectionButton.state));
     }
     
+    /// The button in the titlebar with the hamburger icon that lets us toggle the sidebar
+    @IBOutlet weak var titlebarToggleSidebarButton: NSButton!
+    
+    /// When we interact with titlebarToggleSidebarButton...
+    @IBAction func titlebarToggleSidebarButtonInteracted(sender: AnyObject) {
+        // Toggle the sidebar
+        sidebarController.toggleSidebar();
+    }
+    
     // The view controller we will load for the add manga popover
     var addMangaViewController: KMAddMangaViewController?
+    
+    /// The controller for the sidebar that lets us filter by groups
+    @IBOutlet var sidebarController: KMSidebarController!
     
     // Is this the first time we've clicked on the add button in the titlebar?
     var addMangaViewFirstLoad : Bool = true;
@@ -165,6 +177,15 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Set the mark selected manga as read menu items action
         (NSApplication.sharedApplication().delegate as! AppDelegate).markSelectedAsReadMenuItem.action = Selector("markSelectedItemsAsRead");
         
+        // Set the delete all manga menubar items action
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.deleteAllMangaMenuItem.action = Selector("deleteAllManga");
+        
+        // Set the add / import manga menubar items action
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.importAddMenuItem.action = Selector("showAddImportPopoverMenuItem");
+        
+        // Set the toggle sidebar menubar items action
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.toggleSidebarMenuItem.action = Selector("toggleSidebar");
+        
         // Start a 0.1 second loop that will fix the windows look in fullscreen
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("deleteTitlebarInFullscreen"), userInfo: nil, repeats:true);
         
@@ -174,17 +195,14 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Load the manga we had in the grid
         loadManga();
         
+        // Load the sidebar items
+        sidebarController.loadSidebar();
+        
         // Scroll to the top of the manga grid
         mangaCollectionViewScrollView.pageUp(self);
         
-        // Set the manga grid as the first responder
-        window.makeFirstResponder(mangaCollectionView);
-        
-        // Set the delete all manga menubar items action
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.deleteAllMangaMenuItem.action = Selector("deleteAllManga");
-        
-        // Set the add / import manga menubar items action
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.importAddMenuItem.action = Selector("showAddImportPopoverMenuItem");
+        // Select the manga grid
+        makeMangaGridFirstResponder();
         
         // Sort the manga grid by the tab view item we have selected at start
         // If the tab view item we have selected is the Title sort one...
@@ -220,6 +238,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
         
         // Subscribe to the global application will quit notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "saveManga", name:"Application.WillQuit", object: nil);
+        
+        // Subscribe to the ViewController.SelectMangaGrid
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "makeMangaGridFirstResponder", name:"ViewController.SelectMangaGrid", object: nil);
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
@@ -228,6 +249,12 @@ class ViewController: NSViewController, NSTabViewDelegate {
             // Update the manga count in the info bar
             updateInfoBarMangaCountLabel();
         }
+    }
+    
+    /// Just a wrapper for the menu item to toggle the sidebar
+    func toggleSidebar() {
+        // Toggle the sidebar
+        sidebarController.toggleSidebar();
     }
     
     /// Shows the add / import popover, without passing variables for the menu item
@@ -329,6 +356,12 @@ class ViewController: NSViewController, NSTabViewDelegate {
         
         // Tell the manga grid to resort itself
         NSNotificationCenter.defaultCenter().postNotificationName("MangaGrid.Resort", object: nil);
+    }
+    
+    /// Makes the manga grid the first responder
+    func makeMangaGridFirstResponder() {
+        // Set the manga grid as the first responder
+        window.makeFirstResponder(mangaCollectionView);
     }
     
     // Deletes all the manga in the manga grid array controller
@@ -445,10 +478,22 @@ class ViewController: NSViewController, NSTabViewDelegate {
         if(window.isFullscreen()) {
             // Hide the toolbar so we dont get a grey bar at the top
             window.toolbar?.visible = false;
+            
+            // If the toggle sidebar button is not already moved...
+            if(titlebarToggleSidebarButton.frame.origin != NSPoint(x: 2, y: 1)) {
+                // Move the sidebar toggle button to the edge of the toolbar to fit in fullscreen
+                titlebarToggleSidebarButton.setFrameOrigin(NSPoint(x: 2, y: 1));
+            }
         }
         else {
             // Show the toolbar again in non-fullscreen(So we still get the traffic lights in the right place)
             window.toolbar?.visible = true;
+            
+            // If the toggle sidebar button is not already moved...
+            if(titlebarToggleSidebarButton.frame.origin != NSPoint(x: 72, y: 1)) {
+                // Move the sidebar toggle button to the edge of the traffic lights so it fits in the right place
+                titlebarToggleSidebarButton.setFrameOrigin(NSPoint(x: 72, y: 1));
+            }
         }
     }
     
@@ -506,6 +551,11 @@ class ViewController: NSViewController, NSTabViewDelegate {
         didSet {
             // Update the view, if already loaded.
         }
+    }
+    
+    override func viewWillDisappear() {
+        // Save the sidebar items
+        sidebarController.saveSidebar();
     }
 }
 
