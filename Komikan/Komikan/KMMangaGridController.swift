@@ -32,60 +32,8 @@ class KMMangaGridController: NSObject {
         // Subscribe to the MangaGrid.Resort notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "resort", name:"MangaGrid.Resort", object: nil);
         
-<<<<<<< HEAD
         // Subscribe to the Application.PreferencesSaved notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "displayLewdMangaAppDelegate", name:"Application.PreferencesSaved", object: nil);
-=======
-        // Subscribe to the MangaGrid.DisplayGroups notification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "displayGroupsSidebarController", name:"MangaGrid.DisplayGroups", object: nil);
-        
-        // Subscribe to the Application.PreferencesSaved notification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "displayLewdMangaAppDelegate", name:"Application.PreferencesSaved", object: nil);
-    }
-    
-    /// Shows / hides all the passed item datas(Groups) based on their groupShowing variable
-    func displayGroups(groups : [KMSidebarItemData]) {
-        // Print to the log that we are showing / hiding manga groups
-        print("Showing / Hiding Manga groups");
-        
-        // Clear the array controller
-        arrayController.removeObjects((arrayController.arrangedObjects as? [AnyObject])!);
-        
-        // For every item in the passed groups...
-        for(_, currentGroup) in groups.enumerate() {
-            for(_, currentGridItem) in gridItems.enumerate() {
-                // If this grid items group is the same as the current group...
-                if(currentGridItem.manga.group == currentGroup.groupName) {
-                    // if we said to show this group...
-                    if(currentGroup.groupShowing) {
-                        // Add the current item to the array controller
-                        arrayController.addObject(currentGridItem);
-                    }
-                }
-            }
-        }
-        
-        // Resort the grid
-        resort();
-    }
-    
-    /// Shows / hides all the groups from the sidebar controller based on their groupShowing variable
-    func displayGroupsSidebarController() {
-        /// The array of all the KMSidebarItemData of the sidebar table view
-        var sidebarDataItems : [KMSidebarItemData] = [];
-        
-        // For every KMSidebarItemDoc in the sidebar table view items...
-        for(_, currentDoc) in (NSApplication.sharedApplication().delegate as! AppDelegate).sidebarController.sidebarTableViewItems.enumerate() {
-            // Add the current docs data to sidebarDataItems
-            sidebarDataItems.append(currentDoc.data);
-        }
-        
-        // Call displayGroups with the new data we got
-        displayGroups(sidebarDataItems);
-        
-        // Re hide / show the l-lewd... manga
-        displayLewdMangaAppDelegate();
->>>>>>> fb5ef9b9784add74fe9f4ca33dae94834e161ce8
     }
     
     /// Removes gridItem from the manga grid
@@ -226,18 +174,6 @@ class KMMangaGridController: NSObject {
             if(searching) {
                 // Restore the grid back to gridItems
                 updateGridToMatchGridItems();
-<<<<<<< HEAD
-=======
-                
-                // Re show / hide l-lewd... manga
-                displayLewdMangaAppDelegate();
-                
-                // Re show / hide the groups
-                displayGroupsSidebarController();
-                
-                // Say we arent searching
-                searching = false;
->>>>>>> fb5ef9b9784add74fe9f4ca33dae94834e161ce8
                 
                 // Say we arent searching
                 searching = false;
@@ -288,35 +224,35 @@ class KMMangaGridController: NSObject {
                 // Switch for the first part of the current search item(The type(title, writer, tags, ETC.))
                 switch currentString.componentsSeparatedByString(":").first! {
                     // If its title...
-                case "title":
-                    // Set the appropriate variable to the current strings search content
-                    titleSearch = currentString.componentsSeparatedByString(":").last!;
-                    break;
+                    case "title":
+                        // Set the appropriate variable to the current strings search content
+                        titleSearch = currentString.componentsSeparatedByString(":").last!;
+                        break;
                     // If its series...
-                case "series":
-                    // Set the appropriate variable to the current strings search content
-                    seriesSearch = currentString.componentsSeparatedByString(":").last!;
-                    break;
+                    case "series":
+                        // Set the appropriate variable to the current strings search content
+                        seriesSearch = currentString.componentsSeparatedByString(":").last!;
+                        break;
                     // If its artist...
-                case "artist":
-                    // Set the appropriate variable to the current strings search content
-                    artistSearch = currentString.componentsSeparatedByString(":").last!;
-                    break;
+                    case "artist":
+                        // Set the appropriate variable to the current strings search content
+                        artistSearch = currentString.componentsSeparatedByString(":").last!;
+                        break;
                     // If its writer...
-                case "writer":
-                    // Set the appropriate variable to the current strings search content
-                    writerSearch = currentString.componentsSeparatedByString(":").last!;
-                    break;
+                    case "writer":
+                        // Set the appropriate variable to the current strings search content
+                        writerSearch = currentString.componentsSeparatedByString(":").last!;
+                        break;
                     // If its tags...
-                case "tags":
-                    // Set the appropriate variable to the current strings search content
-                    tagsSearch = currentString.componentsSeparatedByString(":").last!.componentsSeparatedByString(", ");
-                    break;
+                    case "tags":
+                        // Set the appropriate variable to the current strings search content
+                        tagsSearch = currentString.componentsSeparatedByString(":").last!.componentsSeparatedByString(", ");
+                        break;
                     // If it is one that we dont have...
-                default:
-                    // Print to the log that it didnt match any types we search by
-                    print("Did not match any search types");
-                    break;
+                    default:
+                        // Print to the log that it didnt match any types we search by
+                        print("Did not match any search types");
+                        break;
                 }
             }
             
@@ -487,7 +423,7 @@ class KMMangaGridController: NSObject {
             // Set the manga grid to show gridItems
             setGridToItems(gridItems);
         }
-            // If we said to show l-lewd... manga(B-but thats l-lewd...!)
+        // If we said to show l-lewd... manga(B-but thats l-lewd...!)
         else {
             // Print to the log that we are hiding l-lewd... manga
             print("Hiding l-lewd... manga");
@@ -506,21 +442,9 @@ class KMMangaGridController: NSObject {
         }
     }
     
-    /// Is this the first time we have called displayLewdMangaAppDelegate since launch?
-    var firstLewdMangaDisplayAppDelegate : Bool = true;
-    
     /// Shows/hides all the l-lewd... manga based on the preferences keeper in AppDelegate
     func displayLewdMangaAppDelegate() {
         displayLewdManga((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.llewdModeEnabled);
-        
-        // If firstLewdMangaDisplayAppDelegate is true...
-        if(firstLewdMangaDisplayAppDelegate) {
-            // Set it to false
-            firstLewdMangaDisplayAppDelegate = false;
-            
-            // Display the groups
-            displayGroupsSidebarController();
-        }
     }
     
     /// Resort the manga grid(Based on the last chosen sorting method)
@@ -545,12 +469,12 @@ class KMMangaGridController: NSObject {
             // Sort by series
             arrayController.sortDescriptors = [NSSortDescriptor(key: "series", ascending: ascending)];
         }
-            // If the sort type is by artist...
+        // If the sort type is by artist...
         else if(sortType == KMMangaGridSortType.Artist) {
             // Sort by artist
             arrayController.sortDescriptors = [NSSortDescriptor(key: "artist", ascending: ascending)];
         }
-            // If the sort type is by title...
+        // If the sort type is by title...
         else if(sortType == KMMangaGridSortType.Title) {
             // Sort by title
             arrayController.sortDescriptors = [NSSortDescriptor(key: "title", ascending: ascending)];

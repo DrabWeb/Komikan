@@ -56,12 +56,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     // The File/Import / Add menu item
     @IBOutlet weak var importAddMenuItem: NSMenuItem!
     
-<<<<<<< HEAD
-=======
-    /// The Collection/Toggle Sidebar menu item
-    @IBOutlet weak var toggleSidebarMenuItem: NSMenuItem!
-    
->>>>>>> fb5ef9b9784add74fe9f4ca33dae94834e161ce8
     // The view controller we will load for the reader
     var mangaReaderViewController: KMReaderViewController?;
     
