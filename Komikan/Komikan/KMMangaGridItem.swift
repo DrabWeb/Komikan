@@ -82,7 +82,6 @@ class KMMangaGridItem: NSObject, NSCoding {
         coder.encodeObject(self.manga.read, forKey: "manga.read");
         coder.encodeObject(self.manga.uuid, forKey: "manga.uuid");
         coder.encodeObject(self.manga.lewd, forKey: "manga.lewd");
-        coder.encodeObject(self.manga.group, forKey: "manga.group");
         
         coder.encodeObject(self.manga.saturation, forKey: "manga.saturation");
         coder.encodeObject(self.manga.brightness, forKey: "manga.brightness");
@@ -96,7 +95,7 @@ class KMMangaGridItem: NSObject, NSCoding {
     
     required convenience init(coder decoder: NSCoder) {
         self.init()
-        // Decode and load the mangas values
+        // Decode and laod the mangas values
         // Convert the data to an image
         self.manga.coverImage = NSImage(data: (decoder.decodeObjectForKey("manga.coverImage") as! NSData?)!)!;
         
@@ -160,12 +159,6 @@ class KMMangaGridItem: NSObject, NSCoding {
         if((decoder.decodeObjectForKey("manga.lewd") as? Bool) != nil) {
             // Load it
             self.manga.lewd = (decoder.decodeObjectForKey("manga.lewd") as! Bool?)!;
-        }
-        
-        // If there is a group value...
-        if((decoder.decodeObjectForKey("manga.group") as? String) != nil) {
-            // Load it
-            self.manga.group = (decoder.decodeObjectForKey("manga.group") as! String?)!;
         }
         
         // Load up the manga info

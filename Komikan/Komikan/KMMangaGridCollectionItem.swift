@@ -31,9 +31,6 @@ class KMMangaGridCollectionItem: NSCollectionViewItem {
         
         // Select this item
         self.selected = true;
-        
-        // Make the first window set the collection view as the first responder
-        NSApplication.sharedApplication().windows[0].makeFirstResponder(self.collectionView);
     }
     
     func openPopover() {
@@ -71,8 +68,8 @@ class KMMangaGridCollectionItem: NSCollectionViewItem {
             // Reload the view to match its contents
             NSNotificationCenter.defaultCenter().postNotificationName("ViewController.UpdateMangaGrid", object: nil);
             
-            // Reload the grid filters
-            NSNotificationCenter.defaultCenter().postNotificationName("GridController.ReloadFilters", object: nil);
+            // Tell the manga grid to resort itself
+            NSNotificationCenter.defaultCenter().postNotificationName("MangaGrid.Resort", object: nil);
         }
     }
     

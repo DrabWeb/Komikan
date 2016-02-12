@@ -16,9 +16,6 @@ class KMMangaGridController: NSObject {
     /// The items for the manga collection view. THIS IS NOT TO BE MODIFIED DIRECTLY
     var gridItems : [KMMangaGridItem] = [];
     
-    /// All the grid items that we use to search from
-    private var searchingGridItems : [KMMangaGridItem] = [];
-    
     /// The current way we are sorting the grid
     var currentSortOrder : KMMangaGridSortType = KMMangaGridSortType.Title;
     
@@ -31,113 +28,12 @@ class KMMangaGridController: NSObject {
     /// Are we showing l-lewd... manga?
     var showingLewdManga : Bool = false;
     
-    /// All the groups we are showing
-    var showingGroups : [String] = [];
-    
     override func awakeFromNib() {
         // Subscribe to the MangaGrid.Resort notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "resort", name:"MangaGrid.Resort", object: nil);
         
-        // Subscribe to the MangaGrid.DisplayGroups notification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "sidebarTableViewDisplayGroups", name:"MangaGrid.DisplayGroups", object: nil);
-        
         // Subscribe to the Application.PreferencesSaved notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "displayLewdMangaAppDelegate", name:"Application.PreferencesSaved", object: nil);
-        
-        // Subscribe to the Application.PreferencesSaved notification to reload all filters
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadAllFilters", name:"Application.PreferencesSaved", object: nil);
-        
-        // Subscribe to the GridController.ReloadFilters notification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadAllFilters", name:"GridController.ReloadFilters", object: nil);
-    }
-    
-    /// Reloads all the filters
-    func reloadAllFilters() {
-        // Reload the filters
-        reloadFilters(true, reloadSearch: true, reloadGroups: true, reloadSort: true);
-    }
-    
-    /// Reloads all the filters like l-lewd... mode, groups, etc. Only reloads the ones whose bools you set to true
-    func reloadFilters(reloadLewdFilter : Bool, reloadSearch : Bool, reloadGroups : Bool, reloadSort : Bool) {
-        // If we said to reload the l-lewd... filter...
-        if(reloadLewdFilter) {
-            // Reload the l-lewd... filter
-            displayLewdMangaAppDelegate();
-        }
-        
-        // If we said to reload the search...
-        if(reloadSearch) {
-            // If we are searching...
-            if(searching) {
-                // Redo the last search
-                searchFor(lastSearchText);
-            }
-        }
-        
-        // If we said to reload groups...
-        if(reloadGroups) {
-            // Reload the groups
-            displayGroupsSidebarController();
-        }
-        
-        // If we said to resort...
-        if(reloadSort) {
-            // Resort the grid
-            resort();
-        }
-    }
-    
-    /// Shows / hides all the passed item datas(Groups) based on their groupShowing variable
-    func displayGroups(groups : [KMSidebarItemData]) {
-        // Print to the log that we are showing / hiding manga groups
-        print("Showing / Hiding Manga groups");
-        
-        // Clear the array controller
-        arrayController.removeObjects((arrayController.arrangedObjects as? [AnyObject])!);
-        
-        // For every item in the passed groups...
-        for(_, currentGroup) in groups.enumerate() {
-            for(_, currentGridItem) in gridItems.enumerate() {
-                // If this grid items group is the same as the current group...
-                if(currentGridItem.manga.group == currentGroup.groupName) {
-                    // if we said to show this group...
-                    if(currentGroup.groupShowing) {
-                        // Add the current item to the array controller
-                        arrayController.addObject(currentGridItem);
-                    }
-                }
-                // If the manga doesnt have a group...
-                else if(currentGridItem.manga.group == "") {
-                    // Add the current item to the array controller
-                    arrayController.addObject(currentGridItem);
-                    
-                    print("No group match");
-                }
-            }
-        }
-        
-        // Resort
-        resort();
-    }
-    
-    /// The special function only meant for the sidebar table view to call
-    func sidebarTableViewDisplayGroups() {
-        reloadFilters(true, reloadSearch: true, reloadGroups: true, reloadSort: true);
-    }
-    
-    /// Shows / hides all the groups from the sidebar controller based on their groupShowing variable
-    func displayGroupsSidebarController() {
-        /// The array of all the KMSidebarItemData of the sidebar table view
-        var sidebarDataItems : [KMSidebarItemData] = [];
-        
-        // For every KMSidebarItemDoc in the sidebar table view items...
-        for(_, currentDoc) in (NSApplication.sharedApplication().delegate as! AppDelegate).sidebarController.sidebarTableViewItems.enumerate() {
-            // Add the current docs data to sidebarDataItems
-            sidebarDataItems.append(currentDoc.data);
-        }
-        
-        // Call displayGroups with the new data we got
-        displayGroups(sidebarDataItems);
     }
     
     /// Removes gridItem from the manga grid
@@ -204,25 +100,22 @@ class KMMangaGridController: NSObject {
         removeAllGridItems(false);
         
         // Add all the items in gridItems
-        setGridToItems(gridItems, shouldReloadFilters: true);
+        setGridToItems(gridItems);
         
         // Resort the grid
         resort();
     }
     
-    /// Shows all the items in objects to the manga grid. Reloads the filters if shouldReloadFilters is true
-    func setGridToItems(objects : [KMMangaGridItem], shouldReloadFilters : Bool) {
+    /// Shows all the items in objects to the manga grid
+    func setGridToItems(objects : [KMMangaGridItem]) {
         // Clear the grid
         removeAllGridItems(false);
         
         // Add objects to the manga grid
         arrayController.addObjects(objects);
         
-        // If we said to reload the filters...
-        if(shouldReloadFilters) {
-            // Reload the filters
-            reloadFilters(true, reloadSearch: true, reloadGroups: true, reloadSort: true);
-        }
+        // Resort the grid
+        resort();
     }
     
     /// Adds the given manga to the manga grid, and redos the search / show/hide l-lewd... manga
@@ -279,20 +172,14 @@ class KMMangaGridController: NSObject {
         if(searchText == "") {
             // If we have searched before...
             if(searching) {
-                // Reload all the filters except search
-                reloadFilters(false, reloadSearch: false, reloadGroups: true, reloadSort: true);
+                // Restore the grid back to gridItems
+                updateGridToMatchGridItems();
                 
-                // Remove all the objects in searchingGridItems
-                searchingGridItems.removeAll();
+                // Say we arent searching
+                searching = false;
             }
         }
         else {
-            // If we havent started searching yet...
-            if(!searching) {
-                // Set searchingGridItems to the objects in the array controller
-                searchingGridItems = (arrayController.arrangedObjects as? [KMMangaGridItem])!;
-            }
-            
             // Say we are searching
             searching = true;
             
@@ -385,7 +272,7 @@ class KMMangaGridController: NSObject {
             let searchedByTags : Bool = (tagsSearch != []);
             
             // For every manga we have...
-            for(_, currentItem) in searchingGridItems.enumerate() {
+            for(_, currentItem) in gridItems.enumerate() {
                 /// Does this manga overall match the search?
                 var matching : Bool = false;
                 
@@ -510,7 +397,7 @@ class KMMangaGridController: NSObject {
             }
             
             // Set the grid to show all the items that match the search
-            setGridToItems(searchItems, shouldReloadFilters: false);
+            setGridToItems(searchItems);
             
             // Resort the grid
             resort();
@@ -534,10 +421,7 @@ class KMMangaGridController: NSObject {
             print("Showing l-lewd... manga");
             
             // Set the manga grid to show gridItems
-            setGridToItems(nonLewdManga, shouldReloadFilters: false);
-            
-            // Reload the filters
-            reloadFilters(false, reloadSearch: true, reloadGroups: false, reloadSort: true);
+            setGridToItems(gridItems);
         }
         // If we said to show l-lewd... manga(B-but thats l-lewd...!)
         else {
@@ -554,10 +438,7 @@ class KMMangaGridController: NSObject {
             }
             
             // Show all items in nonLewdManga in the manga grid
-            setGridToItems(nonLewdManga, shouldReloadFilters: false);
-            
-            // Reload the filters
-            reloadFilters(false, reloadSearch: true, reloadGroups: false, reloadSort: true);
+            setGridToItems(nonLewdManga);
         }
     }
     
