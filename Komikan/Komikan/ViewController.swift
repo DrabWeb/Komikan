@@ -171,6 +171,12 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Set the add / import manga menubar items action
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.importAddMenuItem.action = Selector("showAddImportPopoverMenuItem");
         
+<<<<<<< HEAD
+=======
+        // Set the toggle sidebar menubar items action
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.toggleSidebarMenuItem.action = Selector("toggleSidebar");
+        
+>>>>>>> fb5ef9b9784add74fe9f4ca33dae94834e161ce8
         // Start a 0.1 second loop that will fix the windows look in fullscreen
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("deleteTitlebarInFullscreen"), userInfo: nil, repeats:true);
         
@@ -223,6 +229,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
         
         // Subscribe to the ViewController.SelectMangaGrid
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "makeMangaGridFirstResponder", name:"ViewController.SelectMangaGrid", object: nil);
+        
+        // Post the notification to update what groups we are displaying in the grid
+        mangaGridController.displayGroupsSidebarController();
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
@@ -233,6 +242,15 @@ class ViewController: NSViewController, NSTabViewDelegate {
         }
     }
     
+<<<<<<< HEAD
+=======
+    /// Just a wrapper for the menu item to toggle the sidebar
+    func toggleSidebar() {
+        // Toggle the sidebar
+        sidebarController.toggleSidebar();
+    }
+    
+>>>>>>> fb5ef9b9784add74fe9f4ca33dae94834e161ce8
     /// Shows the add / import popover, without passing variables for the menu item
     func showAddImportPopoverMenuItem() {
         // Show the add / import popover

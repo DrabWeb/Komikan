@@ -1317,7 +1317,19 @@ CA
                         <binding destination="rwH-XF-ldC" name="contentArray" keyPath="manga" id="LsF-tY-Vwt"/>
                     </connections>
                 </arrayController>
+<<<<<<< HEAD
                 <customObject id="fq9-lH-DIC" userLabel="Sidebar Controller" customClass="KMSidebarController" customModule="Komikan" customModuleProvider="target"/>
+=======
+                <customObject id="fq9-lH-DIC" userLabel="Sidebar Controller" customClass="KMSidebarController" customModule="Komikan" customModuleProvider="target">
+                    <connections>
+                        <outlet property="addButton" destination="rua-2j-kSv" id="pUF-6B-lFa"/>
+                        <outlet property="mangaGridController" destination="rwH-XF-ldC" id="bEZ-IF-lyI"/>
+                        <outlet property="removeButton" destination="9UW-1g-V4q" id="xQU-gS-AQQ"/>
+                        <outlet property="sidebarTableView" destination="uLB-Y7-L31" id="hzK-5S-uiX"/>
+                        <outlet property="splitView" destination="Z0Z-Pf-S0u" id="7a2-gE-Bhp"/>
+                    </connections>
+                </customObject>
+>>>>>>> fb5ef9b9784add74fe9f4ca33dae94834e161ce8
             </objects>
             <point key="canvasLocation" x="81" y="912"/>
         </scene>
@@ -1893,9 +1905,29 @@ AwEVARgBHQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAEfA
                                             <action selector="markUnreadButtonPressed:" target="ZeA-Vi-1xn" id="0km-fX-D7p"/>
                                         </connections>
                                     </button>
+<<<<<<< HEAD
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uMj-mL-fzg" userLabel="Series Text Field">
                                         <rect key="frame" x="240" y="266" width="220" height="22"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Series" bezelStyle="round" id="tA5-9z-K2i">
+=======
+                                    <comboBox verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sJC-Pu-UTH">
+                                        <rect key="frame" x="241" y="146" width="222" height="26"/>
+                                        <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Group" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="a9A-Td-FIe">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <objectValues>
+                                                <string>Item 1</string>
+                                                <string>Item 2</string>
+                                                <string>Item 3</string>
+                                            </objectValues>
+                                        </comboBoxCell>
+                                    </comboBox>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5cw-yT-7dB" userLabel="Mark as Read Button">
+                                        <rect key="frame" x="235" y="61" width="105" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Mark Read" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Myq-eH-OmN">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+>>>>>>> fb5ef9b9784add74fe9f4ca33dae94834e161ce8
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1974,7 +2006,11 @@ AwEVARgBHQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAEfA
                 </viewController>
                 <customObject id="1cK-9I-x0J" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
+<<<<<<< HEAD
             <point key="canvasLocation" x="631" y="1489"/>
+=======
+            <point key="canvasLocation" x="631" y="1510"/>
+>>>>>>> fb5ef9b9784add74fe9f4ca33dae94834e161ce8
         </scene>
     </scenes>
     <resources>

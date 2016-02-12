@@ -177,6 +177,18 @@ class KMEditMangaViewController: NSViewController {
             manga.coverImage = manga.coverImage.resizeToHeight(400);
         }
         
+<<<<<<< HEAD
+=======
+        // Set the mangas group
+        manga.group = groupSelectionComboBox.stringValue;
+        
+        // If the group we chose doesnt already exist...
+        if(!((NSApplication.sharedApplication().delegate as! AppDelegate).sidebarController.sidebarGroups().contains(groupSelectionComboBox.stringValue))) {
+            // add a new group with the group we chose
+            (NSApplication.sharedApplication().delegate as! AppDelegate).sidebarController.addItemToSidebar(KMSidebarItemDoc(groupName: groupSelectionComboBox.stringValue));
+        }
+        
+>>>>>>> fb5ef9b9784add74fe9f4ca33dae94834e161ce8
         // Post the notification back to the collection view item so it can deal with it
         NSNotificationCenter.defaultCenter().postNotificationName("KMEditMangaViewController.Saving", object: manga);
     }

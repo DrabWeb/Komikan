@@ -114,6 +114,18 @@ class KMAddMangaViewController: NSViewController {
             // Set if the manga is l-lewd...
             newManga.lewd = Bool(llewdCheckBox.state);
             
+<<<<<<< HEAD
+=======
+            // Set the manga's group
+            newManga.group = groupSelectionComboBox.stringValue;
+            
+            // If the group we chose doesnt already exist...
+            if(!((NSApplication.sharedApplication().delegate as! AppDelegate).sidebarController.sidebarGroups().contains(newManga.group))) {
+                // add a new group with the group we chose
+                (NSApplication.sharedApplication().delegate as! AppDelegate).sidebarController.addItemToSidebar(KMSidebarItemDoc(groupName: newManga.group));
+            }
+            
+>>>>>>> fb5ef9b9784add74fe9f4ca33dae94834e161ce8
             // Set the new mangas directory
             newManga.directory = (chooseDirectoryOpenPanel.URL?.absoluteString.stringByRemovingPercentEncoding!)!.stringByReplacingOccurrencesOfString("file://", withString: "");
             
@@ -168,6 +180,15 @@ class KMAddMangaViewController: NSViewController {
                 newMangaMultiple.append(currentManga);
             }
             
+<<<<<<< HEAD
+=======
+            // If the group we chose doesnt already exist...
+            if(!((NSApplication.sharedApplication().delegate as! AppDelegate).sidebarController.sidebarGroups().contains(groupSelectionComboBox.stringValue))) {
+                // add a new group with the group we chose
+                (NSApplication.sharedApplication().delegate as! AppDelegate).sidebarController.addItemToSidebar(KMSidebarItemDoc(groupName: groupSelectionComboBox.stringValue));
+            }
+            
+>>>>>>> fb5ef9b9784add74fe9f4ca33dae94834e161ce8
             // Remove the first element in newMangaMultiple, for some reason its always empty
             newMangaMultiple.removeAtIndex(0);
             
