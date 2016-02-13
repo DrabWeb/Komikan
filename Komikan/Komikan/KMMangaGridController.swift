@@ -529,7 +529,7 @@ class KMMangaGridController: NSObject {
                 // Example search
                 // title:v007; series:Yuru Yuri; artist:namori; writer:namori; tags:school, comedy, -drama; groups:reading, -dropped;
                 
-                // Or you can use the simplified search type names
+                // Or you can use the simplified search term names
                 // t:v007; s:Yuru Yuri; a:namori; w:namori; tg:school, comedy, -drama; g:reading, -dropped;
                 
                 // If we didnt search by title...

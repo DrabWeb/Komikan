@@ -171,6 +171,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Set the add / import manga menubar items action
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.importAddMenuItem.action = Selector("showAddImportPopoverMenuItem");
         
+        // Set the set selected items properties menubar items action
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.setSelectedItemsPropertiesMenuItems.action = Selector("showSetSelectedItemsPropertiesPopover");
+        
         // Start a 0.1 second loop that will fix the windows look in fullscreen
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("deleteTitlebarInFullscreen"), userInfo: nil, repeats:true);
         
@@ -231,6 +234,63 @@ class ViewController: NSViewController, NSTabViewDelegate {
             // Update the manga count in the info bar
             updateInfoBarMangaCountLabel();
         }
+    }
+    
+    /// The view controller we will load for the popover that lets us set the selected items properties(Artist, Group, ETC.)
+    var setSelectedItemsPropertiesViewController: KMSetSelectedItemsPropertiesViewController?
+    
+    // Is this the first time opened the set selected items properties popover?
+    var setSelectedItemsPropertiesViewFirstLoad : Bool = true;
+    
+    /// Shows the set selected items properties popover
+    func showSetSelectedItemsPropertiesPopover() {
+        // Get the main storyboard
+        let storyboard = NSStoryboard(name: "Main", bundle: nil);
+        
+        // Instanstiate the view controller for the set selected items properties popover
+        setSelectedItemsPropertiesViewController = storyboard.instantiateControllerWithIdentifier("setSelectedItemsPropertiesViewController") as? KMSetSelectedItemsPropertiesViewController;
+        
+        // Present the setSelectedItemsPropertiesViewController as a popover so it is in the center of the window and the arrow is pointing down
+        setSelectedItemsPropertiesViewController!.presentViewController(setSelectedItemsPropertiesViewController!, asPopoverRelativeToRect: NSRect(x: 0, y: 0, width: window.contentView!.bounds.width, height: window.contentView!.bounds.height / 2), ofView: backgroundVisualEffectView, preferredEdge: NSRectEdge.MaxY, behavior: NSPopoverBehavior.Semitransient);
+        
+        // If this is the first time we have opened the popover...
+        if(setSelectedItemsPropertiesViewFirstLoad) {
+            // Subscribe to the popovers finished notification
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "setSelectedItemsProperties:", name:"KMSetSelectedItemsPropertiesViewController.Finished", object: nil);
+            
+            // Say that all the next loads are not the first
+            setSelectedItemsPropertiesViewFirstLoad = false;
+        }
+    }
+    
+    /// Called by the set selected items properties popover to apply the given values to the selected items
+    func setSelectedItemsProperties(notification : NSNotification) {
+        // Print to the log thatr we are setting the selected items properties
+        print("Setting selected items properties to properties from popover");
+        
+        /// The manga grid items that we want to set properties of
+        var selectionItemsToSetProperties : [KMMangaGridItem] = [];
+        
+        // For every selection index of the manga grid...
+        for(_, currentIndex) in mangaCollectionView.selectionIndexes.enumerate() {
+            // Add the item at the set index to the items that we want to set properties of
+            selectionItemsToSetProperties.append((mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])![currentIndex]);
+        }
+        
+        // Get the notification object as a KMSetSelectedPropertiesHolder
+        let propertiesHolder : KMSetSelectedPropertiesHolder = (notification.object as! KMSetSelectedPropertiesHolder);
+        
+        // For every item in the manga grid that we set the properties of...
+        for(_, currentItem) in selectionItemsToSetProperties.enumerate() {
+            // Apply the propertie holders values to the current item
+            propertiesHolder.applyValuesToManga(currentItem.manga);
+        }
+        
+        // Deselect all the items
+        mangaCollectionView.deselectAll(self);
+        
+        // Resort the grid
+        mangaGridController.resort();
     }
     
     /// Shows the add / import popover, without passing variables for the menu item

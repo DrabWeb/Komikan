@@ -43,6 +43,7 @@
 		5DC23A8A1C5BBEFF00916751 /* KMImageFilterUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC23A891C5BBEFF00916751 /* KMImageFilterUtilities.swift */; };
 		5DC3A8F11C5AB25E0058D253 /* KMGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC3A8F01C5AB25E0058D253 /* KMGradientView.swift */; };
 		5DC97D691C3EFF8200CC1006 /* KMMangaGridCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC97D681C3EFF8200CC1006 /* KMMangaGridCollectionItem.swift */; };
+		5DDD43651C6FBC82005DBAAF /* KMSetSelectedItemsPropertiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDD43641C6FBC82005DBAAF /* KMSetSelectedItemsPropertiesViewController.swift */; };
 		5DFBC77D1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFBC77C1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift */; };
 		A6FFEA5765BA265B56BB6534 /* Pods_Komikan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E2195201FB8947F49FDF6F0 /* Pods_Komikan.framework */; };
 /* End PBXBuildFile section */
@@ -109,6 +110,7 @@
 		5DC23A891C5BBEFF00916751 /* KMImageFilterUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMImageFilterUtilities.swift; sourceTree = "<group>"; };
 		5DC3A8F01C5AB25E0058D253 /* KMGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMGradientView.swift; sourceTree = "<group>"; };
 		5DC97D681C3EFF8200CC1006 /* KMMangaGridCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaGridCollectionItem.swift; sourceTree = "<group>"; };
+		5DDD43641C6FBC82005DBAAF /* KMSetSelectedItemsPropertiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMSetSelectedItemsPropertiesViewController.swift; sourceTree = "<group>"; };
 		5DFBC77C1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaGridSelectionBox.swift; sourceTree = "<group>"; };
 		9E2195201FB8947F49FDF6F0 /* Pods_Komikan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Komikan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B086CA4387890A79C8FD3E35 /* Pods-Komikan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Komikan.release.xcconfig"; path = "Pods/Target Support Files/Pods-Komikan/Pods-Komikan.release.xcconfig"; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 		5D5DBEFD1C35913F004D8C5D /* View Managers */ = {
 			isa = PBXGroup;
 			children = (
+				5DDD43631C6FBC5D005DBAAF /* Set Selected Items Properties */,
 				5D96AFB41C4AAFAD00120D70 /* EH */,
 				5D22C3FB1C44548F0010746F /* Preferences */,
 				5D0D2A4D1C39A0EC00E3B8D0 /* Add Manga */,
@@ -343,6 +346,14 @@
 				5DBB0E061C36E2C700495985 /* Komikan-Bridging-Header.h */,
 			);
 			name = "Objective-C";
+			sourceTree = "<group>";
+		};
+		5DDD43631C6FBC5D005DBAAF /* Set Selected Items Properties */ = {
+			isa = PBXGroup;
+			children = (
+				5DDD43641C6FBC82005DBAAF /* KMSetSelectedItemsPropertiesViewController.swift */,
+			);
+			name = "Set Selected Items Properties";
 			sourceTree = "<group>";
 		};
 		66B68D79869D1A6E84FB159B /* Frameworks */ = {
@@ -564,6 +575,7 @@
 				5D2C37A91C4C3FA50089B7E1 /* KMExtensions.swift in Sources */,
 				5D1388CC1C3836C200B5EAAD /* KMReaderPanelView.swift in Sources */,
 				5D363FA51C5ABFB6004708FC /* KMEHDownloadController.swift in Sources */,
+				5DDD43651C6FBC82005DBAAF /* KMSetSelectedItemsPropertiesViewController.swift in Sources */,
 				5DC23A8A1C5BBEFF00916751 /* KMImageFilterUtilities.swift in Sources */,
 				5DBC7C6B1C629BBC00FAD428 /* KMImageUtilities.swift in Sources */,
 				5D9912111C46A5A6008E6591 /* KMCommandUtilities.swift in Sources */,
