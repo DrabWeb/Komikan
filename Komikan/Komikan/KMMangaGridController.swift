@@ -204,6 +204,9 @@ class KMMangaGridController: NSObject {
             /// The tags search content(If we search for a tags)(Already split into an array)
             var tagsSearch : [String] = [];
             
+            /// The tags search content(If we search for a groups)(Already split into an array)
+            var groupsSearch : [String] = [];
+            
             /// The search string without the possible ; on the end
             var cleanedSearchText : String = searchText;
             
@@ -224,29 +227,34 @@ class KMMangaGridController: NSObject {
                 // Switch for the first part of the current search item(The type(title, writer, tags, ETC.))
                 switch currentString.componentsSeparatedByString(":").first! {
                     // If its title...
-                    case "title":
+                    case "title", "t":
                         // Set the appropriate variable to the current strings search content
                         titleSearch = currentString.componentsSeparatedByString(":").last!;
                         break;
                     // If its series...
-                    case "series":
+                    case "series", "s":
                         // Set the appropriate variable to the current strings search content
                         seriesSearch = currentString.componentsSeparatedByString(":").last!;
                         break;
                     // If its artist...
-                    case "artist":
+                    case "artist", "a":
                         // Set the appropriate variable to the current strings search content
                         artistSearch = currentString.componentsSeparatedByString(":").last!;
                         break;
                     // If its writer...
-                    case "writer":
+                    case "writer", "w":
                         // Set the appropriate variable to the current strings search content
                         writerSearch = currentString.componentsSeparatedByString(":").last!;
                         break;
                     // If its tags...
-                    case "tags":
+                    case "tags", "tg":
                         // Set the appropriate variable to the current strings search content
                         tagsSearch = currentString.componentsSeparatedByString(":").last!.componentsSeparatedByString(", ");
+                        break;
+                    // If its groups...
+                    case "groups", "g":
+                        // Set the appropriate variable to the current strings search content
+                        groupsSearch = currentString.componentsSeparatedByString(":").last!.componentsSeparatedByString(", ");
                         break;
                     // If it is one that we dont have...
                     default:
@@ -271,6 +279,9 @@ class KMMangaGridController: NSObject {
             /// Did we search by tags?
             let searchedByTags : Bool = (tagsSearch != []);
             
+            /// Did we search by groups?
+            let searchedByGroups : Bool = (groupsSearch != []);
+            
             // For every manga we have...
             for(_, currentItem) in gridItems.enumerate() {
                 /// Does this manga overall match the search?
@@ -290,6 +301,9 @@ class KMMangaGridController: NSObject {
                 
                 /// Do we have matching tags?
                 var matchingTags : Bool = false;
+                
+                /// Do we have matching groups?
+                var matchingGroups : Bool = false;
                 
                 // If we searched by title...
                 if(searchedByTitle) {
@@ -332,30 +346,191 @@ class KMMangaGridController: NSObject {
                     /// How many matching tags do we have?
                     var matchingTagCount : Int = 0;
                     
+                    // Have we already matched exclusion tags?
+                    var alreadyMatchedExclusionTag : Bool = false;
+                    
+                    /// How many exclusion tags do we have in our search?
+                    var exclusionTagCount : Int = 0;
+                    
+                    // For every search tag...
+                    for(_, currentSearchTag) in tagsSearch.enumerate() {
+                        // If the first character in the string is a "-"...
+                        if(currentSearchTag.substringToIndex(currentSearchTag.startIndex.successor()) == "-") {
+                            // Add one to the exclusion tag count
+                            exclusionTagCount++;
+                        }
+                    }
+                    
+                    // Resort the search tags(For some reason my exclusion method doesnt work very well when you put exclusion tags first, so this is the solution)
+                    tagsSearch = tagsSearch.sort();
+                    
+                    // Flip the search tags(For the same reason as above)
+                    tagsSearch = tagsSearch.reverse();
+                    
+                    /// Are we only searching by exclusion tags?
+                    let onlySearchingForExclusionTags : Bool = ((tagsSearch.count - exclusionTagCount) == 0);
+                    
                     // For every tag in the current items tags...
                     for(_, currentTag) in currentItem.manga.tags.enumerate() {
                         // For every tag in the search tags....
                         for(_, currentSearchTag) in tagsSearch.enumerate() {
-                            // If the current tag matches the current search tag... (In lowercase to be case insensitive)
-                            if(currentTag.lowercaseString.containsString(currentSearchTag.lowercaseString)) {
-                                // Say we have matching tags
-                                matchingTags = true;
+                            /// The current search tag without the possible "-" in front for exclusion tags
+                            var searchTagWithoutPossibleMinus : String = currentSearchTag.lowercaseString;
+                            
+                            /// Is the current search tag an exclusion tag?
+                            var searchTagIsExclusion : Bool = false;
+                            
+                            // If the first character in searchTagWithoutPossibleMinus is a "-"...
+                            if(searchTagWithoutPossibleMinus.substringToIndex(currentSearchTag.startIndex.successor()) == "-") {
+                                // Remove the first character from searchTagWithoutPossibleMinus
+                                searchTagWithoutPossibleMinus = searchTagWithoutPossibleMinus.substringFromIndex(searchTagWithoutPossibleMinus.startIndex.successor());
                                 
-                                // Add one to the matching tag count
-                                matchingTagCount++;
+                                // Set searchTagIsExclusion to true
+                                searchTagIsExclusion = true;
+                            }
+                            
+                            // If we arent only searching by exclusion tags...
+                            if(!onlySearchingForExclusionTags) {
+                                // If the current tag matches the current search tag... (In lowercase to be case insensitive)
+                                if(currentTag.lowercaseString.containsString(searchTagWithoutPossibleMinus)) {
+                                    // If the current search tag is an exclusion search tag...
+                                    if(searchTagIsExclusion) {
+                                        // Say we dont matching tags
+                                        matchingTags = false;
+                                        
+                                        // Set the matching tag count to the search tags count
+                                        matchingTagCount = tagsSearch.count;
+                                        
+                                        // Say we already have matched an exclusion tag
+                                        alreadyMatchedExclusionTag = true;
+                                    }
+                                    else {
+                                        // If we dont already have a matching exclusion tag...
+                                        if(!alreadyMatchedExclusionTag) {
+                                            // Say we have matching tags
+                                            matchingTags = true;
+                                            
+                                            // Add one to the matching tag count
+                                            matchingTagCount++;
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            // If we only searched for exclusion tags and we havent already had a matching exclusion tag...
+                            if(onlySearchingForExclusionTags && !alreadyMatchedExclusionTag) {
+                                // If the current tag doesnt match the exclusion tag...
+                                if(currentTag != searchTagWithoutPossibleMinus) {
+                                    // Say we have matching tags
+                                    matchingTags = true;
+                                    
+                                    // Add one to the matching tag count
+                                    matchingTagCount++;
+                                }
+                                else {
+                                    // Say we dont have matching tags
+                                    matchingTags = false;
+                                    
+                                    // Say we already matched an exclusion tag
+                                    alreadyMatchedExclusionTag = true;
+                                }
                             }
                         }
                     }
                     
-                    // If the amount of matching tags is less than the search tags count...
-                    if(matchingTagCount < tagsSearch.count) {
+                    // If the amount of matching tags is less than the search tags count, and we arent only searching for exclusion tags...
+                    if((matchingTagCount < tagsSearch.count - (exclusionTagCount)) && !onlySearchingForExclusionTags) {
                         // Say the tags dont match
                         matchingTags = false;
                     }
                 }
                 
+                // If we searched by groups...
+                if(searchedByGroups) {
+                    // Have we already matched exclusion groups?
+                    var alreadyMatchedExclusionGroup : Bool = false;
+                    
+                    /// How many exclusion groups do we have in our search?
+                    var exclusionGroupCount : Int = 0;
+                    
+                    // For every search group...
+                    for(_, currentSearchGroup) in groupsSearch.enumerate() {
+                        // If the first character in the current search group is a "-"...
+                        if(currentSearchGroup.substringToIndex(currentSearchGroup.startIndex.successor()) == "-") {
+                            // Add one to the exclusion group count
+                            exclusionGroupCount++;
+                        }
+                    }
+                    
+                    // Resort the search groups(For some reason my exclusion method doesnt work very well when you put exclusion tags first, so this is the solution)
+                    groupsSearch = groupsSearch.sort();
+                    
+                    // Flip the search groups(For the same reason as above)
+                    groupsSearch = groupsSearch.reverse();
+                    
+                    /// Are we only searching by exclusion groups?
+                    let onlySearchingForExclusionGroups : Bool = ((groupsSearch.count - exclusionGroupCount) == 0);
+                    
+                    // For every group in the search groups....
+                    for(_, currentSearchGroup) in groupsSearch.enumerate() {
+                        /// The current search group without the possible "-" in front for exclusion tags
+                        var searchGroupWithoutPossibleMinus : String = currentSearchGroup.lowercaseString;
+                        
+                        /// Is the current search group an exclusion group?
+                        var searchGroupIsExclusion : Bool = false;
+                        
+                        // If the first character in searchGroupWithoutPossibleMinus is a "-"...
+                        if(searchGroupWithoutPossibleMinus.substringToIndex(currentSearchGroup.startIndex.successor()) == "-") {
+                            // Remove the first character from searchGroupWithoutPossibleMinus
+                            searchGroupWithoutPossibleMinus = searchGroupWithoutPossibleMinus.substringFromIndex(searchGroupWithoutPossibleMinus.startIndex.successor());
+                            
+                            // Set searchGroupIsExclusion to true
+                            searchGroupIsExclusion = true;
+                        }
+                        
+                        // If we only searched for exclusion tags and we havent already had a matching exclusion group...
+                        if(onlySearchingForExclusionGroups && !alreadyMatchedExclusionGroup) {
+                            // If the current group doesnt match the exclusion group...
+                            if(currentItem.manga.group.lowercaseString != searchGroupWithoutPossibleMinus) {
+                                // Say we have matching groups
+                                matchingGroups = true;
+                            }
+                            else {
+                                // Say we dont have matching groups
+                                matchingGroups = false;
+                                
+                                // Say we already matched an exclusion group
+                                alreadyMatchedExclusionGroup = true;
+                            }
+                        }
+                        // If we are searching for more than just exclusion groups...
+                        else {
+                            if(currentItem.manga.group.lowercaseString.containsString(searchGroupWithoutPossibleMinus)) {
+                                // If the current search tag is an exclusion search tag...
+                                if(searchGroupIsExclusion) {
+                                    // Say we dont matching tags
+                                    matchingGroups = false;
+                                    
+                                    // Say we already have matched an exclusion tag
+                                    alreadyMatchedExclusionGroup = true;
+                                }
+                                else {
+                                    // If we dont already have a matching exclusion group...
+                                    if(!alreadyMatchedExclusionGroup) {
+                                        // Say the group matches
+                                        matchingGroups = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
                 // Example search
-                // title:v007; series:Yuru Yuri; artist:namori; writer:namori; tags:school, comedy;
+                // title:v007; series:Yuru Yuri; artist:namori; writer:namori; tags:school, comedy, -drama; groups:reading, -dropped;
+                
+                // Or you can use the simplified search type names
+                // t:v007; s:Yuru Yuri; a:namori; w:namori; tg:school, comedy, -drama; g:reading, -dropped;
                 
                 // If we didnt search by title...
                 if(!searchedByTitle) {
@@ -382,9 +557,14 @@ class KMMangaGridController: NSObject {
                     // Say the tags matched
                     matchingTags = true;
                 }
+                // If we didnt search by groups...
+                if(!searchedByGroups) {
+                    // Say the groups matched
+                    matchingGroups = true;
+                }
                 
                 // If everything matched...
-                if(matchingTitle && matchingSeries && matchingArtist && matchingWriter && matchingTags) {
+                if(matchingTitle && matchingSeries && matchingArtist && matchingWriter && matchingTags && matchingGroups) {
                     // Say the manga passed, and matches everything
                     matching = true;
                 }

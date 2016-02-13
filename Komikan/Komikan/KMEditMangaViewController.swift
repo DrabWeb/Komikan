@@ -10,43 +10,46 @@ import Cocoa
 
 class KMEditMangaViewController: NSViewController {
     
-    // The visual effect view for the background of the popover
+    /// The visual effect view for the background of the popover
     @IBOutlet weak var backgroundVisualEffectView: NSVisualEffectView!
     
-    // The image view for the cover image
+    /// The image view for the cover image
     @IBOutlet weak var coverImageView: NSImageView!
     
-    // The text field for the mangas title
+    /// The text field for the manga's title
     @IBOutlet weak var titleTextField: NSTextField!
     
-    // The text field for the mangas series
+    /// The text field for the manga's series
     @IBOutlet weak var seriesTextField: NSTextField!
     
-    // The text field for the mangas artist
+    /// The text field for the manga's artist
     @IBOutlet weak var artistTextField: NSTextField!
     
-    // The text field for the mangas writer
+    /// The text field for the manga's writer
     @IBOutlet weak var writerTextField: NSTextField!
     
-    // The text field for the mangas tags
+    /// The text field for the manga's tags
     @IBOutlet weak var tagsTextField: NSTextField!
     
-    // When we press the change directory button...
+    /// The text field for the manga's group
+    @IBOutlet weak var groupTextField: NSTextField!
+    
+    /// When we press the change directory button...
     @IBAction func changeDirectoryButtonPressed(sender: AnyObject) {
         // Show the change directory open panel
         changeDirectoryOpenPanel.runModal();
         
         // If we chose a file...
         if(changeDirectoryOpenPanel.URL != nil) {
-            // Set the mangas path to the file we chose
+            // Set the manga's path to the file we chose
             manga.directory = (changeDirectoryOpenPanel.URL?.absoluteString.stringByRemovingPercentEncoding)!.stringByReplacingOccurrencesOfString("file://", withString: "");
         }
     }
     
-    // The button to open this manga in the reader
+    /// The button to open this manga in the reader
     @IBOutlet weak var openButton: NSButton!
     
-    // When we press openButton...
+    /// When we press openButton...
     @IBAction func openButtonPressed(sender: AnyObject) {
         // Close the popover
         self.dismissController(self);
@@ -55,16 +58,16 @@ class KMEditMangaViewController: NSViewController {
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.openManga(manga, page: manga.currentPage);
     }
     
-    // The button to save our edits to the manga
+    /// The button to save our edits to the manga
     @IBOutlet weak var saveButton: NSButton!
     
-    // When we press saveButton...
+    /// When we press saveButton...
     @IBAction func saveButtonPressed(sender: AnyObject) {
         // Save our changes
         saveBackToGrid();
     }
     
-    // When we click the remove button...
+    /// When we click the remove button...
     @IBAction func removeButtonPressed(sender: AnyObject) {
         // Close the popover
         self.dismissController(self);
@@ -73,10 +76,10 @@ class KMEditMangaViewController: NSViewController {
         NSNotificationCenter.defaultCenter().postNotificationName("KMEditMangaViewController.Remove", object: manga);
     }
     
-    // The dropdown that lets us open our bookmarks
+    /// The dropdown that lets us open our bookmarks
     @IBOutlet weak var bookmarksDropDown: NSPopUpButton!
     
-    // When we click an item in bookmarksDropDown
+    /// When we click an item in bookmarksDropDown
     @IBAction func bookmarksDropDownPressed(sender: AnyObject) {
         // Close the popover
         self.dismissController(self);
@@ -85,12 +88,12 @@ class KMEditMangaViewController: NSViewController {
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.openManga(manga, page: Int((bookmarksDropDown.selectedItem?.title.stringByReplacingOccurrencesOfString("Page ", withString: ""))!)! - 1);
     }
     
-    // When we click the "Mark Read" button...
+    /// When we click the "Mark Read" button...
     @IBAction func markReadButtonPressed(sender: AnyObject) {
         // Set the read variable of manga to true
         manga.read = true;
         
-        // Set the mangas last open page to the first
+        // Set the manga's last open page to the first
         manga.currentPage = 0;
         
         // Update the percent finished
@@ -100,12 +103,12 @@ class KMEditMangaViewController: NSViewController {
         saveBackToGrid();
     }
     
-    // When we click the "Mark Unread" button...
+    /// When we click the "Mark Unread" button...
     @IBAction func markUnreadButtonPressed(sender: AnyObject) {
         // Set the read variable of manga to false
         manga.read = false;
         
-        // Set the mangas last open page to the first
+        // Set the manga's last open page to the first
         manga.currentPage = 0;
         
         // Update the percent finished
@@ -115,10 +118,10 @@ class KMEditMangaViewController: NSViewController {
         saveBackToGrid();
     }
     
-    // The manga we were passed
+    /// The manga we were passed
     var manga : KMManga = KMManga();
     
-    // The open panel to let the user choose the mangas directory
+    /// The open panel to let the user choose the manga's directory
     var changeDirectoryOpenPanel : NSOpenPanel = NSOpenPanel();
     
     override func viewDidLoad() {
@@ -162,14 +165,17 @@ class KMEditMangaViewController: NSViewController {
         // Set the writer
         manga.writer = writerTextField.stringValue;
         
-        // Reset the mangas tags
+        // Reset the manga's tags
         manga.tags = [];
         
         // For every part of the tags text field's string value split at every ", "...
         for (_, currentTag) in tagsTextField.stringValue.componentsSeparatedByString(", ").enumerate() {
-            // Append the current tags to the mangas tags
+            // Append the current tags to the manga's tags
             manga.tags.append(currentTag);
         }
+        
+        // Set the group
+        manga.group = groupTextField.stringValue;
         
         // If the cover images height isnt the compressed one(400)...
         if(manga.coverImage.size.height != 400) {
@@ -244,6 +250,9 @@ class KMEditMangaViewController: NSViewController {
                 tagsTextField.stringValue.appendContentsOf(currentTag);
             }
         }
+        
+        // Set the group text field's string value to the group of the manga
+        groupTextField.stringValue = manga.group;
     }
     
     func getMangaFromGrid(notification : NSNotification) {

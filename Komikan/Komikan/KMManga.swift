@@ -10,70 +10,73 @@ import Cocoa
 
 // A class for holding information about a manga
 class KMManga {
-    // The cover image for this manga
+    /// The cover image for this manga
     var coverImage : NSImage = NSImage(named: "NSCaution")!;
     
-    // An array of NSImages that hold all the pages of this manga
+    /// An array of NSImages that hold all the pages of this manga
     var pages : [NSImage] = [NSImage()];
     
-    // The title of this manga
+    /// The title of this manga
     var title : String = "";
     
-    // The series this manga belongs to
+    /// The series this manga belongs to
     var series : String = "";
     
-    // The artist(s) of this manga
+    /// The artist(s) of this manga
     var artist : String = "";
     
-    // The person(s) who wrote this manga
+    /// The person(s) who wrote this manga
     var writer : String = "";
     
-    // The tags for this manga
+    /// The tags for this manga
     var tags : [String] = [];
     
-    // The directory of this mangas CBZ/CBR
+    /// The directory of this mangas CBZ/CBR
     var directory : String = ""
     
-    // The unique identifier for this mangas /tmp/ folder
+    /// The unique identifier for this mangas /tmp/ folder
     var tmpDirectory : String = "/tmp/komikan/komikanmanga-";
     
-    // The current page we have open
+    /// The current page we have open
     var currentPage : Int = 0;
     
-    // The amount of pages for this manga
+    /// The amount of pages for this manga
     var pageCount : Int = 0;
     
-    // All the bookmarks for this manga(Each array element is a bookmarked page)
+    /// All the bookmarks for this manga(Each array element is a bookmarked page)
     var bookmarks : [Int]! = [];
     
-    // Has this Manga been read?
+    /// Has this Manga been read?
     var read : Bool = false;
     
-    // This manga's unique UUID so we dont cause the duplication bug among other things
+    /// This manga's unique UUID so we dont cause the duplication bug among other things
     var uuid : String = NSUUID().UUIDString.lowercaseString;
     
-    // The saturation for the pages
+    /// The saturation for the pages
     var saturation : CGFloat = 1;
     
-    // The brightness for the pages
+    /// The brightness for the pages
     var brightness : CGFloat = 0;
     
-    // The contrast for the pages
+    /// The contrast for the pages
     var contrast : CGFloat = 1;
     
-    // The sharpness for the pages
+    /// The sharpness for the pages
     var sharpness : CGFloat = 0;
     
-    // Is this manga l-lewd...?
+    /// Is this manga l-lewd...?
     var lewd : Bool = false;
     
-    // How much we are finished this manga(From 0 to 100)
+    /// This manga's group
+    var group : String = "";
+    
+    /// How much we are finished this manga(From 0 to 100)
     var percentFinished : Int = 0;
     
-    // A bool to say if we have already set tmpDirectory
+    /// A bool to say if we have already set tmpDirectory
     private var alreadySetTmpDirectory : Bool = false;
     
-    // addManga : Bool - Should we extract it to /tmp/komikan/addmanga?
+    /// addManga : Bool - Should we extract it to /tmp/komikan/addmanga?
     func extractToTmpFolder() {
         // If we didnt already get the pages(Im kind of cheating and doing this if there is only one page)...
         if(pages.count < 2) {
@@ -157,6 +160,7 @@ class KMManga {
         }
     }
     
+    /// Updates this manga's percent finished
     func updatePercent() {
         // If the page count minus one is not 0...
         if(self.pageCount - 1 != 0) {

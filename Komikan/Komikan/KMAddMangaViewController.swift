@@ -43,6 +43,8 @@ class KMAddMangaViewController: NSViewController {
     // The text field for the mangas tags
     @IBOutlet weak var tagsTextField: NSTextField!
     
+    @IBOutlet weak var groupTextField: NSTextField!
+    
     // The checkbox to say if this manga is l-lewd...
     @IBOutlet weak var llewdCheckBox: NSButton!
     
@@ -129,6 +131,9 @@ class KMAddMangaViewController: NSViewController {
                 newManga.tags.append(currentTag);
             }
             
+            // Set the new manga's group
+            newManga.group = groupTextField.stringValue;
+            
             // Post the notification saying we are done and sending back the manga
             NSNotificationCenter.defaultCenter().postNotificationName("KMAddMangaViewController.Finished", object: newManga);
         }
@@ -163,6 +168,9 @@ class KMAddMangaViewController: NSViewController {
                     // Append the current tags to the mangas tags
                     currentManga.tags.append(currentTag);
                 }
+                
+                // Set the manga's group
+                currentManga.group = groupTextField.stringValue;
                 
                 // Add curentManga to the newMangaMultiple array
                 newMangaMultiple.append(currentManga);
