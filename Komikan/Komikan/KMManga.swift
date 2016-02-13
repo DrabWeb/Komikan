@@ -70,6 +70,9 @@ class KMManga {
     /// This manga's group
     var group : String = "";
     
+    /// Is this manga a favourite?
+    var favourite : Bool = false;
+    
     /// How much we are finished this manga(From 0 to 100)
     var percentFinished : Int = 0;
     

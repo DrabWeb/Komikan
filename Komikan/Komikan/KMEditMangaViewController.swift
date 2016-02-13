@@ -34,6 +34,14 @@ class KMEditMangaViewController: NSViewController {
     /// The text field for the manga's group
     @IBOutlet weak var groupTextField: NSTextField!
     
+    /// The button to set if this manga is a favourite
+    @IBOutlet weak var favouriteButton: NSButton!
+    
+    /// When we interact with favouriteButton...
+    @IBAction func favouriteButtonInteracted(sender: AnyObject) {
+        
+    }
+    
     /// When we press the change directory button...
     @IBAction func changeDirectoryButtonPressed(sender: AnyObject) {
         // Show the change directory open panel
@@ -130,6 +138,9 @@ class KMEditMangaViewController: NSViewController {
         // Style the window
         styleWindow();
         
+        // Set the favourite buttons alpha value to 0.2
+        favouriteButton.alphaValue = 0.2;
+        
         // Setup the change directory open panel
         // Dont allow multiple files
         changeDirectoryOpenPanel.allowsMultipleSelection = false;
@@ -177,6 +188,9 @@ class KMEditMangaViewController: NSViewController {
         // Set the group
         manga.group = groupTextField.stringValue;
         
+        // Set if its a favourite
+        manga.favourite = Bool(favouriteButton.state);
+        
         // If the cover images height isnt the compressed one(400)...
         if(manga.coverImage.size.height != 400) {
             // Resize the cover image to be compressed for faster loading
@@ -203,6 +217,12 @@ class KMEditMangaViewController: NSViewController {
         
         // Set the writer text field
         writerTextField.stringValue = manga.writer;
+        
+        // Set the favourite button
+        favouriteButton.state = Int(manga.favourite);
+        
+        // Update the favourites button
+        (favouriteButton as? KMFavouriteButton)!.updateButton();
         
         // If there are no bookmarks...
         if(manga.bookmarks.count == 0) {

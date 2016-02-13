@@ -207,6 +207,9 @@ class KMMangaGridController: NSObject {
             /// The tags search content(If we search for a groups)(Already split into an array)
             var groupsSearch : [String] = [];
             
+            /// The favourites search content(If we search for favourites)
+            var favouritesSearch : String = "";
+            
             /// The search string without the possible ; on the end
             var cleanedSearchText : String = searchText;
             
@@ -256,6 +259,11 @@ class KMMangaGridController: NSObject {
                         // Set the appropriate variable to the current strings search content
                         groupsSearch = currentString.componentsSeparatedByString(":").last!.componentsSeparatedByString(", ");
                         break;
+                    // If its favourites...
+                    case "favourites", "f":
+                        // Set the appropriate variable to the current strings search content
+                        favouritesSearch = currentString.componentsSeparatedByString(":").last!;
+                        break;
                     // If it is one that we dont have...
                     default:
                         // Print to the log that it didnt match any types we search by
@@ -282,6 +290,9 @@ class KMMangaGridController: NSObject {
             /// Did we search by groups?
             let searchedByGroups : Bool = (groupsSearch != []);
             
+            /// Did we search by favourites?
+            let searchedByFavourites : Bool = (favouritesSearch != "");
+            
             // For every manga we have...
             for(_, currentItem) in gridItems.enumerate() {
                 /// Does this manga overall match the search?
@@ -304,6 +315,9 @@ class KMMangaGridController: NSObject {
                 
                 /// Do we have matching groups?
                 var matchingGroups : Bool = false;
+                
+                /// Do we have matching favourites?
+                var matchingFavourites : Bool = false;
                 
                 // If we searched by title...
                 if(searchedByTitle) {
@@ -338,6 +352,15 @@ class KMMangaGridController: NSObject {
                     if(currentItem.manga.artist.lowercaseString.containsString(writerSearch.lowercaseString)) {
                         // Say there is a matching writer
                         matchingWriter = true;
+                    }
+                }
+                
+                // If we searched by favourites...
+                if(searchedByFavourites) {
+                    // If the current items favourite value is the same as the favourites value we searched for...
+                    if(currentItem.manga.favourite == favouritesSearch.toBool()) {
+                        // Say there is a matching favourite
+                        matchingFavourites = true;
                     }
                 }
                 
@@ -527,10 +550,10 @@ class KMMangaGridController: NSObject {
                 }
                 
                 // Example search
-                // title:v007; series:Yuru Yuri; artist:namori; writer:namori; tags:school, comedy, -drama; groups:reading, -dropped;
+                // title:v007; series:Yuru Yuri; artist:namori; writer:namori; tags:school, comedy, -drama; groups:reading, -dropped; favourites:yes;
                 
                 // Or you can use the simplified search term names
-                // t:v007; s:Yuru Yuri; a:namori; w:namori; tg:school, comedy, -drama; g:reading, -dropped;
+                // t:v007; s:Yuru Yuri; a:namori; w:namori; tg:school, comedy, -drama; g:reading, -dropped; f:y;
                 
                 // If we didnt search by title...
                 if(!searchedByTitle) {
@@ -562,9 +585,14 @@ class KMMangaGridController: NSObject {
                     // Say the groups matched
                     matchingGroups = true;
                 }
+                // If we didnt search by favourites...
+                if(!searchedByFavourites) {
+                    // Say the favourites matched
+                    matchingFavourites = true;
+                }
                 
                 // If everything matched...
-                if(matchingTitle && matchingSeries && matchingArtist && matchingWriter && matchingTags && matchingGroups) {
+                if(matchingTitle && matchingSeries && matchingArtist && matchingWriter && matchingTags && matchingGroups && matchingFavourites) {
                     // Say the manga passed, and matches everything
                     matching = true;
                 }

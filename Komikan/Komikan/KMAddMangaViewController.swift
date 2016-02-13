@@ -48,6 +48,9 @@ class KMAddMangaViewController: NSViewController {
     // The checkbox to say if this manga is l-lewd...
     @IBOutlet weak var llewdCheckBox: NSButton!
     
+    /// The button to say if the manga we add should be favourited
+    @IBOutlet weak var favouriteButton: KMFavouriteButton!
+    
     // The open panel to let the user choose the mangas directory
     var chooseDirectoryOpenPanel : NSOpenPanel = NSOpenPanel();
     
@@ -77,6 +80,9 @@ class KMAddMangaViewController: NSViewController {
         // Do view setup here.
         // Style the window
         styleWindow();
+        
+        // Update the favourite button
+        favouriteButton.updateButton();
         
         // Setup the choose directory open panel
         // Allow multiple files
@@ -134,6 +140,9 @@ class KMAddMangaViewController: NSViewController {
             // Set the new manga's group
             newManga.group = groupTextField.stringValue;
             
+            // Set if the manga is a favourite
+            newManga.favourite = Bool(favouriteButton.state);
+            
             // Post the notification saying we are done and sending back the manga
             NSNotificationCenter.defaultCenter().postNotificationName("KMAddMangaViewController.Finished", object: newManga);
         }
@@ -171,6 +180,9 @@ class KMAddMangaViewController: NSViewController {
                 
                 // Set the manga's group
                 currentManga.group = groupTextField.stringValue;
+                
+                // Set if the manga is a favourite
+                currentManga.favourite = Bool(favouriteButton.state);
                 
                 // Add curentManga to the newMangaMultiple array
                 newMangaMultiple.append(currentManga);
