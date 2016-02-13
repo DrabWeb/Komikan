@@ -28,6 +28,9 @@ class KMSetSelectedItemsPropertiesViewController: NSViewController {
     /// The Text Field to set the group
     @IBOutlet weak var groupTextField: NSTextField!
     
+    /// The button to set favourites
+    @IBOutlet weak var favouriteButton: KMFavouriteButton!
+    
     /// The checkbox to say if we want to append instead of replace the tags
     @IBOutlet weak var appendTagsCheckbox: NSButton!
     
@@ -46,6 +49,7 @@ class KMSetSelectedItemsPropertiesViewController: NSViewController {
         propertiesHolder.tags = tagsTextField.stringValue.componentsSeparatedByString(", ");
         propertiesHolder.group = groupTextField.stringValue;
         propertiesHolder.appendTags = Bool(appendTagsCheckbox.state);
+        propertiesHolder.favourite = Bool(favouriteButton.state);
         
         // Post the notification to say we are done, with the properties holder
         NSNotificationCenter.defaultCenter().postNotificationName("KMSetSelectedItemsPropertiesViewController.Finished", object: propertiesHolder);
@@ -56,6 +60,9 @@ class KMSetSelectedItemsPropertiesViewController: NSViewController {
         // Do view setup here.
         // Style the window
         styleWindow();
+        
+        // Update the favourites button
+        favouriteButton.updateButton();
     }
     
     /// Styles the view
@@ -81,6 +88,9 @@ class KMSetSelectedPropertiesHolder {
     
     /// The group
     var group : String = "";
+    
+    // Is this manga a favourite?
+    var favourite : Bool = false;
     
     /// Should we append instead of replace the tags?
     var appendTags : Bool = false;
@@ -123,5 +133,8 @@ class KMSetSelectedPropertiesHolder {
             // Set the mangas group to the group value
             manga.group = group;
         }
+        
+        // Set the mangas favourite value to favourite
+        manga.favourite = favourite;
     }
 }

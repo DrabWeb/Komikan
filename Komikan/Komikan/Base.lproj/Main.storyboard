@@ -461,14 +461,14 @@ CA
             <objects>
                 <viewController storyboardIdentifier="setSelectedItemsPropertiesViewController" id="qFg-dg-gs6" userLabel="Set Selection Properties View Controller" customClass="KMSetSelectedItemsPropertiesViewController" customModule="Komikan" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="2Sc-5i-whR">
-                        <rect key="frame" x="0.0" y="0.0" width="240" height="271"/>
+                        <rect key="frame" x="0.0" y="0.0" width="260" height="271"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="0Bv-o3-FrF" userLabel="Background Visual Effect View">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="271"/>
+                                <rect key="frame" x="0.0" y="0.0" width="260" height="271"/>
                                 <subviews>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kUv-tv-8gP" userLabel="Series Text Field">
-                                        <rect key="frame" x="20" y="229" width="200" height="22"/>
+                                        <rect key="frame" x="20" y="229" width="220" height="22"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" placeholderString="Series" bezelStyle="round" id="Ik5-EM-YI3">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -476,7 +476,7 @@ CA
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="juP-W9-5hn" userLabel="Artist Text Field">
-                                        <rect key="frame" x="20" y="187" width="200" height="22"/>
+                                        <rect key="frame" x="20" y="187" width="220" height="22"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" placeholderString="Artist" bezelStyle="round" id="fV8-V8-q0u">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -484,7 +484,7 @@ CA
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zb1-E5-adf" userLabel="Writer Text Field">
-                                        <rect key="frame" x="20" y="145" width="200" height="22"/>
+                                        <rect key="frame" x="20" y="145" width="220" height="22"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" placeholderString="Writer" bezelStyle="round" id="6vz-Gi-NEC">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -492,7 +492,7 @@ CA
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wFs-yM-9c9" userLabel="Tags Text Field">
-                                        <rect key="frame" x="20" y="103" width="200" height="22"/>
+                                        <rect key="frame" x="20" y="103" width="220" height="22"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" placeholderString="Tags" bezelStyle="round" id="5Iz-Om-t9S">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -500,7 +500,7 @@ CA
                                         </textFieldCell>
                                     </textField>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nyr-Zi-Lm0" userLabel="Set Button">
-                                        <rect key="frame" x="145" y="13" width="81" height="32"/>
+                                        <rect key="frame" x="165" y="13" width="81" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="69" id="cdQ-fm-VxE"/>
                                         </constraints>
@@ -513,20 +513,31 @@ CA
                                         </connections>
                                     </button>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="1cZ-q9-8DA">
-                                        <rect key="frame" x="20" y="21" width="113" height="18"/>
+                                        <rect key="frame" x="20" y="21" width="133" height="18"/>
                                         <buttonCell key="cell" type="check" title="Append Tags" bezelStyle="regularSquare" imagePosition="left" inset="2" id="4Ln-lx-z04">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bIk-OY-ve1" userLabel="Group Text Field">
-                                        <rect key="frame" x="20" y="61" width="200" height="22"/>
+                                        <rect key="frame" x="20" y="61" width="220" height="22"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" placeholderString="Group" bezelStyle="round" id="eYv-Nz-i6S">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2w9-CI-Ahk" customClass="KMFavouriteButton" customModule="Komikan" customModuleProvider="target">
+                                        <rect key="frame" x="143" y="21" width="20" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="20" id="NIu-xg-Pks"/>
+                                            <constraint firstAttribute="height" constant="20" id="ULF-LW-vSX"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="Star" imagePosition="overlaps" alignment="left" imageScaling="proportionallyUpOrDown" inset="2" id="Hq4-J7-DjY">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="nyr-Zi-Lm0" firstAttribute="top" secondItem="bIk-OY-ve1" secondAttribute="bottom" constant="20" id="1sz-jV-Vwr"/>
@@ -546,15 +557,18 @@ CA
                                     <constraint firstItem="kUv-tv-8gP" firstAttribute="leading" secondItem="0Bv-o3-FrF" secondAttribute="leading" constant="20" id="NUt-lH-KfH"/>
                                     <constraint firstItem="zb1-E5-adf" firstAttribute="leading" secondItem="0Bv-o3-FrF" secondAttribute="leading" constant="20" id="OP8-6e-FK3"/>
                                     <constraint firstItem="bIk-OY-ve1" firstAttribute="top" secondItem="wFs-yM-9c9" secondAttribute="bottom" constant="20" id="PQ7-PU-eDQ"/>
+                                    <constraint firstItem="nyr-Zi-Lm0" firstAttribute="leading" secondItem="2w9-CI-Ahk" secondAttribute="trailing" constant="8" id="Rt0-Jq-dIO"/>
                                     <constraint firstItem="1cZ-q9-8DA" firstAttribute="top" secondItem="bIk-OY-ve1" secondAttribute="bottom" constant="24" id="SgQ-fY-Qj3"/>
                                     <constraint firstAttribute="trailing" secondItem="nyr-Zi-Lm0" secondAttribute="trailing" constant="20" id="UwE-0N-a3D"/>
                                     <constraint firstAttribute="trailing" secondItem="zb1-E5-adf" secondAttribute="trailing" constant="20" id="a2X-ih-nyW"/>
+                                    <constraint firstItem="2w9-CI-Ahk" firstAttribute="top" secondItem="bIk-OY-ve1" secondAttribute="bottom" constant="20" id="bxm-Sr-Aqg"/>
                                     <constraint firstItem="juP-W9-5hn" firstAttribute="top" secondItem="kUv-tv-8gP" secondAttribute="bottom" constant="20" id="fTw-N0-b3c"/>
                                     <constraint firstItem="wFs-yM-9c9" firstAttribute="top" secondItem="zb1-E5-adf" secondAttribute="bottom" constant="20" id="gDi-dU-vXx"/>
                                     <constraint firstItem="wFs-yM-9c9" firstAttribute="top" secondItem="zb1-E5-adf" secondAttribute="bottom" constant="20" id="gaX-OJ-2xL"/>
                                     <constraint firstAttribute="bottom" secondItem="1cZ-q9-8DA" secondAttribute="bottom" constant="23" id="lfs-a4-fNQ"/>
                                     <constraint firstItem="juP-W9-5hn" firstAttribute="leading" secondItem="0Bv-o3-FrF" secondAttribute="leading" constant="20" id="lqF-80-kDf"/>
                                     <constraint firstItem="kUv-tv-8gP" firstAttribute="top" secondItem="0Bv-o3-FrF" secondAttribute="top" constant="20" id="mLe-c0-ttz"/>
+                                    <constraint firstAttribute="bottom" secondItem="2w9-CI-Ahk" secondAttribute="bottom" constant="21" id="y7c-6r-Att"/>
                                     <constraint firstItem="wFs-yM-9c9" firstAttribute="leading" secondItem="0Bv-o3-FrF" secondAttribute="leading" constant="20" id="ziH-op-lGf"/>
                                 </constraints>
                             </visualEffectView>
@@ -570,6 +584,7 @@ CA
                         <outlet property="appendTagsCheckbox" destination="1cZ-q9-8DA" id="pmN-ox-ZLx"/>
                         <outlet property="artistTextField" destination="juP-W9-5hn" id="e74-FE-97H"/>
                         <outlet property="backgroundVisualEffectView" destination="0Bv-o3-FrF" id="byd-eE-nnB"/>
+                        <outlet property="favouriteButton" destination="2w9-CI-Ahk" id="PcO-mu-Dmx"/>
                         <outlet property="groupTextField" destination="bIk-OY-ve1" id="NfW-GV-gSI"/>
                         <outlet property="seriesTextField" destination="kUv-tv-8gP" id="pPo-PU-Rat"/>
                         <outlet property="tagsTextField" destination="wFs-yM-9c9" id="pWv-fQ-eH9"/>
@@ -578,7 +593,7 @@ CA
                 </viewController>
                 <customObject id="mZo-PV-qKm" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1101" y="1432.5"/>
+            <point key="canvasLocation" x="1111" y="1432.5"/>
         </scene>
         <!--Background Darken View Controller-->
         <scene sceneID="fhZ-4Y-0NL">

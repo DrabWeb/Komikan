@@ -29,6 +29,9 @@ class KMMangaGridCollectionItem: NSCollectionViewItem {
             self.collectionView.deselectAll(self);
         }
         
+        // Set the collection view to be frontmost
+        NSApplication.sharedApplication().windows.first!.makeFirstResponder(self.collectionView);
+        
         // Select this item
         self.selected = true;
     }
