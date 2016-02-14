@@ -31,7 +31,7 @@ class KMManga {
     /// The tags for this manga
     var tags : [String] = [];
     
-    /// The directory of this mangas CBZ/CBR
+    /// The directory of this mangas CBZ/CBR/ZIP/RAR
     var directory : String = ""
     
     /// The unique identifier for this mangas /tmp/ folder

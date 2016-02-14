@@ -1345,7 +1345,7 @@ CA
                                             <rect key="frame" x="1" y="144" width="233" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.97297297297297303" horizontal="NO" id="0wb-fr-0cq">
+                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="0wb-fr-0cq">
                                             <rect key="frame" x="624" y="37" width="16" height="443"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
@@ -1399,7 +1399,7 @@ CA
                                     <constraint firstItem="9bU-fV-uIZ" firstAttribute="top" secondItem="bQW-e4-pbA" secondAttribute="top" id="jX9-QP-o0N"/>
                                 </constraints>
                             </customView>
-                            <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="xeH-9s-Llt" userLabel="Titlebar Visual Effect View">
+                            <visualEffectView appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="xeH-9s-Llt" userLabel="Titlebar Visual Effect View">
                                 <rect key="frame" x="0.0" y="443" width="640" height="37"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="foJ-v5-5cU" userLabel="Gradient" customClass="KMGradientView" customModule="Komikan" customModuleProvider="target">

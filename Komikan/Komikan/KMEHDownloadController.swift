@@ -24,6 +24,7 @@ class KMEHDownloadController : NSObject {
     
     // Adds the speicified URL to the download queue
     func addItemToQueue(item : KMEHDownloadItem) {
+        // Prin to the log what item was added to the queue
         print("Added \"" + item.url + "\" to queue");
         
         // Add this item to the end of downloadQueue
@@ -92,7 +93,6 @@ class KMEHDownloadController : NSObject {
     
     /// Sends the passed KMEHDownloadItem to the main View Controller
     func sendBackToMainThread() {
-        print("Sending back: " + String(sendBackItem));
         // Post the notification saying we are done and sending back the manga
         NSNotificationCenter.defaultCenter().postNotificationName("KMEHViewController.Finished", object: sendBackItem.manga);
     }

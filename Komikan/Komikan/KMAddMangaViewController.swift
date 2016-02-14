@@ -88,8 +88,8 @@ class KMAddMangaViewController: NSViewController {
         // Allow multiple files
         chooseDirectoryOpenPanel.allowsMultipleSelection = true;
         
-        // Only allow CBZ and CBR
-        chooseDirectoryOpenPanel.allowedFileTypes = ["cbz", "cbr"];
+        // Only allow CBZ, CBR, ZIP and RAR
+        chooseDirectoryOpenPanel.allowedFileTypes = ["cbz", "cbr", "zip", "rar"];
         
         // Set the Open button to say choose
         chooseDirectoryOpenPanel.prompt = "Choose";
