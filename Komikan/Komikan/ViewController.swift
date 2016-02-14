@@ -177,6 +177,12 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Start a 0.1 second loop that will fix the windows look in fullscreen
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("deleteTitlebarInFullscreen"), userInfo: nil, repeats:true);
         
+        // Set the AppDelegate's manga grid controller
+        (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController = mangaGridController;
+        
+        // Set the AppDelegate's search text field
+        (NSApplication.sharedApplication().delegate as! AppDelegate).searchTextField = titlebarSearchField;
+        
         // Set the titlebar tab views delegate to self
         titlebarTabView.delegate = self;
         

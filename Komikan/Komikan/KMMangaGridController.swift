@@ -151,6 +151,24 @@ class KMMangaGridController: NSObject {
         }
     }
     
+    /// Retuns all the groups the user has for their collection
+    func allGroups() -> [String] {
+        /// The array of strings that we will return at the end of the function to say what all the groups are
+        var groups : [String] = [];
+        
+        // For every item in the grid items...
+        for(_, currentGridItem) in gridItems.enumerate() {
+            // If we havent already added this manga's group...
+            if(!groups.contains(currentGridItem.manga.group)) {
+                // Add this items group to the list of groups
+                groups.append(currentGridItem.manga.group);
+            }
+        }
+        
+        // Return the groups
+        return groups;
+    }
+    
     // A bool to say if we are currently searching
     var searching : Bool = false;
     

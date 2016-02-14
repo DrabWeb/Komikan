@@ -62,6 +62,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     /// The view controller we will load for the reader
     var mangaReaderViewController: KMReaderViewController?;
     
+    /// The grid controller for the manga grid
+    var mangaGridController : KMMangaGridController = KMMangaGridController();
+    
+    /// The search text field in the main window
+    var searchTextField : NSTextField = NSTextField();
+    
     /// The controller for the reader window
     var mangaReaderWindowController : NSWindowController!;
     
