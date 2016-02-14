@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="9531"/>
         <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
     <scenes>
@@ -34,6 +35,12 @@
                                         </menuItem>
                                         <menuItem title="Toggle Distraction Free Mode" keyEquivalent="D" id="ZbJ-Yy-OIo">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                        </menuItem>
+                                        <menuItem title="Login to E-Hentai" id="6kz-lY-VF9">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <segue destination="Bpv-S9-75W" kind="show" id="LWH-Zy-xBU"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                                         <menuItem title="Services" id="NMo-om-nkz">
@@ -751,6 +758,80 @@ CA
             </objects>
             <point key="canvasLocation" x="1303" y="-347"/>
         </scene>
+        <!--EH Login Window Controller-->
+        <scene sceneID="IBn-i3-4WK">
+            <objects>
+                <windowController id="Bpv-S9-75W" userLabel="EH Login Window Controller" sceneMemberID="viewController">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="fvb-Sj-tBM">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <rect key="contentRect" x="229" y="249" width="480" height="500"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1600" height="900"/>
+                        <value key="minSize" type="size" width="480" height="500"/>
+                    </window>
+                    <connections>
+                        <segue destination="dru-Ra-iPp" kind="relationship" relationship="window.shadowedContentViewController" id="gLl-m7-BoN"/>
+                    </connections>
+                </windowController>
+                <customObject id="M01-bs-Nlt" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-780" y="545"/>
+        </scene>
+        <!--EH Login View Controller-->
+        <scene sceneID="rVl-8S-NLl">
+            <objects>
+                <viewController id="dru-Ra-iPp" userLabel="EH Login View Controller" customClass="KMEHLoginViewController" customModule="Komikan" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="BMo-j5-auc">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="500"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <webView translatesAutoresizingMaskIntoConstraints="NO" id="u13-H4-8CL">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="500"/>
+                                <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
+                                    <nil key="identifier"/>
+                                </webPreferences>
+                            </webView>
+                            <visualEffectView appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="ALu-uL-kEw">
+                                <rect key="frame" x="0.0" y="478" width="480" height="22"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cnt-6Q-iv5" userLabel="URL Label">
+                                        <rect key="frame" x="68" y="3" width="344" height="17"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="17" id="yBk-vk-a6X"/>
+                                        </constraints>
+                                        <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="OjD-cq-jAz">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="cnt-6Q-iv5" firstAttribute="centerY" secondItem="ALu-uL-kEw" secondAttribute="centerY" id="2rT-Ek-LIN"/>
+                                    <constraint firstItem="cnt-6Q-iv5" firstAttribute="leading" secondItem="ALu-uL-kEw" secondAttribute="leading" constant="70" id="AQ7-SG-uGg"/>
+                                    <constraint firstAttribute="trailing" secondItem="cnt-6Q-iv5" secondAttribute="trailing" constant="70" id="SoH-q6-Yc1"/>
+                                    <constraint firstAttribute="height" constant="22" id="v3d-J4-Kcp"/>
+                                </constraints>
+                            </visualEffectView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ALu-uL-kEw" secondAttribute="trailing" id="CSD-fo-A1j"/>
+                            <constraint firstItem="ALu-uL-kEw" firstAttribute="top" secondItem="BMo-j5-auc" secondAttribute="top" id="F6Y-fZ-kTH"/>
+                            <constraint firstItem="u13-H4-8CL" firstAttribute="leading" secondItem="BMo-j5-auc" secondAttribute="leading" id="KD0-Sv-Hew"/>
+                            <constraint firstAttribute="bottom" secondItem="u13-H4-8CL" secondAttribute="bottom" id="W9s-p9-MqI"/>
+                            <constraint firstAttribute="trailing" secondItem="u13-H4-8CL" secondAttribute="trailing" id="fUp-9E-QZk"/>
+                            <constraint firstItem="ALu-uL-kEw" firstAttribute="leading" secondItem="BMo-j5-auc" secondAttribute="leading" id="yVQ-nP-MxC"/>
+                            <constraint firstItem="u13-H4-8CL" firstAttribute="top" secondItem="BMo-j5-auc" secondAttribute="top" id="z5c-st-iAR"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="urlLabel" destination="cnt-6Q-iv5" id="9kY-Sp-0KS"/>
+                        <outlet property="webView" destination="u13-H4-8CL" id="YDJ-nC-wLa"/>
+                    </connections>
+                </viewController>
+                <customObject id="3WH-8m-7pf" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-619" y="1248"/>
+        </scene>
         <!--Main Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
@@ -1264,7 +1345,7 @@ CA
                                             <rect key="frame" x="1" y="144" width="233" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="0wb-fr-0cq">
+                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.97297297297297303" horizontal="NO" id="0wb-fr-0cq">
                                             <rect key="frame" x="624" y="37" width="16" height="443"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>

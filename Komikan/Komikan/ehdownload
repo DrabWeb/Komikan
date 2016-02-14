@@ -11,7 +11,7 @@ gallery_sleep_time=1m
 
 print_usage() {
     echo "First arguement should be a link to a gallery or search page"
-    echo  "Example usage: ehdownload http://g.e-hentai.org/g/512092/d62aa909ac/"
+    echo  "Example usage: ehdownload http://g.e-hentai.org/g/865244/7cfdc45ca0/"
 }
  
 exget() {

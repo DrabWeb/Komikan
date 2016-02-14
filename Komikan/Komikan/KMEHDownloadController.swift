@@ -19,6 +19,9 @@ class KMEHDownloadController : NSObject {
     // A bool to say if once the queue downloader is done, we should do it again to download the new items
     var queueHasMore : Bool = false;
     
+    /// The KMEHDownloadItem to send back to the main View Controller
+    var sendBackItem : KMEHDownloadItem = KMEHDownloadItem(url: "");
+    
     // Adds the speicified URL to the download queue
     func addItemToQueue(item : KMEHDownloadItem) {
         print("Added \"" + item.url + "\" to queue");
@@ -87,6 +90,13 @@ class KMEHDownloadController : NSObject {
         }
     }
     
+    /// Sends the passed KMEHDownloadItem to the main View Controller
+    func sendBackToMainThread() {
+        print("Sending back: " + String(sendBackItem));
+        // Post the notification saying we are done and sending back the manga
+        NSNotificationCenter.defaultCenter().postNotificationName("KMEHViewController.Finished", object: sendBackItem.manga);
+    }
+    
     // Adds the specified items manga from E-Hentai
     func downloadFromEH(item : KMEHDownloadItem) {
         // A variable we will use so we can set the tasks finished action
@@ -139,6 +149,8 @@ class KMEHDownloadController : NSObject {
         
         // Set the mangas path
         item.manga.directory = NSHomeDirectory() + "/Library/Application Support/Komikan/EH/" + newMangaFileName + ".cbz";
+        
+        // Print to the log where the downloaded manga is
         print("Manga Directory: " + item.manga.directory);
         
         // Create the new notification to tell the user the download has finished
@@ -156,11 +168,11 @@ class KMEHDownloadController : NSObject {
         // Show the notification
         NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(finishedNotification);
         
-        // Enable the add from EH menu item
-        (NSApplication.sharedApplication().delegate as! AppDelegate).addFromEHMenuItem.enabled = true;
+        // Set the send back item to the item we downloaded
+        sendBackItem = item;
         
-        // Post the notification saying we are done and sending back the manga
-        NSNotificationCenter.defaultCenter().postNotificationName("KMEHViewController.Finished", object: item.manga);
+        // Send back the downloaded manga on the main thread
+        self.performSelectorOnMainThread(Selector("sendBackToMainThread"), withObject: nil, waitUntilDone: false);
     }
     
     // Adds the specified items manga from ExHentai
@@ -215,6 +227,8 @@ class KMEHDownloadController : NSObject {
         
         // Set the mangas path
         item.manga.directory = NSHomeDirectory() + "/Library/Application Support/Komikan/EH/" + newMangaFileName + ".cbz";
+        
+        // Print to the log where the downloaded manga is
         print("Manga Directory: " + item.manga.directory);
         
         // Create the new notification to tell the user the download has finished
@@ -232,10 +246,10 @@ class KMEHDownloadController : NSObject {
         // Show the notification
         NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(finishedNotification);
         
-        // Enable the add from EH menu item
-        (NSApplication.sharedApplication().delegate as! AppDelegate).addFromEHMenuItem.enabled = true;
+        // Set the send back item to the item we downloaded
+        sendBackItem = item;
         
-        // Post the notification saying we are done and sending back the manga
-        NSNotificationCenter.defaultCenter().postNotificationName("KMEHViewController.Finished", object: item.manga);
+        // Send back the downloaded manga on the main thread
+        self.performSelectorOnMainThread(Selector("sendBackToMainThread"), withObject: nil, waitUntilDone: false);
     }
 }

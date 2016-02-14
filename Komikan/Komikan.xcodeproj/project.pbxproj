@@ -17,6 +17,7 @@
 		5D363FA51C5ABFB6004708FC /* KMEHDownloadController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D363FA41C5ABFB6004708FC /* KMEHDownloadController.swift */; };
 		5D363FA71C5AC116004708FC /* KMEHDownloadItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D363FA61C5AC116004708FC /* KMEHDownloadItem.swift */; };
 		5D46564F1C6FD87D006DCA0D /* KMFavouriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D46564E1C6FD87D006DCA0D /* KMFavouriteButton.swift */; };
+		5D4656521C6FE70E006DCA0D /* KMEHLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4656511C6FE70E006DCA0D /* KMEHLoginViewController.swift */; };
 		5D5DBECF1C3584F5004D8C5D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBECE1C3584F5004D8C5D /* AppDelegate.swift */; };
 		5D5DBED11C3584F5004D8C5D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBED01C3584F5004D8C5D /* ViewController.swift */; };
 		5D5DBED31C3584F5004D8C5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D5DBED21C3584F5004D8C5D /* Assets.xcassets */; };
@@ -78,6 +79,7 @@
 		5D363FA41C5ABFB6004708FC /* KMEHDownloadController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMEHDownloadController.swift; sourceTree = "<group>"; };
 		5D363FA61C5AC116004708FC /* KMEHDownloadItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMEHDownloadItem.swift; sourceTree = "<group>"; };
 		5D46564E1C6FD87D006DCA0D /* KMFavouriteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMFavouriteButton.swift; sourceTree = "<group>"; };
+		5D4656511C6FE70E006DCA0D /* KMEHLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMEHLoginViewController.swift; sourceTree = "<group>"; };
 		5D5DBECB1C3584F5004D8C5D /* Komikan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Komikan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D5DBECE1C3584F5004D8C5D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5D5DBED01C3584F5004D8C5D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 			isa = PBXGroup;
 			children = (
 				5D96AFB51C4AAFCB00120D70 /* KMEHViewController.swift */,
+				5D4656511C6FE70E006DCA0D /* KMEHLoginViewController.swift */,
 			);
 			name = EH;
 			sourceTree = "<group>";
@@ -593,6 +596,7 @@
 				5DBB0DFF1C36DA0000495985 /* KMFileUtilities.swift in Sources */,
 				5D5DBECF1C3584F5004D8C5D /* AppDelegate.swift in Sources */,
 				5D22C3FD1C4454C50010746F /* KMPreferencesController.swift in Sources */,
+				5D4656521C6FE70E006DCA0D /* KMEHLoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
