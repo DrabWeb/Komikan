@@ -1,16 +1,23 @@
 # Komikan
-A Manga reader and manager for OSX
+> A Manga reader and manager for OSX
+
+## Downloads
+> <a href="https://github.com/DrabWeb/Komikan/releases">https://github.com/DrabWeb/Komikan/releases</a>
 
 ## Features
 
-* Application
+### Application
+
+<img src="https://raw.githubusercontent.com/DrabWeb/Komikan/master/Screenshots/Application.png"></img>
 
 > * Custom Vibrant look
 > * All native and programmed in Swift
 > * Distraction Free Mode - Darken everything behind Komikan
 
 
-* Collection Management
+### Collection Management
+
+<img src="https://raw.githubusercontent.com/DrabWeb/Komikan/master/Screenshots/Collection Management.png"></img>
 
 > * Import single or multiple Manga at once
 > * Supports ZIP, RAR, CBZ and CBR
@@ -24,7 +31,9 @@ A Manga reader and manager for OSX
 > * Cover image compression for faster loading
 
 
-* Reader
+### Reader
+
+<img src="https://raw.githubusercontent.com/DrabWeb/Komikan/master/Screenshots/Reader.png"></img>
 
 > * Vibrant
 > * Bookmarks
@@ -35,7 +44,9 @@ A Manga reader and manager for OSX
 > * Fit window to Page size
 
 
-* Search
+### Search
+
+<img src="https://raw.githubusercontent.com/DrabWeb/Komikan/master/Screenshots/Search.png"></img>
 
 > * Search by lots of terms
 
@@ -50,7 +61,9 @@ A Manga reader and manager for OSX
 > * Optional simplified search terms
 
 
-* L-lewd... mode
+### L-lewd... mode
+
+<img src="https://raw.githubusercontent.com/DrabWeb/Komikan/master/Screenshots/EH Downloading.png"></img>
 
 > * Mark Manga as l-lewd...
 > * Only shows Manga that are marked l-lewd... when in l-lewd.. mode
