@@ -27,6 +27,7 @@
 > * Never moves or deletes your original Manga files
 > * Sorting by Title, Series and Artist
 > * Put your Manga into groups
+> * Drag and Drop import
 > * See how much percent you are done a Manga
 > * Cover image compression for faster loading
 

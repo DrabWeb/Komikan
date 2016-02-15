@@ -19,6 +19,7 @@
 		5D363FA71C5AC116004708FC /* KMEHDownloadItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D363FA61C5AC116004708FC /* KMEHDownloadItem.swift */; };
 		5D46564F1C6FD87D006DCA0D /* KMFavouriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D46564E1C6FD87D006DCA0D /* KMFavouriteButton.swift */; };
 		5D4656521C6FE70E006DCA0D /* KMEHLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4656511C6FE70E006DCA0D /* KMEHLoginViewController.swift */; };
+		5D4C3DD11C72352B00BBB718 /* KMMangaDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4C3DD01C72352B00BBB718 /* KMMangaDropView.swift */; };
 		5D5DBECF1C3584F5004D8C5D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBECE1C3584F5004D8C5D /* AppDelegate.swift */; };
 		5D5DBED11C3584F5004D8C5D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBED01C3584F5004D8C5D /* ViewController.swift */; };
 		5D5DBED31C3584F5004D8C5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D5DBED21C3584F5004D8C5D /* Assets.xcassets */; };
@@ -83,6 +84,7 @@
 		5D363FA61C5AC116004708FC /* KMEHDownloadItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMEHDownloadItem.swift; sourceTree = "<group>"; };
 		5D46564E1C6FD87D006DCA0D /* KMFavouriteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMFavouriteButton.swift; sourceTree = "<group>"; };
 		5D4656511C6FE70E006DCA0D /* KMEHLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMEHLoginViewController.swift; sourceTree = "<group>"; };
+		5D4C3DD01C72352B00BBB718 /* KMMangaDropView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaDropView.swift; sourceTree = "<group>"; };
 		5D5DBECB1C3584F5004D8C5D /* Komikan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Komikan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D5DBECE1C3584F5004D8C5D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5D5DBED01C3584F5004D8C5D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 				5DC3A8F01C5AB25E0058D253 /* KMGradientView.swift */,
 				5D9E07781C5E635500B35C91 /* KMDarkenView.swift */,
 				5D46564E1C6FD87D006DCA0D /* KMFavouriteButton.swift */,
+				5D4C3DD01C72352B00BBB718 /* KMMangaDropView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -624,6 +627,7 @@
 				5D5DBECF1C3584F5004D8C5D /* AppDelegate.swift in Sources */,
 				5DAC3ED81C70FB2100B77A19 /* KMGroupListTableViewCell.swift in Sources */,
 				5D22C3FD1C4454C50010746F /* KMPreferencesController.swift in Sources */,
+				5D4C3DD11C72352B00BBB718 /* KMMangaDropView.swift in Sources */,
 				5D4656521C6FE70E006DCA0D /* KMEHLoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

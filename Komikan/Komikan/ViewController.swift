@@ -79,7 +79,7 @@ class ViewController: NSViewController, NSTabViewDelegate {
     // When we click titlebarAddMangaButton...
     @IBAction func titlebarAddMangaButtonInteracted(sender: AnyObject) {
         // Show the add / import popover
-        showAddImportPopover(titlebarAddMangaButton.bounds, preferredEdge: NSRectEdge.MaxY);
+        showAddImportPopover(titlebarAddMangaButton.bounds, preferredEdge: NSRectEdge.MaxY, fileUrls: []);
     }
     
     // The tab view in the titlebar that lets us sort the manga grid
@@ -230,8 +230,8 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Subscribe to the global application will quit notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "saveManga", name:"Application.WillQuit", object: nil);
         
-        // Subscribe to the ViewController.SelectMangaGrid
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "makeMangaGridFirstResponder", name:"ViewController.SelectMangaGrid", object: nil);
+        // Subscribe to the Drag and Drop add / import notification
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "showAddImportPopoverDragAndDrop:", name:"MangaGrid.DropFiles", object: nil);
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
@@ -302,16 +302,51 @@ class ViewController: NSViewController, NSTabViewDelegate {
     /// Shows the add / import popover, without passing variables for the menu item
     func showAddImportPopoverMenuItem() {
         // Show the add / import popover
-        showAddImportPopover(titlebarAddMangaButton.bounds, preferredEdge: NSRectEdge.MaxY);
+        showAddImportPopover(titlebarAddMangaButton.bounds, preferredEdge: NSRectEdge.MaxY, fileUrls: []);
     }
     
-    /// Shows the add / import popover with the origin rect as where the arrow comes from, and the preferredEdge as to which side to come from
-    func showAddImportPopover(origin : NSRect, preferredEdge : NSRectEdge) {
+    /// Shows the add / import popover with the passed notifications object(Should be a list of file URL strings)(Used only by drag and drop import)
+    func showAddImportPopoverDragAndDrop(notification : NSNotification) {
+        /// The file URLs we will pass to the popover
+        var fileUrls : [NSURL] = [];
+        
+        // For every item in the notifications objects(As a list of strings)...
+        for(_, currentStringURL) in (notification.object as! [String]).enumerate() {
+            /// The NSURL of the current file
+            let currentFileURL : NSURL = NSURL(fileURLWithPath: currentStringURL);
+            
+            /// The extension of the current file
+            let currentFileExtension : String = KMFileUtilities().getFileExtension(currentFileURL);
+            
+            // If the extension is supported(CBZ, CBR, ZIP or RAR)...
+            if(currentFileExtension == "cbz" || currentFileExtension == "cbr" || currentFileExtension == "zip" || currentFileExtension == "rar") {
+                // Append the current file URL to the array of files we will pass to the popover
+                fileUrls.append(currentFileURL);
+            }
+            // If the extension is unsupported...
+            else {
+                // Print to the log that it is unsupported and what the extension is
+                print("Unsupported file extension \"" + currentFileExtension + "\"");
+            }
+        }
+        
+        // If there were any files that matched the extension...
+        if(fileUrls != []) {
+            // Show the add / import popover under the add button with the file URLs we dragged in
+            showAddImportPopover(titlebarAddMangaButton.bounds, preferredEdge: NSRectEdge.MaxY, fileUrls: fileUrls);
+        }
+    }
+    
+    /// Shows the add / import popover with the origin rect as where the arrow comes from, and the preferredEdge as to which side to come from. Also if fileUrls is not [], it will not show the file choosing dialog and go staright to the properties popover with the passed file URLs
+    func showAddImportPopover(origin : NSRect, preferredEdge : NSRectEdge, fileUrls : [NSURL]) {
         // Get the main storyboard
         let storyboard = NSStoryboard(name: "Main", bundle: nil);
         
         // Instanstiate the view controller for the add manga view controller
         addMangaViewController = storyboard.instantiateControllerWithIdentifier("addMangaViewController") as? KMAddMangaViewController;
+        
+        // Set the add manga view controllers add manga file URLs that we were passed
+        addMangaViewController!.addingMangaURLs = fileUrls;
         
         // Present the addMangaViewController as a popover using the add buttons rect, on the max y edge, and with a semitransient behaviour
         addMangaViewController!.presentViewController(addMangaViewController!, asPopoverRelativeToRect: origin, ofView: titlebarAddMangaButton, preferredEdge: preferredEdge, behavior: NSPopoverBehavior.Semitransient);

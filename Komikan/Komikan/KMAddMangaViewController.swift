@@ -75,6 +75,9 @@ class KMAddMangaViewController: NSViewController {
         addSelf();
     }
     
+    /// The URLs of the files we are adding
+    var addingMangaURLs : [NSURL] = [];
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
@@ -123,7 +126,7 @@ class KMAddMangaViewController: NSViewController {
             newManga.lewd = Bool(llewdCheckBox.state);
             
             // Set the new mangas directory
-            newManga.directory = (chooseDirectoryOpenPanel.URL?.absoluteString.stringByRemovingPercentEncoding!)!.stringByReplacingOccurrencesOfString("file://", withString: "");
+            newManga.directory = (addingMangaURLs[0].absoluteString.stringByRemovingPercentEncoding!).stringByReplacingOccurrencesOfString("file://", withString: "");
             
             // Set the new mangas writer
             newManga.writer = writerTextField.stringValue;
@@ -147,7 +150,7 @@ class KMAddMangaViewController: NSViewController {
             NSNotificationCenter.defaultCenter().postNotificationName("KMAddMangaViewController.Finished", object: newManga);
         }
         else {
-            for (_, currentMangaURL) in chooseDirectoryOpenPanel.URLs.enumerate() {
+            for (_, currentMangaURL) in addingMangaURLs.enumerate() {
                 // A temporary variable for storing the manga we are currently working on
                 var currentManga : KMManga = KMManga();
                 
@@ -208,7 +211,7 @@ class KMAddMangaViewController: NSViewController {
                 // If the title is not nothing...
                 if(titleTextField.stringValue != "") {
                     // If the directory is not nothing...
-                    if(chooseDirectoryOpenPanel.URL?.absoluteString != nil) {
+                    if(addingMangaURLs != []) {
                         // Say we can add with these variables
                         canAdd = true;
                     }
@@ -292,15 +295,21 @@ class KMAddMangaViewController: NSViewController {
         
         // Ask for the mangas directory
         chooseDirectoryOpenPanel.runModal();
+        
+        // Set the adding manga URLs to the choose directory open panels URLs
+        addingMangaURLs = chooseDirectoryOpenPanel.URLs;
     }
     
     // The prompt you get when you open this view with the open panel
     func startPrompt() {
-        // Prompt for a file
-        promptForManga();
+        // If addingMangaURLs is []...
+        if(addingMangaURLs == []) {
+            // Prompt for a file
+            promptForManga();
+        }
         
         // If we selected multiple files...
-        if(chooseDirectoryOpenPanel.URLs.count > 1) {
+        if(addingMangaURLs.count > 1) {
             // Say we are adding multiple
             addingMultiple = true;
             
@@ -318,9 +327,9 @@ class KMAddMangaViewController: NSViewController {
         }
         else {
             // If the directory is not nothing...
-            if(chooseDirectoryOpenPanel.URL?.absoluteString != nil) {
+            if(addingMangaURLs != []) {
                 // Set the new mangas directory
-                newManga.directory = (chooseDirectoryOpenPanel.URL?.absoluteString)!.stringByRemovingPercentEncoding!;
+                newManga.directory = addingMangaURLs[0].absoluteString.stringByRemovingPercentEncoding!;
             
                 // Get the information of the manga(Cover image, title, ETC.)(Change this function to be in KMManga)
                 newManga = getMangaInfo(newManga);

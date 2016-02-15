@@ -79,6 +79,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     
     /// The download controller for downloading from E-Hentai and ExHentai
     var ehDownloadController : KMEHDownloadController = KMEHDownloadController();
+
     
     /// An Int that indicates what modifier keys are being held(These are defined by NSEvent, not me)
     var modifierValue : Int = 0;
@@ -272,7 +273,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         darkenBackgroundWindowController.window?.animator().alphaValue = 0;
         
         // Wait for the animation to finish and hide the window
-        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.2), target:self, selector: Selector("closeDarkenWindow"), userInfo: nil, repeats:false);
+        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.2), target: self, selector: Selector("closeDarkenWindow"), userInfo: nil, repeats:false);
         
         // If we said to hide the cursor in distraction free mode...
         if(preferencesKepper.hideCursorInDistractionFreeMode) {

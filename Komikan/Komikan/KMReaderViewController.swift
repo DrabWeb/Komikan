@@ -258,6 +258,22 @@ class KMReaderViewController: NSViewController {
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.switchDualPageDirectionMenuItem.action = Selector("switchDualPageDirection");
     }
     
+    override func mouseDown(theEvent: NSEvent) {
+        // Go to the next page
+        nextPage();
+    }
+    
+    override func rightMouseDown(theEvent: NSEvent) {
+        // Go to the previous page
+        previousPage();
+    }
+    
+    override func swipeWithEvent(event: NSEvent) {
+        print("Swipe: " + String(event));
+        print("Swipe X: " + String(event.deltaX));
+        print("Swipe Y: " + String(event.deltaY));
+    }
+    
     func switchDualPageDirection() {
         // If we are reading Right to Left...
         if(dualPageDirection == KMDualPageDirection.RightToLeft) {
@@ -658,12 +674,6 @@ class KMReaderViewController: NSViewController {
                 print("Cant jump to page " + String(page) + " in \"" + manga.title + "\"");
             }
         }
-    }
-    
-    override func swipeWithEvent(event: NSEvent) {
-        print("Swipe: " + String(event));
-        print("Swipe X: " + String(event.deltaX));
-        print("Swipe Y: " + String(event.deltaY));
     }
     
     // Updates the manga page image view to the new page (Specified by mangaCurrentPage) and updates the reader panel labels value
