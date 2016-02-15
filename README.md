@@ -38,6 +38,7 @@
 
 > * Vibrant
 > * Bookmarks
+> * Track pad gestures for page flipping
 > * Saturation, Brightness, Contrast and Sharpness Controls
 > * Dual page(LtR and RtL)
 > * Fast

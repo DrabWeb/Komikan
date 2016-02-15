@@ -1473,7 +1473,9 @@ CA
                         <outlet property="readerBookmarkButton" destination="djj-Je-nYR" id="8II-Ot-hvr"/>
                         <outlet property="readerControlPanelBrightnessSlider" destination="kvG-pg-f6J" id="XUG-VK-Qut"/>
                         <outlet property="readerControlPanelContrastSlider" destination="LId-WD-5l0" id="Ax3-RP-LbB"/>
+                        <outlet property="readerControlPanelResetButton" destination="fku-Ec-tjs" id="rVY-y4-csZ"/>
                         <outlet property="readerControlPanelSaturationSlider" destination="VBJ-h2-Ua4" id="aNr-QR-y2n"/>
+                        <outlet property="readerControlPanelSaveButton" destination="hkx-L3-eX7" id="ntD-sj-Yhb"/>
                         <outlet property="readerControlPanelSharpnessSlider" destination="dfA-Fu-29e" id="rds-SA-KJN"/>
                         <outlet property="readerControlsPanelVisualEffectView" destination="Uv0-1J-uxr" id="NNx-T7-I4l"/>
                         <outlet property="readerImageView" destination="Ui2-6j-ybs" id="3Na-xG-GHe"/>

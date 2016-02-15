@@ -38,6 +38,9 @@ class KMReaderViewController: NSViewController {
     // The visual effect view for the reader controls panel(Color, sharpness ETC.)
     @IBOutlet weak var readerControlsPanelVisualEffectView: NSVisualEffectView!
     
+    /// The save button in the reader control panel
+    @IBOutlet weak var readerControlPanelSaveButton: NSButton!
+    
     // When we press the save button in the reader control panel...
     @IBAction func readerControlPanelSaveButtonPressed(sender: AnyObject) {
         // Say the controls panel is closed
@@ -49,6 +52,9 @@ class KMReaderViewController: NSViewController {
         // Apply the new filter values to all pages(In a new thread so we dont get lots of beachballing for long manga)
         NSThread.detachNewThreadSelector(Selector("updateFiltersForAllPages"), toTarget: self, withObject: nil);
     }
+    
+    /// The reset button in the reader control panel
+    @IBOutlet weak var readerControlPanelResetButton: NSButton!
     
     // When we press the reset button in the reader control panel...
     @IBAction func readerControlPanelResetButtonPressed(sender: AnyObject) {
@@ -190,9 +196,6 @@ class KMReaderViewController: NSViewController {
     // The NSTimer to handle the mouse hovering when we arent in fullscreen
     var mouseHoverHandlingTimer : NSTimer = NSTimer();
     
-    // The NSTimer to handle the mouse hovering when we are in fullscreen
-    var mouseHoverHandlingFullscreenTimer : NSTimer = NSTimer();
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
@@ -202,8 +205,8 @@ class KMReaderViewController: NSViewController {
         // Start the 0.1 second loop for the mouse hovering
         mouseHoverHandlingTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("mouseHoverHandling"), userInfo: nil, repeats:true);
         
-        // Start the 0.1 second loop for the fullscreen mouse hover handling
-        mouseHoverHandlingFullscreenTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("fullscreenMouseHoverHandling"), userInfo: nil, repeats:true);
+        // Show the reader panel and hide the controls panel
+        hideControlsPanelShowReaderPanel();
     }
     
     func openManga(openingManga : KMManga, page : Int) {
@@ -259,8 +262,53 @@ class KMReaderViewController: NSViewController {
     }
     
     override func mouseDown(theEvent: NSEvent) {
-        // Go to the next page
-        nextPage();
+        // Create a new CGEventRef, for the mouse position
+        let mouseEvent : CGEventRef = CGEventCreate(nil)!;
+        
+        // Get the mouse point onscreen from ourEvent
+        let mousePosition = CGEventGetLocation(mouseEvent);
+        
+        // Store the titlebars frame
+        let titlebarFrame : NSRect = titlebarVisualEffectView.frame;
+        
+        /// The mouses position on the Y
+        let pointY = abs(mousePosition.y - NSScreen.mainScreen()!.frame.height);
+        
+        /// The mouses position where 0 0 is the bottom left of the reader window
+        let mousePositionFromWindow : CGPoint = NSPoint(x: mousePosition.x - readerWindow.frame.origin.x, y: pointY - readerWindow.frame.origin.y);
+        
+        /// Is the mouse inside the titlebar?
+        var insideTitlebar : Bool = false;
+        
+        // If the mouse is within the titlebar on the X...
+        if(mousePositionFromWindow.x > titlebarFrame.origin.x && mousePositionFromWindow.x < (titlebarFrame.origin.x + titlebarFrame.size.width)) {
+            // If the mouse is within the titlebar on the Y...
+            if(mousePositionFromWindow.y > titlebarFrame.origin.y && mousePositionFromWindow.y < (titlebarFrame.origin.y + titlebarFrame.size.height)) {
+                // Say the mouse is inside the titlebar
+                insideTitlebar = true;
+            }
+        }
+        
+        // Store the reader control panels frame
+        let readerControlPanelFrame : NSRect = readerControlsPanelVisualEffectView.frame;
+        
+        /// Is the mouse inside the reader control panel?
+        var insideReaderControlPanel : Bool = false;
+        
+        // If the mouse is within the reader control panel on the X...
+        if(mousePositionFromWindow.x > readerControlPanelFrame.origin.x && mousePositionFromWindow.x < (readerControlPanelFrame.origin.x + readerControlPanelFrame.size.width)) {
+            // If the mouse is within the reader control panel on the Y...
+            if(mousePositionFromWindow.y > readerControlPanelFrame.origin.y && mousePositionFromWindow.y < (readerControlPanelFrame.origin.y + readerControlPanelFrame.size.height)) {
+                // Say the mouse is inside the reader control panel
+                insideReaderControlPanel = true;
+            }
+        }
+        
+        // If we arent inside the titlebar and not inside the reader control panel...
+        if(!insideTitlebar && !insideReaderControlPanel) {
+            // Go to the next page
+            nextPage();
+        }
     }
     
     override func rightMouseDown(theEvent: NSEvent) {
@@ -268,10 +316,59 @@ class KMReaderViewController: NSViewController {
         previousPage();
     }
     
-    override func swipeWithEvent(event: NSEvent) {
-        print("Swipe: " + String(event));
-        print("Swipe X: " + String(event.deltaX));
-        print("Swipe Y: " + String(event.deltaY));
+    /// The swipe cooldown so you cant swipe until the delta X is at 0
+    var swipeCooldownOver : Bool = true;
+    
+    /// For some reason the trackpad when swiping would flip pages twice. This number is used so only every two swipes it will flip pages
+    var pageSwipeCount : Int = 0;
+    
+    // This is called not only when you scroll, but when you swipe the trackpad. This should also work with Magic Mouse(Not tested)
+    override func scrollWheel(theEvent: NSEvent) {
+        // If the delta X is less than 5(Meaning you are swiping left)...
+        if(theEvent.deltaX < -5) {
+            // If the swipe cooldown is over...
+            if(swipeCooldownOver) {
+                // Add 1 to the page swipe count
+                pageSwipeCount++;
+                
+                // If the page swipe count is 2...
+                if(pageSwipeCount == 2) {
+                    // Go to the next page
+                    nextPage();
+                    
+                    // Set the page swipe count to 0
+                    pageSwipeCount = 0;
+                }
+            }
+            
+            // Say the cooldown isnt over
+            swipeCooldownOver = false;
+        }
+        // If the delta X is greater than 5(Meaning you are swiping right)...
+        else if(theEvent.deltaX > 5) {
+            // If the swipe cooldown is over...
+            if(swipeCooldownOver) {
+                // Add 1 to the page swipe count
+                pageSwipeCount++;
+                
+                // If the page swipe count is 2...
+                if(pageSwipeCount == 2) {
+                    // Go to the previous page
+                    previousPage();
+                    
+                    // Set the page swipe count to 0
+                    pageSwipeCount = 0;
+                }
+            }
+            
+            // Say the swipe cooldown isnt over
+            swipeCooldownOver = false;
+        }
+        // If the trackpad's scroll force on the X is 0...
+        else if(theEvent.deltaX == 0) {
+            // Say the cooldown is over
+            swipeCooldownOver = true;
+        }
     }
     
     func switchDualPageDirection() {
@@ -365,11 +462,18 @@ class KMReaderViewController: NSViewController {
     }
     
     override func viewWillDisappear() {
+        // Stop the mouse hover timer
+        mouseHoverHandlingTimer.invalidate();
+        
         // Post the notification to update the percent finished
         NSNotificationCenter.defaultCenter().postNotificationName("KMMangaGridCollectionItem.UpdatePercentFinished", object: manga);
         
         // Update the grid(For some reason I have to call this function instead of the update grid one)
         NSNotificationCenter.defaultCenter().postNotificationName("KMEditMangaViewController.Saving", object: manga);
+        
+        print("Unhide cursor");
+        // Show the cursor
+        NSCursor.unhide();
     }
     
     // Resets things like the Contrast, Saturation, ETC.
@@ -392,32 +496,75 @@ class KMReaderViewController: NSViewController {
     
     // Opens the control panel for the user to modify the Saturation, Contrast, ETC.
     func openControlsPanel() {
-        // For every item in the reader panel...
-        for (_, currentItem) in readerPanelVisualEffectView.subviews.enumerate() {
-            // Disable it(Cast it to a NSControl first so we can disable it)
-            (currentItem as! NSControl).enabled = false;
-        }
+        // Show the reader controls panel
+        readerControlsPanelVisualEffectView.hidden = false;
         
         // Animate out the reader panel
         readerPanelVisualEffectView.animator().alphaValue = 0;
         
         // Animate in the reader control panel
         readerControlsPanelVisualEffectView.animator().alphaValue = 1;
+        
+        // Do the 0.2 second wait to hide the reader panel and show the controls panel
+        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.2), target:self, selector: Selector("hideReaderPanelShowControlsPanel"), userInfo: nil, repeats:false);
     }
     
     /// Closes the control panel for the user to modify the Saturation, Contrast, ETC.
     func closeControlsPanel() {
+        // Animate in the reader panel
+        readerPanelVisualEffectView.animator().alphaValue = 1;
+        
+        // Animate out the control panel
+        readerControlsPanelVisualEffectView.animator().alphaValue = 0;
+        
+        // Do the 0.2 second wait to hide the controls panel and show the reader panel
+        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.2), target:self, selector: Selector("hideControlsPanelShowReaderPanel"), userInfo: nil, repeats:false);
+    }
+    
+    /// Hides the controls panel and shows the reader panel
+    func hideControlsPanelShowReaderPanel() {
+        // Disable all the reader control panel buttons
+        readerControlPanelSaturationSlider.enabled = false;
+        readerControlPanelContrastSlider.enabled = false;
+        readerControlPanelBrightnessSlider.enabled = false;
+        readerControlPanelSharpnessSlider.enabled = false;
+        readerControlPanelSaveButton.enabled = false;
+        readerControlPanelResetButton.enabled = false;
+        
+        // Set the controls panel to be hidden
+        readerControlsPanelVisualEffectView.hidden = true;
+        
         // For every item in the reader panel...
         for (_, currentItem) in readerPanelVisualEffectView.subviews.enumerate() {
             // Enable it(Cast it to a NSControl first so we can enable it)
             (currentItem as! NSControl).enabled = true;
         }
         
-        // Animate in the reader panel
-        readerPanelVisualEffectView.animator().alphaValue = 1;
+        // Set the reader panel to show
+        readerPanelCornerRounding.hidden = false;
+    }
+    
+    /// Hides the reader panel and shows the control panel
+    func hideReaderPanelShowControlsPanel() {
+        // Enable all the reader control panel buttons
+        readerControlPanelSaturationSlider.enabled = true;
+        readerControlPanelContrastSlider.enabled = true;
+        readerControlPanelBrightnessSlider.enabled = true;
+        readerControlPanelSharpnessSlider.enabled = true;
+        readerControlPanelSaveButton.enabled = true;
+        readerControlPanelResetButton.enabled = true;
         
-        // Animate out the control panel
-        readerControlsPanelVisualEffectView.animator().alphaValue = 0;
+        // Set the controls panel to show
+        readerControlsPanelVisualEffectView.hidden = false;
+        
+        // For every item in the reader panel...
+        for (_, currentItem) in readerPanelVisualEffectView.subviews.enumerate() {
+            // Disable it(Cast it to a NSControl first so we can enable it)
+            (currentItem as! NSControl).enabled = false;
+        }
+        
+        // Set the reader panel to be hidden
+        readerPanelCornerRounding.hidden = true;
     }
     
     func toggleDualPage() {
@@ -796,6 +943,7 @@ class KMReaderViewController: NSViewController {
     }
     
     func fadeOutTitlebarFullscreen() {
+        print("HIDE CURSOR");
         // Hide the cursor
         NSCursor.hide();
         
@@ -826,70 +974,9 @@ class KMReaderViewController: NSViewController {
     // Is the cursor hidden(Come on Apple, why isnt this part of NSCursor?)
     var cursorHidden : Bool = false;
     
-    func fullscreenMouseHoverHandling() {
-        // If we are in fullscreen...
-        if(isFullscreen) {
-            // Create a new CGEventRef, for the mouse position
-            let mouseEvent : CGEventRef = CGEventCreate(nil)!;
-            
-            // Get the mouse point onscreen from ourEvent
-            let mousePosition = CGEventGetLocation(mouseEvent);
-            
-            // If we have moved the mouse...
-            if(mousePosition != oldMousePosition) {
-                // Stop the fade timer
-                fadeTimer.invalidate();
-                
-                // Fade in the titlebar(Fullscreen mode)
-                fadeInTitlebarFullscreen();
-                
-                // Store the reader panels frame
-                let readerPanelFrame : NSRect = readerPanelCornerRounding.frame;
-                
-                // Create a variable to store the cursors location y where 0 0 is the bottom left
-                let pointY = abs(mousePosition.y - NSScreen.mainScreen()!.frame.height);
-                
-                // CReate a bool to indicate if we have the mouse in the reader panel(And set it)
-                let insideReaderPanel : Bool = readerPanelFrame.contains(CGPoint(x: mousePosition.x, y: pointY));
-                
-                // If we arent inside the reader panel...
-                if(!insideReaderPanel) {
-                    // Fade out the titlebar(Fullscreen mode)
-                    fadeTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(1), target:self, selector: Selector("fadeOutTitlebarFullscreen"), userInfo: nil, repeats:false);
-                }
-            }
-            
-            // Set oldMousePosition to the current mouse position
-            oldMousePosition = mousePosition;
-        }
-        // If we arent in fullscreen...
-        else {
-            // If the cursor is still hidden...
-            if(cursorHidden) {
-                // Show the cursor
-                NSCursor.unhide();
-            }
-        }
-    }
-    
     func mouseHoverHandling() {
         // Are we fullscreen?
         let fullscreen : Bool = readerWindow.isFullscreen();
-        
-        // A bool to say if we are hovering the window
-        var insideWindow : Bool = false;
-        
-        // Create a new CGEventRef, for the mouse position
-        let mouseEvent : CGEventRef = CGEventCreate(nil)!;
-        
-        // Get the mouse point onscreen from ourEvent
-        let mousePosition = CGEventGetLocation(mouseEvent);
-        
-        // Store the windows frame temporarly, so we dont retype a millino times
-        let windowFrame : NSRect! = readerWindow.frame;
-        
-        // Create a variable to store the cursors location y where 0 0 is the bottom left
-        let pointY = abs(mousePosition.y - NSScreen.mainScreen()!.frame.height);
         
         // if we arent fullscreen...
         if(!fullscreen) {
@@ -897,26 +984,6 @@ class KMReaderViewController: NSViewController {
             if(titlebarVisualEffectView.hidden) {
                 // Show the titlebar visual effect view
                 titlebarVisualEffectView.hidden = false;
-            }
-            
-            // If the mouse position is inside the window on the x...
-            if(mousePosition.x > windowFrame.origin.x && mousePosition.x < windowFrame.origin.x + windowFrame.width) {
-                // If the mouse position is inside the window on the y...
-                if(pointY > windowFrame.origin.y && pointY < windowFrame.origin.y + windowFrame.height) {
-                    // The cursor is inside the window, say so
-                    insideWindow = true;
-                }
-            }
-            
-            // If the cursor is inside the window...
-            if(insideWindow) {
-                // Fade in the titlebar
-                fadeInTitlebar();
-            }
-                // If the cursor is outside the window...
-            else {
-                // Fade out the titlebar
-                fadeOutTitlebar();
             }
         }
         else {
@@ -929,6 +996,68 @@ class KMReaderViewController: NSViewController {
         
         // Set isFullscreen to fullscreen
         isFullscreen = fullscreen;
+        
+        // Create a new CGEventRef, for the mouse position
+        let mouseEvent : CGEventRef = CGEventCreate(nil)!;
+        
+        // Get the mouse point onscreen from ourEvent
+        let mousePosition = CGEventGetLocation(mouseEvent);
+        
+        // If we have moved the mouse...
+        if(mousePosition != oldMousePosition) {
+            // Stop the fade timer
+            fadeTimer.invalidate();
+            
+            // Store the reader panels frame
+            let readerPanelFrame : NSRect = readerPanelCornerRounding.frame;
+            
+            /// The mouses position on the Y
+            let pointY = abs(mousePosition.y - NSScreen.mainScreen()!.frame.height);
+            
+            /// The mouses position where 0 0 is the bottom left of the reader window
+            let mousePositionFromWindow : CGPoint = NSPoint(x: mousePosition.x - readerWindow.frame.origin.x, y: pointY - readerWindow.frame.origin.y);
+            
+            /// Is the mouse inside the reader panel?
+            var insideReaderPanel : Bool = false;
+            
+            // If the mouse is within the reader panel on the X...
+            if(mousePositionFromWindow.x > readerPanelFrame.origin.x && mousePositionFromWindow.x < (readerPanelFrame.origin.x + readerPanelFrame.size.width)) {
+                // If the mouse is within the reader panel on the Y...
+                if(mousePositionFromWindow.y > readerPanelFrame.origin.y && mousePositionFromWindow.y < (readerPanelFrame.origin.y + readerPanelFrame.size.height)) {
+                    // Say we are in the reader panel
+                    insideReaderPanel = true;
+                }
+            }
+            
+            // If the reader window is currently selected...
+            if(readerWindow.keyWindow) {
+                // Fade in the titlebar(Fullscreen mode)
+                fadeInTitlebarFullscreen();
+            }
+            
+            // If the cursor isnt inside the reader panel and in fullscreen...
+            if(!insideReaderPanel && fullscreen) {
+                // Fade out the titlebar(Fullscreen mode)
+                fadeTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(1), target:self, selector: Selector("fadeOutTitlebarFullscreen"), userInfo: nil, repeats:false);
+            }
+            // If the reader window is the key window and the cursor isnt inside the reader panel...
+            else if(readerWindow.keyWindow && !insideReaderPanel) {
+                // Fade out the titlebar(Fullscreen mode)
+                fadeTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(2), target:self, selector: Selector("fadeOutTitlebarFullscreen"), userInfo: nil, repeats:false);
+            }
+            
+            // If the reader window isnt key...
+            if(!readerWindow.keyWindow) {
+                // Fade out the titlebar
+                fadeTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0), target:self, selector: Selector("fadeOutTitlebar"), userInfo: nil, repeats:false);
+                
+                // Show the cursor
+                NSCursor.unhide();
+            }
+        }
+        
+        // Set oldMousePosition to the current mouse position
+        oldMousePosition = mousePosition;
     }
     
     func fadeOutTitlebar() {
