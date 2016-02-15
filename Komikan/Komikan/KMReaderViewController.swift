@@ -46,14 +46,14 @@ class KMReaderViewController: NSViewController {
         // Close the controls panel
         closeControlsPanel();
         
-        // Apply the new filter values to all pages
-        updateFiltersForAllPages();
+        // Apply the new filter values to all pages(In a new thread so we dont get lots of beachballing for long manga)
+        NSThread.detachNewThreadSelector(Selector("updateFiltersForAllPages"), toTarget: self, withObject: nil);
     }
     
     // When we press the reset button in the reader control panel...
     @IBAction func readerControlPanelResetButtonPressed(sender: AnyObject) {
-        // Reset the values to default
-        resetCGValues();
+        // Reset the values to default(In a new thread so we dont beachball in long manga)
+        NSThread.detachNewThreadSelector(Selector("resetCGValues"), toTarget: self, withObject: nil);
     }
     
     // The slider in the control panel that controls the readers saturation
@@ -389,7 +389,7 @@ class KMReaderViewController: NSViewController {
         readerControlsPanelVisualEffectView.animator().alphaValue = 1;
     }
     
-    // Closes the control panel for the user to modify the Saturation, Contrast, ETC.
+    /// Closes the control panel for the user to modify the Saturation, Contrast, ETC.
     func closeControlsPanel() {
         // For every item in the reader panel...
         for (_, currentItem) in readerPanelVisualEffectView.subviews.enumerate() {
@@ -442,13 +442,13 @@ class KMReaderViewController: NSViewController {
         return bookmarked;
     }
     
-    // Calls bookmarkPage with the current page number
+    /// Calls bookmarkPage with the current page number
     func bookmarkCurrentPage() {
         // Call bookmarkPage with the current page number
         bookmarkPage(manga.currentPage);
     }
     
-    // Bookmarks the current page(Starts at 0). If it is already bookmarked, it removes that bookmark
+    /// Bookmarks the current page(Starts at 0). If it is already bookmarked, it removes that bookmark
     func bookmarkPage(page : Int) {
         // A bool to say if we already bookmarked this page
         var alreadyBookmarked = false;
@@ -496,7 +496,7 @@ class KMReaderViewController: NSViewController {
         readerPageJumpVisualEffectView.alphaValue = 1;
     }
     
-    // Closes the dialog that prompts the user to jump to a page, and jumps to the inputted page
+    /// Closes the dialog that prompts the user to jump to a page, and jumps to the inputted page
     func closeJumpToPageDialog() {
         // Fade out the view
         readerPageJumpVisualEffectView.animator().alphaValue = 0;
@@ -508,7 +508,7 @@ class KMReaderViewController: NSViewController {
         jumpToPage(readerPageJumpNumberField.integerValue - 1, round: true);
     }
     
-    // Actually hides the jump to page dialog
+    /// Actually hides the jump to page dialog
     func hideJumpToPageDialog() {
         // Hide the view
         readerPageJumpView.hidden = true;
@@ -658,6 +658,12 @@ class KMReaderViewController: NSViewController {
                 print("Cant jump to page " + String(page) + " in \"" + manga.title + "\"");
             }
         }
+    }
+    
+    override func swipeWithEvent(event: NSEvent) {
+        print("Swipe: " + String(event));
+        print("Swipe X: " + String(event.deltaX));
+        print("Swipe Y: " + String(event.deltaY));
     }
     
     // Updates the manga page image view to the new page (Specified by mangaCurrentPage) and updates the reader panel labels value

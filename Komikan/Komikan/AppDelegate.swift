@@ -117,6 +117,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         // Add hide cursor in distraction free mode bool to the end of it
         preferencesString.appendContentsOf("\n" + String(preferencesKepper.hideCursorInDistractionFreeMode));
         
+        // Add the distraction free mode dim amount float to the end of it
+        preferencesString.appendContentsOf("\n" + String(preferencesKepper.distractionFreeModeDimAmount));
+        
         // Write the preferences to the preferences file in Komikan's application support
         do {
             // Try to write to the preferences file in Komikan's application support directory
@@ -159,6 +162,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                     // Set if we want to hide the cursor in distraction free mode to be this lines value
                     preferencesKepper.hideCursorInDistractionFreeMode = KMFileUtilities().stringToBool(currentElement);
                 }
+                    // If this is the fifth line...
+                else if(currentIndex == 5) {
+                    // Set the dsitaction free mode dim amount to be this lines value
+                    preferencesKepper.distractionFreeModeDimAmount = CGFloat(NSString(string: currentElement).floatValue);
+                }
             }
         }
     }
@@ -192,6 +200,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         
         // Hide/show the Add From EH Menu Item depending on if we have l-lewd... mode enabled
         addFromEHMenuItem.hidden = !preferencesKepper.llewdModeEnabled;
+        
+        // Set the distraction free mode dim amount
+        backgroundDarkenAmount = preferencesKepper.distractionFreeModeDimAmount;
+        
+        // If we are in distraction free mode...
+        if(backgroundDarkened) {
+            // Double toggle distraction free mode so it matches the new darken amount
+            toggleDarken();
+            toggleDarken();
+        }
         
         // Post the notification saying the preferences have been saved
         NSNotificationCenter.defaultCenter().postNotificationName("Application.PreferencesSaved", object: nil);

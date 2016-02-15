@@ -53,12 +53,18 @@ class KMGroupListViewController: NSViewController {
         /// The string we will search by groups for
         var searchString : String = "g:";
         
+        /// How many selected groups did we have?
+        var checkedGroupCount : Int = 0;
+        
         // For every group item in the group items
         for(_, currentFilterGroup) in groupItems.enumerate() {
             // If the group item is checked...
             if(currentFilterGroup.checked) {
                 // Append a ", "
                 searchString.appendContentsOf(currentFilterGroup.groupName + ", ");
+                
+                // Add 1 to the checked group count
+                checkedGroupCount++;
             }
         }
         
@@ -71,10 +77,16 @@ class KMGroupListViewController: NSViewController {
             searchString.appendContentsOf(";");
         }
         
+        // If the checked group count is equal to the amount of group items we have...
+        if(checkedGroupCount == groupItems.count) {
+            // Clear the search string
+            searchString = "";
+        }
+        
         // Set the search fields value to the search string we created
         (NSApplication.sharedApplication().delegate as! AppDelegate).searchTextField.stringValue = searchString;
         
-        // Search for teh search string
+        // Search for the search string
         (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.searchFor(searchString);
     }
     

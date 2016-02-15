@@ -71,3 +71,22 @@
 > * Login to ``` exhentai.org ``` from the Application
 > * Choose to use Japanese or English title
 > * Automatic marking of l-lewd... mode for downloads from EH depending on if they have the ``` non-h ``` tag
+
+## Compiling
+
+> Cocoapods is not the most stable with Swift, so you have to go through these steps first to compile Komikan.
+
+> * Open Xcode and try to compile the app. It should come up with errors.
+> * Quit Xcode
+> * Open Komikan's ``` Podfile ``` and comment out the ``` use_frameworks! ``` with a ``` # ```, then save the file
+> * Do a ``` pod install ``` in the directory where the ``` Podfile ``` is
+> * When its done, reopen Komikan and Xcode and try to compile
+> * It will bring up ~17 errors, quit it again
+> * Reopen the ``` Podfile ``` and uncomment the ``` use_frameworks! ``` line, then save the file
+> * Do another ``` pod install ```, and wait for it to finish
+> * Reopen Komikan in Xcode and run it, it should now compile
+
+</br>
+> Troubleshooting
+
+> * If it still doesnt compile, make sure you open the ``` .xcworkspace ``` and not the ``` .xcodeproj ```

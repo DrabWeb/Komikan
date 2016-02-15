@@ -40,6 +40,9 @@ class KMPreferencesController: NSViewController {
     // The checkbox to say if we want to hide the cursor in distraction free mode
     @IBOutlet weak var hideCursorInDistractionFreeModeCheckbox: NSButton!
     
+    /// The slider to say how much distraction free mode should dim the background
+    @IBOutlet weak var distractionFreeModeDimAmountSlider: NSSlider!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
@@ -54,11 +57,12 @@ class KMPreferencesController: NSViewController {
     }
     
     override func viewWillDisappear() {
-        // Set the global preferences keepers value to the checkboxes value
+        // Set the global preferences keepers value to the preference value
         (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.llewdModeEnabled = Bool(llewdModeEnabledCheckbox.state);
         (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.deleteLLewdMangaWhenRemovingFromTheGrid = Bool(llewdModeDeleteWhenRemovingCheckbox.state);
         (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.markAsReadWhenCompletedInReader = Bool(markAsReadWhenCompletedInReaderCheckbox.state);
         (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.hideCursorInDistractionFreeMode = Bool(hideCursorInDistractionFreeModeCheckbox.state);
+        (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.distractionFreeModeDimAmount = CGFloat(distractionFreeModeDimAmountSlider.floatValue);
         
         // Tell AppDelegate to act upon the preferences
         (NSApplication.sharedApplication().delegate as! AppDelegate).actOnPreferences();
@@ -71,6 +75,7 @@ class KMPreferencesController: NSViewController {
         llewdModeDeleteWhenRemovingCheckbox.state = Int((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.deleteLLewdMangaWhenRemovingFromTheGrid);
         markAsReadWhenCompletedInReaderCheckbox.state = Int((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.markAsReadWhenCompletedInReader);
         hideCursorInDistractionFreeModeCheckbox.state = Int((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.hideCursorInDistractionFreeMode);
+        distractionFreeModeDimAmountSlider.floatValue = Float((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.distractionFreeModeDimAmount);
     }
     
     // Enables / disables all the checkboxes under the l-lewd... mode enabled checkbox

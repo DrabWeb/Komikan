@@ -49,16 +49,16 @@
                                             <action selector="filterButtonPressed:" target="rdq-4V-HKd" id="zhk-9m-jag"/>
                                         </connections>
                                     </button>
-                                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wd7-GY-VwC">
+                                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="30" horizontalPageScroll="10" verticalLineScroll="30" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wd7-GY-VwC">
                                         <rect key="frame" x="0.0" y="41" width="480" height="229"/>
                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="BGp-O8-G4a">
                                             <rect key="frame" x="0.0" y="0.0" width="480" height="229"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" selectionHighlightStyle="sourceList" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="30" viewBased="YES" id="4XC-lO-Y0a">
-                                                    <rect key="frame" x="0.0" y="0.0" width="480" height="229"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="459" height="0.0"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <size key="intercellSpacing" width="3" height="2"/>
+                                                    <size key="intercellSpacing" width="3" height="0.0"/>
                                                     <color key="backgroundColor" red="0.48033760000000003" green="0.65488994721261851" blue="0.80000000000000004" alpha="0.0" colorSpace="deviceRGB"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
@@ -76,7 +76,7 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="vcZ-vp-uNO" customClass="KMGroupListTableViewCell" customModule="Komikan" customModuleProvider="target">
-                                                                    <rect key="frame" x="1" y="1" width="456" height="30"/>
+                                                                    <rect key="frame" x="1" y="0.0" width="456" height="30"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <button focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="tpL-t1-gTO">
@@ -777,7 +777,7 @@ CA
                 </viewController>
                 <customObject id="gif-9I-UzO" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1930" y="954"/>
+            <point key="canvasLocation" x="1935" y="1002"/>
         </scene>
         <!--Preferences Window Controller-->
         <scene sceneID="Lh1-2B-Yh9">
@@ -805,10 +805,10 @@ CA
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="Koz-iq-GVn" userLabel="Background Visual Effect View">
+                            <visualEffectView appearanceType="vibrantDark" fixedFrame="YES" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="Koz-iq-GVn" userLabel="Background Visual Effect View">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="248"/>
                                 <subviews>
-                                    <tabView focusRingType="none" allowsTruncatedLabels="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1HL-q2-fni" userLabel="Preferences Tab View">
+                                    <tabView focusRingType="none" fixedFrame="YES" allowsTruncatedLabels="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1HL-q2-fni" userLabel="Preferences Tab View">
                                         <rect key="frame" x="13" y="10" width="454" height="232"/>
                                         <font key="font" metaFont="system"/>
                                         <tabViewItems>
@@ -817,14 +817,17 @@ CA
                                                     <rect key="frame" x="10" y="33" width="434" height="186"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <button ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="74O-zv-sD2">
+                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="74O-zv-sD2">
                                                             <rect key="frame" x="15" y="167" width="338" height="18"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="334" id="MNt-Id-MLl"/>
+                                                            </constraints>
                                                             <buttonCell key="cell" type="check" title="Mark Manga as read when you finish it in the reader" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="XNh-Xk-KX5">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
                                                         </button>
-                                                        <button ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8QY-cq-ody">
+                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="8QY-cq-ody">
                                                             <rect key="frame" x="15" y="147" width="245" height="18"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="14" id="Dc5-0m-g4r"/>
@@ -837,10 +840,38 @@ CA
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
                                                         </button>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2sX-qK-JPW">
+                                                            <rect key="frame" x="15" y="128" width="214" height="17"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="17" id="9wQ-9l-dNg"/>
+                                                            </constraints>
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Distraction Free mode dim amount" id="Pst-8a-fMr">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                        <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ufr-b4-gOh">
+                                                            <rect key="frame" x="233" y="126" width="186" height="21"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="17" id="6vi-hS-EOm"/>
+                                                            </constraints>
+                                                            <sliderCell key="cell" state="on" alignment="left" maxValue="1" doubleValue="0.40000000000000002" tickMarkPosition="above" sliderType="linear" id="w0P-Ck-m5Z"/>
+                                                        </slider>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="8QY-cq-ody" firstAttribute="top" secondItem="74O-zv-sD2" secondAttribute="bottom" constant="6" id="3qm-Oo-Sx0"/>
+                                                        <constraint firstAttribute="trailing" secondItem="ufr-b4-gOh" secondAttribute="trailing" constant="17" id="4GO-ze-7yS"/>
+                                                        <constraint firstItem="74O-zv-sD2" firstAttribute="leading" secondItem="8QY-cq-ody" secondAttribute="leading" id="ASy-O6-JEr"/>
+                                                        <constraint firstItem="ufr-b4-gOh" firstAttribute="leading" secondItem="2sX-qK-JPW" secondAttribute="trailing" constant="8" id="BGr-Eh-oBB"/>
+                                                        <constraint firstItem="74O-zv-sD2" firstAttribute="top" secondItem="ZcC-yb-TAH" secondAttribute="top" constant="3" id="FmW-Mq-W70"/>
+                                                        <constraint firstAttribute="bottom" secondItem="74O-zv-sD2" secondAttribute="bottom" constant="169" id="MjO-aM-YIG"/>
                                                         <constraint firstItem="8QY-cq-ody" firstAttribute="leading" secondItem="ZcC-yb-TAH" secondAttribute="leading" constant="17" id="OoW-2P-OJd"/>
+                                                        <constraint firstItem="2sX-qK-JPW" firstAttribute="leading" secondItem="ZcC-yb-TAH" secondAttribute="leading" constant="17" id="ZQO-lx-Fps"/>
+                                                        <constraint firstItem="ufr-b4-gOh" firstAttribute="leading" secondItem="2sX-qK-JPW" secondAttribute="trailing" constant="8" id="a3i-vJ-0SH"/>
+                                                        <constraint firstItem="2sX-qK-JPW" firstAttribute="top" secondItem="8QY-cq-ody" secondAttribute="bottom" constant="4" id="eSz-fK-qkH"/>
+                                                        <constraint firstAttribute="trailing" secondItem="74O-zv-sD2" secondAttribute="trailing" constant="83" id="kHT-0S-BGU"/>
+                                                        <constraint firstItem="ufr-b4-gOh" firstAttribute="top" secondItem="8QY-cq-ody" secondAttribute="bottom" constant="4" id="ngt-0N-WXA"/>
                                                     </constraints>
                                                 </view>
                                             </tabViewItem>
@@ -886,30 +917,15 @@ CA
                                         </tabViewItems>
                                     </tabView>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="1HL-q2-fni" secondAttribute="bottom" constant="20" id="9jC-yX-i9t"/>
-                                    <constraint firstItem="1HL-q2-fni" firstAttribute="top" secondItem="Koz-iq-GVn" secondAttribute="top" constant="12" id="AvR-1M-PfK"/>
-                                    <constraint firstAttribute="trailing" secondItem="1HL-q2-fni" secondAttribute="trailing" constant="20" id="f3e-N5-Ofg"/>
-                                    <constraint firstItem="1HL-q2-fni" firstAttribute="leading" secondItem="Koz-iq-GVn" secondAttribute="leading" constant="20" id="nTM-XU-iba"/>
-                                </constraints>
                             </visualEffectView>
-                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="2kW-Hv-9Uh" userLabel="Titlebar Visual Effect View">
+                            <visualEffectView appearanceType="vibrantDark" fixedFrame="YES" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="2kW-Hv-9Uh" userLabel="Titlebar Visual Effect View">
                                 <rect key="frame" x="0.0" y="248" width="480" height="22"/>
                             </visualEffectView>
                         </subviews>
-                        <constraints>
-                            <constraint firstItem="Koz-iq-GVn" firstAttribute="leading" secondItem="Mgu-Bm-WYO" secondAttribute="leading" id="0bW-w0-e5z"/>
-                            <constraint firstAttribute="bottom" secondItem="Koz-iq-GVn" secondAttribute="bottom" id="DDf-uA-pJe"/>
-                            <constraint firstItem="2kW-Hv-9Uh" firstAttribute="top" secondItem="Mgu-Bm-WYO" secondAttribute="top" id="EK2-JN-yke"/>
-                            <constraint firstItem="2kW-Hv-9Uh" firstAttribute="leading" secondItem="Koz-iq-GVn" secondAttribute="leading" id="Pen-O4-QUt"/>
-                            <constraint firstItem="Koz-iq-GVn" firstAttribute="top" secondItem="Mgu-Bm-WYO" secondAttribute="top" constant="22" id="SY8-aC-DFX"/>
-                            <constraint firstItem="Koz-iq-GVn" firstAttribute="top" secondItem="2kW-Hv-9Uh" secondAttribute="bottom" id="Yq0-cd-WaS"/>
-                            <constraint firstAttribute="trailing" secondItem="Koz-iq-GVn" secondAttribute="trailing" id="k8J-0H-cWe"/>
-                            <constraint firstAttribute="trailing" secondItem="2kW-Hv-9Uh" secondAttribute="trailing" id="pOL-Zl-vxZ"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="backgroundVisualEffectView" destination="Koz-iq-GVn" id="e03-Zb-a8B"/>
+                        <outlet property="distractionFreeModeDimAmountSlider" destination="ufr-b4-gOh" id="GFQ-OK-mKt"/>
                         <outlet property="hideCursorInDistractionFreeModeCheckbox" destination="8QY-cq-ody" id="uO6-KA-47z"/>
                         <outlet property="llewdModeDeleteWhenRemovingCheckbox" destination="fpx-Ab-PHd" id="BE3-Do-TnP"/>
                         <outlet property="llewdModeEnabledCheckbox" destination="BAM-5b-AXZ" id="n5J-ey-Hjb"/>
@@ -1509,7 +1525,7 @@ CA
                                             <rect key="frame" x="1" y="144" width="233" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.97297297297297303" horizontal="NO" id="0wb-fr-0cq">
+                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="0wb-fr-0cq">
                                             <rect key="frame" x="624" y="37" width="16" height="443"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>

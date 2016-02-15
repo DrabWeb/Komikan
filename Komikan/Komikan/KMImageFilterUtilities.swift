@@ -64,7 +64,7 @@ class KMImageFilterUtilities {
         // Load the filter defaults
         filter!.setDefaults();
         
-        // Set teh filters image to be the input image
+        // Set the filters image to be the input image
         filter!.setValue(inputImage, forKey: kCIInputImageKey);
         
         // Set its sharpness

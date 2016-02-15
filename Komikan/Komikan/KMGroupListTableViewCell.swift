@@ -27,5 +27,4 @@ class KMGroupListTableViewCell: NSTableCellView {
 
         // Drawing code here.
     }
-    
 }

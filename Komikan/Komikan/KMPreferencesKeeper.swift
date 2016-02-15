@@ -20,4 +20,7 @@ class KMPreferencesKeeper {
     
     // Should we hide the cursor in distraction free mode?
     var hideCursorInDistractionFreeMode : Bool = false;
+    
+    /// How much should Distraction Free mode dim the background?
+    var distractionFreeModeDimAmount : CGFloat = 0.4;
 }
