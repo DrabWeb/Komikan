@@ -199,6 +199,153 @@ class KMAddMangaViewController: NSViewController {
         }
     }
     
+    /// DId the user specify a custom title in the JSON?
+    var gotTitleFromJSON : Bool = false;
+    
+    /// Did the user specify a custom cover image in the JSON?
+    var gotCoverImageFromJSON : Bool = false;
+    
+    /// Gets the data from the optional JSON file that contains metadata info
+    func fetchJsonData() {
+        // If we actually selected anything...
+        if(addingMangaURLs != []) {
+            // Print to the log that we are fetching the JSON data
+            print("Fetching JSON data...");
+            
+            /// The selected Mangas folder it is in
+            var folderURLString : String = (addingMangaURLs.first?.absoluteString)!;
+            
+            // Remove everything after the last "/" in the string so we can get the folder
+            folderURLString = folderURLString.substringToIndex(folderURLString.rangeOfString("/", options: NSStringCompareOptions.BackwardsSearch, range: nil, locale: nil)!.startIndex);
+            
+            // Append a slash to the end because it removes it
+            folderURLString += "/";
+            
+            // Remove the file:// from the folder URL string
+            folderURLString = folderURLString.stringByReplacingOccurrencesOfString("file://", withString: "");
+            
+            // Remove the percent encoding from the folder URL string
+            folderURLString = folderURLString.stringByRemovingPercentEncoding!;
+            
+            // If we chose multiple manga...
+            if(addingMangaURLs.count > 1) {
+                /// The URL of the multiple Manga's possible JSON file
+                let mangaJsonURL : String = folderURLString + "series.json";
+                
+                // If there is a "series.json" file in the Manga's folder...
+                if(NSFileManager.defaultManager().fileExistsAtPath(mangaJsonURL)) {
+                    // Print to the log that we found the JSON file for the selected manga
+                    print("Found a series.json file for the selected Manga at \"" + mangaJsonURL + "\"");
+                    
+                    /// The SwiftyJSON object for the Manga's JSON info
+                    let mangaJson = JSON(data: NSFileManager.defaultManager().contentsAtPath(mangaJsonURL)!);
+                    
+                    // Set the series text field's value to the series value
+                    seriesTextField.stringValue = mangaJson["series"].stringValue;
+                    
+                    // Set the series text field's value to the artist value
+                    artistTextField.stringValue = mangaJson["artist"].stringValue;
+                    
+                    // Set the series text field's value to the writer value
+                    writerTextField.stringValue = mangaJson["writer"].stringValue;
+                    
+                    // For every item in the tags value of the JSON...
+                    for(_, currentTag) in mangaJson["tags"].arrayValue.enumerate() {
+                        print(currentTag);
+                        
+                        // Add the current item to the tag text field
+                        tagsTextField.stringValue += currentTag.stringValue + ", ";
+                    }
+                    
+                    // If the tags text field is not still blank...
+                    if(tagsTextField.stringValue != "") {
+                        // Remove the extra ", " from the tags text field
+                        tagsTextField.stringValue = tagsTextField.stringValue.substringToIndex(tagsTextField.stringValue.endIndex.predecessor().predecessor());
+                    }
+                    
+                    // Set the group text field's value to the group value
+                    groupTextField.stringValue = mangaJson["group"].stringValue;
+                    
+                    // Set the favourites buttons value to the favourites value of the JSON
+                    favouriteButton.state = Int(mangaJson["favourite"].stringValue.toBool());
+                    
+                    // Update the favourites button
+                    favouriteButton.updateButton();
+                    
+                    // Set the l-lewd... checkboxes state to the lewd value of the JSON
+                    llewdCheckBox.state = Int(mangaJson["lewd"].stringValue.toBool());
+                }
+            }
+            // If we chose 1 manga...
+            else if(addingMangaURLs.count == 1) {
+                /// The URL to the single Manga's possible JSON file
+                let mangaJsonURL : String = (addingMangaURLs.first?.absoluteString.stringByReplacingOccurrencesOfString("file://", withString: "").stringByRemovingPercentEncoding!)! + ".json";
+                
+                // If there is a file that has the same name but with a .json on the end...
+                if(NSFileManager.defaultManager().fileExistsAtPath(mangaJsonURL)) {
+                    // Print to the log that we found the JSON file for the single manga
+                    print("Found single Manga's JSON file at \"" + mangaJsonURL + "\"");
+                    
+                    /// The SwiftyJSON object for the Manga's JSON info
+                    let mangaJson = JSON(data: NSFileManager.defaultManager().contentsAtPath(mangaJsonURL)!);
+                    
+                    // If the title value from the JSON is not "auto" or blank...
+                    if(mangaJson["title"].stringValue != "auto" && mangaJson["title"].stringValue != "") {
+                        // Set the title text fields value to the title value from the JSON
+                        titleTextField.stringValue = mangaJson["title"].stringValue;
+                        
+                        // Say we got a title from the JSON
+                        gotTitleFromJSON = true;
+                    }
+                    
+                    // If the cover image value from the JSON is not "auto" or blank...
+                    if(mangaJson["cover-image"].stringValue != "auto" && mangaJson["cover-image"].stringValue != "") {
+                        // Set the cover image views image to an NSImage at the path specified in the JSON
+                        coverImageView.image = NSImage(contentsOfURL: NSURL(fileURLWithPath: mangaJson["cover-image"].stringValue));
+                        
+                        // Say we got a cover image from the JSON
+                        gotCoverImageFromJSON = true;
+                    }
+                    
+                    // Set the series text field's value to the series value
+                    seriesTextField.stringValue = mangaJson["series"].stringValue;
+                    
+                    // Set the series text field's value to the artist value
+                    artistTextField.stringValue = mangaJson["artist"].stringValue;
+                    
+                    // Set the series text field's value to the writer value
+                    writerTextField.stringValue = mangaJson["writer"].stringValue;
+                    
+                    // For every item in the tags value of the JSON...
+                    for(_, currentTag) in mangaJson["tags"].arrayValue.enumerate() {
+                        print(currentTag);
+                        
+                        // Add the current item to the tag text field
+                        tagsTextField.stringValue += currentTag.stringValue + ", ";
+                    }
+                    
+                    // If the tags text field is not still blank...
+                    if(tagsTextField.stringValue != "") {
+                        // Remove the extra ", " from the tags text field
+                        tagsTextField.stringValue = tagsTextField.stringValue.substringToIndex(tagsTextField.stringValue.endIndex.predecessor().predecessor());
+                    }
+                    
+                    // Set the group text field's value to the group value
+                    groupTextField.stringValue = mangaJson["group"].stringValue;
+                    
+                    // Set the favourites buttons value to the favourites value of the JSON
+                    favouriteButton.state = Int(mangaJson["favourite"].stringValue.toBool());
+                    
+                    // Update the favourites button
+                    favouriteButton.updateButton();
+                    
+                    // Set the l-lewd... checkboxes state to the lewd value of the JSON
+                    llewdCheckBox.state = Int(mangaJson["lewd"].stringValue.toBool());
+                }
+            }
+        }
+    }
+    
     // Updates the add buttons enabled state
     func updateAddButton() {
         // A variable to say if we can add the manga with the given values
@@ -266,7 +413,7 @@ class KMAddMangaViewController: NSViewController {
             
             // Set the cover image selecting views image to firstImage
             manga.coverImage = firstImage;
-            
+        
             // Resize the cover image to be compressed for faster loading
             manga.coverImage = manga.coverImage.resizeToHeight(400);
             
@@ -308,6 +455,9 @@ class KMAddMangaViewController: NSViewController {
             promptForManga();
         }
         
+        // Fetch the JSON data
+        fetchJsonData();
+        
         // If we selected multiple files...
         if(addingMangaURLs.count > 1) {
             // Say we are adding multiple
@@ -334,11 +484,17 @@ class KMAddMangaViewController: NSViewController {
                 // Get the information of the manga(Cover image, title, ETC.)(Change this function to be in KMManga)
                 newManga = getMangaInfo(newManga);
             
-                // Set the cover image views cover image
-                coverImageView.image = newManga.coverImage;
+                // If we didnt get a cover image from the JSON...
+                if(!gotCoverImageFromJSON) {
+                    // Set the cover image views cover image
+                    coverImageView.image = newManga.coverImage;
+                }
             
-                // Set the title text fields value to the mangas title
-                titleTextField.stringValue = newManga.title;
+                // If we didnt get a title from the JSON...
+                if(!gotTitleFromJSON) {
+                    // Set the title text fields value to the mangas title
+                    titleTextField.stringValue = newManga.title;
+                }
             }
         }
     }

@@ -23,6 +23,7 @@
 > * Supports ZIP, RAR, CBZ and CBR
 > * Set Series, Artist, Writer, Tags, Group, Favourite and mark as l-lewd... on import
 > * Edit any of the above after import(Either one at a time or by groups)
+> * Use JSON to predefine info about multiple or single Manga
 > * Custom cover images(Uses first page of Manga by default)
 > * Never moves or deletes your original Manga files
 > * Sorting by Title, Series and Artist
