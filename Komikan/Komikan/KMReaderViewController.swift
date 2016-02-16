@@ -193,6 +193,9 @@ class KMReaderViewController: NSViewController {
     // Are we fullscreen?
     var isFullscreen : Bool = false;
     
+    /// Is the window in the process of closing?
+    var closingView : Bool = false;
+    
     // The NSTimer to handle the mouse hovering when we arent in fullscreen
     var mouseHoverHandlingTimer : NSTimer = NSTimer();
     
@@ -462,6 +465,9 @@ class KMReaderViewController: NSViewController {
     }
     
     override func viewWillDisappear() {
+        // Say the view is closing
+        closingView = true;
+        
         // Stop the mouse hover timer
         mouseHoverHandlingTimer.invalidate();
         
@@ -471,7 +477,6 @@ class KMReaderViewController: NSViewController {
         // Update the grid(For some reason I have to call this function instead of the update grid one)
         NSNotificationCenter.defaultCenter().postNotificationName("KMEditMangaViewController.Saving", object: manga);
         
-        print("Unhide cursor");
         // Show the cursor
         NSCursor.unhide();
     }
@@ -943,9 +948,11 @@ class KMReaderViewController: NSViewController {
     }
     
     func fadeOutTitlebarFullscreen() {
-        print("HIDE CURSOR");
-        // Hide the cursor
-        NSCursor.hide();
+        // If the view isnt closing...
+        if(!closingView) {
+            // Hide the cursor
+            NSCursor.hide();
+        }
         
         // Set cursorHidden to true
         cursorHidden = true;

@@ -17,7 +17,6 @@ class KMMangaDropView: NSView {
     }
     
     required init?(coder: NSCoder) {
-        Swift.print("init");
         super.init(coder: coder);
         
         // Register for dragging
