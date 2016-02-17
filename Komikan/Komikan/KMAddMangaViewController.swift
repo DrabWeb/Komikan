@@ -254,7 +254,8 @@ class KMAddMangaViewController: NSViewController {
                     
                     // For every item in the tags value of the JSON...
                     for(_, currentTag) in mangaJson["tags"].arrayValue.enumerate() {
-                        print(currentTag);
+                        // Print the current tag
+                        print("Found tag \"" + currentTag.stringValue + "\"");
                         
                         // Add the current item to the tag text field
                         tagsTextField.stringValue += currentTag.stringValue + ", ";
@@ -303,11 +304,21 @@ class KMAddMangaViewController: NSViewController {
                     
                     // If the cover image value from the JSON is not "auto" or blank...
                     if(mangaJson["cover-image"].stringValue != "auto" && mangaJson["cover-image"].stringValue != "") {
-                        // Set the cover image views image to an NSImage at the path specified in the JSON
-                        coverImageView.image = NSImage(contentsOfURL: NSURL(fileURLWithPath: mangaJson["cover-image"].stringValue));
-                        
-                        // Say we got a cover image from the JSON
-                        gotCoverImageFromJSON = true;
+                        // If the first character is not a "/"...
+                        if(mangaJson["cover-image"].stringValue.substringToIndex(mangaJson["cover-image"].stringValue.startIndex.successor()) == "/") {
+                            // Set the cover image views image to an NSImage at the path specified in the JSON
+                            coverImageView.image = NSImage(contentsOfURL: NSURL(fileURLWithPath: mangaJson["cover-image"].stringValue));
+                            
+                            // Say we got a cover image from the JSON
+                            gotCoverImageFromJSON = true;
+                        }
+                        else {
+                            // Get the relative image
+                            coverImageView.image = NSImage(contentsOfURL: NSURL(fileURLWithPath: folderURLString + mangaJson["cover-image"].stringValue));
+                            
+                            // Say we got a cover image from the JSON
+                            gotCoverImageFromJSON = true;
+                        }
                     }
                     
                     // Set the series text field's value to the series value
@@ -321,7 +332,8 @@ class KMAddMangaViewController: NSViewController {
                     
                     // For every item in the tags value of the JSON...
                     for(_, currentTag) in mangaJson["tags"].arrayValue.enumerate() {
-                        print(currentTag);
+                        // Print the current tag
+                        print("Found tag \"" + currentTag.stringValue + "\"");
                         
                         // Add the current item to the tag text field
                         tagsTextField.stringValue += currentTag.stringValue + ", ";

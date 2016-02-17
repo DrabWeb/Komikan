@@ -153,6 +153,9 @@ class KMEHDownloadController : NSObject {
         // Print to the log where the downloaded manga is
         print("Manga Directory: " + item.manga.directory);
         
+        // Export the downloaded manga's JSON
+        KMFileUtilities().exportMangaJSON(item.manga, exportInteralInfo: false);
+        
         // Create the new notification to tell the user the download has finished
         let finishedNotification = NSUserNotification();
         
@@ -230,6 +233,9 @@ class KMEHDownloadController : NSObject {
         
         // Print to the log where the downloaded manga is
         print("Manga Directory: " + item.manga.directory);
+        
+        // Export the downloaded manga's JSON
+        KMFileUtilities().exportMangaJSON(item.manga, exportInteralInfo: false);
         
         // Create the new notification to tell the user the download has finished
         let finishedNotification = NSUserNotification();
