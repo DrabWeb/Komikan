@@ -59,6 +59,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     /// The File/Import / Add menu item
     @IBOutlet weak var importAddMenuItem: NSMenuItem!
     
+    /// The Collection/Export Metadata for all Manga menu item
+    @IBOutlet weak var exportJsonForAllMangaMenuItem: NSMenuItem!
+    
+    /// The Komikan/Export Metadata for all Manga for Migration menu item
+    @IBOutlet weak var exportJsonForAllMangaForMigrationMenuItem: NSMenuItem!
+    
     /// The view controller we will load for the reader
     var mangaReaderViewController: KMReaderViewController?;
     

@@ -36,6 +36,30 @@ class KMMangaGridController: NSObject {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "displayLewdMangaAppDelegate", name:"Application.PreferencesSaved", object: nil);
     }
     
+    /// Exports the JSON information for every manga in the grid(Also exports thre internal info if exportInternalInfo is true)
+    func exportAllMangaJSON(exportInternalInfo : Bool) {
+        // For every single grid item...
+        for(_, currentGridItem) in gridItems.enumerate() {
+            // Export this items manga's info
+            KMFileUtilities().exportMangaJSON(currentGridItem.manga, exportInternalInfo: exportInternalInfo);
+        }
+        
+        // Create the new notification to tell the user the Metadata exporting has finished
+        let finishedNotification = NSUserNotification();
+        
+        // Set the title
+        finishedNotification.title = "Komikan";
+        
+        // Set the informative text
+        finishedNotification.informativeText = "Finshed exporting Metadata";
+        
+        // Set the notifications identifier to be an obscure string, so we can show multiple at once
+        finishedNotification.identifier = NSUUID().UUIDString;
+        
+        // Deliver the notification
+        NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(finishedNotification);
+    }
+    
     /// Removes gridItem from the manga grid
     func removeGridItem(gridItem : KMMangaGridItem, resort : Bool) {
         // For every item in gridItems...

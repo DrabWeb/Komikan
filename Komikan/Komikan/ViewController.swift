@@ -174,6 +174,12 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Set the set selected items properties menubar items action
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.setSelectedItemsPropertiesMenuItems.action = Selector("showSetSelectedItemsPropertiesPopover");
         
+        // Set the export manga JSON menubar items action
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.exportJsonForAllMangaMenuItem.action = Selector("exportMangaJSON");
+        
+        // Set the export manga JSON for migration menubar items action
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.exportJsonForAllMangaForMigrationMenuItem.action = Selector("exportMangaJSONForMigration");
+        
         // Start a 0.1 second loop that will fix the windows look in fullscreen
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("deleteTitlebarInFullscreen"), userInfo: nil, repeats:true);
         
@@ -240,6 +246,18 @@ class ViewController: NSViewController, NSTabViewDelegate {
             // Update the manga count in the info bar
             updateInfoBarMangaCountLabel();
         }
+    }
+    
+    /// Exports JSON for all the manga in the grid, but without internal information
+    func exportMangaJSON() {
+        // Call the export JSON function from the grid controller
+        mangaGridController.exportAllMangaJSON(false);
+    }
+    
+    /// Exports JSON for all the manga in the grid with internal information(Meant for when the user switches computers or something and wants to keep metadata)
+    func exportMangaJSONForMigration() {
+        // Call the export JSON function from the grid controller and say to also do internal information
+        mangaGridController.exportAllMangaJSON(true);
     }
     
     /// The view controller we will load for the popover that lets us set the selected items properties(Artist, Group, ETC.)

@@ -10,8 +10,8 @@ import Foundation
 import Cocoa
 
 class KMFileUtilities {
-    /// Exports the passed KMManga's info into a Komikan readable JSON file in the correc directory. Also exports the internal info like current page, bookmarks, brightness, ETC. if exportInteralInfo is true
-    func exportMangaJSON(manga : KMManga, exportInteralInfo : Bool) {
+    /// Exports the passed KMManga's info into a Komikan readable JSON file in the correc directory. Also exports the internal info like current page, bookmarks, brightness, ETC. if exportInternalInfo is true
+    func exportMangaJSON(manga : KMManga, exportInternalInfo : Bool) {
         /// The JSON string that we will write to a JSON file at the end
         var jsonString : String = "{\n";
         
@@ -54,7 +54,7 @@ class KMFileUtilities {
         jsonString += "    \"favourite\":" + String(manga.favourite) + ",\n";
         
         // If we said to export internal info...
-        if(exportInteralInfo) {
+        if(exportInternalInfo) {
             // Add if this is l-lewd...
             jsonString += "    \"lewd\":" + String(manga.lewd) + ",\n";
             
