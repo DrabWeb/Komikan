@@ -14,6 +14,9 @@ class KMReaderViewController: NSViewController {
     // The main window for the reader
     var readerWindow : NSWindow = NSWindow();
     
+    /// The text field for the windows title that lets us have a white title color
+    @IBOutlet weak var readerWindowTitleTextField: NSTextField!
+    
     // The image view for the reader window
     @IBOutlet weak var readerImageView: NSImageView!
     
@@ -1111,10 +1114,24 @@ class KMReaderViewController: NSViewController {
         // Hide the titlebar background
         readerWindow.titlebarAppearsTransparent = true;
         
-        // Set the appearance
-        readerWindow.appearance = NSAppearance(named: NSAppearanceNameVibrantDark);
+        // Hide the title
+        readerWindow.titleVisibility = NSWindowTitleVisibility.Hidden;
+        
+        // Create some options for the reader window title KVO
+        let options = NSKeyValueObservingOptions([.New, .Old, .Initial, .Prior]);
+        
+        // Subscribe to when the reader window changes its title
+        self.readerWindow.addObserver(self, forKeyPath: "title", options: options, context: nil);
         
         // Set the window background color
         readerWindow.backgroundColor = NSColor.blackColor();
+    }
+    
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        // If the keyPath is the one for the window title...
+        if(keyPath == "title") {
+            // Update the custom title text field
+            readerWindowTitleTextField.stringValue = readerWindow.title;
+        }
     }
 }

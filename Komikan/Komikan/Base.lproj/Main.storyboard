@@ -1115,8 +1115,22 @@ CA
                             </customView>
                             <visualEffectView appearanceType="vibrantDark" blendingMode="withinWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="eRx-Sv-XZm">
                                 <rect key="frame" x="0.0" y="248" width="480" height="22"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Q1k-9p-Ea7" userLabel="Window Title">
+                                        <rect key="frame" x="72" y="3" width="336" height="17"/>
+                                        <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" alignment="center" title="Window Title" id="AKL-nw-lx3">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </subviews>
                                 <constraints>
+                                    <constraint firstItem="Q1k-9p-Ea7" firstAttribute="leading" secondItem="eRx-Sv-XZm" secondAttribute="leading" constant="74" id="5V7-en-StM"/>
+                                    <constraint firstAttribute="bottom" secondItem="Q1k-9p-Ea7" secondAttribute="bottom" constant="3" id="dac-kP-N83"/>
                                     <constraint firstAttribute="height" constant="22" id="iXo-PB-W7s"/>
+                                    <constraint firstAttribute="trailing" secondItem="Q1k-9p-Ea7" secondAttribute="trailing" constant="74" id="o4i-xV-uQL"/>
+                                    <constraint firstItem="Q1k-9p-Ea7" firstAttribute="top" secondItem="eRx-Sv-XZm" secondAttribute="top" constant="2" id="rbm-hR-jeC"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="wantsLayer" value="YES"/>
@@ -1487,6 +1501,7 @@ CA
                         <outlet property="readerPanelCornerRounding" destination="KGp-UH-dRu" id="jl0-8l-DhB"/>
                         <outlet property="readerPanelVisualEffectView" destination="T3C-g4-I63" id="IDz-2Z-4M5"/>
                         <outlet property="readerSettingsButton" destination="DZH-10-jIm" id="Ya1-Tg-GwB"/>
+                        <outlet property="readerWindowTitleTextField" destination="Q1k-9p-Ea7" id="9HM-D7-P2Y"/>
                         <outlet property="rightPageReaderImageView" destination="dMo-Mj-DAm" id="fsN-i7-x13"/>
                         <outlet property="titlebarVisualEffectView" destination="eRx-Sv-XZm" id="NXI-bG-JFU"/>
                     </connections>
