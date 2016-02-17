@@ -227,6 +227,9 @@ class KMAddMangaViewController: NSViewController {
             // Remove the percent encoding from the folder URL string
             folderURLString = folderURLString.stringByRemovingPercentEncoding!;
             
+            // Add the "Komikan" folder to the end of it
+            folderURLString += "Komikan/"
+            
             // If we chose multiple manga...
             if(addingMangaURLs.count > 1) {
                 /// The URL of the multiple Manga's possible JSON file
@@ -279,7 +282,7 @@ class KMAddMangaViewController: NSViewController {
             // If we chose 1 manga...
             else if(addingMangaURLs.count == 1) {
                 /// The URL to the single Manga's possible JSON file
-                let mangaJsonURL : String = (addingMangaURLs.first?.absoluteString.stringByReplacingOccurrencesOfString("file://", withString: "").stringByRemovingPercentEncoding!)! + ".json";
+                let mangaJsonURL : String = folderURLString + (addingMangaURLs.first?.lastPathComponent!.stringByRemovingPercentEncoding!)! + ".json";
                 
                 // If there is a file that has the same name but with a .json on the end...
                 if(NSFileManager.defaultManager().fileExistsAtPath(mangaJsonURL)) {
