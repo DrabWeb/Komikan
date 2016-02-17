@@ -10,6 +10,117 @@ import Foundation
 import Cocoa
 
 class KMFileUtilities {
+    /// Exports the passed KMManga's info into a Komikan readable JSON file in the correc directory. Also exports the internal info like current page, bookmarks, brightness, ETC. if exportInteralInfo is true
+    func exportMangaJSON(manga : KMManga, exportInteralInfo : Bool) {
+        /// The JSON string that we will write to a JSON file at the end
+        var jsonString : String = "{\n";
+        
+        // Add the title
+        jsonString += "    \"title\":\"" + manga.title + "\",\n";
+        
+        // Add the cover image data
+        jsonString += "    \"cover-image\":\"" + NSURL(fileURLWithPath: manga.directory).lastPathComponent!.stringByRemovingPercentEncoding! + ".png" + "\", \n";
+        
+        // Add the series
+        jsonString += "    \"series\":\"" + manga.series + "\",\n";
+        
+        // Add the artist
+        jsonString += "    \"artist\":\"" + manga.artist + "\",\n";
+        
+        // Add the writer
+        jsonString += "    \"writer\":\"" + manga.writer + "\",\n";
+        
+        // Add the tags
+        jsonString += "    \"tags\":["
+        
+        // For every tag in the manga...
+        for(_, currentTag) in manga.tags.enumerate() {
+            jsonString += "\"" + currentTag + "\", ";
+        }
+        
+        // If the manga had any tags...
+        if(manga.tags.count > 0) {
+            // Remove the last character from the JSON string(It would be a ", " if we had any tags to add)
+            jsonString = jsonString.substringToIndex(jsonString.endIndex.predecessor().predecessor());
+        }
+        
+        // Add the closing bracket and the "," to the JSON string
+        jsonString += "], \n";
+        
+        // Add the group
+        jsonString += "    \"group\":\"" + manga.group + "\",\n";
+        
+        // Add if this is a favourite
+        jsonString += "    \"favourite\":" + String(manga.favourite) + ",\n";
+        
+        // If we said to export internal info...
+        if(exportInteralInfo) {
+            // Add if this is l-lewd...
+            jsonString += "    \"lewd\":" + String(manga.lewd) + ",\n";
+            
+            // Add the current page
+            jsonString += "    \"current-page\":" + String(manga.currentPage + 1) + ",\n";
+            
+            // Add the page count
+            jsonString += "    \"page-count\":" + String(manga.pageCount) + ",\n";
+            
+            // Add the manga's filename
+            jsonString += "    \"filename\":\"" + NSURL(fileURLWithPath: manga.directory).lastPathComponent!.stringByRemovingPercentEncoding! + "\",\n";
+            
+            // Add the Saturation, Brightness, Contrast and Sharpness
+            jsonString += "    \"saturation\":" + String(manga.saturation) + ",\n";
+            jsonString += "    \"brightness\":" + String(manga.brightness) + ",\n";
+            jsonString += "    \"contrast\":" + String(manga.contrast) + ",\n";
+            jsonString += "    \"sharpness\":" + String(manga.sharpness) + "\n";
+        }
+        else {
+            // Add if this is l-lewd...
+            jsonString += "    \"lewd\":" + String(manga.lewd) + "\n";
+        }
+        
+        // Add the closing brace
+        jsonString += "}";
+        
+        // Get the folder that the manga is in
+        /// The selected Mangas folder it is in
+        var folderURLString : String = manga.directory;
+        
+        // Remove everything after the last "/" in the string so we can get the folder
+        folderURLString = folderURLString.substringToIndex(folderURLString.rangeOfString("/", options: NSStringCompareOptions.BackwardsSearch, range: nil, locale: nil)!.startIndex);
+        
+        // Append a slash to the end because it removes it
+        folderURLString += "/";
+        
+        // Remove the file:// from the folder URL string(Theres a chance there could be one)
+        folderURLString = folderURLString.stringByReplacingOccurrencesOfString("file://", withString: "");
+        
+        // Remove the percent encoding from the folder URL string
+        folderURLString = folderURLString.stringByRemovingPercentEncoding!;
+        
+        // Add the "Komikan" folder to the end of it
+        folderURLString += "Komikan/"
+        
+        // Make sure the Komikan folder exists
+        do {
+            // Try to create the Komikan folder in the manga's folder
+            try NSFileManager.defaultManager().createDirectoryAtPath(folderURLString, withIntermediateDirectories: false, attributes: nil);
+        }
+        catch _ as NSError {
+            // Do nothing
+        }
+        
+        // Export the cover image as a PNG to the metadata folder with the same name as the JSON file but with a .png on the end and not .json
+        manga.coverImage.TIFFRepresentation?.writeToFile(folderURLString + NSURL(fileURLWithPath: manga.directory).lastPathComponent!.stringByRemovingPercentEncoding! + ".png", atomically: true);
+        
+        // Write the JSON string to the appropriate file
+        do {
+            try jsonString.writeToFile(folderURLString + NSURL(fileURLWithPath: manga.directory).lastPathComponent!.stringByRemovingPercentEncoding! + ".json", atomically: true, encoding: NSUTF8StringEncoding);
+        }
+        catch _ as NSError {
+            // Ignore the error
+        }
+    }
+    
     // Returns a srting with the given files extension
     func getFileExtension(fileUrl : NSURL) -> String {
         // Split the file URL into an array, where each element is after the last dot and before the next

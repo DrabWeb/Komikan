@@ -270,13 +270,13 @@ class KMAddMangaViewController: NSViewController {
                     groupTextField.stringValue = mangaJson["group"].stringValue;
                     
                     // Set the favourites buttons value to the favourites value of the JSON
-                    favouriteButton.state = Int(mangaJson["favourite"].stringValue.toBool());
+                    favouriteButton.state = Int(mangaJson["favourite"].boolValue);
                     
                     // Update the favourites button
                     favouriteButton.updateButton();
                     
                     // Set the l-lewd... checkboxes state to the lewd value of the JSON
-                    llewdCheckBox.state = Int(mangaJson["lewd"].stringValue.toBool());
+                    llewdCheckBox.state = Int(mangaJson["lewd"].boolValue);
                 }
             }
             // If we chose 1 manga...
@@ -337,13 +337,13 @@ class KMAddMangaViewController: NSViewController {
                     groupTextField.stringValue = mangaJson["group"].stringValue;
                     
                     // Set the favourites buttons value to the favourites value of the JSON
-                    favouriteButton.state = Int(mangaJson["favourite"].stringValue.toBool());
+                    favouriteButton.state = Int(mangaJson["favourite"].boolValue);
                     
                     // Update the favourites button
                     favouriteButton.updateButton();
                     
                     // Set the l-lewd... checkboxes state to the lewd value of the JSON
-                    llewdCheckBox.state = Int(mangaJson["lewd"].stringValue.toBool());
+                    llewdCheckBox.state = Int(mangaJson["lewd"].boolValue);
                 }
             }
         }
