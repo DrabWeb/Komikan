@@ -179,6 +179,7 @@
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
+                                                <segue destination="g7S-GJ-IO8" kind="show" id="oM6-Kq-WWY"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
@@ -946,6 +947,121 @@ CA
             </objects>
             <point key="canvasLocation" x="1303" y="-347"/>
         </scene>
+        <!--About Window Controller-->
+        <scene sceneID="xqO-Hl-TpP">
+            <objects>
+                <windowController id="g7S-GJ-IO8" userLabel="About Window Controller" sceneMemberID="viewController">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="A2H-t2-Ieh">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="551" y="600" width="400" height="300"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1600" height="900"/>
+                        <value key="minSize" type="size" width="400" height="300"/>
+                        <value key="maxSize" type="size" width="400" height="300"/>
+                    </window>
+                    <connections>
+                        <segue destination="bzm-ww-VXG" kind="relationship" relationship="window.shadowedContentViewController" id="q7a-cI-Buz"/>
+                    </connections>
+                </windowController>
+                <customObject id="n3Y-dG-j3A" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1184" y="-155"/>
+        </scene>
+        <!--About View Controller-->
+        <scene sceneID="6hI-O0-FIM">
+            <objects>
+                <viewController id="bzm-ww-VXG" userLabel="About View Controller" customClass="KMAboutWindowViewController" customModule="Komikan" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="xzC-rq-3Sz">
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="ctz-I6-SEh" userLabel="Background Visual Effect View">
+                                <rect key="frame" x="0.0" y="0.0" width="400" height="300"/>
+                                <subviews>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hx5-3c-F13" userLabel="Icon">
+                                        <rect key="frame" x="20" y="172" width="360" height="108"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="108" id="X0j-Ml-OnI"/>
+                                        </constraints>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSApplicationIcon" id="V7H-eX-R02"/>
+                                    </imageView>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ec1-p5-d4w" userLabel="Motto Label">
+                                        <rect key="frame" x="18" y="109" width="364" height="17"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Fast • Simple • Elegant" id="T0T-Nt-nfr">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WzB-mW-Qpe" userLabel="Github Link">
+                                        <rect key="frame" x="18" y="76" width="364" height="17"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" alignment="center" title="https://github.com/DrabWeb/Komikan" id="0rk-2e-qID">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="idc-Iy-Y2d" userLabel="Contributors">
+                                        <rect key="frame" x="20" y="20" width="360" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="Q4B-P7-Yn1"/>
+                                        </constraints>
+                                    </customView>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Sd3-VI-dow" userLabel="Name Label">
+                                        <rect key="frame" x="18" y="134" width="364" height="30"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Komikan v1.1" id="4AP-PO-myS">
+                                            <font key="font" metaFont="systemThin" size="25"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <imageView wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fjy-bb-QF2" userLabel="DrabWeb">
+                                        <rect key="frame" x="176" y="20" width="48" height="48"/>
+                                        <shadow key="shadow" blurRadius="6">
+                                            <size key="offset" width="0.0" height="-4"/>
+                                            <color key="color" white="0.0" alpha="0.50361867331288346" colorSpace="calibratedWhite"/>
+                                        </shadow>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="DrabWeb" id="2ym-Db-hw7"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Sd3-VI-dow" firstAttribute="leading" secondItem="ctz-I6-SEh" secondAttribute="leading" constant="20" id="2qF-Nr-bwm"/>
+                                    <constraint firstItem="idc-Iy-Y2d" firstAttribute="leading" secondItem="ctz-I6-SEh" secondAttribute="leading" constant="20" id="8db-uf-ueE"/>
+                                    <constraint firstAttribute="bottom" secondItem="idc-Iy-Y2d" secondAttribute="bottom" constant="20" id="Bux-4B-pGE"/>
+                                    <constraint firstAttribute="trailing" secondItem="WzB-mW-Qpe" secondAttribute="trailing" constant="20" id="K0t-jf-4MD"/>
+                                    <constraint firstItem="WzB-mW-Qpe" firstAttribute="top" secondItem="Ec1-p5-d4w" secondAttribute="bottom" constant="16" id="NAI-zf-OFD"/>
+                                    <constraint firstItem="idc-Iy-Y2d" firstAttribute="top" secondItem="WzB-mW-Qpe" secondAttribute="bottom" constant="8" id="P12-CL-fmF"/>
+                                    <constraint firstItem="hx5-3c-F13" firstAttribute="leading" secondItem="ctz-I6-SEh" secondAttribute="leading" constant="20" id="PBE-92-k8d"/>
+                                    <constraint firstAttribute="trailing" secondItem="Sd3-VI-dow" secondAttribute="trailing" constant="20" id="UrH-oA-6s5"/>
+                                    <constraint firstItem="WzB-mW-Qpe" firstAttribute="leading" secondItem="ctz-I6-SEh" secondAttribute="leading" constant="20" id="VnO-bO-l2y"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ec1-p5-d4w" secondAttribute="trailing" constant="20" id="btF-FO-S2Y"/>
+                                    <constraint firstItem="WzB-mW-Qpe" firstAttribute="top" secondItem="Ec1-p5-d4w" secondAttribute="bottom" constant="16" id="fZU-kJ-TD0"/>
+                                    <constraint firstAttribute="trailing" secondItem="idc-Iy-Y2d" secondAttribute="trailing" constant="20" id="gGn-UV-ALX"/>
+                                    <constraint firstItem="hx5-3c-F13" firstAttribute="top" secondItem="ctz-I6-SEh" secondAttribute="top" constant="20" id="gvv-hC-Xk3"/>
+                                    <constraint firstItem="Ec1-p5-d4w" firstAttribute="top" secondItem="Sd3-VI-dow" secondAttribute="bottom" constant="8" id="h2I-EE-yDQ"/>
+                                    <constraint firstItem="Sd3-VI-dow" firstAttribute="top" secondItem="hx5-3c-F13" secondAttribute="bottom" constant="8" id="hv4-dk-fb5"/>
+                                    <constraint firstItem="Ec1-p5-d4w" firstAttribute="leading" secondItem="ctz-I6-SEh" secondAttribute="leading" constant="20" id="k8N-hE-jLX"/>
+                                    <constraint firstAttribute="trailing" secondItem="hx5-3c-F13" secondAttribute="trailing" constant="20" id="q4U-sU-5rH"/>
+                                    <constraint firstItem="Ec1-p5-d4w" firstAttribute="top" secondItem="Sd3-VI-dow" secondAttribute="bottom" constant="8" id="taK-kL-ed8"/>
+                                </constraints>
+                            </visualEffectView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="ctz-I6-SEh" firstAttribute="leading" secondItem="xzC-rq-3Sz" secondAttribute="leading" id="A8y-mw-gUq"/>
+                            <constraint firstAttribute="trailing" secondItem="ctz-I6-SEh" secondAttribute="trailing" id="HdU-5n-YbX"/>
+                            <constraint firstItem="ctz-I6-SEh" firstAttribute="top" secondItem="xzC-rq-3Sz" secondAttribute="top" id="dX2-vT-u3L"/>
+                            <constraint firstAttribute="bottom" secondItem="ctz-I6-SEh" secondAttribute="bottom" id="eIM-Pk-PJT"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backgroundVisualEffectView" destination="ctz-I6-SEh" id="Dc3-xN-b4l"/>
+                        <outlet property="githubLinkTextField" destination="WzB-mW-Qpe" id="dno-8g-hoh"/>
+                    </connections>
+                </viewController>
+                <customObject id="TCO-a6-4E7" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1518" y="451"/>
+        </scene>
         <!--EH Login Window Controller-->
         <scene sceneID="IBn-i3-4WK">
             <objects>
@@ -1550,7 +1666,7 @@ CA
                                             <rect key="frame" x="1" y="144" width="233" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="0wb-fr-0cq">
+                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.94594594594594594" horizontal="NO" id="0wb-fr-0cq">
                                             <rect key="frame" x="624" y="37" width="16" height="443"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
@@ -2398,8 +2514,10 @@ AwEVARgBHQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAEfA
         </scene>
     </scenes>
     <resources>
+        <image name="DrabWeb" width="460" height="460"/>
         <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSAddTemplate" width="11" height="11"/>
+        <image name="NSApplicationIcon" width="128" height="128"/>
         <image name="NSBookmarksTemplate" width="17" height="18"/>
         <image name="NSRevealFreestandingTemplate" width="14" height="14"/>
         <image name="NSShareTemplate" width="11" height="16"/>

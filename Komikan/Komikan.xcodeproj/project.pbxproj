@@ -28,6 +28,7 @@
 		5D5DBEFA1C358BD3004D8C5D /* KMMangaGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBEF91C358BD3004D8C5D /* KMMangaGridItem.swift */; };
 		5D5DBEFC1C358BE0004D8C5D /* KMMangaGridController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBEFB1C358BE0004D8C5D /* KMMangaGridController.swift */; };
 		5D5DBF021C35923F004D8C5D /* KMReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBF011C35923F004D8C5D /* KMReaderViewController.swift */; };
+		5D6DCC8B1C76700E0077A33B /* KMAboutWindowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6DCC8A1C76700E0077A33B /* KMAboutWindowViewController.swift */; };
 		5D8125901C4BEDB600E3B000 /* KMEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D81258F1C4BEDB600E3B000 /* KMEnums.swift */; };
 		5D8C1CAA1C3F09E5001AD41B /* KMEditMangaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8C1CA91C3F09E5001AD41B /* KMEditMangaViewController.swift */; };
 		5D9238AD1C5FBDB3006EBAB2 /* exadd in Resources */ = {isa = PBXBuildFile; fileRef = 5D9238AA1C5FBDB3006EBAB2 /* exadd */; };
@@ -101,6 +102,7 @@
 		5D5DBEF91C358BD3004D8C5D /* KMMangaGridItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaGridItem.swift; sourceTree = "<group>"; };
 		5D5DBEFB1C358BE0004D8C5D /* KMMangaGridController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaGridController.swift; sourceTree = "<group>"; };
 		5D5DBF011C35923F004D8C5D /* KMReaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMReaderViewController.swift; sourceTree = "<group>"; };
+		5D6DCC8A1C76700E0077A33B /* KMAboutWindowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMAboutWindowViewController.swift; sourceTree = "<group>"; };
 		5D81258F1C4BEDB600E3B000 /* KMEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMEnums.swift; sourceTree = "<group>"; };
 		5D8C1CA91C3F09E5001AD41B /* KMEditMangaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMEditMangaViewController.swift; sourceTree = "<group>"; };
 		5D9238AA1C5FBDB3006EBAB2 /* exadd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = exadd; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 		5D5DBEFD1C35913F004D8C5D /* View Managers */ = {
 			isa = PBXGroup;
 			children = (
+				5D6DCC891C766FF70077A33B /* About Window */,
 				5DAC3ECF1C70F6FB00B77A19 /* Group List */,
 				5DDD43631C6FBC5D005DBAAF /* Set Selected Items Properties */,
 				5D96AFB41C4AAFAD00120D70 /* EH */,
@@ -311,6 +314,14 @@
 				5D5DBED41C3584F5004D8C5D /* Main.storyboard */,
 			);
 			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		5D6DCC891C766FF70077A33B /* About Window */ = {
+			isa = PBXGroup;
+			children = (
+				5D6DCC8A1C76700E0077A33B /* KMAboutWindowViewController.swift */,
+			);
+			name = "About Window";
 			sourceTree = "<group>";
 		};
 		5D8C1CAB1C3F0DBA001AD41B /* Edit Manga */ = {
@@ -615,6 +626,7 @@
 				5D1388CC1C3836C200B5EAAD /* KMReaderPanelView.swift in Sources */,
 				5D363FA51C5ABFB6004708FC /* KMEHDownloadController.swift in Sources */,
 				5DDD43651C6FBC82005DBAAF /* KMSetSelectedItemsPropertiesViewController.swift in Sources */,
+				5D6DCC8B1C76700E0077A33B /* KMAboutWindowViewController.swift in Sources */,
 				5DC23A8A1C5BBEFF00916751 /* KMImageFilterUtilities.swift in Sources */,
 				5DBC7C6B1C629BBC00FAD428 /* KMImageUtilities.swift in Sources */,
 				5D9912111C46A5A6008E6591 /* KMCommandUtilities.swift in Sources */,
