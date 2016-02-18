@@ -418,15 +418,15 @@ class KMReaderViewController: NSViewController {
             // If we add 1 to manga.currentPage and there would be an image at that index in manga.pages...
             if(manga.currentPage + 1 < manga.pages.count) {
                 // Set leftImageSize to be the currentPage + 1's size
-                leftImageSize = manga.pages[manga.currentPage + 1].size;
+                leftImageSize = pixelSizeOfImage(manga.pages[manga.currentPage + 1]);
             }
             else {
                 // Set leftImageSize to be the other pages size
-                leftImageSize = manga.pages[manga.currentPage].size;
+                leftImageSize = pixelSizeOfImage(manga.pages[manga.currentPage]);
             }
             
             // Set rightImageSize to be the ucrrent pages image size
-            rightImageSize = manga.pages[manga.currentPage].size;
+            rightImageSize = pixelSizeOfImage(manga.pages[manga.currentPage]);
             
             // If the right pages height is smaller than the screen...
             if(rightImageSize.height < NSScreen.mainScreen()?.frame.height) {
@@ -436,12 +436,12 @@ class KMReaderViewController: NSViewController {
             // If its larger vertically...
             else {
                 // The height we want the window to have
-                let height = (NSScreen.mainScreen()?.frame.height)! - 50;
+                let height = (NSScreen.mainScreen()?.frame.height)!;
                 
                 // Get the aspect ratio of the image
                 let aspectRatio = (leftImageSize.width + rightImageSize.width) / (rightImageSize.height);
                 
-                // Figure out what the width would be if we kept the aspect ratio and set the height to the screens size with a nit of padding
+                // Figure out what the width would be if we kept the aspect ratio and set the height to the screens size
                 let width = aspectRatio * height;
                 
                 // Set the windows size to the new size we calculated
@@ -453,19 +453,19 @@ class KMReaderViewController: NSViewController {
         }
         else if(!dualPage && !isFullscreen) {
             // If the current pages image is smaller than the screen vertically...
-            if((readerImageView.image?.size.height)! < NSScreen.mainScreen()?.frame.height) {
+            if(pixelSizeOfImage(readerImageView.image!).height < NSScreen.mainScreen()?.frame.height) {
                 // Set the reader windows frame to be the reader image views image size
-                readerWindow.setFrame(NSRect(x: 0, y: 0, width: (readerImageView.image?.size.width)!, height: (readerImageView.image?.size.height)!), display: false);
+                readerWindow.setFrame(NSRect(x: 0, y: 0, width: pixelSizeOfImage(readerImageView.image!).width, height: pixelSizeOfImage(readerImageView.image!).height), display: false);
             }
             // If its larger vertically...
             else {
                 // The height we want the window to have
-                let height = (NSScreen.mainScreen()?.frame.height)! - 50;
+                let height = (NSScreen.mainScreen()?.frame.height)!;
                 
                 // Get the aspect ratio of the image
-                let aspectRatio = (readerImageView.image?.size.width)! / (readerImageView.image?.size.height)!;
+                let aspectRatio = pixelSizeOfImage(readerImageView.image!).width / pixelSizeOfImage(readerImageView.image!).height;
                 
-                // Figure out what the width would be if we kept the aspect ratio and set the height to the screens size with a nit of padding
+                // Figure out what the width would be if we kept the aspect ratio and set the height to the screens size
                 let width = aspectRatio * height;
                 
                 // Set the windows size to the new size we calculated
@@ -478,6 +478,18 @@ class KMReaderViewController: NSViewController {
             // Center the window
             readerWindow.center();
         }
+    }
+    
+    /// Returns the pixel size of the passed NSImage
+    func pixelSizeOfImage(image : NSImage) -> NSSize {
+        /// The NSBitmapImageRep to the image
+        let imageRep : NSBitmapImageRep = (NSBitmapImageRep(data: image.TIFFRepresentation!))!;
+        
+        /// The size of the iamge
+        let imageSize : NSSize = NSSize(width: imageRep.pixelsWide, height: imageRep.pixelsHigh);
+        
+        // Return the image size
+        return imageSize;
     }
     
     override func viewWillDisappear() {
