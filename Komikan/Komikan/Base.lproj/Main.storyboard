@@ -506,6 +506,16 @@
                                         <menuItem title="Dual Page" keyEquivalent="d" id="TH4-sc-e7y"/>
                                         <menuItem title="Switch Dual Page Direction" keyEquivalent="D" id="ubh-G8-jVj"/>
                                         <menuItem title="Fit Window to Page" keyEquivalent="1" id="tub-ce-tVP"/>
+                                        <menuItem title="Magnification" id="FOX-FC-XFI">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Magnification" id="R2j-h4-NBd">
+                                                <items>
+                                                    <menuItem title="Zoom In" keyEquivalent="=" id="oBr-Xd-mDH"/>
+                                                    <menuItem title="Zoom Out" keyEquivalent="-" id="X52-F4-IEN"/>
+                                                    <menuItem title="Reset Zoom" keyEquivalent="0" id="WdO-rv-NoZ"/>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -607,6 +617,9 @@ CA
                         <outlet property="markSelectedAsUnreadMenuItem" destination="6KB-cw-D9H" id="uJr-51-3Di"/>
                         <outlet property="nextPageMenubarItem" destination="8P2-Bj-ZHO" id="maC-a5-1g2"/>
                         <outlet property="previousPageMenubarItem" destination="lL1-EK-QfJ" id="pyL-3Y-eLp"/>
+                        <outlet property="readerResetZoomMenuItem" destination="WdO-rv-NoZ" id="csh-Gc-714"/>
+                        <outlet property="readerZoomInMenuItem" destination="oBr-Xd-mDH" id="JDA-9z-BxA"/>
+                        <outlet property="readerZoomOutMenuItem" destination="X52-F4-IEN" id="GIZ-mj-hg8"/>
                         <outlet property="setSelectedItemsPropertiesMenuItems" destination="XZ3-5Y-udD" id="n3h-bF-9ZD"/>
                         <outlet property="switchDualPageDirectionMenuItem" destination="ubh-G8-jVj" id="UF6-lc-LfP"/>
                         <outlet property="toggleBackgroundDarkenMenuItem" destination="ZbJ-Yy-OIo" id="kCW-1r-qf6"/>
@@ -1187,56 +1200,73 @@ CA
         <scene sceneID="4Fi-m5-gvR">
             <objects>
                 <viewController id="OyT-nZ-UQJ" customClass="KMReaderViewController" customModule="Komikan" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" wantsLayer="YES" id="NNO-Yh-cxl">
+                    <view key="view" id="NNO-Yh-cxl">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="I3H-33-XbX" userLabel="Pages Container">
+                            <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6tg-Uu-vMc" userLabel="Pages Container">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-                                <subviews>
-                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Ui2-6j-ybs" customClass="KMDraggableImageView" customModule="Komikan" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="example-cover" id="D4R-Z6-mAb"/>
-                                    </imageView>
-                                    <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6uu-3X-D41" userLabel="Double Page Stack View">
-                                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-                                        <subviews>
-                                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="fri-7a-35C" userLabel="Left Page" customClass="KMDraggableImageView" customModule="Komikan" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="240" height="270"/>
-                                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="right" imageScaling="proportionallyUpOrDown" id="5FT-Ch-kxe"/>
-                                            </imageView>
-                                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="dMo-Mj-DAm" userLabel="Right Page" customClass="KMDraggableImageView" customModule="Komikan" customModuleProvider="target">
-                                                <rect key="frame" x="240" y="0.0" width="240" height="270"/>
-                                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="proportionallyUpOrDown" id="XKX-oY-Phq"/>
-                                            </imageView>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstItem="fri-7a-35C" firstAttribute="top" secondItem="6uu-3X-D41" secondAttribute="top" id="5wp-As-wIY"/>
-                                            <constraint firstItem="dMo-Mj-DAm" firstAttribute="top" secondItem="6uu-3X-D41" secondAttribute="top" id="IUC-rc-H2h"/>
-                                            <constraint firstAttribute="bottom" secondItem="fri-7a-35C" secondAttribute="bottom" id="ZcK-eE-npV"/>
-                                            <constraint firstAttribute="bottom" secondItem="dMo-Mj-DAm" secondAttribute="bottom" id="b2V-XU-aLU"/>
-                                        </constraints>
-                                        <visibilityPriorities>
-                                            <integer value="1000"/>
-                                            <integer value="1000"/>
-                                        </visibilityPriorities>
-                                        <customSpacing>
-                                            <real value="3.4028234663852886e+38"/>
-                                            <real value="3.4028234663852886e+38"/>
-                                        </customSpacing>
-                                    </stackView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="6uu-3X-D41" secondAttribute="bottom" id="5k2-OU-EaN"/>
-                                    <constraint firstItem="6uu-3X-D41" firstAttribute="top" secondItem="I3H-33-XbX" secondAttribute="top" id="G1H-fs-q5S"/>
-                                    <constraint firstItem="6uu-3X-D41" firstAttribute="leading" secondItem="I3H-33-XbX" secondAttribute="leading" id="GvF-S7-1h8"/>
-                                    <constraint firstItem="6uu-3X-D41" firstAttribute="top" secondItem="Ui2-6j-ybs" secondAttribute="top" id="hon-u7-zvn"/>
-                                    <constraint firstItem="6uu-3X-D41" firstAttribute="bottom" secondItem="Ui2-6j-ybs" secondAttribute="bottom" id="ldX-Hn-D3Y"/>
-                                    <constraint firstAttribute="trailing" secondItem="6uu-3X-D41" secondAttribute="trailing" id="qlR-ta-LZx"/>
-                                    <constraint firstItem="6uu-3X-D41" firstAttribute="leading" secondItem="Ui2-6j-ybs" secondAttribute="leading" id="rnh-FU-FLw"/>
-                                    <constraint firstItem="6uu-3X-D41" firstAttribute="trailing" secondItem="Ui2-6j-ybs" secondAttribute="trailing" id="zxe-kw-2bN"/>
-                                </constraints>
-                            </customView>
+                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="HQf-3R-beY">
+                                    <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <view misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LFP-Yr-2si">
+                                            <rect key="frame" x="0.0" y="2" width="478" height="268"/>
+                                            <subviews>
+                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ui2-6j-ybs" customClass="KMDraggableImageView" customModule="Komikan" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="478" height="268"/>
+                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="example-cover" id="D4R-Z6-mAb"/>
+                                                </imageView>
+                                                <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6uu-3X-D41" userLabel="Double Page Stack View">
+                                                    <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                                                    <subviews>
+                                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fri-7a-35C" userLabel="Left Page" customClass="KMDraggableImageView" customModule="Komikan" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="32" width="240" height="206"/>
+                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="right" imageScaling="proportionallyUpOrDown" id="5FT-Ch-kxe"/>
+                                                        </imageView>
+                                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dMo-Mj-DAm" userLabel="Right Page" customClass="KMDraggableImageView" customModule="Komikan" customModuleProvider="target">
+                                                            <rect key="frame" x="240" y="32" width="240" height="206"/>
+                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="proportionallyUpOrDown" id="XKX-oY-Phq"/>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <visibilityPriorities>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                    </visibilityPriorities>
+                                                    <customSpacing>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                    </customSpacing>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="6uu-3X-D41" secondAttribute="bottom" id="66q-pJ-F1D"/>
+                                                <constraint firstItem="6uu-3X-D41" firstAttribute="leading" secondItem="LFP-Yr-2si" secondAttribute="leading" id="7xz-ZF-1E2"/>
+                                                <constraint firstAttribute="trailing" secondItem="Ui2-6j-ybs" secondAttribute="trailing" id="GmT-EW-7Tt"/>
+                                                <constraint firstItem="Ui2-6j-ybs" firstAttribute="leading" secondItem="LFP-Yr-2si" secondAttribute="leading" id="KUg-0f-J01"/>
+                                                <constraint firstAttribute="trailing" secondItem="6uu-3X-D41" secondAttribute="trailing" id="bAq-Si-CcS"/>
+                                                <constraint firstItem="Ui2-6j-ybs" firstAttribute="top" secondItem="LFP-Yr-2si" secondAttribute="top" id="hDn-dT-HfH"/>
+                                                <constraint firstAttribute="bottom" secondItem="Ui2-6j-ybs" secondAttribute="bottom" id="lEC-Ym-Lal"/>
+                                                <constraint firstItem="6uu-3X-D41" firstAttribute="top" secondItem="LFP-Yr-2si" secondAttribute="top" id="oME-WM-PXL"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="LFP-Yr-2si" firstAttribute="leading" secondItem="HQf-3R-beY" secondAttribute="leading" id="CsV-ls-FaZ"/>
+                                        <constraint firstAttribute="bottom" secondItem="LFP-Yr-2si" secondAttribute="bottom" id="HVl-5a-2Zk"/>
+                                        <constraint firstItem="LFP-Yr-2si" firstAttribute="top" secondItem="HQf-3R-beY" secondAttribute="top" id="LbW-Jh-enw"/>
+                                        <constraint firstAttribute="trailing" secondItem="LFP-Yr-2si" secondAttribute="trailing" id="UR1-Xp-l07"/>
+                                    </constraints>
+                                </clipView>
+                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="E0b-md-EId">
+                                    <rect key="frame" x="0.0" y="254" width="480" height="16"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="6vR-dx-5nf">
+                                    <rect key="frame" x="464" y="0.0" width="16" height="270"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
                             <visualEffectView appearanceType="vibrantDark" blendingMode="withinWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="eRx-Sv-XZm">
                                 <rect key="frame" x="0.0" y="248" width="480" height="22"/>
                                 <subviews>
@@ -1591,18 +1621,18 @@ CA
                             <constraint firstAttribute="trailing" secondItem="eRx-Sv-XZm" secondAttribute="trailing" id="3Hx-xt-Ypz"/>
                             <constraint firstItem="KGp-UH-dRu" firstAttribute="top" secondItem="F0K-x5-Vdc" secondAttribute="bottom" id="4Au-C3-X6M"/>
                             <constraint firstAttribute="bottom" secondItem="KGp-UH-dRu" secondAttribute="bottom" constant="20" id="5gL-FS-BCl"/>
+                            <constraint firstAttribute="trailing" secondItem="6tg-Uu-vMc" secondAttribute="trailing" id="D4i-xy-tX4"/>
                             <constraint firstItem="F0K-x5-Vdc" firstAttribute="leading" secondItem="NNO-Yh-cxl" secondAttribute="leading" id="MFn-cj-XfN"/>
                             <constraint firstItem="KGp-UH-dRu" firstAttribute="centerX" secondItem="NNO-Yh-cxl" secondAttribute="centerX" id="Nf1-rc-HAH"/>
                             <constraint firstItem="td9-P8-Stw" firstAttribute="centerX" secondItem="NNO-Yh-cxl" secondAttribute="centerX" id="RHX-Kz-Unx"/>
-                            <constraint firstAttribute="trailing" secondItem="I3H-33-XbX" secondAttribute="trailing" id="SCW-Kb-ubZ"/>
-                            <constraint firstItem="I3H-33-XbX" firstAttribute="top" secondItem="NNO-Yh-cxl" secondAttribute="top" id="XGx-8H-Ule"/>
-                            <constraint firstItem="I3H-33-XbX" firstAttribute="leading" secondItem="NNO-Yh-cxl" secondAttribute="leading" id="XNG-rH-qzZ"/>
                             <constraint firstItem="F0K-x5-Vdc" firstAttribute="top" secondItem="eRx-Sv-XZm" secondAttribute="bottom" id="Xzb-Ng-8Ui"/>
                             <constraint firstAttribute="bottom" secondItem="td9-P8-Stw" secondAttribute="bottom" constant="20" id="aLE-zX-m0B"/>
                             <constraint firstAttribute="trailing" secondItem="F0K-x5-Vdc" secondAttribute="trailing" id="b0U-z8-O7X"/>
+                            <constraint firstItem="6tg-Uu-vMc" firstAttribute="top" secondItem="NNO-Yh-cxl" secondAttribute="top" id="evW-lD-fw1"/>
                             <constraint firstItem="eRx-Sv-XZm" firstAttribute="top" secondItem="NNO-Yh-cxl" secondAttribute="top" id="f4y-OG-XCO"/>
-                            <constraint firstAttribute="bottom" secondItem="I3H-33-XbX" secondAttribute="bottom" id="l9U-nR-fAg"/>
+                            <constraint firstAttribute="bottom" secondItem="6tg-Uu-vMc" secondAttribute="bottom" id="t84-fS-EZR"/>
                             <constraint firstItem="eRx-Sv-XZm" firstAttribute="leading" secondItem="NNO-Yh-cxl" secondAttribute="leading" id="ygX-7X-o4s"/>
+                            <constraint firstItem="6tg-Uu-vMc" firstAttribute="leading" secondItem="NNO-Yh-cxl" secondAttribute="leading" id="zD5-sk-Z5I"/>
                         </constraints>
                     </view>
                     <connections>
@@ -1616,6 +1646,7 @@ CA
                         <outlet property="readerControlPanelSaveButton" destination="hkx-L3-eX7" id="ntD-sj-Yhb"/>
                         <outlet property="readerControlPanelSharpnessSlider" destination="dfA-Fu-29e" id="rds-SA-KJN"/>
                         <outlet property="readerControlsPanelVisualEffectView" destination="Uv0-1J-uxr" id="NNx-T7-I4l"/>
+                        <outlet property="readerImageScrollView" destination="6tg-Uu-vMc" id="IsC-el-PqO"/>
                         <outlet property="readerImageView" destination="Ui2-6j-ybs" id="3Na-xG-GHe"/>
                         <outlet property="readerPageJumpButton" destination="oOA-Me-Hgv" id="VAu-G8-RGb"/>
                         <outlet property="readerPageJumpNumberField" destination="iWP-20-fdZ" id="EFI-Mc-hBe"/>
@@ -1631,6 +1662,7 @@ CA
                     </connections>
                 </viewController>
                 <customObject id="gfr-hh-QRM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <magnificationGestureRecognizer delaysMagnificationEvents="YES" magnification="0.0" id="6q2-XR-hze"/>
             </objects>
             <point key="canvasLocation" x="1393" y="250"/>
         </scene>
@@ -1666,7 +1698,7 @@ CA
                                             <rect key="frame" x="1" y="144" width="233" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.94594594594594594" horizontal="NO" id="0wb-fr-0cq">
+                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="0wb-fr-0cq">
                                             <rect key="frame" x="624" y="37" width="16" height="443"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>

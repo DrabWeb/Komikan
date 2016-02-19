@@ -65,6 +65,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     /// The Komikan/Export Metadata for all Manga for Migration menu item
     @IBOutlet weak var exportJsonForAllMangaForMigrationMenuItem: NSMenuItem!
     
+    /// The Manga/Magnification/Zoom In menu item
+    @IBOutlet weak var readerZoomInMenuItem: NSMenuItem!
+    
+    /// The Manga/Magnification/Zoom Out menu item
+    @IBOutlet weak var readerZoomOutMenuItem: NSMenuItem!
+    
+    /// The Manga/Magnification/Reset Zoom menu item
+    @IBOutlet weak var readerResetZoomMenuItem: NSMenuItem!
+    
     /// The view controller we will load for the reader
     var mangaReaderViewController: KMReaderViewController?;
     

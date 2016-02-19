@@ -17,6 +17,9 @@ class KMReaderViewController: NSViewController {
     /// The text field for the windows title that lets us have a white title color
     @IBOutlet weak var readerWindowTitleTextField: NSTextField!
     
+    /// The view that both encapsulates the reader image views and lets you zoom in/out
+    @IBOutlet weak var readerImageScrollView: NSScrollView!
+    
     // The image view for the reader window
     @IBOutlet weak var readerImageView: NSImageView!
     
@@ -265,6 +268,32 @@ class KMReaderViewController: NSViewController {
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.dualPageMenuItem.action = Selector("toggleDualPage");
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.fitWindowToPageMenuItem.action = Selector("fitWindowToManga");
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.switchDualPageDirectionMenuItem.action = Selector("switchDualPageDirection");
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.readerZoomInMenuItem.action = Selector("magnifyIn");
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.readerZoomOutMenuItem.action = Selector("magnifyOut");
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.readerResetZoomMenuItem.action = Selector("resetMagnification");
+    }
+    
+    /// Resets the zoom amount
+    func resetMagnification() {
+        // Reset the reader scroll views magnification to 1
+        readerImageScrollView.magnification = 1;
+    }
+    
+    /// Zooms in by 10%
+    func magnifyIn() {
+        // Add 0.25 to the reader scroll views magnification
+        readerImageScrollView.magnification += 0.25;
+    }
+    
+    /// Zooms out by 10%
+    func magnifyOut() {
+        // Substract 0.25 from the reader scroll views magnification
+        readerImageScrollView.magnification -= 0.25;
+    }
+    
+    override func magnifyWithEvent(event: NSEvent) {
+        // Magnify with the magnify event
+        readerImageScrollView.magnifyWithEvent(event);
     }
     
     override func mouseDown(theEvent: NSEvent) {
