@@ -43,6 +43,9 @@ class KMPreferencesController: NSViewController {
     /// The slider to say how much distraction free mode should dim the background
     @IBOutlet weak var distractionFreeModeDimAmountSlider: NSSlider!
     
+    /// The checkbox to say if we want to be able to drag the reader window by the background without holding alt
+    @IBOutlet weak var dragReaderWindowByBackgroundWithoutHoldingAltCheckbox: NSButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
@@ -63,6 +66,7 @@ class KMPreferencesController: NSViewController {
         (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.markAsReadWhenCompletedInReader = Bool(markAsReadWhenCompletedInReaderCheckbox.state);
         (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.hideCursorInDistractionFreeMode = Bool(hideCursorInDistractionFreeModeCheckbox.state);
         (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.distractionFreeModeDimAmount = CGFloat(distractionFreeModeDimAmountSlider.floatValue);
+        (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt = Bool(dragReaderWindowByBackgroundWithoutHoldingAltCheckbox.state);
         
         // Tell AppDelegate to act upon the preferences
         (NSApplication.sharedApplication().delegate as! AppDelegate).actOnPreferences();
@@ -76,6 +80,7 @@ class KMPreferencesController: NSViewController {
         markAsReadWhenCompletedInReaderCheckbox.state = Int((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.markAsReadWhenCompletedInReader);
         hideCursorInDistractionFreeModeCheckbox.state = Int((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.hideCursorInDistractionFreeMode);
         distractionFreeModeDimAmountSlider.floatValue = Float((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.distractionFreeModeDimAmount);
+        dragReaderWindowByBackgroundWithoutHoldingAltCheckbox.state = Int((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt);
     }
     
     // Enables / disables all the checkboxes under the l-lewd... mode enabled checkbox

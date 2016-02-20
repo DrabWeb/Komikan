@@ -897,6 +897,29 @@ CA
                                                     </constraints>
                                                 </view>
                                             </tabViewItem>
+                                            <tabViewItem label="Reader" identifier="" id="qtf-0k-TVN">
+                                                <view key="view" id="MF5-q5-qyw">
+                                                    <rect key="frame" x="10" y="33" width="434" height="186"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="IsT-t8-BZ5">
+                                                            <rect key="frame" x="15" y="167" width="311" height="18"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="307" id="2dB-Um-1OD"/>
+                                                                <constraint firstAttribute="height" constant="14" id="ZOd-xG-urs"/>
+                                                            </constraints>
+                                                            <buttonCell key="cell" type="check" title="Drag window by background without holding alt" bezelStyle="regularSquare" imagePosition="left" inset="2" id="dNK-5u-UwD">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                        </button>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="IsT-t8-BZ5" firstAttribute="leading" secondItem="MF5-q5-qyw" secondAttribute="leading" constant="17" id="LZ7-Gb-uIn"/>
+                                                        <constraint firstItem="IsT-t8-BZ5" firstAttribute="top" secondItem="MF5-q5-qyw" secondAttribute="top" constant="3" id="XGk-EQ-RiS"/>
+                                                    </constraints>
+                                                </view>
+                                            </tabViewItem>
                                             <tabViewItem label="Other" identifier="2" id="5Gn-3C-eGK">
                                                 <view key="view" id="VCh-W0-pih">
                                                     <rect key="frame" x="10" y="33" width="434" height="186"/>
@@ -948,6 +971,7 @@ CA
                     <connections>
                         <outlet property="backgroundVisualEffectView" destination="Koz-iq-GVn" id="e03-Zb-a8B"/>
                         <outlet property="distractionFreeModeDimAmountSlider" destination="ufr-b4-gOh" id="GFQ-OK-mKt"/>
+                        <outlet property="dragReaderWindowByBackgroundWithoutHoldingAltCheckbox" destination="IsT-t8-BZ5" id="bJL-zB-CYn"/>
                         <outlet property="hideCursorInDistractionFreeModeCheckbox" destination="8QY-cq-ody" id="uO6-KA-47z"/>
                         <outlet property="llewdModeDeleteWhenRemovingCheckbox" destination="fpx-Ab-PHd" id="BE3-Do-TnP"/>
                         <outlet property="llewdModeEnabledCheckbox" destination="BAM-5b-AXZ" id="n5J-ey-Hjb"/>

@@ -136,6 +136,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         // Add the distraction free mode dim amount float to the end of it
         preferencesString.appendContentsOf("\n" + String(preferencesKepper.distractionFreeModeDimAmount));
         
+        // Add the drag reader window by background without holding alt bool to the end of it
+        preferencesString.appendContentsOf("\n" + String(preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt));
+        
         // Write the preferences to the preferences file in Komikan's application support
         do {
             // Try to write to the preferences file in Komikan's application support directory
@@ -178,10 +181,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                     // Set if we want to hide the cursor in distraction free mode to be this lines value
                     preferencesKepper.hideCursorInDistractionFreeMode = KMFileUtilities().stringToBool(currentElement);
                 }
-                    // If this is the fifth line...
-                else if(currentIndex == 5) {
+                // If this is the fifth line...
+                else if(currentIndex == 4) {
                     // Set the dsitaction free mode dim amount to be this lines value
                     preferencesKepper.distractionFreeModeDimAmount = CGFloat(NSString(string: currentElement).floatValue);
+                }
+                // If this is the sixth line...
+                else if(currentIndex == 5) {
+                    // Set the drag reader window by background without holding alt to be this lines value
+                    preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt = KMFileUtilities().stringToBool(currentElement);
                 }
             }
         }

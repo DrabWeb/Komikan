@@ -301,58 +301,146 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     }
     
     override func mouseDown(theEvent: NSEvent) {
-        // Create a new CGEventRef, for the mouse position
-        let mouseEvent : CGEventRef = CGEventCreate(nil)!;
-        
-        // Get the mouse point onscreen from ourEvent
-        let mousePosition = CGEventGetLocation(mouseEvent);
-        
-        // Store the titlebars frame
-        let titlebarFrame : NSRect = titlebarVisualEffectView.frame;
-        
-        /// The mouses position on the Y
-        let pointY = abs(mousePosition.y - NSScreen.mainScreen()!.frame.height);
-        
-        /// The mouses position where 0 0 is the bottom left of the reader window
-        let mousePositionFromWindow : CGPoint = NSPoint(x: mousePosition.x - readerWindow.frame.origin.x, y: pointY - readerWindow.frame.origin.y);
-        
-        /// Is the mouse inside the titlebar?
-        var insideTitlebar : Bool = false;
-        
-        // If the mouse is within the titlebar on the X...
-        if(mousePositionFromWindow.x > titlebarFrame.origin.x && mousePositionFromWindow.x < (titlebarFrame.origin.x + titlebarFrame.size.width)) {
-            // If the mouse is within the titlebar on the Y...
-            if(mousePositionFromWindow.y > titlebarFrame.origin.y && mousePositionFromWindow.y < (titlebarFrame.origin.y + titlebarFrame.size.height)) {
-                // Say the mouse is inside the titlebar
-                insideTitlebar = true;
-            }
-        }
-        
-        // Store the reader control panels frame
-        let readerControlPanelFrame : NSRect = readerControlsPanelVisualEffectView.frame;
-        
-        /// Is the mouse inside the reader control panel?
-        var insideReaderControlPanel : Bool = false;
-        
-        // If the mouse is within the reader control panel on the X...
-        if(mousePositionFromWindow.x > readerControlPanelFrame.origin.x && mousePositionFromWindow.x < (readerControlPanelFrame.origin.x + readerControlPanelFrame.size.width)) {
-            // If the mouse is within the reader control panel on the Y...
-            if(mousePositionFromWindow.y > readerControlPanelFrame.origin.y && mousePositionFromWindow.y < (readerControlPanelFrame.origin.y + readerControlPanelFrame.size.height)) {
-                // Say the mouse is inside the reader control panel
-                insideReaderControlPanel = true;
-            }
-        }
-        
-        // If we arent inside the titlebar and not inside the reader control panel...
-        if(!insideTitlebar && !insideReaderControlPanel) {
-            // If the mouse position's X(Relative to the window) is less than the window width divided by 2...
-            if(mousePositionFromWindow.x < (readerWindow.frame.width / 2)) {
-                // We clicked on the left, go to the previous page
-                previousPage();
+        // If we said in the preferences to be able to drag the reader window without holding alt...
+        if((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt) {
+            // If the reader controls panel isnt open...
+            if(!readerControlsOpen) {
+                // Create a new CGEventRef, for the mouse position
+                let mouseEvent : CGEventRef = CGEventCreate(nil)!;
+                
+                // Get the mouse point onscreen from ourEvent
+                let mousePosition = CGEventGetLocation(mouseEvent);
+                
+                // Store the titlebars frame
+                let titlebarFrame : NSRect = titlebarVisualEffectView.frame;
+                
+                /// The mouses position on the Y
+                let pointY = abs(mousePosition.y - NSScreen.mainScreen()!.frame.height);
+                
+                /// The mouses position where 0 0 is the bottom left of the reader window
+                let mousePositionFromWindow : CGPoint = NSPoint(x: mousePosition.x - readerWindow.frame.origin.x, y: pointY - readerWindow.frame.origin.y);
+                
+                /// Is the mouse inside the titlebar?
+                var insideTitlebar : Bool = false;
+                
+                // If the mouse is within the titlebar on the X...
+                if(mousePositionFromWindow.x > titlebarFrame.origin.x && mousePositionFromWindow.x < (titlebarFrame.origin.x + titlebarFrame.size.width)) {
+                    // If the mouse is within the titlebar on the Y...
+                    if(mousePositionFromWindow.y > titlebarFrame.origin.y && mousePositionFromWindow.y < (titlebarFrame.origin.y + titlebarFrame.size.height)) {
+                        // Say the mouse is inside the titlebar
+                        insideTitlebar = true;
+                    }
+                }
+                
+                // Store the reader control panels frame
+                let readerControlPanelFrame : NSRect = readerControlsPanelVisualEffectView.frame;
+                
+                /// Is the mouse inside the reader control panel?
+                var insideReaderControlPanel : Bool = false;
+                
+                // If the mouse is within the reader control panel on the X...
+                if(mousePositionFromWindow.x > readerControlPanelFrame.origin.x && mousePositionFromWindow.x < (readerControlPanelFrame.origin.x + readerControlPanelFrame.size.width)) {
+                    // If the mouse is within the reader control panel on the Y...
+                    if(mousePositionFromWindow.y > readerControlPanelFrame.origin.y && mousePositionFromWindow.y < (readerControlPanelFrame.origin.y + readerControlPanelFrame.size.height)) {
+                        // Say the mouse is inside the reader control panel
+                        insideReaderControlPanel = true;
+                    }
+                }
+                
+                // If we arent inside the titlebar and not inside the reader control panel...
+                if(!insideTitlebar && !insideReaderControlPanel) {
+                    // If the mouse position's X(Relative to the window) is less than the window width divided by 2...
+                    if(mousePositionFromWindow.x < (readerWindow.frame.width / 2)) {
+                        // We clicked on the left, go to the previous page
+                        previousPage();
+                    }
+                    else {
+                        // We clicked on the right, go to the next page
+                        nextPage();
+                    }
+                }
             }
             else {
-                // We clicked on the right, go to the next page
-                nextPage();
+                // Say the controls panel is closed
+                readerControlsOpen = false;
+                
+                // Close the controls panel
+                closeControlsPanel();
+                
+                // Apply the new filter values to all pages(In a new thread so we dont get lots of beachballing for long manga)
+                NSThread.detachNewThreadSelector(Selector("updateFiltersForAllPages"), toTarget: self, withObject: nil);
+            }
+        }
+        else {
+            // If we arent holding alt...
+            if(theEvent.modifierFlags.rawValue != 524576 && theEvent.modifierFlags.rawValue != 524320) {
+                // If the reader controls panel isnt open...
+                if(!readerControlsOpen) {
+                    // Create a new CGEventRef, for the mouse position
+                    let mouseEvent : CGEventRef = CGEventCreate(nil)!;
+                    
+                    // Get the mouse point onscreen from ourEvent
+                    let mousePosition = CGEventGetLocation(mouseEvent);
+                    
+                    // Store the titlebars frame
+                    let titlebarFrame : NSRect = titlebarVisualEffectView.frame;
+                    
+                    /// The mouses position on the Y
+                    let pointY = abs(mousePosition.y - NSScreen.mainScreen()!.frame.height);
+                    
+                    /// The mouses position where 0 0 is the bottom left of the reader window
+                    let mousePositionFromWindow : CGPoint = NSPoint(x: mousePosition.x - readerWindow.frame.origin.x, y: pointY - readerWindow.frame.origin.y);
+                    
+                    /// Is the mouse inside the titlebar?
+                    var insideTitlebar : Bool = false;
+                    
+                    // If the mouse is within the titlebar on the X...
+                    if(mousePositionFromWindow.x > titlebarFrame.origin.x && mousePositionFromWindow.x < (titlebarFrame.origin.x + titlebarFrame.size.width)) {
+                        // If the mouse is within the titlebar on the Y...
+                        if(mousePositionFromWindow.y > titlebarFrame.origin.y && mousePositionFromWindow.y < (titlebarFrame.origin.y + titlebarFrame.size.height)) {
+                            // Say the mouse is inside the titlebar
+                            insideTitlebar = true;
+                        }
+                    }
+                    
+                    // Store the reader control panels frame
+                    let readerControlPanelFrame : NSRect = readerControlsPanelVisualEffectView.frame;
+                    
+                    /// Is the mouse inside the reader control panel?
+                    var insideReaderControlPanel : Bool = false;
+                    
+                    // If the mouse is within the reader control panel on the X...
+                    if(mousePositionFromWindow.x > readerControlPanelFrame.origin.x && mousePositionFromWindow.x < (readerControlPanelFrame.origin.x + readerControlPanelFrame.size.width)) {
+                        // If the mouse is within the reader control panel on the Y...
+                        if(mousePositionFromWindow.y > readerControlPanelFrame.origin.y && mousePositionFromWindow.y < (readerControlPanelFrame.origin.y + readerControlPanelFrame.size.height)) {
+                            // Say the mouse is inside the reader control panel
+                            insideReaderControlPanel = true;
+                        }
+                    }
+                    
+                    // If we arent inside the titlebar and not inside the reader control panel...
+                    if(!insideTitlebar && !insideReaderControlPanel) {
+                        // If the mouse position's X(Relative to the window) is less than the window width divided by 2...
+                        if(mousePositionFromWindow.x < (readerWindow.frame.width / 2)) {
+                            // We clicked on the left, go to the previous page
+                            previousPage();
+                        }
+                        else {
+                            // We clicked on the right, go to the next page
+                            nextPage();
+                        }
+                    }
+                }
+                else {
+                    // Say the controls panel is closed
+                    readerControlsOpen = false;
+                    
+                    // Close the controls panel
+                    closeControlsPanel();
+                    
+                    // Apply the new filter values to all pages(In a new thread so we dont get lots of beachballing for long manga)
+                    NSThread.detachNewThreadSelector(Selector("updateFiltersForAllPages"), toTarget: self, withObject: nil);
+                }
             }
         }
     }
@@ -361,36 +449,46 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     var dragging : Bool = false;
     
     override func mouseDragged(theEvent: NSEvent) {
-        // Perform a window drag with the drag event
-        readerWindow.performWindowDragWithEvent(theEvent);
-        
-        // Create a new CGEventRef, for the mouse position
-        let mouseEvent : CGEventRef = CGEventCreate(nil)!;
-        
-        // Get the mouse point onscreen from ourEvent
-        let mousePosition = CGEventGetLocation(mouseEvent);
-        
-        /// The mouses position on the Y
-        let pointY = abs(mousePosition.y - NSScreen.mainScreen()!.frame.height);
-        
-        /// The mouses position where 0 0 is the bottom left of the reader window
-        let mousePositionFromWindow : CGPoint = NSPoint(x: mousePosition.x - readerWindow.frame.origin.x, y: pointY - readerWindow.frame.origin.y);
-        
-        // If we arent dragging...
-        if(!dragging) {
-            // If the mouse position's X(Relative to the window) is less than the window width divided by 2...
-            if(mousePositionFromWindow.x < (readerWindow.frame.width / 2)) {
-                // We clicked on the left, go to the next page
-                nextPage();
+        // If we said in the preferences to be able to drag the reader window without holding alt...
+        if((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt) {
+            // Perform a window drag with the drag event
+            readerWindow.performWindowDragWithEvent(theEvent);
+            
+            // Create a new CGEventRef, for the mouse position
+            let mouseEvent : CGEventRef = CGEventCreate(nil)!;
+            
+            // Get the mouse point onscreen from ourEvent
+            let mousePosition = CGEventGetLocation(mouseEvent);
+            
+            /// The mouses position on the Y
+            let pointY = abs(mousePosition.y - NSScreen.mainScreen()!.frame.height);
+            
+            /// The mouses position where 0 0 is the bottom left of the reader window
+            let mousePositionFromWindow : CGPoint = NSPoint(x: mousePosition.x - readerWindow.frame.origin.x, y: pointY - readerWindow.frame.origin.y);
+            
+            // If we arent dragging...
+            if(!dragging) {
+                // If the mouse position's X(Relative to the window) is less than the window width divided by 2...
+                if(mousePositionFromWindow.x < (readerWindow.frame.width / 2)) {
+                    // We clicked on the left, go to the next page
+                    nextPage();
+                }
+                else {
+                    // We clicked on the right, go to the previous page
+                    previousPage();
+                }
             }
-            else {
-                // We clicked on the right, go to the previous page
-                previousPage();
+            
+            // Say we are dragging
+            dragging = true;
+        }
+        else {
+            // If we are holding alt...
+            if(theEvent.modifierFlags.rawValue == 524576) {
+                // Perform a window drag with the drag event
+                readerWindow.performWindowDragWithEvent(theEvent);
             }
         }
-        
-        // Say we are dragging
-        dragging = true;
     }
 
     override func mouseUp(theEvent: NSEvent) {
@@ -570,6 +668,9 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     
     /// Hides the controls panel and shows the reader panel
     func hideControlsPanelShowReaderPanel() {
+        // Say the controls panel is closed
+        readerControlsOpen = false;
+        
         // Disable all the reader control panel buttons
         readerControlPanelSaturationSlider.enabled = false;
         readerControlPanelContrastSlider.enabled = false;
@@ -595,6 +696,9 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     
     /// Hides the reader panel and shows the control panel
     func hideReaderPanelShowControlsPanel() {
+        // Say the controls panel is open
+        readerControlsOpen = true;
+        
         // Enable all the reader control panel buttons
         readerControlPanelSaturationSlider.enabled = true;
         readerControlPanelContrastSlider.enabled = true;
