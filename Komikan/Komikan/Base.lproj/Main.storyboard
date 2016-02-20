@@ -1200,11 +1200,11 @@ CA
         <scene sceneID="4Fi-m5-gvR">
             <objects>
                 <viewController id="OyT-nZ-UQJ" customClass="KMReaderViewController" customModule="Komikan" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="NNO-Yh-cxl">
+                    <view key="view" wantsLayer="YES" id="NNO-Yh-cxl">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6tg-Uu-vMc" userLabel="Pages Container">
+                            <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" allowsMagnification="YES" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6tg-Uu-vMc" userLabel="Pages Container" customClass="KMReaderScrollView" customModule="Komikan" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="HQf-3R-beY">
                                     <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
@@ -1221,11 +1221,11 @@ CA
                                                     <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                                     <subviews>
                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fri-7a-35C" userLabel="Left Page" customClass="KMDraggableImageView" customModule="Komikan" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="32" width="240" height="206"/>
+                                                            <rect key="frame" x="0.0" y="110" width="240" height="50"/>
                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="right" imageScaling="proportionallyUpOrDown" id="5FT-Ch-kxe"/>
                                                         </imageView>
                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dMo-Mj-DAm" userLabel="Right Page" customClass="KMDraggableImageView" customModule="Komikan" customModuleProvider="target">
-                                                            <rect key="frame" x="240" y="32" width="240" height="206"/>
+                                                            <rect key="frame" x="240" y="110" width="240" height="50"/>
                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="proportionallyUpOrDown" id="XKX-oY-Phq"/>
                                                         </imageView>
                                                     </subviews>
@@ -1262,7 +1262,7 @@ CA
                                     <rect key="frame" x="0.0" y="254" width="480" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="6vR-dx-5nf">
+                                <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="6vR-dx-5nf">
                                     <rect key="frame" x="464" y="0.0" width="16" height="270"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -1646,8 +1646,9 @@ CA
                         <outlet property="readerControlPanelSaveButton" destination="hkx-L3-eX7" id="ntD-sj-Yhb"/>
                         <outlet property="readerControlPanelSharpnessSlider" destination="dfA-Fu-29e" id="rds-SA-KJN"/>
                         <outlet property="readerControlsPanelVisualEffectView" destination="Uv0-1J-uxr" id="NNx-T7-I4l"/>
-                        <outlet property="readerImageScrollView" destination="6tg-Uu-vMc" id="IsC-el-PqO"/>
+                        <outlet property="readerImageScrollView" destination="6tg-Uu-vMc" id="FLb-rx-FDQ"/>
                         <outlet property="readerImageView" destination="Ui2-6j-ybs" id="3Na-xG-GHe"/>
+                        <outlet property="readerMagnificationGestureRecognizer" destination="8b7-OE-R79" id="0Y8-dG-tvy"/>
                         <outlet property="readerPageJumpButton" destination="oOA-Me-Hgv" id="VAu-G8-RGb"/>
                         <outlet property="readerPageJumpNumberField" destination="iWP-20-fdZ" id="EFI-Mc-hBe"/>
                         <outlet property="readerPageJumpView" destination="F0K-x5-Vdc" id="HlJ-Mx-ybc"/>
@@ -1662,9 +1663,9 @@ CA
                     </connections>
                 </viewController>
                 <customObject id="gfr-hh-QRM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <magnificationGestureRecognizer delaysMagnificationEvents="YES" magnification="0.0" id="6q2-XR-hze"/>
+                <magnificationGestureRecognizer delaysMagnificationEvents="YES" magnification="0.0" id="8b7-OE-R79"/>
             </objects>
-            <point key="canvasLocation" x="1393" y="250"/>
+            <point key="canvasLocation" x="1393" y="235"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="hIz-AP-VOD">

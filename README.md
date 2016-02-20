@@ -39,9 +39,10 @@
 
 > * Vibrant
 > * Bookmarks
-> * Track pad gestures for page flipping
+> * Track pad gestures for page flipping and zooming
 > * Saturation, Brightness, Contrast and Sharpness Controls
 > * Dual page(LtR and RtL)
+> * Zoom in and out
 > * Fast
 > * Page jumping
 > * Fit window to Page size

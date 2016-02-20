@@ -9,7 +9,7 @@
 import Cocoa
 import Quartz
 
-class KMReaderViewController: NSViewController {
+class KMReaderViewController: NSViewController, NSWindowDelegate {
 
     // The main window for the reader
     var readerWindow : NSWindow = NSWindow();
@@ -18,7 +18,10 @@ class KMReaderViewController: NSViewController {
     @IBOutlet weak var readerWindowTitleTextField: NSTextField!
     
     /// The view that both encapsulates the reader image views and lets you zoom in/out
-    @IBOutlet weak var readerImageScrollView: NSScrollView!
+    @IBOutlet weak var readerImageScrollView: KMReaderScrollView!
+    
+    /// The magnification gesture recognizer for zooming in and out using the Trackpad
+    @IBOutlet var readerMagnificationGestureRecognizer: NSMagnificationGestureRecognizer!
     
     // The image view for the reader window
     @IBOutlet weak var readerImageView: NSImageView!
@@ -211,6 +214,12 @@ class KMReaderViewController: NSViewController {
         // Style the window
         styleWindow();
         
+        // Set the reader scroll views reader view controller
+        readerImageScrollView.readerViewController = self;
+        
+        // Add the magnification gesture recogniser to the reader scroll view
+        readerImageScrollView.addGestureRecognizer(readerMagnificationGestureRecognizer);
+        
         // Start the 0.1 second loop for the mouse hovering
         mouseHoverHandlingTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("mouseHoverHandling"), userInfo: nil, repeats:true);
         
@@ -276,24 +285,19 @@ class KMReaderViewController: NSViewController {
     /// Resets the zoom amount
     func resetMagnification() {
         // Reset the reader scroll views magnification to 1
-        readerImageScrollView.magnification = 1;
+        readerImageScrollView.animator().magnification = 1;
     }
     
     /// Zooms in by 10%
     func magnifyIn() {
         // Add 0.25 to the reader scroll views magnification
-        readerImageScrollView.magnification += 0.25;
+        readerImageScrollView.animator().magnification += 0.25;
     }
     
     /// Zooms out by 10%
     func magnifyOut() {
         // Substract 0.25 from the reader scroll views magnification
-        readerImageScrollView.magnification -= 0.25;
-    }
-    
-    override func magnifyWithEvent(event: NSEvent) {
-        // Magnify with the magnify event
-        readerImageScrollView.magnifyWithEvent(event);
+        readerImageScrollView.animator().magnification -= 0.25;
     }
     
     override func mouseDown(theEvent: NSEvent) {
@@ -361,61 +365,6 @@ class KMReaderViewController: NSViewController {
         if(theEvent.modifierFlags.rawValue == 524576) {
             // Perform a window drag with the drag event
             readerWindow.performWindowDragWithEvent(theEvent);
-        }
-    }
-    
-    /// The swipe cooldown so you cant swipe until the delta X is at 0
-    var swipeCooldownOver : Bool = true;
-    
-    /// For some reason the trackpad when swiping would flip pages twice. This number is used so only every two swipes it will flip pages
-    var pageSwipeCount : Int = 0;
-    
-    // This is called not only when you scroll, but when you swipe the trackpad. This should also work with Magic Mouse(Not tested)
-    override func scrollWheel(theEvent: NSEvent) {
-        // If the delta X is less than 5(Meaning you are swiping left)...
-        if(theEvent.deltaX < -5) {
-            // If the swipe cooldown is over...
-            if(swipeCooldownOver) {
-                // Add 1 to the page swipe count
-                pageSwipeCount++;
-                
-                // If the page swipe count is 2...
-                if(pageSwipeCount == 2) {
-                    // Go to the next page
-                    nextPage();
-                    
-                    // Set the page swipe count to 0
-                    pageSwipeCount = 0;
-                }
-            }
-            
-            // Say the cooldown isnt over
-            swipeCooldownOver = false;
-        }
-        // If the delta X is greater than 5(Meaning you are swiping right)...
-        else if(theEvent.deltaX > 5) {
-            // If the swipe cooldown is over...
-            if(swipeCooldownOver) {
-                // Add 1 to the page swipe count
-                pageSwipeCount++;
-                
-                // If the page swipe count is 2...
-                if(pageSwipeCount == 2) {
-                    // Go to the previous page
-                    previousPage();
-                    
-                    // Set the page swipe count to 0
-                    pageSwipeCount = 0;
-                }
-            }
-            
-            // Say the swipe cooldown isnt over
-            swipeCooldownOver = false;
-        }
-        // If the trackpad's scroll force on the X is 0...
-        else if(theEvent.deltaX == 0) {
-            // Say the cooldown is over
-            swipeCooldownOver = true;
         }
     }
     
@@ -521,7 +470,13 @@ class KMReaderViewController: NSViewController {
         return imageSize;
     }
     
-    override func viewWillDisappear() {
+    func windowWillClose(notification: NSNotification) {
+        // Close the view
+        closeView();
+    }
+    
+    /// Call this when the window will close
+    func closeView() {
         // Say the view is closing
         closingView = true;
         
@@ -1178,6 +1133,9 @@ class KMReaderViewController: NSViewController {
         
         // Subscribe to when the reader window changes its title
         self.readerWindow.addObserver(self, forKeyPath: "title", options: options, context: nil);
+        
+        // Set the reader windows delegate to this
+        readerWindow.delegate = self;
         
         // Set the window background color
         readerWindow.backgroundColor = NSColor.blackColor();

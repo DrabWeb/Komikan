@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24DDD560C276DBA59A3D7E3D /* Pods_Komikan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91AD7326005D87D7C62B729E /* Pods_Komikan.framework */; };
 		5D0D2A4C1C39830D00E3B8D0 /* KMManga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0D2A4B1C39830D00E3B8D0 /* KMManga.swift */; };
 		5D0D2A521C39A11000E3B8D0 /* KMAddMangaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0D2A501C39A11000E3B8D0 /* KMAddMangaViewController.swift */; };
 		5D1388CC1C3836C200B5EAAD /* KMReaderPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1388CB1C3836C200B5EAAD /* KMReaderPanelView.swift */; };
@@ -30,6 +31,7 @@
 		5D5DBF021C35923F004D8C5D /* KMReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBF011C35923F004D8C5D /* KMReaderViewController.swift */; };
 		5D6DCC8B1C76700E0077A33B /* KMAboutWindowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6DCC8A1C76700E0077A33B /* KMAboutWindowViewController.swift */; };
 		5D8125901C4BEDB600E3B000 /* KMEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D81258F1C4BEDB600E3B000 /* KMEnums.swift */; };
+		5D8B51B11C78B9E800B8C364 /* KMReaderScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8B51B01C78B9E800B8C364 /* KMReaderScrollView.swift */; };
 		5D8C1CAA1C3F09E5001AD41B /* KMEditMangaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8C1CA91C3F09E5001AD41B /* KMEditMangaViewController.swift */; };
 		5D9238AD1C5FBDB3006EBAB2 /* exadd in Resources */ = {isa = PBXBuildFile; fileRef = 5D9238AA1C5FBDB3006EBAB2 /* exadd */; };
 		5D9238AE1C5FBDB3006EBAB2 /* exdownload in Resources */ = {isa = PBXBuildFile; fileRef = 5D9238AB1C5FBDB3006EBAB2 /* exdownload */; };
@@ -53,7 +55,6 @@
 		5DD77F211C765BD7000E6645 /* KMDraggableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD77F201C765BD7000E6645 /* KMDraggableImageView.swift */; };
 		5DDD43651C6FBC82005DBAAF /* KMSetSelectedItemsPropertiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDD43641C6FBC82005DBAAF /* KMSetSelectedItemsPropertiesViewController.swift */; };
 		5DFBC77D1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFBC77C1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift */; };
-		B93EF6B1D5C6FD385C304C5B /* Pods_Komikan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC9AB0ECAF765E80CA6D29A3 /* Pods_Komikan.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +105,7 @@
 		5D5DBF011C35923F004D8C5D /* KMReaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMReaderViewController.swift; sourceTree = "<group>"; };
 		5D6DCC8A1C76700E0077A33B /* KMAboutWindowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMAboutWindowViewController.swift; sourceTree = "<group>"; };
 		5D81258F1C4BEDB600E3B000 /* KMEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMEnums.swift; sourceTree = "<group>"; };
+		5D8B51B01C78B9E800B8C364 /* KMReaderScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMReaderScrollView.swift; sourceTree = "<group>"; };
 		5D8C1CA91C3F09E5001AD41B /* KMEditMangaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMEditMangaViewController.swift; sourceTree = "<group>"; };
 		5D9238AA1C5FBDB3006EBAB2 /* exadd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = exadd; sourceTree = "<group>"; };
 		5D9238AB1C5FBDB3006EBAB2 /* exdownload */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = exdownload; sourceTree = "<group>"; };
@@ -128,9 +130,9 @@
 		5DD77F201C765BD7000E6645 /* KMDraggableImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMDraggableImageView.swift; sourceTree = "<group>"; };
 		5DDD43641C6FBC82005DBAAF /* KMSetSelectedItemsPropertiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMSetSelectedItemsPropertiesViewController.swift; sourceTree = "<group>"; };
 		5DFBC77C1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaGridSelectionBox.swift; sourceTree = "<group>"; };
+		91AD7326005D87D7C62B729E /* Pods_Komikan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Komikan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B086CA4387890A79C8FD3E35 /* Pods-Komikan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Komikan.release.xcconfig"; path = "Pods/Target Support Files/Pods-Komikan/Pods-Komikan.release.xcconfig"; sourceTree = "<group>"; };
 		CB22335385156945A0ABCB06 /* Pods-Komikan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Komikan.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Komikan/Pods-Komikan.debug.xcconfig"; sourceTree = "<group>"; };
-		FC9AB0ECAF765E80CA6D29A3 /* Pods_Komikan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Komikan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,7 +140,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B93EF6B1D5C6FD385C304C5B /* Pods_Komikan.framework in Frameworks */,
+				24DDD560C276DBA59A3D7E3D /* Pods_Komikan.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,6 +185,7 @@
 			children = (
 				5D5DBF011C35923F004D8C5D /* KMReaderViewController.swift */,
 				5D1388CB1C3836C200B5EAAD /* KMReaderPanelView.swift */,
+				5D8B51B01C78B9E800B8C364 /* KMReaderScrollView.swift */,
 			);
 			name = Reader;
 			sourceTree = "<group>";
@@ -408,7 +411,7 @@
 			isa = PBXGroup;
 			children = (
 				39B1CCABE43DCFDDE2111753 /* libPods.a */,
-				FC9AB0ECAF765E80CA6D29A3 /* Pods_Komikan.framework */,
+				91AD7326005D87D7C62B729E /* Pods_Komikan.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -613,6 +616,7 @@
 				5D0D2A521C39A11000E3B8D0 /* KMAddMangaViewController.swift in Sources */,
 				5DC3A8F11C5AB25E0058D253 /* KMGradientView.swift in Sources */,
 				5DFBC77D1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift in Sources */,
+				5D8B51B11C78B9E800B8C364 /* KMReaderScrollView.swift in Sources */,
 				5D9E07791C5E635500B35C91 /* KMDarkenView.swift in Sources */,
 				5D96AFB61C4AAFCB00120D70 /* KMEHViewController.swift in Sources */,
 				5D5DBEFC1C358BE0004D8C5D /* KMMangaGridController.swift in Sources */,
