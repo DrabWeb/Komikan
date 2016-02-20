@@ -518,7 +518,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
             // If its larger vertically...
             else {
                 // The height we want the window to have
-                let height = (NSScreen.mainScreen()?.frame.height)!;
+                let height = (NSScreen.mainScreen()?.frame.height)! - 150;
                 
                 // Get the aspect ratio of the image
                 let aspectRatio = (leftImageSize.width + rightImageSize.width) / (rightImageSize.height);
@@ -542,7 +542,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
             // If its larger vertically...
             else {
                 // The height we want the window to have
-                let height = (NSScreen.mainScreen()?.frame.height)!;
+                let height = (NSScreen.mainScreen()?.frame.height)! - 150;
                 
                 // Get the aspect ratio of the image
                 let aspectRatio = pixelSizeOfImage(readerImageView.image!).width / pixelSizeOfImage(readerImageView.image!).height;
