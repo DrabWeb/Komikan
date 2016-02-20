@@ -142,8 +142,8 @@ class KMReaderScrollView: NSScrollView {
             swipeCooldownOver = true;
         }
         
-        // If we didnt flip pages...
-        if(!flippedPages) {
+        // If we didnt flip pages and we are zoomed in...
+        if(!flippedPages && self.magnification > 1) {
             // Tell the scroll view to scroll
             super.scrollWheel(theEvent);
         }
