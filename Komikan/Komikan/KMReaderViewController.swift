@@ -239,26 +239,23 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         // Extract the archive and get the info from it
         manga.extractToTmpFolder();
         
-        // Set mangaOriginalPages to the mangas current pages
+        // Set mangaOriginalPages to the manga's current pages
         mangaOriginalPages = manga.pages;
         
-        // If the filters are not default...
-        if(manga.saturation != 1 || manga.brightness != 0 || manga.contrast != 1 || manga.sharpness != 0) {
-            // Load the saturation values
-            readerControlPanelSaturationSlider.floatValue = Float(manga.saturation);
-            
-            // Load the brightness values
-            readerControlPanelBrightnessSlider.floatValue = Float(manga.brightness);
-            
-            // Load the contrast values
-            readerControlPanelContrastSlider.floatValue = Float(manga.contrast);
-            
-            // Load the sharpness values
-            readerControlPanelSharpnessSlider.floatValue = Float(manga.sharpness);
-            
-            // Update the pages to match the filters
-            updateFiltersForAllPages();
-        }
+        // Load the saturation values
+        readerControlPanelSaturationSlider.floatValue = Float(manga.saturation);
+        
+        // Load the brightness values
+        readerControlPanelBrightnessSlider.floatValue = Float(manga.brightness);
+        
+        // Load the contrast values
+        readerControlPanelContrastSlider.floatValue = Float(manga.contrast);
+        
+        // Load the sharpness values
+        readerControlPanelSharpnessSlider.floatValue = Float(manga.sharpness);
+        
+        // Update the pages to match the filters
+        updateFiltersForAllPages();
         
         // Jump to the page we said to start at
         jumpToPage(page, round: false);
@@ -583,6 +580,9 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     func closeView() {
         // Say the view is closing
         closingView = true;
+        
+        // Restore the manga's original pages
+        manga.pages = mangaOriginalPages;
         
         // Stop the mouse hover timer
         mouseHoverHandlingTimer.invalidate();
