@@ -254,8 +254,11 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         // Load the sharpness values
         readerControlPanelSharpnessSlider.floatValue = Float(manga.sharpness);
         
-        // Update the pages to match the filters
-        updateFiltersForAllPages();
+        // If the color/sharpness filters are non-default...
+        if(manga.saturation != 1 || manga.brightness != 0 || manga.contrast != 1 || manga.sharpness != 0) {
+            // Apply the new filter values to all pages
+            updateFiltersForAllPages();
+        }
         
         // Jump to the page we said to start at
         jumpToPage(page, round: false);
