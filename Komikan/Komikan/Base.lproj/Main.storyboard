@@ -1335,7 +1335,7 @@ CA
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="6vR-dx-5nf">
-                                    <rect key="frame" x="464" y="0.0" width="16" height="270"/>
+                                    <rect key="frame" x="465" y="0.0" width="15" height="270"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
@@ -1776,11 +1776,32 @@ CA
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
+                                    <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="wkn-NV-D9G" userLabel="Manga Drop View" customClass="KMMangaDropView" customModule="Komikan" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
+                                        <subviews>
+                                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mBV-Jm-rUw" userLabel="Add Symbol">
+                                                <rect key="frame" x="296" y="216" width="48" height="48"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="48" id="8g6-LA-FRH"/>
+                                                    <constraint firstAttribute="width" constant="48" id="R03-6q-K4Q"/>
+                                                </constraints>
+                                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSAddTemplate" id="Dgz-ZS-kKV"/>
+                                            </imageView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="mBV-Jm-rUw" firstAttribute="centerX" secondItem="wkn-NV-D9G" secondAttribute="centerX" id="bhZ-Zf-AZv"/>
+                                            <constraint firstItem="mBV-Jm-rUw" firstAttribute="centerY" secondItem="wkn-NV-D9G" secondAttribute="centerY" id="jc3-23-c4y"/>
+                                        </constraints>
+                                    </visualEffectView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="pwJ-e1-0oZ" firstAttribute="leading" secondItem="DI5-9c-AHp" secondAttribute="leading" id="0sV-sk-7vt"/>
+                                    <constraint firstItem="wkn-NV-D9G" firstAttribute="top" secondItem="DI5-9c-AHp" secondAttribute="top" id="0tD-3l-njb"/>
                                     <constraint firstItem="pwJ-e1-0oZ" firstAttribute="top" secondItem="DI5-9c-AHp" secondAttribute="top" id="BIe-Kt-bA3"/>
+                                    <constraint firstAttribute="trailing" secondItem="wkn-NV-D9G" secondAttribute="trailing" id="C8J-eC-Y9L"/>
                                     <constraint firstAttribute="bottom" secondItem="pwJ-e1-0oZ" secondAttribute="bottom" id="Wcn-sg-EJ7"/>
+                                    <constraint firstItem="wkn-NV-D9G" firstAttribute="leading" secondItem="DI5-9c-AHp" secondAttribute="leading" id="eln-vl-YBb"/>
+                                    <constraint firstAttribute="bottom" secondItem="wkn-NV-D9G" secondAttribute="bottom" id="nGC-uD-5db"/>
                                     <constraint firstAttribute="trailing" secondItem="pwJ-e1-0oZ" secondAttribute="trailing" id="tR9-Ah-feE"/>
                                 </constraints>
                             </visualEffectView>
@@ -1918,23 +1939,16 @@ CA
                                     <constraint firstAttribute="bottom" secondItem="QhM-D5-BGg" secondAttribute="bottom" id="xez-YZ-833"/>
                                 </constraints>
                             </visualEffectView>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="GO5-xS-al3" customClass="KMMangaDropView" customModule="Komikan" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
-                            </customView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="xeH-9s-Llt" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="0TR-Px-HSb"/>
                             <constraint firstAttribute="bottom" secondItem="DI5-9c-AHp" secondAttribute="bottom" id="3Br-Zr-itC"/>
                             <constraint firstItem="DI5-9c-AHp" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="6IM-H8-mhC"/>
                             <constraint firstItem="DI5-9c-AHp" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="FTk-nH-o4p"/>
-                            <constraint firstAttribute="bottom" secondItem="GO5-xS-al3" secondAttribute="bottom" id="FcM-2s-iaH"/>
                             <constraint firstAttribute="bottom" secondItem="bQW-e4-pbA" secondAttribute="bottom" id="Gdp-CT-3Ku"/>
-                            <constraint firstItem="GO5-xS-al3" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="NGH-EX-9ae"/>
                             <constraint firstAttribute="trailing" secondItem="bQW-e4-pbA" secondAttribute="trailing" id="RA5-UP-R7U"/>
                             <constraint firstItem="bQW-e4-pbA" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="ReT-EF-39M"/>
                             <constraint firstAttribute="trailing" secondItem="DI5-9c-AHp" secondAttribute="trailing" id="TUo-oq-4c5"/>
-                            <constraint firstAttribute="trailing" secondItem="GO5-xS-al3" secondAttribute="trailing" id="e7W-VK-1Iq"/>
-                            <constraint firstItem="GO5-xS-al3" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="h6w-wc-Zyg"/>
                             <constraint firstItem="xeH-9s-Llt" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="klo-A8-Hji"/>
                             <constraint firstAttribute="trailing" secondItem="xeH-9s-Llt" secondAttribute="trailing" id="t7A-YE-uhC"/>
                         </constraints>
