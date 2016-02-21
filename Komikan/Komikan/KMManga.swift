@@ -118,6 +118,8 @@ class KMManga {
                 print("\"" + title + "\" has already been extracted to \"" + tmpDirectory + "\"");
             }
             
+            print("Done extracting");
+            
             // Some archives will create a __MACOSX folder in the extracted folder, lets delete that
             do {
                 // Remove the possible __MACOSX folder
@@ -134,20 +136,28 @@ class KMManga {
             // Run the cleanmangadir binary to make the directory readable for us
             KMCommandUtilities().runCommand(NSBundle.mainBundle().bundlePath + "/Contents/Resources/cleanmangadir", arguments: [tmpDirectory], waitUntilExit: true);
             
-            // Set pages to all the pages in /tmp/komikan/komikanmanga-(title)
+            /// The names of all the page image files
+            var imageFileNames : NSArray = [];
+            
             do {
-                // For every file in this mangas tmp folder...
-                for currentPage in try NSFileManager().contentsOfDirectoryAtPath(tmpDirectory).enumerate() {
-                    // Print to the log what file we found
-                    print("Found page \"" + currentPage.element + "\"");
-                    
-                    // Append this image to the manga.pages array
-                    pages.append(NSImage(contentsOfFile: tmpDirectory + currentPage.element)!);
-                }
-                // If there is an error...
-            } catch let error as NSError {
-                // Print the error description to the log
-                print(error.description);
+                // Set imageFileNames to all the images in the manga's TMP directory
+                imageFileNames = try NSFileManager().contentsOfDirectoryAtPath(tmpDirectory);
+                
+                // Sort the image file names by their integer values
+                imageFileNames = imageFileNames.sortedArrayUsingDescriptors([NSSortDescriptor(key: "integerValue", ascending: true)]);
+            }
+            catch _ as NSError {
+                // Do nothing
+            }
+            
+            // Set pages to all the pages in /tmp/komikan/komikanmanga-(title)
+            // For every file in this mangas tmp folder...
+            for currentPage in imageFileNames.enumerate() {
+                // Print to the log what file we found
+                print("Found page \"" + (currentPage.element as! String) + "\"");
+                
+                // Append this image to the manga.pages array
+                pages.append(NSImage(contentsOfFile: tmpDirectory + (currentPage.element as! String))!);
             }
             
             // Remove the first image in pages(Its always nil for no reason)
@@ -179,6 +189,13 @@ class KMManga {
         if(self.percentFinished >= 100) {
             // Set this manga as read
             self.read = true;
+            
+            // Set the current page to the first page
+            self.currentPage = 0;
+        }
+        else {
+            // Mark the manga as unread
+            self.read = false;
         }
     }
 }
