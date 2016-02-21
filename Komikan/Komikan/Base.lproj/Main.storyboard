@@ -249,7 +249,7 @@
                                                 <segue destination="Bpv-S9-75W" kind="show" id="LWH-Zy-xBU"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Export Medadata for all Manga for Migration" id="yhS-CL-E8F">
+                                        <menuItem title="Export Medadata for all Manga for Migration" hidden="YES" id="yhS-CL-E8F">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
@@ -1823,6 +1823,14 @@ CA
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="foJ-v5-5cU" userLabel="Gradient" customClass="KMGradientView" customModule="Komikan" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="640" height="37"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                                <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                                <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.48853287960122699" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </customView>
                                     <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CDI-VA-JTT" userLabel="Add Manga Button">
                                         <rect key="frame" x="429" y="3" width="49" height="30"/>

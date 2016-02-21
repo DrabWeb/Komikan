@@ -228,6 +228,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     }
     
     func openManga(openingManga : KMManga, page : Int) {
+        // Set the readers manga to the manga we want to open
         manga = openingManga;
         
         // Print to the log what we are opening
@@ -810,6 +811,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     }
     
     func nextPage() {
+        // If we are in dual page mode...
         if(dualPage) {
             // If we were to add 2 to mangaCurrentPage and it would be less than the openMangaPages count...
             if(manga.currentPage + 2 < manga.pageCount) {
