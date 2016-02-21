@@ -175,6 +175,81 @@ class KMMangaGridController: NSObject {
         }
     }
     
+    /// Retuns all the series the user has in their collection
+    func allSeries() -> [String] {
+        /// The array of strings that we will return at the end of the function to say what all the series are
+        var series : [String] = [];
+        
+        // For every item in the grid items...
+        for(_, currentGridItem) in gridItems.enumerate() {
+            // If we havent already added this manga's series...
+            if(!series.contains(currentGridItem.manga.series)) {
+                // Add this items series to the list of series
+                series.append(currentGridItem.manga.series);
+            }
+        }
+        
+        // Return the series
+        return series;
+    }
+    
+    /// Retuns all the artists the user has in their collection
+    func allArtists() -> [String] {
+        /// The array of strings that we will return at the end of the function to say what all the artists are
+        var artists : [String] = [];
+        
+        // For every item in the grid items...
+        for(_, currentGridItem) in gridItems.enumerate() {
+            // If we havent already added this manga's artist...
+            if(!artists.contains(currentGridItem.manga.artist)) {
+                // Add this items artist to the list of artists
+                artists.append(currentGridItem.manga.artist);
+            }
+        }
+        
+        // Return the artists
+        return artists;
+    }
+    
+    /// Retuns all the writers the user has in their collection
+    func allWriters() -> [String] {
+        /// The array of strings that we will return at the end of the function to say what all the writers are
+        var writers : [String] = [];
+        
+        // For every item in the grid items...
+        for(_, currentGridItem) in gridItems.enumerate() {
+            // If we havent already added this manga's writer...
+            if(!writers.contains(currentGridItem.manga.writer)) {
+                // Add this items writer to the list of writers
+                writers.append(currentGridItem.manga.writer);
+            }
+        }
+        
+        // Return the writers
+        return writers;
+    }
+    
+    /// Retuns all the tags the user has in their collection
+    func allTags() -> [String] {
+        /// The array of strings that we will return at the end of the function to say what all the tags are
+        var tags : [String] = [];
+        
+        // For every item in the grid items...
+        for(_, currentGridItem) in gridItems.enumerate() {
+            // For every tag in this item's tags...
+            for(_, currentTag) in currentGridItem.manga.tags.enumerate() {
+                // If we havent already added this tag...
+                if(!tags.contains(currentTag)) {
+                    // Add this tag to the list of tags
+                    tags.append(currentTag);
+                }
+            }
+        }
+        
+        // Return the tags
+        return tags;
+    }
+    
     /// Retuns all the groups the user has for their collection
     func allGroups() -> [String] {
         /// The array of strings that we will return at the end of the function to say what all the groups are
@@ -235,13 +310,13 @@ class KMMangaGridController: NSObject {
             var titleSearch : String = "";
             
             /// The series search content(If we search for a series)
-            var seriesSearch : String = "";
+            var seriesSearch : [String] = [];
             
             /// The artist search content(If we search for a artist)
-            var artistSearch : String = "";
+            var artistSearch : [String] = [];
             
             /// The writer search content(If we search for a writer)
-            var writerSearch : String = "";
+            var writerSearch : [String] = [];
             
             /// The tags search content(If we search for a tags)(Already split into an array)
             var tagsSearch : [String] = [];
@@ -279,17 +354,17 @@ class KMMangaGridController: NSObject {
                     // If its series...
                     case "series", "s":
                         // Set the appropriate variable to the current strings search content
-                        seriesSearch = currentString.componentsSeparatedByString(":").last!;
+                        seriesSearch = currentString.lowercaseString.componentsSeparatedByString(":").last!.componentsSeparatedByString(", ");
                         break;
                     // If its artist...
                     case "artist", "a":
                         // Set the appropriate variable to the current strings search content
-                        artistSearch = currentString.componentsSeparatedByString(":").last!;
+                        artistSearch = currentString.lowercaseString.componentsSeparatedByString(":").last!.componentsSeparatedByString(", ");
                         break;
                     // If its writer...
                     case "writer", "w":
                         // Set the appropriate variable to the current strings search content
-                        writerSearch = currentString.componentsSeparatedByString(":").last!;
+                        writerSearch = currentString.lowercaseString.componentsSeparatedByString(":").last!.componentsSeparatedByString(", ");
                         break;
                     // If its tags...
                     case "tags", "tg":
@@ -318,13 +393,13 @@ class KMMangaGridController: NSObject {
             let searchedByTitle : Bool = (titleSearch != "");
             
             /// Did we search by a series?
-            let searchedBySeries : Bool = (seriesSearch != "");
+            let searchedBySeries : Bool = (seriesSearch != []);
             
             /// Did we search by an artist?
-            let searchedByArtist : Bool = (artistSearch != "");
+            let searchedByArtist : Bool = (artistSearch != []);
             
             /// Did we search by a writer?
-            let searchedByWriter : Bool = (writerSearch != "");
+            let searchedByWriter : Bool = (writerSearch != []);
             
             /// Did we search by tags?
             let searchedByTags : Bool = (tagsSearch != []);
@@ -373,7 +448,7 @@ class KMMangaGridController: NSObject {
                 // If we searched by series...
                 if(searchedBySeries) {
                     // If the current items series contain the series search... (In lowercase to be case insensitive)
-                    if(currentItem.manga.series.lowercaseString.containsString(seriesSearch.lowercaseString)) {
+                    if(seriesSearch.contains(currentItem.manga.series.lowercaseString)) {
                         // Say there is a matching series
                         matchingSeries = true;
                     }
@@ -382,7 +457,7 @@ class KMMangaGridController: NSObject {
                 // If we searched by artist...
                 if(searchedByArtist) {
                     // If the current items artist contain the artist search... (In lowercase to be case insensitive)
-                    if(currentItem.manga.artist.lowercaseString.containsString(artistSearch.lowercaseString)) {
+                    if(artistSearch.contains(currentItem.manga.artist.lowercaseString)) {
                         // Say there is a matching artist
                         matchingArtist = true;
                     }
@@ -391,7 +466,7 @@ class KMMangaGridController: NSObject {
                 // If we searched by writer...
                 if(searchedByWriter) {
                     // If the current items writer contain the writer search... (In lowercase to be case insensitive)
-                    if(currentItem.manga.artist.lowercaseString.containsString(writerSearch.lowercaseString)) {
+                    if(writerSearch.contains(currentItem.manga.writer.lowercaseString)) {
                         // Say there is a matching writer
                         matchingWriter = true;
                     }

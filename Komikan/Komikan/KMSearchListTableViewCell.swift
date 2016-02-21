@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class KMGroupListTableViewCell: NSTableCellView {
+class KMSearchListTableViewCell: NSTableCellView {
     
     /// The checkbox for the table view
     @IBOutlet weak var checkbox: NSButton!
@@ -19,8 +19,11 @@ class KMGroupListTableViewCell: NSTableCellView {
         data.checked = Bool(checkbox.state);
     }
     
+    /// The text field to tell the user what type this item is
+    @IBOutlet weak var typeLabel: NSTextField!
+    
     /// The data object to update with the checkbox
-    var data : KMGroupListItemData = KMGroupListItemData();
+    var data : KMSearchListItemData = KMSearchListItemData();
     
     override func drawRect(dirtyRect: NSRect) {
         super.drawRect(dirtyRect)
