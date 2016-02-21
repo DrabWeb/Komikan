@@ -78,6 +78,9 @@ class KMAddMangaViewController: NSViewController {
     /// The URLs of the files we are adding
     var addingMangaURLs : [NSURL] = [];
     
+    /// The local key down monitor
+    var keyDownMonitor : AnyObject?;
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
@@ -502,6 +505,9 @@ class KMAddMangaViewController: NSViewController {
         // Fetch the JSON data
         fetchJsonData();
         
+        // Subscribe to the key down event
+        keyDownMonitor = NSEvent.addLocalMonitorForEventsMatchingMask(NSEventMask.KeyDownMask, handler: keyHandler);
+        
         // If we selected multiple files...
         if(addingMangaURLs.count > 1) {
             // Say we are adding multiple
@@ -541,6 +547,28 @@ class KMAddMangaViewController: NSViewController {
                 }
             }
         }
+    }
+    
+    func keyHandler(event : NSEvent) -> NSEvent {
+        // If we pressed enter...
+        if(event.keyCode == 36 || event.keyCode == 76) {
+            // If the add button is enabled...
+            if(addButton.enabled) {
+                // Hide the popover
+                self.dismissController(self);
+                
+                // Add the chosen manga
+                addSelf();
+            }
+        }
+        
+        // Return the event
+        return event;
+    }
+    
+    override func viewWillDisappear() {
+        // Unsubscribe from key down
+        NSEvent.removeMonitor(keyDownMonitor!);
     }
     
     func styleWindow() {
