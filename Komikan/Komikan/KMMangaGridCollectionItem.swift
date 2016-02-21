@@ -35,13 +35,17 @@ class KMMangaGridCollectionItem: NSCollectionViewItem {
         if(!(modifierValue == 1048840 || modifierValue == 131330)) {
             // Deselect all the items
             self.collectionView.deselectAll(self);
+            
+            // Select this item
+            self.selected = true;
+        }
+        else {
+            // Toggle selection on this item
+            self.selected = !self.selected;
         }
         
         // Set the collection view to be frontmost
         NSApplication.sharedApplication().windows.first!.makeFirstResponder(self.collectionView);
-        
-        // Select this item
-        self.selected = true;
         
         // If we double clicked...
         if(theEvent.clickCount == 2) {

@@ -31,6 +31,9 @@ class KMSetSelectedItemsPropertiesViewController: NSViewController {
     /// The button to set favourites
     @IBOutlet weak var favouriteButton: KMFavouriteButton!
     
+    /// Have we clicked the favourites button?
+    var pressedFavouritesButton : Bool = false;
+    
     /// The checkbox to say if we want to append instead of replace the tags
     @IBOutlet weak var appendTagsCheckbox: NSButton!
     
@@ -50,6 +53,7 @@ class KMSetSelectedItemsPropertiesViewController: NSViewController {
         propertiesHolder.group = groupTextField.stringValue;
         propertiesHolder.appendTags = Bool(appendTagsCheckbox.state);
         propertiesHolder.favourite = Bool(favouriteButton.state);
+        propertiesHolder.setFavourite = Bool(favouriteButton.state);
         
         // Post the notification to say we are done, with the properties holder
         NSNotificationCenter.defaultCenter().postNotificationName("KMSetSelectedItemsPropertiesViewController.Finished", object: propertiesHolder);
@@ -95,6 +99,9 @@ class KMSetSelectedPropertiesHolder {
     /// Should we append instead of replace the tags?
     var appendTags : Bool = false;
     
+    /// Should we set if the manga is a favourite?
+    var setFavourite : Bool = false;
+    
     /// Sets the passed manga's values to the ones stored inside this instance. Also appends instead of replacing based on appendTags
     func applyValuesToManga(manga : KMManga) {
         // If there is a series value set...
@@ -134,7 +141,10 @@ class KMSetSelectedPropertiesHolder {
             manga.group = group;
         }
         
-        // Set the mangas favourite value to favourite
-        manga.favourite = favourite;
+        // If we said to change the manga's favourite value...
+        if(setFavourite) {
+            // Set the mangas favourite value to favourite
+            manga.favourite = favourite;
+        }
     }
 }
