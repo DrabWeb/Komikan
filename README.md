@@ -63,6 +63,7 @@
 > > * Favourites
 
 > * Optional simplified search terms
+> * Search Lists - A simple graphical front end for searching
 
 
 ### L-lewd... mode
