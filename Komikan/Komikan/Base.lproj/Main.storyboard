@@ -1179,7 +1179,7 @@ CA
                                     <nil key="identifier"/>
                                 </webPreferences>
                             </webView>
-                            <visualEffectView appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="ALu-uL-kEw">
+                            <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="ALu-uL-kEw">
                                 <rect key="frame" x="0.0" y="478" width="480" height="22"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cnt-6Q-iv5" userLabel="URL Label">
@@ -1335,7 +1335,7 @@ CA
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="6vR-dx-5nf">
-                                    <rect key="frame" x="465" y="0.0" width="15" height="270"/>
+                                    <rect key="frame" x="464" y="0.0" width="16" height="270"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
@@ -1776,7 +1776,7 @@ CA
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
-                                    <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="wkn-NV-D9G" userLabel="Manga Drop View" customClass="KMMangaDropView" customModule="Komikan" customModuleProvider="target">
+                                    <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="wkn-NV-D9G" userLabel="Manga Drop View" customClass="KMMangaDropView" customModule="Komikan" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
                                         <subviews>
                                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mBV-Jm-rUw" userLabel="Add Symbol">

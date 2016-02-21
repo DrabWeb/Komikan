@@ -22,6 +22,10 @@ class KMMangaDropView: NSVisualEffectView {
         // Register for dragging
         self.registerForDraggedTypes(NSArray(objects: NSFilenamesPboardType) as! [String]);
         
+        // Set the material to dark
+        self.material = NSVisualEffectMaterial.Dark;
+        
+        // Hide the view
         self.alphaValue = 0;
     }
     
@@ -40,8 +44,8 @@ class KMMangaDropView: NSVisualEffectView {
     }
     
     override func draggingEnded(sender: NSDraggingInfo?) {
-        // Hide the view
-        self.alphaValue = 0;
+        // Fade out the view
+        self.animator().alphaValue = 0;
     }
     
     override func prepareForDragOperation(sender: NSDraggingInfo) -> Bool {
