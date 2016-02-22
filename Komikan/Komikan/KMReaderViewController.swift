@@ -295,8 +295,8 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     }
     
     override func mouseUp(theEvent: NSEvent) {
-        // If we arent dragging...
-        if(!dragging) {
+        // If we arent dragging and the jump to page dialog isnt open...
+        if(!dragging && !pageJumpOpen) {
             // If we said in the preferences to be able to drag the reader window without holding alt...
             if((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt) {
                 // If the reader controls panel isnt open...
@@ -439,6 +439,11 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
                     }
                 }
             }
+        }
+        // If we arent dragging and the jump to page dialog is open...
+        else if(!dragging && pageJumpOpen) {
+            // Close the page jump view
+            closeJumpToPageDialog();
         }
         
         // Say we arent dragging
@@ -770,8 +775,17 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         updatePage();
     }
     
+    /// Is the page jump view open?
+    var pageJumpOpen : Bool = false;
+    
+    /// The NSEvent monitor for the page jump view that listens for the escape key
+    var pageJumpKeyListener : AnyObject?;
+    
     // Brings up the dialog for the user to jump to a page
     func promptToJumpToPage() {
+        // Say the page jump view is open
+        pageJumpOpen = true;
+        
         // Enable the page jump view
         readerPageJumpTableView.enabled = true;
         readerPageJumpScrollView.hidden = false;
@@ -785,6 +799,9 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         // Show the cursor
         NSCursor.unhide();
         
+        // Monitor the keyboard locally
+        pageJumpKeyListener = NSEvent.addLocalMonitorForEventsMatchingMask(NSEventMask.KeyDownMask, handler: pageJumpKeyHandler);
+        
         // If we havent already loaded the manga data into the page jump table...
         if(!readerPageJumpTableView.loadedDataFromManga) {
             // Load the manga data into the table view
@@ -795,10 +812,28 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         thumbnailPageJumpVisualEffectView.animator().alphaValue = 1;
     }
     
+    /// The handler for listening for the escape key when the page jump view is up
+    func pageJumpKeyHandler(event : NSEvent) -> NSEvent {
+        // If we pressed the escape key and the window is frontmost...
+        if(event.keyCode == 53 && readerWindow.keyWindow) {
+            // Close the page jump view
+            closeJumpToPageDialog();
+        }
+        
+        // Return the event
+        return event;
+    }
+    
     /// Closes the dialog that prompts the user to jump to a page, and jumps to the inputted page
     func closeJumpToPageDialog() {
+        // Say the page jump view is no longer open
+        pageJumpOpen = false;
+        
         // Fade out the thumbnail page jump view
         thumbnailPageJumpVisualEffectView.animator().alphaValue = 0;
+        
+        // Stop listening for the escape key
+        NSEvent.removeMonitor(pageJumpKeyListener!);
         
         // Restart the 0.1 second loop for the mouse hovering
         mouseHoverHandlingTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("mouseHoverHandling"), userInfo: nil, repeats:true);
