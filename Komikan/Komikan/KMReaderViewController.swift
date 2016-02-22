@@ -131,21 +131,23 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         updateFiltersForCurrentPage();
     }
     
-    // The label on the reader panel that shows what page you are on and how many pages there are
-    @IBOutlet weak var readerPageNumberLabel: NSTextField!
+    /// The KMReaderPageJumpTableView for the thumbnail page jump view
+    @IBOutlet weak var readerPageJumpTableView: KMReaderPageJumpTableView!
+    
+    /// The scroll view for readerPageJumpTableView
+    @IBOutlet weak var readerPageJumpScrollView: NSScrollView!
     
     // The button on the reader panel that lets you jump to a page
     @IBOutlet weak var readerPageJumpButton: NSButton!
     
-    var inspectorController: NSWindowController?
-    
     // When readerPageJumpButton is pressed...
     @IBAction func readerPageJumpButtonPressed(sender: AnyObject) {
-        if(readerPageJumpView.hidden) {
-            // Prompt the user to jump to a page
-            promptToJumpToPage();
-        }
+        // Prompt the user to jump to a page
+        promptToJumpToPage();
     }
+    
+    // The label on the reader panel that shows what page you are on and how many pages there are
+    @IBOutlet weak var readerPageNumberLabel: NSTextField!
     
     // The button on the reader panel that lets you bookmark the current page
     @IBOutlet weak var readerBookmarkButton: NSButton!
@@ -172,20 +174,8 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         openControlsPanel();
     }
     
-    // The view hat holds the page jump dialog
-    @IBOutlet weak var readerPageJumpView: NSView!
-    
-    // The visual effect view for the background of the page jump dialog
-    @IBOutlet weak var readerPageJumpVisualEffectView: NSVisualEffectView!
-    
-    // The text field for the page to jump to
-    @IBOutlet weak var readerPageJumpNumberField: NSTextField!
-    
-    // WHen the user presses enter in readerPageJumpNumberField...
-    @IBAction func readerPageJumpNumberFieldInteracted(sender: AnyObject) {
-        // Close the dialog
-        closeJumpToPageDialog();
-    }
+    /// The visual effect view for the background of the thumbnail page jump view
+    @IBOutlet weak var thumbnailPageJumpVisualEffectView: NSVisualEffectView!
     
     // The manga we have open
     var manga : KMManga = KMManga();
@@ -260,6 +250,9 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
             // Apply the new filter values to all pages
             updateFiltersForAllPages();
         }
+        
+        // Set the page jump view's reader view controller to this
+        readerPageJumpTableView.readerViewController = self;
         
         // Jump to the page we said to start at
         jumpToPage(page, round: false);
@@ -779,35 +772,46 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     
     // Brings up the dialog for the user to jump to a page
     func promptToJumpToPage() {
-        // Reset the page jump text fields value
-        readerPageJumpNumberField.stringValue = "";
+        // Enable the page jump view
+        readerPageJumpTableView.enabled = true;
+        readerPageJumpScrollView.hidden = false;
         
-        // Show the view
-        readerPageJumpView.hidden = false;
+        // Stop the mouse hover handling timer
+        mouseHoverHandlingTimer.invalidate();
         
-        // Select the text field
-        readerWindow.makeFirstResponder(readerPageJumpNumberField);
+        // Fade out the titlebar and reader panels
+        fadeOutTitlebar();
         
-        // Animate in the vibrancy view
-        readerPageJumpVisualEffectView.alphaValue = 1;
+        // Show the cursor
+        NSCursor.unhide();
+        
+        // If we havent already loaded the manga data into the page jump table...
+        if(!readerPageJumpTableView.loadedDataFromManga) {
+            // Load the manga data into the table view
+            readerPageJumpTableView.loadDataFromManga(manga);
+        }
+        
+        // Fade in the thumbnail page jump view
+        thumbnailPageJumpVisualEffectView.animator().alphaValue = 1;
     }
     
     /// Closes the dialog that prompts the user to jump to a page, and jumps to the inputted page
     func closeJumpToPageDialog() {
-        // Fade out the view
-        readerPageJumpVisualEffectView.animator().alphaValue = 0;
+        // Fade out the thumbnail page jump view
+        thumbnailPageJumpVisualEffectView.animator().alphaValue = 0;
         
-        // Do the 0.2 second wait to hide the page jump dialog
-        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.2), target:self, selector: Selector("hideJumpToPageDialog"), userInfo: nil, repeats:false);
+        // Restart the 0.1 second loop for the mouse hovering
+        mouseHoverHandlingTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("mouseHoverHandling"), userInfo: nil, repeats:true);
         
-        // Jump to the inputted page
-        jumpToPage(readerPageJumpNumberField.integerValue - 1, round: true);
+        // Wait 0.2 seconds to disable the jump to page view, so the animation can finish
+        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.2), target:self, selector: Selector("disableJumpToPageDialog"), userInfo: nil, repeats: false);
     }
     
-    /// Actually hides the jump to page dialog
-    func hideJumpToPageDialog() {
-        // Hide the view
-        readerPageJumpView.hidden = true;
+    /// Disables the page jump view
+    func disableJumpToPageDialog() {
+        // Disable the page jump view
+        readerPageJumpTableView.enabled = false;
+        readerPageJumpScrollView.hidden = true;
     }
     
     func nextPage() {
@@ -1254,6 +1258,19 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         
         // Set the window background color
         readerWindow.backgroundColor = NSColor.blackColor();
+        
+        // Set the background of the thumbnail page jump view to be dark
+        thumbnailPageJumpVisualEffectView.material = NSVisualEffectMaterial.Dark;
+        
+        // Hide the background of the thumbnail page jump view
+        thumbnailPageJumpVisualEffectView.alphaValue = 0;
+        
+        // Unhide the background of the thumbnail page jump view(Its hidden in IB because it makes it unusable)
+        thumbnailPageJumpVisualEffectView.hidden = false;
+        
+        // Disable the page jump view
+        readerPageJumpTableView.enabled = false;
+        readerPageJumpScrollView.hidden = true;
         
         // For some reason it destroys these views appearances, so I have to set them
         readerControlPanelSaturationSlider.superview?.appearance = NSAppearance(named: NSAppearanceNameVibrantDark);

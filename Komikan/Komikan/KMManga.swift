@@ -193,9 +193,5 @@ class KMManga {
             // Set the current page to the first page
             self.currentPage = 0;
         }
-        else {
-            // Mark the manga as unread
-            self.read = false;
-        }
     }
 }

@@ -1,0 +1,103 @@
+//
+//  KMReaderPageJumpData.swift
+//  Komikan
+//
+//  Created by Seth on 2016-02-22.
+//  Copyright © 2016 DrabWeb. All rights reserved.
+//
+
+import Foundation
+
+class KMReaderPageJumpData : NSObject {
+    /// The NSImage for the leftmost thumbnails image
+    var thumbnailOne : NSImage = NSImage();
+    
+    /// The NSImage for the center thumbnails image
+    var thumbnailTwo : NSImage = NSImage();
+    
+    /// The NSImage for the rightmost thumbnails image
+    var thumbnailThree : NSImage = NSImage();
+    
+    /// The page that will be jumped to when you click on the leftmost thumbnail
+    var thumbnailOnePage : Int = -1;
+    
+    /// The page that will be jumped to when you click on the center thumbnail
+    var thumbnailTwoPage : Int = -1;
+    
+    /// The page that will be jumped to when you click on the rightmost thumbnail
+    var thumbnailThreePage : Int = -1;
+    
+    /// Loads the passed array of NSImages into their respective thumbnail slots
+    func loadThumbnailsFromArray(thumbnails : [NSImage]) {
+        // For every image in the thumbnails array...
+        for(currentIndex, currentImage) in thumbnails.enumerate() {
+            // If this is the first image...
+            if(currentIndex == 0) {
+                thumbnailOne = currentImage;
+            }
+            // If this is the second image...
+            else if(currentIndex == 1) {
+                thumbnailTwo = currentImage;
+            }
+            // If this is the third image
+            else if(currentIndex == 2) {
+                // Set thumbnail three to the current image
+                thumbnailThree = currentImage;
+            }
+        }
+    }
+    
+    /// Loads the page numbers from teh passed array of Ints
+    func loadPageNumbersFromArray(pages : [Int]) {
+        // For every item in the pages array...
+        for(currentIndex, currentPageNumber) in pages.enumerate() {
+            // If this is the first page number...
+            if(currentIndex == 0) {
+                // Set the first thumbnails page to the current page
+                thumbnailOnePage = currentPageNumber;
+            }
+            // If this is the second page number...
+            else if(currentIndex == 1) {
+                // Set the second thumbnails page to the current page
+                thumbnailTwoPage = currentPageNumber;
+            }
+            // If this is the third page number...
+            else if(currentIndex == 2) {
+                // Set the third thumbnails page to the current page
+                thumbnailThreePage = currentPageNumber;
+            }
+        }
+    }
+    
+    // A blank init
+    override init() {
+        
+    }
+    
+    // Init with one page
+    init(thumbOne : NSImage, thumbOnePage : Int) {
+        thumbnailOne = thumbOne;
+        thumbnailOnePage = thumbOnePage;
+    }
+    
+    // Init with two pages
+    init(thumbOne : NSImage, thumbOnePage : Int, thumbTwo : NSImage, thumbTwoPage : Int) {
+        thumbnailOne = thumbOne;
+        thumbnailOnePage = thumbOnePage;
+        
+        thumbnailOne = thumbTwo;
+        thumbnailOnePage = thumbTwoPage;
+    }
+    
+    // Init with three pages
+    init(thumbOne : NSImage, thumbOnePage : Int, thumbTwo : NSImage, thumbTwoPage : Int, thumbThree : NSImage, thumbThreePage : Int) {
+        thumbnailOne = thumbOne;
+        thumbnailOnePage = thumbOnePage;
+        
+        thumbnailTwo = thumbTwo;
+        thumbnailTwoPage = thumbTwoPage;
+        
+        thumbnailThree = thumbThree;
+        thumbnailThreePage = thumbThreePage;
+    }
+}

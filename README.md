@@ -1,8 +1,10 @@
 # Komikan
-> A Manga reader and manager for OSX
+A Manga reader and manager for OSX
 
 ## Downloads
-> <a href="https://github.com/DrabWeb/Komikan/releases">https://github.com/DrabWeb/Komikan/releases</a>
+Requires at least OSX 10.10 Yosemite. Tested on OSX 10.11 El Capitan
+
+<a href="https://github.com/DrabWeb/Komikan/releases">https://github.com/DrabWeb/Komikan/releases</a>
 
 ## Features
 
@@ -42,9 +44,9 @@
 > * Track pad gestures for page flipping and zooming
 > * Saturation, Brightness, Contrast and Sharpness Controls
 > * Dual page(LtR and RtL)
+> * Thumbnail based page jumping
 > * Zoom in and out
 > * Fast
-> * Page jumping
 > * Fit window to Page size
 
 
