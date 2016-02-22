@@ -50,6 +50,7 @@ class KMReaderPageJumpTableView: NSTableView {
                     // Append the current page
                     thumbnailArray.append(manga.pages[(pageCount - 4) + index]);
                     
+                    // Add the current page to the pages
                     pageNumbers.append((pageCount - 4) + index);
                 }
             }
