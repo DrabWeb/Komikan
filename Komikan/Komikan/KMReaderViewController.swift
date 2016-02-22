@@ -442,8 +442,16 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         }
         // If we arent dragging and the jump to page dialog is open...
         else if(!dragging && pageJumpOpen) {
-            // Close the page jump view
-            closeJumpToPageDialog();
+            // If we said we could drag the window without holding alt...
+            if((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt) {
+                // Close the page jump view
+                closeJumpToPageDialog();
+            }
+            // If we said we have to hold alt while dragging the window and we are holding alt...
+            else if(theEvent.modifierFlags.rawValue != 524576 && theEvent.modifierFlags.rawValue != 524320) {
+                // Close the page jump view
+                closeJumpToPageDialog();
+            }
         }
         
         // Say we arent dragging
