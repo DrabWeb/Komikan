@@ -1276,13 +1276,13 @@ CA
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" allowsMagnification="YES" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6tg-Uu-vMc" userLabel="Pages Container" customClass="KMReaderScrollView" customModule="Komikan" customModuleProvider="target">
+                            <scrollView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" allowsMagnification="YES" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6tg-Uu-vMc" userLabel="Pages Container" customClass="KMReaderScrollView" customModule="Komikan" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="HQf-3R-beY">
+                                <clipView key="contentView" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" drawsBackground="NO" copiesOnScroll="NO" id="HQf-3R-beY">
                                     <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <view translatesAutoresizingMaskIntoConstraints="NO" id="LFP-Yr-2si">
+                                        <view horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="LFP-Yr-2si">
                                             <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                             <subviews>
                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Ui2-6j-ybs" customClass="KMDraggableImageView" customModule="Komikan" customModuleProvider="target">
@@ -1646,7 +1646,7 @@ CA
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="140" viewBased="YES" id="SIJ-SQ-EnH" customClass="KMReaderPageJumpTableView" customModule="Komikan" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="405" height="270"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="405" height="0.0"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -1690,7 +1690,7 @@ CA
                                                                                 <action selector="leftButtonPressed:" target="gK1-KK-qKY" id="rvo-ga-apM"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="pCF-iW-ENV" userLabel="Thumbnail Three">
+                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pCF-iW-ENV" userLabel="Thumbnail Three">
                                                                             <rect key="frame" x="270" y="5" width="130" height="130"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="130" id="Y7Q-fE-5DE"/>
@@ -1703,7 +1703,7 @@ CA
                                                                                 <action selector="rightButtonPressed:" target="gK1-KK-qKY" id="ssE-rd-3VL"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="KzL-ne-Kcc" userLabel="Thumbnail Two">
+                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KzL-ne-Kcc" userLabel="Thumbnail Two">
                                                                             <rect key="frame" x="138" y="5" width="130" height="130"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="130" id="HCf-g0-zVY"/>
@@ -1716,6 +1716,18 @@ CA
                                                                                 <action selector="centerButtonPressed:" target="gK1-KK-qKY" id="3Db-k7-8nS"/>
                                                                             </connections>
                                                                         </button>
+                                                                        <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BTs-Rn-3Ih" userLabel="Thumbnail One Bookmark">
+                                                                            <rect key="frame" x="84" y="87" width="48" height="48"/>
+                                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="Bookmark Marker" id="JPs-qX-Qmg"/>
+                                                                        </imageView>
+                                                                        <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Su-HR-AFj" userLabel="Thumbnail Two Bookmark">
+                                                                            <rect key="frame" x="215" y="87" width="48" height="48"/>
+                                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="Bookmark Marker" id="Tuj-o4-kEZ"/>
+                                                                        </imageView>
+                                                                        <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="paK-av-QHo" userLabel="Thumbnail Three Bookmark">
+                                                                            <rect key="frame" x="346" y="87" width="48" height="48"/>
+                                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="Bookmark Marker" id="nU8-wc-Tpc"/>
+                                                                        </imageView>
                                                                     </subviews>
                                                                     <constraints>
                                                                         <constraint firstItem="KzL-ne-Kcc" firstAttribute="top" secondItem="gK1-KK-qKY" secondAttribute="top" constant="5" id="6OO-T3-n36"/>
@@ -1729,8 +1741,11 @@ CA
                                                                         <constraint firstItem="QWq-Og-fBX" firstAttribute="leading" secondItem="gK1-KK-qKY" secondAttribute="leading" constant="5" id="t0B-6R-bq9"/>
                                                                     </constraints>
                                                                     <connections>
+                                                                        <outlet property="centerBookmarkMarker" destination="7Su-HR-AFj" id="IXA-3C-75S"/>
                                                                         <outlet property="centerButton" destination="KzL-ne-Kcc" id="XCf-TZ-7yc"/>
+                                                                        <outlet property="leftBookmarkMarker" destination="BTs-Rn-3Ih" id="59a-Lj-lzI"/>
                                                                         <outlet property="leftButton" destination="QWq-Og-fBX" id="xbQ-YH-LXg"/>
+                                                                        <outlet property="rightBookmarkMarker" destination="paK-av-QHo" id="Jqe-zd-dgI"/>
                                                                         <outlet property="rightButton" destination="pCF-iW-ENV" id="WHx-vJ-S4w"/>
                                                                         <outlet property="textField" destination="ymC-c1-bML" id="9Mm-W3-M9M"/>
                                                                     </connections>
@@ -2714,6 +2729,7 @@ AwEVARgBHQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAEfA
         </scene>
     </scenes>
     <resources>
+        <image name="Bookmark Marker" width="128" height="128"/>
         <image name="DrabWeb" width="460" height="460"/>
         <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSAddTemplate" width="11" height="11"/>

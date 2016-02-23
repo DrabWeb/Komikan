@@ -27,6 +27,15 @@ class KMReaderPageJumpData : NSObject {
     /// The page that will be jumped to when you click on the rightmost thumbnail
     var thumbnailThreePage : Int = -1;
     
+    /// Is the first thumbnail's page bookmarked?
+    var thumbnailOneBookmarked : Bool = false;
+    
+    /// Is the second thumbnail's page bookmarked?
+    var thumbnailTwoBookmarked : Bool = false;
+    
+    /// Is the third thumbnail's page bookmarked?
+    var thumbnailThreeBookmarked : Bool = false;
+    
     /// Loads the passed array of NSImages into their respective thumbnail slots
     func loadThumbnailsFromArray(thumbnails : [NSImage]) {
         // For every image in the thumbnails array...
@@ -47,7 +56,7 @@ class KMReaderPageJumpData : NSObject {
         }
     }
     
-    /// Loads the page numbers from teh passed array of Ints
+    /// Loads the page numbers from the passed array of Bools
     func loadPageNumbersFromArray(pages : [Int]) {
         // For every item in the pages array...
         for(currentIndex, currentPageNumber) in pages.enumerate() {
@@ -69,35 +78,63 @@ class KMReaderPageJumpData : NSObject {
         }
     }
     
+    /// Loads the bookmarks from the passed array of Ints
+    func loadBookmarksFromArray(bookmarks : [Bool]) {
+        // For every item in the bookmarks array...
+        for(currentIndex, currentBookmark) in bookmarks.enumerate() {
+            // If this is the first bookmark...
+            if(currentIndex == 0) {
+                // Set the first thumbnails bookmarked value to the current bookmark value
+                thumbnailOneBookmarked = !currentBookmark;
+            }
+            // If this is the second bookmark...
+            else if(currentIndex == 1) {
+                // Set the second thumbnails bookmarked value to the current bookmark value
+                thumbnailTwoBookmarked = !currentBookmark;
+            }
+            // If this is the third bookmark...
+            else if(currentIndex == 2) {
+                // Set the third thumbnails bookmarked value to the current bookmark value
+                thumbnailThreeBookmarked = !currentBookmark;
+            }
+        }
+    }
+    
     // A blank init
     override init() {
         
     }
     
     // Init with one page
-    init(thumbOne : NSImage, thumbOnePage : Int) {
+    init(thumbOne : NSImage, thumbOnePage : Int, thumbOneBookmarked : Bool) {
         thumbnailOne = thumbOne;
         thumbnailOnePage = thumbOnePage;
+        thumbnailOneBookmarked = thumbOneBookmarked;
     }
     
     // Init with two pages
-    init(thumbOne : NSImage, thumbOnePage : Int, thumbTwo : NSImage, thumbTwoPage : Int) {
+    init(thumbOne : NSImage, thumbOnePage : Int, thumbOneBookmarked : Bool, thumbTwo : NSImage, thumbTwoPage : Int, thumbTwoBookmarked : Bool) {
         thumbnailOne = thumbOne;
         thumbnailOnePage = thumbOnePage;
-        
-        thumbnailOne = thumbTwo;
-        thumbnailOnePage = thumbTwoPage;
-    }
-    
-    // Init with three pages
-    init(thumbOne : NSImage, thumbOnePage : Int, thumbTwo : NSImage, thumbTwoPage : Int, thumbThree : NSImage, thumbThreePage : Int) {
-        thumbnailOne = thumbOne;
-        thumbnailOnePage = thumbOnePage;
+        thumbnailOneBookmarked = thumbOneBookmarked;
         
         thumbnailTwo = thumbTwo;
         thumbnailTwoPage = thumbTwoPage;
+        thumbnailTwoBookmarked = thumbTwoBookmarked;
+    }
+    
+    // Init with three pages
+    init(thumbOne : NSImage, thumbOnePage : Int, thumbOneBookmarked : Bool, thumbTwo : NSImage, thumbTwoPage : Int, thumbTwoBookmarked : Bool, thumbThree : NSImage, thumbThreePage : Int, thumbThreeBookmarked : Bool) {
+        thumbnailOne = thumbOne;
+        thumbnailOnePage = thumbOnePage;
+        thumbnailOneBookmarked = thumbOneBookmarked;
+        
+        thumbnailTwo = thumbTwo;
+        thumbnailTwoPage = thumbTwoPage;
+        thumbnailTwoBookmarked = thumbTwoBookmarked;
         
         thumbnailThree = thumbThree;
         thumbnailThreePage = thumbThreePage;
+        thumbnailThreeBookmarked = thumbThreeBookmarked;
     }
 }

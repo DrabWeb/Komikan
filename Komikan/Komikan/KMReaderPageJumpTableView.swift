@@ -33,8 +33,14 @@ class KMReaderPageJumpTableView: NSTableView {
         self.setDelegate(self);
     }
     
-    /// Loads the data from the passed KMManga into the table view. This is such a hack and should probably be redone
-    func loadDataFromManga(manga : KMManga) {
+    /// Loads the data from the passed KMManga into the table view. Also only does bookmarks if onlyBookmarks is true. This is such a hack and should probably be redone
+    func loadDataFromManga(manga : KMManga, onlyBookmarks : Bool) {
+        // If we arent doing only bookmarks...
+        if(!onlyBookmarks) {
+            // Clear the table
+            thumbnails.removeAll();
+        }
+        
         // For pageCount is less than the page count and we add three...
         for(var pageCount = 3; pageCount < (manga.pages.count + 3); pageCount += 3) {
             /// The array of NSImages we will add to the jump view at the end
@@ -43,26 +49,43 @@ class KMReaderPageJumpTableView: NSTableView {
             /// The array of Ints to say what pages each thumbnail jumpts to
             var pageNumbers : [Int] = [];
             
+            /// The array of bookmark Bools we will pass ti the row data
+            var bookmarks : [Bool] = [false, false, false];
+            
             // For every number from 1 to 3...
             for index in 1...3 {
                 // If the current index in the higher for loop - 4 + the current index from 1 to 3 is less than the manga's page count(This is the hack)
                 if((pageCount - 4) + index < manga.pages.count) {
-                    // Append the current page
-                    thumbnailArray.append(manga.pages[(pageCount - 4) + index]);
-                    
-                    // Add the current page to the pages
-                    pageNumbers.append((pageCount - 4) + index);
+                    // If we arent doing only bookmarks...
+                    if(!onlyBookmarks) {
+                        // Append the current page
+                        thumbnailArray.append(manga.pages[(pageCount - 4) + index]);
+                        
+                        // Add the current page to the pages
+                        pageNumbers.append((pageCount - 4) + index);
+                    }
+                    // If the manga's bookmarks contains this page...
+                    if(manga.bookmarks.contains((pageCount - 4) + index)) {
+                        // Set this page to be bookmarked in the jump view
+                        bookmarks[index - 1] = true;
+                    }
                 }
             }
             
             /// The KMReaderPageJumpData we will add to the table view
             let rowData : KMReaderPageJumpData = KMReaderPageJumpData();
             
-            // Load the thumbnail data from the thumbnail array
-            rowData.loadThumbnailsFromArray(thumbnailArray);
+            // If we arent doing only bookmarks...
+            if(!onlyBookmarks) {
+                // Load the thumbnail data from the thumbnail array
+                rowData.loadThumbnailsFromArray(thumbnailArray);
             
-            // Load the page number data
-            rowData.loadPageNumbersFromArray(pageNumbers);
+                // Load the page number data
+                rowData.loadPageNumbersFromArray(pageNumbers);
+            }
+            
+            // Load the bookmark data
+            rowData.loadBookmarksFromArray(bookmarks);
             
             // Add the row data to the thumbnails array
             self.thumbnails.append(rowData);

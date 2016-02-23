@@ -13,6 +13,9 @@ class KMReaderPageJumpCellView: NSTableCellView {
     /// The KMReaderPageJumpData for this view to call on for page jump information
     var data : KMReaderPageJumpData = KMReaderPageJumpData();
 
+    /// The bookmark marker for the leftmost thumbnail
+    @IBOutlet weak var leftBookmarkMarker: NSImageView!
+    
     /// The thumbnail image button on the left
     @IBOutlet weak var leftButton: NSButton!
     
@@ -31,6 +34,9 @@ class KMReaderPageJumpCellView: NSTableCellView {
         }
     }
     
+    /// The bookmark marker for the center thumbnail
+    @IBOutlet weak var centerBookmarkMarker: NSImageView!
+    
     /// The thumbnail image button in the center
     @IBOutlet weak var centerButton: NSButton!
     
@@ -45,6 +51,9 @@ class KMReaderPageJumpCellView: NSTableCellView {
             readerViewController!.jumpToPage(data.thumbnailTwoPage, round: false);
         }
     }
+    
+    /// The bookmark marker for the rightmost thumbnail
+    @IBOutlet weak var rightBookmarkMarker: NSImageView!
     
     /// The thumbnail image button on the right
     @IBOutlet weak var rightButton: NSButton!
@@ -103,6 +112,11 @@ class KMReaderPageJumpCellView: NSTableCellView {
             rightButton.enabled = true;
             rightButton.hidden = false;
         }
+        
+        // Show / hide the bookmark markers
+        leftBookmarkMarker.hidden = data.thumbnailOneBookmarked;
+        centerBookmarkMarker.hidden = data.thumbnailTwoBookmarked;
+        rightBookmarkMarker.hidden = data.thumbnailThreeBookmarked;
     }
     
     override func drawRect(dirtyRect: NSRect) {

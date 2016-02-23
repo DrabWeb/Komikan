@@ -542,7 +542,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         }
         else if(!dualPage && !isFullscreen) {
             // If the current pages image is smaller than the screen vertically...
-            if(pixelSizeOfImage(readerImageView.image!).height < NSScreen.mainScreen()?.frame.height) {
+            if(pixelSizeOfImage(readerImageView.image!).height < ((NSScreen.mainScreen()?.frame.height)! - 150)) {
                 // Set the reader windows frame to be the reader image views image size
                 readerWindow.setFrame(NSRect(x: 0, y: 0, width: pixelSizeOfImage(readerImageView.image!).width, height: pixelSizeOfImage(readerImageView.image!).height), display: false);
             }
@@ -810,11 +810,8 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         // Monitor the keyboard locally
         pageJumpKeyListener = NSEvent.addLocalMonitorForEventsMatchingMask(NSEventMask.KeyDownMask, handler: pageJumpKeyHandler);
         
-        // If we havent already loaded the manga data into the page jump table...
-        if(!readerPageJumpTableView.loadedDataFromManga) {
-            // Load the manga data into the table view
-            readerPageJumpTableView.loadDataFromManga(manga);
-        }
+        // Load the manga data into the table view
+        readerPageJumpTableView.loadDataFromManga(manga, onlyBookmarks: false);
         
         // Fade in the thumbnail page jump view
         thumbnailPageJumpVisualEffectView.animator().alphaValue = 1;
