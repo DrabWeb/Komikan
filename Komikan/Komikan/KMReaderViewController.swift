@@ -537,6 +537,9 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
                 readerWindow.setFrame(NSRect(x: 0, y: 0, width: width, height: height), display: false);
             }
             
+            print(leftImageSize);
+            print(rightImageSize);
+            
             // Center the window
             readerWindow.center();
         }

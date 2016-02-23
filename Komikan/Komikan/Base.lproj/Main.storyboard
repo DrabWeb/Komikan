@@ -1292,15 +1292,25 @@ CA
                                                 <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6uu-3X-D41" userLabel="Double Page Stack View">
                                                     <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                                     <subviews>
-                                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fri-7a-35C" userLabel="Left Page" customClass="KMDraggableImageView" customModule="Komikan" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="110" width="240" height="50"/>
+                                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="fri-7a-35C" userLabel="Left Page" customClass="KMDraggableImageView" customModule="Komikan" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="240" height="270"/>
                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="right" imageScaling="proportionallyUpOrDown" id="5FT-Ch-kxe"/>
                                                         </imageView>
                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dMo-Mj-DAm" userLabel="Right Page" customClass="KMDraggableImageView" customModule="Komikan" customModuleProvider="target">
-                                                            <rect key="frame" x="240" y="110" width="240" height="50"/>
+                                                            <rect key="frame" x="240" y="0.0" width="240" height="270"/>
                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="proportionallyUpOrDown" id="XKX-oY-Phq"/>
                                                         </imageView>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="fri-7a-35C" secondAttribute="bottom" id="34A-NA-8Ba"/>
+                                                        <constraint firstItem="dMo-Mj-DAm" firstAttribute="top" secondItem="6uu-3X-D41" secondAttribute="top" id="4pX-YG-7dC"/>
+                                                        <constraint firstItem="fri-7a-35C" firstAttribute="leading" secondItem="6uu-3X-D41" secondAttribute="leading" id="EX4-MD-JBK"/>
+                                                        <constraint firstAttribute="bottom" secondItem="dMo-Mj-DAm" secondAttribute="bottom" id="F92-Mk-Mky"/>
+                                                        <constraint firstItem="fri-7a-35C" firstAttribute="top" secondItem="6uu-3X-D41" secondAttribute="top" id="HkQ-g0-LoZ"/>
+                                                        <constraint firstItem="dMo-Mj-DAm" firstAttribute="leading" secondItem="fri-7a-35C" secondAttribute="trailing" id="Rbr-86-ApH"/>
+                                                        <constraint firstItem="dMo-Mj-DAm" firstAttribute="leading" secondItem="fri-7a-35C" secondAttribute="trailing" id="Xed-eI-Edf"/>
+                                                        <constraint firstAttribute="trailing" secondItem="dMo-Mj-DAm" secondAttribute="trailing" id="giK-yR-YtV"/>
+                                                    </constraints>
                                                     <visibilityPriorities>
                                                         <integer value="1000"/>
                                                         <integer value="1000"/>
