@@ -274,6 +274,10 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.readerZoomInMenuItem.action = Selector("magnifyIn");
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.readerZoomOutMenuItem.action = Selector("magnifyOut");
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.readerResetZoomMenuItem.action = Selector("resetMagnification");
+        
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.readerRotateNinetyDegressLeftMenuItem.action = Selector("rotateLeftNinetyDegrees");
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.readerRotateNinetyDegressRightMenuItem.action = Selector("rotateRightNinetyDegrees");
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.readerResetRotationMenuItem.action = Selector("resetRotation");
     }
     
     /// Resets the zoom amount
@@ -285,13 +289,42 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     /// Zooms in by 10%
     func magnifyIn() {
         // Add 0.25 to the reader scroll views magnification
-        readerImageScrollView.animator().magnification += 0.25;
+        readerImageScrollView.magnification += 0.25;
     }
     
     /// Zooms out by 10%
     func magnifyOut() {
         // Substract 0.25 from the reader scroll views magnification
-        readerImageScrollView.animator().magnification -= 0.25;
+        readerImageScrollView.magnification -= 0.25;
+    }
+    
+    /// Rotates the manga left by 90 degress
+    func rotateLeftNinetyDegrees() {
+        // Rotate the pages left 90 degress
+        readerImageView.frameCenterRotation += 90;
+        dualPageStackView.frameCenterRotation += 90;
+    }
+    
+    /// Rotates the manga right by 90 degress
+    func rotateRightNinetyDegrees() {
+        // Rotate the pages right 90 degress
+        readerImageView.frameCenterRotation -= 90;
+        dualPageStackView.frameCenterRotation -= 90;
+    }
+    
+    /// Resets the rotation of the manga
+    func resetRotation() {
+        // Reset the rotation on the pages
+        readerImageView.frameCenterRotation = 0;
+        dualPageStackView.frameCenterRotation = 0;
+    }
+    
+    func windowWillResize(sender: NSWindow, toSize frameSize: NSSize) -> NSSize {
+        // Temporary fix for the image view dissapearing when rotated and the window resizes
+        readerImageView.frameCenterRotation = 0;
+        dualPageStackView.frameCenterRotation = 0;
+        
+        return frameSize;
     }
     
     override func mouseUp(theEvent: NSEvent) {
@@ -537,9 +570,6 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
                 readerWindow.setFrame(NSRect(x: 0, y: 0, width: width, height: height), display: false);
             }
             
-            print(leftImageSize);
-            print(rightImageSize);
-            
             // Center the window
             readerWindow.center();
         }
@@ -599,6 +629,9 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         
         // Stop the mouse hover timer
         mouseHoverHandlingTimer.invalidate();
+        
+        // Stop monitoring the trackpad
+        readerImageScrollView.removeAllMonitors();
         
         // Post the notification to update the percent finished
         NSNotificationCenter.defaultCenter().postNotificationName("KMMangaGridCollectionItem.UpdatePercentFinished", object: manga);

@@ -564,6 +564,18 @@
                                                 </items>
                                             </menu>
                                         </menuItem>
+                                        <menuItem title="Rotation" id="sht-xK-DHX">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Rotation" id="1BG-Vy-6jW">
+                                                <items>
+                                                    <menuItem title="Rotate 90° Left" keyEquivalent="" id="gFO-wg-Zau"/>
+                                                    <menuItem title="Rotate 90° Right" keyEquivalent="" id="LKJ-lI-IVu"/>
+                                                    <menuItem title="Reset Rotation" keyEquivalent="0" id="d3R-ml-bIM">
+                                                        <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -665,7 +677,10 @@ CA
                         <outlet property="markSelectedAsUnreadMenuItem" destination="6KB-cw-D9H" id="uJr-51-3Di"/>
                         <outlet property="nextPageMenubarItem" destination="8P2-Bj-ZHO" id="maC-a5-1g2"/>
                         <outlet property="previousPageMenubarItem" destination="lL1-EK-QfJ" id="pyL-3Y-eLp"/>
+                        <outlet property="readerResetRotationMenuItem" destination="d3R-ml-bIM" id="8Mx-J3-c3a"/>
                         <outlet property="readerResetZoomMenuItem" destination="WdO-rv-NoZ" id="csh-Gc-714"/>
+                        <outlet property="readerRotateNinetyDegressLeftMenuItem" destination="gFO-wg-Zau" id="gei-r4-FhH"/>
+                        <outlet property="readerRotateNinetyDegressRightMenuItem" destination="LKJ-lI-IVu" id="RjD-XT-WGa"/>
                         <outlet property="readerZoomInMenuItem" destination="oBr-Xd-mDH" id="JDA-9z-BxA"/>
                         <outlet property="readerZoomOutMenuItem" destination="X52-F4-IEN" id="GIZ-mj-hg8"/>
                         <outlet property="setSelectedItemsPropertiesMenuItems" destination="XZ3-5Y-udD" id="n3h-bF-9ZD"/>
@@ -1276,7 +1291,7 @@ CA
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" allowsMagnification="YES" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6tg-Uu-vMc" userLabel="Pages Container" customClass="KMReaderScrollView" customModule="Komikan" customModuleProvider="target">
+                            <scrollView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" allowsMagnification="YES" minMagnification="1" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6tg-Uu-vMc" userLabel="Pages Container" customClass="KMReaderScrollView" customModule="Komikan" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                 <clipView key="contentView" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" drawsBackground="NO" copiesOnScroll="NO" id="HQf-3R-beY">
                                     <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
@@ -1296,7 +1311,7 @@ CA
                                                             <rect key="frame" x="0.0" y="0.0" width="240" height="270"/>
                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="right" imageScaling="proportionallyUpOrDown" id="5FT-Ch-kxe"/>
                                                         </imageView>
-                                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dMo-Mj-DAm" userLabel="Right Page" customClass="KMDraggableImageView" customModule="Komikan" customModuleProvider="target">
+                                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="dMo-Mj-DAm" userLabel="Right Page" customClass="KMDraggableImageView" customModule="Komikan" customModuleProvider="target">
                                                             <rect key="frame" x="240" y="0.0" width="240" height="270"/>
                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="proportionallyUpOrDown" id="XKX-oY-Phq"/>
                                                         </imageView>
@@ -1335,9 +1350,13 @@ CA
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="LFP-Yr-2si" firstAttribute="leading" secondItem="HQf-3R-beY" secondAttribute="leading" id="CsV-ls-FaZ"/>
+                                        <constraint firstItem="LFP-Yr-2si" firstAttribute="top" secondItem="HQf-3R-beY" secondAttribute="top" id="FRf-JV-DNN"/>
+                                        <constraint firstAttribute="bottom" secondItem="LFP-Yr-2si" secondAttribute="bottom" id="GC9-Bf-9Ww"/>
                                         <constraint firstAttribute="bottom" secondItem="LFP-Yr-2si" secondAttribute="bottom" id="HVl-5a-2Zk"/>
                                         <constraint firstItem="LFP-Yr-2si" firstAttribute="top" secondItem="HQf-3R-beY" secondAttribute="top" id="LbW-Jh-enw"/>
                                         <constraint firstAttribute="trailing" secondItem="LFP-Yr-2si" secondAttribute="trailing" id="UR1-Xp-l07"/>
+                                        <constraint firstAttribute="trailing" secondItem="LFP-Yr-2si" secondAttribute="trailing" id="vJS-R4-i2l"/>
+                                        <constraint firstItem="LFP-Yr-2si" firstAttribute="leading" secondItem="HQf-3R-beY" secondAttribute="leading" id="wUk-cb-KUG"/>
                                     </constraints>
                                 </clipView>
                                 <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="E0b-md-EId">
@@ -1345,7 +1364,7 @@ CA
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="6vR-dx-5nf">
-                                    <rect key="frame" x="465" y="0.0" width="15" height="270"/>
+                                    <rect key="frame" x="464" y="0.0" width="16" height="270"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
@@ -1700,8 +1719,8 @@ CA
                                                                                 <action selector="leftButtonPressed:" target="gK1-KK-qKY" id="rvo-ga-apM"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pCF-iW-ENV" userLabel="Thumbnail Three">
-                                                                            <rect key="frame" x="270" y="5" width="130" height="130"/>
+                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="pCF-iW-ENV" userLabel="Thumbnail Three">
+                                                                            <rect key="frame" x="267" y="5" width="130" height="130"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="130" id="Y7Q-fE-5DE"/>
                                                                             </constraints>
@@ -1713,8 +1732,8 @@ CA
                                                                                 <action selector="rightButtonPressed:" target="gK1-KK-qKY" id="ssE-rd-3VL"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KzL-ne-Kcc" userLabel="Thumbnail Two">
-                                                                            <rect key="frame" x="138" y="5" width="130" height="130"/>
+                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="KzL-ne-Kcc" userLabel="Thumbnail Two">
+                                                                            <rect key="frame" x="136" y="5" width="130" height="130"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="130" id="HCf-g0-zVY"/>
                                                                             </constraints>

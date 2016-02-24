@@ -74,6 +74,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     /// The Manga/Magnification/Reset Zoom menu item
     @IBOutlet weak var readerResetZoomMenuItem: NSMenuItem!
     
+    /// The Manga/Rotation/Rotate 90° Left
+    @IBOutlet weak var readerRotateNinetyDegressLeftMenuItem: NSMenuItem!
+    
+    /// The Manga/Rotation/Rotate 90° Right
+    @IBOutlet weak var readerRotateNinetyDegressRightMenuItem: NSMenuItem!
+    
+    /// The Manga/Rotation/Reset Rotation
+    @IBOutlet weak var readerResetRotationMenuItem: NSMenuItem!
+    
     /// The view controller we will load for the reader
     var mangaReaderViewController: KMReaderViewController?;
     
@@ -94,7 +103,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     
     /// The download controller for downloading from E-Hentai and ExHentai
     var ehDownloadController : KMEHDownloadController = KMEHDownloadController();
-
     
     /// An Int that indicates what modifier keys are being held(These are defined by NSEvent, not me)
     var modifierValue : Int = 0;

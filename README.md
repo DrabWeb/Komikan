@@ -46,6 +46,7 @@ Requires at least OSX 10.10 Yosemite. Tested on OSX 10.11 El Capitan
 > * Dual page(LtR and RtL)
 > * Thumbnail based page jumping
 > * Zoom in and out
+> * Page rotation
 > * Fast
 > * Fit window to Page size
 

@@ -21,11 +21,14 @@ class KMReaderScrollView: NSScrollView {
         // Drawing code here.
     }
     
+    /// The monitor for the local magnify event
+    var magnifyMonitor : AnyObject?;
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder);
         
         // Subscribe to the magnify event
-        NSEvent.addLocalMonitorForEventsMatchingMask(NSEventMask.EventMaskMagnify, handler: magnifyEvent);
+        magnifyMonitor = NSEvent.addLocalMonitorForEventsMatchingMask(NSEventMask.EventMaskMagnify, handler: magnifyEvent);
     }
     
     func magnifyEvent(event: NSEvent) -> NSEvent {
@@ -34,6 +37,12 @@ class KMReaderScrollView: NSScrollView {
         
         // Return the event
         return event;
+    }
+    
+    /// Destroys all the NSEvent monitors for this window
+    func removeAllMonitors() {
+        // Remove the monitors
+        NSEvent.removeMonitor(magnifyMonitor!);
     }
     
     /// The reader view controller we want to flip pages for
