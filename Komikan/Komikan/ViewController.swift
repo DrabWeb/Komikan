@@ -150,11 +150,8 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Hide the window so we dont see any ugly loading "artifacts"
         window.alphaValue = 0;
         
-        var collectionItem = storyboard?.instantiateControllerWithIdentifier("mangaCollectionViewItem") as? NSCollectionViewItem;
-        collectionItem?.view.frame = NSRect(x: 0, y: 0, width: 100, height: 100);
-        
         // Set the collections views item prototype to the collection view item we created in Main.storyboard
-        mangaCollectionView.itemPrototype = collectionItem;
+        mangaCollectionView.itemPrototype = storyboard?.instantiateControllerWithIdentifier("mangaCollectionViewItem") as? NSCollectionViewItem;
         
         // Set the addFromEHMenuItem menu items action
         (NSApplication.sharedApplication().delegate as! AppDelegate).addFromEHMenuItem.action = Selector("showAddFromEHPopover");
