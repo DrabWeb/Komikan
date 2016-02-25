@@ -837,6 +837,9 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         // Stop the mouse hover handling timer
         mouseHoverHandlingTimer.invalidate();
         
+        // Say we are closing the view(This is a cheap way to make sure the cursor doesnt hide)
+        closingView = true;
+        
         // Fade out the titlebar and reader panels
         fadeOutTitlebar();
         
@@ -875,6 +878,9 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         
         // Stop listening for the escape key
         NSEvent.removeMonitor(pageJumpKeyListener!);
+        
+        // Say we arent closing the view(Stop the cheap tricks)
+        closingView = false;
         
         // Restart the 0.1 second loop for the mouse hovering
         mouseHoverHandlingTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("mouseHoverHandling"), userInfo: nil, repeats:true);

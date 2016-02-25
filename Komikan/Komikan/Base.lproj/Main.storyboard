@@ -1109,7 +1109,7 @@ CA
                                     </customView>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Sd3-VI-dow" userLabel="Name Label">
                                         <rect key="frame" x="18" y="134" width="364" height="30"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Komikan v1.1" id="4AP-PO-myS">
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Komikan v1.1.1" id="4AP-PO-myS">
                                             <font key="font" metaFont="systemThin" size="25"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1297,14 +1297,14 @@ CA
                                     <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <view horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="LFP-Yr-2si">
-                                            <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                                        <view horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LFP-Yr-2si">
+                                            <rect key="frame" x="0.0" y="16" width="480" height="270"/>
                                             <subviews>
-                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Ui2-6j-ybs" customClass="KMDraggableImageView" customModule="Komikan" customModuleProvider="target">
+                                                <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Ui2-6j-ybs" customClass="KMDraggableImageView" customModule="Komikan" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="example-cover" id="D4R-Z6-mAb"/>
                                                 </imageView>
-                                                <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6uu-3X-D41" userLabel="Double Page Stack View">
+                                                <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6uu-3X-D41" userLabel="Double Page Stack View">
                                                     <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                                     <subviews>
                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="fri-7a-35C" userLabel="Left Page" customClass="KMDraggableImageView" customModule="Komikan" customModuleProvider="target">
@@ -1317,14 +1317,14 @@ CA
                                                         </imageView>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="bottom" secondItem="fri-7a-35C" secondAttribute="bottom" id="34A-NA-8Ba"/>
-                                                        <constraint firstItem="dMo-Mj-DAm" firstAttribute="top" secondItem="6uu-3X-D41" secondAttribute="top" id="4pX-YG-7dC"/>
-                                                        <constraint firstItem="fri-7a-35C" firstAttribute="leading" secondItem="6uu-3X-D41" secondAttribute="leading" id="EX4-MD-JBK"/>
-                                                        <constraint firstAttribute="bottom" secondItem="dMo-Mj-DAm" secondAttribute="bottom" id="F92-Mk-Mky"/>
-                                                        <constraint firstItem="fri-7a-35C" firstAttribute="top" secondItem="6uu-3X-D41" secondAttribute="top" id="HkQ-g0-LoZ"/>
-                                                        <constraint firstItem="dMo-Mj-DAm" firstAttribute="leading" secondItem="fri-7a-35C" secondAttribute="trailing" id="Rbr-86-ApH"/>
-                                                        <constraint firstItem="dMo-Mj-DAm" firstAttribute="leading" secondItem="fri-7a-35C" secondAttribute="trailing" id="Xed-eI-Edf"/>
-                                                        <constraint firstAttribute="trailing" secondItem="dMo-Mj-DAm" secondAttribute="trailing" id="giK-yR-YtV"/>
+                                                        <constraint firstAttribute="bottom" secondItem="dMo-Mj-DAm" secondAttribute="bottom" id="3EI-dh-GkS"/>
+                                                        <constraint firstItem="fri-7a-35C" firstAttribute="top" secondItem="6uu-3X-D41" secondAttribute="top" id="3xX-Jz-0BE"/>
+                                                        <constraint firstItem="dMo-Mj-DAm" firstAttribute="top" secondItem="6uu-3X-D41" secondAttribute="top" id="Aj7-Qg-zg3"/>
+                                                        <constraint firstAttribute="trailing" secondItem="dMo-Mj-DAm" secondAttribute="trailing" id="BRR-f6-Pph"/>
+                                                        <constraint firstAttribute="bottom" secondItem="fri-7a-35C" secondAttribute="bottom" id="CXe-0J-7XU"/>
+                                                        <constraint firstItem="fri-7a-35C" firstAttribute="leading" secondItem="6uu-3X-D41" secondAttribute="leading" id="KuH-s9-seR"/>
+                                                        <constraint firstItem="dMo-Mj-DAm" firstAttribute="leading" secondItem="fri-7a-35C" secondAttribute="trailing" id="Qh7-FV-824"/>
+                                                        <constraint firstItem="dMo-Mj-DAm" firstAttribute="leading" secondItem="fri-7a-35C" secondAttribute="trailing" id="UgQ-Sf-zdp"/>
                                                     </constraints>
                                                     <visibilityPriorities>
                                                         <integer value="1000"/>
@@ -1337,33 +1337,29 @@ CA
                                                 </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="6uu-3X-D41" secondAttribute="bottom" id="66q-pJ-F1D"/>
-                                                <constraint firstItem="6uu-3X-D41" firstAttribute="leading" secondItem="LFP-Yr-2si" secondAttribute="leading" id="7xz-ZF-1E2"/>
-                                                <constraint firstAttribute="trailing" secondItem="Ui2-6j-ybs" secondAttribute="trailing" id="GmT-EW-7Tt"/>
-                                                <constraint firstItem="Ui2-6j-ybs" firstAttribute="leading" secondItem="LFP-Yr-2si" secondAttribute="leading" id="KUg-0f-J01"/>
-                                                <constraint firstAttribute="trailing" secondItem="6uu-3X-D41" secondAttribute="trailing" id="bAq-Si-CcS"/>
-                                                <constraint firstItem="Ui2-6j-ybs" firstAttribute="top" secondItem="LFP-Yr-2si" secondAttribute="top" id="hDn-dT-HfH"/>
-                                                <constraint firstAttribute="bottom" secondItem="Ui2-6j-ybs" secondAttribute="bottom" id="lEC-Ym-Lal"/>
-                                                <constraint firstItem="6uu-3X-D41" firstAttribute="top" secondItem="LFP-Yr-2si" secondAttribute="top" id="oME-WM-PXL"/>
+                                                <constraint firstItem="6uu-3X-D41" firstAttribute="top" secondItem="LFP-Yr-2si" secondAttribute="top" id="CmC-xB-WiK"/>
+                                                <constraint firstItem="6uu-3X-D41" firstAttribute="leading" secondItem="LFP-Yr-2si" secondAttribute="leading" id="RZo-x4-aY7"/>
+                                                <constraint firstAttribute="bottom" secondItem="Ui2-6j-ybs" secondAttribute="bottom" id="diE-zN-pAm"/>
+                                                <constraint firstAttribute="bottom" secondItem="6uu-3X-D41" secondAttribute="bottom" id="dvQ-e7-Ddm"/>
+                                                <constraint firstAttribute="trailing" secondItem="Ui2-6j-ybs" secondAttribute="trailing" id="joV-1e-Evt"/>
+                                                <constraint firstAttribute="trailing" secondItem="6uu-3X-D41" secondAttribute="trailing" id="qmX-8a-Gs8"/>
+                                                <constraint firstItem="Ui2-6j-ybs" firstAttribute="leading" secondItem="LFP-Yr-2si" secondAttribute="leading" id="v3I-HH-291"/>
+                                                <constraint firstItem="Ui2-6j-ybs" firstAttribute="top" secondItem="LFP-Yr-2si" secondAttribute="top" id="z4P-Rw-13s"/>
                                             </constraints>
                                         </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="LFP-Yr-2si" firstAttribute="leading" secondItem="HQf-3R-beY" secondAttribute="leading" id="CsV-ls-FaZ"/>
-                                        <constraint firstItem="LFP-Yr-2si" firstAttribute="top" secondItem="HQf-3R-beY" secondAttribute="top" id="FRf-JV-DNN"/>
-                                        <constraint firstAttribute="bottom" secondItem="LFP-Yr-2si" secondAttribute="bottom" id="GC9-Bf-9Ww"/>
-                                        <constraint firstAttribute="bottom" secondItem="LFP-Yr-2si" secondAttribute="bottom" id="HVl-5a-2Zk"/>
-                                        <constraint firstItem="LFP-Yr-2si" firstAttribute="top" secondItem="HQf-3R-beY" secondAttribute="top" id="LbW-Jh-enw"/>
-                                        <constraint firstAttribute="trailing" secondItem="LFP-Yr-2si" secondAttribute="trailing" id="UR1-Xp-l07"/>
-                                        <constraint firstAttribute="trailing" secondItem="LFP-Yr-2si" secondAttribute="trailing" id="vJS-R4-i2l"/>
-                                        <constraint firstItem="LFP-Yr-2si" firstAttribute="leading" secondItem="HQf-3R-beY" secondAttribute="leading" id="wUk-cb-KUG"/>
+                                        <constraint firstAttribute="trailing" secondItem="LFP-Yr-2si" secondAttribute="trailing" id="nAK-Cz-Oeb"/>
+                                        <constraint firstItem="LFP-Yr-2si" firstAttribute="leading" secondItem="HQf-3R-beY" secondAttribute="leading" id="sGt-7f-LlY"/>
+                                        <constraint firstAttribute="bottom" secondItem="LFP-Yr-2si" secondAttribute="bottom" id="tfp-Pc-SkU"/>
+                                        <constraint firstItem="LFP-Yr-2si" firstAttribute="top" secondItem="HQf-3R-beY" secondAttribute="top" id="vvM-wI-yeD"/>
                                     </constraints>
                                 </clipView>
                                 <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="E0b-md-EId">
                                     <rect key="frame" x="0.0" y="254" width="480" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="6vR-dx-5nf">
+                                <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="6vR-dx-5nf">
                                     <rect key="frame" x="464" y="0.0" width="16" height="270"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -1790,7 +1786,7 @@ CA
                                             <constraint firstAttribute="width" constant="405" id="AvR-Kw-IMJ"/>
                                         </constraints>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="bWV-fS-DV2">
-                                            <rect key="frame" x="0.0" y="254" width="310" height="16"/>
+                                            <rect key="frame" x="0.0" y="254" width="405" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="hKR-Pk-qGD">
@@ -1809,19 +1805,19 @@ CA
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="eRx-Sv-XZm" secondAttribute="trailing" id="3Hx-xt-Ypz"/>
                             <constraint firstAttribute="bottom" secondItem="KGp-UH-dRu" secondAttribute="bottom" constant="20" id="5gL-FS-BCl"/>
-                            <constraint firstAttribute="trailing" secondItem="6tg-Uu-vMc" secondAttribute="trailing" id="D4i-xy-tX4"/>
                             <constraint firstItem="KGp-UH-dRu" firstAttribute="centerX" secondItem="NNO-Yh-cxl" secondAttribute="centerX" id="Nf1-rc-HAH"/>
                             <constraint firstItem="nVv-Ns-s6i" firstAttribute="top" secondItem="NNO-Yh-cxl" secondAttribute="top" id="OdE-Vj-kF4"/>
                             <constraint firstItem="td9-P8-Stw" firstAttribute="centerX" secondItem="NNO-Yh-cxl" secondAttribute="centerX" id="RHX-Kz-Unx"/>
+                            <constraint firstItem="6tg-Uu-vMc" firstAttribute="leading" secondItem="NNO-Yh-cxl" secondAttribute="leading" id="URd-5H-1Mp"/>
+                            <constraint firstAttribute="bottom" secondItem="6tg-Uu-vMc" secondAttribute="bottom" id="Yiv-Dp-1Eu"/>
                             <constraint firstAttribute="bottom" secondItem="td9-P8-Stw" secondAttribute="bottom" constant="20" id="aLE-zX-m0B"/>
-                            <constraint firstItem="6tg-Uu-vMc" firstAttribute="top" secondItem="NNO-Yh-cxl" secondAttribute="top" id="evW-lD-fw1"/>
                             <constraint firstItem="eRx-Sv-XZm" firstAttribute="top" secondItem="NNO-Yh-cxl" secondAttribute="top" id="f4y-OG-XCO"/>
+                            <constraint firstItem="6tg-Uu-vMc" firstAttribute="top" secondItem="NNO-Yh-cxl" secondAttribute="top" id="i5D-gd-rbz"/>
                             <constraint firstAttribute="bottom" secondItem="nVv-Ns-s6i" secondAttribute="bottom" id="n9h-mJ-QvX"/>
                             <constraint firstItem="nVv-Ns-s6i" firstAttribute="leading" secondItem="NNO-Yh-cxl" secondAttribute="leading" id="rfh-1p-Abz"/>
                             <constraint firstAttribute="trailing" secondItem="nVv-Ns-s6i" secondAttribute="trailing" id="stg-CY-s5E"/>
-                            <constraint firstAttribute="bottom" secondItem="6tg-Uu-vMc" secondAttribute="bottom" id="t84-fS-EZR"/>
+                            <constraint firstAttribute="trailing" secondItem="6tg-Uu-vMc" secondAttribute="trailing" id="uuf-5W-0rd"/>
                             <constraint firstItem="eRx-Sv-XZm" firstAttribute="leading" secondItem="NNO-Yh-cxl" secondAttribute="leading" id="ygX-7X-o4s"/>
-                            <constraint firstItem="6tg-Uu-vMc" firstAttribute="leading" secondItem="NNO-Yh-cxl" secondAttribute="leading" id="zD5-sk-Z5I"/>
                         </constraints>
                     </view>
                     <connections>
@@ -1888,7 +1884,7 @@ CA
                                             <rect key="frame" x="1" y="144" width="233" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="0wb-fr-0cq">
+                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.96739245545833563" horizontal="NO" id="0wb-fr-0cq">
                                             <rect key="frame" x="624" y="37" width="16" height="443"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
