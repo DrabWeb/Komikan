@@ -961,17 +961,17 @@ CA
                                                 </view>
                                             </tabViewItem>
                                             <tabViewItem label="Reader" identifier="" id="qtf-0k-TVN">
-                                                <view key="view" id="MF5-q5-qyw">
+                                                <view key="view" ambiguous="YES" id="MF5-q5-qyw">
                                                     <rect key="frame" x="10" y="33" width="434" height="186"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="IsT-t8-BZ5">
+                                                        <button ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IsT-t8-BZ5">
                                                             <rect key="frame" x="15" y="167" width="311" height="18"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="307" id="2dB-Um-1OD"/>
                                                                 <constraint firstAttribute="height" constant="14" id="ZOd-xG-urs"/>
                                                             </constraints>
-                                                            <buttonCell key="cell" type="check" title="Drag window by background without holding alt" bezelStyle="regularSquare" imagePosition="left" inset="2" id="dNK-5u-UwD">
+                                                            <buttonCell key="cell" type="check" title="Drag window by background without holding alt" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="dNK-5u-UwD">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
@@ -1359,7 +1359,7 @@ CA
                                     <rect key="frame" x="0.0" y="254" width="480" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="6vR-dx-5nf">
+                                <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="6vR-dx-5nf">
                                     <rect key="frame" x="464" y="0.0" width="16" height="270"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -1884,7 +1884,7 @@ CA
                                             <rect key="frame" x="1" y="144" width="233" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.96739245545833563" horizontal="NO" id="0wb-fr-0cq">
+                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="0wb-fr-0cq">
                                             <rect key="frame" x="624" y="37" width="16" height="443"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
@@ -2422,7 +2422,7 @@ CA
                         <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3D5-uK-2Mo" userLabel="Selection Box" customClass="KMMangaGridSelectionBox" customModule="Komikan" customModuleProvider="target">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="3D5-uK-2Mo" userLabel="Selection Box" customClass="KMMangaGridSelectionBox" customModule="Komikan" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                                 <connections>
                                     <binding destination="H6C-sh-Guu" name="hidden" keyPath="self.selected" id="CTE-GC-H9g">
@@ -2466,15 +2466,23 @@ AwEVARgBHQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAEfA
                                     <binding destination="H6C-sh-Guu" name="value" keyPath="representedObject.title" id="K6n-xw-uLE"/>
                                 </connections>
                             </textField>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1wg-Fd-ohZ" userLabel="Unread Marker Image View">
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1wg-Fd-ohZ" userLabel="Unread Marker Image View">
                                 <rect key="frame" x="240" y="240" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Biw-lk-eBQ"/>
+                                    <constraint firstAttribute="width" constant="40" id="N29-86-Zwd"/>
+                                </constraints>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="Unread Marker" id="ugL-9C-lck"/>
                                 <connections>
                                     <binding destination="H6C-sh-Guu" name="hidden" keyPath="representedObject.read" id="4qw-N0-eGu"/>
                                 </connections>
                             </imageView>
-                            <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JMo-rN-38T" userLabel="Progress Percent">
+                            <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JMo-rN-38T" userLabel="Progress Percent">
                                 <rect key="frame" x="238" y="252" width="44" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="HEm-i8-qD7"/>
+                                    <constraint firstAttribute="height" constant="17" id="RXL-IH-RoK"/>
+                                </constraints>
                                 <shadow key="shadow" blurRadius="1">
                                     <size key="offset" width="0.0" height="1"/>
                                     <color key="color" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
@@ -2492,9 +2500,17 @@ AwEVARgBHQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAEfA
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Fsn-as-jfw" secondAttribute="trailing" constant="12" id="0hs-J9-lkl"/>
+                            <constraint firstAttribute="trailing" secondItem="3D5-uK-2Mo" secondAttribute="trailing" id="15Y-WI-lce"/>
+                            <constraint firstItem="3D5-uK-2Mo" firstAttribute="top" secondItem="s6v-rn-nM4" secondAttribute="top" id="1rH-wQ-iXJ"/>
                             <constraint firstItem="Fsn-as-jfw" firstAttribute="leading" secondItem="s6v-rn-nM4" secondAttribute="leading" constant="12" id="8EY-73-Mwc"/>
+                            <constraint firstItem="JMo-rN-38T" firstAttribute="top" secondItem="s6v-rn-nM4" secondAttribute="top" constant="31" id="BJ2-Pg-Oq9"/>
+                            <constraint firstItem="3D5-uK-2Mo" firstAttribute="leading" secondItem="s6v-rn-nM4" secondAttribute="leading" id="ElX-0U-V7O"/>
+                            <constraint firstAttribute="bottom" secondItem="3D5-uK-2Mo" secondAttribute="bottom" id="Goi-pn-ib9"/>
+                            <constraint firstAttribute="trailing" secondItem="1wg-Fd-ohZ" secondAttribute="trailing" constant="20" id="JPF-Sr-Vi9"/>
                             <constraint firstItem="eTX-po-Lb6" firstAttribute="leading" secondItem="s6v-rn-nM4" secondAttribute="leading" constant="12" id="X5w-f9-qd8"/>
+                            <constraint firstItem="1wg-Fd-ohZ" firstAttribute="top" secondItem="s6v-rn-nM4" secondAttribute="top" constant="20" id="ZoX-y0-K5P"/>
                             <constraint firstItem="eTX-po-Lb6" firstAttribute="top" secondItem="s6v-rn-nM4" secondAttribute="top" constant="12" id="f8I-hc-8Y3"/>
+                            <constraint firstAttribute="trailing" secondItem="JMo-rN-38T" secondAttribute="trailing" constant="20" id="pNq-uj-Shc"/>
                             <constraint firstItem="Fsn-as-jfw" firstAttribute="top" secondItem="eTX-po-Lb6" secondAttribute="bottom" constant="12" id="pjw-lG-RSh"/>
                             <constraint firstAttribute="trailing" secondItem="eTX-po-Lb6" secondAttribute="trailing" constant="12" id="ugq-ab-zWk"/>
                             <constraint firstAttribute="bottom" secondItem="Fsn-as-jfw" secondAttribute="bottom" constant="12" id="zoG-iw-gxP"/>

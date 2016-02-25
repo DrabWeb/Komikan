@@ -25,5 +25,5 @@ class KMPreferencesKeeper {
     var distractionFreeModeDimAmount : CGFloat = 0.4;
     
     /// Should the user be allowed to drag the reader window by the backround without holding alt?
-    var dragReaderWindowByBackgroundWithoutHoldingAlt : Bool = false;
+    var dragReaderWindowByBackgroundWithoutHoldingAlt : Bool = true;
 }
