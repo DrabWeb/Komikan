@@ -1661,7 +1661,7 @@ CA
                                     <constraint firstAttribute="width" constant="440" id="yUB-Pj-IY6"/>
                                 </constraints>
                             </customView>
-                            <visualEffectView appearanceType="vibrantDark" blendingMode="withinWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="nVv-Ns-s6i" userLabel="Page Thumbnail Background Visual Effect View">
+                            <visualEffectView hidden="YES" appearanceType="vibrantDark" blendingMode="withinWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="nVv-Ns-s6i" userLabel="Page Thumbnail Background Visual Effect View">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                 <subviews>
                                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="142" horizontalPageScroll="10" verticalLineScroll="142" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXD-aQ-FWt" userLabel="Scroll View - Page Jump Table View">
