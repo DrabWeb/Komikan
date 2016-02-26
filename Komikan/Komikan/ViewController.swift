@@ -253,6 +253,8 @@ class ViewController: NSViewController, NSTabViewDelegate {
         
         // Subscribe to the application's preferences saved notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadPreferenceValues", name:"Application.PreferencesLoaded", object: nil);
+        
+        print(mangaGridController.countOfTag("Comedy"));
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {

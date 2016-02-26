@@ -37,3 +37,32 @@ extension String {
         return boolean;
     }
 }
+
+extension Array {
+    /// Returns how many times the given string occurs in the array(Only works with [String])
+    func occurenceCountOf(string : String) -> Int {
+        /// How many times the passed element occured in the array
+        var occurenceCount : Int = 0;
+        
+        // If the first element in the array is not a string...
+        if((self[0] as? String) == nil) {
+            // Tell the developer that this is not the right kind of array
+            print("Unsupported array \"" + String(self) + "\"");
+            
+            // Return 0
+            return 0;
+        }
+        
+        // For every element in this array...
+        for(_, currentString) in self.enumerate() {
+            // If the current string is equal to the string we are trying to search for...
+            if((currentString as? String) == string) {
+                // Add 1 to the occurence count
+                occurenceCount++;
+            }
+        }
+        
+        // Return the occurence count
+        return occurenceCount;
+    }
+}

@@ -193,6 +193,21 @@ class KMMangaGridController: NSObject {
         return series;
     }
     
+    /// Returns the amount of manga that are in the guven series
+    func countOfSeries(series : String) -> Int {
+        /// All the series
+        var allSeries : [String] = [];
+        
+        // For every item in the grid items...
+        for(_, currentGridItem) in gridItems.enumerate() {
+            // Add the current series
+            allSeries.append(currentGridItem.manga.series);
+        }
+        
+        // Return the count of the passed series in all the series
+        return allSeries.occurenceCountOf(series);
+    }
+    
     /// Retuns all the artists the user has in their collection
     func allArtists() -> [String] {
         /// The array of strings that we will return at the end of the function to say what all the artists are
@@ -211,6 +226,21 @@ class KMMangaGridController: NSObject {
         return artists;
     }
     
+    /// Returns the amount of manga that are drawn by the given artist
+    func countOfArtist(writer : String) -> Int {
+        /// All the artists
+        var artists : [String] = [];
+        
+        // For every item in the grid items...
+        for(_, currentGridItem) in gridItems.enumerate() {
+            // Add the current artist
+            artists.append(currentGridItem.manga.artist);
+        }
+        
+        // Return the count of the passed artist in all the artists
+        return artists.occurenceCountOf(writer);
+    }
+    
     /// Retuns all the writers the user has in their collection
     func allWriters() -> [String] {
         /// The array of strings that we will return at the end of the function to say what all the writers are
@@ -227,6 +257,21 @@ class KMMangaGridController: NSObject {
         
         // Return the writers
         return writers;
+    }
+    
+    /// Returns the amount of manga that are written by the given writer
+    func countOfWriter(writer : String) -> Int {
+        /// All the writers
+        var writers : [String] = [];
+        
+        // For every item in the grid items...
+        for(_, currentGridItem) in gridItems.enumerate() {
+            // Add the current writer
+            writers.append(currentGridItem.manga.writer);
+        }
+        
+        // Return the count of the passed writer in all the writers
+        return writers.occurenceCountOf(writer);
     }
     
     /// Retuns all the tags the user has in their collection
@@ -250,6 +295,24 @@ class KMMangaGridController: NSObject {
         return tags;
     }
     
+    /// Returns the amount of manga that have the given tag
+    func countOfTag(tag : String) -> Int {
+        /// All the tags
+        var tags : [String] = [];
+        
+        // For every item in the grid items...
+        for(_, currentGridItem) in gridItems.enumerate() {
+            // For every tag in this item's tags...
+            for(_, currentTag) in currentGridItem.manga.tags.enumerate() {
+                // Add the current tag
+                tags.append(currentTag);
+            }
+        }
+        
+        // Return the count of the passed tag in all the tags
+        return tags.occurenceCountOf(tag);
+    }
+    
     /// Retuns all the groups the user has for their collection
     func allGroups() -> [String] {
         /// The array of strings that we will return at the end of the function to say what all the groups are
@@ -266,6 +329,21 @@ class KMMangaGridController: NSObject {
         
         // Return the groups
         return groups;
+    }
+    
+    /// Returns the amount of manga that are in the given group
+    func countOfGroup(group : String) -> Int {
+        /// All the groups
+        var groups : [String] = [];
+        
+        // For every item in the grid items...
+        for(_, currentGridItem) in gridItems.enumerate() {
+            // Add the current group
+            groups.append(currentGridItem.manga.group);
+        }
+        
+        // Return the count of the passed group in all the groups
+        return groups.occurenceCountOf(group);
     }
     
     // A bool to say if we are currently searching

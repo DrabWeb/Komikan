@@ -77,30 +77,45 @@ class KMSearchListViewController: NSViewController {
         for(_, currentSeries) in (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.allSeries().enumerate() {
             // Add the current series to the search list items
             searchListItems.append(KMSearchListItemData(name: currentSeries, type: KMPropertyType.Series));
+            
+            // Set the items count to the amount of times it's series appears
+            searchListItems.last!.count = (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.countOfSeries(currentSeries);
         }
         
         // For every artist the user has in the manga grid...
         for(_, currentArtist) in (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.allArtists().enumerate() {
             // Add the current artist to the search list items
             searchListItems.append(KMSearchListItemData(name: currentArtist, type: KMPropertyType.Artist));
+            
+            // Set the items count to the amount of times it's artist appears
+            searchListItems.last!.count = (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.countOfArtist(currentArtist);
         }
         
         // For every writer the user has in the manga grid...
         for(_, currentWriter) in (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.allWriters().enumerate() {
             // Add the current writer to the search list items
             searchListItems.append(KMSearchListItemData(name: currentWriter, type: KMPropertyType.Writer));
+            
+            // Set the items count to the amount of times it's writer appears
+            searchListItems.last!.count = (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.countOfWriter(currentWriter);
         }
         
         // For every tag the user has in the manga grid...
         for(_, currentTag) in (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.allTags().enumerate() {
             // Add the current tag to the search list items
             searchListItems.append(KMSearchListItemData(name: currentTag, type: KMPropertyType.Tags));
+            
+            // Set the items count to the amount of times it's tag appears
+            searchListItems.last!.count = (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.countOfTag(currentTag);
         }
         
         // For every group the user has in the manga grid...
         for(_, currentGroup) in (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.allGroups().enumerate() {
             // Add the current group to the search list items
             searchListItems.append(KMSearchListItemData(name: currentGroup, type: KMPropertyType.Group));
+            
+            // Set the items count to the amount of times it's group appears
+            searchListItems.last!.count = (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.countOfGroup(currentGroup);
         }
         
         // Reload the table view
@@ -290,8 +305,8 @@ extension KMSearchListViewController: NSTableViewDelegate {
             // Set the checkbox to be checked/unchecked based on if the cell view item is checked
             (cellView as? KMSearchListTableViewCell)?.checkbox.state = Int(searchListItemData.checked);
             
-            // Set the type label's string value to be this item's type
-            (cellView as? KMSearchListTableViewCell)?.typeLabel.stringValue = KMEnumUtilities().propertyTypeToString(searchListItemData.type!);
+            // Set the type label's string value to be this item's type with the count at the end in parenthesis
+            (cellView as? KMSearchListTableViewCell)?.typeLabel.stringValue = KMEnumUtilities().propertyTypeToString(searchListItemData.type!) + "(" + String(searchListItemData.count) + ")";
             
             // Set the cell views data so it can update it as it is changed
             (cellView as? KMSearchListTableViewCell)?.data = searchListItemData;

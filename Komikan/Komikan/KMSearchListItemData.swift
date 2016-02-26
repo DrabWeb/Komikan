@@ -15,6 +15,9 @@ class KMSearchListItemData: NSObject {
     /// Is this item checked off?
     var checked : Bool = true;
     
+    /// How many manga have this items property?
+    var count : Int = 0;
+    
     /// The type this item is
     var type : KMPropertyType?;
     
