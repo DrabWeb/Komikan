@@ -1360,7 +1360,7 @@ CA
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="6vR-dx-5nf">
-                                    <rect key="frame" x="465" y="0.0" width="15" height="270"/>
+                                    <rect key="frame" x="464" y="0.0" width="16" height="270"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
@@ -1661,7 +1661,7 @@ CA
                                     <constraint firstAttribute="width" constant="440" id="yUB-Pj-IY6"/>
                                 </constraints>
                             </customView>
-                            <visualEffectView hidden="YES" appearanceType="vibrantDark" blendingMode="withinWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="nVv-Ns-s6i" userLabel="Page Thumbnail Background Visual Effect View">
+                            <visualEffectView appearanceType="vibrantDark" blendingMode="withinWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="nVv-Ns-s6i" userLabel="Page Thumbnail Background Visual Effect View">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                 <subviews>
                                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="142" horizontalPageScroll="10" verticalLineScroll="142" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXD-aQ-FWt" userLabel="Scroll View - Page Jump Table View">
@@ -1702,11 +1702,15 @@ CA
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                         </textField>
-                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="QWq-Og-fBX" userLabel="Thumbnail One">
+                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="QWq-Og-fBX" userLabel="Thumbnail One" customClass="KMRasterizedButton" customModule="Komikan" customModuleProvider="target">
                                                                             <rect key="frame" x="5" y="5" width="130" height="130"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="130" id="zGU-WC-e4T"/>
                                                                             </constraints>
+                                                                            <shadow key="shadow" blurRadius="2">
+                                                                                <size key="offset" width="0.0" height="1"/>
+                                                                                <color key="color" white="0.0" alpha="0.50218750000000001" colorSpace="calibratedWhite"/>
+                                                                            </shadow>
                                                                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="example-cover" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="8ZY-BK-T14">
                                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                                 <font key="font" metaFont="system"/>
@@ -1715,11 +1719,15 @@ CA
                                                                                 <action selector="leftButtonPressed:" target="gK1-KK-qKY" id="rvo-ga-apM"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="pCF-iW-ENV" userLabel="Thumbnail Three">
+                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="pCF-iW-ENV" userLabel="Thumbnail Three" customClass="KMRasterizedButton" customModule="Komikan" customModuleProvider="target">
                                                                             <rect key="frame" x="267" y="5" width="130" height="130"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="130" id="Y7Q-fE-5DE"/>
                                                                             </constraints>
+                                                                            <shadow key="shadow" blurRadius="2">
+                                                                                <size key="offset" width="0.0" height="1"/>
+                                                                                <color key="color" white="0.0" alpha="0.50218750000000001" colorSpace="calibratedWhite"/>
+                                                                            </shadow>
                                                                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="example-cover" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="4xP-in-5Px">
                                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                                 <font key="font" metaFont="system"/>
@@ -1728,11 +1736,15 @@ CA
                                                                                 <action selector="rightButtonPressed:" target="gK1-KK-qKY" id="ssE-rd-3VL"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="KzL-ne-Kcc" userLabel="Thumbnail Two">
+                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="KzL-ne-Kcc" userLabel="Thumbnail Two" customClass="KMRasterizedButton" customModule="Komikan" customModuleProvider="target">
                                                                             <rect key="frame" x="136" y="5" width="130" height="130"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="130" id="HCf-g0-zVY"/>
                                                                             </constraints>
+                                                                            <shadow key="shadow" blurRadius="2">
+                                                                                <size key="offset" width="0.0" height="1"/>
+                                                                                <color key="color" white="0.0" alpha="0.50218750000000001" colorSpace="calibratedWhite"/>
+                                                                            </shadow>
                                                                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="example-cover" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="nWj-rb-qDA">
                                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                                 <font key="font" metaFont="system"/>
@@ -2431,7 +2443,7 @@ CA
         <scene sceneID="nsn-SP-i81">
             <objects>
                 <collectionViewItem storyboardIdentifier="mangaCollectionViewItem" id="H6C-sh-Guu" userLabel="Manga Grid Collection View Item" customClass="KMMangaGridCollectionItem" customModule="Komikan" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="s6v-rn-nM4">
+                    <view key="view" wantsLayer="YES" id="s6v-rn-nM4">
                         <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
@@ -2445,8 +2457,12 @@ CA
                                     </binding>
                                 </connections>
                             </customView>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eTX-po-Lb6" userLabel="Cover Image View">
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eTX-po-Lb6" userLabel="Cover Image View" customClass="KMRasterizedImageView" customModule="Komikan" customModuleProvider="target">
                                 <rect key="frame" x="12" y="41" width="276" height="247"/>
+                                <shadow key="shadow" blurRadius="10">
+                                    <size key="offset" width="0.0" height="-10"/>
+                                    <color key="color" white="0.0" alpha="0.39810096153846153" colorSpace="calibratedWhite"/>
+                                </shadow>
                                 <animations>
                                     <caTransition key="subviews">
                                         <mutableData key="keyedArchiveRepresentation">
