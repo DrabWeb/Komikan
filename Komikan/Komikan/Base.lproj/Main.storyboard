@@ -1965,7 +1965,7 @@ CA
                                     <constraint firstItem="9bU-fV-uIZ" firstAttribute="top" secondItem="bQW-e4-pbA" secondAttribute="top" id="jX9-QP-o0N"/>
                                 </constraints>
                             </customView>
-                            <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="xeH-9s-Llt" userLabel="Titlebar Visual Effect View">
+                            <visualEffectView appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="xeH-9s-Llt" userLabel="Titlebar Visual Effect View">
                                 <rect key="frame" x="0.0" y="443" width="640" height="37"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="foJ-v5-5cU" userLabel="Gradient" customClass="KMGradientView" customModule="Komikan" customModuleProvider="target">
@@ -1992,7 +1992,7 @@ CA
                                             <action selector="titlebarAddMangaButtonInteracted:" target="XfG-lQ-9wD" id="NEz-tp-e5e"/>
                                         </connections>
                                     </button>
-                                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="y9e-nS-8mf" userLabel="Search Text Field">
+                                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="y9e-nS-8mf" userLabel="Search Text Field" customClass="KMAlwaysActiveTextField" customModule="Komikan" customModuleProvider="target">
                                         <rect key="frame" x="483" y="7" width="150" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="150" id="NHb-Br-ojI"/>
