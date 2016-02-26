@@ -137,6 +137,10 @@ exhentai_dl() {
  
     done 3< $image_tuples
 
+    first_page=$(ls "/tmp/edownload/$gallery_name" | sort -n | head -1)
+
+    mv "$first_page" "$HOME/Library/Application Support/Komikan/newehcover.jpg"
+
     zipup
 
     popd

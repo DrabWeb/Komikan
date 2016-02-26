@@ -27,6 +27,21 @@ class KMEHDownloadController : NSObject {
         // Prin to the log what item was added to the queue
         print("Added \"" + item.url + "\" to queue");
         
+        // Create the new notification to tell the user the download has been queued
+        let queuedNotification = NSUserNotification();
+        
+        // Set the title
+        queuedNotification.title = "Komikan";
+        
+        // Set the informative text
+        queuedNotification.informativeText = "Added \"" + item.url + "\" to the download queue";
+        
+        // Set the notifications identifier to be an obscure string, so we can show multiple at once
+        queuedNotification.identifier = NSUUID().UUIDString;
+        
+        // Deliver the notification
+        NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(queuedNotification);
+        
         // Add this item to the end of downloadQueue
         downloadQueue.append(item);
         
@@ -128,7 +143,10 @@ class KMEHDownloadController : NSObject {
         }
         
         // Set the mangas cover image
-        item.manga.coverImage = NSImage(contentsOfURL: NSURL(string: newMangaJson["gmetadata"][0]["thumb"].stringValue)!)!;
+        item.manga.coverImage = NSImage(contentsOfURL: NSURL(fileURLWithPath: NSHomeDirectory() + "/Library/Application Support/Komikan/newehcover.jpg"))!;
+        
+        // Resize the cover image to be compressed for faster loading
+        item.manga.coverImage = item.manga.coverImage.resizeToHeight(400);
         
         // Set the mangas tags
         item.manga.tags = (newMangaJson["gmetadata"][0]["tags"].arrayObject as? [String])!;
@@ -210,6 +228,9 @@ class KMEHDownloadController : NSObject {
         
         // Set the mangas cover image
         item.manga.coverImage = NSImage(contentsOfURL: NSURL(string: newMangaJson["gmetadata"][0]["thumb"].stringValue)!)!;
+        
+        // Resize the cover image to be compressed for faster loading
+        item.manga.coverImage = item.manga.coverImage.resizeToHeight(400);
         
         // Set the mangas tags
         item.manga.tags = (newMangaJson["gmetadata"][0]["tags"].arrayObject as? [String])!;
