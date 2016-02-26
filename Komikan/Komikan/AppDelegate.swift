@@ -147,6 +147,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         // Add the drag reader window by background without holding alt bool to the end of it
         preferencesString.appendContentsOf("\n" + String(preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt));
         
+        // Add the manga grid scale to the end of it
+        preferencesString.appendContentsOf("\n" + String(preferencesKepper.mangaGridScale));
+        
         // Write the preferences to the preferences file in Komikan's application support
         do {
             // Try to write to the preferences file in Komikan's application support directory
@@ -199,8 +202,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                     // Set the drag reader window by background without holding alt to be this lines value
                     preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt = KMFileUtilities().stringToBool(currentElement);
                 }
+                // If this is the seventh line...
+                else if(currentIndex == 6) {
+                    // Set the manga grid's scale to be this lines value
+                    preferencesKepper.mangaGridScale = NSString(string: currentElement).integerValue;
+                }
             }
         }
+        
+        // Post the notification saying the preferences have been loaded
+        NSNotificationCenter.defaultCenter().postNotificationName("Application.PreferencesLoaded", object: nil);
     }
     
     // Clears the cache
@@ -379,11 +390,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
 
     func applicationWillTerminate(aNotification: NSNotification) {
         // Insert code here to tear down your application
-        // Save the preferences
-        savePreferences();
-        
         // Post the notification saying the app will quit
         NSNotificationCenter.defaultCenter().postNotificationName("Application.WillQuit", object: nil);
+        
+        // Save the preferences
+        savePreferences();
     }
 }
 

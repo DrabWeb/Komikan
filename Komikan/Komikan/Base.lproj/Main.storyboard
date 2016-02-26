@@ -584,7 +584,7 @@
                                 <menu key="submenu" title="Collection" id="eKm-yz-jaz">
                                     <items>
                                         <menuItem title="Add From EH" keyEquivalent="E" id="9EF-r5-N5K"/>
-                                        <menuItem title="Debug Info Bar" keyEquivalent="i" id="7Zc-hP-7S6"/>
+                                        <menuItem title="Info Bar" keyEquivalent="i" id="7Zc-hP-7S6"/>
                                         <menuItem title="List All Search Types" keyEquivalent="l" id="67T-hV-8Hk">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                             <connections>
@@ -961,11 +961,11 @@ CA
                                                 </view>
                                             </tabViewItem>
                                             <tabViewItem label="Reader" identifier="" id="qtf-0k-TVN">
-                                                <view key="view" ambiguous="YES" id="MF5-q5-qyw">
+                                                <view key="view" id="MF5-q5-qyw">
                                                     <rect key="frame" x="10" y="33" width="434" height="186"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <button ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IsT-t8-BZ5">
+                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="IsT-t8-BZ5">
                                                             <rect key="frame" x="15" y="167" width="311" height="18"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="307" id="2dB-Um-1OD"/>
@@ -1360,7 +1360,7 @@ CA
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="6vR-dx-5nf">
-                                    <rect key="frame" x="464" y="0.0" width="16" height="270"/>
+                                    <rect key="frame" x="465" y="0.0" width="15" height="270"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
@@ -1935,10 +1935,23 @@ CA
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                             </textField>
+                                            <slider verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="092-7G-vuf">
+                                                <rect key="frame" x="483" y="1" width="154" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="150" id="KE9-Id-axf"/>
+                                                </constraints>
+                                                <sliderCell key="cell" state="on" alignment="left" minValue="150" maxValue="300" doubleValue="300" tickMarkPosition="above" sliderType="linear" id="qyl-HR-EQd"/>
+                                                <connections>
+                                                    <action selector="infoBarGridSizeSliderInteracted:" target="XfG-lQ-9wD" id="0Nk-Cn-a30"/>
+                                                </connections>
+                                            </slider>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="uUd-gx-Gsh" firstAttribute="leading" secondItem="9bU-fV-uIZ" secondAttribute="leading" id="Kbw-V9-JRp"/>
+                                            <constraint firstAttribute="trailing" secondItem="092-7G-vuf" secondAttribute="trailing" constant="5" id="RFN-4S-Fy5"/>
                                             <constraint firstAttribute="trailing" secondItem="uUd-gx-Gsh" secondAttribute="trailing" id="TCt-hJ-Mpl"/>
+                                            <constraint firstAttribute="bottom" secondItem="092-7G-vuf" secondAttribute="bottom" constant="2" id="UuA-e3-c8d"/>
+                                            <constraint firstItem="092-7G-vuf" firstAttribute="top" secondItem="9bU-fV-uIZ" secondAttribute="top" constant="3" id="WBz-vA-A4a"/>
                                             <constraint firstItem="uUd-gx-Gsh" firstAttribute="top" secondItem="9bU-fV-uIZ" secondAttribute="top" constant="2" id="on9-wY-i2r"/>
                                             <constraint firstAttribute="bottom" secondItem="uUd-gx-Gsh" secondAttribute="bottom" constant="3" id="xCT-jk-g80"/>
                                         </constraints>
@@ -2069,6 +2082,7 @@ CA
                     <connections>
                         <outlet property="backgroundVisualEffectView" destination="DI5-9c-AHp" id="0Ki-1K-xDE"/>
                         <outlet property="infoBarContainer" destination="bQW-e4-pbA" id="I4T-Wo-rIZ"/>
+                        <outlet property="infoBarGridSizeSlider" destination="092-7G-vuf" id="Ywh-4C-dy6"/>
                         <outlet property="infoBarMangaCountLabel" destination="uUd-gx-Gsh" id="0ZT-hP-80G"/>
                         <outlet property="infoBarVisualEffectView" destination="9bU-fV-uIZ" id="sNg-dt-G1s"/>
                         <outlet property="mangaCollectionView" destination="4kf-pV-6YA" id="rpB-Er-tRk"/>
@@ -2102,7 +2116,6 @@ CA
                         <binding destination="rwH-XF-ldC" name="contentArray" keyPath="manga" id="LsF-tY-Vwt"/>
                     </connections>
                 </arrayController>
-                <customObject id="fq9-lH-DIC" userLabel="Sidebar Controller" customClass="KMSidebarController" customModule="Komikan" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="81" y="912"/>
         </scene>

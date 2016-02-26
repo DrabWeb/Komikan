@@ -70,6 +70,14 @@ class ViewController: NSViewController, NSTabViewDelegate {
     // The bool to say if we have the info bar showing
     var infoBarOpen : Bool = false;
     
+    /// The slider in the info bar that lets us set the size of the grid items
+    @IBOutlet weak var infoBarGridSizeSlider: NSSlider!
+    
+    /// When the value for infoBarGridSizeSlider changes...
+    @IBAction func infoBarGridSizeSliderInteracted(sender: AnyObject) {
+        mangaCollectionView.minItemSize = NSSize(width: infoBarGridSizeSlider.integerValue, height: infoBarGridSizeSlider.integerValue);
+    }
+    
     // Is the sidebar open?
     var sidebarOpen : Bool = false;
     
@@ -236,8 +244,14 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Subscribe to the global application will quit notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "saveManga", name:"Application.WillQuit", object: nil);
         
+        // Subscribe to the global application will quit notification with the manga grid scale
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "saveMangaGridScale", name:"Application.WillQuit", object: nil);
+        
         // Subscribe to the Drag and Drop add / import notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "showAddImportPopoverDragAndDrop:", name:"MangaGrid.DropFiles", object: nil);
+        
+        // Subscribe to the application's preferences saved notification
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadPreferenceValues", name:"Application.PreferencesLoaded", object: nil);
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
@@ -246,6 +260,21 @@ class ViewController: NSViewController, NSTabViewDelegate {
             // Update the manga count in the info bar
             updateInfoBarMangaCountLabel();
         }
+    }
+    
+    /// Called after AppDelegate has loaded the preferences from the preferences file
+    func loadPreferenceValues() {
+        // Load the manga grid scale
+        infoBarGridSizeSlider.integerValue = (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.mangaGridScale;
+        
+        // Update the grid size with the grid size slider
+        infoBarGridSizeSliderInteracted(infoBarGridSizeSlider);
+    }
+    
+    /// Saves the scale of the manga grid
+    func saveMangaGridScale() {
+        // Save the manga grid scale into AppDelegate
+        (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.mangaGridScale = infoBarGridSizeSlider.integerValue;
     }
     
     /// Exports JSON for all the manga in the grid, but without internal information

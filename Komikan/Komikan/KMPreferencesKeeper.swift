@@ -26,4 +26,7 @@ class KMPreferencesKeeper {
     
     /// Should the user be allowed to drag the reader window by the backround without holding alt?
     var dragReaderWindowByBackgroundWithoutHoldingAlt : Bool = true;
+    
+    /// The scale of the manga grid
+    var mangaGridScale : Int = 300;
 }

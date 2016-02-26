@@ -33,6 +33,7 @@ Requires at least OSX 10.10 Yosemite. Tested on OSX 10.11 El Capitan
 > * Drag and Drop import
 > * See how much percent you are done a Manga
 > * Cover image compression for faster loading
+> * Size the grid to maximize screen usage
 
 
 ### Reader
