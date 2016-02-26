@@ -10,7 +10,7 @@
         <!--Search List Window Controller-->
         <scene sceneID="nAv-ND-9RY">
             <objects>
-                <windowController id="6db-5W-dhy" userLabel="Search List Window Controller" sceneMemberID="viewController">
+                <windowController showSeguePresentationStyle="single" id="6db-5W-dhy" userLabel="Search List Window Controller" sceneMemberID="viewController">
                     <window key="window" title="Search List" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="2yD-qi-hdn" customClass="NSPanel">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES" HUD="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>

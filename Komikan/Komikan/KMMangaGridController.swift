@@ -184,8 +184,14 @@ class KMMangaGridController: NSObject {
         for(_, currentGridItem) in gridItems.enumerate() {
             // If we havent already added this series and this series isnt blank...
             if(!series.contains(currentGridItem.manga.series) && currentGridItem.manga.series != "") {
-                // Add this items series to the list of series
-                series.append(currentGridItem.manga.series);
+                // If we arent in l-lewd... mode and this manga is lewd...
+                if(!showingLewdManga && currentGridItem.manga.lewd) {
+                    // Do nothing
+                }
+                else {
+                    // Add this items series to the list of series
+                    series.append(currentGridItem.manga.series);
+                }
             }
         }
         
@@ -200,8 +206,14 @@ class KMMangaGridController: NSObject {
         
         // For every item in the grid items...
         for(_, currentGridItem) in gridItems.enumerate() {
-            // Add the current series
-            allSeries.append(currentGridItem.manga.series);
+            // If we arent in l-lewd... mode and this manga is lewd...
+            if(!showingLewdManga && currentGridItem.manga.lewd) {
+                // Do nothing
+            }
+            else {
+                // Add the current series
+                allSeries.append(currentGridItem.manga.series);
+            }
         }
         
         // Return the count of the passed series in all the series
@@ -217,8 +229,14 @@ class KMMangaGridController: NSObject {
         for(_, currentGridItem) in gridItems.enumerate() {
             // If we havent already added this artist and this artist isnt blank...
             if(!artists.contains(currentGridItem.manga.artist) && currentGridItem.manga.artist != "") {
-                // Add this items artist to the list of artists
-                artists.append(currentGridItem.manga.artist);
+                // If we arent in l-lewd... mode and this manga is lewd...
+                if(!showingLewdManga && currentGridItem.manga.lewd) {
+                    // Do nothing
+                }
+                else {
+                    // Add this items artist to the list of artists
+                    artists.append(currentGridItem.manga.artist);
+                }
             }
         }
         
@@ -233,8 +251,14 @@ class KMMangaGridController: NSObject {
         
         // For every item in the grid items...
         for(_, currentGridItem) in gridItems.enumerate() {
-            // Add the current artist
-            artists.append(currentGridItem.manga.artist);
+            // If we arent in l-lewd... mode and this manga is lewd...
+            if(!showingLewdManga && currentGridItem.manga.lewd) {
+                // Do nothing
+            }
+            else {
+                // Add the current artist
+                artists.append(currentGridItem.manga.artist);
+            }
         }
         
         // Return the count of the passed artist in all the artists
@@ -250,8 +274,14 @@ class KMMangaGridController: NSObject {
         for(_, currentGridItem) in gridItems.enumerate() {
             // If we havent already added this writer and this writer isnt blank...
             if(!writers.contains(currentGridItem.manga.writer) && currentGridItem.manga.writer != "") {
-                // Add this items writer to the list of writers
-                writers.append(currentGridItem.manga.writer);
+                // If we arent in l-lewd... mode and this manga is lewd...
+                if(!showingLewdManga && currentGridItem.manga.lewd) {
+                    // Do nothing
+                }
+                else {
+                    // Add this items writer to the list of writers
+                    writers.append(currentGridItem.manga.writer);
+                }
             }
         }
         
@@ -266,8 +296,14 @@ class KMMangaGridController: NSObject {
         
         // For every item in the grid items...
         for(_, currentGridItem) in gridItems.enumerate() {
-            // Add the current writer
-            writers.append(currentGridItem.manga.writer);
+            // If we arent in l-lewd... mode and this manga is lewd...
+            if(!showingLewdManga && currentGridItem.manga.lewd) {
+                // Do nothing
+            }
+            else {
+                // Add the current writer
+                writers.append(currentGridItem.manga.writer);
+            }
         }
         
         // Return the count of the passed writer in all the writers
@@ -283,10 +319,16 @@ class KMMangaGridController: NSObject {
         for(_, currentGridItem) in gridItems.enumerate() {
             // For every tag in this item's tags...
             for(_, currentTag) in currentGridItem.manga.tags.enumerate() {
-                // If we havent already added this tag and this tag isnt blank...
-                if(!tags.contains(currentTag) && currentTag != "") {
-                    // Add this tag to the list of tags
-                    tags.append(currentTag);
+                // If we arent in l-lewd... mode and this manga is lewd...
+                if(!showingLewdManga && currentGridItem.manga.lewd) {
+                    // Do nothing
+                }
+                else {
+                    // If we havent already added this tag and this tag isnt blank...
+                    if(!tags.contains(currentTag) && currentTag != "") {
+                        // Add this tag to the list of tags
+                        tags.append(currentTag);
+                    }
                 }
             }
         }
@@ -302,10 +344,16 @@ class KMMangaGridController: NSObject {
         
         // For every item in the grid items...
         for(_, currentGridItem) in gridItems.enumerate() {
-            // For every tag in this item's tags...
-            for(_, currentTag) in currentGridItem.manga.tags.enumerate() {
-                // Add the current tag
-                tags.append(currentTag);
+            // If we arent in l-lewd... mode and this manga is lewd...
+            if(!showingLewdManga && currentGridItem.manga.lewd) {
+                // Do nothing
+            }
+            else {
+                // For every tag in this item's tags...
+                for(_, currentTag) in currentGridItem.manga.tags.enumerate() {
+                    // Add the current tag
+                    tags.append(currentTag);
+                }
             }
         }
         
@@ -322,8 +370,14 @@ class KMMangaGridController: NSObject {
         for(_, currentGridItem) in gridItems.enumerate() {
             // If we havent already added this group and this group isnt blank...
             if(!groups.contains(currentGridItem.manga.group) && currentGridItem.manga.group != "") {
-                // Add this items group to the list of groups
-                groups.append(currentGridItem.manga.group);
+                // If we arent in l-lewd... mode and this manga is lewd...
+                if(!showingLewdManga && currentGridItem.manga.lewd) {
+                    // Do nothing
+                }
+                else {
+                    // Add this items group to the list of groups
+                    groups.append(currentGridItem.manga.group);
+                }
             }
         }
         
@@ -338,8 +392,14 @@ class KMMangaGridController: NSObject {
         
         // For every item in the grid items...
         for(_, currentGridItem) in gridItems.enumerate() {
-            // Add the current group
-            groups.append(currentGridItem.manga.group);
+            // If we arent in l-lewd... mode and this manga is lewd...
+            if(!showingLewdManga && currentGridItem.manga.lewd) {
+                // Do nothing
+            }
+            else {
+                // Add the current group
+                groups.append(currentGridItem.manga.group);
+            }
         }
         
         // Return the count of the passed group in all the groups
