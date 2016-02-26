@@ -292,7 +292,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         // Set the windows level
         darkenBackgroundWindowController.window?.level--;
         
-        // Fade out the darken. If you dont do this, the first time you toggle distraction free mode it will only show and not fade in(This however outputs a long error starting with "unrecognized selector sent to instance". If you see it, ignore it)
+        // Fade out the darken. If you dont do this, the first time you toggle distraction free mode it will only show and not fade in
         fadeOutDarken();
     }
     
@@ -340,7 +340,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         }
     }
     
-    private func closeDarkenWindow() {
+    func closeDarkenWindow() {
         // Order out the window
         darkenBackgroundWindowController.window?.orderBack(self);
     }
