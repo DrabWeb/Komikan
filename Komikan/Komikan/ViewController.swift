@@ -75,6 +75,7 @@ class ViewController: NSViewController, NSTabViewDelegate {
     
     /// When the value for infoBarGridSizeSlider changes...
     @IBAction func infoBarGridSizeSliderInteracted(sender: AnyObject) {
+        // Set the manga collection view's item size to the sliders value(For both width and height so we get a square)
         mangaCollectionView.minItemSize = NSSize(width: infoBarGridSizeSlider.integerValue, height: infoBarGridSizeSlider.integerValue);
     }
     

@@ -603,10 +603,10 @@
 CA
 </string>
                                                     </menuItem>
-                                                    <menuItem title="Mark Selected as Read" keyEquivalent="r" id="ug2-Jz-y1o">
+                                                    <menuItem title="Mark Selected as Read" hidden="YES" keyEquivalent="r" id="ug2-Jz-y1o">
                                                         <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                                     </menuItem>
-                                                    <menuItem title="Mark Selected as Unread" keyEquivalent="u" id="6KB-cw-D9H">
+                                                    <menuItem title="Mark Selected as Unread" hidden="YES" keyEquivalent="u" id="6KB-cw-D9H">
                                                         <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                                     </menuItem>
                                                     <menuItem title="Set Selected Items Properties" keyEquivalent="p" id="XZ3-5Y-udD">
