@@ -182,8 +182,8 @@ class KMMangaGridController: NSObject {
         
         // For every item in the grid items...
         for(_, currentGridItem) in gridItems.enumerate() {
-            // If we havent already added this manga's series...
-            if(!series.contains(currentGridItem.manga.series)) {
+            // If we havent already added this series and this series isnt blank...
+            if(!series.contains(currentGridItem.manga.series) && currentGridItem.manga.series != "") {
                 // Add this items series to the list of series
                 series.append(currentGridItem.manga.series);
             }
@@ -200,8 +200,8 @@ class KMMangaGridController: NSObject {
         
         // For every item in the grid items...
         for(_, currentGridItem) in gridItems.enumerate() {
-            // If we havent already added this manga's artist...
-            if(!artists.contains(currentGridItem.manga.artist)) {
+            // If we havent already added this artist and this artist isnt blank...
+            if(!artists.contains(currentGridItem.manga.artist) && currentGridItem.manga.artist != "") {
                 // Add this items artist to the list of artists
                 artists.append(currentGridItem.manga.artist);
             }
@@ -218,8 +218,8 @@ class KMMangaGridController: NSObject {
         
         // For every item in the grid items...
         for(_, currentGridItem) in gridItems.enumerate() {
-            // If we havent already added this manga's writer...
-            if(!writers.contains(currentGridItem.manga.writer)) {
+            // If we havent already added this writer and this writer isnt blank...
+            if(!writers.contains(currentGridItem.manga.writer) && currentGridItem.manga.writer != "") {
                 // Add this items writer to the list of writers
                 writers.append(currentGridItem.manga.writer);
             }
@@ -238,8 +238,8 @@ class KMMangaGridController: NSObject {
         for(_, currentGridItem) in gridItems.enumerate() {
             // For every tag in this item's tags...
             for(_, currentTag) in currentGridItem.manga.tags.enumerate() {
-                // If we havent already added this tag...
-                if(!tags.contains(currentTag)) {
+                // If we havent already added this tag and this tag isnt blank...
+                if(!tags.contains(currentTag) && currentTag != "") {
                     // Add this tag to the list of tags
                     tags.append(currentTag);
                 }
@@ -257,8 +257,8 @@ class KMMangaGridController: NSObject {
         
         // For every item in the grid items...
         for(_, currentGridItem) in gridItems.enumerate() {
-            // If we havent already added this manga's group...
-            if(!groups.contains(currentGridItem.manga.group)) {
+            // If we havent already added this group and this group isnt blank...
+            if(!groups.contains(currentGridItem.manga.group) && currentGridItem.manga.group != "") {
                 // Add this items group to the list of groups
                 groups.append(currentGridItem.manga.group);
             }
