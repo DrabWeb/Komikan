@@ -1664,7 +1664,7 @@ CA
                             <visualEffectView hidden="YES" appearanceType="vibrantDark" blendingMode="withinWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="nVv-Ns-s6i" userLabel="Page Thumbnail Background Visual Effect View">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                 <subviews>
-                                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="142" horizontalPageScroll="10" verticalLineScroll="142" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXD-aQ-FWt" userLabel="Scroll View - Page Jump Table View">
+                                    <scrollView borderType="none" horizontalLineScroll="142" horizontalPageScroll="10" verticalLineScroll="142" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXD-aQ-FWt" userLabel="Scroll View - Page Jump Table View">
                                         <rect key="frame" x="38" y="0.0" width="405" height="270"/>
                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="6o0-zt-nqF">
                                             <rect key="frame" x="0.0" y="0.0" width="405" height="270"/>
@@ -1702,8 +1702,8 @@ CA
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                         </textField>
-                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="QWq-Og-fBX" userLabel="Thumbnail One" customClass="KMRasterizedButton" customModule="Komikan" customModuleProvider="target">
-                                                                            <rect key="frame" x="5" y="5" width="130" height="130"/>
+                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QWq-Og-fBX" userLabel="Thumbnail One" customClass="KMRasterizedButton" customModule="Komikan" customModuleProvider="target">
+                                                                            <rect key="frame" x="5" y="6" width="130" height="129"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="130" id="zGU-WC-e4T"/>
                                                                             </constraints>
@@ -1712,15 +1712,15 @@ CA
                                                                                 <color key="color" white="0.0" alpha="0.50218750000000001" colorSpace="calibratedWhite"/>
                                                                             </shadow>
                                                                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="example-cover" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="8ZY-BK-T14">
-                                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                                <behavior key="behavior" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
                                                                             </buttonCell>
                                                                             <connections>
                                                                                 <action selector="leftButtonPressed:" target="gK1-KK-qKY" id="rvo-ga-apM"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="pCF-iW-ENV" userLabel="Thumbnail Three" customClass="KMRasterizedButton" customModule="Komikan" customModuleProvider="target">
-                                                                            <rect key="frame" x="267" y="5" width="130" height="130"/>
+                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pCF-iW-ENV" userLabel="Thumbnail Three" customClass="KMRasterizedButton" customModule="Komikan" customModuleProvider="target">
+                                                                            <rect key="frame" x="267" y="6" width="130" height="129"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="130" id="Y7Q-fE-5DE"/>
                                                                             </constraints>
@@ -1729,15 +1729,15 @@ CA
                                                                                 <color key="color" white="0.0" alpha="0.50218750000000001" colorSpace="calibratedWhite"/>
                                                                             </shadow>
                                                                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="example-cover" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="4xP-in-5Px">
-                                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                                <behavior key="behavior" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
                                                                             </buttonCell>
                                                                             <connections>
                                                                                 <action selector="rightButtonPressed:" target="gK1-KK-qKY" id="ssE-rd-3VL"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="KzL-ne-Kcc" userLabel="Thumbnail Two" customClass="KMRasterizedButton" customModule="Komikan" customModuleProvider="target">
-                                                                            <rect key="frame" x="136" y="5" width="130" height="130"/>
+                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KzL-ne-Kcc" userLabel="Thumbnail Two" customClass="KMRasterizedButton" customModule="Komikan" customModuleProvider="target">
+                                                                            <rect key="frame" x="136" y="6" width="130" height="129"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="130" id="HCf-g0-zVY"/>
                                                                             </constraints>
@@ -1746,7 +1746,7 @@ CA
                                                                                 <color key="color" white="0.0" alpha="0.50218750000000001" colorSpace="calibratedWhite"/>
                                                                             </shadow>
                                                                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="example-cover" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="nWj-rb-qDA">
-                                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                                <behavior key="behavior" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
                                                                             </buttonCell>
                                                                             <connections>
@@ -1797,12 +1797,12 @@ CA
                                         <constraints>
                                             <constraint firstAttribute="width" constant="405" id="AvR-Kw-IMJ"/>
                                         </constraints>
-                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="bWV-fS-DV2">
+                                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="bWV-fS-DV2">
                                             <rect key="frame" x="0.0" y="254" width="405" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="hKR-Pk-qGD">
-                                            <rect key="frame" x="224" y="17" width="15" height="102"/>
+                                        <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="hKR-Pk-qGD">
+                                            <rect key="frame" x="389" y="0.0" width="16" height="270"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
