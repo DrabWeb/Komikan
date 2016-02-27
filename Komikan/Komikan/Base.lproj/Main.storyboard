@@ -1691,7 +1691,7 @@ CA
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="gK1-KK-qKY" customClass="KMReaderPageJumpCellView" customModule="Komikan" customModuleProvider="target">
-                                                                    <rect key="frame" x="1" y="1" width="405" height="140"/>
+                                                                    <rect key="frame" x="1" y="1" width="402" height="140"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ymC-c1-bML" userLabel="Only Exists For Binding">
@@ -2121,8 +2121,7 @@ CA
                         <string>title</string>
                         <string>series</string>
                         <string>artist</string>
-                        <string>read</string>
-                        <string>percentLabel</string>
+                        <string>percentAlpha</string>
                     </declaredKeys>
                     <connections>
                         <binding destination="rwH-XF-ldC" name="contentArray" keyPath="manga" id="LsF-tY-Vwt"/>
@@ -2443,7 +2442,7 @@ CA
         <scene sceneID="nsn-SP-i81">
             <objects>
                 <collectionViewItem storyboardIdentifier="mangaCollectionViewItem" id="H6C-sh-Guu" userLabel="Manga Grid Collection View Item" customClass="KMMangaGridCollectionItem" customModule="Komikan" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" wantsLayer="YES" id="s6v-rn-nM4">
+                    <view key="view" id="s6v-rn-nM4">
                         <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
@@ -2457,15 +2456,18 @@ CA
                                     </binding>
                                 </connections>
                             </customView>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eTX-po-Lb6" userLabel="Cover Image View" customClass="KMRasterizedImageView" customModule="Komikan" customModuleProvider="target">
-                                <rect key="frame" x="12" y="41" width="276" height="247"/>
-                                <shadow key="shadow" blurRadius="10">
-                                    <size key="offset" width="0.0" height="-10"/>
-                                    <color key="color" white="0.0" alpha="0.39810096153846153" colorSpace="calibratedWhite"/>
-                                </shadow>
-                                <animations>
-                                    <caTransition key="subviews">
-                                        <mutableData key="keyedArchiveRepresentation">
+                            <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y4W-ai-N97" userLabel="Cover Image Container">
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                                <subviews>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="eTX-po-Lb6" userLabel="Cover Image View" customClass="KMRasterizedImageView" customModule="Komikan" customModuleProvider="target">
+                                        <rect key="frame" x="12" y="41" width="276" height="247"/>
+                                        <shadow key="shadow" blurRadius="10">
+                                            <size key="offset" width="0.0" height="-10"/>
+                                            <color key="color" white="0.0" alpha="0.39810096153846153" colorSpace="calibratedWhite"/>
+                                        </shadow>
+                                        <animations>
+                                            <caTransition key="subviews">
+                                                <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKkHCBES
 EwsKGR9VJG51bGzUCQoLDA0ODxBWJGNsYXNzVHR5cGVXc3VidHlwZV8QEl9fQ0FDb2RpbmdDb250ZW50
 c4AIgAOAAoAEV2Zyb21Ub3BUcHVzaNIUCRUYWk5TLm9iamVjdHOiFheABYAGgAfSGhscHVokY2xhc3Nu
@@ -2474,13 +2476,21 @@ bnNpdGlvbltDQUFuaW1hdGlvbl8QD05TS2V5ZWRBcmNoaXZlctEmJ1Ryb290gAEACAARABoAIwAtADIA
 NwBBAEcAUABXAFwAZAB5AHsAfQB/AIEAiQCOAJMAngChAKMApQCnAKwAtwDAAMgAywDUANkA5gDqAPcB
 AwEVARgBHQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAEfA
 </mutableData>
-                                    </caTransition>
-                                </animations>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="example-cover" id="xCy-Ll-DDd"/>
-                                <connections>
-                                    <binding destination="H6C-sh-Guu" name="value" keyPath="representedObject.coverImage" id="lNI-3X-v2k"/>
-                                </connections>
-                            </imageView>
+                                            </caTransition>
+                                        </animations>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="example-cover" id="xCy-Ll-DDd"/>
+                                        <connections>
+                                            <binding destination="H6C-sh-Guu" name="value" keyPath="representedObject.coverImage" id="lNI-3X-v2k"/>
+                                        </connections>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="eTX-po-Lb6" secondAttribute="bottom" constant="41" id="LbQ-Ja-JH9"/>
+                                    <constraint firstItem="eTX-po-Lb6" firstAttribute="top" secondItem="Y4W-ai-N97" secondAttribute="top" constant="12" id="ObV-1G-Ha3"/>
+                                    <constraint firstAttribute="trailing" secondItem="eTX-po-Lb6" secondAttribute="trailing" constant="12" id="dy5-Gj-rkM"/>
+                                    <constraint firstItem="eTX-po-Lb6" firstAttribute="leading" secondItem="Y4W-ai-N97" secondAttribute="leading" constant="12" id="iQS-PP-LAM"/>
+                                </constraints>
+                            </customView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Fsn-as-jfw" userLabel="Title Label">
                                 <rect key="frame" x="10" y="12" width="280" height="17"/>
                                 <constraints>
@@ -2495,56 +2505,25 @@ AwEVARgBHQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAEfA
                                     <binding destination="H6C-sh-Guu" name="value" keyPath="representedObject.title" id="K6n-xw-uLE"/>
                                 </connections>
                             </textField>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1wg-Fd-ohZ" userLabel="Unread Marker Image View">
-                                <rect key="frame" x="240" y="240" width="40" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="Biw-lk-eBQ"/>
-                                    <constraint firstAttribute="width" constant="40" id="N29-86-Zwd"/>
-                                </constraints>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="Unread Marker" id="ugL-9C-lck"/>
-                                <connections>
-                                    <binding destination="H6C-sh-Guu" name="hidden" keyPath="representedObject.read" id="4qw-N0-eGu"/>
-                                </connections>
-                            </imageView>
-                            <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JMo-rN-38T" userLabel="Progress Percent">
-                                <rect key="frame" x="238" y="252" width="44" height="17"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="HEm-i8-qD7"/>
-                                    <constraint firstAttribute="height" constant="17" id="RXL-IH-RoK"/>
-                                </constraints>
-                                <shadow key="shadow" blurRadius="1">
-                                    <size key="offset" width="0.0" height="1"/>
-                                    <color key="color" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
-                                </shadow>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="ERR" id="QeH-Pz-JJZ">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <connections>
-                                    <binding destination="H6C-sh-Guu" name="value" keyPath="representedObject.percentLabel" id="6Ih-cC-qCu"/>
-                                    <binding destination="H6C-sh-Guu" name="hidden" keyPath="representedObject.read" id="e0C-MX-Rca"/>
-                                </connections>
-                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Fsn-as-jfw" secondAttribute="trailing" constant="12" id="0hs-J9-lkl"/>
                             <constraint firstAttribute="trailing" secondItem="3D5-uK-2Mo" secondAttribute="trailing" id="15Y-WI-lce"/>
                             <constraint firstItem="3D5-uK-2Mo" firstAttribute="top" secondItem="s6v-rn-nM4" secondAttribute="top" id="1rH-wQ-iXJ"/>
                             <constraint firstItem="Fsn-as-jfw" firstAttribute="leading" secondItem="s6v-rn-nM4" secondAttribute="leading" constant="12" id="8EY-73-Mwc"/>
-                            <constraint firstItem="JMo-rN-38T" firstAttribute="top" secondItem="s6v-rn-nM4" secondAttribute="top" constant="31" id="BJ2-Pg-Oq9"/>
                             <constraint firstItem="3D5-uK-2Mo" firstAttribute="leading" secondItem="s6v-rn-nM4" secondAttribute="leading" id="ElX-0U-V7O"/>
                             <constraint firstAttribute="bottom" secondItem="3D5-uK-2Mo" secondAttribute="bottom" id="Goi-pn-ib9"/>
-                            <constraint firstAttribute="trailing" secondItem="1wg-Fd-ohZ" secondAttribute="trailing" constant="20" id="JPF-Sr-Vi9"/>
-                            <constraint firstItem="eTX-po-Lb6" firstAttribute="leading" secondItem="s6v-rn-nM4" secondAttribute="leading" constant="12" id="X5w-f9-qd8"/>
-                            <constraint firstItem="1wg-Fd-ohZ" firstAttribute="top" secondItem="s6v-rn-nM4" secondAttribute="top" constant="20" id="ZoX-y0-K5P"/>
-                            <constraint firstItem="eTX-po-Lb6" firstAttribute="top" secondItem="s6v-rn-nM4" secondAttribute="top" constant="12" id="f8I-hc-8Y3"/>
-                            <constraint firstAttribute="trailing" secondItem="JMo-rN-38T" secondAttribute="trailing" constant="20" id="pNq-uj-Shc"/>
-                            <constraint firstItem="Fsn-as-jfw" firstAttribute="top" secondItem="eTX-po-Lb6" secondAttribute="bottom" constant="12" id="pjw-lG-RSh"/>
-                            <constraint firstAttribute="trailing" secondItem="eTX-po-Lb6" secondAttribute="trailing" constant="12" id="ugq-ab-zWk"/>
+                            <constraint firstAttribute="trailing" secondItem="Y4W-ai-N97" secondAttribute="trailing" id="IRP-d2-95a"/>
+                            <constraint firstItem="Y4W-ai-N97" firstAttribute="top" secondItem="s6v-rn-nM4" secondAttribute="top" id="NTA-8V-pxG"/>
+                            <constraint firstAttribute="bottom" secondItem="Y4W-ai-N97" secondAttribute="bottom" id="Xp3-zd-W83"/>
+                            <constraint firstItem="Y4W-ai-N97" firstAttribute="leading" secondItem="s6v-rn-nM4" secondAttribute="leading" id="p0J-KQ-8hs"/>
                             <constraint firstAttribute="bottom" secondItem="Fsn-as-jfw" secondAttribute="bottom" constant="12" id="zoG-iw-gxP"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="coverImageView" destination="eTX-po-Lb6" id="jYZ-FT-kbZ"/>
+                        <outlet property="titleTextField" destination="Fsn-as-jfw" id="Z4q-WU-y2I"/>
+                    </connections>
                 </collectionViewItem>
                 <customObject id="ZWb-wE-cKj" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <userDefaultsController representsSharedInstance="YES" id="Yvt-Ka-dIZ"/>
@@ -2808,7 +2787,6 @@ AwEVARgBHQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAEfA
         <image name="NSRevealFreestandingTemplate" width="14" height="14"/>
         <image name="NSShareTemplate" width="11" height="16"/>
         <image name="Star" width="128" height="128"/>
-        <image name="Unread Marker" width="128" height="128"/>
         <image name="example-cover" width="158.605712890625" height="205.71427917480469"/>
     </resources>
 </document>

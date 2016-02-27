@@ -21,16 +21,11 @@ class KMMangaGridItem: NSObject, NSCoding {
     // The artist for the manga, used for sorting
     var artist : String = "";
     
-    // Is the Manga read? Used for showing the unread marker
-    var read : Bool = false;
-    
-    // Is this item selected?
-    var selected : Bool = false;
+    /// The alpha amount of the collection item to say how finished this manga you are
+    var percentAlpha : CGFloat = 1;
     
     // The manga that this grid item represents
     var manga : KMManga = KMManga();
-    
-    var percentLabel : String = "";
     
     // Updates the grid item with the passed mangas info
     func changeManga(newManga : KMManga) {
@@ -49,17 +44,13 @@ class KMMangaGridItem: NSObject, NSCoding {
         // Set the artist to the mangas artist
         artist = manga.artist;
         
-        // Set read to the mangas read value
-        read = manga.read;
+        // Set the percent alpha (It does 1 minus the percent done / 100(Eg. 75% would be 0.75) and then adds 0.5 to it so it isnt fully transparent)
+        percentAlpha = (1.0 - CGFloat(manga.percentFinished) / 100.0) + 0.5;
         
-        // If the percent done is 0...
-        if(manga.percentFinished <= 0) {
-            // Set the label to nothing
-            percentLabel = "";
-        }
-        else {
-            // Set the label to the percent we are done with a % on the end
-            percentLabel = String(manga.percentFinished) + "%"
+        // If this manga is read...
+        if(manga.read) {
+            // Set the alpha percent to 0.5
+            percentAlpha = 0.5;
         }
         
         // Print that we are changing manga info

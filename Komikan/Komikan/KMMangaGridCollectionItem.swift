@@ -13,6 +13,20 @@ class KMMangaGridCollectionItem: NSCollectionViewItem {
     // The view controller we will load for the edit/open manga popover
     var editMangaViewController: KMEditMangaViewController?
     
+    /// The image view for the cover of the manga
+    @IBOutlet var coverImageView: KMRasterizedImageView!
+    
+    /// The text field for the title of this manga
+    @IBOutlet var titleTextField: NSTextField!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad();
+        
+        // Bind the alpha value to the percent done
+        self.coverImageView.bind("alphaValue", toObject: self, withKeyPath: "representedObject.percentAlpha", options: nil);
+        self.titleTextField.bind("alphaValue", toObject: self, withKeyPath: "representedObject.percentAlpha", options: nil);
+    }
+    
     override func rightMouseDown(theEvent: NSEvent) {
         // Open the edit/open popover
         openPopover(false);

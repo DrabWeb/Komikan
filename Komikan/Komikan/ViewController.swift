@@ -162,6 +162,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Set the collections views item prototype to the collection view item we created in Main.storyboard
         mangaCollectionView.itemPrototype = storyboard?.instantiateControllerWithIdentifier("mangaCollectionViewItem") as? NSCollectionViewItem;
         
+        // Set the max item size
+        mangaCollectionView.maxItemSize = NSSize(width: 300, height: 300);
+        
         // Set the addFromEHMenuItem menu items action
         (NSApplication.sharedApplication().delegate as! AppDelegate).addFromEHMenuItem.action = Selector("showAddFromEHPopover");
         
