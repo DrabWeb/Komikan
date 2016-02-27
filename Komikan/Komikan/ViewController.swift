@@ -272,6 +272,36 @@ class ViewController: NSViewController, NSTabViewDelegate {
         }
     }
     
+    /// Returns the selected KMMangaGridItem from the manga grid
+    func selectedGridItems() -> [KMMangaGridItem] {
+        /// The selected KMMangaGridItem from the manga grid
+        var selectedGridItems : [KMMangaGridItem] = [];
+        
+        // For every selection index of the manga grid...
+        for(_, currentIndex) in mangaCollectionView.selectionIndexes.enumerate() {
+            // Add the item at the set index to the selected items
+            selectedGridItems.append((mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])![currentIndex]);
+        }
+        
+        // Return the selected grid items
+        return selectedGridItems;
+    }
+    
+    /// Returns the KMManga of the selected KMMangaGridItem from the manga grid
+    func selectedGridItemManga() -> [KMManga] {
+        /// The selected KMManga from the manga grid
+        var selectedManga : [KMManga] = [];
+        
+        // For every item in the selected grid items...
+        for(_, currentGridItem) in selectedGridItems().enumerate() {
+            // Add the current grid item's manga to the selected manga
+            selectedManga.append(currentGridItem.manga);
+        }
+        
+        // Return the selected manga
+        return selectedManga;
+    }
+    
     /// Called when the user does a magnify gesture on the trackpad
     func magnifyEvent(event : NSEvent) -> NSEvent {
         // Add the magnification amount to the grid size slider
@@ -319,22 +349,28 @@ class ViewController: NSViewController, NSTabViewDelegate {
     
     /// Shows the fetch metadata popover at the given rect on the given side
     func showFetchMetadataForSelectedItemsPopover(relativeToRect: NSRect, preferredEdge: NSRectEdge) {
-        // Get the main storyboard
-        let storyboard = NSStoryboard(name: "Main", bundle: nil);
-        
-        // Instanstiate the view controller for the fetch metadata popover
-        fetchMetadataViewController = storyboard.instantiateControllerWithIdentifier("metadataFetcherViewController") as? KMMetadataFetcherViewController;
-        
-        // Present the fetchMetadataViewController as a popover at the given relative rect on the given preferred edge
-        fetchMetadataViewController!.presentViewController(fetchMetadataViewController!, asPopoverRelativeToRect: relativeToRect, ofView: backgroundVisualEffectView, preferredEdge: preferredEdge, behavior: NSPopoverBehavior.Semitransient);
-        
-        // If this is the first time we have opened the popover...
-        if(fetchMetadataViewFirstLoad) {
-            // Subscribe to the popovers finished notification
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "setSelectedItemsMetadata:", name:"KMMetadataFetcherViewController.Finished", object: nil);
+        // If there are any selected manga...
+        if(mangaCollectionView.selectionIndexes.count != 0) {
+            // Get the main storyboard
+            let storyboard = NSStoryboard(name: "Main", bundle: nil);
             
-            // Say that all the next loads are not the first
-            fetchMetadataViewFirstLoad = false;
+            // Instanstiate the view controller for the fetch metadata popover
+            fetchMetadataViewController = storyboard.instantiateControllerWithIdentifier("metadataFetcherViewController") as? KMMetadataFetcherViewController;
+            
+            // Set the fetch metadata popover's selected manga
+            fetchMetadataViewController?.selectedManga = selectedGridItemManga();
+            
+            // Present the fetchMetadataViewController as a popover at the given relative rect on the given preferred edge
+            fetchMetadataViewController!.presentViewController(fetchMetadataViewController!, asPopoverRelativeToRect: relativeToRect, ofView: backgroundVisualEffectView, preferredEdge: preferredEdge, behavior: NSPopoverBehavior.Semitransient);
+            
+            // If this is the first time we have opened the popover...
+            if(fetchMetadataViewFirstLoad) {
+                // Subscribe to the popovers finished notification
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: "setSelectedItemsMetadata:", name:"KMMetadataFetcherViewController.Finished", object: nil);
+                
+                // Say that all the next loads are not the first
+                fetchMetadataViewFirstLoad = false;
+            }
         }
     }
     
@@ -357,22 +393,25 @@ class ViewController: NSViewController, NSTabViewDelegate {
     
     /// Shows the set selected items properties popover
     func showSetSelectedItemsPropertiesPopover() {
-        // Get the main storyboard
-        let storyboard = NSStoryboard(name: "Main", bundle: nil);
-        
-        // Instanstiate the view controller for the set selected items properties popover
-        setSelectedItemsPropertiesViewController = storyboard.instantiateControllerWithIdentifier("setSelectedItemsPropertiesViewController") as? KMSetSelectedItemsPropertiesViewController;
-        
-        // Present the setSelectedItemsPropertiesViewController as a popover so it is in the center of the window and the arrow is pointing down
-        setSelectedItemsPropertiesViewController!.presentViewController(setSelectedItemsPropertiesViewController!, asPopoverRelativeToRect: NSRect(x: 0, y: 0, width: window.contentView!.bounds.width, height: window.contentView!.bounds.height / 2), ofView: backgroundVisualEffectView, preferredEdge: NSRectEdge.MaxY, behavior: NSPopoverBehavior.Semitransient);
-        
-        // If this is the first time we have opened the popover...
-        if(setSelectedItemsPropertiesViewFirstLoad) {
-            // Subscribe to the popovers finished notification
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "setSelectedItemsProperties:", name:"KMSetSelectedItemsPropertiesViewController.Finished", object: nil);
+        // If there are any selected manga...
+        if(mangaCollectionView.selectionIndexes.count != 0) {
+            // Get the main storyboard
+            let storyboard = NSStoryboard(name: "Main", bundle: nil);
             
-            // Say that all the next loads are not the first
-            setSelectedItemsPropertiesViewFirstLoad = false;
+            // Instanstiate the view controller for the set selected items properties popover
+            setSelectedItemsPropertiesViewController = storyboard.instantiateControllerWithIdentifier("setSelectedItemsPropertiesViewController") as? KMSetSelectedItemsPropertiesViewController;
+            
+            // Present the setSelectedItemsPropertiesViewController as a popover so it is in the center of the window and the arrow is pointing down
+            setSelectedItemsPropertiesViewController!.presentViewController(setSelectedItemsPropertiesViewController!, asPopoverRelativeToRect: NSRect(x: 0, y: 0, width: window.contentView!.bounds.width, height: window.contentView!.bounds.height / 2), ofView: backgroundVisualEffectView, preferredEdge: NSRectEdge.MaxY, behavior: NSPopoverBehavior.Semitransient);
+            
+            // If this is the first time we have opened the popover...
+            if(setSelectedItemsPropertiesViewFirstLoad) {
+                // Subscribe to the popovers finished notification
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: "setSelectedItemsProperties:", name:"KMSetSelectedItemsPropertiesViewController.Finished", object: nil);
+                
+                // Say that all the next loads are not the first
+                setSelectedItemsPropertiesViewFirstLoad = false;
+            }
         }
     }
     
