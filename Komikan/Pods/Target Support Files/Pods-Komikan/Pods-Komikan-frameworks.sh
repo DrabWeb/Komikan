@@ -84,10 +84,12 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods-Komikan/Alamofire.framework"
   install_framework "Pods-Komikan/UnrarKit.framework"
   install_framework "Pods-Komikan/WPZipArchive.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods-Komikan/Alamofire.framework"
   install_framework "Pods-Komikan/UnrarKit.framework"
   install_framework "Pods-Komikan/WPZipArchive.framework"
 fi

@@ -74,14 +74,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     /// The Manga/Magnification/Reset Zoom menu item
     @IBOutlet weak var readerResetZoomMenuItem: NSMenuItem!
     
-    /// The Manga/Rotation/Rotate 90° Left
+    /// The Manga/Rotation/Rotate 90° Left menu item
     @IBOutlet weak var readerRotateNinetyDegressLeftMenuItem: NSMenuItem!
     
-    /// The Manga/Rotation/Rotate 90° Right
+    /// The Manga/Rotation/Rotate 90° Right menu item
     @IBOutlet weak var readerRotateNinetyDegressRightMenuItem: NSMenuItem!
     
-    /// The Manga/Rotation/Reset Rotation
+    /// The Manga/Rotation/Reset Rotation menu item
     @IBOutlet weak var readerResetRotationMenuItem: NSMenuItem!
+    
+    /// The Collection/Manage/Fetch Metadata For Selected menu item
+    @IBOutlet weak var fetchMetadataForSelectedMenuItem: NSMenuItem!
     
     /// The view controller we will load for the reader
     var mangaReaderViewController: KMReaderViewController?;

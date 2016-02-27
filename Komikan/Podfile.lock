@@ -1,14 +1,17 @@
 PODS:
+  - Alamofire (3.2.0)
   - UnrarKit (2.6):
     - UnrarKit/unrar-lib (= 2.6)
   - UnrarKit/unrar-lib (2.6)
   - WPZipArchive (0.0.1)
 
 DEPENDENCIES:
+  - Alamofire (~> 3.0)
   - UnrarKit (~> 2.6)
   - WPZipArchive
 
 SPEC CHECKSUMS:
+  Alamofire: 4da478599fccddff361205c8929333d7fe18dceb
   UnrarKit: 062431740d7910ede1fc7455a58aac1649694c61
   WPZipArchive: 3a31c553e4c0d6225ae6661b20d189366d19c79f
 

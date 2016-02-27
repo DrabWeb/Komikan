@@ -192,6 +192,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Set the export manga JSON for migration menubar items action
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.exportJsonForAllMangaForMigrationMenuItem.action = Selector("exportMangaJSONForMigration");
         
+        // Set the fetch metadata for selected menubar items action
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.fetchMetadataForSelectedMenuItem.action = Selector("showFetchMetadataForSelectedItemsPopoverAtCenter");
+        
         // Start a 0.1 second loop that will fix the windows look in fullscreen
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("deleteTitlebarInFullscreen"), userInfo: nil, repeats:true);
         
@@ -230,6 +233,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
             mangaGridController.sort(KMMangaGridSortType.Artist, ascending: true);
         }
         
+        // Subscribe to the magnify event
+        NSEvent.addLocalMonitorForEventsMatchingMask(NSEventMask.EventMaskMagnify, handler: magnifyEvent);
+        
         // Create some options for the manga grid KVO
         let options = NSKeyValueObservingOptions([.New, .Old, .Initial, .Prior]);
         
@@ -266,6 +272,18 @@ class ViewController: NSViewController, NSTabViewDelegate {
         }
     }
     
+    /// Called when the user does a magnify gesture on the trackpad
+    func magnifyEvent(event : NSEvent) -> NSEvent {
+        // Add the magnification amount to the grid size slider
+        infoBarGridSizeSlider.integerValue += Int(event.magnification);
+        
+        // Update the grid scale
+        infoBarGridSizeSliderInteracted(infoBarGridSizeSlider);
+        
+        // Return the event
+        return event;
+    }
+    
     /// Called after AppDelegate has loaded the preferences from the preferences file
     func loadPreferenceValues() {
         // Load the manga grid scale
@@ -291,6 +309,44 @@ class ViewController: NSViewController, NSTabViewDelegate {
     func exportMangaJSONForMigration() {
         // Call the export JSON function from the grid controller and say to also do internal information
         mangaGridController.exportAllMangaJSON(true);
+    }
+    
+    /// The view controller that will load for the metadata fetching popover
+    var fetchMetadataViewController: KMMetadataFetcherViewController?
+    
+    // Is this the first time opened the fetch metadata popover?
+    var fetchMetadataViewFirstLoad : Bool = true;
+    
+    /// Shows the fetch metadata popover at the given rect on the given side
+    func showFetchMetadataForSelectedItemsPopover(relativeToRect: NSRect, preferredEdge: NSRectEdge) {
+        // Get the main storyboard
+        let storyboard = NSStoryboard(name: "Main", bundle: nil);
+        
+        // Instanstiate the view controller for the fetch metadata popover
+        fetchMetadataViewController = storyboard.instantiateControllerWithIdentifier("metadataFetcherViewController") as? KMMetadataFetcherViewController;
+        
+        // Present the fetchMetadataViewController as a popover at the given relative rect on the given preferred edge
+        fetchMetadataViewController!.presentViewController(fetchMetadataViewController!, asPopoverRelativeToRect: relativeToRect, ofView: backgroundVisualEffectView, preferredEdge: preferredEdge, behavior: NSPopoverBehavior.Semitransient);
+        
+        // If this is the first time we have opened the popover...
+        if(fetchMetadataViewFirstLoad) {
+            // Subscribe to the popovers finished notification
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "setSelectedItemsMetadata:", name:"KMMetadataFetcherViewController.Finished", object: nil);
+            
+            // Say that all the next loads are not the first
+            fetchMetadataViewFirstLoad = false;
+        }
+    }
+    
+    /// Calls showFetchMetadataForSelectedItemsPopover so it opens in the center
+    func showFetchMetadataForSelectedItemsPopoverAtCenter() {
+        // Show the fetch metadata popover in the center of the window with the arrow pointing down
+        showFetchMetadataForSelectedItemsPopover(NSRect(x: 0, y: 0, width: window.contentView!.bounds.width, height: window.contentView!.bounds.height / 2), preferredEdge: NSRectEdge.MaxY);
+    }
+    
+    /// Called by the fetch metadata for selected manga popover when it is finished, sets the metadata for the selected manga to the metadata in the notifications object(KMSeriesMetadata)
+    func setSelectedItemsMetadata(notification : NSNotification) {
+        print("Setting metadata");
     }
     
     /// The view controller we will load for the popover that lets us set the selected items properties(Artist, Group, ETC.)
