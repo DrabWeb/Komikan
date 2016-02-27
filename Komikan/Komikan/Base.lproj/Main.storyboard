@@ -1297,8 +1297,8 @@ CA
                                     <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <view horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LFP-Yr-2si">
-                                            <rect key="frame" x="0.0" y="16" width="480" height="270"/>
+                                        <view horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="LFP-Yr-2si">
+                                            <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                             <subviews>
                                                 <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Ui2-6j-ybs" customClass="KMDraggableImageView" customModule="Komikan" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
@@ -1360,14 +1360,14 @@ CA
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="6vR-dx-5nf">
-                                    <rect key="frame" x="464" y="0.0" width="16" height="270"/>
+                                    <rect key="frame" x="465" y="0.0" width="15" height="270"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <visualEffectView appearanceType="vibrantDark" blendingMode="withinWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="eRx-Sv-XZm">
+                            <visualEffectView appearanceType="vibrantDark" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" blendingMode="withinWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="eRx-Sv-XZm">
                                 <rect key="frame" x="0.0" y="248" width="480" height="22"/>
                                 <subviews>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Q1k-9p-Ea7" userLabel="Window Title">
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Q1k-9p-Ea7" userLabel="Window Title">
                                         <rect key="frame" x="72" y="3" width="336" height="17"/>
                                         <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" alignment="center" title="Window Title" id="AKL-nw-lx3">
                                             <font key="font" metaFont="system"/>
@@ -1702,8 +1702,8 @@ CA
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                         </textField>
-                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QWq-Og-fBX" userLabel="Thumbnail One" customClass="KMRasterizedButton" customModule="Komikan" customModuleProvider="target">
-                                                                            <rect key="frame" x="5" y="6" width="130" height="129"/>
+                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="QWq-Og-fBX" userLabel="Thumbnail One" customClass="KMRasterizedButton" customModule="Komikan" customModuleProvider="target">
+                                                                            <rect key="frame" x="5" y="5" width="130" height="130"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="130" id="zGU-WC-e4T"/>
                                                                             </constraints>
@@ -1719,8 +1719,8 @@ CA
                                                                                 <action selector="leftButtonPressed:" target="gK1-KK-qKY" id="rvo-ga-apM"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pCF-iW-ENV" userLabel="Thumbnail Three" customClass="KMRasterizedButton" customModule="Komikan" customModuleProvider="target">
-                                                                            <rect key="frame" x="267" y="6" width="130" height="129"/>
+                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="pCF-iW-ENV" userLabel="Thumbnail Three" customClass="KMRasterizedButton" customModule="Komikan" customModuleProvider="target">
+                                                                            <rect key="frame" x="267" y="5" width="130" height="130"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="130" id="Y7Q-fE-5DE"/>
                                                                             </constraints>
@@ -1736,8 +1736,8 @@ CA
                                                                                 <action selector="rightButtonPressed:" target="gK1-KK-qKY" id="ssE-rd-3VL"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KzL-ne-Kcc" userLabel="Thumbnail Two" customClass="KMRasterizedButton" customModule="Komikan" customModuleProvider="target">
-                                                                            <rect key="frame" x="136" y="6" width="130" height="129"/>
+                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="KzL-ne-Kcc" userLabel="Thumbnail Two" customClass="KMRasterizedButton" customModule="Komikan" customModuleProvider="target">
+                                                                            <rect key="frame" x="136" y="5" width="130" height="130"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="130" id="HCf-g0-zVY"/>
                                                                             </constraints>
@@ -1802,7 +1802,7 @@ CA
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="hKR-Pk-qGD">
-                                            <rect key="frame" x="389" y="0.0" width="16" height="270"/>
+                                            <rect key="frame" x="390" y="0.0" width="15" height="270"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
