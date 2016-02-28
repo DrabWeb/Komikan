@@ -55,9 +55,10 @@ exhentai_dl() {
     exget $1 $gallery_page
    
     gallery_name=$(grep -o 'id="gn".*</h1><h1' $gallery_page | sed -e 's/id="gn">//g' -e 's/<\/h1><h1//g')
-   
-    echo $gallery_name
-    mkdir -p "$gallery_name"
+    gallery_name=${gallery_name//\//}
+
+    mkdir "/tmp/edownload/$gallery_name"
+
     pushd "$gallery_name"
    
     amount_of_gallery_pages=$(grep -o 'false">[0-9]*<' $gallery_page | tail -n 1 | sed s/[^0-9]//g)

@@ -94,6 +94,14 @@ class ViewController: NSViewController, NSTabViewDelegate {
     // The tab view in the titlebar that lets us sort the manga grid
     @IBOutlet weak var titlebarSortingTabView: NSTabView!
     
+    /// The button in the titlebar that lets us toggle between list and grid view
+    @IBOutlet var titlebarToggleListViewCheckbox: NSButton!
+    
+    /// When we interact with titlebarToggleListViewCheckbox...
+    @IBAction func titlebarToggleListViewCheckboxAction(sender: AnyObject) {
+        
+    }
+    
     // Called when we hit "Add" in the addmanga popover
     func addMangaFromAddMangaPopover(notification: NSNotification) {
         // Print to the log that we are adding from the add popover
@@ -187,7 +195,7 @@ class ViewController: NSViewController, NSTabViewDelegate {
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.setSelectedItemsPropertiesMenuItems.action = Selector("showSetSelectedItemsPropertiesPopover");
         
         // Set the export manga JSON menubar items action
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.exportJsonForAllMangaMenuItem.action = Selector("exportMangaJSON");
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.exportJsonForAllMangaMenuItem.action = Selector("exportMangaJSONForSelected");
         
         // Set the export manga JSON for migration menubar items action
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.exportJsonForAllMangaForMigrationMenuItem.action = Selector("exportMangaJSONForMigration");
@@ -329,10 +337,34 @@ class ViewController: NSViewController, NSTabViewDelegate {
         (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.mangaGridScale = infoBarGridSizeSlider.integerValue;
     }
     
-    /// Exports JSON for all the manga in the grid, but without internal information
-    func exportMangaJSON() {
-        // Call the export JSON function from the grid controller
-        mangaGridController.exportAllMangaJSON(false);
+    /// Exports JSON for all the selected manga in the grid without internal information
+    func exportMangaJSONForSelected() {
+        // Print to the log that we are exporting metadata for selected manga
+        print("Exporting JSON metadata for selected manga");
+        
+        /// The selected KMManga in the grid
+        let selectedManga : [KMManga] = selectedGridItemManga();
+        
+        // For every selected manga...
+        for(_, currentManga) in selectedManga.enumerate() {
+            // Export the current manga's JSON
+            KMFileUtilities().exportMangaJSON(currentManga, exportInternalInfo: false);
+        }
+        
+        // Create the new notification to tell the user the Metadata exporting has finished
+        let finishedNotification = NSUserNotification();
+        
+        // Set the title
+        finishedNotification.title = "Komikan";
+        
+        // Set the informative text
+        finishedNotification.informativeText = "Finshed exporting Metadata";
+        
+        // Set the notifications identifier to be an obscure string, so we can show multiple at once
+        finishedNotification.identifier = NSUUID().UUIDString;
+        
+        // Deliver the notification
+        NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(finishedNotification);
     }
     
     /// Exports JSON for all the manga in the grid with internal information(Meant for when the user switches computers or something and wants to keep metadata)
@@ -403,7 +435,7 @@ class ViewController: NSViewController, NSTabViewDelegate {
             setSelectedItemsPropertiesViewController = storyboard.instantiateControllerWithIdentifier("setSelectedItemsPropertiesViewController") as? KMSetSelectedItemsPropertiesViewController;
             
             // Present the setSelectedItemsPropertiesViewController as a popover so it is in the center of the window and the arrow is pointing down
-            setSelectedItemsPropertiesViewController!.presentViewController(setSelectedItemsPropertiesViewController!, asPopoverRelativeToRect: NSRect(x: 0, y: 0, width: window.contentView!.bounds.width, height: window.contentView!.bounds.height / 2), ofView: backgroundVisualEffectView, preferredEdge: NSRectEdge.MaxY, behavior: NSPopoverBehavior.Semitransient);
+            setSelectedItemsPropertiesViewController!.presentViewController(setSelectedItemsPropertiesViewController!, asPopoverRelativeToRect: NSRect(x: 0, y: 0, width: window.contentView!.bounds.width, height: window.contentView!.bounds.height / 2), ofView: backgroundVisualEffectView, preferredEdge: NSRectEdge.MaxY, behavior: NSPopoverBehavior.Transient);
             
             // If this is the first time we have opened the popover...
             if(setSelectedItemsPropertiesViewFirstLoad) {
@@ -702,10 +734,16 @@ class ViewController: NSViewController, NSTabViewDelegate {
         if(window.isFullscreen()) {
             // Hide the toolbar so we dont get a grey bar at the top
             window.toolbar?.visible = false;
+            
+            // Move the toggle list view button over to the edge
+            titlebarToggleListViewCheckbox.frame.origin = CGPoint(x: 2, y: titlebarToggleListViewCheckbox.frame.origin.y);
         }
         else {
             // Show the toolbar again in non-fullscreen(So we still get the traffic lights in the right place)
             window.toolbar?.visible = true;
+            
+            // Move the toggle list view button beside the traffic lights
+            titlebarToggleListViewCheckbox.frame.origin = CGPoint(x: 72, y: titlebarToggleListViewCheckbox.frame.origin.y);
         }
     }
     

@@ -48,6 +48,11 @@ class KMMangaDropView: NSVisualEffectView {
         self.animator().alphaValue = 0;
     }
     
+    override func draggingExited(sender: NSDraggingInfo?) {
+        // Fade out the view
+        self.animator().alphaValue = 0;
+    }
+    
     override func prepareForDragOperation(sender: NSDraggingInfo) -> Bool {
         // Post the notification saying that we have dropped the files and to show the add / import popover with the files
         NSNotificationCenter.defaultCenter().postNotificationName("MangaGrid.DropFiles", object: sender.draggingPasteboard().propertyListForType("NSFilenamesPboardType"));
