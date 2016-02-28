@@ -44,8 +44,8 @@ class KMMangaGridItem: NSObject, NSCoding {
         // Set the artist to the mangas artist
         artist = manga.artist;
         
-        // Set the percent alpha (It does 1 minus the percent done / 100(Eg. 75% would be 0.75) and then adds 0.5 to it so it isnt fully transparent)
-        percentAlpha = (1.0 - CGFloat(manga.percentFinished) / 100.0) + 0.5;
+        // Set the percent alpha (It does 1 minus the percent done / 100(Eg. 75% would be 0.75) and then adds 0.3 to it so it isnt fully transparent)
+        percentAlpha = (1.0 - CGFloat(manga.percentFinished) / 100.0) + 0.3;
         
         // If this manga is read...
         if(manga.read) {
