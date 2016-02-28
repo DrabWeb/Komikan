@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D020D121C83486700E62CC1 /* KMMetadataFetcherSeriesSearchResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D020D111C83486700E62CC1 /* KMMetadataFetcherSeriesSearchResultsTableViewCell.swift */; };
+		5D020D151C83499900E62CC1 /* KMMetadataFetcherSeriesSearchResultsItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D020D141C83499900E62CC1 /* KMMetadataFetcherSeriesSearchResultsItemData.swift */; };
 		5D0D2A4C1C39830D00E3B8D0 /* KMManga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0D2A4B1C39830D00E3B8D0 /* KMManga.swift */; };
 		5D0D2A521C39A11000E3B8D0 /* KMAddMangaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0D2A501C39A11000E3B8D0 /* KMAddMangaViewController.swift */; };
 		5D1388CC1C3836C200B5EAAD /* KMReaderPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1388CB1C3836C200B5EAAD /* KMReaderPanelView.swift */; };
@@ -29,6 +31,7 @@
 		5D5DBEFA1C358BD3004D8C5D /* KMMangaGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBEF91C358BD3004D8C5D /* KMMangaGridItem.swift */; };
 		5D5DBEFC1C358BE0004D8C5D /* KMMangaGridController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBEFB1C358BE0004D8C5D /* KMMangaGridController.swift */; };
 		5D5DBF021C35923F004D8C5D /* KMReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBF011C35923F004D8C5D /* KMReaderViewController.swift */; };
+		5D617CC31C835CFC00E4DB7D /* KMMetadataFetcherCoverSelectionPopUpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D617CC21C835CFC00E4DB7D /* KMMetadataFetcherCoverSelectionPopUpButton.swift */; };
 		5D6AD5611C80AF7200A5234F /* KMAlwaysActiveTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6AD5601C80AF7200A5234F /* KMAlwaysActiveTextField.swift */; };
 		5D6DCC8B1C76700E0077A33B /* KMAboutWindowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6DCC8A1C76700E0077A33B /* KMAboutWindowViewController.swift */; };
 		5D7542E91C820A1600B4B836 /* KMMetadataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7542E81C820A1600B4B836 /* KMMetadataFetcher.swift */; };
@@ -83,6 +86,8 @@
 
 /* Begin PBXFileReference section */
 		39B1CCABE43DCFDDE2111753 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D020D111C83486700E62CC1 /* KMMetadataFetcherSeriesSearchResultsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMetadataFetcherSeriesSearchResultsTableViewCell.swift; sourceTree = "<group>"; };
+		5D020D141C83499900E62CC1 /* KMMetadataFetcherSeriesSearchResultsItemData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMetadataFetcherSeriesSearchResultsItemData.swift; sourceTree = "<group>"; };
 		5D0D2A4B1C39830D00E3B8D0 /* KMManga.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMManga.swift; sourceTree = "<group>"; };
 		5D0D2A501C39A11000E3B8D0 /* KMAddMangaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMAddMangaViewController.swift; sourceTree = "<group>"; };
 		5D1388CB1C3836C200B5EAAD /* KMReaderPanelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMReaderPanelView.swift; sourceTree = "<group>"; };
@@ -111,6 +116,7 @@
 		5D5DBEF91C358BD3004D8C5D /* KMMangaGridItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaGridItem.swift; sourceTree = "<group>"; };
 		5D5DBEFB1C358BE0004D8C5D /* KMMangaGridController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaGridController.swift; sourceTree = "<group>"; };
 		5D5DBF011C35923F004D8C5D /* KMReaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMReaderViewController.swift; sourceTree = "<group>"; };
+		5D617CC21C835CFC00E4DB7D /* KMMetadataFetcherCoverSelectionPopUpButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMetadataFetcherCoverSelectionPopUpButton.swift; sourceTree = "<group>"; };
 		5D6AD5601C80AF7200A5234F /* KMAlwaysActiveTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMAlwaysActiveTextField.swift; sourceTree = "<group>"; };
 		5D6DCC8A1C76700E0077A33B /* KMAboutWindowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMAboutWindowViewController.swift; sourceTree = "<group>"; };
 		5D7542E81C820A1600B4B836 /* KMMetadataFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMetadataFetcher.swift; sourceTree = "<group>"; };
@@ -175,9 +181,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5D020D131C83497900E62CC1 /* Metadata Fetcher */ = {
+			isa = PBXGroup;
+			children = (
+				5D020D141C83499900E62CC1 /* KMMetadataFetcherSeriesSearchResultsItemData.swift */,
+			);
+			name = "Metadata Fetcher";
+			sourceTree = "<group>";
+		};
 		5D0D2A4A1C39830000E3B8D0 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				5D020D131C83497900E62CC1 /* Metadata Fetcher */,
 				5D7A74E61C7BA4130093EFEC /* Reader Page Jump */,
 				5DAC3ED21C70F87D00B77A19 /* Search List */,
 				5D0D2A4B1C39830D00E3B8D0 /* KMManga.swift */,
@@ -240,6 +255,7 @@
 				5DD77F201C765BD7000E6645 /* KMDraggableImageView.swift */,
 				5D6AD5601C80AF7200A5234F /* KMAlwaysActiveTextField.swift */,
 				5DACB0AC1C80C1CB0065C5DA /* KMRasterizedViews.swift */,
+				5D617CC21C835CFC00E4DB7D /* KMMetadataFetcherCoverSelectionPopUpButton.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -248,6 +264,7 @@
 			isa = PBXGroup;
 			children = (
 				5D39717A1C822CDE00FD77C5 /* KMMetadataFetcherViewController.swift */,
+				5D020D111C83486700E62CC1 /* KMMetadataFetcherSeriesSearchResultsTableViewCell.swift */,
 			);
 			name = "Metadata Fetcher";
 			sourceTree = "<group>";
@@ -680,6 +697,7 @@
 				5D363FA51C5ABFB6004708FC /* KMEHDownloadController.swift in Sources */,
 				5DDD43651C6FBC82005DBAAF /* KMSetSelectedItemsPropertiesViewController.swift in Sources */,
 				5D6DCC8B1C76700E0077A33B /* KMAboutWindowViewController.swift in Sources */,
+				5D020D121C83486700E62CC1 /* KMMetadataFetcherSeriesSearchResultsTableViewCell.swift in Sources */,
 				5DC23A8A1C5BBEFF00916751 /* KMImageFilterUtilities.swift in Sources */,
 				5DBC7C6B1C629BBC00FAD428 /* KMImageUtilities.swift in Sources */,
 				5D9912111C46A5A6008E6591 /* KMCommandUtilities.swift in Sources */,
@@ -695,6 +713,8 @@
 				5D5DBED11C3584F5004D8C5D /* ViewController.swift in Sources */,
 				5DBB0DFF1C36DA0000495985 /* KMFileUtilities.swift in Sources */,
 				5DAC3ED11C70F70B00B77A19 /* KMSearchListViewController.swift in Sources */,
+				5D617CC31C835CFC00E4DB7D /* KMMetadataFetcherCoverSelectionPopUpButton.swift in Sources */,
+				5D020D151C83499900E62CC1 /* KMMetadataFetcherSeriesSearchResultsItemData.swift in Sources */,
 				5D5DBECF1C3584F5004D8C5D /* AppDelegate.swift in Sources */,
 				5DAC3ED81C70FB2100B77A19 /* KMSearchListTableViewCell.swift in Sources */,
 				5D22C3FD1C4454C50010746F /* KMPreferencesController.swift in Sources */,

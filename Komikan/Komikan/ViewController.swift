@@ -358,15 +358,15 @@ class ViewController: NSViewController, NSTabViewDelegate {
             fetchMetadataViewController = storyboard.instantiateControllerWithIdentifier("metadataFetcherViewController") as? KMMetadataFetcherViewController;
             
             // Set the fetch metadata popover's selected manga
-            fetchMetadataViewController?.selectedManga = selectedGridItemManga();
+            fetchMetadataViewController?.selectedMangaGridItems = selectedGridItems();
             
             // Present the fetchMetadataViewController as a popover at the given relative rect on the given preferred edge
-            fetchMetadataViewController!.presentViewController(fetchMetadataViewController!, asPopoverRelativeToRect: relativeToRect, ofView: backgroundVisualEffectView, preferredEdge: preferredEdge, behavior: NSPopoverBehavior.Semitransient);
+            fetchMetadataViewController!.presentViewController(fetchMetadataViewController!, asPopoverRelativeToRect: relativeToRect, ofView: backgroundVisualEffectView, preferredEdge: preferredEdge, behavior: NSPopoverBehavior.Transient);
             
             // If this is the first time we have opened the popover...
             if(fetchMetadataViewFirstLoad) {
                 // Subscribe to the popovers finished notification
-                NSNotificationCenter.defaultCenter().addObserver(self, selector: "setSelectedItemsMetadata:", name:"KMMetadataFetcherViewController.Finished", object: nil);
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: "fetchMetadataForSelectedItemsPopoverFinished:", name:"KMMetadataFetcherViewController.Finished", object: nil);
                 
                 // Say that all the next loads are not the first
                 fetchMetadataViewFirstLoad = false;
@@ -380,9 +380,10 @@ class ViewController: NSViewController, NSTabViewDelegate {
         showFetchMetadataForSelectedItemsPopover(NSRect(x: 0, y: 0, width: window.contentView!.bounds.width, height: window.contentView!.bounds.height / 2), preferredEdge: NSRectEdge.MaxY);
     }
     
-    /// Called by the fetch metadata for selected manga popover when it is finished, sets the metadata for the selected manga to the metadata in the notifications object(KMSeriesMetadata)
-    func setSelectedItemsMetadata(notification : NSNotification) {
-        print("Setting metadata");
+    /// Called when the fetch metadata for selected manga popover is done
+    func fetchMetadataForSelectedItemsPopoverFinished(notification : NSNotification) {
+        // Update the manga
+        updateMangaGrid();
     }
     
     /// The view controller we will load for the popover that lets us set the selected items properties(Artist, Group, ETC.)

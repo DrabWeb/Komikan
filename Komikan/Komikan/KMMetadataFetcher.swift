@@ -78,6 +78,12 @@ class KMMetadataFetcher {
                     metadataSearchItems.append(KMMetadataInfo(title: currentItem[1].stringValue, id: currentItem[0].intValue));
                 }
                 
+                // If the metadata search items are empty...
+                if(metadataSearchItems.isEmpty) {
+                    // Say there were no results
+                    print("No search results found");
+                }
+                
                 // Return the search items
                 completionHandler(metadataSearchItems, nil);
             }
@@ -100,7 +106,7 @@ class KMMetadataFetcher {
         print("Getting metadata for \"" + metadata.title + "\"");
         
         /// The KMSeriesMetadata we will receive from MCD and return at the end
-        var seriesMetadata : KMSeriesMetadata = KMSeriesMetadata();
+        let seriesMetadata : KMSeriesMetadata = KMSeriesMetadata();
         
         /// The SwiftyJSON object which holds the JSON result of the GET request
         var responseJSON : JSON = JSON(data: NSData());

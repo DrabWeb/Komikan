@@ -65,4 +65,37 @@ extension Array {
         // Return the occurence count
         return occurenceCount;
     }
+    
+    /// Returns this array as a string where each element is listed with a ", " in between
+    func listString() -> String {
+        /// The string we will return at the end
+        var createdString : String = "";
+        
+        // For every item in this array...
+        for(_, currentItem) in self.enumerate() {
+            // Add the current item witha ", " on the end to the created string
+            createdString += String(currentItem) + ", ";
+        }
+        
+        // Remove the last ", "
+        createdString = createdString.substringToIndex(createdString.endIndex.predecessor().predecessor());
+        
+        // Return the string
+        return createdString;
+    }
+}
+
+extension SequenceType where Generator.Element: Hashable {
+    /// Returns the frequency of each element in the array, sorted by count
+    func frequencies() -> [(Generator.Element,Int)] {
+        // Credits to http://stackoverflow.com/questions/27611744/most-common-array-elements-swift
+        
+        var frequency: [Generator.Element:Int] = [:]
+        
+        for x in self {
+            frequency[x] = (frequency[x] ?? 0) + 1
+        }
+        
+        return frequency.sort { $0.1 > $1.1 }
+    }
 }
