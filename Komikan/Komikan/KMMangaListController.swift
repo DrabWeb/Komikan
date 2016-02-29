@@ -25,6 +25,7 @@ class KMMangaListController: NSObject {
         // If we double clicked...
         if(NSApplication.sharedApplication().currentEvent?.clickCount == 2) {
             // Open the selected manga
+            openManga();
         }
     }
     
@@ -33,6 +34,71 @@ class KMMangaListController: NSObject {
     
     // The view controller we will load for the edit/open manga popover
     var editMangaViewController: KMEditMangaViewController?
+    
+    /// Returns the selected manga from the table view
+    func selectedManga() -> KMManga {
+        // Get the manga at the selected row in the array controller
+        return ((self.mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])![mangaListTableView.selectedRow].manga);
+    }
+    
+    func openPopover() {
+        // Get the main storyboard
+        let storyboard = NSStoryboard(name: "Main", bundle: nil);
+        
+        // Instanstiate the view controller for the edit/open manga view controller
+        editMangaViewController = storyboard.instantiateControllerWithIdentifier("editMangaViewController") as? KMEditMangaViewController;
+        
+        // Only load the view, but not display
+        editMangaViewController?.loadView();
+        
+        // Say that we want to edit or open this manga
+        NSNotificationCenter.defaultCenter().postNotificationName("KMMangaGridCollectionItem.Editing", object: selectedManga());
+        
+        // Subscribe to the popovers saved function
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "saveMangaFromPopover:", name:"KMEditMangaViewController.Saving", object: nil);
+        
+        // Subscribe to the readers update percent finished function
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updatePercentFinished:", name:"KMMangaGridCollectionItem.UpdatePercentFinished", object: nil);
+    }
+    
+    func openManga() {
+        // Open the popover
+        openPopover();
+        
+        // Open the selected manga manga
+        (NSApplication.sharedApplication().delegate as! AppDelegate).openManga(selectedManga(), page: selectedManga().currentPage);
+    }
+    
+    func saveMangaFromPopover(notification : NSNotification) {
+        // If the UUID matches...
+        if(selectedManga().uuid == (notification.object as? KMManga)!.uuid) {
+            // Print to the log the manga we received
+            print("Saving manga \"" + selectedManga().title + "\"");
+            
+            // Set the selected manga to the notiifcations manga
+            (self.mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])![mangaListTableView.selectedRow].changeManga((notification.object as? KMManga)!);
+            
+            // Remove the observer so we dont get duplicate calls
+            NSNotificationCenter.defaultCenter().removeObserver(self);
+            
+            // Reload the view to match its contents
+            NSNotificationCenter.defaultCenter().postNotificationName("ViewController.UpdateMangaGrid", object: nil);
+            
+            // Tell the manga grid to resort itself
+            NSNotificationCenter.defaultCenter().postNotificationName("MangaGrid.Resort", object: nil);
+        }
+    }
+    
+    func updatePercentFinished(notification : NSNotification) {
+        // If the UUID matches...
+        if(selectedManga().uuid == (notification.object as? KMManga)!.uuid) {
+            // Update the passed mangas percent finished
+            (notification.object as? KMManga)!.updatePercent();
+            
+            // Set the selected manga's percent done to the passed mangas percent done
+            selectedManga().percentFinished = ((notification.object as? KMManga)!.percentFinished);
+        }
+    }
 }
 
 extension KMMangaListController : NSTableViewDataSource {
