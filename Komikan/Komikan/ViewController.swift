@@ -40,6 +40,15 @@ class ViewController: NSViewController, NSTabViewDelegate {
     // The grid controller for the manga grid
     @IBOutlet var mangaGridController: KMMangaGridController!
     
+    /// The list controller for the manga list
+    @IBOutlet var mangaListController: KMMangaListController!
+    
+    /// The table view the user can switch to to see their manga in a list instead of a grid
+    @IBOutlet var mangaTableView: NSTableView!
+    
+    /// The scroll view for mangaTableView
+    @IBOutlet var mangaTableViewScrollView: NSScrollView!
+    
     // The tab view for the titlebar that lets you sort
     @IBOutlet weak var titlebarTabView: NSTabView!
     
@@ -99,7 +108,7 @@ class ViewController: NSViewController, NSTabViewDelegate {
     
     /// When we interact with titlebarToggleListViewCheckbox...
     @IBAction func titlebarToggleListViewCheckboxAction(sender: AnyObject) {
-        
+        toggleView();
     }
     
     // Called when we hit "Add" in the addmanga popover
@@ -277,16 +286,131 @@ class ViewController: NSViewController, NSTabViewDelegate {
         if(keyPath == "arrangedObjects") {
             // Update the manga count in the info bar
             updateInfoBarMangaCountLabel();
+            
+            mangaListController.mangaListTableView.reloadData();
         }
     }
     
-    /// Returns the selected KMMangaGridItem from the manga grid
+    /// Are we in list view?
+    var inListView : Bool = false;
+    
+    /// The sort descriptors that were in the manga grid before we switched to table view
+    var oldGridSortDescriptors : [NSSortDescriptor] = [];
+    
+    /// Toggles between list and grid view
+    func toggleView() {
+        // Toggle in list view
+        inListView = !inListView;
+        
+        // If we are now in list view...
+        if(inListView) {
+            // Display list view
+            displayListView();
+        }
+        // If we are now in grid view...
+        else {
+            // Display grid view
+            displayGridView();
+        }
+    }
+    
+    /// Switches from the grid view to the table view
+    func displayListView() {
+        // Print to the log that we are going into list view
+        print("Switching to list view");
+        
+        // Say we are in list view
+        inListView = true;
+        
+        oldGridSortDescriptors = mangaGridController.arrayController.sortDescriptors;
+        
+        // Deselect all the items in the grid and list
+        mangaCollectionView.deselectAll(self);
+        mangaTableView.deselectAll(self);
+        
+        // Show the list view
+        mangaTableViewScrollView.hidden = false;
+        
+        // Hide the grid view
+        mangaCollectionViewScrollView.hidden = true;
+        
+        // Fade out the manga grid only titlebar items
+        titlebarSortingTabView.animator().alphaValue = 0;
+        titlebarToggleSortDirectionButton.animator().alphaValue = 0;
+    }
+    
+    /// Switches from the table view to the grid view
+    func displayGridView() {
+        // Print to the log that we are going into grid view
+        print("Switching to grid view");
+        
+        // Say we arent in list view
+        inListView = false;
+        
+        mangaGridController.arrayController.sortDescriptors = oldGridSortDescriptors;
+        
+        // Deselect all the items in the grid and list
+        mangaCollectionView.deselectAll(self);
+        mangaTableView.deselectAll(self);
+        
+        // Hide the list view
+        mangaTableViewScrollView.hidden = true;
+        
+        // Show the grid view
+        mangaCollectionViewScrollView.hidden = false;
+        
+        // Fade in the manga grid only titlebar items
+        titlebarSortingTabView.animator().alphaValue = 1;
+        titlebarToggleSortDirectionButton.animator().alphaValue = 1;
+    }
+    
+    /// Returns the indexes of the selected manga items
+    func selectedItemIndexes() -> NSIndexSet {
+        /// The indexes of the selected manga items
+        var selectionIndexes : NSIndexSet = NSIndexSet();
+        
+        // If we are in list view...
+        if(inListView) {
+            // Set selection indexes to the manga lists selected rows
+            selectionIndexes = mangaTableView.selectedRowIndexes;
+        }
+        // If we are in grid view...
+        else {
+            // Set selection indexes to the manga grids selection indexes
+            selectionIndexes = mangaCollectionView.selectionIndexes;
+        }
+        
+        // Return the selection indexes
+        return selectionIndexes;
+    }
+    
+    /// Returns the count of how many manga items we have selected
+    func selectedItemCount() -> Int {
+        /// The amount of selected items
+        var selectedCount : Int = 0;
+        
+        // If we are in list view...
+        if(inListView) {
+            // Set selected count to the amount of selected rows in the manga list
+            selectedCount = mangaTableView.selectedRowIndexes.count;
+        }
+        // If we are in grid view...
+        else {
+            // Set selected count to the amount of selected items in the manga grid
+            selectedCount = mangaCollectionView.selectionIndexes.count;
+        }
+        
+        // Return the selected count
+        return selectedCount;
+    }
+    
+    /// Returns the selected KMMangaGridItem manga item
     func selectedGridItems() -> [KMMangaGridItem] {
         /// The selected KMMangaGridItem from the manga grid
         var selectedGridItems : [KMMangaGridItem] = [];
         
         // For every selection index of the manga grid...
-        for(_, currentIndex) in mangaCollectionView.selectionIndexes.enumerate() {
+        for(_, currentIndex) in selectedItemIndexes().enumerate() {
             // Add the item at the set index to the selected items
             selectedGridItems.append((mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])![currentIndex]);
         }
@@ -295,7 +419,7 @@ class ViewController: NSViewController, NSTabViewDelegate {
         return selectedGridItems;
     }
     
-    /// Returns the KMManga of the selected KMMangaGridItem from the manga grid
+    /// Returns the KMManga of the selected KMMangaGridItem manga item
     func selectedGridItemManga() -> [KMManga] {
         /// The selected KMManga from the manga grid
         var selectedManga : [KMManga] = [];
@@ -382,7 +506,7 @@ class ViewController: NSViewController, NSTabViewDelegate {
     /// Shows the fetch metadata popover at the given rect on the given side
     func showFetchMetadataForSelectedItemsPopover(relativeToRect: NSRect, preferredEdge: NSRectEdge) {
         // If there are any selected manga...
-        if(mangaCollectionView.selectionIndexes.count != 0) {
+        if(selectedItemCount() != 0) {
             // Get the main storyboard
             let storyboard = NSStoryboard(name: "Main", bundle: nil);
             
@@ -416,6 +540,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
     func fetchMetadataForSelectedItemsPopoverFinished(notification : NSNotification) {
         // Update the manga
         updateMangaGrid();
+        
+        // Reload the manga list
+        mangaTableView.reloadData();
     }
     
     /// The view controller we will load for the popover that lets us set the selected items properties(Artist, Group, ETC.)
@@ -427,7 +554,7 @@ class ViewController: NSViewController, NSTabViewDelegate {
     /// Shows the set selected items properties popover
     func showSetSelectedItemsPropertiesPopover() {
         // If there are any selected manga...
-        if(mangaCollectionView.selectionIndexes.count != 0) {
+        if(selectedItemCount() != 0) {
             // Get the main storyboard
             let storyboard = NSStoryboard(name: "Main", bundle: nil);
             
@@ -454,13 +581,7 @@ class ViewController: NSViewController, NSTabViewDelegate {
         print("Setting selected items properties to properties from popover");
         
         /// The manga grid items that we want to set properties of
-        var selectionItemsToSetProperties : [KMMangaGridItem] = [];
-        
-        // For every selection index of the manga grid...
-        for(_, currentIndex) in mangaCollectionView.selectionIndexes.enumerate() {
-            // Add the item at the set index to the items that we want to set properties of
-            selectionItemsToSetProperties.append((mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])![currentIndex]);
-        }
+        let selectionItemsToSetProperties : [KMMangaGridItem] = selectedGridItems();
         
         // Get the notification object as a KMSetSelectedPropertiesHolder
         let propertiesHolder : KMSetSelectedPropertiesHolder = (notification.object as! KMSetSelectedPropertiesHolder);
@@ -632,7 +753,7 @@ class ViewController: NSViewController, NSTabViewDelegate {
         print("Removing \"" + (notification.object as? KMManga)!.title + "\" from the manga grid");
         
         // Remove this item from the collection view
-        mangaGridController.removeGridItem((mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])![mangaCollectionView.selectionIndexes.lastIndex], resort: true);
+        mangaGridController.removeGridItem((mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])![selectedItemIndexes().lastIndex], resort: true);
     }
     
     /// Removes all the selected manga in the grid(Use this for multiple)
@@ -641,12 +762,7 @@ class ViewController: NSViewController, NSTabViewDelegate {
         print("Removing multiple manga from the grid");
         
         /// The manga grid items that we want to remove
-        var selectionItemsToRemove : [KMMangaGridItem] = [];
-        
-        // This breaks because the indexes change during the for loop, and it then gets items it shouldnt.
-        for(_, currentIndex) in mangaCollectionView.selectionIndexes.enumerate() {
-            selectionItemsToRemove.append((mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])![currentIndex]);
-        }
+        var selectionItemsToRemove : [KMMangaGridItem] = selectedGridItems();
         
         // For every item in the manga ggrid items we want to remove...
         for(_, currentItem) in selectionItemsToRemove.enumerate() {

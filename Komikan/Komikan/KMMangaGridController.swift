@@ -11,7 +11,7 @@ import Cocoa
 class KMMangaGridController: NSObject {
     
     /// The array controller for the collection view
-    @IBOutlet weak var arrayController : NSArrayController!;
+    @IBOutlet weak var arrayController : NSArrayController!
     
     /// The items for the manga collection view. THIS IS NOT TO BE MODIFIED DIRECTLY
     var gridItems : [KMMangaGridItem] = [];

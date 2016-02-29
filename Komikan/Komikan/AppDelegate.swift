@@ -11,6 +11,9 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDelegate {
 
+    /// The File/Open menu item
+    @IBOutlet weak var openMenuItem: NSMenuItem!
+    
     /// The Manga/Next Page menu item
     @IBOutlet weak var nextPageMenubarItem: NSMenuItem!
     

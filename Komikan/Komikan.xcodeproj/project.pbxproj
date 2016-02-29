@@ -11,6 +11,8 @@
 		5D020D151C83499900E62CC1 /* KMMetadataFetcherSeriesSearchResultsItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D020D141C83499900E62CC1 /* KMMetadataFetcherSeriesSearchResultsItemData.swift */; };
 		5D0D2A4C1C39830D00E3B8D0 /* KMManga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0D2A4B1C39830D00E3B8D0 /* KMManga.swift */; };
 		5D0D2A521C39A11000E3B8D0 /* KMAddMangaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0D2A501C39A11000E3B8D0 /* KMAddMangaViewController.swift */; };
+		5D0DA3911C84E1A6009B356B /* KMMangaListTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0DA3901C84E1A6009B356B /* KMMangaListTableHeaderView.swift */; };
+		5D0DA3941C84E394009B356B /* KMMangaListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0DA3931C84E394009B356B /* KMMangaListController.swift */; };
 		5D1388CC1C3836C200B5EAAD /* KMReaderPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1388CB1C3836C200B5EAAD /* KMReaderPanelView.swift */; };
 		5D22C3FD1C4454C50010746F /* KMPreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D22C3FC1C4454C50010746F /* KMPreferencesController.swift */; };
 		5D22C4011C445BA20010746F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D22C4001C445BA20010746F /* SwiftyJSON.swift */; };
@@ -90,6 +92,8 @@
 		5D020D141C83499900E62CC1 /* KMMetadataFetcherSeriesSearchResultsItemData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMetadataFetcherSeriesSearchResultsItemData.swift; sourceTree = "<group>"; };
 		5D0D2A4B1C39830D00E3B8D0 /* KMManga.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMManga.swift; sourceTree = "<group>"; };
 		5D0D2A501C39A11000E3B8D0 /* KMAddMangaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMAddMangaViewController.swift; sourceTree = "<group>"; };
+		5D0DA3901C84E1A6009B356B /* KMMangaListTableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaListTableHeaderView.swift; sourceTree = "<group>"; };
+		5D0DA3931C84E394009B356B /* KMMangaListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaListController.swift; sourceTree = "<group>"; };
 		5D1388CB1C3836C200B5EAAD /* KMReaderPanelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMReaderPanelView.swift; sourceTree = "<group>"; };
 		5D22C3FC1C4454C50010746F /* KMPreferencesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMPreferencesController.swift; sourceTree = "<group>"; };
 		5D22C4001C445BA20010746F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
@@ -210,6 +214,14 @@
 			name = "Add Manga";
 			sourceTree = "<group>";
 		};
+		5D0DA3921C84E379009B356B /* Manga List */ = {
+			isa = PBXGroup;
+			children = (
+				5D0DA3931C84E394009B356B /* KMMangaListController.swift */,
+			);
+			name = "Manga List";
+			sourceTree = "<group>";
+		};
 		5D1388CF1C384A2300B5EAAD /* Reader */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,6 +268,7 @@
 				5D6AD5601C80AF7200A5234F /* KMAlwaysActiveTextField.swift */,
 				5DACB0AC1C80C1CB0065C5DA /* KMRasterizedViews.swift */,
 				5D617CC21C835CFC00E4DB7D /* KMMetadataFetcherCoverSelectionPopUpButton.swift */,
+				5D0DA3901C84E1A6009B356B /* KMMangaListTableHeaderView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -272,6 +285,7 @@
 		5D5A11771C370EDC00C7A6A5 /* Manga Grid */ = {
 			isa = PBXGroup;
 			children = (
+				5D0DA3921C84E379009B356B /* Manga List */,
 				5D8C1CAB1C3F0DBA001AD41B /* Edit Manga */,
 				5D5DBEF91C358BD3004D8C5D /* KMMangaGridItem.swift */,
 				5DC97D681C3EFF8200CC1006 /* KMMangaGridCollectionItem.swift */,
@@ -677,6 +691,7 @@
 			files = (
 				5D0D2A521C39A11000E3B8D0 /* KMAddMangaViewController.swift in Sources */,
 				5DC3A8F11C5AB25E0058D253 /* KMGradientView.swift in Sources */,
+				5D0DA3941C84E394009B356B /* KMMangaListController.swift in Sources */,
 				5D7542E91C820A1600B4B836 /* KMMetadataFetcher.swift in Sources */,
 				5DFBC77D1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift in Sources */,
 				5D8B51B11C78B9E800B8C364 /* KMReaderScrollView.swift in Sources */,
@@ -694,6 +709,7 @@
 				5D7A74EC1C7BA73F0093EFEC /* KMReaderPageJumpTableView.swift in Sources */,
 				5DAC3ED41C70F8C100B77A19 /* KMSearchListItemData.swift in Sources */,
 				5D1388CC1C3836C200B5EAAD /* KMReaderPanelView.swift in Sources */,
+				5D0DA3911C84E1A6009B356B /* KMMangaListTableHeaderView.swift in Sources */,
 				5D363FA51C5ABFB6004708FC /* KMEHDownloadController.swift in Sources */,
 				5DDD43651C6FBC82005DBAAF /* KMSetSelectedItemsPropertiesViewController.swift in Sources */,
 				5D6DCC8B1C76700E0077A33B /* KMAboutWindowViewController.swift in Sources */,

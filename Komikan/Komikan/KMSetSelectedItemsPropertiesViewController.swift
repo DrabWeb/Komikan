@@ -53,7 +53,7 @@ class KMSetSelectedItemsPropertiesViewController: NSViewController {
         propertiesHolder.group = groupTextField.stringValue;
         propertiesHolder.appendTags = Bool(appendTagsCheckbox.state);
         propertiesHolder.favourite = Bool(favouriteButton.state);
-        propertiesHolder.setFavourite = Bool(favouriteButton.state);
+        propertiesHolder.setFavourite = true;
         
         // Post the notification to say we are done, with the properties holder
         NSNotificationCenter.defaultCenter().postNotificationName("KMSetSelectedItemsPropertiesViewController.Finished", object: propertiesHolder);

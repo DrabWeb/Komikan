@@ -18,8 +18,17 @@ class KMMangaGridItem: NSObject, NSCoding {
     // The series for the manga, used for sorting
     var series : String = "";
     
+    // The author for the manga, used for sorting
+    var writer : String = "";
+    
     // The artist for the manga, used for sorting
     var artist : String = "";
+    
+    // The percentage the user is done this manga, used for sorting
+    var percentFinished : Int = 0;
+    
+    // Is this manga a favourite? Used for sorting
+    var favourite : Bool = false;
     
     /// The alpha amount of the collection item to say how finished this manga you are
     var percentAlpha : CGFloat = 1;
@@ -43,6 +52,15 @@ class KMMangaGridItem: NSObject, NSCoding {
         
         // Set the artist to the mangas artist
         artist = manga.artist;
+        
+        // Set the author to the mangas author
+        writer = manga.writer;
+        
+        // Set the percent finished to the mangas percent finished
+        percentFinished = manga.percentFinished;
+        
+        // Set if this manga is a favourite to the mangas favourite value
+        favourite = manga.favourite;
         
         // Set the percent alpha (It does 1 minus the percent done / 100(Eg. 75% would be 0.75) and then adds 0.3 to it so it isnt fully transparent)
         percentAlpha = (1.0 - CGFloat(manga.percentFinished) / 100.0) + 0.3;
