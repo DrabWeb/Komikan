@@ -465,7 +465,10 @@ class KMMangaGridController: NSObject {
             /// The favourites search content(If we search for favourites)
             var favouritesSearch : String = "";
             
-            /// The search string without the possible ; on the end
+            /// The read search content(If we search for read manga)
+            var readSearch : String = "";
+            
+            /// The search string without the possible " on the end
             var cleanedSearchText : String = searchText;
             
             // If the last character in the search string is a "...
@@ -519,6 +522,11 @@ class KMMangaGridController: NSObject {
                         // Set the appropriate variable to the current strings search content
                         favouritesSearch = currentString.componentsSeparatedByString(":\"").last!;
                         break;
+                    // If its read...
+                    case "read", "r":
+                        // Set the appropriate variable to the current strings search content
+                        readSearch = currentString.componentsSeparatedByString(":\"").last!;
+                        break;
                     // If it is one that we dont have...
                     default:
                         // Print to the log that it didnt match any types we search by
@@ -548,6 +556,9 @@ class KMMangaGridController: NSObject {
             /// Did we search by favourites?
             let searchedByFavourites : Bool = (favouritesSearch != "");
             
+            /// Did we search by read?
+            let searchedByRead : Bool = (readSearch != "");
+            
             // For every manga we have...
             for(_, currentItem) in gridItems.enumerate() {
                 /// Does this manga overall match the search?
@@ -573,6 +584,9 @@ class KMMangaGridController: NSObject {
                 
                 /// Do we have matching favourites?
                 var matchingFavourites : Bool = false;
+                
+                /// Do we have matching read manga?
+                var matchingRead : Bool = false;
                 
                 // If we searched by title...
                 if(searchedByTitle) {
@@ -616,6 +630,15 @@ class KMMangaGridController: NSObject {
                     if(currentItem.manga.favourite == favouritesSearch.toBool()) {
                         // Say there is a matching favourite
                         matchingFavourites = true;
+                    }
+                }
+                
+                // If we searched by read manga...
+                if(searchedByRead) {
+                    // If the current items read value is the same as the favourites value we searched for...
+                    if(currentItem.manga.read == readSearch.toBool()) {
+                        // Say there is a matching read manga
+                        matchingRead = true;
                     }
                 }
                 
@@ -805,10 +828,10 @@ class KMMangaGridController: NSObject {
                 }
                 
                 // Example search
-                // title:v007; series:Yuru Yuri; artist:namori; writer:namori; tags:school, comedy, -drama; groups:reading, -dropped; favourites:yes;
+                // title:"v007" series:"Yuru Yuri" artist:"namori" writer:"namori" tags:"school, comedy, -drama" groups:"reading, -dropped" favourites:"yes" read:"yes"
                 
                 // Or you can use the simplified search term names
-                // t:v007; s:Yuru Yuri; a:namori; w:namori; tg:school, comedy, -drama; g:reading, -dropped; f:y;
+                // t:"v007" s:"Yuru Yuri" a:"namori" w:"namori" tg:"school, comedy, -drama" g:"reading, -dropped" f:"y" r:"y"
                 
                 // If we didnt search by title...
                 if(!searchedByTitle) {
@@ -845,9 +868,14 @@ class KMMangaGridController: NSObject {
                     // Say the favourites matched
                     matchingFavourites = true;
                 }
+                // If we didnt search by read manga...
+                if(!searchedByRead) {
+                    // Say the read matched
+                    matchingRead = true;
+                }
                 
                 // If everything matched...
-                if(matchingTitle && matchingSeries && matchingArtist && matchingWriter && matchingTags && matchingGroups && matchingFavourites) {
+                if(matchingTitle && matchingSeries && matchingArtist && matchingWriter && matchingTags && matchingGroups && matchingFavourites && matchingRead) {
                     // Say the manga passed, and matches everything
                     matching = true;
                 }
