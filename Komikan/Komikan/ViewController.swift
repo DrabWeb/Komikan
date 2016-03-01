@@ -335,6 +335,10 @@ class ViewController: NSViewController, NSTabViewDelegate {
         mangaCollectionView.deselectAll(self);
         mangaTableView.deselectAll(self);
         
+        // Redraw the table view graphically so we dont get artifacts
+        mangaTableViewScrollView.needsDisplay = true;
+        mangaTableView.needsDisplay = true;
+        
         // Show the list view
         mangaTableViewScrollView.hidden = false;
         
@@ -363,6 +367,10 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Deselect all the items in the grid and list
         mangaCollectionView.deselectAll(self);
         mangaTableView.deselectAll(self);
+        
+        // Redraw the grid view graphically so we dont get artifacts
+        mangaCollectionView.needsDisplay = true;
+        mangaCollectionViewScrollView.needsDisplay = true;
         
         // Hide the list view
         mangaTableViewScrollView.hidden = true;

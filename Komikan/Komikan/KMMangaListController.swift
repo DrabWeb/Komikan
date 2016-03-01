@@ -18,7 +18,7 @@ class KMMangaListController: NSObject {
     @IBOutlet weak var viewController: ViewController!
     
     /// The table view this list controller is filling in
-    @IBOutlet weak var mangaListTableView: NSTableView!
+    @IBOutlet weak var mangaListTableView: KMMangaListTableView!
     
     /// When we click on mangaListTableView...
     @IBAction func mangaListTableViewClicked(sender: AnyObject) {
@@ -41,15 +41,22 @@ class KMMangaListController: NSObject {
         return ((self.mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])![mangaListTableView.selectedRow].manga);
     }
     
-    func openPopover() {
+    func openPopover(hidden : Bool) {
         // Get the main storyboard
         let storyboard = NSStoryboard(name: "Main", bundle: nil);
         
         // Instanstiate the view controller for the edit/open manga view controller
         editMangaViewController = storyboard.instantiateControllerWithIdentifier("editMangaViewController") as? KMEditMangaViewController;
         
-        // Only load the view, but not display
-        editMangaViewController?.loadView();
+        // If we said to hide the popover...
+        if(hidden) {
+            // Only load the view, but not display
+            editMangaViewController?.loadView();
+        }
+        else {
+            // Show the popover
+            editMangaViewController!.presentViewController(editMangaViewController!, asPopoverRelativeToRect: viewController.backgroundVisualEffectView.bounds, ofView: viewController.backgroundVisualEffectView, preferredEdge: NSRectEdge.MaxY, behavior: NSPopoverBehavior.Semitransient);
+        }
         
         // Say that we want to edit or open this manga
         NSNotificationCenter.defaultCenter().postNotificationName("KMMangaGridCollectionItem.Editing", object: selectedManga());
@@ -63,7 +70,7 @@ class KMMangaListController: NSObject {
     
     func openManga() {
         // Open the popover
-        openPopover();
+        openPopover(false);
         
         // Open the selected manga manga
         (NSApplication.sharedApplication().delegate as! AppDelegate).openManga(selectedManga(), page: selectedManga().currentPage);
@@ -75,8 +82,8 @@ class KMMangaListController: NSObject {
             // Print to the log the manga we received
             print("Saving manga \"" + selectedManga().title + "\"");
             
-            // Set the selected manga to the notiifcations manga
-            (self.mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])![mangaListTableView.selectedRow].changeManga((notification.object as? KMManga)!);
+            // Set the selected manga to the notifications manga
+            viewController.selectedGridItems()[0].changeManga((notification.object as? KMManga)!);
             
             // Remove the observer so we dont get duplicate calls
             NSNotificationCenter.defaultCenter().removeObserver(self);
@@ -98,6 +105,11 @@ class KMMangaListController: NSObject {
             // Set the selected manga's percent done to the passed mangas percent done
             selectedManga().percentFinished = ((notification.object as? KMManga)!.percentFinished);
         }
+    }
+    
+    override func awakeFromNib() {
+        // Set the manga list controller's table view reference
+        mangaListTableView.mangaListController = self;
     }
 }
 
