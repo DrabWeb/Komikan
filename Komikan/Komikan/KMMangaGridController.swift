@@ -468,6 +468,9 @@ class KMMangaGridController: NSObject {
             /// The read search content(If we search for read manga)
             var readSearch : String = "";
             
+            /// The percent finished search content(If we search for percent finished)
+            var percentSearch : String = "";
+            
             /// The search string without the possible " on the end
             var cleanedSearchText : String = searchText;
             
@@ -527,6 +530,11 @@ class KMMangaGridController: NSObject {
                         // Set the appropriate variable to the current strings search content
                         readSearch = currentString.componentsSeparatedByString(":\"").last!;
                         break;
+                    // If its percent...
+                    case "percent", "p":
+                        // Set the appropriate variable to the current strings search content
+                        percentSearch = currentString.componentsSeparatedByString(":\"").last!;
+                        break;
                     // If it is one that we dont have...
                     default:
                         // Print to the log that it didnt match any types we search by
@@ -559,6 +567,9 @@ class KMMangaGridController: NSObject {
             /// Did we search by read?
             let searchedByRead : Bool = (readSearch != "");
             
+            /// Did we search by percent finished?
+            let searchedByPercent : Bool = (percentSearch != "");
+            
             // For every manga we have...
             for(_, currentItem) in gridItems.enumerate() {
                 /// Does this manga overall match the search?
@@ -587,6 +598,9 @@ class KMMangaGridController: NSObject {
                 
                 /// Do we have matching read manga?
                 var matchingRead : Bool = false;
+                
+                /// Do we have matching percent finished?
+                var matchingPercent : Bool = false;
                 
                 // If we searched by title...
                 if(searchedByTitle) {
@@ -639,6 +653,34 @@ class KMMangaGridController: NSObject {
                     if(currentItem.manga.read == readSearch.toBool()) {
                         // Say there is a matching read manga
                         matchingRead = true;
+                    }
+                }
+                
+                // If we searched by percent finished...
+                if(searchedByPercent) {
+                    // If the first character in the percent search is a >...
+                    if(percentSearch.substringToIndex(percentSearch.startIndex.successor()) == ">") {
+                        // If the current manga's percent finished is greater then the searched number...
+                        if(currentItem.manga.percentFinished > NSString(string: percentSearch.substringFromIndex(percentSearch.startIndex.successor())).integerValue) {
+                            // Say the percent matched
+                            matchingPercent = true;
+                        }
+                    }
+                    // If the first character in the percent search is a <...
+                    else if(percentSearch.substringToIndex(percentSearch.startIndex.successor()) == "<") {
+                        // If the current manga's percent finished is less then the searched number...
+                        if(currentItem.manga.percentFinished < NSString(string: percentSearch.substringFromIndex(percentSearch.startIndex.successor())).integerValue) {
+                            // Say the percent matched
+                            matchingPercent = true;
+                        }
+                    }
+                    // If we just searched by a number...
+                    else {
+                        // If the current manga's percent finished is equal to the searched number...
+                        if(currentItem.manga.percentFinished == NSString(string: percentSearch).integerValue) {
+                            // Say the percent matched
+                            matchingPercent = true;
+                        }
                     }
                 }
                 
@@ -828,10 +870,10 @@ class KMMangaGridController: NSObject {
                 }
                 
                 // Example search
-                // title:"v007" series:"Yuru Yuri" artist:"namori" writer:"namori" tags:"school, comedy, -drama" groups:"reading, -dropped" favourites:"yes" read:"yes"
+                // title:"v007" series:"Yuru Yuri" artist:"namori" writer:"namori" tags:"school, comedy, -drama" groups:"reading, -dropped" favourites:"yes" read:"yes" percent:"<50"
                 
                 // Or you can use the simplified search term names
-                // t:"v007" s:"Yuru Yuri" a:"namori" w:"namori" tg:"school, comedy, -drama" g:"reading, -dropped" f:"y" r:"y"
+                // t:"v007" s:"Yuru Yuri" a:"namori" w:"namori" tg:"school, comedy, -drama" g:"reading, -dropped" f:"y" r:"y" p:"<50"
                 
                 // If we didnt search by title...
                 if(!searchedByTitle) {
@@ -873,9 +915,14 @@ class KMMangaGridController: NSObject {
                     // Say the read matched
                     matchingRead = true;
                 }
+                // If we didnt search by percent finished...
+                if(!searchedByPercent) {
+                    // Say the percent finished matched
+                    matchingPercent = true;
+                }
                 
                 // If everything matched...
-                if(matchingTitle && matchingSeries && matchingArtist && matchingWriter && matchingTags && matchingGroups && matchingFavourites && matchingRead) {
+                if(matchingTitle && matchingSeries && matchingArtist && matchingWriter && matchingTags && matchingGroups && matchingFavourites && matchingRead && matchingPercent) {
                     // Say the manga passed, and matches everything
                     matching = true;
                 }
