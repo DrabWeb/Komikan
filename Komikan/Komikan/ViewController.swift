@@ -215,6 +215,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Set the toggle list view menubar items action
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.toggleListViewMenuItem.action = Selector("toggleView");
         
+        // Set the open menubar items action
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.openMenuItem.action = Selector("openSelectedManga");
+        
         // Start a 0.1 second loop that will fix the windows look in fullscreen
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("deleteTitlebarInFullscreen"), userInfo: nil, repeats:true);
         
@@ -291,6 +294,23 @@ class ViewController: NSViewController, NSTabViewDelegate {
             updateInfoBarMangaCountLabel();
             
             mangaListController.mangaListTableView.reloadData();
+        }
+    }
+    
+    /// Opens the selected manga in the reader(If in list view it selects the first one and opens that)
+    func openSelectedManga() {
+        // If we are in list view...
+        if(inListView) {
+            // Open the first selected manga
+            mangaListController.openManga();
+        }
+        // If we are in grid view...
+        else {
+            // For every selection index...
+            for(_, currentSelectionIndex) in selectedItemIndexes().enumerate() {
+                // Get the KMMangaGridCollectionItem at the current selection index and open it in the reader
+                (mangaCollectionView.itemAtIndex(currentSelectionIndex) as? KMMangaGridCollectionItem)!.openManga();
+            }
         }
     }
     

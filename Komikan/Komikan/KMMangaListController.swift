@@ -29,13 +29,31 @@ class KMMangaListController: NSObject {
         }
     }
     
+    /// The opened manga of the list
+    var openedManga : [KMManga] = [];
+    
     /// A little bool to stop the manga list from resorting at launch, otherwise it messes stuff up
     var firstSortChange : Bool = true;
     
     // The view controller we will load for the edit/open manga popover
     var editMangaViewController: KMEditMangaViewController?
     
-    /// Returns the selected manga from the table view
+    /// Returns the list of selected manga from the table view
+    func selectedMangaList() -> [KMManga] {
+        /// The list of selected manga we will return at the end
+        var manga : [KMManga] = [];
+        
+        // For every selected row...
+        for(_, currentIndex) in self.mangaListTableView.selectedRowIndexes.enumerate() {
+            // Add the manga at the current index to the manga list
+            manga.append(((self.mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])![currentIndex].manga));
+        }
+        
+        // Return the manga list
+        return manga;
+    }
+    
+    /// Returns the single selected manga from the table view
     func selectedManga() -> KMManga {
         // Get the manga at the selected row in the array controller
         return ((self.mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])![mangaListTableView.selectedRow].manga);
@@ -58,6 +76,9 @@ class KMMangaListController: NSObject {
             editMangaViewController!.presentViewController(editMangaViewController!, asPopoverRelativeToRect: viewController.backgroundVisualEffectView.bounds, ofView: viewController.backgroundVisualEffectView, preferredEdge: NSRectEdge.MaxY, behavior: NSPopoverBehavior.Semitransient);
         }
         
+        // Add the selected manga to the list of opened manga
+        openedManga.append(selectedManga());
+        
         // Say that we want to edit or open this manga
         NSNotificationCenter.defaultCenter().postNotificationName("KMMangaGridCollectionItem.Editing", object: selectedManga());
         
@@ -70,40 +91,55 @@ class KMMangaListController: NSObject {
     
     func openManga() {
         // Open the popover
-        openPopover(false);
+        openPopover(true);
         
         // Open the selected manga manga
         (NSApplication.sharedApplication().delegate as! AppDelegate).openManga(selectedManga(), page: selectedManga().currentPage);
     }
     
     func saveMangaFromPopover(notification : NSNotification) {
-        // If the UUID matches...
-        if(selectedManga().uuid == (notification.object as? KMManga)!.uuid) {
-            // Print to the log the manga we received
-            print("Saving manga \"" + selectedManga().title + "\"");
-            
-            // Set the selected manga to the notifications manga
-            viewController.selectedGridItems()[0].changeManga((notification.object as? KMManga)!);
-            
-            // Remove the observer so we dont get duplicate calls
-            NSNotificationCenter.defaultCenter().removeObserver(self);
-            
-            // Reload the view to match its contents
-            NSNotificationCenter.defaultCenter().postNotificationName("ViewController.UpdateMangaGrid", object: nil);
-            
-            // Tell the manga grid to resort itself
-            NSNotificationCenter.defaultCenter().postNotificationName("MangaGrid.Resort", object: nil);
+        // For every manga in the opened manga...
+        for(_, currentManga) in openedManga.enumerate() {
+            // If the UUID matches...
+            if(currentManga.uuid == (notification.object as? KMManga)!.uuid) {
+                // Print to the log the manga we received
+                print("Saving manga \"" + currentManga.title + "\"");
+                
+                // For every manga inside the opened manga...
+                for(_, currentOpenedManga) in openedManga.enumerate() {
+                    // For every item in the array controller...
+                    for(_, currentMangaGridItem) in (self.mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])!.enumerate() {
+                        // If the current grid item's manga's UUID is the same as the current opened manga's UUID...
+                        if(currentMangaGridItem.manga.uuid == currentOpenedManga.uuid) {
+                            // Set the current manga to the notifications manga
+                            currentMangaGridItem.changeManga((notification.object as? KMManga)!);
+                        }
+                    }
+                }
+                
+                // Remove the observer so we dont get duplicate calls
+                NSNotificationCenter.defaultCenter().removeObserver(self);
+                
+                // Reload the view to match its contents
+                NSNotificationCenter.defaultCenter().postNotificationName("ViewController.UpdateMangaGrid", object: nil);
+                
+                // Tell the manga grid to resort itself
+                NSNotificationCenter.defaultCenter().postNotificationName("MangaGrid.Resort", object: nil);
+            }
         }
     }
     
     func updatePercentFinished(notification : NSNotification) {
-        // If the UUID matches...
-        if(selectedManga().uuid == (notification.object as? KMManga)!.uuid) {
-            // Update the passed mangas percent finished
-            (notification.object as? KMManga)!.updatePercent();
-            
-            // Set the selected manga's percent done to the passed mangas percent done
-            selectedManga().percentFinished = ((notification.object as? KMManga)!.percentFinished);
+        // For every manga in the opened manga...
+        for(_, currentManga) in openedManga.enumerate() {
+            // If the UUID matches...
+            if(currentManga.uuid == (notification.object as? KMManga)!.uuid) {
+                // Update the passed mangas percent finished
+                (notification.object as? KMManga)!.updatePercent();
+                
+                // Set the current manga's percent done to the passed mangas percent done
+                currentManga.percentFinished = ((notification.object as? KMManga)!.percentFinished);
+            }
         }
     }
     
@@ -127,7 +163,7 @@ extension KMMangaListController : NSTableViewDataSource {
             /// The size of this cell's text
             let size = view.textField!.attributedStringValue.size();
             
-            // Set width to the to the greatest number in widthand the label's width
+            // Set width to the to the greatest number in between width and the label's width
             width = max(width, size.width);
         }
         
