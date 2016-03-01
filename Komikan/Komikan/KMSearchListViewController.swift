@@ -151,7 +151,7 @@ class KMSearchListViewController: NSViewController {
                     // If this is the first series search term...
                     if(firstOfSeriesSearch) {
                         // Add the series search group marker
-                        searchString += "s:";
+                        searchString += "s:\"";
                         
                         // Say this is no longer the first series search term
                         firstOfSeriesSearch = false;
@@ -169,12 +169,12 @@ class KMSearchListViewController: NSViewController {
                             // Remove the extra ", " from the search string
                             searchString = searchString.substringToIndex(searchString.endIndex.predecessor().predecessor());
                             
-                            // Add the "; a:" to the search string to denote a new search type
-                            searchString += "; a:"
+                            // Add the "" a:"" to the search string to denote a new search type
+                            searchString += "\" a:\"";
                         }
                         else {
                             // Add the artist search group marker
-                            searchString += "a:";
+                            searchString += "a:\"";
                         }
                         
                         // Say this is no longer the first artist search term
@@ -193,12 +193,12 @@ class KMSearchListViewController: NSViewController {
                             // Remove the extra ", " from the search string
                             searchString = searchString.substringToIndex(searchString.endIndex.predecessor().predecessor());
                             
-                            // Add the "; w:" to the search string to denote a new search type
-                            searchString += "; w:"
+                            // Add the "" w:"" to the search string to denote a new search type
+                            searchString += "\" w:\"";
                         }
                         else {
                             // Add the writer search group marker
-                            searchString += "w:";
+                            searchString += "w:\"";
                         }
                         
                         // Say this is no longer the first writer search term
@@ -217,12 +217,12 @@ class KMSearchListViewController: NSViewController {
                             // Remove the extra ", " from the search string
                             searchString = searchString.substringToIndex(searchString.endIndex.predecessor().predecessor());
                             
-                            // Add the "; tg:" to the search string to denote a new search type
-                            searchString += "; tg:"
+                            // Add the "" tg:"" to the search string to denote a new search type
+                            searchString += "\" tg:\"";
                         }
                         else {
                             // Add the tags search group marker
-                            searchString += "tg:";
+                            searchString += "tg:\"";
                         }
                         
                         // Say this is no longer the first tags search term
@@ -241,12 +241,12 @@ class KMSearchListViewController: NSViewController {
                             // Remove the extra ", " from the search string
                             searchString = searchString.substringToIndex(searchString.endIndex.predecessor().predecessor());
                             
-                            // Add the "; g:" to the search string to denote a new search type
-                            searchString += "; g:"
+                            // Add the "" g:"" to the search string to denote a new search type
+                            searchString += "\" g:\"";
                         }
                         else {
                             // Add the group search group marker
-                            searchString += "g:";
+                            searchString += "g:\"";
                         }
                         
                         // Say this is no longer the first group search term
@@ -264,8 +264,8 @@ class KMSearchListViewController: NSViewController {
             // Remove the extra ", " from the search string
             searchString = searchString.substringToIndex(searchString.endIndex.predecessor().predecessor());
             
-            // Add the ";" at the end of the search string to denote the end of the final search term
-            searchString += ";";
+            // Add the """ at the end of the search string to denote the end of the final search term
+            searchString += "\"";
         }
         
         // Set the search fields value to the search string we created
@@ -273,7 +273,6 @@ class KMSearchListViewController: NSViewController {
         
         // Search for the search string
         (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.searchFor(searchString);
-//        print(searchString);
     }
     
     /// Styles the window

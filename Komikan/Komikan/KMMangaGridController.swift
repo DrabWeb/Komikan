@@ -468,56 +468,56 @@ class KMMangaGridController: NSObject {
             /// The search string without the possible ; on the end
             var cleanedSearchText : String = searchText;
             
-            // If the last character in the search string is a ;...
-            if(cleanedSearchText.characters.last! == ";") {
+            // If the last character in the search string is a "...
+            if(cleanedSearchText.characters.last! == "\"") {
                 // Remove the last character of the string(Why does Swift make you do this like this?)
                 cleanedSearchText = cleanedSearchText.substringToIndex(cleanedSearchText.endIndex.predecessor());
             }
             
             /// Tjhe search string split at every "; "
-            let searchStringSplit : [String] = cleanedSearchText.componentsSeparatedByString("; ");
+            let searchStringSplit : [String] = cleanedSearchText.componentsSeparatedByString("\" ");
             
             // Print the split search string
-            print("Search string split at every \"; \": " + String(searchStringSplit));
+            print("Search string split at every \"\" \": " + String(searchStringSplit));
             
             // For every item in the split search string
             for(_, currentString) in searchStringSplit.enumerate() {
                 // Switch for the first part of the current search item(The type(title, writer, tags, ETC.))
-                switch currentString.componentsSeparatedByString(":").first! {
+                switch currentString.componentsSeparatedByString(":\"").first! {
                     // If its title...
                     case "title", "t":
                         // Set the appropriate variable to the current strings search content
-                        titleSearch = currentString.componentsSeparatedByString(":").last!;
+                        titleSearch = currentString.componentsSeparatedByString(":\"").last!;
                         break;
                     // If its series...
                     case "series", "s":
                         // Set the appropriate variable to the current strings search content
-                        seriesSearch = currentString.lowercaseString.componentsSeparatedByString(":").last!.componentsSeparatedByString(", ");
+                        seriesSearch = currentString.lowercaseString.componentsSeparatedByString(":\"").last!.componentsSeparatedByString(", ");
                         break;
                     // If its artist...
                     case "artist", "a":
                         // Set the appropriate variable to the current strings search content
-                        artistSearch = currentString.lowercaseString.componentsSeparatedByString(":").last!.componentsSeparatedByString(", ");
+                        artistSearch = currentString.lowercaseString.componentsSeparatedByString(":\"").last!.componentsSeparatedByString(", ");
                         break;
                     // If its writer...
                     case "writer", "w":
                         // Set the appropriate variable to the current strings search content
-                        writerSearch = currentString.lowercaseString.componentsSeparatedByString(":").last!.componentsSeparatedByString(", ");
+                        writerSearch = currentString.lowercaseString.componentsSeparatedByString(":\"").last!.componentsSeparatedByString(", ");
                         break;
                     // If its tags...
                     case "tags", "tg":
                         // Set the appropriate variable to the current strings search content
-                        tagsSearch = currentString.componentsSeparatedByString(":").last!.componentsSeparatedByString(", ");
+                        tagsSearch = currentString.componentsSeparatedByString(":\"").last!.componentsSeparatedByString(", ");
                         break;
                     // If its groups...
                     case "groups", "g":
                         // Set the appropriate variable to the current strings search content
-                        groupsSearch = currentString.componentsSeparatedByString(":").last!.componentsSeparatedByString(", ");
+                        groupsSearch = currentString.componentsSeparatedByString(":\"").last!.componentsSeparatedByString(", ");
                         break;
                     // If its favourites...
                     case "favourites", "f":
                         // Set the appropriate variable to the current strings search content
-                        favouritesSearch = currentString.componentsSeparatedByString(":").last!;
+                        favouritesSearch = currentString.componentsSeparatedByString(":\"").last!;
                         break;
                     // If it is one that we dont have...
                     default:
