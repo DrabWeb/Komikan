@@ -89,6 +89,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     /// The Collection/Manage/Fetch Metadata For Selected menu item
     @IBOutlet weak var fetchMetadataForSelectedMenuItem: NSMenuItem!
     
+    /// The Collection/Toggle List View menu item
+    @IBOutlet weak var toggleListViewMenuItem: NSMenuItem!
+    
     /// The view controller we will load for the reader
     var mangaReaderViewController: KMReaderViewController?;
     

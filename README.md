@@ -23,6 +23,7 @@ Requires at least OSX 10.10 Yosemite. Tested on OSX 10.11 El Capitan
 
 > * Import single or multiple Manga at once
 > * Supports ZIP, RAR, CBZ and CBR
+> * Grid and List views
 > * Set Series, Artist, Writer, Tags, Group, Favourite and mark as l-lewd... on import
 > * Edit any of the above after import(Either one at a time or by groups)
 > * Use JSON to predefine info about multiple or single Manga

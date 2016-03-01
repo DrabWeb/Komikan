@@ -585,11 +585,14 @@
                                     <items>
                                         <menuItem title="Add From EH" keyEquivalent="E" id="9EF-r5-N5K"/>
                                         <menuItem title="Info Bar" keyEquivalent="i" id="7Zc-hP-7S6"/>
-                                        <menuItem title="List All Search Types" keyEquivalent="l" id="67T-hV-8Hk">
+                                        <menuItem title="Search List" keyEquivalent="l" id="67T-hV-8Hk">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                             <connections>
                                                 <segue destination="6db-5W-dhy" kind="show" id="PcW-4D-aj1"/>
                                             </connections>
+                                        </menuItem>
+                                        <menuItem title="Toggle List View" keyEquivalent="t" id="czH-LT-hWx">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                         </menuItem>
                                         <menuItem title="Manage" id="yga-4c-m1k">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -692,6 +695,7 @@ CA
                         <outlet property="switchDualPageDirectionMenuItem" destination="ubh-G8-jVj" id="UF6-lc-LfP"/>
                         <outlet property="toggleBackgroundDarkenMenuItem" destination="ZbJ-Yy-OIo" id="kCW-1r-qf6"/>
                         <outlet property="toggleInfoBarMenuItem" destination="7Zc-hP-7S6" id="lST-ck-asS"/>
+                        <outlet property="toggleListViewMenuItem" destination="czH-LT-hWx" id="R7K-CW-paE"/>
                     </connections>
                 </customObject>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

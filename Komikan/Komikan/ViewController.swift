@@ -212,6 +212,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Set the fetch metadata for selected menubar items action
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.fetchMetadataForSelectedMenuItem.action = Selector("showFetchMetadataForSelectedItemsPopoverAtCenter");
         
+        // Set the toggle list view menubar items action
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.toggleListViewMenuItem.action = Selector("toggleView");
+        
         // Start a 0.1 second loop that will fix the windows look in fullscreen
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("deleteTitlebarInFullscreen"), userInfo: nil, repeats:true);
         
@@ -322,7 +325,11 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Say we are in list view
         inListView = true;
         
+        // Store the current sort descriptors
         oldGridSortDescriptors = mangaGridController.arrayController.sortDescriptors;
+        
+        // Change the toggle list view button to show the list icon
+        titlebarToggleListViewCheckbox.state = 1;
         
         // Deselect all the items in the grid and list
         mangaCollectionView.deselectAll(self);
@@ -347,7 +354,11 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Say we arent in list view
         inListView = false;
         
+        // Restore the old sort descriptors
         mangaGridController.arrayController.sortDescriptors = oldGridSortDescriptors;
+        
+        // Change the toggle list view button to show the grid icon
+        titlebarToggleListViewCheckbox.state = 0;
         
         // Deselect all the items in the grid and list
         mangaCollectionView.deselectAll(self);
