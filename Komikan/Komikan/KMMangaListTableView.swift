@@ -17,7 +17,7 @@ class KMMangaListTableView: NSTableView {
         // If the manga list has any items selected...
         if(self.selectedRow != -1) {
             // Open the popover for the selected item
-            mangaListController!.openPopover(false);
+            mangaListController!.openPopover(false, manga: mangaListController!.selectedManga());
         }
     }
     
