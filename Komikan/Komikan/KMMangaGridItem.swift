@@ -58,7 +58,6 @@ class KMMangaGridItem: NSObject, NSCoding {
         
         // Set the percent finished to the mangas percent finished
         percentFinished = manga.percentFinished;
-        print(percentFinished);
         
         // Set if this manga is a favourite to the mangas favourite value
         favourite = manga.favourite;

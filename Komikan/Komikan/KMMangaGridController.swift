@@ -674,6 +674,20 @@ class KMMangaGridController: NSObject {
                             matchingPercent = true;
                         }
                     }
+                    // If we searched for a percentage between two percentages...
+                    else if(percentSearch.containsString("<") && percentSearch.containsString(">")) {
+                        /// The minimum percent we want to find manga by
+                        let minPercent : Int = NSString(string: percentSearch.componentsSeparatedByString(">").first!).integerValue;
+                        
+                        /// The maximum percent we want to find manga by
+                        let maxPercent : Int = NSString(string: percentSearch.componentsSeparatedByString("<").last!).integerValue;
+                        
+                        // If the current manga's percent finished is in between the minimum and maximum percent...
+                        if(currentItem.manga.percentFinished > minPercent && currentItem.manga.percentFinished < maxPercent) {
+                            // Say the percent matched
+                            matchingPercent = true;
+                        }
+                    }
                     // If we just searched by a number...
                     else {
                         // If the current manga's percent finished is equal to the searched number...
