@@ -59,6 +59,9 @@ class KMMangaListController: NSObject {
         return ((self.mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])![mangaListTableView.selectedRow].manga);
     }
     
+    /// Have we already subscribed to the popover and readers notifications?
+    var alreadySubscribed : Bool = false;
+    
     func openPopover(hidden : Bool, manga : KMManga) {
         // Get the main storyboard
         let storyboard = NSStoryboard(name: "Main", bundle: nil);
@@ -82,11 +85,17 @@ class KMMangaListController: NSObject {
         // Say that we want to edit or open this manga
         NSNotificationCenter.defaultCenter().postNotificationName("KMMangaGridCollectionItem.Editing", object: manga);
         
-        // Subscribe to the popovers saved function
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "saveMangaFromPopover:", name:"KMEditMangaViewController.Saving", object: nil);
-        
-        // Subscribe to the readers update percent finished function
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updatePercentFinished:", name:"KMMangaGridCollectionItem.UpdatePercentFinished", object: nil);
+        // If we havent already subscribed to the notifications...
+        if(!alreadySubscribed) {
+            // Subscribe to the popovers saved function
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "saveMangaFromPopover:", name:"KMEditMangaViewController.Saving", object: nil);
+            
+            // Subscribe to the readers update percent finished function
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "updatePercentFinished:", name:"KMMangaGridCollectionItem.UpdatePercentFinished", object: nil);
+            
+            // Say we subscribed
+            alreadySubscribed = true;
+        }
     }
     
     /// Opens all the selected manga
@@ -125,9 +134,6 @@ class KMMangaListController: NSObject {
                     }
                 }
                 
-                // Remove the observer so we dont get duplicate calls
-                NSNotificationCenter.defaultCenter().removeObserver(self);
-                
                 // Reload the view to match its contents
                 NSNotificationCenter.defaultCenter().postNotificationName("ViewController.UpdateMangaGrid", object: nil);
                 
@@ -138,6 +144,8 @@ class KMMangaListController: NSObject {
     }
     
     func updatePercentFinished(notification : NSNotification) {
+        print("Updating percent...");
+        
         // For every manga in the opened manga...
         for(_, currentManga) in openedManga.enumerate() {
             // If the UUID matches...
@@ -245,7 +253,6 @@ extension KMMangaListController : NSTableViewDataSource {
             }
                 // If the column is the Percent Column...
             else if(tableColumn!.identifier == "Percent Column") {
-                print("Loading percent for \"" + String(searchListItemData.manga.title) + "\". " + String(searchListItemData.manga.percentFinished) + "%");
                 // Set the text of this cell to be the percent finished of this manga with a % on the end
                 cellView.textField!.stringValue = String(searchListItemData.manga.percentFinished) + "%";
                 
