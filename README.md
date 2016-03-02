@@ -67,6 +67,8 @@ Requires at least OSX 10.10 Yosemite. Tested on OSX 10.11 El Capitan
 > > * Tags(And exclude tags)
 > > * Groups(And exclude groups)
 > > * Favourites
+> > * Read
+> > * Percent finished
 
 > * Optional simplified search terms
 > * Search Lists - A simple graphical front end for searching
