@@ -194,6 +194,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Set the mark selected manga as read menu items action
         (NSApplication.sharedApplication().delegate as! AppDelegate).markSelectedAsReadMenuItem.action = Selector("markSelectedItemsAsRead");
         
+        // Set the mark selected manga as unread menu items action
+        (NSApplication.sharedApplication().delegate as! AppDelegate).markSelectedAsUnreadMenuItem.action = Selector("markSelectedItemsAsUnread");
+        
         // Set the delete all manga menubar items action
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.deleteAllMangaMenuItem.action = Selector("deleteAllManga");
         
@@ -786,57 +789,91 @@ class ViewController: NSViewController, NSTabViewDelegate {
         mangaGridController.removeAllGridItems(true);
     }
     
-    // Removes the selected item from the manga grid
+    // Removes the last selected manga item
     func removeSelectItemFromMangaGrid(notification : NSNotification) {
         // Print to the log that we are removing this manga
-        print("Removing \"" + (notification.object as? KMManga)!.title + "\" from the manga grid");
+        print("Removing \"" + (notification.object as? KMManga)!.title + "\" manga item");
         
-        // Remove this item from the collection view
+        // Remove this item from the grid controller
         mangaGridController.removeGridItem((mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])![selectedItemIndexes().lastIndex], resort: true);
     }
     
-    /// Removes all the selected manga in the grid(Use this for multiple)
+    /// Removes all the selected manga items(Use this for multiple)
     func removeSelectedItemsFromMangaGrid() {
-        // Print to the lgo that we are removing multiple manga from the grid
-        print("Removing multiple manga from the grid");
+        // Print to the log that we are removing the selected manga items
+        print("Removing selected manga items");
         
         /// The manga grid items that we want to remove
-        var selectionItemsToRemove : [KMMangaGridItem] = selectedGridItems();
+        let selectionItemsToRemove : [KMMangaGridItem] = selectedGridItems();
         
-        // For every item in the manga ggrid items we want to remove...
+        // For every item in the manga grid items we want to remove...
         for(_, currentItem) in selectionItemsToRemove.enumerate() {
             // Remove the curent item from the grid, with resorting
             mangaGridController.removeGridItem(currentItem, resort: true);
         }
-        
-        // Deselect all the items
-        mangaCollectionView.deselectAll(self);
     }
     
-    /// Removes all the selected manga in the grid(Use this for multiple)
-    func markSelectedItemsAsRead() {
-        // Print to the lgo that we are removing multiple manga from the grid
-        print("Marking multiple manga as read from the grid");
+    /// Marks the selected manga items as unread
+    func markSelectedItemsAsUnread() {
+        // Print to the log that we are marking the selected items as unread
+        print("Marking selected manga items as unread");
         
-        /// The manga grid items that we want to mark as read
-        var selectionItemsToMarkAsRead : [KMMangaGridItem] = [];
+        /// The selected manga items that we will mark as read
+        let selectionItemsToMarkAsUnread : [KMMangaGridItem] = selectedGridItems();
         
-        // This breaks because the indexes change during the for loop, and it then gets items it shouldnt.
-        for(_, currentIndex) in mangaCollectionView.selectionIndexes.enumerate() {
-            selectionItemsToMarkAsRead.append((mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])![currentIndex]);
-        }
-        
-        // For every item in the manga grid that we want to mark as read...
-        for(_, currentItem) in selectionItemsToMarkAsRead.enumerate() {
-            // Mark the current manga as read
-            currentItem.manga.read = true;
+        // For every manga item that we want to mark as read...
+        for(_, currentItem) in selectionItemsToMarkAsUnread.enumerate() {
+            // Set the current item's manga's current page to 0 so its marked as 0% done
+            currentItem.manga.currentPage = 0;
             
             // Update the current manga's percent finished
             currentItem.manga.updatePercent();
+            
+            // Update the item's manga
+            currentItem.changeManga(currentItem.manga);
         }
         
-        // Deselect all the items
-        mangaCollectionView.deselectAll(self);
+        // Store the current selected rows
+        let listRowSelectionIndexes : NSIndexSet = mangaTableView.selectedRowIndexes;
+        
+        // Reload the manga list
+        mangaTableView.reloadData();
+        
+        // Reselect the rows(When reloadData is called it deselects all the items)
+        mangaTableView.selectRowIndexes(listRowSelectionIndexes, byExtendingSelection: false);
+        
+        // Update the grid
+        updateMangaGrid();
+    }
+    
+    /// Marks the selected manga items as read
+    func markSelectedItemsAsRead() {
+        // Print to the log that we are marking the selected manga items as read
+        print("Marking selected manga items as read");
+        
+        /// The selected manga items that we will mark as read
+        let selectionItemsToMarkAsRead : [KMMangaGridItem] = selectedGridItems();
+        
+        // For every manga item that we want to mark as read...
+        for(_, currentItem) in selectionItemsToMarkAsRead.enumerate() {
+            // Set the current item's manga's current page to the last page, so we get it marked as 100% finished
+            currentItem.manga.currentPage = currentItem.manga.pageCount - 1;
+            
+            // Update the current manga's percent finished
+            currentItem.manga.updatePercent();
+            
+            // Update the item's manga
+            currentItem.changeManga(currentItem.manga);
+        }
+        
+        // Store the current selected rows
+        let listRowSelectionIndexes : NSIndexSet = mangaTableView.selectedRowIndexes;
+        
+        // Reload the manga list
+        mangaTableView.reloadData();
+        
+        // Reselect the rows(When reloadData is called it deselects all the items)
+        mangaTableView.selectRowIndexes(listRowSelectionIndexes, byExtendingSelection: false);
         
         // Update the grid
         updateMangaGrid();

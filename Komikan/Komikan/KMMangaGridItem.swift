@@ -58,18 +58,13 @@ class KMMangaGridItem: NSObject, NSCoding {
         
         // Set the percent finished to the mangas percent finished
         percentFinished = manga.percentFinished;
+        print(percentFinished);
         
         // Set if this manga is a favourite to the mangas favourite value
         favourite = manga.favourite;
         
         // Set the percent alpha (It does 1 minus the percent done / 100(Eg. 75% would be 0.75) and then adds 0.3 to it so it isnt fully transparent)
         percentAlpha = (1.0 - CGFloat(manga.percentFinished) / 100.0) + 0.3;
-        
-        // If this manga is read...
-        if(manga.read) {
-            // Set the alpha percent to 0.5
-            percentAlpha = 0.5;
-        }
         
         // Print that we are changing manga info
         print("Loaded / Changed \"" + title + "\"");
