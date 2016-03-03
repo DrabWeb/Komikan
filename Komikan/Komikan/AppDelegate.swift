@@ -98,6 +98,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     /// The Manga/Notes/Toggle Edit Bar menu item
     @IBOutlet weak var readerToggleNotesEditBarMenuItem: NSMenuItem!
     
+    /// The Window/Select Search Field menu item
+    @IBOutlet weak var selectSearchFieldMenuItem: NSMenuItem!
+    
     /// The view controller we will load for the reader
     var mangaReaderViewController: KMReaderViewController?;
     

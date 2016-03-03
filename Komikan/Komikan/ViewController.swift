@@ -221,6 +221,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Set the open menubar items action
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.openMenuItem.action = Selector("openSelectedManga");
         
+        // Set the select search field menubar items action
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.selectSearchFieldMenuItem.action = Selector("selectSearchField");
+        
         // Start a 0.1 second loop that will fix the windows look in fullscreen
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("deleteTitlebarInFullscreen"), userInfo: nil, repeats:true);
         
@@ -316,6 +319,12 @@ class ViewController: NSViewController, NSTabViewDelegate {
                 (mangaCollectionView.itemAtIndex(currentSelectionIndex) as? KMMangaGridCollectionItem)!.openManga();
             }
         }
+    }
+    
+    /// Makes the search field frontmost
+    func selectSearchField() {
+        // Make the search field frontmost
+        window.makeFirstResponder(titlebarSearchField);
     }
     
     /// Are we in list view?

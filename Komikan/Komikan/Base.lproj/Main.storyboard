@@ -372,11 +372,6 @@
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Find" id="1b7-l0-nxx">
                                                 <items>
-                                                    <menuItem title="Find…" tag="1" keyEquivalent="f" id="Xz5-n4-O0W">
-                                                        <connections>
-                                                            <action selector="performFindPanelAction:" target="Ady-hI-5gd" id="cD7-Qs-BN4"/>
-                                                        </connections>
-                                                    </menuItem>
                                                     <menuItem title="Find and Replace…" tag="12" keyEquivalent="f" id="YEy-JH-Tfz">
                                                         <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                                         <connections>
@@ -652,6 +647,7 @@ CA
                                                 <action selector="performZoom:" target="Ady-hI-5gd" id="DIl-cC-cCs"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Select Search Field" keyEquivalent="f" id="t6K-n0-BDW"/>
                                         <menuItem isSeparatorItem="YES" id="eu3-7i-yIM"/>
                                         <menuItem title="Bring All to Front" id="LE2-aR-0XJ">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -706,6 +702,7 @@ CA
                         <outlet property="readerToggleNotesEditBarMenuItem" destination="M5C-Kt-NTg" id="wgb-Nw-0ha"/>
                         <outlet property="readerZoomInMenuItem" destination="oBr-Xd-mDH" id="JDA-9z-BxA"/>
                         <outlet property="readerZoomOutMenuItem" destination="X52-F4-IEN" id="GIZ-mj-hg8"/>
+                        <outlet property="selectSearchFieldMenuItem" destination="t6K-n0-BDW" id="sau-lm-Exv"/>
                         <outlet property="setSelectedItemsPropertiesMenuItems" destination="XZ3-5Y-udD" id="n3h-bF-9ZD"/>
                         <outlet property="switchDualPageDirectionMenuItem" destination="ubh-G8-jVj" id="UF6-lc-LfP"/>
                         <outlet property="toggleBackgroundDarkenMenuItem" destination="ZbJ-Yy-OIo" id="kCW-1r-qf6"/>
@@ -1031,7 +1028,7 @@ CA
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="32" viewBased="YES" id="93C-JF-C55" userLabel="Search Results Table View">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="410" height="0.0"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="410" height="230"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -2140,7 +2137,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="140" viewBased="YES" id="SIJ-SQ-EnH" customClass="KMReaderPageJumpTableView" customModule="Komikan" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="405" height="0.0"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="405" height="270"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -2351,7 +2348,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" selectionHighlightStyle="sourceList" autosaveName="mangaTableViewSave" rowHeight="21" headerView="CYe-DP-BRz" viewBased="YES" id="T0V-x6-IZf" userLabel="Manga Table View" customClass="KMMangaListTableView" customModule="Komikan" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="729" height="0.0"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="729" height="420"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="0.0" height="2"/>
                                                     <color key="backgroundColor" red="0.48033760000000003" green="0.65488994721261851" blue="0.80000000000000004" alpha="0.0" colorSpace="deviceRGB"/>
@@ -2602,7 +2599,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                         </clipView>
                                         <edgeInsets key="contentInsets" left="0.0" right="0.0" top="37" bottom="0.0"/>
-                                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="aW7-jK-d3M">
+                                        <scroller key="horizontalScroller" verticalHuggingPriority="750" doubleValue="0.056179775280898875" horizontal="YES" id="aW7-jK-d3M">
                                             <rect key="frame" x="0.0" y="464" width="640" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
@@ -2636,7 +2633,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <rect key="frame" x="1" y="144" width="233" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="0wb-fr-0cq">
+                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.91891891891891897" horizontal="NO" id="0wb-fr-0cq">
                                             <rect key="frame" x="624" y="37" width="16" height="443"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
