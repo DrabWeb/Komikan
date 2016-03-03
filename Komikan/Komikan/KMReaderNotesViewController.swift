@@ -46,9 +46,6 @@ class KMReaderNotesViewController: NSViewController, NSWindowDelegate, NSTextVie
     /// Is the editing bar open?
     var editingBarOpen : Bool = true;
     
-    /// The original content insets of the notes scroll view
-    var originalInsets : NSEdgeInsets = NSEdgeInsets();
-    
     func toggleEditingBar() {
         // Toggle if the editing bar is open
         editingBarOpen = !editingBarOpen;
@@ -75,8 +72,8 @@ class KMReaderNotesViewController: NSViewController, NSWindowDelegate, NSTextVie
         // Hide the titlebar background in the notes window
         notesWindow.titlebarAppearsTransparent = true;
         
-        // Restore the original content insets
-        notesScrollView.contentInsets = originalInsets;
+        // Set the scroll view content insets
+        notesScrollView.contentInsets = NSEdgeInsets(top: 59, left: 0, bottom: 0, right: 0);
     }
     
     func hideEditingBar() {
@@ -89,8 +86,8 @@ class KMReaderNotesViewController: NSViewController, NSWindowDelegate, NSTextVie
         // Show the titlebar background in the notes window
         notesWindow.titlebarAppearsTransparent = false;
         
-        // Set the content insets so they dont clip under the titlebar when scrolled at the very top
-        notesScrollView.contentInsets = NSEdgeInsets(top: 19, left: 0, bottom: 0, right: 0);
+       // Set the scroll view content insets
+        notesScrollView.contentInsets = NSEdgeInsets(top: 22, left: 0, bottom: 0, right: 0);
     }
     
     func textViewDidChangeSelection(notification: NSNotification) {
@@ -199,9 +196,6 @@ class KMReaderNotesViewController: NSViewController, NSWindowDelegate, NSTextVie
         
         // Set the notes text field's delegate to this
         notesTextField.delegate = self;
-        
-        // Store the original scroll view insets
-        originalInsets = notesScrollView.contentInsets;
         
         // Set the toggle edit bar's action to the toggle action bar function
         (NSApplication.sharedApplication().delegate as! AppDelegate).readerToggleNotesEditBarMenuItem.action = Selector("toggleEditingBar");

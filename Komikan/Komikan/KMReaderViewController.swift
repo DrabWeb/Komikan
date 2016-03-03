@@ -313,6 +313,9 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         // Hide the edit bar in the notes window
         notesViewController.hideEditingBar();
         
+        // Scroll up
+        notesViewController.notesScrollView.pageUp(self);
+        
         // Load the notes window title
         notesViewController.setWindowTitle();
         
