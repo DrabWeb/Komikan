@@ -296,6 +296,7 @@ class ViewController: NSViewController, NSTabViewDelegate {
             // Update the manga count in the info bar
             updateInfoBarMangaCountLabel();
             
+            // Reload the manga table so it gets updated when items change
             mangaListController.mangaListTableView.reloadData();
         }
     }

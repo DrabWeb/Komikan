@@ -554,6 +554,19 @@
                                         <menuItem title="Dual Page" keyEquivalent="d" id="TH4-sc-e7y"/>
                                         <menuItem title="Switch Dual Page Direction" keyEquivalent="D" id="ubh-G8-jVj"/>
                                         <menuItem title="Fit Window to Page" keyEquivalent="1" id="tub-ce-tVP"/>
+                                        <menuItem title="Notes" id="ITI-03-wFZ">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Notes" id="t7T-yA-4N1">
+                                                <items>
+                                                    <menuItem title="View Notes" keyEquivalent="n" id="Zki-5K-Q2C">
+                                                        <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                                    </menuItem>
+                                                    <menuItem title="Toggle Edit Bar" keyEquivalent="B" id="M5C-Kt-NTg">
+                                                        <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
                                         <menuItem title="Magnification" id="FOX-FC-XFI">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Magnification" id="R2j-h4-NBd">
@@ -685,10 +698,12 @@ CA
                         <outlet property="nextPageMenubarItem" destination="8P2-Bj-ZHO" id="maC-a5-1g2"/>
                         <outlet property="openMenuItem" destination="IAo-SY-fd9" id="FCD-bR-Im2"/>
                         <outlet property="previousPageMenubarItem" destination="lL1-EK-QfJ" id="pyL-3Y-eLp"/>
+                        <outlet property="readerOpenNotesMenuItem" destination="Zki-5K-Q2C" id="06q-Ny-4h3"/>
                         <outlet property="readerResetRotationMenuItem" destination="d3R-ml-bIM" id="8Mx-J3-c3a"/>
                         <outlet property="readerResetZoomMenuItem" destination="WdO-rv-NoZ" id="csh-Gc-714"/>
                         <outlet property="readerRotateNinetyDegressLeftMenuItem" destination="gFO-wg-Zau" id="gei-r4-FhH"/>
                         <outlet property="readerRotateNinetyDegressRightMenuItem" destination="LKJ-lI-IVu" id="RjD-XT-WGa"/>
+                        <outlet property="readerToggleNotesEditBarMenuItem" destination="M5C-Kt-NTg" id="wgb-Nw-0ha"/>
                         <outlet property="readerZoomInMenuItem" destination="oBr-Xd-mDH" id="JDA-9z-BxA"/>
                         <outlet property="readerZoomOutMenuItem" destination="X52-F4-IEN" id="GIZ-mj-hg8"/>
                         <outlet property="setSelectedItemsPropertiesMenuItems" destination="XZ3-5Y-udD" id="n3h-bF-9ZD"/>
@@ -1173,6 +1188,138 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
             </objects>
             <point key="canvasLocation" x="1586" y="1435"/>
         </scene>
+        <!--Reader Notes Window Controller-->
+        <scene sceneID="Cce-ge-YNx">
+            <objects>
+                <windowController storyboardIdentifier="readerNotesWindowController" showSeguePresentationStyle="single" id="7Io-Yk-nrz" userLabel="Reader Notes Window Controller" sceneMemberID="viewController">
+                    <window key="window" title="Notes" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="IZF-MD-c8v" customClass="NSPanel">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES" HUD="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="229" y="249" width="480" height="400"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1600" height="900"/>
+                    </window>
+                    <connections>
+                        <segue destination="47J-Vb-J2W" kind="relationship" relationship="window.shadowedContentViewController" id="K8w-76-Wp9"/>
+                    </connections>
+                </windowController>
+                <customObject id="ZyD-AK-J5s" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1930" y="471"/>
+        </scene>
+        <!--Reader Notes View Controller-->
+        <scene sceneID="T97-cb-naR">
+            <objects>
+                <viewController storyboardIdentifier="readerNotesViewController" id="47J-Vb-J2W" customClass="KMReaderNotesViewController" customModule="Komikan" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="q88-mk-5GZ">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="400"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="behindWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="C6m-xo-AWz" userLabel="Background Visual Effect View">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="400"/>
+                                <subviews>
+                                    <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nk2-o0-V3y" userLabel="Notes Text Field Scroll View">
+                                        <rect key="frame" x="0.0" y="0.0" width="480" height="400"/>
+                                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="TIm-dT-Smm">
+                                            <rect key="frame" x="0.0" y="0.0" width="480" height="400"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <textView drawsBackground="NO" findStyle="bar" continuousSpellChecking="YES" allowsUndo="YES" allowsImageEditing="YES" verticallyResizable="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="M3G-aB-o2U">
+                                                    <rect key="frame" x="0.0" y="0.0" width="480" height="400"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <size key="minSize" width="480" height="400"/>
+                                                    <size key="maxSize" width="480" height="10000000"/>
+                                                    <color key="insertionPointColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <size key="minSize" width="480" height="400"/>
+                                                    <size key="maxSize" width="480" height="10000000"/>
+                                                </textView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </clipView>
+                                        <edgeInsets key="contentInsets" left="0.0" right="0.0" top="56" bottom="0.0"/>
+                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="Aii-bj-fc3">
+                                            <rect key="frame" x="-100" y="-100" width="480" height="16"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </scroller>
+                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="3Yh-Gd-dah">
+                                            <rect key="frame" x="464" y="56" width="16" height="344"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </scroller>
+                                    </scrollView>
+                                    <visualEffectView appearanceType="vibrantDark" blendingMode="withinWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="pkH-Jc-Z5r" userLabel="Editing Bar Visual Effect View">
+                                        <rect key="frame" x="0.0" y="344" width="480" height="56"/>
+                                        <subviews>
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="kSt-VW-mwA" userLabel="Gradient View" customClass="KMGradientView" customModule="Komikan" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="480" height="56"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                                        <color key="value" white="0.0" alpha="0.29999999999999999" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                                        <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </customView>
+                                            <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3h5-zy-VaA" userLabel="Font Size Text Field" customClass="KMAlwaysActiveTextField" customModule="Komikan" customModuleProvider="target">
+                                                <rect key="frame" x="421" y="9" width="50" height="22"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="50" id="AIS-OC-nZi"/>
+                                                    <constraint firstAttribute="height" constant="22" id="aEP-68-Cvh"/>
+                                                </constraints>
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" focusRingType="none" alignment="right" bezelStyle="round" id="RIw-Cv-1SV">
+                                                    <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="xBd-Wn-jJu"/>
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                                <connections>
+                                                    <action selector="fontSizeTextFieldinteracted:" target="47J-Vb-J2W" id="wCf-bt-LAR"/>
+                                                </connections>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="3h5-zy-VaA" secondAttribute="trailing" constant="9" id="AnA-so-IHY"/>
+                                            <constraint firstAttribute="height" constant="56" id="HvT-zK-i9Q"/>
+                                            <constraint firstAttribute="trailing" secondItem="kSt-VW-mwA" secondAttribute="trailing" id="IWK-j0-rQb"/>
+                                            <constraint firstItem="kSt-VW-mwA" firstAttribute="top" secondItem="pkH-Jc-Z5r" secondAttribute="top" id="TCe-Oo-miy"/>
+                                            <constraint firstItem="kSt-VW-mwA" firstAttribute="leading" secondItem="pkH-Jc-Z5r" secondAttribute="leading" id="bqg-bg-sBJ"/>
+                                            <constraint firstAttribute="bottom" secondItem="3h5-zy-VaA" secondAttribute="bottom" constant="9" id="gRF-rF-nhg"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="56" id="ghU-Ik-eIN"/>
+                                            <constraint firstAttribute="bottom" secondItem="kSt-VW-mwA" secondAttribute="bottom" id="gj1-qc-5jN"/>
+                                        </constraints>
+                                    </visualEffectView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="pkH-Jc-Z5r" firstAttribute="top" secondItem="C6m-xo-AWz" secondAttribute="top" id="1p8-zM-Vyy"/>
+                                    <constraint firstAttribute="trailing" secondItem="pkH-Jc-Z5r" secondAttribute="trailing" id="J1L-O4-DhL"/>
+                                    <constraint firstItem="Nk2-o0-V3y" firstAttribute="top" secondItem="C6m-xo-AWz" secondAttribute="top" id="Lcc-IA-MKv"/>
+                                    <constraint firstItem="pkH-Jc-Z5r" firstAttribute="leading" secondItem="C6m-xo-AWz" secondAttribute="leading" id="dhn-ki-0v1"/>
+                                    <constraint firstAttribute="bottom" secondItem="Nk2-o0-V3y" secondAttribute="bottom" id="nUP-jC-0Q2"/>
+                                    <constraint firstItem="Nk2-o0-V3y" firstAttribute="leading" secondItem="C6m-xo-AWz" secondAttribute="leading" id="x89-g3-ZmX"/>
+                                    <constraint firstAttribute="trailing" secondItem="Nk2-o0-V3y" secondAttribute="trailing" id="xiW-0T-wd9"/>
+                                </constraints>
+                            </visualEffectView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="C6m-xo-AWz" secondAttribute="trailing" id="90S-IM-dBZ"/>
+                            <constraint firstItem="C6m-xo-AWz" firstAttribute="leading" secondItem="q88-mk-5GZ" secondAttribute="leading" id="PnH-Bb-5i4"/>
+                            <constraint firstAttribute="bottom" secondItem="C6m-xo-AWz" secondAttribute="bottom" id="Zk0-5R-Nyi"/>
+                            <constraint firstItem="C6m-xo-AWz" firstAttribute="top" secondItem="q88-mk-5GZ" secondAttribute="top" id="sFD-4W-E5x"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backgroundVisualEffectView" destination="C6m-xo-AWz" id="pcz-No-fCd"/>
+                        <outlet property="editingBarVisualEffectView" destination="pkH-Jc-Z5r" id="rhj-w7-D5z"/>
+                        <outlet property="fontSizeTextField" destination="3h5-zy-VaA" id="5Ya-37-52B"/>
+                        <outlet property="notesScrollView" destination="Nk2-o0-V3y" id="53P-u6-72E"/>
+                        <outlet property="notesTextField" destination="M3G-aB-o2U" id="RF2-ue-884"/>
+                    </connections>
+                </viewController>
+                <customObject id="IYf-6J-gZi" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2637" y="446"/>
+        </scene>
         <!--Background Darken View Controller-->
         <scene sceneID="fhZ-4Y-0NL">
             <objects>
@@ -1562,7 +1709,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController showSeguePresentationStyle="single" id="B8D-0N-5wS" userLabel="Main Window Controller" sceneMemberID="viewController">
-                    <window key="window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                    <window key="window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="komikanMainWindowSave" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES" fullSizeContentView="YES"/>
                         <rect key="contentRect" x="196" y="240" width="639" height="480"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>

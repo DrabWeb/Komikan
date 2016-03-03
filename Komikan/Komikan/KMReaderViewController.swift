@@ -274,10 +274,56 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.readerZoomInMenuItem.action = Selector("magnifyIn");
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.readerZoomOutMenuItem.action = Selector("magnifyOut");
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.readerResetZoomMenuItem.action = Selector("resetMagnification");
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.readerOpenNotesMenuItem.action = Selector("openNotesWindow");
         
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.readerRotateNinetyDegressLeftMenuItem.action = Selector("rotateLeftNinetyDegrees");
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.readerRotateNinetyDegressRightMenuItem.action = Selector("rotateRightNinetyDegrees");
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.readerResetRotationMenuItem.action = Selector("resetRotation");
+    }
+    
+    /// The window controller for the notes window
+    var notesWindowController : NSWindowController?;
+    
+    /// The view controller for the notes window
+    var notesViewController : KMReaderNotesViewController = KMReaderNotesViewController();
+    
+    /// Opens the window that lets the user edit/view the notes for this manga
+    func openNotesWindow() {
+        // If the window isnt loaded...
+        if(notesWindowController == nil) {
+            // Load the notes window controller
+            notesWindowController = (storyboard?.instantiateControllerWithIdentifier("readerNotesWindowController") as! NSWindowController);
+            
+            // Set the notes view controller to the windows view controller
+            notesViewController = (notesWindowController!.contentViewController as! KMReaderNotesViewController);
+            
+            // Load the window into the notes view controller
+            notesViewController.notesWindow = notesWindowController!.window!;
+            
+            // Set the notes view controller's manga
+            notesViewController.manga = self.manga;
+        }
+        
+        // Load the notes window
+        notesWindowController!.loadWindow();
+        
+        // Set the notes window to be full size
+        notesWindowController!.window!.styleMask |= NSFullSizeContentViewWindowMask;
+        
+        // Hide the edit bar in the notes window
+        notesViewController.hideEditingBar();
+        
+        // Load the notes window title
+        notesViewController.setWindowTitle();
+        
+        // Set the notes window's delegate to the notes view controller
+        notesWindowController!.window!.delegate = notesViewController;
+        
+        // Load the notes
+        notesViewController.loadNotes();
+        
+        // Show the notes window
+        notesWindowController!.showWindow(self);
     }
     
     /// Resets the zoom amount
@@ -615,8 +661,17 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     }
     
     func windowWillClose(notification: NSNotification) {
+        // Save the notes and close the notes window
+        notesWindowController?.close();
+        
         // Close the view
         closeView();
+    }
+    
+    func windowDidBecomeKey(notification: NSNotification) {
+        // Re-enable the next and previous menu items in case the notes popover disabled them
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.nextPageMenubarItem.action = Selector("nextPage");
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.previousPageMenubarItem.action = Selector("previousPage");
     }
     
     /// Call this when the window will close

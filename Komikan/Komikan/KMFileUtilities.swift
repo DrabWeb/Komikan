@@ -10,6 +10,27 @@ import Foundation
 import Cocoa
 
 class KMFileUtilities {
+    /// Returns the path to the encasing folder for the file at the given path
+    func folderPathForFile(filePath : String) -> String {
+        /// The path to the file's folder
+        var folderPath : String = filePath;
+        
+        // Remove everything after the last "/" in the string so we can get the folder
+        folderPath = folderPath.substringToIndex(folderPath.rangeOfString("/", options: NSStringCompareOptions.BackwardsSearch, range: nil, locale: nil)!.startIndex);
+        
+        // Append a slash to the end because it removes it
+        folderPath += "/";
+        
+        // Remove the file:// from the folder path string(Theres a chance there could be one)
+        folderPath = folderPath.stringByReplacingOccurrencesOfString("file://", withString: "");
+        
+        // Remove the percent encoding from the folder path string
+        folderPath = folderPath.stringByRemovingPercentEncoding!;
+        
+        // Return the folder path
+        return folderPath;
+    }
+    
     /// Exports the passed KMManga's info into a Komikan readable JSON file in the correc directory. Also exports the internal info like current page, bookmarks, brightness, ETC. if exportInternalInfo is true
     func exportMangaJSON(manga : KMManga, exportInternalInfo : Bool) {
         /// The JSON string that we will write to a JSON file at the end
@@ -83,21 +104,9 @@ class KMFileUtilities {
         
         // Get the folder that the manga is in
         /// The selected Mangas folder it is in
-        var folderURLString : String = manga.directory;
+        var folderURLString : String = folderPathForFile(manga.directory);
         
-        // Remove everything after the last "/" in the string so we can get the folder
-        folderURLString = folderURLString.substringToIndex(folderURLString.rangeOfString("/", options: NSStringCompareOptions.BackwardsSearch, range: nil, locale: nil)!.startIndex);
-        
-        // Append a slash to the end because it removes it
-        folderURLString += "/";
-        
-        // Remove the file:// from the folder URL string(Theres a chance there could be one)
-        folderURLString = folderURLString.stringByReplacingOccurrencesOfString("file://", withString: "");
-        
-        // Remove the percent encoding from the folder URL string
-        folderURLString = folderURLString.stringByRemovingPercentEncoding!;
-        
-        // Add the "Komikan" folder to the end of it
+        // Add the "Komikan" folder to the end of the folder path
         folderURLString += "Komikan/"
         
         // Make sure the Komikan folder exists
