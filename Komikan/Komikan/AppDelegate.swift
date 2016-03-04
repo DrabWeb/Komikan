@@ -101,6 +101,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     /// The Window/Select Search Field menu item
     @IBOutlet weak var selectSearchFieldMenuItem: NSMenuItem!
     
+    /// The Manga/Notes/Open in External Editor menu item
+    @IBOutlet weak var openInExternalEditorMenuItem: NSMenuItem!
+    
     /// The view controller we will load for the reader
     var mangaReaderViewController: KMReaderViewController?;
     

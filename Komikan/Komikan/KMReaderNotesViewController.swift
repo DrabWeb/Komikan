@@ -33,6 +33,12 @@ class KMReaderNotesViewController: NSViewController, NSWindowDelegate, NSTextVie
         setFontSizeForSelectedText(fontSizeTextField.integerValue);
     }
     
+    /// When we click on the "Open Externally" button...
+    @IBAction func openInExternalEditorButtonInteracted(sender: AnyObject) {
+        // Open the notes in the external editor
+        openExternally();
+    }
+    
     /// The manga we will be writing/editing notes for
     var manga : KMManga = KMManga();
     
@@ -45,6 +51,15 @@ class KMReaderNotesViewController: NSViewController, NSWindowDelegate, NSTextVie
     
     /// Is the editing bar open?
     var editingBarOpen : Bool = true;
+    
+    /// Opens the notes for this manga in the external application
+    func openExternally() {
+        // Close the window(This also saves the notes)
+        notesWindow.close();
+        
+        // Open the .notes.rtfd in the users chosen application(Default TextEdit)
+        NSWorkspace.sharedWorkspace().openFile(KMFileUtilities().folderPathForFile(manga.directory) + "Komikan/" + NSURL(fileURLWithPath: manga.directory).lastPathComponent!.stringByRemovingPercentEncoding! + ".notes.rtfd");
+    }
     
     func toggleEditingBar() {
         // Toggle if the editing bar is open
@@ -197,7 +212,10 @@ class KMReaderNotesViewController: NSViewController, NSWindowDelegate, NSTextVie
         // Set the notes text field's delegate to this
         notesTextField.delegate = self;
         
-        // Set the toggle edit bar's action to the toggle action bar function
+        // Set the toggle edit bar menu item's action
         (NSApplication.sharedApplication().delegate as! AppDelegate).readerToggleNotesEditBarMenuItem.action = Selector("toggleEditingBar");
+        
+        // Set the open in external editor menu item's action
+        (NSApplication.sharedApplication().delegate as! AppDelegate).openInExternalEditorMenuItem.action = Selector("openExternally");
     }
 }

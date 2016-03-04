@@ -559,6 +559,7 @@
                                                     <menuItem title="Toggle Edit Bar" keyEquivalent="B" id="M5C-Kt-NTg">
                                                         <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                                     </menuItem>
+                                                    <menuItem title="Open in External Editor" keyEquivalent="E" id="MRU-xI-kRS"/>
                                                 </items>
                                             </menu>
                                         </menuItem>
@@ -692,6 +693,7 @@ CA
                         <outlet property="markSelectedAsReadMenuItem" destination="ug2-Jz-y1o" id="Lp7-Bk-MZw"/>
                         <outlet property="markSelectedAsUnreadMenuItem" destination="6KB-cw-D9H" id="uJr-51-3Di"/>
                         <outlet property="nextPageMenubarItem" destination="8P2-Bj-ZHO" id="maC-a5-1g2"/>
+                        <outlet property="openInExternalEditorMenuItem" destination="MRU-xI-kRS" id="Pbh-1V-gVt"/>
                         <outlet property="openMenuItem" destination="IAo-SY-fd9" id="FCD-bR-Im2"/>
                         <outlet property="previousPageMenubarItem" destination="lL1-EK-QfJ" id="pyL-3Y-eLp"/>
                         <outlet property="readerOpenNotesMenuItem" destination="Zki-5K-Q2C" id="06q-Ny-4h3"/>
@@ -1274,11 +1276,27 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                     <action selector="fontSizeTextFieldinteracted:" target="47J-Vb-J2W" id="wCf-bt-LAR"/>
                                                 </connections>
                                             </textField>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dle-ab-uPt" userLabel="Open in External Editor Button">
+                                                <rect key="frame" x="3" y="2" width="136" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="21" id="khy-BU-JB4"/>
+                                                    <constraint firstAttribute="width" constant="124" id="yzK-Ms-99W"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="push" title="Open Externally" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5K1-72-C3G">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="openInExternalEditorButtonInteracted:" target="47J-Vb-J2W" id="eSz-lu-gFD"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="Dle-ab-uPt" firstAttribute="leading" secondItem="pkH-Jc-Z5r" secondAttribute="leading" constant="9" id="8TQ-W9-q8p"/>
                                             <constraint firstAttribute="trailing" secondItem="3h5-zy-VaA" secondAttribute="trailing" constant="9" id="AnA-so-IHY"/>
                                             <constraint firstAttribute="height" constant="56" id="HvT-zK-i9Q"/>
                                             <constraint firstAttribute="trailing" secondItem="kSt-VW-mwA" secondAttribute="trailing" id="IWK-j0-rQb"/>
+                                            <constraint firstAttribute="bottom" secondItem="Dle-ab-uPt" secondAttribute="bottom" constant="9" id="Qbh-Qg-JPM"/>
                                             <constraint firstItem="kSt-VW-mwA" firstAttribute="top" secondItem="pkH-Jc-Z5r" secondAttribute="top" id="TCe-Oo-miy"/>
                                             <constraint firstItem="kSt-VW-mwA" firstAttribute="leading" secondItem="pkH-Jc-Z5r" secondAttribute="leading" id="bqg-bg-sBJ"/>
                                             <constraint firstAttribute="bottom" secondItem="3h5-zy-VaA" secondAttribute="bottom" constant="9" id="gRF-rF-nhg"/>
