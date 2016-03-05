@@ -108,6 +108,7 @@ class ViewController: NSViewController, NSTabViewDelegate {
     
     /// When we interact with titlebarToggleListViewCheckbox...
     @IBAction func titlebarToggleListViewCheckboxAction(sender: AnyObject) {
+        // Toggle the view we are in(List or grid)
         toggleView();
     }
     
