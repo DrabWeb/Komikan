@@ -604,37 +604,249 @@ class KMMangaGridController: NSObject {
                 
                 // If we searched by title...
                 if(searchedByTitle) {
-                    // If the current items title contain the title search... (In lowercase to be case insensitive)
-                    if(currentItem.manga.title.lowercaseString.containsString(titleSearch.lowercaseString)) {
-                        // Say there is a matching title
-                        matchingTitle = true;
+                    // If we had a "-" in front(Meaning we dont want to show manga with the title search in their name)...
+                    if(titleSearch.substringToIndex(titleSearch.startIndex.successor()) == "-") {
+                        // If the current items title doesnt contain the title search... (In lowercase to be case insensitive)
+                        if(!currentItem.manga.title.lowercaseString.containsString(titleSearch.lowercaseString.substringFromIndex(titleSearch.startIndex.successor()))) {
+                            // Say there is a matching title
+                            matchingTitle = true;
+                        }
+                    }
+                    // If we want to show manga that have the title search in their name...
+                    else {
+                        // If the current items title contain the title search... (In lowercase to be case insensitive)
+                        if(currentItem.manga.title.lowercaseString.containsString(titleSearch.lowercaseString)) {
+                            // Say there is a matching title
+                            matchingTitle = true;
+                        }
                     }
                 }
                 
                 // If we searched by series...
                 if(searchedBySeries) {
-                    // If the current items series contain the series search... (In lowercase to be case insensitive)
-                    if(seriesSearch.contains(currentItem.manga.series.lowercaseString)) {
-                        // Say there is a matching series
+                    /// Did we search for any exclusion series?
+                    var searchedForExclusion : Bool = false;
+                    
+                    /// Did this manga end up having an exclusion series in it?
+                    var matchedExclusionSeries : Bool = false;
+                    
+                    /// Did this manga end up having a non exclusion series in it?
+                    var matchedSeries : Bool = false;
+                    
+                    // For every series search...
+                    for(_, currentSeriesSearch) in seriesSearch.enumerate() {
+                        /// Are we doing an exclusion search for this series?
+                        let exclusionSearch : Bool = (currentSeriesSearch.substringToIndex(currentSeriesSearch.startIndex.successor()) == "-");
+                        
+                        /// The current series search without the possible "-" in front
+                        var currentSeriesSearchWithoutPossibleMinus : String = currentSeriesSearch;
+                        
+                        // If this is an exclusion search...
+                        if(exclusionSearch) {
+                            // Set the series search without possible minus to the series search without the first character
+                            currentSeriesSearchWithoutPossibleMinus = currentSeriesSearch.substringFromIndex(currentSeriesSearch.startIndex.successor());
+                        }
+                        
+                        // If this is an exclusion search...
+                        if(exclusionSearch) {
+                            // If this manga's series contains the current series search...
+                            if(currentItem.manga.series.lowercaseString.containsString(currentSeriesSearchWithoutPossibleMinus)) {
+                                // Say we matched exclusion series
+                                matchedExclusionSeries = true;
+                            }
+                        }
+                        // If this wasnt an exclusion search...
+                        else {
+                            // If this manga's series contains the current series search...
+                            if(currentItem.manga.series.lowercaseString.containsString(currentSeriesSearchWithoutPossibleMinus)) {
+                                // Say we matched series
+                                matchedSeries = true;
+                            }
+                        }
+                        
+                        // Set searchedForExclusion to exclusionSearch
+                        searchedForExclusion = exclusionSearch;
+                    }
+                    
+                    // If we didnt match exclusion series but matched series...
+                    if(!matchedExclusionSeries && matchedSeries) {
+                        // Say the series matched
                         matchingSeries = true;
+                    }
+                    // If we matched exclusion series but didnt match series...
+                    else if(matchedExclusionSeries && !matchedSeries) {
+                        // Say the series didnt match
+                        matchingSeries = false;
+                    }
+                    // If we matched both...
+                    else if(!matchedExclusionSeries && !matchedSeries) {
+                        // If we searched for any exclusion series...
+                        if(searchedForExclusion) {
+                            // Say the series matched
+                            matchingSeries = true;
+                        }
+                        // If we didnt search for any exclusion series...
+                        else {
+                            // Say the series didnt match
+                            matchingSeries = false;
+                        }
+                    }
+                    // If we matched neither...
+                    else if(matchedExclusionSeries && matchedSeries) {
+                        // Say the series didnt match
+                        matchingSeries = false;
                     }
                 }
                 
                 // If we searched by artist...
                 if(searchedByArtist) {
-                    // If the current items artist contain the artist search... (In lowercase to be case insensitive)
-                    if(artistSearch.contains(currentItem.manga.artist.lowercaseString)) {
-                        // Say there is a matching artist
+                    /// Did we search for any exclusion artists?
+                    var searchedForExclusion : Bool = false;
+                    
+                    /// Did this manga end up having an exclusion artists in it?
+                    var matchedExclusionArtist : Bool = false;
+                    
+                    /// Did this manga end up having a non exclusion artist in it?
+                    var matchedArtist : Bool = false;
+                    
+                    // For every artist search...
+                    for(_, currentArtistSearch) in artistSearch.enumerate() {
+                        /// Are we doing an exclusion search for this artist?
+                        let exclusionSearch : Bool = (currentArtistSearch.substringToIndex(currentArtistSearch.startIndex.successor()) == "-");
+                        
+                        /// The current artist search without the possible "-" in front
+                        var currentArtistSearchWithoutPossibleMinus : String = currentArtistSearch;
+                        
+                        // If this is an exclusion search...
+                        if(exclusionSearch) {
+                            // Set the artist search without possible minus to the artist search without the first character
+                            currentArtistSearchWithoutPossibleMinus = currentArtistSearch.substringFromIndex(currentArtistSearch.startIndex.successor());
+                        }
+                        
+                        // If this is an exclusion search...
+                        if(exclusionSearch) {
+                            // If this manga's artist contains the current artist search...
+                            if(currentItem.manga.artist.lowercaseString.containsString(currentArtistSearchWithoutPossibleMinus)) {
+                                // Say we matched exclusion artists
+                                matchedExclusionArtist = true;
+                            }
+                        }
+                        // If this wasnt an exclusion search...
+                        else {
+                            // If this manga's artist contains the current artist search...
+                            if(currentItem.manga.artist.lowercaseString.containsString(currentArtistSearchWithoutPossibleMinus)) {
+                                // Say we matched artists
+                                matchedArtist = true;
+                            }
+                        }
+                        
+                        // Set searchedForExclusion to exclusionSearch
+                        searchedForExclusion = exclusionSearch;
+                    }
+                    
+                    // If we didnt match exclusion artist but matched artist...
+                    if(!matchedExclusionArtist && matchedArtist) {
+                        // Say the artist matched
                         matchingArtist = true;
+                    }
+                    // If we matched exclusion artist but didnt match artist...
+                    else if(matchedExclusionArtist && !matchedArtist) {
+                        // Say the artist didnt match
+                        matchingArtist = false;
+                    }
+                    // If we matched both...
+                    else if(!matchedExclusionArtist && !matchedArtist) {
+                        // If we searched for any exclusion artists...
+                        if(searchedForExclusion) {
+                            // Say the artist matched
+                            matchingArtist = true;
+                        }
+                        // If we didnt search for any exclusion artists...
+                        else {
+                            // Say the artist didnt match
+                            matchingArtist = false;
+                        }
+                    }
+                    // If we matched neither...
+                    else if(matchedExclusionArtist && matchedArtist) {
+                        // Say the artist didnt match
+                        matchingArtist = false;
                     }
                 }
                 
                 // If we searched by writer...
                 if(searchedByWriter) {
-                    // If the current items writer contain the writer search... (In lowercase to be case insensitive)
-                    if(writerSearch.contains(currentItem.manga.writer.lowercaseString)) {
-                        // Say there is a matching writer
+                    /// Did we search for any exclusion authors?
+                    var searchedForExclusion : Bool = false;
+                    
+                    /// Did this manga end up having an exclusion author in it?
+                    var matchedExclusionWriter : Bool = false;
+                    
+                    /// Did this manga end up having a non exclusion author in it?
+                    var matchedWriter : Bool = false;
+                    
+                    // For every artist search...
+                    for(_, currentWriterSearch) in writerSearch.enumerate() {
+                        /// Are we doing an exclusion search for this author?
+                        let exclusionSearch : Bool = (currentWriterSearch.substringToIndex(currentWriterSearch.startIndex.successor()) == "-");
+                        
+                        /// The current author search without the possible "-" in front
+                        var currentWriterSearchWithoutPossibleMinus : String = currentWriterSearch;
+                        
+                        // If this is an exclusion search...
+                        if(exclusionSearch) {
+                            // Set the author search without possible minus to the author search without the first character
+                            currentWriterSearchWithoutPossibleMinus = currentWriterSearch.substringFromIndex(currentWriterSearch.startIndex.successor());
+                        }
+                        
+                        // If this is an exclusion search...
+                        if(exclusionSearch) {
+                            // If this manga's author contains the current author search...
+                            if(currentItem.manga.writer.lowercaseString.containsString(currentWriterSearchWithoutPossibleMinus)) {
+                                // Say we matched exclusion author
+                                matchedExclusionWriter = true;
+                            }
+                        }
+                        // If this wasnt an exclusion search...
+                        else {
+                            // If this manga's author contains the current author search...
+                            if(currentItem.manga.writer.lowercaseString.containsString(currentWriterSearchWithoutPossibleMinus)) {
+                                // Say we matched authors
+                                matchedWriter = true;
+                            }
+                        }
+                        
+                        // Set searchedForExclusion to exclusionSearch
+                        searchedForExclusion = exclusionSearch;
+                    }
+                    
+                    // If we didnt match exclusion authors but matched author...
+                    if(!matchedExclusionWriter && matchedWriter) {
+                        // Say the author matched
                         matchingWriter = true;
+                    }
+                    // If we matched exclusion authors but didnt match author...
+                    else if(matchedExclusionWriter && !matchedWriter) {
+                        // Say the artist didnt match
+                        matchingWriter = false;
+                    }
+                    // If we matched both...
+                    else if(!matchedExclusionWriter && !matchedWriter) {
+                        // If we searched for any exclusion authors...
+                        if(searchedForExclusion) {
+                            // Say the author matched
+                            matchingWriter = true;
+                        }
+                        // If we didnt search for any exclusion authors...
+                        else {
+                            // Say the author didnt match
+                            matchingWriter = false;
+                        }
+                    }
+                    // If we matched neither...
+                    else if(matchedExclusionWriter && matchedWriter) {
+                        // Say the author didnt match
+                        matchingWriter = false;
                     }
                 }
                 
@@ -884,10 +1096,10 @@ class KMMangaGridController: NSObject {
                 }
                 
                 // Example search
-                // title:"v007" series:"Yuru Yuri" artist:"namori" writer:"namori" tags:"school, comedy, -drama" groups:"reading, -dropped" favourites:"yes" read:"yes" percent:"<50"
+                // title:"v007" series:"Yuru Yuri, -Non Non Biyori" artist:"namori, -atto" writer:"namori, -atto" tags:"school, comedy, -drama" groups:"reading, -dropped" favourites:"yes" read:"yes" percent:"<50"
                 
                 // Or you can use the simplified search term names
-                // t:"v007" s:"Yuru Yuri" a:"namori" w:"namori" tg:"school, comedy, -drama" g:"reading, -dropped" f:"y" r:"y" p:"<50"
+                // t:"v007" s:"Yuru Yuri, -Non Non Biyori" a:"namori, -atto" w:"namori, -atto" tg:"school, comedy, -drama" g:"reading, -dropped" f:"y" r:"y" p:"<50"
                 
                 // If we didnt search by title...
                 if(!searchedByTitle) {

@@ -42,6 +42,7 @@
 		5D7A74EA1C7BA6350093EFEC /* KMReaderPageJumpCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7A74E91C7BA6350093EFEC /* KMReaderPageJumpCellView.swift */; };
 		5D7A74EC1C7BA73F0093EFEC /* KMReaderPageJumpTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7A74EB1C7BA73F0093EFEC /* KMReaderPageJumpTableView.swift */; };
 		5D8125901C4BEDB600E3B000 /* KMEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D81258F1C4BEDB600E3B000 /* KMEnums.swift */; };
+		5D8447401C8B9186008D0337 /* Komikan Quicklook.qlgenerator in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5D8447311C8B891E008D0337 /* Komikan Quicklook.qlgenerator */; };
 		5D8B51B11C78B9E800B8C364 /* KMReaderScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8B51B01C78B9E800B8C364 /* KMReaderScrollView.swift */; };
 		5D8C1CAA1C3F09E5001AD41B /* KMEditMangaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8C1CA91C3F09E5001AD41B /* KMEditMangaViewController.swift */; };
 		5D9238AD1C5FBDB3006EBAB2 /* exadd in Resources */ = {isa = PBXBuildFile; fileRef = 5D9238AA1C5FBDB3006EBAB2 /* exadd */; };
@@ -88,6 +89,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		5D84473D1C8B9007008D0337 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "~/Library/QuickLook";
+			dstSubfolderSpec = 0;
+			files = (
+				5D8447401C8B9186008D0337 /* Komikan Quicklook.qlgenerator in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		39B1CCABE43DCFDDE2111753 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D020D111C83486700E62CC1 /* KMMetadataFetcherSeriesSearchResultsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMetadataFetcherSeriesSearchResultsTableViewCell.swift; sourceTree = "<group>"; };
@@ -131,6 +145,7 @@
 		5D7A74E91C7BA6350093EFEC /* KMReaderPageJumpCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMReaderPageJumpCellView.swift; sourceTree = "<group>"; };
 		5D7A74EB1C7BA73F0093EFEC /* KMReaderPageJumpTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMReaderPageJumpTableView.swift; sourceTree = "<group>"; };
 		5D81258F1C4BEDB600E3B000 /* KMEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMEnums.swift; sourceTree = "<group>"; };
+		5D8447311C8B891E008D0337 /* Komikan Quicklook.qlgenerator */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Komikan Quicklook.qlgenerator"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D8B51B01C78B9E800B8C364 /* KMReaderScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMReaderScrollView.swift; sourceTree = "<group>"; };
 		5D8C1CA91C3F09E5001AD41B /* KMEditMangaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMEditMangaViewController.swift; sourceTree = "<group>"; };
 		5D9238AA1C5FBDB3006EBAB2 /* exadd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = exadd; sourceTree = "<group>"; };
@@ -180,6 +195,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		5D5DBEE41C3584F5004D8C5D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D84472D1C8B891E008D0337 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -327,6 +349,7 @@
 				5D5DBECB1C3584F5004D8C5D /* Komikan.app */,
 				5D5DBEDC1C3584F5004D8C5D /* KomikanTests.xctest */,
 				5D5DBEE71C3584F5004D8C5D /* KomikanUITests.xctest */,
+				5D8447311C8B891E008D0337 /* Komikan Quicklook.qlgenerator */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -517,6 +540,16 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		5D84472E1C8B891E008D0337 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		5D5DBECA1C3584F5004D8C5D /* Komikan */ = {
 			isa = PBXNativeTarget;
@@ -574,6 +607,25 @@
 			productReference = 5D5DBEE71C3584F5004D8C5D /* KomikanUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		5D8447301C8B891E008D0337 /* Komikan Quicklook */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5D84473C1C8B891F008D0337 /* Build configuration list for PBXNativeTarget "Komikan Quicklook" */;
+			buildPhases = (
+				5D84472C1C8B891E008D0337 /* Sources */,
+				5D84472D1C8B891E008D0337 /* Frameworks */,
+				5D84472E1C8B891E008D0337 /* Headers */,
+				5D84472F1C8B891E008D0337 /* Resources */,
+				5D84473D1C8B9007008D0337 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Komikan Quicklook";
+			productName = "Komikan Quicklook";
+			productReference = 5D8447311C8B891E008D0337 /* Komikan Quicklook.qlgenerator */;
+			productType = "com.apple.product-type.bundle";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -595,6 +647,9 @@
 						CreatedOnToolsVersion = 7.0.1;
 						TestTargetID = 5D5DBECA1C3584F5004D8C5D;
 					};
+					5D8447301C8B891E008D0337 = {
+						CreatedOnToolsVersion = 7.2;
+					};
 				};
 			};
 			buildConfigurationList = 5D5DBEC61C3584F5004D8C5D /* Build configuration list for PBXProject "Komikan" */;
@@ -613,6 +668,7 @@
 				5D5DBECA1C3584F5004D8C5D /* Komikan */,
 				5D5DBEDB1C3584F5004D8C5D /* KomikanTests */,
 				5D5DBEE61C3584F5004D8C5D /* KomikanUITests */,
+				5D8447301C8B891E008D0337 /* Komikan Quicklook */,
 			);
 		};
 /* End PBXProject section */
@@ -642,6 +698,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		5D5DBEE51C3584F5004D8C5D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D84472F1C8B891E008D0337 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -769,6 +832,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D5DBEEC1C3584F5004D8C5D /* KomikanUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D84472C1C8B891E008D0337 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -962,6 +1032,30 @@
 			};
 			name = Release;
 		};
+		5D84473A1C8B891F008D0337 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Komikan Quicklook/Info.plist";
+				INSTALL_PATH = /Library/QuickLook;
+				PRODUCT_BUNDLE_IDENTIFIER = "drabweb.Komikan-Quicklook";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = qlgenerator;
+			};
+			name = Debug;
+		};
+		5D84473B1C8B891F008D0337 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Komikan Quicklook/Info.plist";
+				INSTALL_PATH = /Library/QuickLook;
+				PRODUCT_BUNDLE_IDENTIFIER = "drabweb.Komikan-Quicklook";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = qlgenerator;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -997,6 +1091,15 @@
 			buildConfigurations = (
 				5D5DBEF71C3584F5004D8C5D /* Debug */,
 				5D5DBEF81C3584F5004D8C5D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5D84473C1C8B891F008D0337 /* Build configuration list for PBXNativeTarget "Komikan Quicklook" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5D84473A1C8B891F008D0337 /* Debug */,
+				5D84473B1C8B891F008D0337 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

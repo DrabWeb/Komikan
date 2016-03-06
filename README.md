@@ -61,8 +61,8 @@ Requires at least OSX 10.10 Yosemite. Tested on OSX 10.11 El Capitan
 
 > * Search by lots of terms
 
-> > * Title
-> > * Series
+> > * Title(And exclude titles)
+> > * Series(And exclude series)
 > > * Artist(And exclude artists)
 > > * Writer(And exclude writers)
 > > * Tags(And exclude tags)
