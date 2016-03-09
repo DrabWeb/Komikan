@@ -104,6 +104,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     /// The Manga/Notes/Open in External Editor menu item
     @IBOutlet weak var openInExternalEditorMenuItem: NSMenuItem!
     
+    @IBOutlet weak var loginToMalMenuItem: NSMenuItem!
+    
     /// The view controller we will load for the reader
     var mangaReaderViewController: KMReaderViewController?;
     
@@ -128,7 +130,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     /// An Int that indicates what modifier keys are being held(These are defined by NSEvent, not me)
     var modifierValue : Int = 0;
     
-    /// The MyAnimeList utilities you shoudl use globally
+    /// The MyAnimeList utilities you should use globally
     var malController : KMMALUtilities = KMMALUtilities();
     
     // Opens the specified manga in the reader at the specified page
@@ -400,6 +402,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         
         // Setup the darken background menu items action
         toggleBackgroundDarkenMenuItem.action = Selector("toggleDarken");
+        
+        // Set the title of the MAL login item
+        malController.updateMenuItem();
         
         // Get the default notification center
         let nc = NSUserNotificationCenter.defaultUserNotificationCenter();

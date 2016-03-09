@@ -35,7 +35,8 @@ class KMMALLoginViewController: NSViewController {
     func loginCompletionHandler(correct : Bool?, error : NSError?) {
         // If the credentials were correct...
         if(correct!) {
-            
+            // Close the window
+            loginWindow.close();
         }
         // If the credentials were incorrect...
         else {

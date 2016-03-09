@@ -808,6 +808,7 @@ CA
                         <outlet property="fitWindowToPageMenuItem" destination="tub-ce-tVP" id="hmo-vl-Clh"/>
                         <outlet property="importAddMenuItem" destination="Was-JA-tGl" id="mNS-F0-PAQ"/>
                         <outlet property="jumpToPageMenuItem" destination="I7g-H0-J3h" id="2f3-MH-hPT"/>
+                        <outlet property="loginToMalMenuItem" destination="KO5-nI-Ubl" id="Scd-1x-G22"/>
                         <outlet property="markSelectedAsReadMenuItem" destination="ug2-Jz-y1o" id="Lp7-Bk-MZw"/>
                         <outlet property="markSelectedAsUnreadMenuItem" destination="6KB-cw-D9H" id="uJr-51-3Di"/>
                         <outlet property="nextPageMenubarItem" destination="8P2-Bj-ZHO" id="maC-a5-1g2"/>

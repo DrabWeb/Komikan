@@ -63,6 +63,20 @@ class KMMALUtilities {
         return credentialsCorrect;
     }
     
+    /// Updates the Komikan/Login to MyAnimeList menu item
+    func updateMenuItem() {
+        // If the username isnt blank...
+        if(loginUsername != "") {
+            // Set the login menu item to say we are logged in, and as who
+            (NSApplication.sharedApplication().delegate as! AppDelegate).loginToMalMenuItem.title = "Login to MyAnimeList (Logged in as " + loginUsername + ")";
+        }
+            // If the username is blank...
+        else if(loginUsername == "") {
+            // Set the login menu item to say we arent logged in
+            (NSApplication.sharedApplication().delegate as! AppDelegate).loginToMalMenuItem.title = "Login to MyAnimeList (Not logged in)";
+        }
+    }
+    
     // Init
     init() {
         // If the credentials have been stored...
