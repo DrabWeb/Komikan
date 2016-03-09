@@ -128,6 +128,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     /// An Int that indicates what modifier keys are being held(These are defined by NSEvent, not me)
     var modifierValue : Int = 0;
     
+    /// The MyAnimeList utilities you shoudl use globally
+    var malController : KMMALUtilities = KMMALUtilities();
+    
     // Opens the specified manga in the reader at the specified page
     func openManga(manga : KMManga, page : Int) {
         // Get the main storyboard
