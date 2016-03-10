@@ -67,3 +67,13 @@ class KMEnumUtilities {
         return typeString;
     }
 }
+
+/// The types of lists on MyAnimeList
+enum KMMALListType {
+    case All
+    case CurrentlyReading
+    case Completed
+    case OnHold
+    case Dropped
+    case PlanToRead
+}

@@ -50,6 +50,8 @@ class KMMALLoginViewController: NSViewController {
         // Do view setup here.
         // Style the window
         styleWindow();
+        
+        (NSApplication.sharedApplication().delegate as! AppDelegate).malController.getList(KMMALListType.CurrentlyReading);
     }
     
     /// Shakes the window the given amount of times for the given duration

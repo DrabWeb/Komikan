@@ -9,6 +9,7 @@
 import Cocoa
 import Alamofire
 import CryptoSwift
+import SWXMLHash
 
 /// A collection of MyAnimeList utilities meant to make life easier
 class KMMALUtilities {
@@ -27,6 +28,31 @@ class KMMALUtilities {
     
     /// The URL for verifying credentials
     let MAL_CREDENTIALS_PAGE : String = "http://myanimelist.net/api/account/verify_credentials.xml";
+    
+    let MAL_LIST_PAGE_BASE : String = "http://myanimelist.net/mangalist/";
+    
+    /// Returns all the items in the given list
+    func getList(list : KMMALListType) {
+        print("Getting the " + String(list) + " list");
+        
+        /// The URL of the list we want
+        var listURL : NSURL = NSURL(string: MAL_LIST_PAGE_BASE + loginUsername + "?status=")!;
+        
+        // If the list we want is the Currently Reading list...
+        if(list == .CurrentlyReading) {
+            // Set the list status number to 1
+            listURL = NSURL(string: listURL.absoluteString + "1")!;
+        }
+        
+        /// The NSData of the list URL
+        let listData : NSData? = NSData(contentsOfURL: listURL);
+        
+        // If the list data isnt nil...
+        if(listData != nil) {
+            /// The XML of the list's web page
+            let listXML = SWXMLHash.parse(listData!);
+        }
+    }
     
     /// Verifys credentials. Returns false if they are wrong and true if they are right. Also saves the credentials in the login file(Encrypted) if correct
     func verifyCredentials(username : String, password : String, completionHandler: (Bool?, NSError?) -> ()) -> Bool {

@@ -8,6 +8,7 @@ target 'Komikan' do
 	pod 'UnrarKit', '~> 2.6'
 	pod 'Alamofire', '~> 3.0'
 	pod 'CryptoSwift'
+	pod 'SWXMLHash'
 end
 
 target 'KomikanTests' do

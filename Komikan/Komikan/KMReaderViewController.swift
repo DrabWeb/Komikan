@@ -1309,6 +1309,18 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
                 }
             }
             
+            /// Is the mouse inside the window?
+            var insideWindow : Bool = false;
+            
+            // If the mouse is inside the window on the X...
+            if(mousePosition.x > readerWindow.frame.origin.x && mousePosition.x < (readerWindow.frame.origin.x + readerWindow.frame.size.width)) {
+                // If the mouse is inside the window on the Y...
+                if(pointY > readerWindow.frame.origin.y && pointY < (readerWindow.frame.origin.y + readerWindow.frame.size.height)) {
+                    // Say we are inside the window
+                    insideWindow = true;
+                }
+            }
+            
             // If the reader window is currently selected...
             if(readerWindow.keyWindow) {
                 // Fade in the titlebar(Fullscreen mode)
@@ -1317,13 +1329,18 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
             
             // If the cursor isnt inside the reader panel and in fullscreen...
             if(!insideReaderPanel && fullscreen) {
-                // Fade out the titlebar(Fullscreen mode)
+                // Fade out the titlebar(Fullscreen mode) in one second
                 fadeTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(1), target:self, selector: Selector("fadeOutTitlebarFullscreen"), userInfo: nil, repeats:false);
             }
-            // If the reader window is the key window and the cursor isnt inside the reader panel...
-            else if(readerWindow.keyWindow && !insideReaderPanel) {
-                // Fade out the titlebar(Fullscreen mode)
+            // If the reader window is the key window and the cursor isnt inside the reader panel and we are inside the window...
+            else if(readerWindow.keyWindow && !insideReaderPanel && insideWindow) {
+                // Fade out the titlebar(Fullscreen mode) in 2 seconds
                 fadeTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(2), target:self, selector: Selector("fadeOutTitlebarFullscreen"), userInfo: nil, repeats:false);
+            }
+            // If the reader window is the key window and the cursor isnt inside the reader panel and we arent inside the window...
+            else if(readerWindow.keyWindow && !insideReaderPanel && !insideWindow) {
+                // Fade out the titlebar(Fullscreen mode) in 0.5 seconds
+                fadeTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.5), target:self, selector: Selector("fadeOutTitlebarFullscreen"), userInfo: nil, repeats:false);
             }
             
             // If the reader window isnt key...
