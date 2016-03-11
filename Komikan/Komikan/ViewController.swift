@@ -923,10 +923,18 @@ class ViewController: NSViewController, NSTabViewDelegate {
         backgroundVisualEffectView.material = NSVisualEffectMaterial.Dark;
         
         // Set the titlebar visual effect view to be ultra dark
-        titlebarVisualEffectView.material = NSVisualEffectMaterial.UltraDark;
+        if #available(OSX 10.11, *) {
+            titlebarVisualEffectView.material = NSVisualEffectMaterial.UltraDark
+        } else {
+            titlebarVisualEffectView.material = NSVisualEffectMaterial.Titlebar
+        };
         
         // Set the info visual effect view to be ultra dark
-        infoBarVisualEffectView.material = NSVisualEffectMaterial.UltraDark;
+        if #available(OSX 10.11, *) {
+            infoBarVisualEffectView.material = NSVisualEffectMaterial.UltraDark
+        } else {
+            infoBarVisualEffectView.material = NSVisualEffectMaterial.Titlebar
+        };
         
         // Hide the info bar
         infoBarContainer.alphaValue = 0;

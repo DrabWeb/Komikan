@@ -106,7 +106,11 @@ class KMPreferencesController: NSViewController {
         backgroundVisualEffectView.material = NSVisualEffectMaterial.Dark;
         
         // Set the titlebar effect to be ultra dark
-        titlebarVisualEffectView.material = NSVisualEffectMaterial.UltraDark;
+        if #available(OSX 10.11, *) {
+            titlebarVisualEffectView.material = NSVisualEffectMaterial.UltraDark
+        } else {
+            titlebarVisualEffectView.material = NSVisualEffectMaterial.Titlebar
+        };
         
         // Get the windows center position on the X
         let windowX = ((NSScreen.mainScreen()?.frame.width)! / 2) - (480 / 2);

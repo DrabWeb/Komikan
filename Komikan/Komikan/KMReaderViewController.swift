@@ -547,7 +547,11 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         // If we said in the preferences to be able to drag the reader window without holding alt...
         if((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt) {
             // Perform a window drag with the drag event
-            readerWindow.performWindowDragWithEvent(theEvent);
+            if #available(OSX 10.11, *) {
+                readerWindow.performWindowDragWithEvent(theEvent);
+            } else {
+                // No equivalent found, look for one later
+            };
             
             // Say we are dragging
             dragging = true;
@@ -556,7 +560,11 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
             // If we are holding alt...
             if(theEvent.modifierFlags.rawValue == 524576) {
                 // Perform a window drag with the drag event
-                readerWindow.performWindowDragWithEvent(theEvent);
+                if #available(OSX 10.11, *) {
+                    readerWindow.performWindowDragWithEvent(theEvent);
+                } else {
+                    // No equivalent found, look for one later
+                };
             }
         }
     }

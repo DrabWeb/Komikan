@@ -227,7 +227,7 @@ extension KMMangaListController : NSTableViewDataSource {
                 // Return the modified cell view
                 return cellView;
             }
-                // If the column is the Series Column...
+            // If the column is the Series Column...
             else if(tableColumn!.identifier == "Series Column") {
                 // Set the text of this cell to be the series of this manga
                 cellView.textField!.stringValue = searchListItemData.manga.series;
@@ -235,7 +235,7 @@ extension KMMangaListController : NSTableViewDataSource {
                 // Return the modified cell view
                 return cellView;
             }
-                // If the column is the Author Column...
+            // If the column is the Author Column...
             else if(tableColumn!.identifier == "Writer Column") {
                 // Set the text of this cell to be the author of this manga
                 cellView.textField!.stringValue = searchListItemData.manga.writer;
@@ -243,7 +243,7 @@ extension KMMangaListController : NSTableViewDataSource {
                 // Return the modified cell view
                 return cellView;
             }
-                // If the column is the Artist Column...
+            // If the column is the Artist Column...
             else if(tableColumn!.identifier == "Artist Column") {
                 // Set the text of this cell to be the artist of this manga
                 cellView.textField!.stringValue = searchListItemData.manga.artist;
@@ -251,7 +251,7 @@ extension KMMangaListController : NSTableViewDataSource {
                 // Return the modified cell view
                 return cellView;
             }
-                // If the column is the Percent Column...
+            // If the column is the Percent Column...
             else if(tableColumn!.identifier == "Percent Column") {
                 // Set the text of this cell to be the percent finished of this manga with a % on the end
                 cellView.textField!.stringValue = String(searchListItemData.manga.percentFinished) + "%";
@@ -259,7 +259,7 @@ extension KMMangaListController : NSTableViewDataSource {
                 // Return the modified cell view
                 return cellView;
             }
-                // If the column is the Favourite Column...
+            // If the column is the Favourite Column...
             else if(tableColumn!.identifier == "Favourite Column") {
                 // If this item is favourite...
                 if(searchListItemData.manga.favourite) {
