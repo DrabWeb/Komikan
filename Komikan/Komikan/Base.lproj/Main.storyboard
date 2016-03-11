@@ -213,118 +213,6 @@
             </objects>
             <point key="canvasLocation" x="1364" y="-831"/>
         </scene>
-        <!--MAL Login Window Controller-->
-        <scene sceneID="Ajf-8r-L5v">
-            <objects>
-                <windowController id="Vpr-lE-2jH" userLabel="MAL Login Window Controller" sceneMemberID="viewController">
-                    <window key="window" title="MyAnimeList Login" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="n9p-kC-3ZJ">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
-                        <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
-                        <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="229" y="650" width="480" height="270"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="1600" height="900"/>
-                        <value key="minSize" type="size" width="480" height="270"/>
-                        <value key="maxSize" type="size" width="480" height="270"/>
-                    </window>
-                    <connections>
-                        <segue destination="kum-xi-gwr" kind="relationship" relationship="window.shadowedContentViewController" id="unh-r5-uYy"/>
-                    </connections>
-                </windowController>
-                <customObject id="gmm-i3-WdO" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-400" y="-705"/>
-        </scene>
-        <!--MAL Login View Controller-->
-        <scene sceneID="zPa-Cy-2PO">
-            <objects>
-                <viewController id="kum-xi-gwr" userLabel="MAL Login View Controller" customClass="KMMALLoginViewController" customModule="Komikan" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="BzV-2B-r4g">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="60k-bU-ceo" userLabel="Background Visual Effect View">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-                                <subviews>
-                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="82M-H9-GCB" userLabel="MAL Logo">
-                                        <rect key="frame" x="0.0" y="205" width="480" height="45"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="45" id="xUu-dx-d2X"/>
-                                        </constraints>
-                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="MAL Logo" id="FIp-zS-MgM"/>
-                                    </imageView>
-                                    <secureTextField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Aba-OU-haN" userLabel="Password Text Field" customClass="KMAlwaysActiveSecureTextField" customModule="Komikan" customModuleProvider="target">
-                                        <rect key="frame" x="115" y="92" width="250" height="22"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="22" id="OIP-Gv-5jO"/>
-                                            <constraint firstAttribute="width" constant="250" id="g9H-je-ptc"/>
-                                        </constraints>
-                                        <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" focusRingType="none" alignment="center" placeholderString="Password" usesSingleLineMode="YES" bezelStyle="round" id="l0t-rp-Owm">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
-                                            <allowedInputSourceLocales>
-                                                <string>NSAllRomanInputSourcesLocaleIdentifier</string>
-                                            </allowedInputSourceLocales>
-                                        </secureTextFieldCell>
-                                    </secureTextField>
-                                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kD5-fU-ofe" userLabel="Username Text Field" customClass="KMAlwaysActiveTextField" customModule="Komikan" customModuleProvider="target">
-                                        <rect key="frame" x="115" y="124" width="250" height="22"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="250" id="NLj-XD-JBY"/>
-                                            <constraint firstAttribute="height" constant="22" id="gYw-wF-xS9"/>
-                                        </constraints>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" focusRingType="none" alignment="center" placeholderString="Username" bezelStyle="round" id="NOt-X3-ZHU">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LEq-m1-lFf">
-                                        <rect key="frame" x="154" y="54" width="172" height="32"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="56N-Pl-pdu"/>
-                                            <constraint firstAttribute="width" constant="160" id="8bR-iR-Mm2"/>
-                                        </constraints>
-                                        <buttonCell key="cell" type="push" title="Login" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NU3-oe-VOC">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="loginButtonPressed:" target="kum-xi-gwr" id="b7A-e7-8sc"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="82M-H9-GCB" firstAttribute="leading" secondItem="60k-bU-ceo" secondAttribute="leading" id="0KI-3z-h8J"/>
-                                    <constraint firstAttribute="trailing" secondItem="82M-H9-GCB" secondAttribute="trailing" id="BZE-JG-VhP"/>
-                                    <constraint firstItem="kD5-fU-ofe" firstAttribute="centerX" secondItem="60k-bU-ceo" secondAttribute="centerX" id="CNi-Ya-xba"/>
-                                    <constraint firstItem="Aba-OU-haN" firstAttribute="centerY" secondItem="60k-bU-ceo" secondAttribute="centerY" constant="32" id="IaF-52-6v3"/>
-                                    <constraint firstItem="LEq-m1-lFf" firstAttribute="top" secondItem="Aba-OU-haN" secondAttribute="bottom" constant="10" id="OQo-bm-Dfo"/>
-                                    <constraint firstItem="kD5-fU-ofe" firstAttribute="centerY" secondItem="60k-bU-ceo" secondAttribute="centerY" id="Sh8-nQ-lct"/>
-                                    <constraint firstItem="LEq-m1-lFf" firstAttribute="centerX" secondItem="60k-bU-ceo" secondAttribute="centerX" id="kVl-zE-xkU"/>
-                                    <constraint firstItem="Aba-OU-haN" firstAttribute="centerX" secondItem="60k-bU-ceo" secondAttribute="centerX" id="q6E-Zr-Yoa"/>
-                                    <constraint firstItem="82M-H9-GCB" firstAttribute="top" secondItem="60k-bU-ceo" secondAttribute="top" constant="20" id="ur0-2F-0SQ"/>
-                                </constraints>
-                            </visualEffectView>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="60k-bU-ceo" firstAttribute="leading" secondItem="BzV-2B-r4g" secondAttribute="leading" id="0Um-ww-qKf"/>
-                            <constraint firstItem="60k-bU-ceo" firstAttribute="top" secondItem="BzV-2B-r4g" secondAttribute="top" id="4X7-Fs-rA5"/>
-                            <constraint firstAttribute="trailing" secondItem="60k-bU-ceo" secondAttribute="trailing" id="We6-aa-8y0"/>
-                            <constraint firstAttribute="bottom" secondItem="60k-bU-ceo" secondAttribute="bottom" id="qo4-6X-es1"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="backgroundVisualEffectView" destination="60k-bU-ceo" id="kHj-CL-fjz"/>
-                        <outlet property="malLogoImageView" destination="82M-H9-GCB" id="jTm-k9-ldE"/>
-                        <outlet property="passwordTextField" destination="Aba-OU-haN" id="0OG-F9-NSk"/>
-                        <outlet property="usernameTextField" destination="kD5-fU-ofe" id="SWg-Bp-eSu"/>
-                    </connections>
-                </viewController>
-                <customObject id="SzZ-P8-YEI" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-382" y="-1129"/>
-        </scene>
         <!--Application-->
         <scene sceneID="JPo-4y-FX3">
             <objects>
@@ -359,12 +247,6 @@
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <segue destination="Bpv-S9-75W" kind="show" id="LWH-Zy-xBU"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Login to MyAnimeList" id="KO5-nI-Ubl">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <segue destination="Vpr-lE-2jH" kind="show" id="oNc-Hx-opL"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Export Medadata for all Manga for Migration" hidden="YES" id="yhS-CL-E8F">
@@ -767,6 +649,9 @@ CA
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Select Search Field" keyEquivalent="f" id="t6K-n0-BDW"/>
+                                        <menuItem title="MyAnimeList" id="Vg1-8y-gi9">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="eu3-7i-yIM"/>
                                         <menuItem title="Bring All to Front" id="LE2-aR-0XJ">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -808,7 +693,6 @@ CA
                         <outlet property="fitWindowToPageMenuItem" destination="tub-ce-tVP" id="hmo-vl-Clh"/>
                         <outlet property="importAddMenuItem" destination="Was-JA-tGl" id="mNS-F0-PAQ"/>
                         <outlet property="jumpToPageMenuItem" destination="I7g-H0-J3h" id="2f3-MH-hPT"/>
-                        <outlet property="loginToMalMenuItem" destination="KO5-nI-Ubl" id="Scd-1x-G22"/>
                         <outlet property="markSelectedAsReadMenuItem" destination="ug2-Jz-y1o" id="Lp7-Bk-MZw"/>
                         <outlet property="markSelectedAsUnreadMenuItem" destination="6KB-cw-D9H" id="uJr-51-3Di"/>
                         <outlet property="nextPageMenubarItem" destination="8P2-Bj-ZHO" id="maC-a5-1g2"/>
@@ -1793,7 +1677,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                         <subviews>
                             <webView translatesAutoresizingMaskIntoConstraints="NO" id="u13-H4-8CL">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="500"/>
-                                <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
+                                <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12" plugInsEnabled="NO" javaEnabled="NO">
                                     <nil key="identifier"/>
                                 </webPreferences>
                             </webView>
@@ -1963,7 +1847,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="6vR-dx-5nf">
-                                    <rect key="frame" x="465" y="0.0" width="15" height="270"/>
+                                    <rect key="frame" x="464" y="0.0" width="16" height="270"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
@@ -2042,7 +1926,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             </textField>
                                                             <slider focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kvG-pg-f6J" userLabel="Brightness Slider">
                                                                 <rect key="frame" x="-2" y="31" width="98" height="21"/>
-                                                                <sliderCell key="cell" state="on" focusRingType="none" alignment="left" minValue="-5" maxValue="5" tickMarkPosition="above" sliderType="linear" id="WQi-lS-LUe"/>
+                                                                <sliderCell key="cell" state="on" focusRingType="none" alignment="left" minValue="-1" maxValue="1" tickMarkPosition="above" sliderType="linear" id="WQi-lS-LUe"/>
                                                                 <connections>
                                                                     <action selector="readerControlPanelBrightnessSliderInteracted:" target="OyT-nZ-UQJ" id="3gg-mX-oc5"/>
                                                                 </connections>
@@ -2275,7 +2159,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="140" viewBased="YES" id="SIJ-SQ-EnH" customClass="KMReaderPageJumpTableView" customModule="Komikan" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="405" height="0.0"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="405" height="270"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -2425,7 +2309,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="hKR-Pk-qGD">
-                                            <rect key="frame" x="390" y="0.0" width="15" height="270"/>
+                                            <rect key="frame" x="389" y="0.0" width="16" height="270"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
@@ -2768,7 +2652,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <tableHeaderView key="headerView" id="CYe-DP-BRz" customClass="KMMangaListTableHeaderView" customModule="Komikan" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="727" height="23"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="729" height="23"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>
@@ -3705,7 +3589,6 @@ AwEVARgBHQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAEfA
     <resources>
         <image name="Bookmark Marker" width="128" height="128"/>
         <image name="DrabWeb" width="460" height="460"/>
-        <image name="MAL Logo" width="179" height="32"/>
         <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSApplicationIcon" width="128" height="128"/>
