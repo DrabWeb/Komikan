@@ -1201,8 +1201,11 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     }
     
     func updateFiltersForAllPages() {
-        // Set manga.pages to all its current pages, but filtered with our given variables
-        manga.pages = KMImageFilterUtilities().applyColorAndSharpnessMultiple(mangaOriginalPages, saturation: manga.saturation, brightness: manga.brightness, contrast: manga.contrast, sharpness: manga.sharpness);
+        // For every original page...
+        for(currentPageIndex, currentPage) in mangaOriginalPages.enumerate() {
+            // Set the current page to be the current page with the chosen filter amounts
+            manga.pages[currentPageIndex] = KMImageFilterUtilities().applyColorAndSharpness(currentPage, saturation: manga.saturation, brightness: manga.brightness, contrast: manga.contrast, sharpness: manga.sharpness);
+        }
         
         // Update the page
         updatePage();
