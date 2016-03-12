@@ -145,8 +145,9 @@ class KMEditMangaViewController: NSViewController {
         // Dont allow multiple files
         changeDirectoryOpenPanel.allowsMultipleSelection = false;
         
-        // Only allow CBZ, CBR, ZIP and RAR
+        // Only allow CBZ, CBR, ZIP, RAR and Folders
         changeDirectoryOpenPanel.allowedFileTypes = ["cbz", "cbr", "zip", "rar"];
+        changeDirectoryOpenPanel.canChooseDirectories = true;
         
         // Set the Open button to say choose
         changeDirectoryOpenPanel.prompt = "Choose";

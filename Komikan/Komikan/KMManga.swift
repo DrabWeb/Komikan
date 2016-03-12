@@ -110,8 +110,21 @@ class KMManga {
             
             // If this manga hasnt already been extracted...
             if(!extractedFolders.contains("komikanmanga-" + NSURL(fileURLWithPath: tmpDirectory).lastPathComponent!)) {
-                // Unzip this manga to /tmp/komikan/komikanmanga-(title)
-                KMFileUtilities().extractArchive(directory, toDirectory: tmpDirectory);
+                // If the manga's file isnt a folder...
+                if(!KMFileUtilities().isFolder(directory)) {
+                    // Unzip this manga to /tmp/komikan/komikanmanga-(title)
+                    KMFileUtilities().extractArchive(directory, toDirectory: tmpDirectory);
+                }
+                // If the manga's file is a folder...
+                else {
+                    // Copy the folder to /tmp/komikan/komikanmanga-(title)
+                    do {
+                        try NSFileManager.defaultManager().copyItemAtPath(directory, toPath: tmpDirectory);
+                    }
+                    catch _ as NSError {
+                        
+                    }
+                }
             }
             else {
                 // Print to the log that it has already been extracted
@@ -143,7 +156,7 @@ class KMManga {
             // For every file in this mangas tmp folder...
             for currentPage in imageFileNames.enumerate() {
                 // If the current file is an image and its not a dot file...
-                if(NSImage.imageFileTypes().contains(KMFileUtilities().getFileExtension(NSURL(fileURLWithPath: tmpDirectory + (currentPage.element as! String)))) && ((currentPage.element as! String).substringToIndex((currentPage.element as! String).startIndex.successor())) != ".") {
+                if(KMFileUtilities().isImage(tmpDirectory + (currentPage.element as! String)) && ((currentPage.element as! String).substringToIndex((currentPage.element as! String).startIndex.successor())) != ".") {
                     // Print to the log what page we found
                     print("Found page \"" + (currentPage.element as! String) + "\"");
                     

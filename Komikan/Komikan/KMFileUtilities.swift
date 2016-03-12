@@ -10,6 +10,26 @@ import Foundation
 import Cocoa
 
 class KMFileUtilities {
+    /// Is the given file an image?
+    func isImage(path : String) -> Bool {
+        // Return if teh image file types contains the passed file's extension
+        return NSImage.imageFileTypes().contains(KMFileUtilities().getFileExtension(NSURL(fileURLWithPath: path)));
+    }
+    
+    /// Is the given file a folder?
+    func isFolder(path : String) -> Bool {
+        // If the contents of the file at the given path arent nil(Meaning its a file)...
+        if(NSFileManager.defaultManager().contentsAtPath(path) != nil) {
+            // Return false
+            return false;
+        }
+        // If the contents of the file at the given path are nil(Meaning its a folder)...
+        else {
+            // Return true
+            return true;
+        }
+    }
+    
     /// Returns the path to the encasing folder for the file at the given path
     func folderPathForFile(filePath : String) -> String {
         /// The path to the file's folder

@@ -22,7 +22,7 @@ Requires at least OSX 10.10 Yosemite. Tested on OSX 10.11 El Capitan
 <img src="https://raw.githubusercontent.com/DrabWeb/Komikan/master/Screenshots/Collection Management.png"></img>
 
 > * Import single or multiple Manga at once
-> * Supports ZIP, RAR, CBZ and CBR
+> * Supports ZIP, RAR, CBZ, CBR and Folders of images
 > * Grid and List views
 > * Set Series, Artist, Writer, Tags, Group, Favourite and mark as l-lewd... on import
 > * Edit any of the above after import(Either one at a time or by groups)

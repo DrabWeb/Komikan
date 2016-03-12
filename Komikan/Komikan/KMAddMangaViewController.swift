@@ -94,8 +94,9 @@ class KMAddMangaViewController: NSViewController {
         // Allow multiple files
         chooseDirectoryOpenPanel.allowsMultipleSelection = true;
         
-        // Only allow CBZ, CBR, ZIP and RAR
+        // Only allow CBZ, CBR, ZIP, RAR and Folders
         chooseDirectoryOpenPanel.allowedFileTypes = ["cbz", "cbr", "zip", "rar"];
+        chooseDirectoryOpenPanel.canChooseDirectories = true;
         
         // Set the Open button to say choose
         chooseDirectoryOpenPanel.prompt = "Choose";
@@ -445,18 +446,40 @@ class KMAddMangaViewController: NSViewController {
             print("No /tmp/komikan/addmanga to delete for \"" + manga.title + "\"");
         }
         
-        // Extract the passed manga to /tmp/komikan/addmanga
-        KMFileUtilities().extractArchive(manga.directory.stringByReplacingOccurrencesOfString("file://", withString: ""), toDirectory:  "/tmp/komikan/addmanga");
+        // If the manga's file isnt a folder...
+        if(!KMFileUtilities().isFolder(manga.directory.stringByReplacingOccurrencesOfString("file://", withString: ""))) {
+            // Extract the passed manga to /tmp/komikan/addmanga
+            KMFileUtilities().extractArchive(manga.directory.stringByReplacingOccurrencesOfString("file://", withString: ""), toDirectory:  "/tmp/komikan/addmanga");
+        }
+        // If the manga's file is a folder...
+        else {
+            // Copy the folder to /tmp/komikan/addmanga
+            do {
+                try NSFileManager.defaultManager().copyItemAtPath(manga.directory.stringByReplacingOccurrencesOfString("file://", withString: ""), toPath: "/tmp/komikan/addmanga");
+            }
+            catch _ as NSError {
+                
+            }
+        }
         
         // Clean up the directory
         print(KMCommandUtilities().runCommand(NSBundle.mainBundle().bundlePath + "/Contents/Resources/cleanmangadir", arguments: ["/tmp/komikan/addmanga"], waitUntilExit: true));
         
         // Get the first image in the folder, and set the cover image selection views image to it
         do {
-            print(String(try NSFileManager().contentsOfDirectoryAtPath("/tmp/komikan/addmanga/")[0]));
+            // The first item in /tmp/komikan/addmanga
+            var firstImage : NSImage = NSImage();
             
-            // Get the first item in /tmp/komikan/addmanga as an NSImage
-            let firstImage : NSImage = NSImage(byReferencingURL: NSURL(fileURLWithPath: "/tmp/komikan/addmanga/" + String(try NSFileManager().contentsOfDirectoryAtPath("/tmp/komikan/addmanga/")[0])));
+            // For every item in the addmanga folder...
+            do {
+                for(_, currentFile) in try NSFileManager().contentsOfDirectoryAtPath("/tmp/komikan/addmanga/").enumerate() {
+                    // If this file is an image...
+                    if(KMFileUtilities().isImage("/tmp/komikan/addmanga/" + currentFile)) {
+                        // Set the first image to the current image file
+                        firstImage = NSImage(contentsOfFile: "/tmp/komikan/addmanga/" + currentFile)!;
+                    }
+                }
+            }
             
             // Set the cover image selecting views image to firstImage
             manga.coverImage = firstImage;
