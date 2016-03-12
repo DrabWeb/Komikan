@@ -66,6 +66,9 @@ class KMMangaListController: NSObject {
     var editPopoverOpen : Bool = false;
     
     func openPopover(hidden : Bool, manga : KMManga) {
+        // Hide the thumbnail window
+        viewController.thumbnailImageHoverController.hide();
+        
         // Get the main storyboard
         let storyboard = NSStoryboard(name: "Main", bundle: nil);
         
@@ -249,6 +252,15 @@ extension KMMangaListController : NSTableViewDataSource {
             if(tableColumn!.identifier == "Title Column") {
                 // Set the text of this cell to be the title of this manga
                 cellView.textField!.stringValue = searchListItemData.manga.title;
+                
+                // Set the cells thumbnail image
+                (cellView as! KMMangaListTableCellView).thumbnailImage = searchListItemData.manga.coverImage;
+                
+                // Set the cells thumbnail hover controller
+                (cellView as! KMMangaListTableCellView).thumbnailImageHoverController = viewController.thumbnailImageHoverController;
+                
+                // Set the cells manga list controller
+                (cellView as! KMMangaListTableCellView).mangaListController = self;
                 
                 // Return the modified cell view
                 return cellView;

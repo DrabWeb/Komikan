@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ViewController: NSViewController, NSTabViewDelegate {
+class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     
     // The main window of the application
     var window : NSWindow! = NSWindow();
@@ -258,6 +258,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Init the thumbnail image hover controller
         thumbnailImageHoverController.styleWindow();
         
+        // Set the main windows delegate to this
+        window.delegate = self;
+        
         // Sort the manga grid by the tab view item we have selected at start
         // If the tab view item we have selected is the Title sort one...
         if(titlebarTabView.selectedTabViewItem!.label == "Title") {
@@ -381,6 +384,8 @@ class ViewController: NSViewController, NSTabViewDelegate {
     func selectSearchField() {
         // Make the search field frontmost
         window.makeFirstResponder(titlebarSearchField);
+        
+        thumbnailImageHoverController.showAtPoint(mangaGridController.gridItems[1].manga.coverImage, point: NSPoint(x: NSEvent.mouseLocation().x, y: NSEvent.mouseLocation().y - 100), height: 200);
     }
     
     /// Are we in list view?
@@ -439,6 +444,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Hide the grid view
         mangaCollectionViewScrollView.hidden = true;
         
+        // Hide the thumbnail window
+        thumbnailImageHoverController.hide();
+        
         // Fade out the manga grid only titlebar items
         titlebarSortingTabView.animator().alphaValue = 0;
         titlebarToggleSortDirectionButton.animator().alphaValue = 0;
@@ -482,6 +490,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
         
         // Show the grid view
         mangaCollectionViewScrollView.hidden = false;
+        
+        // Hide the thumbnail window
+        thumbnailImageHoverController.hide();
         
         // Fade in the manga grid only titlebar items
         titlebarSortingTabView.animator().alphaValue = 1;
@@ -1061,6 +1072,11 @@ class ViewController: NSViewController, NSTabViewDelegate {
         
         // Update the grid
         updateMangaGrid();
+    }
+    
+    func windowDidResignKey(notification: NSNotification) {
+        // Hide the thumbnail hover window
+        thumbnailImageHoverController.hide();
     }
     
     func tabView(tabView: NSTabView, didSelectTabViewItem tabViewItem: NSTabViewItem?) {

@@ -56,6 +56,8 @@
 		5D9912141C46AE9B008E6591 /* cleanmangadir in Resources */ = {isa = PBXBuildFile; fileRef = 5D9912131C46AE9B008E6591 /* cleanmangadir */; };
 		5D9E07791C5E635500B35C91 /* KMDarkenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9E07781C5E635500B35C91 /* KMDarkenView.swift */; };
 		5DA0B39F1C949C4700A6EDC2 /* KMThumbnailImageHoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA0B39E1C949C4700A6EDC2 /* KMThumbnailImageHoverController.swift */; };
+		5DA0B3A21C94A72100A6EDC2 /* KMThumbnailImageHoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA0B3A11C94A72100A6EDC2 /* KMThumbnailImageHoverViewController.swift */; };
+		5DA0B3A41C94AC4C00A6EDC2 /* KMMangaListTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA0B3A31C94AC4C00A6EDC2 /* KMMangaListTableCellView.swift */; };
 		5DAC3ED11C70F70B00B77A19 /* KMSearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAC3ED01C70F70B00B77A19 /* KMSearchListViewController.swift */; };
 		5DAC3ED41C70F8C100B77A19 /* KMSearchListItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAC3ED31C70F8C100B77A19 /* KMSearchListItemData.swift */; };
 		5DAC3ED81C70FB2100B77A19 /* KMSearchListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAC3ED71C70FB2100B77A19 /* KMSearchListTableViewCell.swift */; };
@@ -147,6 +149,8 @@
 		5D9912131C46AE9B008E6591 /* cleanmangadir */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cleanmangadir; sourceTree = "<group>"; };
 		5D9E07781C5E635500B35C91 /* KMDarkenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMDarkenView.swift; sourceTree = "<group>"; };
 		5DA0B39E1C949C4700A6EDC2 /* KMThumbnailImageHoverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMThumbnailImageHoverController.swift; sourceTree = "<group>"; };
+		5DA0B3A11C94A72100A6EDC2 /* KMThumbnailImageHoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMThumbnailImageHoverViewController.swift; sourceTree = "<group>"; };
+		5DA0B3A31C94AC4C00A6EDC2 /* KMMangaListTableCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaListTableCellView.swift; sourceTree = "<group>"; };
 		5DAC3ED01C70F70B00B77A19 /* KMSearchListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMSearchListViewController.swift; sourceTree = "<group>"; };
 		5DAC3ED31C70F8C100B77A19 /* KMSearchListItemData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMSearchListItemData.swift; sourceTree = "<group>"; };
 		5DAC3ED71C70FB2100B77A19 /* KMSearchListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMSearchListTableViewCell.swift; sourceTree = "<group>"; };
@@ -226,6 +230,7 @@
 			children = (
 				5D0DA3931C84E394009B356B /* KMMangaListController.swift */,
 				5DAF1C321C862BE100898C4C /* KMMangaListTableView.swift */,
+				5DA0B3A31C94AC4C00A6EDC2 /* KMMangaListTableCellView.swift */,
 			);
 			name = "Manga List";
 			sourceTree = "<group>";
@@ -373,6 +378,7 @@
 		5D5DBEFD1C35913F004D8C5D /* View Managers */ = {
 			isa = PBXGroup;
 			children = (
+				5DA0B3A01C94A70D00A6EDC2 /* Thumbnail Hover */,
 				5D3971791C822CC200FD77C5 /* Metadata Fetcher */,
 				5D6DCC891C766FF70077A33B /* About Window */,
 				5DAC3ECF1C70F6FB00B77A19 /* Search List */,
@@ -448,6 +454,14 @@
 				5D9238AC1C5FBDB3006EBAB2 /* exinfo */,
 			);
 			name = Binaries;
+			sourceTree = "<group>";
+		};
+		5DA0B3A01C94A70D00A6EDC2 /* Thumbnail Hover */ = {
+			isa = PBXGroup;
+			children = (
+				5DA0B3A11C94A72100A6EDC2 /* KMThumbnailImageHoverViewController.swift */,
+			);
+			name = "Thumbnail Hover";
 			sourceTree = "<group>";
 		};
 		5DAC3ECF1C70F6FB00B77A19 /* Search List */ = {
@@ -733,6 +747,7 @@
 				5D0DA3911C84E1A6009B356B /* KMMangaListTableHeaderView.swift in Sources */,
 				5D363FA51C5ABFB6004708FC /* KMEHDownloadController.swift in Sources */,
 				5DDD43651C6FBC82005DBAAF /* KMSetSelectedItemsPropertiesViewController.swift in Sources */,
+				5DA0B3A41C94AC4C00A6EDC2 /* KMMangaListTableCellView.swift in Sources */,
 				5D6DCC8B1C76700E0077A33B /* KMAboutWindowViewController.swift in Sources */,
 				5D020D121C83486700E62CC1 /* KMMetadataFetcherSeriesSearchResultsTableViewCell.swift in Sources */,
 				5DC23A8A1C5BBEFF00916751 /* KMImageFilterUtilities.swift in Sources */,
@@ -758,6 +773,7 @@
 				5D22C3FD1C4454C50010746F /* KMPreferencesController.swift in Sources */,
 				5D4C3DD11C72352B00BBB718 /* KMMangaDropView.swift in Sources */,
 				5DD77F211C765BD7000E6645 /* KMDraggableImageView.swift in Sources */,
+				5DA0B3A21C94A72100A6EDC2 /* KMThumbnailImageHoverViewController.swift in Sources */,
 				5D4656521C6FE70E006DCA0D /* KMEHLoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
