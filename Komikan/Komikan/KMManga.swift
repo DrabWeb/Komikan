@@ -103,7 +103,7 @@ class KMManga {
                 // Try to set extractedFolders to all the folders in /tmp/komikan/
                 extractedFolders = try NSFileManager.defaultManager().contentsOfDirectoryAtPath("/tmp/komikan/");
             }
-                // If there is an error...
+            // If there is an error...
             catch _ as NSError {
                 // Do nothing
             }
@@ -120,19 +120,6 @@ class KMManga {
             
             // Print that we are done extracting
             print("Done extracting");
-            
-//            // Some archives will create a __MACOSX folder in the extracted folder, lets delete that
-//            do {
-//                // Remove the possible __MACOSX folder
-//                try NSFileManager().removeItemAtPath(tmpDirectory + "/__MACOSX");
-//                
-//                // Print to the log that we deleted it
-//                print("Deleted the __MACOSX folder in \"" + title + "\"");
-//                // If there is an error...
-//            } catch _ as NSError {
-//                // Print to the log that there is no __MACOSX folder to delete
-//                print("No __MACOSX folder to delete in \"" + title + "\"");
-//            }
             
             // Run the cleanmangadir binary to make the directory readable for us
             KMCommandUtilities().runCommand(NSBundle.mainBundle().bundlePath + "/Contents/Resources/cleanmangadir", arguments: [tmpDirectory], waitUntilExit: true);
