@@ -397,9 +397,14 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Change the toggle list view button to show the list icon
         titlebarToggleListViewCheckbox.state = 1;
         
-        // Deselect all the items in the grid and list
-        mangaCollectionView.deselectAll(self);
+        // Deselect all the items in the list
         mangaTableView.deselectAll(self);
+        
+        // Select every item in the list that we had selected in the grid
+        mangaTableView.selectRowIndexes(mangaCollectionView.selectionIndexes, byExtendingSelection: false);
+        
+        // Deselect all the items in the grid
+        mangaCollectionView.deselectAll(self);
         
         // Redraw the table view graphically so we dont get artifacts
         mangaTableViewScrollView.needsDisplay = true;
@@ -414,6 +419,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Fade out the manga grid only titlebar items
         titlebarSortingTabView.animator().alphaValue = 0;
         titlebarToggleSortDirectionButton.animator().alphaValue = 0;
+        
+        // Select the list view
+        window.makeFirstResponder(mangaListController.mangaListTableView);
     }
     
     /// Switches from the table view to the grid view
@@ -430,8 +438,16 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Change the toggle list view button to show the grid icon
         titlebarToggleListViewCheckbox.state = 0;
         
-        // Deselect all the items in the grid and list
+        // Deselect all the items in the grid
         mangaCollectionView.deselectAll(self);
+        
+        // For every selected index in the list...
+        for(_, currentIndexSet) in mangaTableView.selectedRowIndexes.enumerate() {
+            // Select the item at the given index in the grid
+            mangaCollectionView.itemAtIndex(currentIndexSet)?.selected = true;
+        }
+        
+        // Deselect all the items in the list
         mangaTableView.deselectAll(self);
         
         // Redraw the grid view graphically so we dont get artifacts
@@ -447,6 +463,8 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Fade in the manga grid only titlebar items
         titlebarSortingTabView.animator().alphaValue = 1;
         titlebarToggleSortDirectionButton.animator().alphaValue = 1;
+        
+        window.makeFirstResponder(mangaCollectionView);
     }
     
     /// Returns the indexes of the selected manga items
