@@ -4,12 +4,3 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 
 # Move all files in all the directorys to the root dir
 find "$1" -mindepth 2 -type f -print -exec mv {} "$1" \;
-
-# Delete all folders in the directory
-find "$1" -type d -delete
-
-# Remove all dotfiles in the directory
-rm "$1"/.*
-
-# Remove the Windows Thumb.db
-rm "$1"/Thumbs.db

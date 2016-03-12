@@ -118,20 +118,21 @@ class KMManga {
                 print("\"" + title + "\" has already been extracted to \"" + tmpDirectory + "\"");
             }
             
+            // Print that we are done extracting
             print("Done extracting");
             
-            // Some archives will create a __MACOSX folder in the extracted folder, lets delete that
-            do {
-                // Remove the possible __MACOSX folder
-                try NSFileManager().removeItemAtPath(tmpDirectory + "/__MACOSX");
-                
-                // Print to the log that we deleted it
-                print("Deleted the __MACOSX folder in \"" + title + "\"");
-                // If there is an error...
-            } catch _ as NSError {
-                // Print to the log that there is no __MACOSX folder to delete
-                print("No __MACOSX folder to delete in \"" + title + "\"");
-            }
+//            // Some archives will create a __MACOSX folder in the extracted folder, lets delete that
+//            do {
+//                // Remove the possible __MACOSX folder
+//                try NSFileManager().removeItemAtPath(tmpDirectory + "/__MACOSX");
+//                
+//                // Print to the log that we deleted it
+//                print("Deleted the __MACOSX folder in \"" + title + "\"");
+//                // If there is an error...
+//            } catch _ as NSError {
+//                // Print to the log that there is no __MACOSX folder to delete
+//                print("No __MACOSX folder to delete in \"" + title + "\"");
+//            }
             
             // Run the cleanmangadir binary to make the directory readable for us
             KMCommandUtilities().runCommand(NSBundle.mainBundle().bundlePath + "/Contents/Resources/cleanmangadir", arguments: [tmpDirectory], waitUntilExit: true);
@@ -139,6 +140,7 @@ class KMManga {
             /// The names of all the page image files
             var imageFileNames : NSArray = [];
             
+            // Get the image file names
             do {
                 // Set imageFileNames to all the images in the manga's TMP directory
                 imageFileNames = try NSFileManager().contentsOfDirectoryAtPath(tmpDirectory);
@@ -153,11 +155,19 @@ class KMManga {
             // Set pages to all the pages in /tmp/komikan/komikanmanga-(title)
             // For every file in this mangas tmp folder...
             for currentPage in imageFileNames.enumerate() {
-                // Print to the log what file we found
-                print("Found page \"" + (currentPage.element as! String) + "\"");
-                
-                // Append this image to the manga.pages array
-                pages.append(NSImage(contentsOfFile: tmpDirectory + (currentPage.element as! String))!);
+                // If the current file is an image and its not a dot file...
+                if(NSImage.imageFileTypes().contains(KMFileUtilities().getFileExtension(NSURL(fileURLWithPath: tmpDirectory + (currentPage.element as! String)))) && ((currentPage.element as! String).substringToIndex((currentPage.element as! String).startIndex.successor())) != ".") {
+                    // Print to the log what page we found
+                    print("Found page \"" + (currentPage.element as! String) + "\"");
+                    
+                    // Append this image to the manga.pages array
+                    pages.append(NSImage(contentsOfFile: tmpDirectory + (currentPage.element as! String))!);
+                }
+                // If its not an image...
+                else {
+                    // Print to the log that we found a non-image file
+                    print("Found file \"" + (currentPage.element as! String) + "\" that was not a page");
+                }
             }
             
             // Remove the first image in pages(Its always nil for no reason)
