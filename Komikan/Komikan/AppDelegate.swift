@@ -11,7 +11,7 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDelegate {
 
-    /// The File/Open menu item
+    /// The File/Open Selected menu item
     @IBOutlet weak var openMenuItem: NSMenuItem!
     
     /// The Manga/Next Page menu item
@@ -103,6 +103,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     
     /// The Manga/Notes/Open in External Editor menu item
     @IBOutlet weak var openInExternalEditorMenuItem: NSMenuItem!
+    
+    /// The File/Edit Selected menu item
+    @IBOutlet weak var editSelectedMenuItem: NSMenuItem!
     
     /// The view controller we will load for the reader
     var mangaReaderViewController: KMReaderViewController?;

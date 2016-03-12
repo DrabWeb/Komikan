@@ -292,10 +292,13 @@
                                                 <action selector="newDocument:" target="Ady-hI-5gd" id="4Si-XN-c54"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Open" keyEquivalent="o" id="IAo-SY-fd9">
+                                        <menuItem title="Open Selected" keyEquivalent="o" id="IAo-SY-fd9">
                                             <connections>
                                                 <action selector="openDocument:" target="Ady-hI-5gd" id="bVn-NM-KNZ"/>
                                             </connections>
+                                        </menuItem>
+                                        <menuItem title="Edit Selected" keyEquivalent="e" id="piX-zp-6rr">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                         </menuItem>
                                         <menuItem title="Open Recent" id="tXI-mr-wws">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -686,6 +689,7 @@ CA
                         <outlet property="deleteAllMangaMenuItem" destination="h7o-qK-yLj" id="9XF-TE-2JL"/>
                         <outlet property="deleteSelectedMangaMenuItem" destination="84P-fK-Tc8" id="Q6j-hC-vv6"/>
                         <outlet property="dualPageMenuItem" destination="TH4-sc-e7y" id="Obj-0B-Shs"/>
+                        <outlet property="editSelectedMenuItem" destination="piX-zp-6rr" id="rAZ-2U-SJ3"/>
                         <outlet property="exportJsonForAllMangaForMigrationMenuItem" destination="yhS-CL-E8F" id="mmj-6e-010"/>
                         <outlet property="exportJsonForAllMangaMenuItem" destination="cr2-ej-jsW" id="HPc-uD-qR4"/>
                         <outlet property="fetchMetadataForSelectedMenuItem" destination="45I-k0-Zxh" id="Imy-l1-uqe"/>
@@ -1877,7 +1881,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="6vR-dx-5nf">
-                                    <rect key="frame" x="464" y="0.0" width="16" height="270"/>
+                                    <rect key="frame" x="465" y="0.0" width="15" height="270"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
@@ -2189,7 +2193,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="140" viewBased="YES" id="SIJ-SQ-EnH" customClass="KMReaderPageJumpTableView" customModule="Komikan" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="405" height="270"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="405" height="0.0"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -2339,7 +2343,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="hKR-Pk-qGD">
-                                            <rect key="frame" x="389" y="0.0" width="16" height="270"/>
+                                            <rect key="frame" x="390" y="0.0" width="15" height="270"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>

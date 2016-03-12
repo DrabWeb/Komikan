@@ -1208,6 +1208,7 @@ class KMMangaGridController: NSObject {
     
     /// Shows/hides all the l-lewd... manga based on the preferences keeper in AppDelegate
     func displayLewdMangaAppDelegate() {
+        // Display l-lewd... manga based on the AppDelegate's preferences keeper
         displayLewdManga((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.llewdModeEnabled);
     }
     

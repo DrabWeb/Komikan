@@ -225,6 +225,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Set the select search field menubar items action
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.selectSearchFieldMenuItem.action = Selector("selectSearchField");
         
+        // Set the edit selected menubar items action
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.editSelectedMenuItem.action = Selector("openEditPopoverForSelected");
+        
         // Start a 0.1 second loop that will fix the windows look in fullscreen
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("deleteTitlebarInFullscreen"), userInfo: nil, repeats:true);
         
@@ -302,6 +305,35 @@ class ViewController: NSViewController, NSTabViewDelegate {
             
             // Reload the manga table so it gets updated when items change
             mangaListController.mangaListTableView.reloadData();
+        }
+    }
+    
+    /// Opens the edit popover for the selected manga items
+    func openEditPopoverForSelected() {
+        /// The index of the item we want to open the edit popover for(The first index in the selection indexes)
+        let indexToPopover : Int = selectedItemIndexes().firstIndex;
+        
+        // If we are in list view...
+        if(inListView) {
+            // Deselect all the list items
+            mangaListController.mangaListTableView.deselectAll(self);
+            
+            // Select the one we wanted to popover
+            mangaListController.mangaListTableView.selectRowIndexes(NSIndexSet(index: indexToPopover), byExtendingSelection: false);
+            
+            // Open the popover for the selected item
+            mangaListController.openPopover(false, manga: mangaListController.selectedManga());
+        }
+        // If we are in grid view...
+        else {
+            // Deselect all the grid items
+            mangaCollectionView.deselectAll(self);
+            
+            // Select the item at indexToPopover
+            mangaCollectionView.itemAtIndex(indexToPopover)?.selected = true;
+            
+            // Open the popover for the item at indexToPopover
+            (mangaCollectionView.itemAtIndex(indexToPopover) as! KMMangaGridCollectionItem).openPopover(false);
         }
     }
     
