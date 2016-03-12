@@ -107,6 +107,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     /// The File/Edit Selected menu item
     @IBOutlet weak var editSelectedMenuItem: NSMenuItem!
     
+    /// The Window/Select Manga View menu item
+    @IBOutlet weak var selectMangaViewMenuItem: NSMenuItem!
+    
     /// The view controller we will load for the reader
     var mangaReaderViewController: KMReaderViewController?;
     

@@ -651,9 +651,7 @@ CA
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Select Search Field" keyEquivalent="f" id="t6K-n0-BDW"/>
-                                        <menuItem title="MyAnimeList" id="Vg1-8y-gi9">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
+                                        <menuItem title="Select Manga View" keyEquivalent="d" id="ex9-je-LYC"/>
                                         <menuItem isSeparatorItem="YES" id="eu3-7i-yIM"/>
                                         <menuItem title="Bring All to Front" id="LE2-aR-0XJ">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -710,6 +708,7 @@ CA
                         <outlet property="readerToggleNotesEditBarMenuItem" destination="M5C-Kt-NTg" id="wgb-Nw-0ha"/>
                         <outlet property="readerZoomInMenuItem" destination="oBr-Xd-mDH" id="JDA-9z-BxA"/>
                         <outlet property="readerZoomOutMenuItem" destination="X52-F4-IEN" id="GIZ-mj-hg8"/>
+                        <outlet property="selectMangaViewMenuItem" destination="ex9-je-LYC" id="F8S-4F-6xk"/>
                         <outlet property="selectSearchFieldMenuItem" destination="t6K-n0-BDW" id="sau-lm-Exv"/>
                         <outlet property="setSelectedItemsPropertiesMenuItems" destination="XZ3-5Y-udD" id="n3h-bF-9ZD"/>
                         <outlet property="switchDualPageDirectionMenuItem" destination="ubh-G8-jVj" id="UF6-lc-LfP"/>

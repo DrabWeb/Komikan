@@ -228,6 +228,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
         // Set the edit selected menubar items action
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.editSelectedMenuItem.action = Selector("openEditPopoverForSelected");
         
+        // Set the select manga view menubar items action
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.selectMangaViewMenuItem.action = Selector("selectMangaView");
+        
         // Start a 0.1 second loop that will fix the windows look in fullscreen
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("deleteTitlebarInFullscreen"), userInfo: nil, repeats:true);
         
@@ -305,6 +308,20 @@ class ViewController: NSViewController, NSTabViewDelegate {
             
             // Reload the manga table so it gets updated when items change
             mangaListController.mangaListTableView.reloadData();
+        }
+    }
+    
+    /// Selects the manga list/grid
+    func selectMangaView() {
+        // If we are in list view...
+        if(inListView) {
+            // Make the manga list the first responder
+            window.makeFirstResponder(mangaTableView);
+        }
+        // If we are in grid view...
+        else {
+            // Make the manga grid the first responder
+            window.makeFirstResponder(mangaCollectionView);
         }
     }
     
