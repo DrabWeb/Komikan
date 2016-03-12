@@ -157,11 +157,22 @@ class KMManga {
             for currentPage in imageFileNames.enumerate() {
                 // If the current file is an image and its not a dot file...
                 if(KMFileUtilities().isImage(tmpDirectory + (currentPage.element as! String)) && ((currentPage.element as! String).substringToIndex((currentPage.element as! String).startIndex.successor())) != ".") {
-                    // Print to the log what page we found
-                    print("Found page \"" + (currentPage.element as! String) + "\"");
+                    /// The regex for pages that we want to ignore if they match this regex
+                    let excludeRegexPattern : String = (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.pageIgnoreRegex;
                     
-                    // Append this image to the manga.pages array
-                    pages.append(NSImage(contentsOfFile: tmpDirectory + (currentPage.element as! String))!);
+                    // If the current page's filename matched the ignore regex...
+                    if let _ = (currentPage.element as! String).rangeOfString(excludeRegexPattern, options: .RegularExpressionSearch) {
+                        // Print to the log that we are ignoring this file
+                        print("Ignoring page \"" + (currentPage.element as! String) + "\"");
+                    }
+                    // If the current page's filename didnt match the regex...
+                    else {
+                        // Print to the log what page we found
+                        print("Found page \"" + (currentPage.element as! String) + "\"");
+                        
+                        // Append this image to the manga.pages array
+                        pages.append(NSImage(contentsOfFile: tmpDirectory + (currentPage.element as! String))!);
+                    }
                 }
                 // If its not an image...
                 else {

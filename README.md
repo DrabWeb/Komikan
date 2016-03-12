@@ -50,6 +50,7 @@ Requires at least OSX 10.10 Yosemite. Tested on OSX 10.11 El Capitan
 > * Thumbnail based page jumping
 > * Zoom in and out
 > * Notes for each manga with rich text support(Size, alignment, images, ETC.)
+> * Ignore pages that match a set regex(E.g. ignore credits pages)
 > * Page rotation
 > * Fast
 > * Fit window to Page size
