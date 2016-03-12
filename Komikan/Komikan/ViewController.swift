@@ -490,7 +490,7 @@ class ViewController: NSViewController, NSTabViewDelegate {
     /// Called when the user does a magnify gesture on the trackpad
     func magnifyEvent(event : NSEvent) -> NSEvent {
         // Add the magnification amount to the grid size slider
-        infoBarGridSizeSlider.integerValue += Int(event.magnification);
+        infoBarGridSizeSlider.floatValue += Float(event.magnification);
         
         // Update the grid scale
         infoBarGridSizeSliderInteracted(infoBarGridSizeSlider);
