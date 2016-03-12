@@ -671,8 +671,8 @@ class ViewController: NSViewController, NSTabViewDelegate {
             /// The extension of the current file
             let currentFileExtension : String = KMFileUtilities().getFileExtension(currentFileURL);
             
-            // If the extension is supported(CBZ, CBR, ZIP or RAR)...
-            if(currentFileExtension == "cbz" || currentFileExtension == "cbr" || currentFileExtension == "zip" || currentFileExtension == "rar") {
+            // If the extension is supported(CBZ, CBR, ZIP, RAR or Folder)...
+            if(currentFileExtension == "cbz" || currentFileExtension == "cbr" || currentFileExtension == "zip" || currentFileExtension == "rar" || KMFileUtilities().isFolder(currentStringURL)) {
                 // Append the current file URL to the array of files we will pass to the popover
                 fileUrls.append(currentFileURL);
             }

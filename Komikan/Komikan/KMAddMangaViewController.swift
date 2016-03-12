@@ -431,7 +431,7 @@ class KMAddMangaViewController: NSViewController {
     
     func getMangaInfo(manga : KMManga) -> KMManga {
         // Set the mangas title to the mangas archive name
-        manga.title = KMFileUtilities().getFileNameWithoutExtension(NSURL(fileURLWithPath: manga.directory));
+        manga.title = KMFileUtilities().getFileNameWithoutExtension(manga.directory);
         
         // Delete /tmp/komikan/addmanga, if it exists
         do {

@@ -169,34 +169,45 @@ class KMFileUtilities {
     }
     
     // Returns the name of the file at the given path
-    func getFileNameWithoutExtension(fileURL : NSURL) -> String {
-        // Get the files last path component (The files name with a file extension)
-        var fileName : String = fileURL.lastPathComponent!;
+    func getFileNameWithoutExtension(path : String) -> String {
+        //// The file path without the possible file://
+        let pathWithoutFileMarker : String = path.stringByReplacingOccurrencesOfString("file://", withString: "");
         
-        // Split the filename at every dot
+        /// The name of the passed file, with the extension
+        let fileName : String = NSURL(fileURLWithPath: path).lastPathComponent!.stringByRemovingPercentEncoding!.stringByReplacingOccurrencesOfString("file://", withString: "");
+        
+        /// fileName split at every .
         var fileNameSplitAtDot : [String] = fileName.componentsSeparatedByString(".");
         
         // Remove the last item(The file extension) from fileNameSplitAtDot
         fileNameSplitAtDot.removeLast();
         
-        // Reset file name
-        fileName = "";
+        /// The file name, without the extension
+        var filenameWithoutExtension : String = "";
         
-        // Iterate through fileNameSplitAtDot
-        for (currentIndex, currentItem) in fileNameSplitAtDot.enumerate() {
-            // If this isnt the last item...
-            if(currentIndex < fileNameSplitAtDot.count - 1) {
-                // Append the current value onto fileName, with a dot
-                fileName += (currentItem + ".");
-            }
-            else {
-                // Append the current value onto fileName
-                fileName += currentItem;
+        // If the passed file isnt a Folder...
+        if(!KMFileUtilities().isFolder(pathWithoutFileMarker)) {
+            // Iterate through fileNameSplitAtDot
+            for (currentIndex, currentItem) in fileNameSplitAtDot.enumerate() {
+                // If this isnt the last item...
+                if(currentIndex < fileNameSplitAtDot.count - 1) {
+                    // Append the current value onto fileName, with a dot
+                    filenameWithoutExtension += (currentItem + ".");
+                }
+                else {
+                    // Append the current value onto fileName
+                    filenameWithoutExtension += currentItem;
+                }
             }
         }
+        // If the passed file is a Folder...
+        else {
+            // Set the file name to the name of the Folder
+            filenameWithoutExtension = fileName;
+        }
         
-        // Return file name
-        return fileName;
+        // Return the filename, without the extension
+        return filenameWithoutExtension;
     }
     
     // Returns a bool from a string(If the string is "true", it returns true, otherwise false)
