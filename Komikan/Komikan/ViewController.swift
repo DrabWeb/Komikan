@@ -43,6 +43,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
     /// The list controller for the manga list
     @IBOutlet var mangaListController: KMMangaListController!
     
+    /// The controller for showing the thumbnail of a manga on hover in the list view
+    @IBOutlet var thumbnailImageHoverController: KMThumbnailImageHoverController!
+    
     /// The table view the user can switch to to see their manga in a list instead of a grid
     @IBOutlet var mangaTableView: NSTableView!
     
@@ -251,6 +254,9 @@ class ViewController: NSViewController, NSTabViewDelegate {
         
         // Select the manga grid
         makeMangaGridFirstResponder();
+        
+        // Init the thumbnail image hover controller
+        thumbnailImageHoverController.styleWindow();
         
         // Sort the manga grid by the tab view item we have selected at start
         // If the tab view item we have selected is the Title sort one...

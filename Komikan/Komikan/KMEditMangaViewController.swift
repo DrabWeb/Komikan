@@ -290,6 +290,11 @@ class KMEditMangaViewController: NSViewController {
         fillValuesFromManga();
     }
     
+    override func viewWillDisappear() {
+        // Post the notification that the popover is closing
+        NSNotificationCenter.defaultCenter().postNotificationName("KMEditMangaViewController.Closing", object: nil);
+    }
+    
     func styleWindow() {
         // Set the background visual effect views material to dark
         backgroundVisualEffectView.material = NSVisualEffectMaterial.Dark;

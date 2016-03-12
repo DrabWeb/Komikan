@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3E86F0DBF31BA8520D67B5C7 /* Pods_Komikan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF959D1CB29BE90FD4A5311C /* Pods_Komikan.framework */; };
 		5D020D121C83486700E62CC1 /* KMMetadataFetcherSeriesSearchResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D020D111C83486700E62CC1 /* KMMetadataFetcherSeriesSearchResultsTableViewCell.swift */; };
 		5D020D151C83499900E62CC1 /* KMMetadataFetcherSeriesSearchResultsItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D020D141C83499900E62CC1 /* KMMetadataFetcherSeriesSearchResultsItemData.swift */; };
 		5D0D2A4C1C39830D00E3B8D0 /* KMManga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0D2A4B1C39830D00E3B8D0 /* KMManga.swift */; };
@@ -56,6 +55,7 @@
 		5D9912111C46A5A6008E6591 /* KMCommandUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9912101C46A5A6008E6591 /* KMCommandUtilities.swift */; };
 		5D9912141C46AE9B008E6591 /* cleanmangadir in Resources */ = {isa = PBXBuildFile; fileRef = 5D9912131C46AE9B008E6591 /* cleanmangadir */; };
 		5D9E07791C5E635500B35C91 /* KMDarkenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9E07781C5E635500B35C91 /* KMDarkenView.swift */; };
+		5DA0B39F1C949C4700A6EDC2 /* KMThumbnailImageHoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA0B39E1C949C4700A6EDC2 /* KMThumbnailImageHoverController.swift */; };
 		5DAC3ED11C70F70B00B77A19 /* KMSearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAC3ED01C70F70B00B77A19 /* KMSearchListViewController.swift */; };
 		5DAC3ED41C70F8C100B77A19 /* KMSearchListItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAC3ED31C70F8C100B77A19 /* KMSearchListItemData.swift */; };
 		5DAC3ED81C70FB2100B77A19 /* KMSearchListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAC3ED71C70FB2100B77A19 /* KMSearchListTableViewCell.swift */; };
@@ -69,6 +69,7 @@
 		5DD77F211C765BD7000E6645 /* KMDraggableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD77F201C765BD7000E6645 /* KMDraggableImageView.swift */; };
 		5DDD43651C6FBC82005DBAAF /* KMSetSelectedItemsPropertiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDD43641C6FBC82005DBAAF /* KMSetSelectedItemsPropertiesViewController.swift */; };
 		5DFBC77D1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFBC77C1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift */; };
+		CEC5384E35D6E3F9CDE56975 /* Pods_Komikan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72AFC2887893742E41C0654B /* Pods_Komikan.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,6 +146,7 @@
 		5D9912101C46A5A6008E6591 /* KMCommandUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMCommandUtilities.swift; sourceTree = "<group>"; };
 		5D9912131C46AE9B008E6591 /* cleanmangadir */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cleanmangadir; sourceTree = "<group>"; };
 		5D9E07781C5E635500B35C91 /* KMDarkenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMDarkenView.swift; sourceTree = "<group>"; };
+		5DA0B39E1C949C4700A6EDC2 /* KMThumbnailImageHoverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMThumbnailImageHoverController.swift; sourceTree = "<group>"; };
 		5DAC3ED01C70F70B00B77A19 /* KMSearchListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMSearchListViewController.swift; sourceTree = "<group>"; };
 		5DAC3ED31C70F8C100B77A19 /* KMSearchListItemData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMSearchListItemData.swift; sourceTree = "<group>"; };
 		5DAC3ED71C70FB2100B77A19 /* KMSearchListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMSearchListTableViewCell.swift; sourceTree = "<group>"; };
@@ -159,7 +161,7 @@
 		5DD77F201C765BD7000E6645 /* KMDraggableImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMDraggableImageView.swift; sourceTree = "<group>"; };
 		5DDD43641C6FBC82005DBAAF /* KMSetSelectedItemsPropertiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMSetSelectedItemsPropertiesViewController.swift; sourceTree = "<group>"; };
 		5DFBC77C1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaGridSelectionBox.swift; sourceTree = "<group>"; };
-		AF959D1CB29BE90FD4A5311C /* Pods_Komikan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Komikan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		72AFC2887893742E41C0654B /* Pods_Komikan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Komikan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B086CA4387890A79C8FD3E35 /* Pods-Komikan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Komikan.release.xcconfig"; path = "Pods/Target Support Files/Pods-Komikan/Pods-Komikan.release.xcconfig"; sourceTree = "<group>"; };
 		CB22335385156945A0ABCB06 /* Pods-Komikan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Komikan.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Komikan/Pods-Komikan.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -169,7 +171,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E86F0DBF31BA8520D67B5C7 /* Pods_Komikan.framework in Frameworks */,
+				CEC5384E35D6E3F9CDE56975 /* Pods_Komikan.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -478,6 +480,7 @@
 				5DC23A891C5BBEFF00916751 /* KMImageFilterUtilities.swift */,
 				5DBC7C6A1C629BBC00FAD428 /* KMImageUtilities.swift */,
 				5D7542E81C820A1600B4B836 /* KMMetadataFetcher.swift */,
+				5DA0B39E1C949C4700A6EDC2 /* KMThumbnailImageHoverController.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -503,7 +506,7 @@
 			children = (
 				5D304F571C90C52A00B824A3 /* Security.framework */,
 				39B1CCABE43DCFDDE2111753 /* libPods.a */,
-				AF959D1CB29BE90FD4A5311C /* Pods_Komikan.framework */,
+				72AFC2887893742E41C0654B /* Pods_Komikan.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -708,6 +711,7 @@
 				5D0D2A521C39A11000E3B8D0 /* KMAddMangaViewController.swift in Sources */,
 				5DC3A8F11C5AB25E0058D253 /* KMGradientView.swift in Sources */,
 				5D0DA3941C84E394009B356B /* KMMangaListController.swift in Sources */,
+				5DA0B39F1C949C4700A6EDC2 /* KMThumbnailImageHoverController.swift in Sources */,
 				5D7542E91C820A1600B4B836 /* KMMetadataFetcher.swift in Sources */,
 				5DFBC77D1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift in Sources */,
 				5D8B51B11C78B9E800B8C364 /* KMReaderScrollView.swift in Sources */,

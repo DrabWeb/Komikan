@@ -2932,6 +2932,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                         <outlet property="mangaListController" destination="gzN-fB-jIt" id="i3e-Z1-epX"/>
                         <outlet property="mangaTableView" destination="T0V-x6-IZf" id="NbS-lp-uin"/>
                         <outlet property="mangaTableViewScrollView" destination="i4Y-xX-G2r" id="709-WE-itq"/>
+                        <outlet property="thumbnailImageHoverController" destination="zuh-61-Wft" id="Kam-QA-lZl"/>
                         <outlet property="titlebarAddMangaButton" destination="CDI-VA-JTT" id="t7c-FZ-zu0"/>
                         <outlet property="titlebarSearchField" destination="y9e-nS-8mf" id="av4-HI-6jY"/>
                         <outlet property="titlebarSortingTabView" destination="QhM-D5-BGg" id="8hF-kC-siy"/>
@@ -2969,6 +2970,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                         <outlet property="viewController" destination="XfG-lQ-9wD" id="htf-xR-ISK"/>
                     </connections>
                 </customObject>
+                <customObject id="zuh-61-Wft" customClass="KMThumbnailImageHoverController" customModule="Komikan" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="81" y="912"/>
         </scene>

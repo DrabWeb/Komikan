@@ -62,6 +62,9 @@ class KMMangaListController: NSObject {
     /// Have we already subscribed to the popover and readers notifications?
     var alreadySubscribed : Bool = false;
     
+    /// Is the edit popover open?
+    var editPopoverOpen : Bool = false;
+    
     func openPopover(hidden : Bool, manga : KMManga) {
         // Get the main storyboard
         let storyboard = NSStoryboard(name: "Main", bundle: nil);
@@ -77,6 +80,9 @@ class KMMangaListController: NSObject {
         else {
             // Show the popover
             editMangaViewController!.presentViewController(editMangaViewController!, asPopoverRelativeToRect: viewController.backgroundVisualEffectView.bounds, ofView: viewController.backgroundVisualEffectView, preferredEdge: NSRectEdge.MaxY, behavior: NSPopoverBehavior.Semitransient);
+            
+            // Set editPopoverOpen to true
+            editPopoverOpen = true;
         }
         
         // Add the selected manga to the list of opened manga
@@ -163,13 +169,33 @@ class KMMangaListController: NSObject {
         }
     }
     
+    /// Sets editPopoverOpen to false
+    func sayEditPopoverIsClosed() {
+        // Set editPopoverOpen to false
+        editPopoverOpen = false;
+    }
+    
     override func awakeFromNib() {
         // Set the manga list controller's table view reference
         mangaListTableView.mangaListController = self;
+        
+        // Subscribe to the edit popover's closing notification
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("sayEditPopoverIsClosed"), name: "KMEditMangaViewController.Closing", object: nil);
     }
 }
 
 extension KMMangaListController : NSTableViewDataSource {
+    
+    func tableViewSelectionIsChanging(notification: NSNotification) {
+        // If the selected row isnt blank and the edit popover is open...
+        if(self.mangaListTableView.selectedRowIndexes.firstIndex != -1 && self.editPopoverOpen) {
+            // Dismiss the edit popover
+            self.editMangaViewController?.dismissController(self);
+            
+            // Show the edit popover with the newly selected manga
+            self.openPopover(false, manga: self.selectedManga());
+        }
+    }
     
     func tableView(tableView: NSTableView, sizeToFitWidthOfColumn column: Int) -> CGFloat {
         /// The width we will set the cell to at the end
