@@ -384,8 +384,6 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     func selectSearchField() {
         // Make the search field frontmost
         window.makeFirstResponder(titlebarSearchField);
-        
-        thumbnailImageHoverController.showAtPoint(mangaGridController.gridItems[1].manga.coverImage, point: NSPoint(x: NSEvent.mouseLocation().x, y: NSEvent.mouseLocation().y - 100), height: 200);
     }
     
     /// Are we in list view?
