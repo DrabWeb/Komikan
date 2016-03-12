@@ -46,6 +46,9 @@ class KMPreferencesController: NSViewController {
     /// The checkbox to say if we want to be able to drag the reader window by the background without holding alt
     @IBOutlet weak var dragReaderWindowByBackgroundWithoutHoldingAltCheckbox: NSButton!
     
+    /// The text field for saying if the filename of a page in a manga matches the regex given, then ignore it
+    @IBOutlet var ignorePagesMatchingRegexTextField: KMAlwaysActiveTextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
@@ -67,6 +70,7 @@ class KMPreferencesController: NSViewController {
         (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.hideCursorInDistractionFreeMode = Bool(hideCursorInDistractionFreeModeCheckbox.state);
         (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.distractionFreeModeDimAmount = CGFloat(distractionFreeModeDimAmountSlider.floatValue);
         (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt = Bool(dragReaderWindowByBackgroundWithoutHoldingAltCheckbox.state);
+        (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.pageIgnoreRegex = ignorePagesMatchingRegexTextField.stringValue;
         
         // Tell AppDelegate to act upon the preferences
         (NSApplication.sharedApplication().delegate as! AppDelegate).actOnPreferences();
@@ -81,6 +85,7 @@ class KMPreferencesController: NSViewController {
         hideCursorInDistractionFreeModeCheckbox.state = Int((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.hideCursorInDistractionFreeMode);
         distractionFreeModeDimAmountSlider.floatValue = Float((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.distractionFreeModeDimAmount);
         dragReaderWindowByBackgroundWithoutHoldingAltCheckbox.state = Int((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt);
+        ignorePagesMatchingRegexTextField.stringValue = (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.pageIgnoreRegex;
     }
     
     // Enables / disables all the checkboxes under the l-lewd... mode enabled checkbox

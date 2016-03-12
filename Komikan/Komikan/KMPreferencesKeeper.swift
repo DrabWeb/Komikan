@@ -29,4 +29,7 @@ class KMPreferencesKeeper {
     
     /// The scale of the manga grid
     var mangaGridScale : Int = 300;
+    
+    /// If a page filename matches this regex, it will be ignored
+    var pageIgnoreRegex : String = "";
 }

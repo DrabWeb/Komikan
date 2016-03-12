@@ -1462,10 +1462,40 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
                                                         </button>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="chq-kn-2jm" userLabel="Ignore Regex Label">
+                                                            <rect key="frame" x="15" y="144" width="180" height="17"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="17" id="UmJ-25-aW2"/>
+                                                                <constraint firstAttribute="width" constant="176" id="aoI-JF-BBQ"/>
+                                                            </constraints>
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Ignore pages matching regex" id="K7q-YP-0r7">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                        <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="J0O-jl-dhg" userLabel="Ignore Regex Field" customClass="KMAlwaysActiveTextField" customModule="Komikan" customModuleProvider="target">
+                                                            <rect key="frame" x="201" y="141" width="216" height="22"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="22" id="Ait-oy-Ksf"/>
+                                                                <constraint firstAttribute="width" constant="216" id="evW-NL-ifq"/>
+                                                            </constraints>
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" focusRingType="none" alignment="left" placeholderString="Regex" bezelStyle="round" id="ZKN-FD-UKU">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
                                                     </subviews>
                                                     <constraints>
+                                                        <constraint firstItem="chq-kn-2jm" firstAttribute="leading" secondItem="MF5-q5-qyw" secondAttribute="leading" constant="17" id="1eX-Zt-JZM"/>
+                                                        <constraint firstItem="J0O-jl-dhg" firstAttribute="top" secondItem="IsT-t8-BZ5" secondAttribute="bottom" constant="6" id="AaQ-vR-eDf"/>
+                                                        <constraint firstItem="J0O-jl-dhg" firstAttribute="leading" secondItem="chq-kn-2jm" secondAttribute="trailing" constant="8" id="Hul-LV-OBO"/>
+                                                        <constraint firstAttribute="trailing" secondItem="J0O-jl-dhg" secondAttribute="trailing" constant="17" id="IsD-NO-Stv"/>
                                                         <constraint firstItem="IsT-t8-BZ5" firstAttribute="leading" secondItem="MF5-q5-qyw" secondAttribute="leading" constant="17" id="LZ7-Gb-uIn"/>
                                                         <constraint firstItem="IsT-t8-BZ5" firstAttribute="top" secondItem="MF5-q5-qyw" secondAttribute="top" constant="3" id="XGk-EQ-RiS"/>
+                                                        <constraint firstAttribute="bottom" secondItem="J0O-jl-dhg" secondAttribute="bottom" constant="141" id="YCX-s0-VP1"/>
+                                                        <constraint firstItem="chq-kn-2jm" firstAttribute="top" secondItem="IsT-t8-BZ5" secondAttribute="bottom" constant="8" id="kV4-20-kt6"/>
                                                     </constraints>
                                                 </view>
                                             </tabViewItem>
@@ -1522,6 +1552,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                         <outlet property="distractionFreeModeDimAmountSlider" destination="ufr-b4-gOh" id="GFQ-OK-mKt"/>
                         <outlet property="dragReaderWindowByBackgroundWithoutHoldingAltCheckbox" destination="IsT-t8-BZ5" id="bJL-zB-CYn"/>
                         <outlet property="hideCursorInDistractionFreeModeCheckbox" destination="8QY-cq-ody" id="uO6-KA-47z"/>
+                        <outlet property="ignorePagesMatchingRegexTextField" destination="J0O-jl-dhg" id="e0y-Cn-fgw"/>
                         <outlet property="llewdModeDeleteWhenRemovingCheckbox" destination="fpx-Ab-PHd" id="BE3-Do-TnP"/>
                         <outlet property="llewdModeEnabledCheckbox" destination="BAM-5b-AXZ" id="n5J-ey-Hjb"/>
                         <outlet property="markAsReadWhenCompletedInReaderCheckbox" destination="74O-zv-sD2" id="vTg-f4-XlF"/>

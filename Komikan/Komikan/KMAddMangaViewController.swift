@@ -465,35 +465,45 @@ class KMAddMangaViewController: NSViewController {
         // Clean up the directory
         print(KMCommandUtilities().runCommand(NSBundle.mainBundle().bundlePath + "/Contents/Resources/cleanmangadir", arguments: ["/tmp/komikan/addmanga"], waitUntilExit: true));
         
-        // Get the first image in the folder, and set the cover image selection views image to it
-        do {
-            // The first item in /tmp/komikan/addmanga
-            var firstImage : NSImage = NSImage();
-            
-            // For every item in the addmanga folder...
-            do {
-                for(_, currentFile) in try NSFileManager().contentsOfDirectoryAtPath("/tmp/komikan/addmanga/").enumerate() {
-                    // If this file is an image...
-                    if(KMFileUtilities().isImage("/tmp/komikan/addmanga/" + currentFile)) {
-                        // Set the first image to the current image file
-                        firstImage = NSImage(contentsOfFile: "/tmp/komikan/addmanga/" + currentFile)!;
-                    }
-                }
-            }
-            
-            // Set the cover image selecting views image to firstImage
-            manga.coverImage = firstImage;
+        /// All the files in /tmp/komikan/addmanga
+        var addMangaFolderContents : NSArray = [];
         
-            // Resize the cover image to be compressed for faster loading
-            manga.coverImage = manga.coverImage.resizeToHeight(400);
+        // Get the contents of /tmp/komikan/addmanga
+        do {
+            // Set addMangaFolderContents to all the files in /tmp/komikan/addmanga
+            addMangaFolderContents = try NSFileManager().contentsOfDirectoryAtPath("/tmp/komikan/addmanga");
             
-            // Print the image to the log(It for some reason needs this print or it wont work)
-            print(firstImage);
+            // Sort the files by their integer values
+            addMangaFolderContents = addMangaFolderContents.sortedArrayUsingDescriptors([NSSortDescriptor(key: "integerValue", ascending: true)]);
             
-            // If there is an error...
-        } catch _ as NSError {
+            // Reverse the folder contents(Im not sure why, but this is necessary)
+            addMangaFolderContents = addMangaFolderContents.reverse();
+        }
+        catch _ as NSError {
             // Do nothing
         }
+        
+        // Get the first image in the folder, and set the cover image selection views image to it
+        // The first item in /tmp/komikan/addmanga
+        var firstImage : NSImage = NSImage();
+        
+        // For every item in the addmanga folder...
+        for(_, currentFile) in addMangaFolderContents.enumerate() {
+            // If this file is an image...
+            if(KMFileUtilities().isImage("/tmp/komikan/addmanga/" + (currentFile as! String))) {
+                // Set the first image to the current image file
+                firstImage = NSImage(contentsOfFile: "/tmp/komikan/addmanga/" + (currentFile as! String))!;
+            }
+        }
+        
+        // Set the cover image selecting views image to firstImage
+        manga.coverImage = firstImage;
+        
+        // Resize the cover image to be compressed for faster loading
+        manga.coverImage = manga.coverImage.resizeToHeight(400);
+        
+        // Print the image to the log(It for some reason needs this print or it wont work)
+        print(firstImage);
         
         // Return the changed manga
         return manga;

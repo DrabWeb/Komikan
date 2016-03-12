@@ -171,6 +171,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         // Add the manga grid scale to the end of it
         preferencesString.appendContentsOf("\n" + String(preferencesKepper.mangaGridScale));
         
+        // Add the page ignore regex to the end of it
+        preferencesString.appendContentsOf("\n" + String(preferencesKepper.pageIgnoreRegex));
+        
         // Write the preferences to the preferences file in Komikan's application support
         do {
             // Try to write to the preferences file in Komikan's application support directory
@@ -227,6 +230,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                 else if(currentIndex == 6) {
                     // Set the manga grid's scale to be this lines value
                     preferencesKepper.mangaGridScale = NSString(string: currentElement).integerValue;
+                }
+                // If this is the eigth line...
+                else if(currentIndex == 7) {
+                    // Set the page ignore regex to be this lines value
+                    preferencesKepper.pageIgnoreRegex = currentElement;
                 }
             }
         }

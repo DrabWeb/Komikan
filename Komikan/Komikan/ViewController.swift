@@ -292,6 +292,14 @@ class ViewController: NSViewController, NSTabViewDelegate {
         
         // Subscribe to the application's preferences saved notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadPreferenceValues", name:"Application.PreferencesLoaded", object: nil);
+        
+//        let regexTextString : String = "Credits.jpg";
+//        let regexPattern : String = "\\w*jpg\\b";
+//        
+//        if let range = regexTextString.rangeOfString(regexPattern, options: .RegularExpressionSearch) {
+//            let found = regexTextString.substringWithRange(range);
+//            print("Found \(found)");
+//        }
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
