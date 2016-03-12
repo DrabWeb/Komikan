@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
         <plugIn identifier="com.apple.WebKitIBPlugin" version="9531"/>
         <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
@@ -1033,7 +1032,7 @@ CA
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="32" viewBased="YES" id="93C-JF-C55" userLabel="Search Results Table View">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="410" height="230"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="410" height="0.0"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -1244,7 +1243,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <rect key="frame" x="-100" y="-100" width="480" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.9545454545454537" horizontal="NO" id="3Yh-Gd-dah">
+                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="3Yh-Gd-dah">
                                             <rect key="frame" x="464" y="22" width="16" height="378"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
@@ -1847,7 +1846,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="6vR-dx-5nf">
-                                    <rect key="frame" x="464" y="0.0" width="16" height="270"/>
+                                    <rect key="frame" x="465" y="0.0" width="15" height="270"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
@@ -2159,7 +2158,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="140" viewBased="YES" id="SIJ-SQ-EnH" customClass="KMReaderPageJumpTableView" customModule="Komikan" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="405" height="270"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="405" height="0.0"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -2309,7 +2308,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="hKR-Pk-qGD">
-                                            <rect key="frame" x="389" y="0.0" width="16" height="270"/>
+                                            <rect key="frame" x="390" y="0.0" width="15" height="270"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
@@ -2392,7 +2391,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" selectionHighlightStyle="sourceList" autosaveName="mangaTableViewSave" rowHeight="21" headerView="CYe-DP-BRz" viewBased="YES" id="T0V-x6-IZf" userLabel="Manga Table View" customClass="KMMangaListTableView" customModule="Komikan" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="730" height="420"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="729" height="0.0"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="0.0" height="2"/>
                                                     <color key="backgroundColor" red="0.48033760000000003" green="0.65488994721261851" blue="0.80000000000000004" alpha="0.0" colorSpace="deviceRGB"/>
@@ -2643,7 +2642,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                         </clipView>
                                         <edgeInsets key="contentInsets" left="0.0" right="0.0" top="37" bottom="0.0"/>
-                                        <scroller key="horizontalScroller" verticalHuggingPriority="750" doubleValue="0.033333333333333333" horizontal="YES" id="aW7-jK-d3M">
+                                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="aW7-jK-d3M">
                                             <rect key="frame" x="0.0" y="464" width="640" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
@@ -2677,7 +2676,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <rect key="frame" x="1" y="144" width="233" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.94594594594594594" horizontal="NO" id="0wb-fr-0cq">
+                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="0wb-fr-0cq">
                                             <rect key="frame" x="624" y="37" width="16" height="443"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>

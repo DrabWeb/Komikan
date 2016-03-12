@@ -550,7 +550,8 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
             if #available(OSX 10.11, *) {
                 readerWindow.performWindowDragWithEvent(theEvent);
             } else {
-                // No equivalent found, look for one later
+                // Move the window with the mouse's delta
+                readerWindow.setFrameOrigin(NSPoint(x: readerWindow.frame.origin.x + theEvent.deltaX, y: readerWindow.frame.origin.y - theEvent.deltaY));
             };
             
             // Say we are dragging
@@ -563,7 +564,8 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
                 if #available(OSX 10.11, *) {
                     readerWindow.performWindowDragWithEvent(theEvent);
                 } else {
-                    // No equivalent found, look for one later
+                    // Move the window with the mouse's delta
+                    readerWindow.setFrameOrigin(NSPoint(x: readerWindow.frame.origin.x + theEvent.deltaX, y: readerWindow.frame.origin.y - theEvent.deltaY));
                 };
             }
         }
