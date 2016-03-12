@@ -475,9 +475,6 @@ class KMAddMangaViewController: NSViewController {
             
             // Sort the files by their integer values
             addMangaFolderContents = addMangaFolderContents.sortedArrayUsingDescriptors([NSSortDescriptor(key: "integerValue", ascending: true)]);
-            
-            // Reverse the folder contents(Im not sure why, but this is necessary)
-            addMangaFolderContents = addMangaFolderContents.reverse();
         }
         catch _ as NSError {
             // Do nothing
@@ -489,10 +486,13 @@ class KMAddMangaViewController: NSViewController {
         
         // For every item in the addmanga folder...
         for(_, currentFile) in addMangaFolderContents.enumerate() {
-            // If this file is an image...
-            if(KMFileUtilities().isImage("/tmp/komikan/addmanga/" + (currentFile as! String))) {
-                // Set the first image to the current image file
-                firstImage = NSImage(contentsOfFile: "/tmp/komikan/addmanga/" + (currentFile as! String))!;
+            // If this file is an image and not a dot file...
+            if(KMFileUtilities().isImage("/tmp/komikan/addmanga/" + (currentFile as! String)) && ((currentFile as! String).substringToIndex((currentFile as! String).startIndex.successor())) != ".") {
+                // If the first image isnt already set...
+                if(firstImage.size == NSSize.zero) {
+                    // Set the first image to the current image file
+                    firstImage = NSImage(contentsOfFile: "/tmp/komikan/addmanga/" + (currentFile as! String))!;
+                }
             }
         }
         
