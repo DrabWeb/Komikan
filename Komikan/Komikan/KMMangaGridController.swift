@@ -76,8 +76,8 @@ class KMMangaGridController: NSObject {
                 if(currentItem.manga.directory.containsString("/Library/Application Support/Komikan/EH") && (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.deleteLLewdMangaWhenRemovingFromTheGrid) {
                     // Also delete the file
                     do {
-                        // Try to delete the file at the mangas directory
-                        try NSFileManager.defaultManager().removeItemAtPath(currentItem.manga.directory);
+                        // Move the manga file to the trash
+                        try NSFileManager.defaultManager().trashItemAtURL(NSURL(fileURLWithPath: currentItem.manga.directory), resultingItemURL: nil);
                         
                         // Print to the log that we deleted it
                         print("Deleted manga \"" + currentItem.manga.title + "\"'s file");
