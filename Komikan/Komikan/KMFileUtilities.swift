@@ -10,6 +10,37 @@ import Foundation
 import Cocoa
 
 class KMFileUtilities {
+    /// Returns the path to the folder the given file is in(Keeps keep the / on the end)
+    func folderPathForFile(path : String) -> String {
+        // Remove the last path component(File name) of the given path from folderPath
+        /// The path of the file's folder
+        let folderPath : String = path.stringByReplacingOccurrencesOfString(NSString(string: path).lastPathComponent, withString: "");
+        
+        // Return the folder path
+        return folderPath;
+    }
+    
+    /// Returns the path of a manga file's Komikan JSON metadata, returns the path even if it doesnt exist
+    func mangaFileJSONPath(path : String) -> String {
+        /// The path of the possible JSON file
+        var jsonPath : String = path;
+        
+        // Set the JSON path to not include the manga filename
+        jsonPath = jsonPath.stringByReplacingOccurrencesOfString(NSString(string: jsonPath).lastPathComponent, withString: "");
+        
+        // Add the file's name with .json on the end to jsonPath
+        jsonPath = jsonPath + "Komikan/" + NSString(string: path).lastPathComponent + ".json";
+        
+        // Return the JSON path
+        return jsonPath;
+    }
+    
+    /// Does the manga file at the given path have a metadata JSON file?
+    func mangaFileHasJSON(path : String) -> Bool {
+        // Return if the JSON file for the given manga file exists
+        return NSFileManager.defaultManager().fileExistsAtPath(mangaFileJSONPath(path));
+    }
+    
     /// Is the given file an image?
     func isImage(path : String) -> Bool {
         // Return if teh image file types contains the passed file's extension
@@ -28,27 +59,6 @@ class KMFileUtilities {
             // Return true
             return true;
         }
-    }
-    
-    /// Returns the path to the encasing folder for the file at the given path
-    func folderPathForFile(filePath : String) -> String {
-        /// The path to the file's folder
-        var folderPath : String = filePath;
-        
-        // Remove everything after the last "/" in the string so we can get the folder
-        folderPath = folderPath.substringToIndex(folderPath.rangeOfString("/", options: NSStringCompareOptions.BackwardsSearch, range: nil, locale: nil)!.startIndex);
-        
-        // Append a slash to the end because it removes it
-        folderPath += "/";
-        
-        // Remove the file:// from the folder path string(Theres a chance there could be one)
-        folderPath = folderPath.stringByReplacingOccurrencesOfString("file://", withString: "");
-        
-        // Remove the percent encoding from the folder path string
-        folderPath = folderPath.stringByRemovingPercentEncoding!;
-        
-        // Return the folder path
-        return folderPath;
     }
     
     /// Exports the passed KMManga's info into a Komikan readable JSON file in the correc directory. Also exports the internal info like current page, bookmarks, brightness, ETC. if exportInternalInfo is true

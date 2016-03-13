@@ -110,6 +110,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     /// The Window/Select Manga View menu item
     @IBOutlet weak var selectMangaViewMenuItem: NSMenuItem!
     
+    /// The Collection/Import... menu item
+    @IBOutlet weak var importMenuItem: NSMenuItem!
+    
     /// The view controller we will load for the reader
     var mangaReaderViewController: KMReaderViewController?;
     

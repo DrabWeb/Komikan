@@ -214,10 +214,13 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.exportJsonForAllMangaMenuItem.action = Selector("exportMangaJSONForSelected");
         
         // Set the export manga JSON for migration menubar items action
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.exportJsonForAllMangaForMigrationMenuItem.action = Selector("exportMangaJSONForMigration");
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.exportJsonForAllMangaForMigrationMenuItem.action = Selector("exportMangaJSONForSelectedForMigration");
         
         // Set the fetch metadata for selected menubar items action
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.fetchMetadataForSelectedMenuItem.action = Selector("showFetchMetadataForSelectedItemsPopoverAtCenter");
+        
+        // Set the import menubar items action
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.importMenuItem.action = Selector("importMigrationFolder");
         
         // Set the toggle list view menubar items action
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.toggleListViewMenuItem.action = Selector("toggleView");
@@ -317,6 +320,36 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             
             // Reload the manga table so it gets updated when items change
             mangaListController.mangaListTableView.reloadData();
+        }
+    }
+    
+    /// Prompts the user for a folder to import from migration, and then imports them.
+    func importMigrationFolder() {
+        /// The open panel for asking the user which folder to import
+        let importOpenPanel : NSOpenPanel = NSOpenPanel();
+        
+        // Dont allow any single files to be selected
+        importOpenPanel.allowedFileTypes = [""];
+        
+        // Allow folders to be selected
+        importOpenPanel.canChooseDirectories = true;
+        
+        // Set the prompt
+        importOpenPanel.prompt = "Import";
+        
+        // Run the modal, and if they click "Choose"....
+        if(Bool(importOpenPanel.runModal())) {
+            /// The path to the folder the user said to import
+            let importFolderPath : String = (importOpenPanel.URL!.absoluteString.stringByRemovingPercentEncoding?.stringByReplacingOccurrencesOfString("file://", withString: ""))!;
+            
+            /// The migration importer we will use
+            let migrationImporter : KMMigrationImporter = KMMigrationImporter();
+            
+            // Set the migration importer's manga grid controller
+            migrationImporter.mangaGridController = mangaGridController;
+            
+            // Tell the migration importer to import the chosen folder
+            migrationImporter.importFolder(importFolderPath);
         }
     }
     
@@ -626,10 +659,28 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(finishedNotification);
     }
     
-    /// Exports JSON for all the manga in the grid with internal information(Meant for when the user switches computers or something and wants to keep metadata)
-    func exportMangaJSONForMigration() {
-        // Call the export JSON function from the grid controller and say to also do internal information
-        mangaGridController.exportAllMangaJSON(true);
+    /// Exports the internal JSON for the selected manga items(Meant for when the user switches computers or something and wants to keep metadata)
+    func exportMangaJSONForSelectedForMigration() {
+        // For every selected manga item...
+        for(_, currentGridItem) in selectedGridItems().enumerate() {
+            // Export this items manga's info
+            KMFileUtilities().exportMangaJSON(currentGridItem.manga, exportInternalInfo: true);
+        }
+        
+        // Create the new notification to tell the user the Metadata exporting has finished
+        let finishedNotification = NSUserNotification();
+        
+        // Set the title
+        finishedNotification.title = "Komikan";
+        
+        // Set the informative text
+        finishedNotification.informativeText = "Finshed exporting Metadata";
+        
+        // Set the notifications identifier to be an obscure string, so we can show multiple at once
+        finishedNotification.identifier = NSUUID().UUIDString;
+        
+        // Deliver the notification
+        NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(finishedNotification);
     }
     
     /// The view controller that will load for the metadata fetching popover

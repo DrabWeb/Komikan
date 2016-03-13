@@ -164,14 +164,20 @@ class KMMangaGridController: NSObject {
         
         // If we said to update the grid filters on add...
         if(updateFilters) {
-            // Reload the l-lewd... manga filter
-            displayLewdMangaAppDelegate();
-            
-            // If we are searching
-            if(searching) {
-                // Redo the search so if the item doesnt match the query it gets hidden
-                searchFor(lastSearchText);
-            }
+            // Update the filters
+            self.updateFilters();
+        }
+    }
+    
+    /// Updates the l-lewd... and search filters
+    func updateFilters() {
+        // Reload the l-lewd... manga filter
+        displayLewdMangaAppDelegate();
+        
+        // If we are searching
+        if(searching) {
+            // Redo the search so if the item doesnt match the query it gets hidden
+            searchFor(lastSearchText);
         }
     }
     
