@@ -87,20 +87,23 @@ class KMMigrationImporter {
                     // Set if this manga is l-lewd...
                     manga.lewd = mangaJson["lewd"].boolValue;
                     
-                    // Set the current page
-                    manga.currentPage = mangaJson["current-page"].intValue - 1;
-                    
-                    // Set the page count
-                    manga.pageCount = mangaJson["page-count"].intValue;
-                    
-                    // Set the color and sharpness values
-                    manga.saturation = CGFloat(mangaJson["saturation"].floatValue);
-                    manga.brightness = CGFloat(mangaJson["brightness"].floatValue);
-                    manga.contrast = CGFloat(mangaJson["contrast"].floatValue);
-                    manga.sharpness = CGFloat(mangaJson["sharpness"].floatValue);
-                    
-                    // Update the percent
-                    manga.updatePercent();
+                    // If all the internal values are present...
+                    if(mangaJson["current-page"].isExists() && mangaJson["page-count"].isExists() && mangaJson["saturation"].isExists() && mangaJson["brightness"].isExists() && mangaJson["contrast"].isExists() && mangaJson["sharpness"].isExists()) {
+                        // Set the current page
+                        manga.currentPage = mangaJson["current-page"].intValue - 1;
+                        
+                        // Set the page count
+                        manga.pageCount = mangaJson["page-count"].intValue;
+                        
+                        // Set the color and sharpness values
+                        manga.saturation = CGFloat(mangaJson["saturation"].floatValue);
+                        manga.brightness = CGFloat(mangaJson["brightness"].floatValue);
+                        manga.contrast = CGFloat(mangaJson["contrast"].floatValue);
+                        manga.sharpness = CGFloat(mangaJson["sharpness"].floatValue);
+                        
+                        // Update the percent
+                        manga.updatePercent();
+                    }
                     
                     // Set the manga's directory
                     manga.directory = currentFileFullPath;
