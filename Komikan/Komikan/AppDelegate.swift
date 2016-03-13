@@ -116,6 +116,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     /// The view controller we will load for the reader
     var mangaReaderViewController: KMReaderViewController?;
     
+    /// The File/Hide Komikan Folders menu item
+    @IBOutlet weak var hideKomikanFoldersMenuItem: NSMenuItem!
+    
+    /// The File/Show Komikan Folders menu item
+    @IBOutlet weak var showKomikanFoldersMenuItem: NSMenuItem!
+    
     /// The grid controller for the manga grid
     var mangaGridController : KMMangaGridController = KMMangaGridController();
     

@@ -237,6 +237,10 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // Set the select manga view menubar items action
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.selectMangaViewMenuItem.action = Selector("selectMangaView");
         
+        // Set the hide and show Komikan folders menubar items actions
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.hideKomikanFoldersMenuItem.action = Selector("hideKomikanMetadataFolders");
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.showKomikanFoldersMenuItem.action = Selector("showKomikanMetadataFolders");
+        
         // Start a 0.1 second loop that will fix the windows look in fullscreen
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("deleteTitlebarInFullscreen"), userInfo: nil, repeats:true);
         
@@ -320,6 +324,78 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             
             // Reload the manga table so it gets updated when items change
             mangaListController.mangaListTableView.reloadData();
+        }
+    }
+    
+    /// Asks the user for a folder, then hides all the Komikan metadata folders in that folder and it's subfolders
+    func hideKomikanMetadataFolders() {
+        /// The open panel for asking the user which folder to hide Komikan folders in
+        let hideOpenPanel : NSOpenPanel = NSOpenPanel();
+        
+        // Dont allow any files to be selected
+        hideOpenPanel.allowedFileTypes = [""];
+        
+        // Allow folders to be selected
+        hideOpenPanel.canChooseDirectories = true;
+        
+        // Set the prompt
+        hideOpenPanel.prompt = "Select";
+        
+        // Run the modal, and if they clicked "Select"...
+        if(Bool(hideOpenPanel.runModal())) {
+            /// The path to the folder we want to hide Komikan folders in
+            let hideFolderPath : String = hideOpenPanel.URL!.absoluteString.stringByRemovingPercentEncoding!.stringByReplacingOccurrencesOfString("file://", withString: "");
+            
+            /// The file enumerator for the folder we want to hide Komikan folders in
+            let hideFolderFileEnumerator : NSDirectoryEnumerator = NSFileManager.defaultManager().enumeratorAtPath(hideFolderPath)!;
+            
+            // For every file in the folder we want to hide Komikan folders in...
+            for(_, currentFile) in hideFolderFileEnumerator.enumerate() {
+                // If the current file is a folder...
+                if(NSString(string: hideFolderPath + String(currentFile)).pathExtension == "") {
+                    // If the current file's name is "Komikan"...
+                    if(NSString(string: hideFolderPath + String(currentFile)).lastPathComponent == "Komikan") {
+                        // Hide the current folder
+                        KMCommandUtilities().runCommand("/usr/bin/chflags", arguments: ["hidden", hideFolderPath + String(currentFile)], waitUntilExit: true);
+                    }
+                }
+            }
+        }
+    }
+    
+    /// Asks the user for a folder, then shows all the Komikan metadata folders in that folder and it's subfolders
+    func showKomikanMetadataFolders() {
+        /// The open panel for asking the user which folder to show Komikan folders in
+        let showOpenPanel : NSOpenPanel = NSOpenPanel();
+        
+        // Dont allow any files to be selected
+        showOpenPanel.allowedFileTypes = [""];
+        
+        // Allow folders to be selected
+        showOpenPanel.canChooseDirectories = true;
+        
+        // Set the prompt
+        showOpenPanel.prompt = "Select";
+        
+        // Run the modal, and if they clicked "Select"...
+        if(Bool(showOpenPanel.runModal())) {
+            /// The path to the folder we want to show Komikan folders in
+            let showFolderPath : String = showOpenPanel.URL!.absoluteString.stringByRemovingPercentEncoding!.stringByReplacingOccurrencesOfString("file://", withString: "");
+            
+            /// The file enumerator for the folder we want to show Komikan folders in
+            let showFolderFileEnumerator : NSDirectoryEnumerator = NSFileManager.defaultManager().enumeratorAtPath(showFolderPath)!;
+            
+            // For every file in the folder we want to show Komikan folders in...
+            for(_, currentFile) in showFolderFileEnumerator.enumerate() {
+                // If the current file is a folder...
+                if(NSString(string: showFolderPath + String(currentFile)).pathExtension == "") {
+                    // If the current file's name is "Komikan"...
+                    if(NSString(string: showFolderPath + String(currentFile)).lastPathComponent == "Komikan") {
+                        // Show the current folder
+                        KMCommandUtilities().runCommand("/usr/bin/chflags", arguments: ["nohidden", showFolderPath + String(currentFile)], waitUntilExit: true);
+                    }
+                }
+            }
         }
     }
     
