@@ -520,11 +520,11 @@ class KMAddMangaViewController: NSViewController {
             // Do nothing
         }
         
-        // Ask for the mangas directory
-        chooseDirectoryOpenPanel.runModal();
-        
-        // Set the adding manga URLs to the choose directory open panels URLs
-        addingMangaURLs = chooseDirectoryOpenPanel.URLs;
+        // Ask for the mangas directory, and if we clicked "Choose"...
+        if(Bool(chooseDirectoryOpenPanel.runModal())) {
+            // Set the adding manga URLs to the choose directory open panels URLs
+            addingMangaURLs = chooseDirectoryOpenPanel.URLs;
+        }
     }
     
     // The prompt you get when you open this view with the open panel
