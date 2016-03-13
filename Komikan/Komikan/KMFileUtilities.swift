@@ -115,9 +115,6 @@ class KMFileUtilities {
             // Add the page count
             jsonString += "    \"page-count\":" + String(manga.pageCount) + ",\n";
             
-            // Add the manga's filename
-            jsonString += "    \"filename\":\"" + NSURL(fileURLWithPath: manga.directory).lastPathComponent!.stringByRemovingPercentEncoding! + "\",\n";
-            
             // Add the Saturation, Brightness, Contrast and Sharpness
             jsonString += "    \"saturation\":" + String(manga.saturation) + ",\n";
             jsonString += "    \"brightness\":" + String(manga.brightness) + ",\n";

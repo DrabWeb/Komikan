@@ -13,7 +13,7 @@ class KMMigrationImporter {
     /// The manga grid controller to add the imported manga to
     var mangaGridController : KMMangaGridController = KMMangaGridController();
     
-    /// Imports all the manga in the passed folder and all it's subfolders
+    /// Imports all the manga in the passed folder and all it's subfolders. Only imports ones that have metadata exported
     func importFolder(path : String) {
         // Print to the log that we are importing
         print("Trying to import files in \(path)");

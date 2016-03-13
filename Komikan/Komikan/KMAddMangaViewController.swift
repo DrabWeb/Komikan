@@ -360,35 +360,6 @@ class KMAddMangaViewController: NSViewController {
                     
                     // Set the l-lewd... checkboxes state to the lewd value of the JSON
                     llewdCheckBox.state = Int(mangaJson["lewd"].boolValue);
-                    
-//                    {
-//                        "title":"Charlotte - Chapter 1",
-//                        "cover-image":"Charlotte - Chapter 1.cbz.png",
-//                        "series":"Charlotte",
-//                        "artist":"Chibimaru and Tsurusaki Yuu",
-//                        "writer":"Maeda Jun",
-//                        "tags":["Comedy", "School", "Shoujo Ai", "Slice of Life"],
-//                        "group":"Finished",
-//                        "favourite":false,
-//                        "lewd":false,
-//                        "current-page":1,
-//                        "page-count":21,
-//                        "filename":"Charlotte - Chapter 1.cbz",
-//                        "saturation":1.0,
-//                        "brightness":0.0,
-//                        "contrast":1.0,
-//                        "sharpness":0.0
-//                    }
-                    
-//                    newManga.currentPage = mangaJson["current-page"].intValue - 1;
-//                    newManga.pageCount = mangaJson["page-count"].intValue;
-//                    
-//                    newManga.saturation = CGFloat(mangaJson["saturation"].floatValue);
-//                    newManga.brightness = CGFloat(mangaJson["brightness"].floatValue);
-//                    newManga.contrast = CGFloat(mangaJson["contrast"].floatValue);
-//                    newManga.sharpness = CGFloat(mangaJson["sharpness"].floatValue);
-//                    
-//                    newManga.updatePercent();
                 }
             }
         }

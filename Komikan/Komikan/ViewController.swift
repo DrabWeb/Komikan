@@ -529,6 +529,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         titlebarSortingTabView.animator().alphaValue = 1;
         titlebarToggleSortDirectionButton.animator().alphaValue = 1;
         
+        // Select the grid view
         window.makeFirstResponder(mangaCollectionView);
     }
     
