@@ -25,48 +25,49 @@ class KMAddMangaViewController: NSViewController {
     // Does the user want to batch add them?
     var addingMultiple : Bool = false;
     
-    // The image view for the cover image
+    /// The image view for the cover image
     @IBOutlet weak var coverImageView: NSImageView!
     
-    // The text field for the mangas title
-    @IBOutlet weak var titleTextField: NSTextField!
+    /// The token text field for the mangas title
+    @IBOutlet weak var titleTokenTextField: KMSuggestionTokenField!
     
-    // The text field for the mangas series
-    @IBOutlet weak var seriesTextField: NSTextField!
+    /// The token text field for the mangas series
+    @IBOutlet weak var seriesTokenTextField: KMSuggestionTokenField!
     
-    // The text field for the mangas artist
-    @IBOutlet weak var artistTextField: NSTextField!
+    /// The token text field for the mangas artist
+    @IBOutlet weak var artistTokenTextField: KMSuggestionTokenField!
     
-    // The text field for the mangas writer
-    @IBOutlet weak var writerTextField: NSTextField!
+    /// The token text field for the mangas writer
+    @IBOutlet weak var writerTokenTextField: KMSuggestionTokenField!
     
-    // The text field for the mangas tags
-    @IBOutlet weak var tagsTextField: NSTextField!
+    /// The text field for the mangas tags
+    @IBOutlet weak var tagsTextField: KMAlwaysActiveTextField!
     
-    @IBOutlet weak var groupTextField: NSTextField!
+    /// The token text field for the mangas group
+    @IBOutlet weak var groupTokenTextField: KMSuggestionTokenField!
     
-    // The checkbox to say if this manga is l-lewd...
+    /// The checkbox to say if this manga is l-lewd...
     @IBOutlet weak var llewdCheckBox: NSButton!
     
     /// The button to say if the manga we add should be favourited
     @IBOutlet weak var favouriteButton: KMFavouriteButton!
     
-    // The open panel to let the user choose the mangas directory
+    /// The open panel to let the user choose the mangas directory
     var chooseDirectoryOpenPanel : NSOpenPanel = NSOpenPanel();
     
-    // The "Choose Directory" button
+    /// The "Choose Directory" button
     @IBOutlet weak var chooseDirectoryButton: NSButton!
     
-    // When we click chooseDirectoryButton...
+    /// When we click chooseDirectoryButton...
     @IBAction func chooseDirectoryButtonPressed(sender: AnyObject) {
         // Run he choose directory open panel
         chooseDirectoryOpenPanel.runModal();
     }
     
-    // The add button
+    /// The add button
     @IBOutlet weak var addButton: NSButton!
     
-    // When we click the add button...
+    /// When we click the add button...
     @IBAction func addButtonPressed(sender: AnyObject) {
         // Dismiss the popver
         self.dismissController(self);
@@ -101,6 +102,12 @@ class KMAddMangaViewController: NSViewController {
         // Set the Open button to say choose
         chooseDirectoryOpenPanel.prompt = "Choose";
         
+        // Setup all the suggestions for the property text fields
+        seriesTokenTextField.suggestions = (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.allSeries();
+        artistTokenTextField.suggestions = (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.allArtists();
+        writerTokenTextField.suggestions = (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.allWriters();
+        groupTokenTextField.suggestions = (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.allGroups();
+        
         // Start a 0.1 second loop that will set if we can add this manga or not
         addButtonUpdateLoop = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("updateAddButton"), userInfo: nil, repeats:true);
         
@@ -118,13 +125,13 @@ class KMAddMangaViewController: NSViewController {
             newManga.coverImage = newManga.coverImage.resizeToHeight(400);
             
             // Set the new mangas title
-            newManga.title = titleTextField.stringValue;
+            newManga.title = titleTokenTextField.stringValue;
             
             // Set the new mangas series
-            newManga.series = seriesTextField.stringValue;
+            newManga.series = seriesTokenTextField.stringValue;
             
             // Set the new mangas artist
-            newManga.artist = artistTextField.stringValue;
+            newManga.artist = artistTokenTextField.stringValue;
             
             // Set if the manga is l-lewd...
             newManga.lewd = Bool(llewdCheckBox.state);
@@ -133,7 +140,7 @@ class KMAddMangaViewController: NSViewController {
             newManga.directory = (addingMangaURLs[0].absoluteString.stringByRemovingPercentEncoding!).stringByReplacingOccurrencesOfString("file://", withString: "");
             
             // Set the new mangas writer
-            newManga.writer = writerTextField.stringValue;
+            newManga.writer = writerTokenTextField.stringValue;
             
             // For every part of the tags text field's string value split at every ", "...
             for (_, currentTag) in tagsTextField.stringValue.componentsSeparatedByString(", ").enumerate() {
@@ -145,7 +152,7 @@ class KMAddMangaViewController: NSViewController {
             }
             
             // Set the new manga's group
-            newManga.group = groupTextField.stringValue;
+            newManga.group = groupTokenTextField.stringValue;
             
             // Set if the manga is a favourite
             newManga.favourite = Bool(favouriteButton.state);
@@ -165,13 +172,13 @@ class KMAddMangaViewController: NSViewController {
                 currentManga = getMangaInfo(currentManga);
                 
                 // Set the manga's series
-                currentManga.series = seriesTextField.stringValue;
+                currentManga.series = seriesTokenTextField.stringValue;
                 
                 // Set the manga's artist
-                currentManga.artist = artistTextField.stringValue;
+                currentManga.artist = artistTokenTextField.stringValue;
                 
                 // Set the manga's writer
-                currentManga.writer = writerTextField.stringValue;
+                currentManga.writer = writerTokenTextField.stringValue;
                 
                 // Set if the manga is l-lewd...
                 currentManga.lewd = Bool(llewdCheckBox.state);
@@ -186,7 +193,7 @@ class KMAddMangaViewController: NSViewController {
                 }
                 
                 // Set the manga's group
-                currentManga.group = groupTextField.stringValue;
+                currentManga.group = groupTokenTextField.stringValue;
                 
                 // Set if the manga is a favourite
                 currentManga.favourite = Bool(favouriteButton.state);
@@ -248,13 +255,13 @@ class KMAddMangaViewController: NSViewController {
                     let mangaJson = JSON(data: NSFileManager.defaultManager().contentsAtPath(mangaJsonURL)!);
                     
                     // Set the series text field's value to the series value
-                    seriesTextField.stringValue = mangaJson["series"].stringValue;
+                    seriesTokenTextField.stringValue = mangaJson["series"].stringValue;
                     
                     // Set the series text field's value to the artist value
-                    artistTextField.stringValue = mangaJson["artist"].stringValue;
+                    artistTokenTextField.stringValue = mangaJson["artist"].stringValue;
                     
                     // Set the series text field's value to the writer value
-                    writerTextField.stringValue = mangaJson["writer"].stringValue;
+                    writerTokenTextField.stringValue = mangaJson["writer"].stringValue;
                     
                     // For every item in the tags value of the JSON...
                     for(_, currentTag) in mangaJson["tags"].arrayValue.enumerate() {
@@ -272,7 +279,7 @@ class KMAddMangaViewController: NSViewController {
                     }
                     
                     // Set the group text field's value to the group value
-                    groupTextField.stringValue = mangaJson["group"].stringValue;
+                    groupTokenTextField.stringValue = mangaJson["group"].stringValue;
                     
                     // Set the favourites buttons value to the favourites value of the JSON
                     favouriteButton.state = Int(mangaJson["favourite"].boolValue);
@@ -300,7 +307,7 @@ class KMAddMangaViewController: NSViewController {
                     // If the title value from the JSON is not "auto" or blank...
                     if(mangaJson["title"].stringValue != "auto" && mangaJson["title"].stringValue != "") {
                         // Set the title text fields value to the title value from the JSON
-                        titleTextField.stringValue = mangaJson["title"].stringValue;
+                        titleTokenTextField.stringValue = mangaJson["title"].stringValue;
                         
                         // Say we got a title from the JSON
                         gotTitleFromJSON = true;
@@ -326,13 +333,13 @@ class KMAddMangaViewController: NSViewController {
                     }
                     
                     // Set the series text field's value to the series value
-                    seriesTextField.stringValue = mangaJson["series"].stringValue;
+                    seriesTokenTextField.stringValue = mangaJson["series"].stringValue;
                     
                     // Set the series text field's value to the artist value
-                    artistTextField.stringValue = mangaJson["artist"].stringValue;
+                    artistTokenTextField.stringValue = mangaJson["artist"].stringValue;
                     
                     // Set the series text field's value to the writer value
-                    writerTextField.stringValue = mangaJson["writer"].stringValue;
+                    writerTokenTextField.stringValue = mangaJson["writer"].stringValue;
                     
                     // For every item in the tags value of the JSON...
                     for(_, currentTag) in mangaJson["tags"].arrayValue.enumerate() {
@@ -350,7 +357,7 @@ class KMAddMangaViewController: NSViewController {
                     }
                     
                     // Set the group text field's value to the group value
-                    groupTextField.stringValue = mangaJson["group"].stringValue;
+                    groupTokenTextField.stringValue = mangaJson["group"].stringValue;
                     
                     // Set the favourites buttons value to the favourites value of the JSON
                     favouriteButton.state = Int(mangaJson["favourite"].boolValue);
@@ -375,7 +382,7 @@ class KMAddMangaViewController: NSViewController {
             // If the cover image selected is not the default one...
             if(coverImageView.image != NSImage(named: "NSRevealFreestandingTemplate")) {
                 // If the title is not nothing...
-                if(titleTextField.stringValue != "") {
+                if(titleTokenTextField.stringValue != "") {
                     // If the directory is not nothing...
                     if(addingMangaURLs != []) {
                         // Say we can add with these variables
@@ -521,7 +528,7 @@ class KMAddMangaViewController: NSViewController {
             coverImageView.editable = false;
             
             // Dont allow us to set the title
-            titleTextField.enabled = false;
+            titleTokenTextField.enabled = false;
             
             // Dont allow us to change the directory
             chooseDirectoryButton.enabled = false;
@@ -547,7 +554,7 @@ class KMAddMangaViewController: NSViewController {
                 // If we didnt get a title from the JSON...
                 if(!gotTitleFromJSON) {
                     // Set the title text fields value to the mangas title
-                    titleTextField.stringValue = newManga.title;
+                    titleTokenTextField.stringValue = newManga.title;
                 }
             }
         }

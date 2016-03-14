@@ -13,20 +13,20 @@ class KMSetSelectedItemsPropertiesViewController: NSViewController {
     /// The visual effect view for the background of the window
     @IBOutlet weak var backgroundVisualEffectView: NSVisualEffectView!
 
-    /// The Text Field to set the series
-    @IBOutlet weak var seriesTextField: NSTextField!
+    /// The token text field to set the series
+    @IBOutlet weak var seriesTokenTextField: KMSuggestionTokenField!
     
-    /// The Text Field to set the artist
-    @IBOutlet weak var artistTextField: NSTextField!
+    /// The token text field to set the artist
+    @IBOutlet weak var artistTokenTextField: KMSuggestionTokenField!
     
-    /// The Text Field to set the writer
-    @IBOutlet weak var writerTextField: NSTextField!
+    /// The token text field to set the writer
+    @IBOutlet weak var writerTokenTextField: KMSuggestionTokenField!
     
-    /// The Text Field to set the tags
+    /// The text field to set the tags
     @IBOutlet weak var tagsTextField: NSTextField!
     
-    /// The Text Field to set the group
-    @IBOutlet weak var groupTextField: NSTextField!
+    /// The token text field to set the group
+    @IBOutlet weak var groupTokenTextField: KMSuggestionTokenField!
     
     /// The button to set favourites
     @IBOutlet weak var favouriteButton: KMFavouriteButton!
@@ -46,11 +46,11 @@ class KMSetSelectedItemsPropertiesViewController: NSViewController {
         let propertiesHolder : KMSetSelectedPropertiesHolder = KMSetSelectedPropertiesHolder();
         
         // Store all the passed values in a new set selected items properties holder
-        propertiesHolder.series = seriesTextField.stringValue;
-        propertiesHolder.artist = artistTextField.stringValue;
-        propertiesHolder.writer = writerTextField.stringValue;
+        propertiesHolder.series = seriesTokenTextField.stringValue;
+        propertiesHolder.artist = artistTokenTextField.stringValue;
+        propertiesHolder.writer = writerTokenTextField.stringValue;
         propertiesHolder.tags = tagsTextField.stringValue.componentsSeparatedByString(", ");
-        propertiesHolder.group = groupTextField.stringValue;
+        propertiesHolder.group = groupTokenTextField.stringValue;
         propertiesHolder.appendTags = Bool(appendTagsCheckbox.state);
         propertiesHolder.favourite = Bool(favouriteButton.state);
         propertiesHolder.setFavourite = true;
@@ -67,6 +67,12 @@ class KMSetSelectedItemsPropertiesViewController: NSViewController {
         
         // Update the favourites button
         favouriteButton.updateButton();
+        
+        // Setup all the suggestions for the property text fields
+        seriesTokenTextField.suggestions = (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.allSeries();
+        artistTokenTextField.suggestions = (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.allArtists();
+        writerTokenTextField.suggestions = (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.allWriters();
+        groupTokenTextField.suggestions = (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.allGroups();
     }
     
     /// Styles the view

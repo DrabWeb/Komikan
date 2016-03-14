@@ -19,20 +19,20 @@ class KMEditMangaViewController: NSViewController {
     /// The text field for the manga's title
     @IBOutlet weak var titleTextField: NSTextField!
     
-    /// The text field for the manga's series
-    @IBOutlet weak var seriesTextField: NSTextField!
+    /// The token text field for the manga's series
+    @IBOutlet weak var seriesTokenTextField: KMSuggestionTokenField!
     
-    /// The text field for the manga's artist
-    @IBOutlet weak var artistTextField: NSTextField!
+    /// The token text field for the manga's artist
+    @IBOutlet weak var artistTokenTextField: KMSuggestionTokenField!
     
-    /// The text field for the manga's writer
-    @IBOutlet weak var writerTextField: NSTextField!
+    /// The token text field for the manga's writer
+    @IBOutlet weak var writerTokenTextField: KMSuggestionTokenField!
     
     /// The text field for the manga's tags
     @IBOutlet weak var tagsTextField: NSTextField!
     
-    /// The text field for the manga's group
-    @IBOutlet weak var groupTextField: NSTextField!
+    /// The token text field for the manga's group
+    @IBOutlet weak var groupTokenTextField: KMSuggestionTokenField!
     
     /// The button to set if this manga is a favourite
     @IBOutlet weak var favouriteButton: NSButton!
@@ -152,6 +152,12 @@ class KMEditMangaViewController: NSViewController {
         // Set the Open button to say choose
         changeDirectoryOpenPanel.prompt = "Choose";
         
+        // Setup all the suggestions for the property text fields
+        seriesTokenTextField.suggestions = (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.allSeries();
+        artistTokenTextField.suggestions = (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.allArtists();
+        writerTokenTextField.suggestions = (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.allWriters();
+        groupTokenTextField.suggestions = (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.allGroups();
+        
         // Subscribe to the popovers finished notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "getMangaFromGrid:", name:"KMMangaGridCollectionItem.Editing", object: nil);
     }
@@ -169,13 +175,13 @@ class KMEditMangaViewController: NSViewController {
         manga.title = titleTextField.stringValue;
         
         // Set the series
-        manga.series = seriesTextField.stringValue;
+        manga.series = seriesTokenTextField.stringValue;
         
         // Set the artist
-        manga.artist = artistTextField.stringValue;
+        manga.artist = artistTokenTextField.stringValue;
         
         // Set the writer
-        manga.writer = writerTextField.stringValue;
+        manga.writer = writerTokenTextField.stringValue;
         
         // Reset the manga's tags
         manga.tags = [];
@@ -187,7 +193,7 @@ class KMEditMangaViewController: NSViewController {
         }
         
         // Set the group
-        manga.group = groupTextField.stringValue;
+        manga.group = groupTokenTextField.stringValue;
         
         // Set if its a favourite
         manga.favourite = Bool(favouriteButton.state);
@@ -211,13 +217,14 @@ class KMEditMangaViewController: NSViewController {
         titleTextField.stringValue = manga.title;
         
         // Set the series text field
-        seriesTextField.stringValue = manga.series;
+        seriesTokenTextField.stringValue = manga.series;
         
         // Set the artist text field
-        artistTextField.stringValue = manga.artist;
+        artistTokenTextField.stringValue = manga.artist;
         
+        print(manga.writer);
         // Set the writer text field
-        writerTextField.stringValue = manga.writer;
+        writerTokenTextField.stringValue = manga.writer;
         
         // Set the favourite button
         favouriteButton.state = Int(manga.favourite);
@@ -273,7 +280,7 @@ class KMEditMangaViewController: NSViewController {
         }
         
         // Set the group text field's string value to the group of the manga
-        groupTextField.stringValue = manga.group;
+        groupTokenTextField.stringValue = manga.group;
     }
     
     func getMangaFromGrid(notification : NSNotification) {
