@@ -49,6 +49,9 @@ class KMPreferencesController: NSViewController {
     /// The text field for saying if the filename of a page in a manga matches the regex given, then ignore it
     @IBOutlet var ignorePagesMatchingRegexTextField: KMAlwaysActiveTextField!
     
+    /// The color well for letting the user set the background color of the reader window
+    @IBOutlet var readerWindowBackgroundColorColorWell: NSColorWell!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
@@ -71,6 +74,7 @@ class KMPreferencesController: NSViewController {
         (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.distractionFreeModeDimAmount = CGFloat(distractionFreeModeDimAmountSlider.floatValue);
         (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt = Bool(dragReaderWindowByBackgroundWithoutHoldingAltCheckbox.state);
         (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.pageIgnoreRegex = ignorePagesMatchingRegexTextField.stringValue;
+        (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.readerWindowBackgroundColor = readerWindowBackgroundColorColorWell.color;
         
         // Tell AppDelegate to act upon the preferences
         (NSApplication.sharedApplication().delegate as! AppDelegate).actOnPreferences();
@@ -86,6 +90,7 @@ class KMPreferencesController: NSViewController {
         distractionFreeModeDimAmountSlider.floatValue = Float((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.distractionFreeModeDimAmount);
         dragReaderWindowByBackgroundWithoutHoldingAltCheckbox.state = Int((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt);
         ignorePagesMatchingRegexTextField.stringValue = (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.pageIgnoreRegex;
+        readerWindowBackgroundColorColorWell.color = (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.readerWindowBackgroundColor;
     }
     
     // Enables / disables all the checkboxes under the l-lewd... mode enabled checkbox

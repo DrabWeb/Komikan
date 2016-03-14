@@ -32,4 +32,7 @@ class KMPreferencesKeeper {
     
     /// If a page filename matches this regex, it will be ignored
     var pageIgnoreRegex : String = "";
+    
+    /// The background color for the reader window
+    var readerWindowBackgroundColor : NSColor = NSColor.blackColor();
 }

@@ -1427,7 +1427,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         readerWindow.delegate = self;
         
         // Set the window background color
-        readerWindow.backgroundColor = NSColor.blackColor();
+        readerWindow.backgroundColor = (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.readerWindowBackgroundColor;
         
         // Set the background of the thumbnail page jump view to be dark
         thumbnailPageJumpVisualEffectView.material = NSVisualEffectMaterial.Dark;

@@ -189,6 +189,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         // Add the page ignore regex to the end of it
         preferencesString.appendContentsOf("\n" + String(preferencesKepper.pageIgnoreRegex));
         
+        // Add the reader window background color to the end of it
+        preferencesString.appendContentsOf("\n" + String(preferencesKepper.readerWindowBackgroundColor.redComponent) + ", " + String(preferencesKepper.readerWindowBackgroundColor.blueComponent) + ", " + String(preferencesKepper.readerWindowBackgroundColor.greenComponent));
+        
         // Write the preferences to the preferences file in Komikan's application support
         do {
             // Try to write to the preferences file in Komikan's application support directory
@@ -250,6 +253,39 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                 else if(currentIndex == 7) {
                     // Set the page ignore regex to be this lines value
                     preferencesKepper.pageIgnoreRegex = currentElement;
+                }
+                // If this is the ninth line...
+                else if(currentIndex == 8) {
+                    /// The red component of the reader window background color
+                    var red : CGFloat = 0;
+                    
+                    /// The blue component of the reader window background color
+                    var blue : CGFloat = 0;
+                    
+                    /// The green component of the reader window background color
+                    var green : CGFloat = 0;
+                    
+                    // For every value in the current line split at every ", "...
+                    for(currentIndex, currentString) in currentElement.componentsSeparatedByString(", ").enumerate() {
+                        // If this is the first element...
+                        if(currentIndex == 0) {
+                            // Set the red value to this line
+                            red = CGFloat(NSString(string: currentString).floatValue);
+                        }
+                        // If this is the second element...
+                        else if(currentIndex == 1) {
+                            // Set the blue value to this line
+                            blue = CGFloat(NSString(string: currentString).floatValue);
+                        }
+                        // If this is the third element...
+                        else if(currentIndex == 2) {
+                            // Set the green value to this line
+                            green = CGFloat(NSString(string: currentString).floatValue);
+                        }
+                    }
+                    
+                    // Set the reader window background color
+                    preferencesKepper.readerWindowBackgroundColor = NSColor(red: red, green: green, blue: blue, alpha: 1);
                 }
             }
         }
