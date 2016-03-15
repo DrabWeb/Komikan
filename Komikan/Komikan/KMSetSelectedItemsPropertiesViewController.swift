@@ -37,6 +37,18 @@ class KMSetSelectedItemsPropertiesViewController: NSViewController {
     /// The checkbox to say if we want to append instead of replace the tags
     @IBOutlet weak var appendTagsCheckbox: NSButton!
     
+    /// The checkbox to say if we want to mark the selected manga as l-lewd...
+    @IBOutlet var lewdCheckbox: NSButton!
+    
+    /// When we interact with lewdCheckbox...
+    @IBAction func lewdCheckboxInteracted(sender: AnyObject) {
+        // Say we want to set the selected manga's lewd values
+        setLewd = true;
+    }
+    
+    /// Shoudl we set if the selected manga are lewd?
+    var setLewd : Bool = false;
+    
     /// When we click the "Set" button...
     @IBAction func setButtonPressed(sender: AnyObject) {
         // Dismiss the popover
@@ -54,6 +66,8 @@ class KMSetSelectedItemsPropertiesViewController: NSViewController {
         propertiesHolder.appendTags = Bool(appendTagsCheckbox.state);
         propertiesHolder.favourite = Bool(favouriteButton.state);
         propertiesHolder.setFavourite = true;
+        propertiesHolder.setLewd = setLewd;
+        propertiesHolder.lewd = Bool(lewdCheckbox.state);
         
         // Post the notification to say we are done, with the properties holder
         NSNotificationCenter.defaultCenter().postNotificationName("KMSetSelectedItemsPropertiesViewController.Finished", object: propertiesHolder);
@@ -99,14 +113,20 @@ class KMSetSelectedPropertiesHolder {
     /// The group
     var group : String = "";
     
-    // Is this manga a favourite?
+    /// Is this manga a favourite?
     var favourite : Bool = false;
+    
+    /// Is this manga l-lewd...?
+    var lewd : Bool = false;
     
     /// Should we append instead of replace the tags?
     var appendTags : Bool = false;
     
     /// Should we set if the manga is a favourite?
     var setFavourite : Bool = false;
+    
+    /// Should we set if the manga is l-lewd...?
+    var setLewd : Bool = false;
     
     /// Sets the passed manga's values to the ones stored inside this instance. Also appends instead of replacing based on appendTags
     func applyValuesToManga(manga : KMManga) {
@@ -151,6 +171,12 @@ class KMSetSelectedPropertiesHolder {
         if(setFavourite) {
             // Set the mangas favourite value to favourite
             manga.favourite = favourite;
+        }
+        
+        // If we said to change the manga's lewd values...
+        if(setLewd) {
+            // Set the manga's lewd values
+            manga.lewd = lewd;
         }
     }
 }

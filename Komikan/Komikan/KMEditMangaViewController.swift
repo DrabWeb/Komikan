@@ -42,6 +42,9 @@ class KMEditMangaViewController: NSViewController {
         
     }
     
+    /// The button for changing the manga's directory
+    @IBOutlet var changeDirectoryButton: NSButton!
+    
     /// When we press the change directory button...
     @IBAction func changeDirectoryButtonPressed(sender: AnyObject) {
         // Show the change directory open panel
@@ -96,15 +99,15 @@ class KMEditMangaViewController: NSViewController {
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.openManga(manga, page: Int((bookmarksDropDown.selectedItem?.title.stringByReplacingOccurrencesOfString("Page ", withString: ""))!)! - 1);
     }
     
+    /// The checkbox for saying/changing if this manga is l-lewd...
+    @IBOutlet var lewdCheckbox: NSButton!
+    
     /// When we click the "Mark Read" button...
     @IBAction func markReadButtonPressed(sender: AnyObject) {
-        // Set the read variable of manga to true
-        manga.read = true;
+        // Set the manga's current page to the last page, so we get it marked as 100% finished
+        manga.currentPage = manga.pageCount - 1;
         
-        // Set the manga's last open page to the first
-        manga.currentPage = 0;
-        
-        // Update the percent finished
+        // Update the manga's percent finished
         manga.updatePercent();
         
         // Save the manga back to the grid
@@ -113,13 +116,10 @@ class KMEditMangaViewController: NSViewController {
     
     /// When we click the "Mark Unread" button...
     @IBAction func markUnreadButtonPressed(sender: AnyObject) {
-        // Set the read variable of manga to false
-        manga.read = false;
-        
-        // Set the manga's last open page to the first
+        // Set the manga's current page to 0 so its marked as 0% done
         manga.currentPage = 0;
         
-        // Update the percent finished
+        // Update the manga's percent finished
         manga.updatePercent();
         
         // Save the manga back to the grid
@@ -198,6 +198,9 @@ class KMEditMangaViewController: NSViewController {
         // Set if its a favourite
         manga.favourite = Bool(favouriteButton.state);
         
+        // Update the if the manga is l-lewd...
+        manga.lewd = Bool(lewdCheckbox.state);
+        
         // If the cover images height isnt the compressed one(400)...
         if(manga.coverImage.size.height != 400) {
             // Resize the cover image to be compressed for faster loading
@@ -230,6 +233,9 @@ class KMEditMangaViewController: NSViewController {
         
         // Update the favourites button
         (favouriteButton as? KMFavouriteButton)!.updateButton();
+        
+        // Update the l-lewd... checkbox
+        lewdCheckbox.state = Int(manga.lewd);
         
         // If there are no bookmarks...
         if(manga.bookmarks.count == 0) {

@@ -864,6 +864,9 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         
         // Resort the grid
         mangaGridController.resort();
+        
+        // Reload the filters
+        mangaGridController.updateFilters();
     }
     
     /// Shows the add / import popover, without passing variables for the menu item
