@@ -438,6 +438,9 @@ class KMMangaGridController: NSObject {
                 
                 // Say we arent searching
                 searching = false;
+                
+                // Resort the manga items
+                sort(currentSortOrder, ascending: currentSortAscending);
             }
         }
         else {

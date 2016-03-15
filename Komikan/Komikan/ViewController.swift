@@ -69,6 +69,9 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     
     // When we interact with titlebarToggleSortDirectionButton...
     @IBAction func titlebarToggleSortDirectionButtonInteracted(sender: AnyObject) {
+        // Set the current ascending order on the grid controller
+        mangaGridController.currentSortAscending = Bool(titlebarToggleSortDirectionButton.state);
+        
         // Resort the grid based on which direction we said to sort it in
         mangaGridController.arrayController.sortDescriptors = [NSSortDescriptor(key: mangaGridController.arrayController.sortDescriptors[0].key, ascending: Bool(titlebarToggleSortDirectionButton.state))];
     }

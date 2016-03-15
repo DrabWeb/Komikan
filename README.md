@@ -30,7 +30,7 @@ Requires at least OSX 10.10 Yosemite. Tested on OSX 10.11 El Capitan
 > * Fetch Metadata from <a href="http://mcd.iosphe.re/">http://mcd.iosphe.re/</a>
 > * Custom cover images(Uses first page of Manga by default)
 > * Never moves or deletes your original Manga files
-> * Sorting by Title, Series and Artist
+> * Sorting by Title, Series and Artist, Group and more
 > * Put your Manga into groups
 > * Drag and Drop import
 > * Easy collection moving between computers/reinstalls
