@@ -72,6 +72,7 @@ Requires at least OSX 10.10 Yosemite. Tested on OSX 10.11 El Capitan
 > > * Favourites
 > > * Read
 > > * Percent finished
+> > * L-lewd...
 
 > * Very similar to EH searching
 > * Optional simplified search terms
