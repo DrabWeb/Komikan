@@ -70,7 +70,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     // When we interact with titlebarToggleSortDirectionButton...
     @IBAction func titlebarToggleSortDirectionButtonInteracted(sender: AnyObject) {
         // Resort the grid based on which direction we said to sort it in
-        mangaGridController.sort(mangaGridController.currentSortOrder, ascending: Bool(titlebarToggleSortDirectionButton.state));
+        mangaGridController.arrayController.sortDescriptors = [NSSortDescriptor(key: mangaGridController.arrayController.sortDescriptors[0].key, ascending: Bool(titlebarToggleSortDirectionButton.state))];
     }
     
     // The view controller we will load for the add manga popover

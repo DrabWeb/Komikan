@@ -18,17 +18,23 @@ class KMMangaGridItem: NSObject, NSCoding {
     // The series for the manga, used for sorting
     var series : String = "";
     
+    // The artist for the manga, used for sorting
+    var artist : String = "";
+    
     // The author for the manga, used for sorting
     var writer : String = "";
     
-    // The artist for the manga, used for sorting
-    var artist : String = "";
+    // The group for the manga, used for sorting
+    var group : String = "";
     
     // The percentage the user is done this manga, used for sorting
     var percentFinished : Int = 0;
     
     // Is this manga a favourite? Used for sorting
     var favourite : Bool = false;
+    
+    // Is this manga l-lewd...? Used for sorting
+    var lewd : Bool = false;
     
     /// The alpha amount of the collection item to say how finished this manga you are
     var percentAlpha : CGFloat = 1;
@@ -55,6 +61,12 @@ class KMMangaGridItem: NSObject, NSCoding {
         
         // Set the author to the mangas author
         writer = manga.writer;
+        
+        // Set the group to the mangas group
+        group = manga.group;
+        
+        // Set l-lewd... to if this manga is l-lewd...
+        lewd = manga.lewd;
         
         // Set the percent finished to the mangas percent finished
         percentFinished = manga.percentFinished;

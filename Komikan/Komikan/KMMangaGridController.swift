@@ -477,6 +477,9 @@ class KMMangaGridController: NSObject {
             /// The percent finished search content(If we search for percent finished)
             var percentSearch : String = "";
             
+            /// The thing we want to sort by(If we search for sort)
+            var sortSearch : String = "";
+            
             /// The search string without the possible " on the end
             var cleanedSearchText : String = searchText;
             
@@ -541,6 +544,11 @@ class KMMangaGridController: NSObject {
                         // Set the appropriate variable to the current strings search content
                         percentSearch = currentString.componentsSeparatedByString(":\"").last!;
                         break;
+                    // If its sort...
+                    case "sort", "so":
+                        // Set the appropriate variable to the current strings search content
+                        sortSearch = currentString.componentsSeparatedByString(":\"").last!;
+                        break;
                     // If it is one that we dont have...
                     default:
                         // Print to the log that it didnt match any types we search by
@@ -575,6 +583,9 @@ class KMMangaGridController: NSObject {
             
             /// Did we search by percent finished?
             let searchedByPercent : Bool = (percentSearch != "");
+            
+            /// Did we search for sort?
+            let searchedBySort : Bool = (sortSearch != "");
             
             // For every manga we have...
             for(_, currentItem) in gridItems.enumerate() {
@@ -914,6 +925,12 @@ class KMMangaGridController: NSObject {
                             matchingPercent = true;
                         }
                     }
+                }
+                
+                // If we searched by sort...
+                if(searchedBySort) {
+                    // Sort the manga items by the given key
+                    self.arrayController.sortDescriptors = [NSSortDescriptor(key: sortSearch, ascending: currentSortAscending)];
                 }
                 
                 // If we searched by tags...
