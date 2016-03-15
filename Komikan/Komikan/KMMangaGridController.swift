@@ -483,6 +483,9 @@ class KMMangaGridController: NSObject {
             /// The thing we want to sort by(If we search for sort)
             var sortSearch : String = "";
             
+            /// The l-lewd... search content(If we search by l-lewd...)
+            var lewdSearch : String = "";
+            
             /// The search string without the possible " on the end
             var cleanedSearchText : String = searchText;
             
@@ -552,6 +555,11 @@ class KMMangaGridController: NSObject {
                         // Set the appropriate variable to the current strings search content
                         sortSearch = currentString.componentsSeparatedByString(":\"").last!;
                         break;
+                    // If its l-lewd...
+                    case "lewd", "l":
+                        // Set the appropriate variable to the current strings search content
+                        lewdSearch = currentString.componentsSeparatedByString(":\"").last!;
+                        break;
                     // If it is one that we dont have...
                     default:
                         // Print to the log that it didnt match any types we search by
@@ -590,6 +598,9 @@ class KMMangaGridController: NSObject {
             /// Did we search for sort?
             let searchedBySort : Bool = (sortSearch != "");
             
+            /// Did we search by l-lewd...?
+            let searchedByLewd : Bool = (lewdSearch != "");
+            
             // For every manga we have...
             for(_, currentItem) in gridItems.enumerate() {
                 /// Does this manga overall match the search?
@@ -621,6 +632,9 @@ class KMMangaGridController: NSObject {
                 
                 /// Do we have matching percent finished?
                 var matchingPercent : Bool = false;
+                
+                /// Do we have matching l-lewd...?
+                var matchingLewd : Bool = false;
                 
                 // If we searched by title...
                 if(searchedByTitle) {
@@ -936,6 +950,15 @@ class KMMangaGridController: NSObject {
                     self.arrayController.sortDescriptors = [NSSortDescriptor(key: sortSearch, ascending: currentSortAscending)];
                 }
                 
+                // If we searched by l-lewd...
+                if(searchedByLewd) {
+                    // If the current items l-lewd... value is the same as the l-lewd... value we searched for...
+                    if(currentItem.manga.lewd == lewdSearch.toBool()) {
+                        // Say there is a matching l-lewd... manga
+                        matchingLewd = true;
+                    }
+                }
+                
                 // If we searched by tags...
                 if(searchedByTags) {
                     /// How many matching tags do we have?
@@ -1122,10 +1145,10 @@ class KMMangaGridController: NSObject {
                 }
                 
                 // Example search
-                // title:"v007" series:"Yuru Yuri, -Non Non Biyori" artist:"namori, -atto" writer:"namori, -atto" tags:"school, comedy, -drama" groups:"reading, -dropped" favourites:"yes" read:"yes" percent:"<50"
+                // title:"v007" series:"Yuru Yuri, -Non Non Biyori" artist:"namori, -atto" writer:"namori, -atto" tags:"school, comedy, -drama" groups:"reading, -dropped" favourites:"yes" read:"yes" percent:"<50" lewd:"no"
                 
                 // Or you can use the simplified search term names
-                // t:"v007" s:"Yuru Yuri, -Non Non Biyori" a:"namori, -atto" w:"namori, -atto" tg:"school, comedy, -drama" g:"reading, -dropped" f:"y" r:"y" p:"<50"
+                // t:"v007" s:"Yuru Yuri, -Non Non Biyori" a:"namori, -atto" w:"namori, -atto" tg:"school, comedy, -drama" g:"reading, -dropped" f:"y" r:"y" p:"<50" l:"n"
                 
                 // If we didnt search by title...
                 if(!searchedByTitle) {
@@ -1172,9 +1195,14 @@ class KMMangaGridController: NSObject {
                     // Say the percent finished matched
                     matchingPercent = true;
                 }
+                // If we didnt search by l-lewd...
+                if(!searchedByLewd) {
+                    // Say l-lewd... search matched
+                    matchingLewd = true;
+                }
                 
                 // If everything matched...
-                if(matchingTitle && matchingSeries && matchingArtist && matchingWriter && matchingTags && matchingGroups && matchingFavourites && matchingRead && matchingPercent) {
+                if(matchingTitle && matchingSeries && matchingArtist && matchingWriter && matchingTags && matchingGroups && matchingFavourites && matchingRead && matchingPercent && matchingLewd) {
                     // Say the manga passed, and matches everything
                     matching = true;
                 }
