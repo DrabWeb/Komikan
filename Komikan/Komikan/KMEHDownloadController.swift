@@ -64,6 +64,9 @@ class KMEHDownloadController : NSObject {
         
         // For every item in the download queue...
         for(currentIndex, currentItem) in downloadQueue.enumerate() {
+            // Say we are currently downloading something
+            print("Downloading item: \(currentItem.url)");
+            
             // Create the new notification to tell the user the download has started
             let startedNotification = NSUserNotification();
             
@@ -90,18 +93,23 @@ class KMEHDownloadController : NSObject {
                 downloadFromEH(currentItem);
             }
             
-            // Remove this item from the queue
-            downloadQueue.removeAtIndex(currentIndex);
+            // Remove this item from the queue(Converts to an NSMutableArray first so it can remove objects and not just indexes)
+            let downloadQueueNSArray : NSMutableArray = NSMutableArray(array: downloadQueue);
+            downloadQueueNSArray.removeObject(currentItem);
+            downloadQueue = Array(downloadQueueNSArray) as! [KMEHDownloadItem];
         }
         
         // Say we are no longer downloading the queue items
         currentlyDownloading = false;
         
+        // If download queue is blank...
+        if(downloadQueue.isEmpty) {
+            // Say the queue is empty
+            queueHasMore = false;
+        }
+        
         // If there are more to download...
         if(queueHasMore) {
-            // Set it to false
-            queueHasMore = false;
-            
             // Call this function again
             downloadThread();
         }

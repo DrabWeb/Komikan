@@ -25,7 +25,7 @@ class KMEHViewController: NSViewController {
         self.dismissController(self);
         
         // For every URL in the add from EH text field (Seperated ast each space)...
-        for(_, currentURL) in addFromEHTextField.stringValue.componentsSeparatedByString(" ").enumerate() {
+        for(_, currentURL) in addFromEHTextField.stringValue.componentsSeparatedByString(", ").enumerate() {
             // Add the current URL to the download queue
             (NSApplication.sharedApplication().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: currentURL, useJapaneseTitle: Bool(addFromEHUseJapaneseTitle.state)));
         }
@@ -40,8 +40,8 @@ class KMEHViewController: NSViewController {
         self.dismissController(self);
         
         // http://g.e-hentai.org/g/892676/e442d2c88e/
-        // For every URL in the add from EH text field (Seperated ast each space)...
-        for(_, currentURL) in addFromEHTextField.stringValue.componentsSeparatedByString(" ").enumerate() {
+        // For every URL in the add from EH text field (Seperated at each ", ")...
+        for(_, currentURL) in addFromEHTextField.stringValue.componentsSeparatedByString(", ").enumerate() {
             // Add the current URL to the download queue
             (NSApplication.sharedApplication().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: currentURL, useJapaneseTitle: Bool(addFromEHUseJapaneseTitle.state)));
         }
@@ -59,7 +59,7 @@ class KMEHViewController: NSViewController {
         self.dismissController(self);
         
         // For every URL in the add from EX text field (Seperated ast each space)...
-        for(_, currentURL) in addFromEXTextField.stringValue.componentsSeparatedByString(" ").enumerate() {
+        for(_, currentURL) in addFromEXTextField.stringValue.componentsSeparatedByString(", ").enumerate() {
             // Add the current URL to the download queue
             (NSApplication.sharedApplication().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: currentURL, useJapaneseTitle: Bool(addFromEXUseJapaneseTitle.state), onExHentai: true));
         }
@@ -73,8 +73,8 @@ class KMEHViewController: NSViewController {
         // Dismiss the popover
         self.dismissController(self);
         
-        // For every URL in the add from EX text field (Seperated ast each space)...
-        for(_, currentURL) in addFromEXTextField.stringValue.componentsSeparatedByString(" ").enumerate() {
+        // For every URL in the add from EX text field (Seperated at each ", ")...
+        for(_, currentURL) in addFromEXTextField.stringValue.componentsSeparatedByString(", ").enumerate() {
             // Add the current URL to the download queue
             (NSApplication.sharedApplication().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: currentURL, useJapaneseTitle: Bool(addFromEXUseJapaneseTitle.state), onExHentai: true));
         }
