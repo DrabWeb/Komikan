@@ -222,7 +222,6 @@ class KMEditMangaViewController: NSViewController {
         // Set the artist text field
         artistTokenTextField.stringValue = manga.artist;
         
-        print(manga.writer);
         // Set the writer text field
         writerTokenTextField.stringValue = manga.writer;
         

@@ -27,7 +27,10 @@ INFO=$(curl -H "Content-Type: application/json" \
 	-d "$JSON" \
 	http://g.e-hentai.org/api.php)
 
-# Put the info in ~/Library/Application\ Support/Komikan/newehdata.json
+# Put the info in ~/Library/Application Support/Komikan/newehdata.json
 echo $INFO > ~/Library/Application\ Support/Komikan/newehdata.json
+
+# Download the gallery page to ~/Library/Application Support/Komikan/newehpage.xml
+curl -o ~/Library/Application\ Support/Komikan/newehpage.xml "$1"
 
 # > ~/Library/Application\ Support/Komikan/newehdata.json

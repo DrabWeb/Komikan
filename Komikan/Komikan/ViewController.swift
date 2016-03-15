@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import SWXMLHash
 
 class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     

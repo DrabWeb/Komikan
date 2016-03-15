@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SWXMLHash
 
 // Manages downloading from E-Hentai and ExHentai
 class KMEHDownloadController : NSObject {
@@ -148,15 +149,15 @@ class KMEHDownloadController : NSObject {
         // Resize the cover image to be compressed for faster loading
         item.manga.coverImage = item.manga.coverImage.resizeToHeight(400);
         
-        // Set the mangas tags
+        // Load the tags
         item.manga.tags = (newMangaJson["gmetadata"][0]["tags"].arrayObject as? [String])!;
         
-        // If the tags dont contains non-h...
-        if(!item.manga.tags.contains("non-h")) {
+        // If the manga's category is not Non-H...
+        if(newMangaJson["gmetadata"][0]["category"].stringValue != "Non-H") {
             // Set this manga as l-lewd...
             item.manga.lewd = true;
         }
-        // If the tags do contain non-h...
+            // If the manga's category is Non-H...
         else {
             // Set this manga as not l-lewd...
             item.manga.lewd = false;
@@ -227,20 +228,20 @@ class KMEHDownloadController : NSObject {
         }
         
         // Set the mangas cover image
-        item.manga.coverImage = NSImage(contentsOfURL: NSURL(string: newMangaJson["gmetadata"][0]["thumb"].stringValue)!)!;
+        item.manga.coverImage = NSImage(contentsOfURL: NSURL(fileURLWithPath: NSHomeDirectory() + "/Library/Application Support/Komikan/newehcover.jpg"))!;
         
         // Resize the cover image to be compressed for faster loading
         item.manga.coverImage = item.manga.coverImage.resizeToHeight(400);
         
-        // Set the mangas tags
-        item.manga.tags = (newMangaJson["gmetadata"][0]["tags"].arrayObject as? [String])!;
+        // Load the tags and artist/writer
+        getTagInfoFromEX(NSHomeDirectory() + "/Library/Application Support/Komikan/newehpage.xml", manga: item.manga);
         
-        // If the tags dont contains non-h...
-        if(!item.manga.tags.contains("non-h")) {
+        // If the manga's category is not Non-H...
+        if(newMangaJson["gmetadata"][0]["category"].stringValue != "Non-H") {
             // Set this manga as l-lewd...
             item.manga.lewd = true;
         }
-            // If the tags do contain non-h...
+        // If the manga's category is Non-H...
         else {
             // Set this manga as not l-lewd...
             item.manga.lewd = false;
@@ -278,5 +279,58 @@ class KMEHDownloadController : NSObject {
         
         // Send back the downloaded manga on the main thread
         self.performSelectorOnMainThread(Selector("sendBackToMainThread"), withObject: nil, waitUntilDone: false);
+    }
+    
+    /// Gets the tag info from ExHentai and sets the values accordingly on the passed manga(Like respecting artist namespace)
+    func getTagInfoFromEX(galleryPagePath : String, manga : KMManga) {
+        /// The XML for the manga's EH gallery page's source code
+        let galleryPageXML = SWXMLHash.parse(NSFileManager.defaultManager().contentsAtPath(galleryPagePath)!);
+        
+        // Get the tags and tag namespace
+        do {
+            // For every element in the tag list on the gallery page...
+            for (_, currentElement) in try galleryPageXML["html"]["body"]["div"].withAttr("class", "gm")["div"].withAttr("id", "gmid")["div"].withAttr("id", "gd4")["div"].withAttr("id", "taglist")["table"].children.enumerate() {
+                // The current tag namespace
+                var tagNamespace : String = try currentElement["td"].withAttr("class", "tc").element!.text!;
+                
+                // Remove the : on the end that EH puts
+                tagNamespace = tagNamespace.substringToIndex(tagNamespace.endIndex.predecessor());
+                
+                /// All the tags for this gallery under the current namespace
+                var tagsInNamespace : [String] = [];
+                
+                // For every tag in the current namespace...
+                for(_, currentTag) in currentElement["td"].children.enumerate() {
+                    /// The current tag
+                    var currentTagValue : String = currentTag.element!.attributes.first!.1;
+                    
+                    /// Remove the td_ and : that EH adds
+                    currentTagValue = currentTagValue.stringByReplacingOccurrencesOfString("td_" + tagNamespace + ":", withString: "");
+                    
+                    // Add the current tag to the tags namespace
+                    tagsInNamespace.append(currentTagValue);
+                }
+                
+                // If this is the artist namespace...
+                if(tagNamespace == "artist") {
+                    // Set the manga's artist and author to the artist tag(Capitalized and with spaces instead of underscores)
+                    manga.artist = tagsInNamespace[0].capitalizedString.stringByReplacingOccurrencesOfString("_", withString: " ");
+                    manga.writer = tagsInNamespace[0].capitalizedString.stringByReplacingOccurrencesOfString("_", withString: " ");
+                }
+                // If this is the parody namespace...
+                else if(tagNamespace == "parody") {
+                    // Set the manga's series to the parody tag(Capitalized, with spaces instead of underscores, and with "Parody:" on the front)
+                    manga.series = "Parody: " + tagsInNamespace[0].capitalizedString.stringByReplacingOccurrencesOfString("_", withString: " ");
+                }
+                // If its anything else...
+                else {
+                    // Add the tags to the manga's tags
+                    manga.tags.appendContentsOf(tagsInNamespace);
+                }
+            }
+        }
+        catch _ as NSError {
+            
+        }
     }
 }
