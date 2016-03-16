@@ -122,6 +122,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     /// The File/Show Komikan Folders menu item
     @IBOutlet weak var showKomikanFoldersMenuItem: NSMenuItem!
     
+    /// The Collection/Group View menu item
+    @IBOutlet weak var toggleGroupViewMenuItem: NSMenuItem!
+    
     /// The grid controller for the manga grid
     var mangaGridController : KMMangaGridController = KMMangaGridController();
     

@@ -540,11 +540,13 @@
                                         <menuItem title="Previous Page" keyEquivalent="" id="lL1-EK-QfJ" userLabel="Previous Page">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="4o2-cr-iiv"/>
                                         <menuItem title="Jump to Page" keyEquivalent="J" id="I7g-H0-J3h"/>
                                         <menuItem title="Bookmark" keyEquivalent="B" id="2T2-cT-5ni"/>
                                         <menuItem title="Dual Page" keyEquivalent="d" id="TH4-sc-e7y"/>
                                         <menuItem title="Switch Dual Page Direction" keyEquivalent="D" id="ubh-G8-jVj"/>
                                         <menuItem title="Fit Window to Page" keyEquivalent="1" id="tub-ce-tVP"/>
+                                        <menuItem isSeparatorItem="YES" id="Oau-UH-2qs"/>
                                         <menuItem title="Notes" id="ITI-03-wFZ">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Notes" id="t7T-yA-4N1">
@@ -596,12 +598,18 @@
                                                 <segue destination="6db-5W-dhy" kind="show" id="PcW-4D-aj1"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="u7O-yP-c0S"/>
                                         <menuItem title="Toggle List View" keyEquivalent="t" id="czH-LT-hWx">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                         </menuItem>
+                                        <menuItem title="Group View" keyEquivalent="g" id="nfz-b6-btM">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="FT0-aJ-PoB"/>
                                         <menuItem title="Import..." id="IRf-1b-pUA">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="R67-Qb-oK8"/>
                                         <menuItem title="Manage" id="yga-4c-m1k">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Manage" id="7n6-yn-QTn">
@@ -647,6 +655,7 @@ CA
                                                 <action selector="performZoom:" target="Ady-hI-5gd" id="DIl-cC-cCs"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="hFP-Xf-bAr"/>
                                         <menuItem title="Select Search Field" keyEquivalent="f" id="t6K-n0-BDW"/>
                                         <menuItem title="Select Manga View" keyEquivalent="d" id="ex9-je-LYC"/>
                                         <menuItem isSeparatorItem="YES" id="eu3-7i-yIM"/>
@@ -713,6 +722,7 @@ CA
                         <outlet property="showKomikanFoldersMenuItem" destination="BCU-Pq-L0y" id="GGA-PP-BAv"/>
                         <outlet property="switchDualPageDirectionMenuItem" destination="ubh-G8-jVj" id="UF6-lc-LfP"/>
                         <outlet property="toggleBackgroundDarkenMenuItem" destination="ZbJ-Yy-OIo" id="kCW-1r-qf6"/>
+                        <outlet property="toggleGroupViewMenuItem" destination="nfz-b6-btM" id="OHK-hi-Hpv"/>
                         <outlet property="toggleInfoBarMenuItem" destination="7Zc-hP-7S6" id="lST-ck-asS"/>
                         <outlet property="toggleListViewMenuItem" destination="czH-LT-hWx" id="R7K-CW-paE"/>
                     </connections>
@@ -1970,7 +1980,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="6vR-dx-5nf">
-                                    <rect key="frame" x="465" y="0.0" width="15" height="270"/>
+                                    <rect key="frame" x="464" y="0.0" width="16" height="270"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
@@ -2282,7 +2292,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="140" viewBased="YES" id="SIJ-SQ-EnH" customClass="KMReaderPageJumpTableView" customModule="Komikan" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="405" height="0.0"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="405" height="270"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -2432,7 +2442,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="hKR-Pk-qGD">
-                                            <rect key="frame" x="390" y="0.0" width="15" height="270"/>
+                                            <rect key="frame" x="389" y="0.0" width="16" height="270"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
@@ -2805,6 +2815,32 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
+                                    <scrollView hidden="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3hQ-Tp-5Iu" userLabel="Group Collection View">
+                                        <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
+                                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="xcw-d8-Fqn">
+                                            <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <collectionView selectable="YES" id="7zo-IJ-TUU">
+                                                    <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <color key="primaryBackgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
+                                                    <connections>
+                                                        <binding destination="uCc-VL-cp7" name="content" keyPath="arrangedObjects" id="kAd-Za-Df9"/>
+                                                    </connections>
+                                                </collectionView>
+                                            </subviews>
+                                        </clipView>
+                                        <edgeInsets key="contentInsets" left="0.0" right="0.0" top="37" bottom="0.0"/>
+                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="guD-Hd-ycd">
+                                            <rect key="frame" x="1" y="144" width="233" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </scroller>
+                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="jaG-iJ-fFK">
+                                            <rect key="frame" x="624" y="37" width="16" height="443"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </scroller>
+                                    </scrollView>
                                     <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="wkn-NV-D9G" userLabel="Manga Drop View" customClass="KMMangaDropView" customModule="Komikan" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
                                         <subviews>
@@ -2830,12 +2866,16 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                     <constraint firstItem="i4Y-xX-G2r" firstAttribute="top" secondItem="DI5-9c-AHp" secondAttribute="top" id="Alo-TZ-BVu"/>
                                     <constraint firstItem="pwJ-e1-0oZ" firstAttribute="top" secondItem="DI5-9c-AHp" secondAttribute="top" id="BIe-Kt-bA3"/>
                                     <constraint firstAttribute="trailing" secondItem="wkn-NV-D9G" secondAttribute="trailing" id="C8J-eC-Y9L"/>
+                                    <constraint firstItem="3hQ-Tp-5Iu" firstAttribute="leading" secondItem="DI5-9c-AHp" secondAttribute="leading" id="EcP-U0-ehv"/>
+                                    <constraint firstAttribute="bottom" secondItem="3hQ-Tp-5Iu" secondAttribute="bottom" id="GdZ-A9-MS7"/>
                                     <constraint firstAttribute="bottom" secondItem="pwJ-e1-0oZ" secondAttribute="bottom" id="Wcn-sg-EJ7"/>
                                     <constraint firstAttribute="bottom" secondItem="i4Y-xX-G2r" secondAttribute="bottom" id="XWk-yJ-MDH"/>
+                                    <constraint firstItem="3hQ-Tp-5Iu" firstAttribute="top" secondItem="DI5-9c-AHp" secondAttribute="top" id="YVL-pq-LV2"/>
                                     <constraint firstItem="wkn-NV-D9G" firstAttribute="leading" secondItem="DI5-9c-AHp" secondAttribute="leading" id="eln-vl-YBb"/>
                                     <constraint firstAttribute="trailing" secondItem="i4Y-xX-G2r" secondAttribute="trailing" id="fh9-1c-ooz"/>
                                     <constraint firstAttribute="bottom" secondItem="wkn-NV-D9G" secondAttribute="bottom" id="nGC-uD-5db"/>
                                     <constraint firstAttribute="trailing" secondItem="pwJ-e1-0oZ" secondAttribute="trailing" id="tR9-Ah-feE"/>
+                                    <constraint firstAttribute="trailing" secondItem="3hQ-Tp-5Iu" secondAttribute="trailing" id="tj8-Lj-1Bk"/>
                                 </constraints>
                             </visualEffectView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="bQW-e4-pbA" userLabel="Info Bar Container">
@@ -2974,6 +3014,25 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <action selector="titlebarToggleListViewCheckboxAction:" target="XfG-lQ-9wD" id="bGl-22-nMm"/>
                                         </connections>
                                     </button>
+                                    <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7Qu-LI-sn4" userLabel="Group View Type Segmented Control">
+                                        <rect key="frame" x="184" y="7" width="272" height="23"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="22" id="CTP-el-m8X"/>
+                                            <constraint firstAttribute="width" constant="272" id="jUu-QO-M1m"/>
+                                        </constraints>
+                                        <segmentedCell key="cell" borderStyle="border" alignment="left" style="capsule" trackingMode="selectOne" id="8Z6-eL-D30">
+                                            <font key="font" metaFont="system"/>
+                                            <segments>
+                                                <segment label="Series" selected="YES"/>
+                                                <segment label="Artist"/>
+                                                <segment label="Author"/>
+                                                <segment label="Group"/>
+                                            </segments>
+                                        </segmentedCell>
+                                        <connections>
+                                            <action selector="titlebarGroupViewTypeSelectionSegmentedControlInteracted:" target="XfG-lQ-9wD" id="jHR-hR-Pnl"/>
+                                        </connections>
+                                    </segmentedControl>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="3OY-Ks-0gq" firstAttribute="centerX" secondItem="xeH-9s-Llt" secondAttribute="centerX" constant="-102.5" id="4T6-3Z-j9v"/>
@@ -2986,11 +3045,13 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                     <constraint firstItem="3OY-Ks-0gq" firstAttribute="centerY" secondItem="xeH-9s-Llt" secondAttribute="centerY" id="M4u-Rn-Uzb"/>
                                     <constraint firstItem="foJ-v5-5cU" firstAttribute="top" secondItem="xeH-9s-Llt" secondAttribute="top" id="MnN-p6-GoU"/>
                                     <constraint firstAttribute="bottom" secondItem="y9e-nS-8mf" secondAttribute="bottom" constant="7" id="POM-OE-vCT"/>
+                                    <constraint firstItem="7Qu-LI-sn4" firstAttribute="centerY" secondItem="xeH-9s-Llt" secondAttribute="centerY" id="SXO-mj-5eF"/>
                                     <constraint firstItem="QhM-D5-BGg" firstAttribute="top" secondItem="xeH-9s-Llt" secondAttribute="top" constant="8" id="Ui1-Yu-246"/>
                                     <constraint firstItem="foJ-v5-5cU" firstAttribute="leading" secondItem="xeH-9s-Llt" secondAttribute="leading" id="Y5P-vD-0Uz"/>
                                     <constraint firstItem="CDI-VA-JTT" firstAttribute="top" secondItem="xeH-9s-Llt" secondAttribute="top" constant="6" id="ZhV-D9-DFZ"/>
                                     <constraint firstAttribute="bottom" secondItem="foJ-v5-5cU" secondAttribute="bottom" id="hYe-nB-znB"/>
                                     <constraint firstItem="y9e-nS-8mf" firstAttribute="top" secondItem="xeH-9s-Llt" secondAttribute="top" constant="7" id="p4P-qb-cdz"/>
+                                    <constraint firstItem="7Qu-LI-sn4" firstAttribute="centerX" secondItem="xeH-9s-Llt" secondAttribute="centerX" id="rwv-Z1-DJt"/>
                                     <constraint firstAttribute="trailing" secondItem="foJ-v5-5cU" secondAttribute="trailing" id="sYe-7l-HHp"/>
                                     <constraint firstAttribute="bottom" secondItem="QhM-D5-BGg" secondAttribute="bottom" id="xez-YZ-833"/>
                                 </constraints>
@@ -3011,6 +3072,8 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                     </view>
                     <connections>
                         <outlet property="backgroundVisualEffectView" destination="DI5-9c-AHp" id="0Ki-1K-xDE"/>
+                        <outlet property="groupCollectionView" destination="7zo-IJ-TUU" id="qDV-Wl-4tI"/>
+                        <outlet property="groupCollectionViewScrollView" destination="3hQ-Tp-5Iu" id="ngk-bK-qeO"/>
                         <outlet property="infoBarContainer" destination="bQW-e4-pbA" id="I4T-Wo-rIZ"/>
                         <outlet property="infoBarGridSizeSlider" destination="092-7G-vuf" id="Ywh-4C-dy6"/>
                         <outlet property="infoBarMangaCountLabel" destination="uUd-gx-Gsh" id="0ZT-hP-80G"/>
@@ -3019,11 +3082,13 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                         <outlet property="mangaCollectionViewArray" destination="fTr-R0-e41" id="cr6-k6-HyI"/>
                         <outlet property="mangaCollectionViewScrollView" destination="pwJ-e1-0oZ" id="16K-B2-H3u"/>
                         <outlet property="mangaGridController" destination="rwH-XF-ldC" id="xkS-7x-lUZ"/>
+                        <outlet property="mangaGroupController" destination="k2i-RO-cUP" id="MaH-eX-1BC"/>
                         <outlet property="mangaListController" destination="gzN-fB-jIt" id="i3e-Z1-epX"/>
                         <outlet property="mangaTableView" destination="T0V-x6-IZf" id="NbS-lp-uin"/>
                         <outlet property="mangaTableViewScrollView" destination="i4Y-xX-G2r" id="709-WE-itq"/>
                         <outlet property="thumbnailImageHoverController" destination="zuh-61-Wft" id="Kam-QA-lZl"/>
                         <outlet property="titlebarAddMangaButton" destination="CDI-VA-JTT" id="t7c-FZ-zu0"/>
+                        <outlet property="titlebarGroupViewTypeSelectionSegmentedControl" destination="7Qu-LI-sn4" id="c6Z-Fa-mrk"/>
                         <outlet property="titlebarSearchField" destination="y9e-nS-8mf" id="av4-HI-6jY"/>
                         <outlet property="titlebarSortingTabView" destination="QhM-D5-BGg" id="8hF-kC-siy"/>
                         <outlet property="titlebarTabView" destination="QhM-D5-BGg" id="WYX-TG-gTS"/>
@@ -3061,6 +3126,21 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                     </connections>
                 </customObject>
                 <customObject id="zuh-61-Wft" customClass="KMThumbnailImageHoverController" customModule="Komikan" customModuleProvider="target"/>
+                <customObject id="k2i-RO-cUP" userLabel="Manga Group Controller" customClass="KMMangaGroupController" customModule="Komikan" customModuleProvider="target">
+                    <connections>
+                        <outlet property="arrayController" destination="uCc-VL-cp7" id="3Ti-d6-Guc"/>
+                        <outlet property="mangaGridController" destination="rwH-XF-ldC" id="cY1-TT-bNd"/>
+                    </connections>
+                </customObject>
+                <arrayController objectClassName="KMMangaGroupItem" id="uCc-VL-cp7" userLabel="Manga Group Array Controller">
+                    <declaredKeys>
+                        <string>groupImage</string>
+                        <string>groupName</string>
+                    </declaredKeys>
+                    <connections>
+                        <binding destination="k2i-RO-cUP" name="contentArray" keyPath="groups" id="eMa-NV-lga"/>
+                    </connections>
+                </arrayController>
             </objects>
             <point key="canvasLocation" x="81" y="912"/>
         </scene>
@@ -3542,7 +3622,7 @@ AwEVARgBHQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAEfA
                 <customObject id="ZWb-wE-cKj" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <userDefaultsController representsSharedInstance="YES" id="Yvt-Ka-dIZ"/>
             </objects>
-            <point key="canvasLocation" x="765" y="912"/>
+            <point key="canvasLocation" x="765" y="1045"/>
         </scene>
         <!--Edit Manga View Controller-->
         <scene sceneID="Arb-Pv-ITN">
@@ -3839,6 +3919,95 @@ AwEVARgBHQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAEfA
                 <customObject id="1cK-9I-x0J" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="638" y="1480"/>
+        </scene>
+        <!--Group Collection View Item-->
+        <scene sceneID="jrv-oz-RC4">
+            <objects>
+                <collectionViewItem storyboardIdentifier="groupCollectionViewItem" id="xib-tj-ZNU" userLabel="Group Collection View Item" customClass="KMMangaGroupCollectionItem" customModule="Komikan" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="qRB-Wu-X4g">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="5fx-Zh-SsJ" userLabel="Selection Box" customClass="KMMangaGridSelectionBox" customModule="Komikan" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                                <connections>
+                                    <binding destination="xib-tj-ZNU" name="hidden" keyPath="self.selected" id="mTa-vJ-XHI">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </customView>
+                            <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r5d-79-KwU" userLabel="CoreGraphics Container">
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NPe-Mb-Oob" userLabel="Group Name">
+                                        <rect key="frame" x="10" y="12" width="280" height="17"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="17" id="TGz-Bp-k2X"/>
+                                        </constraints>
+                                        <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="vxa-Wj-Ds6">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="0.94999999999999996" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="0.48033759999999998" green="0.65488994720000004" blue="0.80000000000000004" alpha="0.5" colorSpace="deviceRGB"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="xib-tj-ZNU" name="value" keyPath="representedObject.groupName" id="32u-T5-kwX"/>
+                                        </connections>
+                                    </textField>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="14X-C1-vwk" userLabel="Group Image" customClass="KMRasterizedImageView" customModule="Komikan" customModuleProvider="target">
+                                        <rect key="frame" x="12" y="41" width="276" height="247"/>
+                                        <shadow key="shadow" blurRadius="10">
+                                            <size key="offset" width="0.0" height="-10"/>
+                                            <color key="color" white="0.0" alpha="0.39810096150000002" colorSpace="calibratedWhite"/>
+                                        </shadow>
+                                        <animations>
+                                            <caTransition key="subviews">
+                                                <mutableData key="keyedArchiveRepresentation">
+YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKkHCBES
+EwsKGR9VJG51bGzUCQoLDA0ODxBWJGNsYXNzVHR5cGVXc3VidHlwZV8QEl9fQ0FDb2RpbmdDb250ZW50
+c4AIgAOAAoAEV2Zyb21Ub3BUcHVzaNIUCRUYWk5TLm9iamVjdHOiFheABYAGgAfSGhscHVokY2xhc3Nu
+YW1lWCRjbGFzc2VzV05TQXJyYXmiHB5YTlNPYmplY3TSGhsgIVxDQVRyYW5zaXRpb26jIiMeXENBVHJh
+bnNpdGlvbltDQUFuaW1hdGlvbl8QD05TS2V5ZWRBcmNoaXZlctEmJ1Ryb290gAEACAARABoAIwAtADIA
+NwBBAEcAUABXAFwAZAB5AHsAfQB/AIEAiQCOAJMAngChAKMApQCnAKwAtwDAAMgAywDUANkA5gDqAPcB
+AwEVARgBHQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAEfA
+</mutableData>
+                                            </caTransition>
+                                        </animations>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSFlowViewTemplate" id="sxe-Bv-pD3"/>
+                                        <connections>
+                                            <binding destination="xib-tj-ZNU" name="value" keyPath="representedObject.groupImage" id="gFG-ge-yMf"/>
+                                        </connections>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="14X-C1-vwk" secondAttribute="trailing" constant="12" id="Bq1-Ug-pfy"/>
+                                    <constraint firstAttribute="bottom" secondItem="NPe-Mb-Oob" secondAttribute="bottom" constant="12" id="CbZ-na-X5z"/>
+                                    <constraint firstItem="NPe-Mb-Oob" firstAttribute="top" secondItem="14X-C1-vwk" secondAttribute="bottom" constant="12" id="IpN-p3-z2O"/>
+                                    <constraint firstItem="NPe-Mb-Oob" firstAttribute="top" secondItem="14X-C1-vwk" secondAttribute="bottom" constant="12" id="dWQ-I0-DJ6"/>
+                                    <constraint firstItem="NPe-Mb-Oob" firstAttribute="leading" secondItem="r5d-79-KwU" secondAttribute="leading" constant="12" id="fAb-Me-fYx"/>
+                                    <constraint firstAttribute="trailing" secondItem="NPe-Mb-Oob" secondAttribute="trailing" constant="12" id="lGp-ol-yuU"/>
+                                    <constraint firstItem="14X-C1-vwk" firstAttribute="top" secondItem="r5d-79-KwU" secondAttribute="top" constant="12" id="sYC-pg-hRs"/>
+                                    <constraint firstItem="14X-C1-vwk" firstAttribute="leading" secondItem="r5d-79-KwU" secondAttribute="leading" constant="12" id="zAs-iD-FUC"/>
+                                </constraints>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="r5d-79-KwU" secondAttribute="bottom" id="P31-OF-cf3"/>
+                            <constraint firstAttribute="bottom" secondItem="5fx-Zh-SsJ" secondAttribute="bottom" id="bMT-cJ-cW9"/>
+                            <constraint firstItem="5fx-Zh-SsJ" firstAttribute="top" secondItem="qRB-Wu-X4g" secondAttribute="top" id="fFn-eX-mRi"/>
+                            <constraint firstItem="r5d-79-KwU" firstAttribute="top" secondItem="qRB-Wu-X4g" secondAttribute="top" id="jA0-Ti-sc9"/>
+                            <constraint firstAttribute="trailing" secondItem="r5d-79-KwU" secondAttribute="trailing" id="mAK-Sx-ZyM"/>
+                            <constraint firstItem="5fx-Zh-SsJ" firstAttribute="leading" secondItem="qRB-Wu-X4g" secondAttribute="leading" id="pY3-XC-1hA"/>
+                            <constraint firstAttribute="trailing" secondItem="5fx-Zh-SsJ" secondAttribute="trailing" id="qIF-wW-cY8"/>
+                            <constraint firstItem="r5d-79-KwU" firstAttribute="leading" secondItem="qRB-Wu-X4g" secondAttribute="leading" id="wO1-d7-b2B"/>
+                        </constraints>
+                    </view>
+                </collectionViewItem>
+                <customObject id="dQB-je-gmC" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <userDefaultsController id="bOY-Iy-KQm"/>
+            </objects>
+            <point key="canvasLocation" x="765" y="683"/>
         </scene>
     </scenes>
     <resources>

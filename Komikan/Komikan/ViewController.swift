@@ -38,6 +38,15 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     // The array controller for the manga collection view
     @IBOutlet var mangaCollectionViewArray: NSArrayController!
     
+    /// The scroll view for groupCollectionView
+    @IBOutlet var groupCollectionViewScrollView: NSScrollView!
+    
+    /// The collection view for showing manga in their groups(Series, Artist, Writer, ETC.)
+    @IBOutlet var groupCollectionView: NSCollectionView!
+    
+    /// The controller for the manga groups(groupCollectionView)
+    @IBOutlet var mangaGroupController: KMMangaGroupController!
+    
     // The grid controller for the manga grid
     @IBOutlet var mangaGridController: KMMangaGridController!
     
@@ -119,6 +128,15 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         toggleView();
     }
     
+    /// The button group for saying how the group view items should group
+    @IBOutlet var titlebarGroupViewTypeSelectionSegmentedControl: NSSegmentedControl!
+    
+    /// When we interact with titlebarGroupViewTypeSelectionSegmentedControl...
+    @IBAction func titlebarGroupViewTypeSelectionSegmentedControlInteracted(sender: AnyObject) {
+        // Update the group view to show the now selected group type
+        updateGroupViewToSegmentedControl();
+    }
+    
     // Called when we hit "Add" in the addmanga popover
     func addMangaFromAddMangaPopover(notification: NSNotification) {
         // Print to the log that we are adding from the add popover
@@ -187,8 +205,15 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // Set the collections views item prototype to the collection view item we created in Main.storyboard
         mangaCollectionView.itemPrototype = storyboard?.instantiateControllerWithIdentifier("mangaCollectionViewItem") as? NSCollectionViewItem;
         
+        // Set the group collection view's item prototype
+        groupCollectionView.itemPrototype = storyboard?.instantiateControllerWithIdentifier("groupCollectionViewItem") as? NSCollectionViewItem;
+        
         // Set the max item size
         mangaCollectionView.maxItemSize = NSSize(width: 300, height: 300);
+        
+        // Set the max and min item sizes for the group view
+        groupCollectionView.maxItemSize = NSSize(width: 300, height: 300);
+        groupCollectionView.minItemSize = NSSize(width: 200, height: 200);
         
         // Set the addFromEHMenuItem menu items action
         (NSApplication.sharedApplication().delegate as! AppDelegate).addFromEHMenuItem.action = Selector("showAddFromEHPopover");
@@ -245,6 +270,9 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.hideKomikanFoldersMenuItem.action = Selector("hideKomikanMetadataFolders");
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.showKomikanFoldersMenuItem.action = Selector("showKomikanMetadataFolders");
         
+        // Set the toggle group view menubar items action
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.toggleGroupViewMenuItem.action = Selector("toggleGroupView");
+        
         // Start a 0.1 second loop that will fix the windows look in fullscreen
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("deleteTitlebarInFullscreen"), userInfo: nil, repeats:true);
         
@@ -271,6 +299,10 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         
         // Set the main windows delegate to this
         window.delegate = self;
+        
+        // Hide titlebarGroupViewTypeSelectionSegmentedControl
+        titlebarGroupViewTypeSelectionSegmentedControl.enabled = false;
+        titlebarGroupViewTypeSelectionSegmentedControl.alphaValue = 0;
         
         // Sort the manga grid by the tab view item we have selected at start
         // If the tab view item we have selected is the Title sort one...
@@ -329,6 +361,158 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             // Reload the manga table so it gets updated when items change
             mangaListController.mangaListTableView.reloadData();
         }
+    }
+    
+    /// Updates the group view to match the selected cell in titlebarGroupViewTypeSelectionSegmentedControl
+    func updateGroupViewToSegmentedControl() {
+        // Switch on the selected segment, no comments
+        switch(titlebarGroupViewTypeSelectionSegmentedControl.selectedSegment) {
+            case 0:
+                mangaGroupController.showGroupType(.Series);
+                break;
+            case 1:
+                mangaGroupController.showGroupType(.Artist);
+                break;
+            case 2:
+                mangaGroupController.showGroupType(.Writer);
+                break;
+            case 3:
+                mangaGroupController.showGroupType(.Group);
+                break;
+            default:
+                mangaGroupController.showGroupType(.Series);
+                break;
+        }
+    }
+    
+    /// Is the group view open?
+    var groupViewOpen : Bool = false;
+    
+    /// Is this the first time we have opened the group view?
+    var firstGroupViewOpen : Bool = true;
+    
+    /// Toggles if the group view is open
+    func toggleGroupView() {
+        // Toggle groupViewOpen
+        groupViewOpen = !groupViewOpen;
+        
+        // If the group view should now be open...
+        if(groupViewOpen) {
+            // Show the group
+            showGroupView();
+        }
+            // If the group view should now be closed...
+        else {
+            // Hide the group view
+            hideGroupView();
+        }
+    }
+    
+    /// Shows the group view
+    func showGroupView() {
+        // Say the group view is open
+        groupViewOpen = true;
+        
+        // If this is the first time opening the group view...
+        if(firstGroupViewOpen) {
+            // Update the group view to match the selected item in the segmented control
+            updateGroupViewToSegmentedControl();
+            
+            // Say that every open after this one is not the first open
+            firstGroupViewOpen = false;
+        }
+        
+        // Show the group view
+        groupCollectionViewScrollView.hidden = false;
+        
+        // Select the group view
+        self.window.makeFirstResponder(groupCollectionViewScrollView);
+        
+        // If we are in list view...
+        if(inListView) {
+            // Hide the list view
+            mangaTableViewScrollView.hidden = true;
+            
+            // Hide any possible hover thumbnails
+            thumbnailImageHoverController.hide();
+        }
+        // If we are in grid view...
+        else {
+            // Hide the grid view
+            mangaCollectionViewScrollView.hidden = true;
+        }
+        
+        // Disable the toggle view menu item
+        (NSApplication.sharedApplication().delegate as! AppDelegate).toggleListViewMenuItem.enabled = false;
+        
+        // Fade out the search field
+        titlebarSearchField.animator().alphaValue = 0;
+        
+        // Fade out the toggle view button
+        titlebarToggleListViewCheckbox.animator().alphaValue = 0;
+        
+        // Fade out the add button
+        titlebarAddMangaButton.animator().alphaValue = 0;
+        
+        // If we arent in grid view...
+        if(!inListView) {
+            // Fade out the manga grid only titlebar items
+            titlebarSortingTabView.animator().alphaValue = 0;
+            titlebarToggleSortDirectionButton.animator().alphaValue = 0;
+        }
+        
+        // Fade in titlebarGroupViewTypeSelectionSegmentedControl
+        titlebarGroupViewTypeSelectionSegmentedControl.enabled = true;
+        titlebarGroupViewTypeSelectionSegmentedControl.animator().alphaValue = 1;
+    }
+    
+    /// Hides the group view
+    func hideGroupView() {
+        // Say the group view is closed
+        groupViewOpen = false;
+        
+        // Hide the group view
+        groupCollectionViewScrollView.hidden = true;
+        
+        // If we are in list view...
+        if(inListView) {
+            // Show the list view
+            mangaTableViewScrollView.hidden = false;
+            
+            // Select the list view
+            self.window.makeFirstResponder(mangaTableView);
+        }
+        // If we are in grid view...
+        else {
+            // Show the grid view
+            mangaCollectionViewScrollView.hidden = false;
+            
+            // Select the grid view
+            self.window.makeFirstResponder(mangaCollectionView);
+        }
+        
+        // Enable the toggle view menu item
+        (NSApplication.sharedApplication().delegate as! AppDelegate).toggleListViewMenuItem.enabled = true;
+        
+        // Fade in the search field
+        titlebarSearchField.animator().alphaValue = 1;
+        
+        // Fade in the toggle view button
+        titlebarToggleListViewCheckbox.animator().alphaValue = 1;
+        
+        // Fade in the add button
+        titlebarAddMangaButton.animator().alphaValue = 1;
+        
+        // If we arent in grid view...
+        if(!inListView) {
+            // Fade in the manga grid only titlebar items
+            titlebarSortingTabView.animator().alphaValue = 1;
+            titlebarToggleSortDirectionButton.animator().alphaValue = 1;
+        }
+        
+        // Fade out titlebarGroupViewTypeSelectionSegmentedControl
+        titlebarGroupViewTypeSelectionSegmentedControl.enabled = false;
+        titlebarGroupViewTypeSelectionSegmentedControl.animator().alphaValue = 0;
     }
     
     /// Asks the user for a folder, then hides all the Komikan metadata folders in that folder and it's subfolders

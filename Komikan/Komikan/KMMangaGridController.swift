@@ -415,6 +415,7 @@ class KMMangaGridController: NSObject {
     // A bool to say if we are currently searching
     var searching : Bool = false;
     
+    /// The last entered search text
     var lastSearchText : String = "";
     
     // Stores all the items that match the search
