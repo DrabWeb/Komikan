@@ -412,6 +412,166 @@ class KMMangaGridController: NSObject {
         return groups.occurenceCountOf(group);
     }
     
+    /// Returns a random cover image from all the manga in the given series
+    func firstCoverImageForSeries(series : String) -> NSImage {
+        /// All the manga in the given series
+        var matchingManga : [KMManga] = [];
+        
+        // For every item in the grid items...
+        for(_, currentGridItem) in gridItems.enumerate() {
+            // If the current item's manga's series isnt blank and the series matches...
+            if(currentGridItem.manga.series != "" && currentGridItem.manga.series == series) {
+                // If we arent in l-lewd... mode and this manga is lewd...
+                if(!showingLewdManga && currentGridItem.manga.lewd) {
+                    // Do nothing
+                }
+                else {
+                    // Add this manga to the list of matching manga
+                    matchingManga.append(currentGridItem.manga);
+                }
+            }
+        }
+        
+        // If the matching manga isnt blank...
+        if(!matchingManga.isEmpty) {
+            // Return a random manga in the matchingManga array's cover image
+            return matchingManga[Int(arc4random_uniform(UInt32(matchingManga.count)))].coverImage;
+        }
+        // If the matching manga is blank...
+        else {
+            // Return a caution
+            return NSImage(named: "NSCaution")!;
+        }
+    }
+    
+    /// Returns a random cover image from all the manga by the given artist
+    func firstCoverImageForArtist(artist : String) -> NSImage {
+        /// All the manga in the given series
+        var matchingManga : [KMManga] = [];
+        
+        // For every item in the grid items...
+        for(_, currentGridItem) in gridItems.enumerate() {
+            // If the current item's manga's artist isnt blank and the artist matches...
+            if(currentGridItem.manga.artist != "" && currentGridItem.manga.artist == artist) {
+                // If we arent in l-lewd... mode and this manga is lewd...
+                if(!showingLewdManga && currentGridItem.manga.lewd) {
+                    // Do nothing
+                }
+                else {
+                    // Add this manga to the list of matching manga
+                    matchingManga.append(currentGridItem.manga);
+                }
+            }
+        }
+        
+        // If the matching manga isnt blank...
+        if(!matchingManga.isEmpty) {
+            // Return a random manga in the matchingManga array's cover image
+            return matchingManga[Int(arc4random_uniform(UInt32(matchingManga.count)))].coverImage;
+        }
+        // If the matching manga is blank...
+        else {
+            // Return a caution 
+            return NSImage(named: "NSCaution")!;
+        }
+    }
+    
+    /// Returns a random cover image from all the manga by the given author
+    func firstCoverImageForWriter(writer : String) -> NSImage {
+        /// All the manga in the given series
+        var matchingManga : [KMManga] = [];
+        
+        // For every item in the grid items...
+        for(_, currentGridItem) in gridItems.enumerate() {
+            // If the current item's manga's author isnt blank and the author matches...
+            if(currentGridItem.manga.artist != "" && currentGridItem.manga.writer == writer) {
+                // If we arent in l-lewd... mode and this manga is lewd...
+                if(!showingLewdManga && currentGridItem.manga.lewd) {
+                    // Do nothing
+                }
+                else {
+                    // Add this manga to the list of matching manga
+                    matchingManga.append(currentGridItem.manga);
+                }
+            }
+        }
+        
+        // If the matching manga isnt blank...
+        if(!matchingManga.isEmpty) {
+            // Return a random manga in the matchingManga array's cover image
+            return matchingManga[Int(arc4random_uniform(UInt32(matchingManga.count)))].coverImage;
+        }
+        // If the matching manga is blank...
+        else {
+            // Return a caution
+            return NSImage(named: "NSCaution")!;
+        }
+    }
+    
+    /// Returns a random cover image from all the manga that have the given tag
+    func firstCoverImageForTag(tag : String) -> NSImage {
+        /// All the manga in the given series
+        var matchingManga : [KMManga] = [];
+        
+        // For every item in the grid items...
+        for(_, currentGridItem) in gridItems.enumerate() {
+            // If the current item's manga's tags contains the given tag...
+            if(currentGridItem.manga.tags.contains(tag)) {
+                // If we arent in l-lewd... mode and this manga is lewd...
+                if(!showingLewdManga && currentGridItem.manga.lewd) {
+                    // Do nothing
+                }
+                else {
+                    // Add this manga to the list of matching manga
+                    matchingManga.append(currentGridItem.manga);
+                }
+            }
+        }
+        
+        // If the matching manga isnt blank...
+        if(!matchingManga.isEmpty) {
+            // Return a random manga in the matchingManga array's cover image
+            return matchingManga[Int(arc4random_uniform(UInt32(matchingManga.count)))].coverImage;
+        }
+        // If the matching manga is blank...
+        else {
+            // Return a caution
+            return NSImage(named: "NSCaution")!;
+        }
+    }
+    
+    /// Returns a random cover image from all the manga in the given group
+    func firstCoverImageForGroup(group : String) -> NSImage {
+        /// All the manga in the given series
+        var matchingManga : [KMManga] = [];
+        
+        // For every item in the grid items...
+        for(_, currentGridItem) in gridItems.enumerate() {
+            // If the current item's manga's group isnt blank and the group matches...
+            if(currentGridItem.manga.group != "" && currentGridItem.manga.group == group) {
+                // If we arent in l-lewd... mode and this manga is lewd...
+                if(!showingLewdManga && currentGridItem.manga.lewd) {
+                    // Do nothing
+                }
+                else {
+                    // Add this manga to the list of matching manga
+                    matchingManga.append(currentGridItem.manga);
+                }
+            }
+        }
+        
+        // If the matching manga isnt blank...
+        if(!matchingManga.isEmpty) {
+            // Return a random manga in the matchingManga array's cover image
+            return matchingManga[Int(arc4random_uniform(UInt32(matchingManga.count)))].coverImage;
+        }
+        // If the matching manga is blank...
+        else {
+            // Return a caution
+            return NSImage(named: "NSCaution")!;
+        }
+    }
+    
     // A bool to say if we are currently searching
     var searching : Bool = false;
     
@@ -684,16 +844,16 @@ class KMMangaGridController: NSObject {
                         
                         // If this is an exclusion search...
                         if(exclusionSearch) {
-                            // If this manga's series contains the current series search...
-                            if(currentItem.manga.series.lowercaseString.containsString(currentSeriesSearchWithoutPossibleMinus)) {
+                            // If this manga's series equals the current series search...
+                            if(currentItem.manga.series.lowercaseString == currentSeriesSearchWithoutPossibleMinus) {
                                 // Say we matched exclusion series
                                 matchedExclusionSeries = true;
                             }
                         }
                         // If this wasnt an exclusion search...
                         else {
-                            // If this manga's series contains the current series search...
-                            if(currentItem.manga.series.lowercaseString.containsString(currentSeriesSearchWithoutPossibleMinus)) {
+                            // If this manga's series equals the current series search...
+                            if(currentItem.manga.series.lowercaseString == currentSeriesSearchWithoutPossibleMinus) {
                                 // Say we matched series
                                 matchedSeries = true;
                             }
@@ -760,16 +920,16 @@ class KMMangaGridController: NSObject {
                         
                         // If this is an exclusion search...
                         if(exclusionSearch) {
-                            // If this manga's artist contains the current artist search...
-                            if(currentItem.manga.artist.lowercaseString.containsString(currentArtistSearchWithoutPossibleMinus)) {
+                            // If this manga's artist equals the current artist search...
+                            if(currentItem.manga.artist.lowercaseString == currentArtistSearchWithoutPossibleMinus) {
                                 // Say we matched exclusion artists
                                 matchedExclusionArtist = true;
                             }
                         }
                         // If this wasnt an exclusion search...
                         else {
-                            // If this manga's artist contains the current artist search...
-                            if(currentItem.manga.artist.lowercaseString.containsString(currentArtistSearchWithoutPossibleMinus)) {
+                            // If this manga's artist equals the current artist search...
+                            if(currentItem.manga.artist.lowercaseString == currentArtistSearchWithoutPossibleMinus) {
                                 // Say we matched artists
                                 matchedArtist = true;
                             }
@@ -836,16 +996,16 @@ class KMMangaGridController: NSObject {
                         
                         // If this is an exclusion search...
                         if(exclusionSearch) {
-                            // If this manga's author contains the current author search...
-                            if(currentItem.manga.writer.lowercaseString.containsString(currentWriterSearchWithoutPossibleMinus)) {
+                            // If this manga's author equals the current author search...
+                            if(currentItem.manga.writer.lowercaseString == currentWriterSearchWithoutPossibleMinus) {
                                 // Say we matched exclusion author
                                 matchedExclusionWriter = true;
                             }
                         }
                         // If this wasnt an exclusion search...
                         else {
-                            // If this manga's author contains the current author search...
-                            if(currentItem.manga.writer.lowercaseString.containsString(currentWriterSearchWithoutPossibleMinus)) {
+                            // If this manga's author equals the current author search...
+                            if(currentItem.manga.writer.lowercaseString == currentWriterSearchWithoutPossibleMinus) {
                                 // Say we matched authors
                                 matchedWriter = true;
                             }
@@ -1124,7 +1284,7 @@ class KMMangaGridController: NSObject {
                         }
                         // If we are searching for more than just exclusion groups...
                         else {
-                            if(currentItem.manga.group.lowercaseString.containsString(searchGroupWithoutPossibleMinus)) {
+                            if(currentItem.manga.group.lowercaseString == searchGroupWithoutPossibleMinus) {
                                 // If the current search tag is an exclusion search tag...
                                 if(searchGroupIsExclusion) {
                                     // Say we dont matching tags

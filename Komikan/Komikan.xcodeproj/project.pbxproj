@@ -28,6 +28,7 @@
 		5D586D251C99AEA00045254D /* KMMangaGroupItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D586D241C99AEA00045254D /* KMMangaGroupItem.swift */; };
 		5D586D271C99AEB40045254D /* KMMangaGroupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D586D261C99AEB40045254D /* KMMangaGroupController.swift */; };
 		5D586D291C99B58F0045254D /* KMMangaGroupCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D586D281C99B58F0045254D /* KMMangaGroupCollectionItem.swift */; };
+		5D586D2A1C99D7DA0045254D /* KMMangaGridController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBEFB1C358BE0004D8C5D /* KMMangaGridController.swift */; };
 		5D5DBECF1C3584F5004D8C5D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBECE1C3584F5004D8C5D /* AppDelegate.swift */; };
 		5D5DBED11C3584F5004D8C5D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DBED01C3584F5004D8C5D /* ViewController.swift */; };
 		5D5DBED31C3584F5004D8C5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D5DBED21C3584F5004D8C5D /* Assets.xcassets */; };
@@ -818,6 +819,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D586D2A1C99D7DA0045254D /* KMMangaGridController.swift in Sources */,
 				5D5DBEEC1C3584F5004D8C5D /* KomikanUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

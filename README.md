@@ -32,6 +32,7 @@ Requires at least OSX 10.10 Yosemite. Tested on OSX 10.11 El Capitan
 > * Never moves or deletes your original Manga files
 > * Sorting by Title, Series and Artist, Group and more
 > * Put your Manga into groups
+> * Group view to see your individual Series, Artists, Authors and Groups
 > * Drag and Drop import
 > * Easy collection moving between computers/reinstalls
 > * See how much percent you are done a Manga

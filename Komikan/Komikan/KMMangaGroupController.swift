@@ -31,7 +31,7 @@ class KMMangaGroupController: NSObject {
                 let countOfSeries : String = "(" + String(mangaGridController.countOfSeries(currentSeries)) + ")";
                 
                 // Add the new series group with the series' name and the count of that series, with the series group type
-                arrayController.addObject(KMMangaGroupItem(groupImage: NSImage(named: "DrabWeb")!, groupName: currentSeries, groupType: .Series, countLabel: countOfSeries));
+                arrayController.addObject(KMMangaGroupItem(groupImage: mangaGridController.firstCoverImageForSeries(currentSeries), groupName: currentSeries, groupType: .Series, countLabel: countOfSeries));
             }
         }
         // If the group type is Artist...
@@ -42,7 +42,7 @@ class KMMangaGroupController: NSObject {
                 let countOfArtist : String = "(" + String(mangaGridController.countOfArtist(currentArtist)) + ")";
                 
                 // Add the new artist group with the artist's name and the count of that artist, with the artist group type
-                arrayController.addObject(KMMangaGroupItem(groupImage: NSImage(named: "DrabWeb")!, groupName: currentArtist, groupType: .Artist, countLabel: countOfArtist));
+                arrayController.addObject(KMMangaGroupItem(groupImage: mangaGridController.firstCoverImageForArtist(currentArtist), groupName: currentArtist, groupType: .Artist, countLabel: countOfArtist));
             }
         }
         // If the group type is Writer...
@@ -53,7 +53,7 @@ class KMMangaGroupController: NSObject {
                 let countOfWriter : String = "(" + String(mangaGridController.countOfWriter(currentWriter)) + ")";
                 
                 // Add the new author group with the author's name and the count of that author, with the author group type
-                arrayController.addObject(KMMangaGroupItem(groupImage: NSImage(named: "DrabWeb")!, groupName: currentWriter, groupType: .Writer, countLabel: countOfWriter));
+                arrayController.addObject(KMMangaGroupItem(groupImage: mangaGridController.firstCoverImageForWriter(currentWriter), groupName: currentWriter, groupType: .Writer, countLabel: countOfWriter));
             }
         }
         // If the group type is Group...
@@ -64,7 +64,7 @@ class KMMangaGroupController: NSObject {
                 let countOfGroup : String = "(" + String(mangaGridController.countOfGroup(currentGroup)) + ")";
                 
                 // Add the new group group with the group's name and the count of that group, with the group group type
-                arrayController.addObject(KMMangaGroupItem(groupImage: NSImage(named: "DrabWeb")!, groupName: currentGroup, groupType: .Group, countLabel: countOfGroup));
+                arrayController.addObject(KMMangaGroupItem(groupImage: mangaGridController.firstCoverImageForGroup(currentGroup), groupName: currentGroup, groupType: .Group, countLabel: countOfGroup));
             }
         }
     }
