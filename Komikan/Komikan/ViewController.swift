@@ -282,6 +282,9 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // Set the AppDelegate's search text field
         (NSApplication.sharedApplication().delegate as! AppDelegate).searchTextField = titlebarSearchField;
         
+        // Set the AppDelegate's main view controller
+        (NSApplication.sharedApplication().delegate as! AppDelegate).mainViewController = self;
+        
         // Set the titlebar tab views delegate to self
         titlebarTabView.delegate = self;
         
@@ -363,9 +366,15 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         }
     }
     
+    /// Shows the selected group in the group view's manga
+    func openSelectedGroupItem() {
+        /// Display the manga for the selected item
+        (groupCollectionView.itemAtIndex(groupCollectionView.selectionIndexes.firstIndex) as! KMMangaGroupCollectionItem).displayManga();
+    }
+    
     /// Updates the group view to match the selected cell in titlebarGroupViewTypeSelectionSegmentedControl
     func updateGroupViewToSegmentedControl() {
-        // Switch on the selected segment, no comments
+        // Switch on the selected segment, no comments(Its pretty obvious what it's doing)
         switch(titlebarGroupViewTypeSelectionSegmentedControl.selectedSegment) {
             case 0:
                 mangaGroupController.showGroupType(.Series);
@@ -383,6 +392,9 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
                 mangaGroupController.showGroupType(.Series);
                 break;
         }
+        
+        // Scroll to the top of the group view(Content insets make it so when you add items they are under the titlebar, this fixes that)
+        groupCollectionViewScrollView.pageUp(self);
     }
     
     /// Is the group view open?
@@ -442,9 +454,6 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             mangaCollectionViewScrollView.hidden = true;
         }
         
-        // Disable the toggle view menu item
-        (NSApplication.sharedApplication().delegate as! AppDelegate).toggleListViewMenuItem.enabled = false;
-        
         // Fade out the search field
         titlebarSearchField.animator().alphaValue = 0;
         
@@ -464,6 +473,9 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // Fade in titlebarGroupViewTypeSelectionSegmentedControl
         titlebarGroupViewTypeSelectionSegmentedControl.enabled = true;
         titlebarGroupViewTypeSelectionSegmentedControl.animator().alphaValue = 1;
+        
+        // Set the open menubar items action
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.openMenuItem.action = Selector("openSelectedGroupItem");
     }
     
     /// Hides the group view
@@ -491,9 +503,6 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             self.window.makeFirstResponder(mangaCollectionView);
         }
         
-        // Enable the toggle view menu item
-        (NSApplication.sharedApplication().delegate as! AppDelegate).toggleListViewMenuItem.enabled = true;
-        
         // Fade in the search field
         titlebarSearchField.animator().alphaValue = 1;
         
@@ -513,6 +522,9 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // Fade out titlebarGroupViewTypeSelectionSegmentedControl
         titlebarGroupViewTypeSelectionSegmentedControl.enabled = false;
         titlebarGroupViewTypeSelectionSegmentedControl.animator().alphaValue = 0;
+        
+        // Set the open menubar items action back
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.openMenuItem.action = Selector("openSelectedManga");
     }
     
     /// Asks the user for a folder, then hides all the Komikan metadata folders in that folder and it's subfolders

@@ -128,6 +128,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     /// The grid controller for the manga grid
     var mangaGridController : KMMangaGridController = KMMangaGridController();
     
+    /// The view controller for the main window
+    var mainViewController : ViewController = ViewController();
+    
     /// The search text field in the main window
     var searchTextField : NSTextField = NSTextField();
     

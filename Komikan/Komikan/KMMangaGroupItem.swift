@@ -18,22 +18,31 @@ class KMMangaGroupItem: NSObject {
     /// The type of group this item is
     var groupType : KMMangaGroupType = KMMangaGroupType.Series;
     
+    /// The label for how many items are in this group
+    var countLabel : String = "(nil)";
+    
     // Blank init
     override init() {
         super.init();
         
         self.groupImage = NSImage(named: "NSCaution")!;
+        
+        self.groupName = self.groupName + self.countLabel;
     }
     
     // Init with an image
     init(groupImage : NSImage) {
         self.groupImage = groupImage;
+        
+        self.groupName = self.groupName + self.countLabel;
     }
     
     // Init with an image and group name
     init(groupImage : NSImage, groupName : String) {
         self.groupImage = groupImage;
         self.groupName = groupName;
+        
+        self.groupName = self.groupName + self.countLabel;
     }
     
     // Init with an image, group name and group type
@@ -41,5 +50,17 @@ class KMMangaGroupItem: NSObject {
         self.groupImage = groupImage;
         self.groupName = groupName;
         self.groupType = groupType;
+        
+        self.groupName = self.groupName + self.countLabel;
+    }
+    
+    // Init with an image, group name, group type and count label
+    init(groupImage : NSImage, groupName : String, groupType : KMMangaGroupType, countLabel : String) {
+        self.groupImage = groupImage;
+        self.groupName = groupName;
+        self.groupType = groupType;
+        self.countLabel = countLabel;
+        
+        self.groupName = self.groupName + self.countLabel;
     }
 }

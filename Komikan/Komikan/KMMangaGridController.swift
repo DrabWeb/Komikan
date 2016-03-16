@@ -251,7 +251,7 @@ class KMMangaGridController: NSObject {
     }
     
     /// Returns the amount of manga that are drawn by the given artist
-    func countOfArtist(writer : String) -> Int {
+    func countOfArtist(artist : String) -> Int {
         /// All the artists
         var artists : [String] = [];
         
@@ -268,7 +268,7 @@ class KMMangaGridController: NSObject {
         }
         
         // Return the count of the passed artist in all the artists
-        return artists.occurenceCountOf(writer);
+        return artists.occurenceCountOf(artist);
     }
     
     /// Retuns all the writers the user has in their collection
