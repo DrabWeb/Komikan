@@ -107,10 +107,21 @@ class KMMangaGroupController: NSObject {
             
             // For every item in the group items...
             for(_, currentGroupItem) in groupItems.enumerate() {
-                // If the current item's group name contains the search string(In lowercase to be case insensitive)...
-                if(currentGroupItem.groupName.stringByReplacingOccurrencesOfString(currentGroupItem.countLabel, withString: "").lowercaseString.containsString(searchString.lowercaseString)) {
-                    // Add the current item to the matching search items
-                    searchItems.append(currentGroupItem);
+                // If the search string wasnt an exclusion search...
+                if(searchString.substringToIndex(searchString.startIndex.successor()) != "-") {
+                    // If the current item's group name contains the search string(In lowercase to be case insensitive)...
+                    if(currentGroupItem.groupName.stringByReplacingOccurrencesOfString(currentGroupItem.countLabel, withString: "").lowercaseString.containsString(searchString.lowercaseString)) {
+                        // Add the current item to the matching search items
+                        searchItems.append(currentGroupItem);
+                    }
+                }
+                // If the search string was an exclusion search...
+                else {
+                    // If the current item's group name doesnt the search string(In lowercase to be case insensitive)...
+                    if(!currentGroupItem.groupName.stringByReplacingOccurrencesOfString(currentGroupItem.countLabel, withString: "").lowercaseString.containsString(searchString.substringFromIndex(searchString.startIndex.successor()).lowercaseString)) {
+                        // Add the current item to the matching search items
+                        searchItems.append(currentGroupItem);
+                    }
                 }
             }
             
