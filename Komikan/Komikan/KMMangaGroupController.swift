@@ -73,12 +73,24 @@ class KMMangaGroupController: NSObject {
         
         // Show groupItems in the grid
         setGridToGroupItems();
+        
+        // If the last search wasnt blank...
+        if(lastSearch != "") {
+            // Redo the last search
+            searchFor(lastSearch);
+        }
     }
+    
+    /// The last entered search
+    var lastSearch : String = "";
     
     /// Searches for the given string and displays the results
     func searchFor(searchString : String) {
         // Print to the log what we are searching for
         print("Searching for \"\(searchString)\" in manga groups");
+        
+        // Set last search
+        lastSearch = searchString;
         
         // If the search string is blank...
         if(searchString == "") {
