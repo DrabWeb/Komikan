@@ -1460,6 +1460,28 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             </constraints>
                                                             <sliderCell key="cell" state="on" alignment="left" maxValue="1" doubleValue="0.40000000000000002" tickMarkPosition="above" sliderType="linear" id="w0P-Ck-m5Z"/>
                                                         </slider>
+                                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ny6-37-a4E" userLabel="Default Screen Popover">
+                                                            <rect key="frame" x="233" y="101" width="187" height="26"/>
+                                                            <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="BQh-mR-3Zy">
+                                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                <font key="font" metaFont="menu"/>
+                                                                <menu key="menu" id="cIV-iE-etJ">
+                                                                    <items>
+                                                                        <menuItem title="Grid" id="j5f-Y9-fVh"/>
+                                                                        <menuItem title="List" id="Nnm-7v-35h"/>
+                                                                        <menuItem title="Groups" id="rpA-Fn-myl"/>
+                                                                    </items>
+                                                                </menu>
+                                                            </popUpButtonCell>
+                                                        </popUpButton>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eH8-tm-Ynv" userLabel="Default Screen Label">
+                                                            <rect key="frame" x="15" y="106" width="214" height="17"/>
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Default Screen" id="1go-92-YgD">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="8QY-cq-ody" firstAttribute="top" secondItem="74O-zv-sD2" secondAttribute="bottom" constant="6" id="3qm-Oo-Sx0"/>
@@ -1605,6 +1627,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                     </view>
                     <connections>
                         <outlet property="backgroundVisualEffectView" destination="Koz-iq-GVn" id="e03-Zb-a8B"/>
+                        <outlet property="defaultScreenPopupButton" destination="ny6-37-a4E" id="c9b-Me-dXg"/>
                         <outlet property="distractionFreeModeDimAmountSlider" destination="ufr-b4-gOh" id="GFQ-OK-mKt"/>
                         <outlet property="dragReaderWindowByBackgroundWithoutHoldingAltCheckbox" destination="IsT-t8-BZ5" id="bJL-zB-CYn"/>
                         <outlet property="hideCursorInDistractionFreeModeCheckbox" destination="8QY-cq-ody" id="uO6-KA-47z"/>

@@ -291,6 +291,36 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // Load the manga we had in the grid
         loadManga();
         
+        // Yes, I know I shouldnt do this here
+        // Make sure the preferences file exists
+        if(NSFileManager.defaultManager().fileExistsAtPath(NSHomeDirectory() + "/Library/Application Support/Komikan/preferences")) {
+            // Create a variable to hold the preferences
+            var preferencesString : String = "";
+            
+            // Try to get the contents of the preferences file in our application support folder
+            preferencesString = String(data: NSFileManager.defaultManager().contentsAtPath(NSHomeDirectory() + "/Library/Application Support/Komikan/preferences")!, encoding: NSUTF8StringEncoding)!;
+            
+            // For every line in the preferences string
+            for (currentIndex, currentElement) in preferencesString.componentsSeparatedByString("\n").enumerate() {
+                // If this is the tenth line...
+                if(currentIndex == 9) {
+                    // Set the default screen to be this lines value
+                    (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.defaultScreen = NSString(string: currentElement).integerValue;
+                }
+            }
+        }
+        
+        // If the default screen is the list...
+        if((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.defaultScreen == 1) {
+            // Show the list
+            displayListView();
+        }
+        // If the default screen is the groups...
+        else if((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.defaultScreen == 2) {
+            // Show the groups
+            showGroupView();
+        }
+        
         // Scroll to the top of the manga grid
         mangaCollectionViewScrollView.pageUp(self);
         

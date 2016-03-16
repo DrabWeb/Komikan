@@ -52,6 +52,9 @@ class KMPreferencesController: NSViewController {
     /// The color well for letting the user set the background color of the reader window
     @IBOutlet var readerWindowBackgroundColorColorWell: NSColorWell!
     
+    /// The popup button to select what the default screen to show at launch is
+    @IBOutlet var defaultScreenPopupButton: NSPopUpButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
@@ -75,6 +78,7 @@ class KMPreferencesController: NSViewController {
         (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt = Bool(dragReaderWindowByBackgroundWithoutHoldingAltCheckbox.state);
         (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.pageIgnoreRegex = ignorePagesMatchingRegexTextField.stringValue;
         (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.readerWindowBackgroundColor = readerWindowBackgroundColorColorWell.color;
+        (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.defaultScreen = defaultScreenPopupButton.indexOfSelectedItem;
         
         // Tell AppDelegate to act upon the preferences
         (NSApplication.sharedApplication().delegate as! AppDelegate).actOnPreferences();
@@ -91,6 +95,7 @@ class KMPreferencesController: NSViewController {
         dragReaderWindowByBackgroundWithoutHoldingAltCheckbox.state = Int((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt);
         ignorePagesMatchingRegexTextField.stringValue = (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.pageIgnoreRegex;
         readerWindowBackgroundColorColorWell.color = (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.readerWindowBackgroundColor;
+        defaultScreenPopupButton.selectItemAtIndex((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.defaultScreen);
     }
     
     // Enables / disables all the checkboxes under the l-lewd... mode enabled checkbox

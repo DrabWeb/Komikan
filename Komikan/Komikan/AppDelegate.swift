@@ -137,7 +137,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     /// The controller for the reader window
     var mangaReaderWindowController : NSWindowController!;
     
-    /// The preferences keeper(Kept in app delegate because it should be globally accesable)
+    /// The preferences keeper(Kept in app delegate because it should be globally accesable)(I just noticed its called kepper, not keeper...)
     var preferencesKepper : KMPreferencesKeeper = KMPreferencesKeeper();
     
     /// The window controller that lets the user darken everything behind the window
@@ -197,6 +197,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         
         // Add the reader window background color to the end of it
         preferencesString.appendContentsOf("\n" + String(preferencesKepper.readerWindowBackgroundColor.redComponent) + ", " + String(preferencesKepper.readerWindowBackgroundColor.blueComponent) + ", " + String(preferencesKepper.readerWindowBackgroundColor.greenComponent));
+        
+        // Add the default screen to the end of it
+        preferencesString.appendContentsOf("\n" + String(preferencesKepper.defaultScreen));
         
         // Write the preferences to the preferences file in Komikan's application support
         do {
@@ -292,6 +295,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                     
                     // Set the reader window background color
                     preferencesKepper.readerWindowBackgroundColor = NSColor(red: red, green: green, blue: blue, alpha: 1);
+                }
+                // If this is the tenth line...
+                else if(currentIndex == 9) {
+                    // Set the default screen to be this lines value
+                    preferencesKepper.defaultScreen = NSString(string: currentElement).integerValue;
                 }
             }
         }
