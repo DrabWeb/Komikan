@@ -725,6 +725,10 @@ class KMMangaGridController: NSObject {
                     default:
                         // Print to the log that it didnt match any types we search by
                         print("Did not match any search types");
+                        
+                        // Set the title search to this search
+                        titleSearch = currentString;
+                        
                         break;
                 }
             }
