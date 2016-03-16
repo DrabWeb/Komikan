@@ -430,9 +430,6 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     /// Is the group view open?
     var groupViewOpen : Bool = false;
     
-    /// Is this the first time we have opened the group view?
-    var firstGroupViewOpen : Bool = true;
-    
     /// Toggles if the group view is open
     func toggleGroupView() {
         // Toggle groupViewOpen
@@ -455,14 +452,8 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // Say the group view is open
         groupViewOpen = true;
         
-        // If this is the first time opening the group view...
-        if(firstGroupViewOpen) {
-            // Update the group view to match the selected item in the segmented control
-            updateGroupViewToSegmentedControl();
-            
-            // Say that every open after this one is not the first open
-            firstGroupViewOpen = false;
-        }
+        // Update the items in the group view
+        updateGroupViewToSegmentedControl();
         
         // Show the group view
         groupCollectionViewScrollView.hidden = false;
