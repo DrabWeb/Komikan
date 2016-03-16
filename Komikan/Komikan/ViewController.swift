@@ -333,9 +333,12 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // Set the main windows delegate to this
         window.delegate = self;
         
-        // Hide titlebarGroupViewTypeSelectionSegmentedControl
-        titlebarGroupViewTypeSelectionSegmentedControl.enabled = false;
-        titlebarGroupViewTypeSelectionSegmentedControl.alphaValue = 0;
+        // If we arent in the group view...
+        if(!groupViewOpen) {
+            // Hide titlebarGroupViewTypeSelectionSegmentedControl
+            titlebarGroupViewTypeSelectionSegmentedControl.enabled = false;
+            titlebarGroupViewTypeSelectionSegmentedControl.alphaValue = 0;
+        }
         
         // Sort the manga grid by the tab view item we have selected at start
         // If the tab view item we have selected is the Title sort one...
