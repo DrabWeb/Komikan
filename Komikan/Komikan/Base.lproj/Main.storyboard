@@ -2003,7 +2003,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="6vR-dx-5nf">
-                                    <rect key="frame" x="464" y="0.0" width="16" height="270"/>
+                                    <rect key="frame" x="465" y="0.0" width="15" height="270"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
@@ -2315,7 +2315,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="140" viewBased="YES" id="SIJ-SQ-EnH" customClass="KMReaderPageJumpTableView" customModule="Komikan" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="405" height="270"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="405" height="0.0"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -2465,7 +2465,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="hKR-Pk-qGD">
-                                            <rect key="frame" x="389" y="0.0" width="16" height="270"/>
+                                            <rect key="frame" x="390" y="0.0" width="15" height="270"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
@@ -3056,6 +3056,20 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <action selector="titlebarGroupViewTypeSelectionSegmentedControlInteracted:" target="XfG-lQ-9wD" id="jHR-hR-Pnl"/>
                                         </connections>
                                     </segmentedControl>
+                                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ous-Wp-ftq" userLabel="Group View Search Field" customClass="KMAlwaysActiveTextField" customModule="Komikan" customModuleProvider="target">
+                                        <rect key="frame" x="483" y="7" width="150" height="23"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="150" id="ilR-mx-hfg"/>
+                                        </constraints>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" focusRingType="none" alignment="center" placeholderString="Search..." usesSingleLineMode="YES" bezelStyle="round" id="46U-A5-QLc">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <action selector="titlebarGroupViewSearchFieldInteracted:" target="XfG-lQ-9wD" id="quI-ky-JWz"/>
+                                        </connections>
+                                    </textField>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="3OY-Ks-0gq" firstAttribute="centerX" secondItem="xeH-9s-Llt" secondAttribute="centerX" constant="-102.5" id="4T6-3Z-j9v"/>
@@ -3063,6 +3077,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                     <constraint firstAttribute="trailing" secondItem="y9e-nS-8mf" secondAttribute="trailing" constant="7" id="5IN-iD-BCX"/>
                                     <constraint firstAttribute="trailing" secondItem="QhM-D5-BGg" secondAttribute="trailing" id="5WP-Eh-71Z"/>
                                     <constraint firstAttribute="bottom" secondItem="CDI-VA-JTT" secondAttribute="bottom" constant="6" id="8f1-f9-EKZ"/>
+                                    <constraint firstItem="Ous-Wp-ftq" firstAttribute="top" secondItem="xeH-9s-Llt" secondAttribute="top" constant="7" id="B8N-At-0nx"/>
                                     <constraint firstItem="QhM-D5-BGg" firstAttribute="leading" secondItem="xeH-9s-Llt" secondAttribute="leading" id="CmL-YF-LYE"/>
                                     <constraint firstAttribute="height" constant="37" id="Kdz-75-IVb"/>
                                     <constraint firstItem="3OY-Ks-0gq" firstAttribute="centerY" secondItem="xeH-9s-Llt" secondAttribute="centerY" id="M4u-Rn-Uzb"/>
@@ -3073,7 +3088,9 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                     <constraint firstItem="foJ-v5-5cU" firstAttribute="leading" secondItem="xeH-9s-Llt" secondAttribute="leading" id="Y5P-vD-0Uz"/>
                                     <constraint firstItem="CDI-VA-JTT" firstAttribute="top" secondItem="xeH-9s-Llt" secondAttribute="top" constant="6" id="ZhV-D9-DFZ"/>
                                     <constraint firstAttribute="bottom" secondItem="foJ-v5-5cU" secondAttribute="bottom" id="hYe-nB-znB"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ous-Wp-ftq" secondAttribute="bottom" constant="7" id="i1o-tf-Ie3"/>
                                     <constraint firstItem="y9e-nS-8mf" firstAttribute="top" secondItem="xeH-9s-Llt" secondAttribute="top" constant="7" id="p4P-qb-cdz"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ous-Wp-ftq" secondAttribute="trailing" constant="7" id="pxS-9u-cNV"/>
                                     <constraint firstItem="7Qu-LI-sn4" firstAttribute="centerX" secondItem="xeH-9s-Llt" secondAttribute="centerX" id="rwv-Z1-DJt"/>
                                     <constraint firstAttribute="trailing" secondItem="foJ-v5-5cU" secondAttribute="trailing" id="sYe-7l-HHp"/>
                                     <constraint firstAttribute="bottom" secondItem="QhM-D5-BGg" secondAttribute="bottom" id="xez-YZ-833"/>
@@ -3111,6 +3128,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                         <outlet property="mangaTableViewScrollView" destination="i4Y-xX-G2r" id="709-WE-itq"/>
                         <outlet property="thumbnailImageHoverController" destination="zuh-61-Wft" id="Kam-QA-lZl"/>
                         <outlet property="titlebarAddMangaButton" destination="CDI-VA-JTT" id="t7c-FZ-zu0"/>
+                        <outlet property="titlebarGroupViewSearchField" destination="Ous-Wp-ftq" id="NYE-iY-AkZ"/>
                         <outlet property="titlebarGroupViewTypeSelectionSegmentedControl" destination="7Qu-LI-sn4" id="c6Z-Fa-mrk"/>
                         <outlet property="titlebarSearchField" destination="y9e-nS-8mf" id="av4-HI-6jY"/>
                         <outlet property="titlebarSortingTabView" destination="QhM-D5-BGg" id="8hF-kC-siy"/>

@@ -724,7 +724,7 @@ class KMMangaGridController: NSObject {
                     // If it is one that we dont have...
                     default:
                         // Print to the log that it didnt match any types we search by
-                        print("Did not match any search types");
+                        print("Did not match any search types, defaulting to title");
                         
                         // Set the title search to this search
                         titleSearch = currentString;

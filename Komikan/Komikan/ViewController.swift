@@ -137,6 +137,15 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         updateGroupViewToSegmentedControl();
     }
     
+    /// The text field in the titlebar for searching in the group view
+    @IBOutlet var titlebarGroupViewSearchField: KMAlwaysActiveTextField!
+    
+    /// When we interact with titlebarGroupViewSearchField...
+    @IBAction func titlebarGroupViewSearchFieldInteracted(sender: AnyObject) {
+        // Search for the entered text
+        mangaGroupController.searchFor(titlebarGroupViewSearchField.stringValue);
+    }
+    
     // Called when we hit "Add" in the addmanga popover
     func addMangaFromAddMangaPopover(notification: NSNotification) {
         // Print to the log that we are adding from the add popover
@@ -338,6 +347,10 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             // Hide titlebarGroupViewTypeSelectionSegmentedControl
             titlebarGroupViewTypeSelectionSegmentedControl.enabled = false;
             titlebarGroupViewTypeSelectionSegmentedControl.alphaValue = 0;
+            
+            // Hide the group view search field
+            titlebarGroupViewSearchField.enabled = false;
+            titlebarGroupViewSearchField.alphaValue = 0;
         }
         
         // Sort the manga grid by the tab view item we have selected at start
@@ -397,6 +410,12 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             // Reload the manga table so it gets updated when items change
             mangaListController.mangaListTableView.reloadData();
         }
+    }
+    
+    /// Selects titlebarGroupViewSearchField
+    func selectGroupViewSearchField() {
+        // Make titlebarGroupViewSearchField the first responder
+        window.makeFirstResponder(titlebarGroupViewSearchField);
     }
     
     /// Shows the selected group in the group view's manga
@@ -478,8 +497,15 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             mangaCollectionViewScrollView.hidden = true;
         }
         
-        // Fade out the search field
-        titlebarSearchField.animator().alphaValue = 0;
+        // Swap search fields
+        titlebarGroupViewSearchField.enabled = true;
+        titlebarGroupViewSearchField.hidden = false;
+        
+        titlebarSearchField.enabled = false;
+        titlebarSearchField.hidden = true;
+        
+        // Set the select search field menu item's action
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.selectSearchFieldMenuItem.action = Selector("selectGroupViewSearchField");
         
         // Fade out the toggle view button
         titlebarToggleListViewCheckbox.animator().alphaValue = 0;
@@ -527,8 +553,15 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             self.window.makeFirstResponder(mangaCollectionView);
         }
         
-        // Fade in the search field
-        titlebarSearchField.animator().alphaValue = 1;
+        // Swap search fields
+        titlebarGroupViewSearchField.enabled = false;
+        titlebarGroupViewSearchField.hidden = true;
+        
+        titlebarSearchField.enabled = true;
+        titlebarSearchField.hidden = false;
+        
+        // Set the select search field menu item's action
+        (NSApplication.sharedApplication().delegate as? AppDelegate)?.selectSearchFieldMenuItem.action = Selector("selectSearchField");
         
         // Fade in the toggle view button
         titlebarToggleListViewCheckbox.animator().alphaValue = 1;
