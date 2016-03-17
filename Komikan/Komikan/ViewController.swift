@@ -177,14 +177,8 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             // Deliver the notification
             NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(finishedImportNotification);
             
-            // Reload the l-lewd... manga filter
-            mangaGridController.displayLewdMangaAppDelegate();
-            
-            // If we are searching
-            if(mangaGridController.searching) {
-                // Redo the search so if the item doesnt match the query it gets hidden
-                mangaGridController.searchFor(mangaGridController.lastSearchText);
-            }
+            // Reload the filters
+            mangaGridController.updateFilters();
         }
         else {
             // Print to the log that we have recieved it and its name
@@ -197,8 +191,14 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // Stop addMangaViewController.addButtonUpdateLoop, so it stops eating resources when it doesnt need to
         addMangaViewController?.addButtonUpdateLoop.invalidate();
         
-        // Tell the manga grid to resort itself
-        NSNotificationCenter.defaultCenter().postNotificationName("MangaGrid.Resort", object: nil);
+        // If we are in group view...
+        if(groupViewOpen) {
+            // Update the group view
+            updateGroupViewToSegmentedControl();
+        }
+        
+        // Resort the manga grid
+        mangaGridController.resort();
     }
     
     override func viewDidLoad() {
