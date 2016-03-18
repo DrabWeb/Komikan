@@ -412,6 +412,53 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         }
     }
     
+    /// The grid selection stored by storeCurrentSelection
+    var storedGridSelection : NSIndexSet = NSIndexSet();
+    
+    /// The list selection stored by storeCurrentSelection
+    var storedListSelection : NSIndexSet = NSIndexSet();
+    
+    /// The grid scroll point stored by storeCurrentSelection
+    var storedGridScrollPoint : NSPoint = NSPoint();
+    
+    /// The list scroll point stored by storeCurrentSelection
+    var storedListScrollPoint : NSPoint = NSPoint();
+    
+    /// Restores the selection that was stored by storeCurrentSelection
+    func restoreSelection() {
+        // If we are in list view...
+        if(inListView) {
+            // Restore the selection
+            mangaTableView.selectRowIndexes(storedListSelection, byExtendingSelection: false);
+            
+            // Restore the scroll position
+            mangaTableViewScrollView.contentView.scrollToPoint(storedListScrollPoint)
+        }
+        // If we are in grid view...
+        else {
+            // Restore the selection
+            mangaCollectionView.selectionIndexes = storedGridSelection;
+            
+            // Restore the scroll position
+            mangaCollectionViewScrollView.contentView.scrollToPoint(storedGridScrollPoint);
+        }
+    }
+    
+    /// Stores the current selection in the grid/list, to be called later by restoreSelection
+    func storeCurrentSelection() {
+        // Store the scroll point for the grid
+        storedGridScrollPoint = mangaCollectionViewScrollView.contentView.bounds.origin;
+        
+        // Store the selection for the grid
+        storedGridSelection = mangaCollectionView.selectionIndexes;
+        
+        // Store the scroll point for the list
+        storedListScrollPoint = mangaTableViewScrollView.contentView.bounds.origin;
+        
+        // Store the selection for the list
+        storedListSelection = mangaTableView.selectedRowIndexes;
+    }
+    
     /// Selects titlebarGroupViewSearchField
     func selectGroupViewSearchField() {
         // Make titlebarGroupViewSearchField the first responder

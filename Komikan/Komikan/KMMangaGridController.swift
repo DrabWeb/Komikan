@@ -13,6 +13,9 @@ class KMMangaGridController: NSObject {
     /// The array controller for the collection view
     @IBOutlet weak var arrayController : NSArrayController!
     
+    /// An instance to the main View Controller
+    @IBOutlet weak var viewController: ViewController!
+    
     /// The items for the manga collection view. THIS IS NOT TO BE MODIFIED DIRECTLY
     var gridItems : [KMMangaGridItem] = [];
     
@@ -662,7 +665,7 @@ class KMMangaGridController: NSObject {
                 cleanedSearchText = cleanedSearchText.substringToIndex(cleanedSearchText.endIndex.predecessor());
             }
             
-            /// Tjhe search string split at every "; "
+            /// The search string split at every "" "
             let searchStringSplit : [String] = cleanedSearchText.componentsSeparatedByString("\" ");
             
             // Print the split search string
@@ -1469,5 +1472,15 @@ class KMMangaGridController: NSObject {
             // Sort by title
             arrayController.sortDescriptors = [NSSortDescriptor(key: "title", ascending: ascending)];
         }
+    }
+    
+    /// Wrapper to ViewController.restoreSelection
+    func restoreSelection() {
+        viewController.restoreSelection();
+    }
+    
+    /// Wrapper to ViewController.storeCurrentSelection
+    func storeCurrentSelection() {
+        viewController.storeCurrentSelection();
     }
 }

@@ -120,6 +120,14 @@ class KMMangaGridCollectionItem: NSCollectionViewItem {
             
             // Resort the grid
             (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.resort();
+            
+//            let oldSelectionIndexes : NSIndexSet = viewController.mangaCollectionView.selectionIndexes;
+//            let firstIndex : Int = viewController.mangaCollectionView.selectionIndexes.firstIndex;
+//            
+//            let firstSelectionFrame : NSRect = viewController.mangaCollectionView.frameForItemAtIndex(firstIndex);
+//            viewController.mangaCollectionView.scrollRectToVisible(firstSelectionFrame);
+//            
+//            viewController.mangaCollectionView.selectionIndexes = oldSelectionIndexes;
         }
     }
     

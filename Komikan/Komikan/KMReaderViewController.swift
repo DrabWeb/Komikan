@@ -701,6 +701,9 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         // Stop monitoring the trackpad
         readerImageScrollView.removeAllMonitors();
         
+        // Store the selection
+        (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.storeCurrentSelection();
+        
         // Post the notification to update the percent finished
         NSNotificationCenter.defaultCenter().postNotificationName("KMMangaGridCollectionItem.UpdatePercentFinished", object: manga);
         
@@ -709,6 +712,9 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         
         // Redo the previous search in the grid, if there was one
         (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.redoSearch();
+        
+        // Restore the selection
+        (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.restoreSelection();
         
         // Show the cursor
         NSCursor.unhide();
