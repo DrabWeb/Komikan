@@ -160,6 +160,12 @@ class KMEHDownloadController : NSObject {
         // Load the tags
         item.manga.tags = (newMangaJson["gmetadata"][0]["tags"].arrayObject as? [String])!;
         
+        // If the item's group isnt blank...
+        if(item.group != "") {
+            // Set the manga's group to the item's group
+            item.manga.group = item.group;
+        }
+        
         // If the manga's category is not Non-H...
         if(newMangaJson["gmetadata"][0]["category"].stringValue != "Non-H") {
             // Set this manga as l-lewd...
@@ -243,6 +249,12 @@ class KMEHDownloadController : NSObject {
         
         // Load the tags and artist/writer
         getTagInfoFromEX(NSHomeDirectory() + "/Library/Application Support/Komikan/newehpage.xml", manga: item.manga);
+        
+        // If the item's group isnt blank...
+        if(item.group != "") {
+            // Set the manga's group to the item's group
+            item.manga.group = item.group;
+        }
         
         // If the manga's category is not Non-H...
         if(newMangaJson["gmetadata"][0]["category"].stringValue != "Non-H") {

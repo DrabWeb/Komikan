@@ -147,7 +147,7 @@ class KMMangaListController: NSObject {
                 NSNotificationCenter.defaultCenter().postNotificationName("ViewController.UpdateMangaGrid", object: nil);
                 
                 // Tell the manga grid to resort itself
-                NSNotificationCenter.defaultCenter().postNotificationName("MangaGrid.Resort", object: nil);
+                mangaGridController.resort();
             }
         }
     }

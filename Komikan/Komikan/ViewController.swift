@@ -1227,22 +1227,19 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         
         // If we were passed an array of manga...
         if((notification.object as? [KMManga]) != nil) {
-            print("Batch adding manga");
+            /// Print to the log that we are batch adding
+            print("Batch adding manga from EH");
             
+            // For every manga in the passed manga...
             for (_, currentManga) in ((notification.object as? [KMManga])?.enumerate())! {
                 // Add the current manga to the grid
                 mangaGridController.addManga(currentManga, updateFilters: false);
             }
             
-            // Reload the l-lewd... manga filter
-            mangaGridController.displayLewdMangaAppDelegate();
-            
-            // If we are searching
-            if(mangaGridController.searching) {
-                // Redo the search so if the item doesnt match the query it gets hidden
-                mangaGridController.searchFor(mangaGridController.lastSearchText);
-            }
+            // Reload the filters
+            mangaGridController.updateFilters();
         }
+        // If we only passed a single manga...
         else {
             // Print to the log that we have recieved it and its name
             print("Recieving manga \"" + ((notification.object as? KMManga)?.title)! + "\" from Add From EH Manga popover");
@@ -1254,8 +1251,14 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // Stop the loop so we dont take up precious memory
         addFromEHViewController?.addButtonUpdateLoop.invalidate();
         
-        // Tell the manga grid to resort itself
-        NSNotificationCenter.defaultCenter().postNotificationName("MangaGrid.Resort", object: nil);
+        /// Resort the grid
+        mangaGridController.resort();
+        
+        // If we are in group view...
+        if(groupViewOpen) {
+            // Update the group view
+            updateGroupViewToSegmentedControl();
+        }
     }
     
     /// Makes the manga grid the first responder

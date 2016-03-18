@@ -27,9 +27,12 @@ class KMEHViewController: NSViewController {
         // For every URL in the add from EH text field (Seperated ast each space)...
         for(_, currentURL) in addFromEHTextField.stringValue.componentsSeparatedByString(", ").enumerate() {
             // Add the current URL to the download queue
-            (NSApplication.sharedApplication().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: currentURL, useJapaneseTitle: Bool(addFromEHUseJapaneseTitle.state)));
+            (NSApplication.sharedApplication().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: currentURL, useJapaneseTitle: Bool(addFromEHUseJapaneseTitle.state), group: addFromEHGroupTextField.stringValue));
         }
     }
+    
+    /// The text field for setting the E-Hentai downloaded manga's group
+    @IBOutlet var addFromEHGroupTextField: NSTextField!
     
     // The button to add the manga add the inputted URL from E-Hentai
     @IBOutlet weak var addFromEHButton: NSButtonCell!
@@ -39,11 +42,10 @@ class KMEHViewController: NSViewController {
         // Dismiss the popover
         self.dismissController(self);
         
-        // http://g.e-hentai.org/g/892676/e442d2c88e/
         // For every URL in the add from EH text field (Seperated at each ", ")...
         for(_, currentURL) in addFromEHTextField.stringValue.componentsSeparatedByString(", ").enumerate() {
             // Add the current URL to the download queue
-            (NSApplication.sharedApplication().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: currentURL, useJapaneseTitle: Bool(addFromEHUseJapaneseTitle.state)));
+            (NSApplication.sharedApplication().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: currentURL, useJapaneseTitle: Bool(addFromEHUseJapaneseTitle.state), group: addFromEHGroupTextField.stringValue));
         }
     }
     
@@ -61,9 +63,12 @@ class KMEHViewController: NSViewController {
         // For every URL in the add from EX text field (Seperated ast each space)...
         for(_, currentURL) in addFromEXTextField.stringValue.componentsSeparatedByString(", ").enumerate() {
             // Add the current URL to the download queue
-            (NSApplication.sharedApplication().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: currentURL, useJapaneseTitle: Bool(addFromEXUseJapaneseTitle.state), onExHentai: true));
+            (NSApplication.sharedApplication().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: currentURL, useJapaneseTitle: Bool(addFromEXUseJapaneseTitle.state), group: addFromEXGroupTextField.stringValue, onExHentai: true));
         }
     }
+    
+    /// The text field for setting the ExHentai downloaded manga's group
+    @IBOutlet var addFromEXGroupTextField: NSTextField!
     
     // The button to add the manga add the inputted URL from ExHentai
     @IBOutlet weak var addFromEXButton: NSButton!
@@ -76,7 +81,7 @@ class KMEHViewController: NSViewController {
         // For every URL in the add from EX text field (Seperated at each ", ")...
         for(_, currentURL) in addFromEXTextField.stringValue.componentsSeparatedByString(", ").enumerate() {
             // Add the current URL to the download queue
-            (NSApplication.sharedApplication().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: currentURL, useJapaneseTitle: Bool(addFromEXUseJapaneseTitle.state), onExHentai: true));
+            (NSApplication.sharedApplication().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: currentURL, useJapaneseTitle: Bool(addFromEXUseJapaneseTitle.state), group: addFromEXGroupTextField.stringValue, onExHentai: true));
         }
     }
     
