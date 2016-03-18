@@ -174,9 +174,15 @@ class KMMangaGridController: NSObject {
         // Reload the l-lewd... manga filter
         displayLewdMangaAppDelegate();
         
-        // If we are searching
+        // Redo the last search
+        redoSearch();
+    }
+    
+    /// Redos the current search(If we are currently searching)
+    func redoSearch() {
+        // If we are searching...
         if(searching) {
-            // Redo the search so if the item doesnt match the query it gets hidden
+            // Redo the search
             searchFor(lastSearchText);
         }
     }

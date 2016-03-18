@@ -214,5 +214,10 @@ class KMManga {
             // Set the current page to the first page
             self.currentPage = 0;
         }
+        // If the percent finished is less than 100...
+        else if(self.percentFinished < 100) {
+            // Set this manga as unread
+            self.read = false;
+        }
     }
 }

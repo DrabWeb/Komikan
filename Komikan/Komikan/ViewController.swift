@@ -1328,6 +1328,9 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         
         // Update the grid
         updateMangaGrid();
+        
+        // Redo the current search, if we are searching
+        mangaGridController.redoSearch();
     }
     
     /// Marks the selected manga items as read
@@ -1361,6 +1364,9 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         
         // Update the grid
         updateMangaGrid();
+        
+        // Redo the current search, if we are searching
+        mangaGridController.redoSearch();
     }
     
     func toggleInfoBar() {

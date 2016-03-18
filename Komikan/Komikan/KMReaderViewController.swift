@@ -707,6 +707,9 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         // Update the grid(For some reason I have to call this function instead of the update grid one)
         NSNotificationCenter.defaultCenter().postNotificationName("KMEditMangaViewController.Saving", object: manga);
         
+        // Redo the previous search in the grid, if there was one
+        (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.redoSearch();
+        
         // Show the cursor
         NSCursor.unhide();
     }
