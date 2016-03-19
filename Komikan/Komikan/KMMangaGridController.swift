@@ -65,31 +65,27 @@ class KMMangaGridController: NSObject {
     
     /// Removes gridItem from the manga grid
     func removeGridItem(gridItem : KMMangaGridItem, resort : Bool) {
-        // For every item in gridItems...
-        for(currentIndex, currentItem) in gridItems.enumerate() {
-            // If the current item is the same as the grid item we want to remove...
-            if(currentItem == gridItem) {
-                // Remove the object at the current index from gridItems
-                gridItems.removeAtIndex(currentIndex);
+        // Convert grid items to a mutable array, remove the object we want to remove, and save it back to gridItems
+        let gridItemsMutableArray : NSMutableArray = NSMutableArray(array: gridItems);
+        gridItemsMutableArray.removeObject(gridItem);
+        gridItems = Array(gridItemsMutableArray) as! [KMMangaGridItem];
                 
-                // Remove the current object from the array controller
-                arrayController.removeObject(currentItem);
+        // Remove the grid object from the array controller
+        arrayController.removeObject(gridItem);
+        
+        // If the manga is from EH and we said in the preferences to delete them...
+        if(gridItem.manga.directory.containsString("/Library/Application Support/Komikan/EH") && (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.deleteLLewdMangaWhenRemovingFromTheGrid) {
+            // Also delete the file
+            do {
+                // Move the manga file to the trash
+                try NSFileManager.defaultManager().trashItemAtURL(NSURL(fileURLWithPath: gridItem.manga.directory), resultingItemURL: nil);
                 
-                // If the manga is from EH and we said in the preferences to delete them...
-                if(currentItem.manga.directory.containsString("/Library/Application Support/Komikan/EH") && (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.deleteLLewdMangaWhenRemovingFromTheGrid) {
-                    // Also delete the file
-                    do {
-                        // Move the manga file to the trash
-                        try NSFileManager.defaultManager().trashItemAtURL(NSURL(fileURLWithPath: currentItem.manga.directory), resultingItemURL: nil);
-                        
-                        // Print to the log that we deleted it
-                        print("Deleted manga \"" + currentItem.manga.title + "\"'s file");
-                    }
-                        // If there is an error...
-                    catch _ as NSError {
-                        // Do nothing
-                    }
-                }
+                // Print to the log that we deleted it
+                print("Deleted manga \"" + gridItem.manga.title + "\"'s file");
+            }
+                // If there is an error...
+            catch _ as NSError {
+                // Do nothing
             }
         }
         

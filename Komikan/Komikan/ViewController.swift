@@ -359,12 +359,12 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             // Sort the manga grid by title
             mangaGridController.sort(KMMangaGridSortType.Title, ascending: true);
         }
-            // If the tab view item we have selected is the Series sort one...
+        // If the tab view item we have selected is the Series sort one...
         else if(titlebarTabView.selectedTabViewItem!.label == "Series") {
             // Sort the manga grid by series
             mangaGridController.sort(KMMangaGridSortType.Series, ascending: true);
         }
-            // If the tab view item we have selected is the Artist sort one...
+        // If the tab view item we have selected is the Artist sort one...
         else if(titlebarTabView.selectedTabViewItem!.label == "Artist") {
             // Sort the manga grid by artist
             mangaGridController.sort(KMMangaGridSortType.Artist, ascending: true);
