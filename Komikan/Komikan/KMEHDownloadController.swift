@@ -31,7 +31,7 @@ class KMEHDownloadController : NSObject {
         // If the URL exists...
         if(NSData(contentsOfURL: NSURL(string: item.url)!) != nil) {
             // If the URL is on ExHentai or E-Hentai...
-            if(NSURL(string: item.url)!.host!.containsString("exhentai.org")) {
+            if(NSURL(string: item.url)!.host!.containsString("exhentai.org") || NSURL(string: item.url)!.host!.containsString("g.e-hentai.org")) {
                 // Print to the log what item was added to the queue
                 print("Added \"" + item.url + "\" to queue");
                 
