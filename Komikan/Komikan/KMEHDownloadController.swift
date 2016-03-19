@@ -25,35 +25,49 @@ class KMEHDownloadController : NSObject {
     
     // Adds the speicified URL to the download queue
     func addItemToQueue(item : KMEHDownloadItem) {
-        // Prin to the log what item was added to the queue
-        print("Added \"" + item.url + "\" to queue");
+        /// Was the URL for this download item invalid?
+        var invalidURL : Bool = false;
         
-        // Create the new notification to tell the user the download has been queued
-        let queuedNotification = NSUserNotification();
-        
-        // Set the title
-        queuedNotification.title = "Komikan";
-        
-        // Set the informative text
-        queuedNotification.informativeText = "Added \"" + item.url + "\" to the download queue";
-        
-        // Set the notifications identifier to be an obscure string, so we can show multiple at once
-        queuedNotification.identifier = NSUUID().UUIDString;
-        
-        // Deliver the notification
-        NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(queuedNotification);
-        
-        // Add this item to the end of downloadQueue
-        downloadQueue.append(item);
-        
-        // If we arent currently downloading queue items...
-        if(!currentlyDownloading) {
-            // Spawn a new thread for downloading
-            NSThread.detachNewThreadSelector(Selector("downloadThread"), toTarget: self, withObject: nil);
+        // If the URL exists...
+        if(NSData(contentsOfURL: NSURL(string: item.url)!) != nil) {
+            // If the URL is on ExHentai or E-Hentai...
+            if(NSURL(string: item.url)!.host!.containsString("exhentai.org")) {
+                // Print to the log what item was added to the queue
+                print("Added \"" + item.url + "\" to queue");
+                
+                // Show the notification saying the item is added to the queue
+                KMNotificationUtilities().sendNotification("Komikan", message: "Added \"" + item.url + "\" to the download queue");
+                
+                // Add this item to the end of downloadQueue
+                downloadQueue.append(item);
+                
+                // If we arent currently downloading queue items...
+                if(!currentlyDownloading) {
+                    // Spawn a new thread for downloading
+                    NSThread.detachNewThreadSelector(Selector("downloadThread"), toTarget: self, withObject: nil);
+                }
+                else {
+                    // Say there will be more to download
+                    queueHasMore = true;
+                }
+            }
+            else {
+                // Say the URL was invalid
+                invalidURL = true;
+            }
         }
         else {
-            // Say there will be more to download
-            queueHasMore = true;
+            // Say the URL was invalid
+            invalidURL = true;
+        }
+        
+        // If the URL was invalid...
+        if(invalidURL) {
+            // Print to the log that the item had an invalid URL
+            print("Invalid URL for \"" + item.url + "\"");
+            
+            // Show the notification saying the item couldnt be added
+            KMNotificationUtilities().sendNotification("Komikan", message: "Invalid URL for \"" + item.url + "\"");
         }
     }
     
@@ -63,7 +77,7 @@ class KMEHDownloadController : NSObject {
         currentlyDownloading = true;
         
         // For every item in the download queue...
-        for(currentIndex, currentItem) in downloadQueue.enumerate() {
+        for(_, currentItem) in downloadQueue.enumerate() {
             // Say we are currently downloading something
             print("Downloading item: \(currentItem.url)");
             
