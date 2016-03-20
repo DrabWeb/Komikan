@@ -412,6 +412,20 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         }
     }
     
+    /// Deselects all the items in the list/grid, depending on which we are in
+    func clearMangaSelection() {
+        // If we are in list view...
+        if(inListView) {
+            // Deselect all the items in the list
+            mangaTableView.deselectAll(self);
+        }
+            // If we are in grid view...
+        else {
+            // Deselect all the items in the grid
+            mangaCollectionView.deselectAll(self);
+        }
+    }
+    
     /// The grid selection stored by storeCurrentSelection
     var storedGridSelection : NSIndexSet = NSIndexSet();
     
@@ -1159,14 +1173,20 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             propertiesHolder.applyValuesToManga(currentItem.manga);
         }
         
-        // Deselect all the items
-        mangaCollectionView.deselectAll(self);
+        // Store the selection and scroll position
+        storeCurrentSelection();
         
         // Resort the grid
         mangaGridController.resort();
         
         // Reload the filters
         mangaGridController.updateFilters();
+        
+        // Restore the selection and scroll position
+        restoreSelection();
+        
+        // Clear the selection
+        clearMangaSelection();
     }
     
     /// Shows the add / import popover, without passing variables for the menu item

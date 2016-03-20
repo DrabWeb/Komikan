@@ -143,11 +143,20 @@ class KMMangaListController: NSObject {
                     }
                 }
                 
+                // Store the current scroll position and selection
+                mangaGridController.storeCurrentSelection();
+                
                 // Reload the view to match its contents
                 NSNotificationCenter.defaultCenter().postNotificationName("ViewController.UpdateMangaGrid", object: nil);
                 
-                // Tell the manga grid to resort itself
+                // Resort the grid
                 mangaGridController.resort();
+                
+                // Redo the search, if there was one
+                mangaGridController.redoSearch();
+                
+                // Restore the scroll position and selection
+                mangaGridController.restoreSelection();
             }
         }
     }

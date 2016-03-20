@@ -115,19 +115,20 @@ class KMMangaGridCollectionItem: NSCollectionViewItem {
             // Remove the observer so we dont get duplicate calls
             NSNotificationCenter.defaultCenter().removeObserver(self);
             
+            // Store the current scroll position and selection
+            (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.storeCurrentSelection();
+            
             // Reload the view to match its contents
             NSNotificationCenter.defaultCenter().postNotificationName("ViewController.UpdateMangaGrid", object: nil);
             
             // Resort the grid
             (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.resort();
             
-//            let oldSelectionIndexes : NSIndexSet = viewController.mangaCollectionView.selectionIndexes;
-//            let firstIndex : Int = viewController.mangaCollectionView.selectionIndexes.firstIndex;
-//            
-//            let firstSelectionFrame : NSRect = viewController.mangaCollectionView.frameForItemAtIndex(firstIndex);
-//            viewController.mangaCollectionView.scrollRectToVisible(firstSelectionFrame);
-//            
-//            viewController.mangaCollectionView.selectionIndexes = oldSelectionIndexes;
+            // Redo the search, if there was one
+            (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.redoSearch();
+            
+            // Restore the scroll position and selection
+            (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.restoreSelection();
         }
     }
     
