@@ -1470,6 +1470,11 @@ class KMMangaGridController: NSObject {
         }
     }
     
+    /// Wrapper to ViewController.clearMangaSelection
+    func clearMangaSelection() {
+        viewController.clearMangaSelection();
+    }
+    
     /// Wrapper to ViewController.restoreSelection
     func restoreSelection() {
         viewController.restoreSelection();

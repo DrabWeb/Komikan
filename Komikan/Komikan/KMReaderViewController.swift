@@ -898,6 +898,9 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         // Say the page jump view is open
         pageJumpOpen = true;
         
+        // Scroll to the top of the page jump table view
+        readerPageJumpTableView.scrollRowToVisible(0);
+        
         // Enable the page jump view
         readerPageJumpTableView.enabled = true;
         readerPageJumpScrollView.hidden = false;

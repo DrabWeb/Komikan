@@ -419,7 +419,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             // Deselect all the items in the list
             mangaTableView.deselectAll(self);
         }
-            // If we are in grid view...
+        // If we are in grid view...
         else {
             // Deselect all the items in the grid
             mangaCollectionView.deselectAll(self);
@@ -1442,11 +1442,17 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         
         // If the info bar is now open...
         if(infoBarOpen) {
+            // Enable the grid size slider
+            infoBarGridSizeSlider.enabled = true;
+            
             // Fade it in
             infoBarContainer.animator().alphaValue = 1;
         }
         // If the info bar is now closed...
         else {
+            // Disable the grid size slider
+            infoBarGridSizeSlider.enabled = false;
+            
             // Fade it out
             infoBarContainer.animator().alphaValue = 0;
         }
@@ -1484,6 +1490,9 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         
         // Hide the info bar
         infoBarContainer.alphaValue = 0;
+        
+        // Disable the grid size slider
+        infoBarGridSizeSlider.enabled = false;
     }
     
     func deleteTitlebarInFullscreen() {
