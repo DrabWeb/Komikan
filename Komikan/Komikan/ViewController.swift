@@ -1364,20 +1364,20 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             currentItem.changeManga(currentItem.manga);
         }
         
-        // Store the current selected rows
-        let listRowSelectionIndexes : NSIndexSet = mangaTableView.selectedRowIndexes;
+        // Save the scroll position and selection
+        storeCurrentSelection();
         
         // Reload the manga list
         mangaTableView.reloadData();
-        
-        // Reselect the rows(When reloadData is called it deselects all the items)
-        mangaTableView.selectRowIndexes(listRowSelectionIndexes, byExtendingSelection: false);
         
         // Update the grid
         updateMangaGrid();
         
         // Redo the current search, if we are searching
         mangaGridController.redoSearch();
+        
+        // Restore the selection and scroll position
+        restoreSelection();
     }
     
     /// Marks the selected manga items as read
@@ -1400,20 +1400,20 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             currentItem.changeManga(currentItem.manga);
         }
         
-        // Store the current selected rows
-        let listRowSelectionIndexes : NSIndexSet = mangaTableView.selectedRowIndexes;
+        // Save the scroll position and selection
+        storeCurrentSelection();
         
         // Reload the manga list
         mangaTableView.reloadData();
-        
-        // Reselect the rows(When reloadData is called it deselects all the items)
-        mangaTableView.selectRowIndexes(listRowSelectionIndexes, byExtendingSelection: false);
         
         // Update the grid
         updateMangaGrid();
         
         // Redo the current search, if we are searching
         mangaGridController.redoSearch();
+        
+        // Restore the selection and scroll position
+        restoreSelection();
     }
     
     func toggleInfoBar() {
