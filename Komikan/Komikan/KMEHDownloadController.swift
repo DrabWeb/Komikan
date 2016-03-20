@@ -342,6 +342,9 @@ class KMEHDownloadController : NSObject {
                     currentTagValue = currentTagValue.stringByReplacingOccurrencesOfString("td_" + tagNamespace + ":", withString: "");
                     currentTagValue = currentTagValue.stringByReplacingOccurrencesOfString("td_", withString: "");
                     
+                    // Replace underscores with spaces
+                    currentTagValue = currentTagValue.stringByReplacingOccurrencesOfString("_", withString: " ");
+                    
                     // Add the current tag to the tags namespace
                     tagsInNamespace.append(currentTagValue);
                 }
