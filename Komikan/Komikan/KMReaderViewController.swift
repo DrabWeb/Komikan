@@ -131,12 +131,6 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         updateFiltersForCurrentPage();
     }
     
-    /// The KMReaderPageJumpTableView for the thumbnail page jump view
-    @IBOutlet weak var readerPageJumpTableView: KMReaderPageJumpTableView!
-    
-    /// The scroll view for readerPageJumpTableView
-    @IBOutlet weak var readerPageJumpScrollView: NSScrollView!
-    
     // The button on the reader panel that lets you jump to a page
     @IBOutlet weak var readerPageJumpButton: NSButton!
     
@@ -145,6 +139,9 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         // Prompt the user to jump to a page
         promptToJumpToPage();
     }
+    
+    /// The controller for the reader page jump view
+    @IBOutlet var readerPageJumpController: KMReaderPageJumpController!
     
     // The label on the reader panel that shows what page you are on and how many pages there are
     @IBOutlet weak var readerPageNumberLabel: NSTextField!
@@ -207,6 +204,9 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         // Set the reader scroll views reader view controller
         readerImageScrollView.readerViewController = self;
         
+        // Setup the page jump view
+        readerPageJumpController.setup();
+        
         // Add the magnification gesture recogniser to the reader scroll view
         readerImageScrollView.addGestureRecognizer(readerMagnificationGestureRecognizer);
         
@@ -250,9 +250,6 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
             // Apply the new filter values to all pages
             updateFiltersForAllPages();
         }
-        
-        // Set the page jump view's reader view controller to this
-        readerPageJumpTableView.readerViewController = self;
         
         // Jump to the page we said to start at
         jumpToPage(page, round: false);
@@ -898,15 +895,17 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         // Say the page jump view is open
         pageJumpOpen = true;
         
-        // Scroll to the top of the page jump table view
-        readerPageJumpTableView.scrollRowToVisible(0);
-        
-        // Enable the page jump view
-        readerPageJumpTableView.enabled = true;
-        readerPageJumpScrollView.hidden = false;
-        
         // Stop the mouse hover handling timer
         mouseHoverHandlingTimer.invalidate();
+        
+        // Show the page jump scroll view
+        readerPageJumpController.readerPageJumpCollectionViewScrollView.hidden = false;
+        
+        // Load the manga's pages
+        readerPageJumpController.loadPagesFromManga(manga);
+        
+        // Scroll to the current page
+        readerPageJumpController.readerPageJumpCollectionView.scrollRectToVisible(readerPageJumpController.readerPageJumpCollectionView.frameForItemAtIndex(manga.currentPage));
         
         // Say we are closing the view(This is a cheap way to make sure the cursor doesnt hide)
         closingView = true;
@@ -919,9 +918,6 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         
         // Monitor the keyboard locally
         pageJumpKeyListener = NSEvent.addLocalMonitorForEventsMatchingMask(NSEventMask.KeyDownMask, handler: pageJumpKeyHandler);
-        
-        // Load the manga data into the table view
-        readerPageJumpTableView.loadDataFromManga(manga, onlyBookmarks: false);
         
         // Fade in the thumbnail page jump view
         thumbnailPageJumpVisualEffectView.animator().alphaValue = 1;
@@ -962,9 +958,8 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     
     /// Disables the page jump view
     func disableJumpToPageDialog() {
-        // Disable the page jump view
-        readerPageJumpTableView.enabled = false;
-        readerPageJumpScrollView.hidden = true;
+        // Hide the page jump scroll view
+        readerPageJumpController.readerPageJumpCollectionViewScrollView.hidden = true;
     }
     
     func nextPage() {
@@ -1440,10 +1435,6 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         
         // Unhide the background of the thumbnail page jump view(Its hidden in IB because it makes it unusable)
         thumbnailPageJumpVisualEffectView.hidden = false;
-        
-        // Disable the page jump view
-        readerPageJumpTableView.enabled = false;
-        readerPageJumpScrollView.hidden = true;
         
         // For some reason it destroys these views appearances, so I have to set them
         readerControlPanelSaturationSlider.superview?.appearance = NSAppearance(named: NSAppearanceNameVibrantDark);

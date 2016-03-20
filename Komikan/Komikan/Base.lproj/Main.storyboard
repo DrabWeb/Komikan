@@ -748,7 +748,7 @@ CA
                 </windowController>
                 <customObject id="6yH-kd-l2q" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1345" y="911.5"/>
+            <point key="canvasLocation" x="1264" y="1015.5"/>
         </scene>
         <!--Set Selection Properties View Controller-->
         <scene sceneID="aTU-aZ-xbI">
@@ -1236,7 +1236,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                 </windowController>
                 <customObject id="ZyD-AK-J5s" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1930" y="471"/>
+            <point key="canvasLocation" x="1915" y="719"/>
         </scene>
         <!--Reader Notes View Controller-->
         <scene sceneID="T97-cb-naR">
@@ -1274,7 +1274,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <rect key="frame" x="-100" y="-100" width="480" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.93277680490272019" horizontal="NO" id="3Yh-Gd-dah">
+                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="3Yh-Gd-dah">
                                             <rect key="frame" x="464" y="22" width="16" height="378"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
@@ -1379,7 +1379,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                 </viewController>
                 <customObject id="gif-9I-UzO" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1935" y="1002"/>
+            <point key="canvasLocation" x="1877" y="1164"/>
         </scene>
         <!--Preferences Window Controller-->
         <scene sceneID="Lh1-2B-Yh9">
@@ -2003,7 +2003,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="6vR-dx-5nf">
-                                    <rect key="frame" x="464" y="0.0" width="16" height="270"/>
+                                    <rect key="frame" x="465" y="0.0" width="15" height="270"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
@@ -2305,175 +2305,40 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="440" id="yUB-Pj-IY6"/>
                                 </constraints>
                             </customView>
-                            <visualEffectView hidden="YES" appearanceType="vibrantDark" blendingMode="withinWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="nVv-Ns-s6i" userLabel="Page Thumbnail Background Visual Effect View">
+                            <visualEffectView hidden="YES" appearanceType="vibrantDark" blendingMode="withinWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="nVv-Ns-s6i" userLabel="Page Jump Visual Effect View">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                 <subviews>
-                                    <scrollView borderType="none" horizontalLineScroll="142" horizontalPageScroll="10" verticalLineScroll="142" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXD-aQ-FWt" userLabel="Scroll View - Page Jump Table View">
-                                        <rect key="frame" x="38" y="0.0" width="405" height="270"/>
-                                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="6o0-zt-nqF">
-                                            <rect key="frame" x="0.0" y="0.0" width="405" height="270"/>
+                                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zBw-DW-dsg">
+                                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="jeG-r7-oDw">
+                                            <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="140" viewBased="YES" id="SIJ-SQ-EnH" customClass="KMReaderPageJumpTableView" customModule="Komikan" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="405" height="270"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <size key="intercellSpacing" width="3" height="2"/>
-                                                    <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
-                                                    <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                                    <tableColumns>
-                                                        <tableColumn identifier="Thumbnail Column" width="402" minWidth="40" maxWidth="1000" id="uEQ-9j-1MO" userLabel="Thumbnail Column">
-                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                                <font key="font" metaFont="smallSystem"/>
-                                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                                            </tableHeaderCell>
-                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="bM2-3k-5aL">
-                                                                <font key="font" metaFont="system"/>
-                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                            </textFieldCell>
-                                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
-                                                            <prototypeCellViews>
-                                                                <tableCellView id="gK1-KK-qKY" customClass="KMReaderPageJumpCellView" customModule="Komikan" customModuleProvider="target">
-                                                                    <rect key="frame" x="1" y="1" width="402" height="140"/>
-                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                                    <subviews>
-                                                                        <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ymC-c1-bML" userLabel="Only Exists For Binding">
-                                                                            <rect key="frame" x="184" y="61" width="37" height="17"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="width" constant="33" id="vmv-7D-wC5"/>
-                                                                            </constraints>
-                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" enabled="NO" sendsActionOnEndEditing="YES" title="Label" id="CSl-WG-h3I">
-                                                                                <font key="font" metaFont="system"/>
-                                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                            </textFieldCell>
-                                                                        </textField>
-                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="QWq-Og-fBX" userLabel="Thumbnail One" customClass="KMRasterizedButton" customModule="Komikan" customModuleProvider="target">
-                                                                            <rect key="frame" x="5" y="5" width="130" height="130"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="width" constant="130" id="zGU-WC-e4T"/>
-                                                                            </constraints>
-                                                                            <shadow key="shadow" blurRadius="2">
-                                                                                <size key="offset" width="0.0" height="1"/>
-                                                                                <color key="color" white="0.0" alpha="0.50218750000000001" colorSpace="calibratedWhite"/>
-                                                                            </shadow>
-                                                                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="example-cover" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="8ZY-BK-T14">
-                                                                                <behavior key="behavior" lightByContents="YES"/>
-                                                                                <font key="font" metaFont="system"/>
-                                                                            </buttonCell>
-                                                                            <connections>
-                                                                                <action selector="leftButtonPressed:" target="gK1-KK-qKY" id="rvo-ga-apM"/>
-                                                                            </connections>
-                                                                        </button>
-                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="pCF-iW-ENV" userLabel="Thumbnail Three" customClass="KMRasterizedButton" customModule="Komikan" customModuleProvider="target">
-                                                                            <rect key="frame" x="267" y="5" width="130" height="130"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="width" constant="130" id="Y7Q-fE-5DE"/>
-                                                                            </constraints>
-                                                                            <shadow key="shadow" blurRadius="2">
-                                                                                <size key="offset" width="0.0" height="1"/>
-                                                                                <color key="color" white="0.0" alpha="0.50218750000000001" colorSpace="calibratedWhite"/>
-                                                                            </shadow>
-                                                                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="example-cover" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="4xP-in-5Px">
-                                                                                <behavior key="behavior" lightByContents="YES"/>
-                                                                                <font key="font" metaFont="system"/>
-                                                                            </buttonCell>
-                                                                            <connections>
-                                                                                <action selector="rightButtonPressed:" target="gK1-KK-qKY" id="ssE-rd-3VL"/>
-                                                                            </connections>
-                                                                        </button>
-                                                                        <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="KzL-ne-Kcc" userLabel="Thumbnail Two" customClass="KMRasterizedButton" customModule="Komikan" customModuleProvider="target">
-                                                                            <rect key="frame" x="136" y="5" width="130" height="130"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="width" constant="130" id="HCf-g0-zVY"/>
-                                                                            </constraints>
-                                                                            <shadow key="shadow" blurRadius="2">
-                                                                                <size key="offset" width="0.0" height="1"/>
-                                                                                <color key="color" white="0.0" alpha="0.50218750000000001" colorSpace="calibratedWhite"/>
-                                                                            </shadow>
-                                                                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="example-cover" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="nWj-rb-qDA">
-                                                                                <behavior key="behavior" lightByContents="YES"/>
-                                                                                <font key="font" metaFont="system"/>
-                                                                            </buttonCell>
-                                                                            <connections>
-                                                                                <action selector="centerButtonPressed:" target="gK1-KK-qKY" id="3Db-k7-8nS"/>
-                                                                            </connections>
-                                                                        </button>
-                                                                        <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BTs-Rn-3Ih" userLabel="Thumbnail One Bookmark">
-                                                                            <rect key="frame" x="84" y="87" width="48" height="48"/>
-                                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="Bookmark Marker" id="JPs-qX-Qmg"/>
-                                                                        </imageView>
-                                                                        <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7Su-HR-AFj" userLabel="Thumbnail Two Bookmark">
-                                                                            <rect key="frame" x="215" y="87" width="48" height="48"/>
-                                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="Bookmark Marker" id="Tuj-o4-kEZ"/>
-                                                                        </imageView>
-                                                                        <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="paK-av-QHo" userLabel="Thumbnail Three Bookmark">
-                                                                            <rect key="frame" x="346" y="87" width="48" height="48"/>
-                                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="Bookmark Marker" id="nU8-wc-Tpc"/>
-                                                                        </imageView>
-                                                                    </subviews>
-                                                                    <constraints>
-                                                                        <constraint firstItem="KzL-ne-Kcc" firstAttribute="top" secondItem="gK1-KK-qKY" secondAttribute="top" constant="5" id="6OO-T3-n36"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="ymC-c1-bML" secondAttribute="bottom" constant="61" id="7xy-CL-5ih"/>
-                                                                        <constraint firstAttribute="trailing" secondItem="pCF-iW-ENV" secondAttribute="trailing" constant="5" id="Avw-uv-Xt6"/>
-                                                                        <constraint firstItem="pCF-iW-ENV" firstAttribute="leading" secondItem="7Su-HR-AFj" secondAttribute="trailing" constant="4" id="CCo-f6-IHr"/>
-                                                                        <constraint firstItem="ymC-c1-bML" firstAttribute="leading" secondItem="QWq-Og-fBX" secondAttribute="trailing" constant="51" id="EaT-My-IJO"/>
-                                                                        <constraint firstItem="BTs-Rn-3Ih" firstAttribute="top" secondItem="QWq-Og-fBX" secondAttribute="top" id="FvI-dc-acQ"/>
-                                                                        <constraint firstItem="ymC-c1-bML" firstAttribute="top" secondItem="7Su-HR-AFj" secondAttribute="bottom" constant="9" id="GVc-Fr-E8a"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="pCF-iW-ENV" secondAttribute="bottom" constant="5" id="O0I-zs-SWq"/>
-                                                                        <constraint firstItem="7Su-HR-AFj" firstAttribute="top" secondItem="KzL-ne-Kcc" secondAttribute="top" id="OU8-9p-fr2"/>
-                                                                        <constraint firstItem="QWq-Og-fBX" firstAttribute="top" secondItem="gK1-KK-qKY" secondAttribute="top" constant="5" id="QqV-Ic-82k"/>
-                                                                        <constraint firstItem="KzL-ne-Kcc" firstAttribute="centerX" secondItem="gK1-KK-qKY" secondAttribute="centerX" id="RGv-YY-Cbz"/>
-                                                                        <constraint firstItem="KzL-ne-Kcc" firstAttribute="leading" secondItem="BTs-Rn-3Ih" secondAttribute="trailing" constant="4" id="Smt-s6-AeI"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="KzL-ne-Kcc" secondAttribute="bottom" constant="5" id="ZAb-gp-6hc"/>
-                                                                        <constraint firstItem="pCF-iW-ENV" firstAttribute="top" secondItem="gK1-KK-qKY" secondAttribute="top" constant="5" id="agJ-gS-aAY"/>
-                                                                        <constraint firstItem="7Su-HR-AFj" firstAttribute="leading" secondItem="QWq-Og-fBX" secondAttribute="trailing" constant="80" id="c2Q-uG-lPG"/>
-                                                                        <constraint firstItem="paK-av-QHo" firstAttribute="top" secondItem="pCF-iW-ENV" secondAttribute="top" id="e14-Ec-kNL"/>
-                                                                        <constraint firstItem="ymC-c1-bML" firstAttribute="centerY" secondItem="KzL-ne-Kcc" secondAttribute="centerY" id="fl5-Uy-UOI"/>
-                                                                        <constraint firstItem="paK-av-QHo" firstAttribute="bottom" secondItem="7Su-HR-AFj" secondAttribute="bottom" id="jAb-K5-vss"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="QWq-Og-fBX" secondAttribute="bottom" constant="5" id="k42-XA-VAf"/>
-                                                                        <constraint firstAttribute="trailing" secondItem="paK-av-QHo" secondAttribute="trailing" constant="8" id="qtn-U1-p39"/>
-                                                                        <constraint firstItem="7Su-HR-AFj" firstAttribute="bottom" secondItem="BTs-Rn-3Ih" secondAttribute="bottom" id="ru8-sV-hEh"/>
-                                                                        <constraint firstItem="QWq-Og-fBX" firstAttribute="leading" secondItem="gK1-KK-qKY" secondAttribute="leading" constant="5" id="t0B-6R-bq9"/>
-                                                                        <constraint firstItem="pCF-iW-ENV" firstAttribute="leading" secondItem="ymC-c1-bML" secondAttribute="trailing" constant="48" id="uL7-hQ-zj6"/>
-                                                                        <constraint firstItem="paK-av-QHo" firstAttribute="leading" secondItem="KzL-ne-Kcc" secondAttribute="trailing" constant="80" id="uex-f6-uPX"/>
-                                                                        <constraint firstItem="BTs-Rn-3Ih" firstAttribute="leading" secondItem="gK1-KK-qKY" secondAttribute="leading" constant="84" id="yeQ-iH-c3o"/>
-                                                                    </constraints>
-                                                                    <connections>
-                                                                        <outlet property="centerBookmarkMarker" destination="7Su-HR-AFj" id="IXA-3C-75S"/>
-                                                                        <outlet property="centerButton" destination="KzL-ne-Kcc" id="XCf-TZ-7yc"/>
-                                                                        <outlet property="leftBookmarkMarker" destination="BTs-Rn-3Ih" id="59a-Lj-lzI"/>
-                                                                        <outlet property="leftButton" destination="QWq-Og-fBX" id="xbQ-YH-LXg"/>
-                                                                        <outlet property="rightBookmarkMarker" destination="paK-av-QHo" id="Jqe-zd-dgI"/>
-                                                                        <outlet property="rightButton" destination="pCF-iW-ENV" id="WHx-vJ-S4w"/>
-                                                                        <outlet property="textField" destination="ymC-c1-bML" id="9Mm-W3-M9M"/>
-                                                                    </connections>
-                                                                </tableCellView>
-                                                            </prototypeCellViews>
-                                                        </tableColumn>
-                                                    </tableColumns>
-                                                </tableView>
+                                                <collectionView id="Ity-gL-9GP">
+                                                    <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <color key="primaryBackgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
+                                                    <connections>
+                                                        <binding destination="mQb-m6-Pek" name="content" keyPath="arrangedObjects" id="uWQ-qt-zSa"/>
+                                                    </connections>
+                                                </collectionView>
                                             </subviews>
-                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </clipView>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="405" id="AvR-Kw-IMJ"/>
-                                        </constraints>
-                                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="bWV-fS-DV2">
-                                            <rect key="frame" x="0.0" y="254" width="405" height="16"/>
+                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="6aN-zA-G0f">
+                                            <rect key="frame" x="1" y="144" width="233" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="hKR-Pk-qGD">
-                                            <rect key="frame" x="389" y="0.0" width="16" height="270"/>
+                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="0eF-Eh-z4l">
+                                            <rect key="frame" x="234" y="1" width="15" height="143"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="VXD-aQ-FWt" secondAttribute="bottom" id="98b-mA-oy0"/>
-                                    <constraint firstItem="VXD-aQ-FWt" firstAttribute="top" secondItem="nVv-Ns-s6i" secondAttribute="top" id="OFd-X2-hfh"/>
-                                    <constraint firstItem="VXD-aQ-FWt" firstAttribute="centerX" secondItem="nVv-Ns-s6i" secondAttribute="centerX" id="UFE-bo-cAo"/>
+                                    <constraint firstAttribute="trailing" secondItem="zBw-DW-dsg" secondAttribute="trailing" id="2kU-d9-cEY"/>
+                                    <constraint firstItem="zBw-DW-dsg" firstAttribute="top" secondItem="nVv-Ns-s6i" secondAttribute="top" id="67A-lL-MSz"/>
+                                    <constraint firstAttribute="bottom" secondItem="zBw-DW-dsg" secondAttribute="bottom" id="mOS-Lv-YEX"/>
+                                    <constraint firstItem="zBw-DW-dsg" firstAttribute="leading" secondItem="nVv-Ns-s6i" secondAttribute="leading" id="r1a-0X-E5b"/>
                                 </constraints>
                             </visualEffectView>
                         </subviews>
@@ -2513,8 +2378,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                         <outlet property="readerImageView" destination="Ui2-6j-ybs" id="3Na-xG-GHe"/>
                         <outlet property="readerMagnificationGestureRecognizer" destination="8b7-OE-R79" id="0Y8-dG-tvy"/>
                         <outlet property="readerPageJumpButton" destination="oOA-Me-Hgv" id="VAu-G8-RGb"/>
-                        <outlet property="readerPageJumpScrollView" destination="VXD-aQ-FWt" id="qYj-l1-Ybn"/>
-                        <outlet property="readerPageJumpTableView" destination="SIJ-SQ-EnH" id="m5l-Kk-fb2"/>
+                        <outlet property="readerPageJumpController" destination="22j-lt-dF0" id="3Pg-dc-ITL"/>
                         <outlet property="readerPageNumberLabel" destination="KbI-5a-d0M" id="toS-Dw-3EQ"/>
                         <outlet property="readerPanelCornerRounding" destination="KGp-UH-dRu" id="jl0-8l-DhB"/>
                         <outlet property="readerPanelVisualEffectView" destination="T3C-g4-I63" id="IDz-2Z-4M5"/>
@@ -2527,8 +2391,80 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                 </viewController>
                 <customObject id="gfr-hh-QRM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <magnificationGestureRecognizer delaysMagnificationEvents="YES" magnification="0.0" id="8b7-OE-R79"/>
+                <customObject id="22j-lt-dF0" customClass="KMReaderPageJumpController" customModule="Komikan" customModuleProvider="target">
+                    <connections>
+                        <outlet property="arrayController" destination="mQb-m6-Pek" id="CT6-UY-zuk"/>
+                        <outlet property="readerPageJumpCollectionView" destination="Ity-gL-9GP" id="loo-eU-Lqb"/>
+                        <outlet property="readerPageJumpCollectionViewScrollView" destination="zBw-DW-dsg" id="ufi-l6-9mf"/>
+                        <outlet property="readerViewController" destination="OyT-nZ-UQJ" id="1bT-XI-hyL"/>
+                    </connections>
+                </customObject>
+                <arrayController objectClassName="KMReaderPageJumpGridItem" id="mQb-m6-Pek" userLabel="Page Jump Array Controller">
+                    <declaredKeys>
+                        <string>thumbnail</string>
+                        <string>bookmarked</string>
+                        <string>alpha</string>
+                    </declaredKeys>
+                    <connections>
+                        <binding destination="22j-lt-dF0" name="contentArray" keyPath="jumpPages" id="aWW-ok-JWg"/>
+                    </connections>
+                </arrayController>
             </objects>
             <point key="canvasLocation" x="1393" y="235"/>
+        </scene>
+        <!--Reader Page Jump Collection View Item-->
+        <scene sceneID="hHb-A8-2va">
+            <objects>
+                <collectionViewItem storyboardIdentifier="readerPageJumpCollectionViewItem" id="iVw-7s-9Nb" userLabel="Reader Page Jump Collection View Item" customClass="KMReaderPageJumpCollectionItem" customModule="Komikan" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" wantsLayer="YES" id="vCx-zJ-gNf">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="2aP-SQ-Yzs" userLabel="Thumbnail Image View" customClass="KMRasterizedImageView" customModule="Komikan" customModuleProvider="target">
+                                <rect key="frame" x="20" y="20" width="160" height="160"/>
+                                <shadow key="shadow" blurRadius="5">
+                                    <size key="offset" width="0.0" height="-5"/>
+                                    <color key="color" white="0.0" alpha="0.40000000000000002" colorSpace="calibratedWhite"/>
+                                </shadow>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="example-cover" id="fKr-Vl-P7p"/>
+                                <connections>
+                                    <binding destination="iVw-7s-9Nb" name="value" keyPath="representedObject.thumbnail" id="YDI-tf-9uc"/>
+                                </connections>
+                            </imageView>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="efR-8K-STY">
+                                <rect key="frame" x="132" y="132" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="CkP-Io-csU"/>
+                                    <constraint firstAttribute="width" constant="48" id="lCJ-Iw-BNj"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Bookmark Marker" id="Azy-VY-AZj"/>
+                                <connections>
+                                    <binding destination="iVw-7s-9Nb" name="hidden" keyPath="representedObject.bookmarked" id="lm0-Ze-cSB">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="efR-8K-STY" firstAttribute="top" secondItem="vCx-zJ-gNf" secondAttribute="top" constant="20" id="4RX-yz-5Xn"/>
+                            <constraint firstItem="2aP-SQ-Yzs" firstAttribute="top" secondItem="vCx-zJ-gNf" secondAttribute="top" constant="20" id="6pm-pk-LBF"/>
+                            <constraint firstAttribute="trailing" secondItem="2aP-SQ-Yzs" secondAttribute="trailing" constant="20" id="AnB-OR-42f"/>
+                            <constraint firstAttribute="bottom" secondItem="2aP-SQ-Yzs" secondAttribute="bottom" constant="20" id="Elo-k3-wHA"/>
+                            <constraint firstItem="2aP-SQ-Yzs" firstAttribute="leading" secondItem="vCx-zJ-gNf" secondAttribute="leading" constant="20" id="dT5-Pe-gPP"/>
+                            <constraint firstAttribute="trailing" secondItem="efR-8K-STY" secondAttribute="trailing" constant="20" id="qDw-76-xcS"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="thumbnailImageView" destination="2aP-SQ-Yzs" id="ttR-bS-Dye"/>
+                    </connections>
+                </collectionViewItem>
+                <customObject id="J7J-cd-rRO" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <userDefaultsController id="fli-Dp-y1b"/>
+                <userDefaultsController id="hBT-1T-yST"/>
+            </objects>
+            <point key="canvasLocation" x="1805" y="237"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -2799,7 +2735,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                         </clipView>
                                         <edgeInsets key="contentInsets" left="0.0" right="0.0" top="37" bottom="0.0"/>
-                                        <scroller key="horizontalScroller" verticalHuggingPriority="750" doubleValue="0.037479947679631302" horizontal="YES" id="aW7-jK-d3M">
+                                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="aW7-jK-d3M">
                                             <rect key="frame" x="0.0" y="464" width="640" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
@@ -2833,7 +2769,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <rect key="frame" x="1" y="144" width="233" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.90597539750971823" horizontal="NO" id="0wb-fr-0cq">
+                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="0wb-fr-0cq">
                                             <rect key="frame" x="624" y="37" width="16" height="443"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
@@ -2859,7 +2795,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <rect key="frame" x="1" y="144" width="233" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.98705647859080969" horizontal="NO" id="jaG-iJ-fFK">
+                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="jaG-iJ-fFK">
                                             <rect key="frame" x="624" y="37" width="16" height="443"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
