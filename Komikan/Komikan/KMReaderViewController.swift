@@ -1436,6 +1436,9 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         // Unhide the background of the thumbnail page jump view(Its hidden in IB because it makes it unusable)
         thumbnailPageJumpVisualEffectView.hidden = false;
         
+        // DIsable the page jump scroll view(It stops scrolling/gestures in the reader until it is shown and hidden again)
+        disableJumpToPageDialog();
+        
         // For some reason it destroys these views appearances, so I have to set them
         readerControlPanelSaturationSlider.superview?.appearance = NSAppearance(named: NSAppearanceNameVibrantDark);
         readerControlPanelContrastSlider.superview?.appearance = NSAppearance(named: NSAppearanceNameVibrantDark);
