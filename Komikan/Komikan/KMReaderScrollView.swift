@@ -52,18 +52,12 @@ class KMReaderScrollView: NSScrollView {
     func nextPage() {
         // Go to the next page
         readerViewController.nextPage();
-        
-        // Tell the reader view controller to reset the zoom
-        readerViewController.resetMagnification();
     }
     
     /// Flips to the previous page
     func previousPage() {
         // Go to the previous page
         readerViewController.previousPage();
-        
-        // Tell the reader view controller to reset the zoom
-        readerViewController.resetMagnification();
     }
     
     /// The swipe cooldown so you cant swipe until the delta X is at 0
