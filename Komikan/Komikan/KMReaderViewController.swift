@@ -213,6 +213,9 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         // Start the 0.1 second loop for the mouse hovering
         mouseHoverHandlingTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("mouseHoverHandling"), userInfo: nil, repeats:true);
         
+        // Subscribe to the preferences saved notification
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadPreferences", name:"Application.PreferencesSaved", object: nil);
+        
         // Show the reader panel and hide the controls panel
         hideControlsPanelShowReaderPanel();
     }
@@ -324,6 +327,12 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         
         // Show the notes window
         notesWindowController!.showWindow(self);
+    }
+    
+    /// Reloads the values needed from the preferences
+    func reloadPreferences() {
+        // Set the window background color
+        readerWindow.backgroundColor = (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.readerWindowBackgroundColor;
     }
     
     /// Resets the zoom amount
@@ -697,6 +706,9 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         
         // Stop monitoring the trackpad
         readerImageScrollView.removeAllMonitors();
+        
+        // Unsubscribe from all notifications
+        NSNotificationCenter.defaultCenter().removeObserver(self);
         
         // Post the notification to update the percent finished
         NSNotificationCenter.defaultCenter().postNotificationName("KMMangaGridCollectionItem.UpdatePercentFinished", object: manga);
