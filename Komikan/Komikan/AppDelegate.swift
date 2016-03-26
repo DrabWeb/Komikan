@@ -348,8 +348,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
             toggleDarken();
         }
         
+        // Save the scroll position and selection in the grid
+        mangaGridController.storeCurrentSelection();
+        
+        // Reload the filters in the grid
+        mangaGridController.updateFilters();
+        
         // Post the notification saying the preferences have been saved
         NSNotificationCenter.defaultCenter().postNotificationName("Application.PreferencesSaved", object: nil);
+        
+        // Restore the scroll position and selection in the grid
+        mangaGridController.restoreSelection();
     }
     
     // How much to darken the background

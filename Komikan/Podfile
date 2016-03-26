@@ -6,7 +6,7 @@ use_frameworks!
 target 'Komikan' do
 	pod 'WPZipArchive'
 	pod 'UnrarKit', '~> 2.6'
-	pod 'Alamofire'
+	pod 'Alamofire', '3.1.0'
 	pod 'SWXMLHash'
 end
 

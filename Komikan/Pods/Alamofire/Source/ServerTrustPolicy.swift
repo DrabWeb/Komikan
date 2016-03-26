@@ -1,6 +1,6 @@
 // ServerTrustPolicy.swift
 //
-// Copyright (c) 2014–2016 Alamofire Software Foundation (http://alamofire.org/)
+// Copyright (c) 2014–2015 Alamofire Software Foundation (http://alamofire.org/)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -128,11 +128,7 @@ public enum ServerTrustPolicy {
     public static func certificatesInBundle(bundle: NSBundle = NSBundle.mainBundle()) -> [SecCertificate] {
         var certificates: [SecCertificate] = []
 
-        let paths = Set([".cer", ".CER", ".crt", ".CRT", ".der", ".DER"].map { fileExtension in
-            bundle.pathsForResourcesOfType(fileExtension, inDirectory: nil)
-        }.flatten())
-
-        for path in paths {
+        for path in bundle.pathsForResourcesOfType(".cer", inDirectory: nil) {
             if let
                 certificateData = NSData(contentsOfFile: path),
                 certificate = SecCertificateCreateWithData(nil, certificateData)
@@ -193,7 +189,14 @@ public enum ServerTrustPolicy {
                 serverTrustIsValid = trustIsValid(serverTrust)
             } else {
                 let serverCertificatesDataArray = certificateDataForTrust(serverTrust)
-                let pinnedCertificatesDataArray = certificateDataForCertificates(pinnedCertificates)
+
+                //======================================================================================================
+                // The following `[] +` is a temporary workaround for a Swift 2.0 compiler error. This workaround should
+                // be removed once the following radar has been resolved:
+                //   - http://openradar.appspot.com/radar?id=6082025006039040
+                //======================================================================================================
+
+                let pinnedCertificatesDataArray = certificateDataForCertificates([] + pinnedCertificates)
 
                 outerLoop: for serverCertificateData in serverCertificatesDataArray {
                     for pinnedCertificateData in pinnedCertificatesDataArray {

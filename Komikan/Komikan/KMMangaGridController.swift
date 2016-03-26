@@ -34,9 +34,6 @@ class KMMangaGridController: NSObject {
     override func awakeFromNib() {
         // Subscribe to the MangaGrid.Resort notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "resort", name:"MangaGrid.Resort", object: nil);
-        
-        // Subscribe to the Application.PreferencesSaved notification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "displayLewdMangaAppDelegate", name:"Application.PreferencesSaved", object: nil);
     }
     
     /// Exports the JSON information for every manga in the grid(Also exports thre internal info if exportInternalInfo is true)
