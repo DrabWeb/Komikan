@@ -99,3 +99,11 @@ extension SequenceType where Generator.Element: Hashable {
         return frequency.sort { $0.1 > $1.1 }
     }
 }
+
+extension NSDate {
+    /// Is this date equal to the beginning of the UNIX epoch?
+    func isBeginningOfEpoch() -> Bool {
+        // Return if this date equals the beginning of the UNIX epoch
+        return self == NSDate(timeIntervalSince1970: NSTimeInterval(0));
+    }
+}

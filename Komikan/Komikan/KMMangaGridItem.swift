@@ -99,6 +99,7 @@ class KMMangaGridItem: NSObject, NSCoding {
         coder.encodeObject(self.manga.lewd, forKey: "manga.lewd");
         coder.encodeObject(self.manga.group, forKey: "manga.group");
         coder.encodeObject(self.manga.favourite, forKey: "manga.favourite");
+        coder.encodeObject(self.manga.releaseDate, forKey: "manga.releaseDate");
         
         coder.encodeObject(self.manga.saturation, forKey: "manga.saturation");
         coder.encodeObject(self.manga.brightness, forKey: "manga.brightness");
@@ -188,6 +189,12 @@ class KMMangaGridItem: NSObject, NSCoding {
         if((decoder.decodeObjectForKey("manga.favourite") as? Bool) != nil) {
             // Load it
             self.manga.favourite = (decoder.decodeObjectForKey("manga.favourite") as! Bool?)!;
+        }
+        
+        // If there is a release date value...
+        if((decoder.decodeObjectForKey("manga.releaseDate") as? NSDate) != nil) {
+            // Load it
+            self.manga.releaseDate = (decoder.decodeObjectForKey("manga.releaseDate") as! NSDate?)!;
         }
         
         // Load up the manga info

@@ -264,6 +264,9 @@ class KMEHDownloadController : NSObject {
         // Load the tags and artist/writer
         getTagInfoFromEX(NSHomeDirectory() + "/Library/Application Support/Komikan/newehpage.xml", manga: item.manga);
         
+        // Set the release date
+        item.manga.releaseDate = NSDate(timeIntervalSince1970: NSTimeInterval(NSString(string: newMangaJson["gmetadata"][0]["posted"].stringValue).integerValue));
+        
         // If the item's group isnt blank...
         if(item.group != "") {
             // Set the manga's group to the item's group
@@ -317,8 +320,21 @@ class KMEHDownloadController : NSObject {
     
     /// Gets the tag info from ExHentai and sets the values accordingly on the passed manga(Like respecting artist namespace)
     func getTagInfoFromEX(galleryPagePath : String, manga : KMManga) {
+        /// The contents of the file at galleryPagePath, will escaoe ampersands
+        var pageData : String = String(data: NSFileManager.defaultManager().contentsAtPath(galleryPagePath)!, encoding: NSUTF8StringEncoding)!;
+        
+        // Escape the ampersands
+        pageData = pageData.stringByReplacingOccurrencesOfString("&", withString: "(&amp;)");
+        
         /// The XML for the manga's EH gallery page's source code
-        let galleryPageXML = SWXMLHash.parse(NSFileManager.defaultManager().contentsAtPath(galleryPagePath)!);
+        let galleryPageXML = SWXMLHash.parse(pageData.dataUsingEncoding(NSUTF8StringEncoding)!);
+        
+        do {
+            print(try galleryPageXML["html"]["body"]["div"].withAttr("class", "gm"));
+        }
+        catch _ as NSError {
+            
+        }
         
         // Get the tags and tag namespace
         do {

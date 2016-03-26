@@ -34,6 +34,6 @@ INFO=$(curl --cookie "$COOKIES" -H "Content-Type: application/json" \
 echo $INFO > ~/Library/Application\ Support/Komikan/newehdata.json
 
 # Download the gallery page to ~/Library/Application Support/Komikan/newehpage.xml
-curl --cookie "$COOKIES" -o ~/Library/Application\ Support/Komikan/newehpage.xml "$1"
+curl --cookie "$COOKIES" -o "$HOME/Library/Application Support/Komikan/newehpage.xml" "$1"
 
 # > ~/Library/Application\ Support/Komikan/newehdata.json

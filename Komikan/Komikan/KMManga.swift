@@ -76,6 +76,9 @@ class KMManga {
     /// How much we are finished this manga(From 0 to 100)
     var percentFinished : Int = 0;
     
+    /// The date this manga was released(If it's the beginning of the UNIX epoch, that means its not set)
+    var releaseDate : NSDate = NSDate(timeIntervalSince1970: NSTimeInterval(0));
+    
     /// A bool to say if we have already set tmpDirectory
     private var alreadySetTmpDirectory : Bool = false;
     
@@ -88,7 +91,7 @@ class KMManga {
             
             // If we havent already set tmpDirectory...
             if(!alreadySetTmpDirectory) {
-                // Set tmpDirectory to /tmp/komikan/komikanmanga-(Title)
+                // Set tmpDirectory to /tmp/komikan/komikanmanga-(Title)/
                 tmpDirectory += title + "/";
                 
                 // Say we alrady set tmpDirectory

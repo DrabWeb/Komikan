@@ -46,6 +46,12 @@ class KMAddMangaViewController: NSViewController {
     /// The token text field for the mangas group
     @IBOutlet weak var groupTokenTextField: KMSuggestionTokenField!
     
+    /// The text field for setting the manga's release date(s)
+    @IBOutlet var releaseDateTextField: KMAlwaysActiveTextField!
+    
+    /// The date formatter for releaseDateTextField
+    @IBOutlet var releaseDateTextFieldDateFormatter: NSDateFormatter!
+    
     /// The checkbox to say if this manga is l-lewd...
     @IBOutlet weak var llewdCheckBox: NSButton!
     
@@ -133,6 +139,12 @@ class KMAddMangaViewController: NSViewController {
             // Set the new mangas artist
             newManga.artist = artistTokenTextField.stringValue;
             
+            // If the release date field isnt blank...
+            if(releaseDateTextField.stringValue != "") {
+                // Set the release date
+                newManga.releaseDate = releaseDateTextFieldDateFormatter.dateFromString(releaseDateTextField.stringValue)!;
+            }
+            
             // Set if the manga is l-lewd...
             newManga.lewd = Bool(llewdCheckBox.state);
             
@@ -179,6 +191,12 @@ class KMAddMangaViewController: NSViewController {
                 
                 // Set the manga's writer
                 currentManga.writer = writerTokenTextField.stringValue;
+                
+                // If the release date field isnt blank...
+                if(releaseDateTextField.stringValue != "") {
+                    // Set the release date
+                    currentManga.releaseDate = releaseDateTextFieldDateFormatter.dateFromString(releaseDateTextField.stringValue)!;
+                }
                 
                 // Set if the manga is l-lewd...
                 currentManga.lewd = Bool(llewdCheckBox.state);
@@ -263,6 +281,18 @@ class KMAddMangaViewController: NSViewController {
                     // Set the series text field's value to the writer value
                     writerTokenTextField.stringValue = mangaJson["writer"].stringValue;
                     
+                    // If there is a released value...
+                    if(mangaJson["published"].isExists()) {
+                        // If there is a release date listed...
+                        if(mangaJson["published"].stringValue.lowercaseString != "unknown" && mangaJson["published"].stringValue != "") {
+                            // If the release date is valid...
+                            if(releaseDateTextFieldDateFormatter.dateFromString(mangaJson["published"].stringValue) != nil) {
+                                // Set the release date text field's value to the release date value
+                                releaseDateTextField.stringValue = releaseDateTextFieldDateFormatter.stringFromDate((releaseDateTextFieldDateFormatter.dateFromString(mangaJson["published"].stringValue)!));
+                            }
+                        }
+                    }
+                    
                     // For every item in the tags value of the JSON...
                     for(_, currentTag) in mangaJson["tags"].arrayValue.enumerate() {
                         // Print the current tag
@@ -340,6 +370,18 @@ class KMAddMangaViewController: NSViewController {
                     
                     // Set the series text field's value to the writer value
                     writerTokenTextField.stringValue = mangaJson["writer"].stringValue;
+                    
+                    // If there is a released value...
+                    if(mangaJson["published"].isExists()) {
+                        // If there is a release date listed...
+                        if(mangaJson["published"].stringValue.lowercaseString != "unknown" && mangaJson["published"].stringValue != "") {
+                            // If the release date is valid...
+                            if(releaseDateTextFieldDateFormatter.dateFromString(mangaJson["published"].stringValue) != nil) {
+                                // Set the release date text field's value to the release date value
+                                releaseDateTextField.stringValue = releaseDateTextFieldDateFormatter.stringFromDate((releaseDateTextFieldDateFormatter.dateFromString(mangaJson["published"].stringValue)!));
+                            }
+                        }
+                    }
                     
                     // For every item in the tags value of the JSON...
                     for(_, currentTag) in mangaJson["tags"].arrayValue.enumerate() {

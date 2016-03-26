@@ -42,6 +42,12 @@ class KMEditMangaViewController: NSViewController {
         
     }
     
+    /// The text field for setting the release date of the manga
+    @IBOutlet var releaseDateTextField: NSTextField!
+    
+    /// The date formatter for releaseDateTextField
+    @IBOutlet var releaseDateTextFieldDateFormatter: NSDateFormatter!
+    
     /// The button for changing the manga's directory
     @IBOutlet var changeDirectoryButton: NSButton!
     
@@ -183,6 +189,12 @@ class KMEditMangaViewController: NSViewController {
         // Set the writer
         manga.writer = writerTokenTextField.stringValue;
         
+        // If the release date isnt blank...
+        if(releaseDateTextField.stringValue != "") {
+            // Set the release date
+            manga.releaseDate = releaseDateTextFieldDateFormatter.dateFromString(releaseDateTextField.stringValue)!;
+        }
+        
         // Reset the manga's tags
         manga.tags = [];
         
@@ -227,6 +239,12 @@ class KMEditMangaViewController: NSViewController {
         
         // Set the writer text field
         writerTokenTextField.stringValue = manga.writer;
+        
+        // If the release date has been set...
+        if(!manga.releaseDate.isBeginningOfEpoch()) {
+            // Set the release date
+            releaseDateTextField.stringValue = releaseDateTextFieldDateFormatter.stringFromDate(manga.releaseDate);
+        }
         
         // Set the favourite button
         favouriteButton.state = Int(manga.favourite);
