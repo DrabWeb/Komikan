@@ -329,13 +329,6 @@ class KMEHDownloadController : NSObject {
         /// The XML for the manga's EH gallery page's source code
         let galleryPageXML = SWXMLHash.parse(pageData.dataUsingEncoding(NSUTF8StringEncoding)!);
         
-        do {
-            print(try galleryPageXML["html"]["body"]["div"].withAttr("class", "gm"));
-        }
-        catch _ as NSError {
-            
-        }
-        
         // Get the tags and tag namespace
         do {
             // For every element in the tag list on the gallery page...
