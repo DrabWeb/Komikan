@@ -86,6 +86,7 @@ class KMFileUtilities {
         
         // For every tag in the manga...
         for(_, currentTag) in manga.tags.enumerate() {
+            // Add the current tag
             jsonString += "\"" + currentTag + "\", ";
         }
         

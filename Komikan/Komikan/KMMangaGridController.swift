@@ -649,6 +649,9 @@ class KMMangaGridController: NSObject {
             /// The l-lewd... search content(If we search by l-lewd...)
             var lewdSearch : String = "";
             
+            /// The published date search content(If we search by publishing date)
+            var publishedSearch : String = "";
+            
             /// The search string without the possible " on the end
             var cleanedSearchText : String = searchText;
             
@@ -723,6 +726,11 @@ class KMMangaGridController: NSObject {
                         // Set the appropriate variable to the current strings search content
                         lewdSearch = currentString.componentsSeparatedByString(":\"").last!;
                         break;
+                    // If its published date...
+                    case "date", "d":
+                        // Set the appropriate variable to the current strings search content
+                        publishedSearch = currentString.componentsSeparatedByString(":\"").last!;
+                        break;
                     // If it is one that we dont have...
                     default:
                         // Print to the log that it didnt match any types we search by
@@ -768,6 +776,9 @@ class KMMangaGridController: NSObject {
             /// Did we search by l-lewd...?
             let searchedByLewd : Bool = (lewdSearch != "");
             
+            /// Did we search by publishing date?
+            let searchedByPublished : Bool = (publishedSearch != "");
+            
             // For every manga we have...
             for(_, currentItem) in gridItems.enumerate() {
                 /// Does this manga overall match the search?
@@ -802,6 +813,9 @@ class KMMangaGridController: NSObject {
                 
                 /// Do we have matching l-lewd...?
                 var matchingLewd : Bool = false;
+                
+                /// Do we have matching published date?
+                var matchingPublished : Bool = false;
                 
                 // If we searched by title...
                 if(searchedByTitle) {
@@ -1126,6 +1140,314 @@ class KMMangaGridController: NSObject {
                     }
                 }
                 
+                // If we searched by publishing date...
+                if(searchedByPublished) {
+                    // If the release date is set(Dont waste time on non-set release dates)...
+                    if(!currentItem.manga.releaseDate.isBeginningOfEpoch()) {
+                        /// The Gregorian NSCalendar for converting date components to dates
+                        let gregorianCalendar : NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!;
+                        
+                        // If there is a "<>" in the published search(Meaning we want to do between two dates)...
+                        if(publishedSearch.containsString("<>")) {
+                            /// The date we searched for to show manga from after
+                            var afterDateString : String = publishedSearch.componentsSeparatedByString("<>").first!;
+                            
+                            /// The date we searched for to show manga from before
+                            var beforeDateString : String = publishedSearch.componentsSeparatedByString("<>").last!;
+                            
+                            // Remove any commas from beforeDateString and afterDateString
+                            beforeDateString = beforeDateString.stringByReplacingOccurrencesOfString(",", withString: "");
+                            afterDateString = afterDateString.stringByReplacingOccurrencesOfString(",", withString: "");
+                            
+                            /// The NSDateComponents for beforeDateString
+                            let beforeDateComponents : NSDateComponents = NSDateComponents();
+
+                            /// The NSDateComponents for afterDateString
+                            let afterDateComponents : NSDateComponents = NSDateComponents();
+
+                            /// beforeDateString split at every " "
+                            let beforeDateStringComponents : [String] = beforeDateString .componentsSeparatedByString(" ");
+                            
+                            // For every item in beforeDateStringComponents
+                            for(_, currentComponent) in beforeDateStringComponents.enumerate() {
+                                // If the current component's character count is four(Meaning its a year)...
+                                if(currentComponent.characters.count == 4) {
+                                    // Set the year to this component as an integer
+                                    beforeDateComponents.year = NSString(string: currentComponent).integerValue;
+                                }
+                                // If the current component's character count is one or two(Meaning its a day)...
+                                if(currentComponent.characters.count == 1 || currentComponent.characters.count == 2) {
+                                    // Set the day to this component as an integer
+                                    beforeDateComponents.day = NSString(string: currentComponent).integerValue;
+                                }
+                                else {
+                                    // I didnt want to have to do this
+                                    // Switch on the month component, set the month accordingly. No comments needed
+                                    switch(currentComponent.lowercaseString) {
+                                    case "january", "jan":
+                                        beforeDateComponents.month = 1;
+                                        break;
+                                    case "february", "feb":
+                                        beforeDateComponents.month = 2;
+                                        break;
+                                    case "march", "mar":
+                                        beforeDateComponents.month = 3;
+                                        break;
+                                    case "april", "apr":
+                                        beforeDateComponents.month = 4;
+                                        break;
+                                    case "may", "may":
+                                        beforeDateComponents.month = 5;
+                                        break;
+                                    case "june", "june":
+                                        beforeDateComponents.month = 6;
+                                        break;
+                                    case "july", "july":
+                                        beforeDateComponents.month = 7;
+                                        break;
+                                    case "august", "aug":
+                                        beforeDateComponents.month = 8;
+                                        break;
+                                    case "september", "sept":
+                                        beforeDateComponents.month = 9;
+                                        break;
+                                    case "october", "oct":
+                                        beforeDateComponents.month = 10;
+                                        break;
+                                    case "november", "nov":
+                                        beforeDateComponents.month = 11;
+                                        break;
+                                    case "december", "dec":
+                                        beforeDateComponents.month = 12;
+                                        break;
+                                    default:
+                                        break;
+                                    }
+                                }
+                            }
+                            
+                            /// afterDateString split at every " "
+                            let afterDateStringComponents : [String] = afterDateString.componentsSeparatedByString(" ");
+                            
+                            // For every item in afterDateStringComponents
+                            for(_, currentComponent) in afterDateStringComponents.enumerate() {
+                                // If the current component's character count is four(Meaning its a year)...
+                                if(currentComponent.characters.count == 4) {
+                                    // Set the year to this component as an integer
+                                    afterDateComponents.year = NSString(string: currentComponent).integerValue;
+                                }
+                                // If the current component's character count is one or two(Meaning its a day)...
+                                if(currentComponent.characters.count == 1 || currentComponent.characters.count == 2) {
+                                    // Set the day to this component as an integer
+                                    afterDateComponents.day = NSString(string: currentComponent).integerValue;
+                                }
+                                else {
+                                    // I didnt want to have to do this
+                                    // Switch on the month component, set the month accordingly. No comments needed
+                                    switch(currentComponent.lowercaseString) {
+                                    case "january", "jan":
+                                        afterDateComponents.month = 1;
+                                        break;
+                                    case "february", "feb":
+                                        afterDateComponents.month = 2;
+                                        break;
+                                    case "march", "mar":
+                                        afterDateComponents.month = 3;
+                                        break;
+                                    case "april", "apr":
+                                        afterDateComponents.month = 4;
+                                        break;
+                                    case "may", "may":
+                                        afterDateComponents.month = 5;
+                                        break;
+                                    case "june", "june":
+                                        afterDateComponents.month = 6;
+                                        break;
+                                    case "july", "july":
+                                        afterDateComponents.month = 7;
+                                        break;
+                                    case "august", "aug":
+                                        afterDateComponents.month = 8;
+                                        break;
+                                    case "september", "sept":
+                                        afterDateComponents.month = 9;
+                                        break;
+                                    case "october", "oct":
+                                        afterDateComponents.month = 10;
+                                        break;
+                                    case "november", "nov":
+                                        afterDateComponents.month = 11;
+                                        break;
+                                    case "december", "dec":
+                                        afterDateComponents.month = 12;
+                                        break;
+                                    default:
+                                        break;
+                                    }
+                                }
+                            }
+                            
+                            // Set if the published date matched to if the publishing date is less than the before date and greater than the after date
+                            matchingPublished = currentItem.manga.releaseDate.isLessThan(gregorianCalendar.dateFromComponents(beforeDateComponents)) && currentItem.manga.releaseDate.isGreaterThan(gregorianCalendar.dateFromComponents(afterDateComponents));
+                        }
+                        // If the first character is a ">"(Meaning we want to do after a date)...
+                        else if(publishedSearch.substringToIndex(publishedSearch.startIndex.successor()) == ">") {
+                            /// The date we searched for to show manga from after
+                            var afterDateString : String = publishedSearch.substringFromIndex(publishedSearch.startIndex.successor());
+                            
+                            // Remove any commas from afterDateString
+                            afterDateString = afterDateString.stringByReplacingOccurrencesOfString(",", withString: "");
+                            
+                            /// The NSDateComponents for afterDateString
+                            let afterDateComponents : NSDateComponents = NSDateComponents();
+                            
+                            /// afterDateString split at every " "
+                            let afterDateStringComponents : [String] = afterDateString.componentsSeparatedByString(" ");
+                            
+                            // For every item in afterDateStringComponents
+                            for(_, currentComponent) in afterDateStringComponents.enumerate() {
+                                // If the current component's character count is four(Meaning its a year)...
+                                if(currentComponent.characters.count == 4) {
+                                    // Set the year to this component as an integer
+                                    afterDateComponents.year = NSString(string: currentComponent).integerValue;
+                                }
+                                // If the current component's character count is one or two(Meaning its a day)...
+                                if(currentComponent.characters.count == 1 || currentComponent.characters.count == 2) {
+                                    // Set the day to this component as an integer
+                                    afterDateComponents.day = NSString(string: currentComponent).integerValue;
+                                }
+                                else {
+                                    // I didnt want to have to do this
+                                    // Switch on the month component, set the month accordingly. No comments needed
+                                    switch(currentComponent.lowercaseString) {
+                                    case "january", "jan":
+                                        afterDateComponents.month = 1;
+                                        break;
+                                    case "february", "feb":
+                                        afterDateComponents.month = 2;
+                                        break;
+                                    case "march", "mar":
+                                        afterDateComponents.month = 3;
+                                        break;
+                                    case "april", "apr":
+                                        afterDateComponents.month = 4;
+                                        break;
+                                    case "may", "may":
+                                        afterDateComponents.month = 5;
+                                        break;
+                                    case "june", "june":
+                                        afterDateComponents.month = 6;
+                                        break;
+                                    case "july", "july":
+                                        afterDateComponents.month = 7;
+                                        break;
+                                    case "august", "aug":
+                                        afterDateComponents.month = 8;
+                                        break;
+                                    case "september", "sept":
+                                        afterDateComponents.month = 9;
+                                        break;
+                                    case "october", "oct":
+                                        afterDateComponents.month = 10;
+                                        break;
+                                    case "november", "nov":
+                                        afterDateComponents.month = 11;
+                                        break;
+                                    case "december", "dec":
+                                        afterDateComponents.month = 12;
+                                        break;
+                                    default:
+                                        break;
+                                    }
+                                }
+                            }
+                            
+                            // Set if the published date matched to if the publishing date is greater than the search date
+                            matchingPublished = currentItem.manga.releaseDate.isGreaterThan(gregorianCalendar.dateFromComponents(afterDateComponents));
+                        }
+                        // If the first character is a "<"(Meaning we want to do before a date)...
+                        else if(publishedSearch.substringToIndex(publishedSearch.startIndex.successor()) == "<") {
+                            /// The date we searched for to show manga from before
+                            var beforeDateString : String = publishedSearch.substringFromIndex(publishedSearch.startIndex.successor());
+                            
+                            // Remove any commas from beforeDateString
+                            beforeDateString = beforeDateString.stringByReplacingOccurrencesOfString(",", withString: "");
+                            
+                            /// The NSDateComponents for beforeDateString
+                            let beforeDateComponents : NSDateComponents = NSDateComponents();
+                            
+                            /// beforeDateString split at every " "
+                            let beforeDateStringComponents : [String] = beforeDateString .componentsSeparatedByString(" ");
+                            
+                            // For every item in beforeDateStringComponents
+                            for(_, currentComponent) in beforeDateStringComponents.enumerate() {
+                                // If the current component's character count is four(Meaning its a year)...
+                                if(currentComponent.characters.count == 4) {
+                                    // Set the year to this component as an integer
+                                    beforeDateComponents.year = NSString(string: currentComponent).integerValue;
+                                }
+                                // If the current component's character count is one or two(Meaning its a day)...
+                                if(currentComponent.characters.count == 1 || currentComponent.characters.count == 2) {
+                                    // Set the day to this component as an integer
+                                    beforeDateComponents.day = NSString(string: currentComponent).integerValue;
+                                }
+                                else {
+                                    // I didnt want to have to do this
+                                    // Switch on the month component, set the month accordingly. No comments needed
+                                    switch(currentComponent.lowercaseString) {
+                                    case "january", "jan":
+                                        beforeDateComponents.month = 1;
+                                        break;
+                                    case "february", "feb":
+                                        beforeDateComponents.month = 2;
+                                        break;
+                                    case "march", "mar":
+                                        beforeDateComponents.month = 3;
+                                        break;
+                                    case "april", "apr":
+                                        beforeDateComponents.month = 4;
+                                        break;
+                                    case "may", "may":
+                                        beforeDateComponents.month = 5;
+                                        break;
+                                    case "june", "june":
+                                        beforeDateComponents.month = 6;
+                                        break;
+                                    case "july", "july":
+                                        beforeDateComponents.month = 7;
+                                        break;
+                                    case "august", "aug":
+                                        beforeDateComponents.month = 8;
+                                        break;
+                                    case "september", "sept":
+                                        beforeDateComponents.month = 9;
+                                        break;
+                                    case "october", "oct":
+                                        beforeDateComponents.month = 10;
+                                        break;
+                                    case "november", "nov":
+                                        beforeDateComponents.month = 11;
+                                        break;
+                                    case "december", "dec":
+                                        beforeDateComponents.month = 12;
+                                        break;
+                                    default:
+                                        break;
+                                    }
+                                }
+                            }
+                            
+                            // Set if the published date matched to if the publishing date is less than the search date
+                            matchingPublished = currentItem.manga.releaseDate.isLessThan(gregorianCalendar.dateFromComponents(beforeDateComponents));
+                        }
+                    }
+                    // If the release date isnt set...
+                    else {
+                        // Say the current item doesnt match
+                        matchingPublished = false;
+                    }
+                }
+                
                 // If we searched by tags...
                 if(searchedByTags) {
                     /// How many matching tags do we have?
@@ -1312,10 +1634,10 @@ class KMMangaGridController: NSObject {
                 }
                 
                 // Example search
-                // title:"v007" series:"Yuru Yuri, -Non Non Biyori" artist:"namori, -atto" writer:"namori, -atto" tags:"school, comedy, -drama" groups:"reading, -dropped" favourites:"yes" read:"yes" percent:"<50" lewd:"no"
+                // title:"v007" series:"Yuru Yuri, -Non Non Biyori" artist:"namori, -atto" writer:"namori, -atto" tags:"school, comedy, -drama" groups:"reading, -dropped" favourites:"yes" read:"yes" percent:"<50" lewd:"no" date:"March 2013 - June 2015"
                 
                 // Or you can use the simplified search term names
-                // t:"v007" s:"Yuru Yuri, -Non Non Biyori" a:"namori, -atto" w:"namori, -atto" tg:"school, comedy, -drama" g:"reading, -dropped" f:"y" r:"y" p:"<50" l:"n"
+                // t:"v007" s:"Yuru Yuri, -Non Non Biyori" a:"namori, -atto" w:"namori, -atto" tg:"school, comedy, -drama" g:"reading, -dropped" f:"y" r:"y" p:"<50" l:"n" d:"March 2013 - June 2015"
                 
                 // If we didnt search by title...
                 if(!searchedByTitle) {
@@ -1367,9 +1689,14 @@ class KMMangaGridController: NSObject {
                     // Say l-lewd... search matched
                     matchingLewd = true;
                 }
+                // If we didnt search by published date...
+                if(!searchedByPublished) {
+                    // Say published search matched
+                    matchingPublished = true;
+                }
                 
                 // If everything matched...
-                if(matchingTitle && matchingSeries && matchingArtist && matchingWriter && matchingTags && matchingGroups && matchingFavourites && matchingRead && matchingPercent && matchingLewd) {
+                if(matchingTitle && matchingSeries && matchingArtist && matchingWriter && matchingTags && matchingGroups && matchingFavourites && matchingRead && matchingPercent && matchingLewd && matchingPublished) {
                     // Say the manga passed, and matches everything
                     matching = true;
                 }
