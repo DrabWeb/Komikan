@@ -104,10 +104,33 @@ class KMFileUtilities {
         // Add if this is a favourite
         jsonString += "    \"favourite\":" + String(manga.favourite) + ",\n";
         
+        // Add if this is l-lewd...
+        jsonString += "    \"lewd\":" + String(manga.lewd) + ",\n";
+        
         // If we said to export internal info...
         if(exportInternalInfo) {
-            // Add if this is l-lewd...
-            jsonString += "    \"lewd\":" + String(manga.lewd) + ",\n";
+            /// The date formatter for the release date string
+            let releaseDateFormatter : NSDateFormatter = NSDateFormatter();
+            
+            // Set the format to be full month name day, year
+            releaseDateFormatter.dateFormat = "MMMM dd, YYYY";
+            
+            /// The string of the release date
+            var releaseDateString : String = "";
+            
+            // If the release date is set...
+            if(!manga.releaseDate.isBeginningOfEpoch()) {
+                // Set the release date string to the release date formatted with releaseDateFormatter
+                releaseDateString = releaseDateFormatter.stringFromDate(manga.releaseDate);
+            }
+                // If the release date isn't set...
+            else {
+                // Set the release date string to "unknown"
+                releaseDateString = "unknown";
+            }
+            
+            // Add the published date
+            jsonString += "    \"published\":\"" + releaseDateString + "\",\n";
             
             // Add the current page
             jsonString += "    \"current-page\":" + String(manga.currentPage + 1) + ",\n";
@@ -122,8 +145,28 @@ class KMFileUtilities {
             jsonString += "    \"sharpness\":" + String(manga.sharpness) + "\n";
         }
         else {
-            // Add if this is l-lewd...
-            jsonString += "    \"lewd\":" + String(manga.lewd) + "\n";
+            /// The date formatter for the release date string
+            let releaseDateFormatter : NSDateFormatter = NSDateFormatter();
+            
+            // Set the format to be full month name day, year
+            releaseDateFormatter.dateFormat = "MMMM dd, YYYY";
+            
+            /// The string of the release date
+            var releaseDateString : String = "";
+            
+            // If the release date is set...
+            if(!manga.releaseDate.isBeginningOfEpoch()) {
+                // Set the release date string to the release date formatted with releaseDateFormatter
+                releaseDateString = releaseDateFormatter.stringFromDate(manga.releaseDate);
+            }
+            // If the release date isn't set...
+            else {
+                // Set the release date string to "unknown"
+                releaseDateString = "unknown";
+            }
+            
+            // Add the published date
+            jsonString += "    \"published\":\"" + releaseDateString + "\"\n";
         }
         
         // Add the closing brace
