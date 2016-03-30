@@ -28,11 +28,17 @@ class KMSetSelectedItemsPropertiesViewController: NSViewController {
     /// The token text field to set the group
     @IBOutlet weak var groupTokenTextField: KMSuggestionTokenField!
     
+    /// The text field for setting the published date
+    @IBOutlet var releaseDateTextField: NSTextField!
+    
+    /// The date formatter for releaseDateTextField
+    @IBOutlet var releaseDateTextFieldDateFormatter: NSDateFormatter!
+    
     /// The button to set favourites
     @IBOutlet weak var favouriteButton: KMFavouriteButton!
     
-    /// Have we clicked the favourites button?
-    var pressedFavouritesButton : Bool = false;
+    /// The checkbox to say if we want to change the manga's favourite value
+    @IBOutlet var modifyFavouriteCheckBox: NSButton!
     
     /// The checkbox to say if we want to append instead of replace the tags
     @IBOutlet weak var appendTagsCheckbox: NSButton!
@@ -63,9 +69,10 @@ class KMSetSelectedItemsPropertiesViewController: NSViewController {
         propertiesHolder.writer = writerTokenTextField.stringValue;
         propertiesHolder.tags = tagsTextField.stringValue.componentsSeparatedByString(", ");
         propertiesHolder.group = groupTokenTextField.stringValue;
+        propertiesHolder.releaseDate = releaseDateTextFieldDateFormatter.dateFromString(releaseDateTextField.stringValue);
         propertiesHolder.appendTags = Bool(appendTagsCheckbox.state);
         propertiesHolder.favourite = Bool(favouriteButton.state);
-        propertiesHolder.setFavourite = true;
+        propertiesHolder.setFavourite = Bool(modifyFavouriteCheckBox.state);
         propertiesHolder.setLewd = setLewd;
         propertiesHolder.lewd = Bool(lewdCheckbox.state);
         
@@ -112,6 +119,9 @@ class KMSetSelectedPropertiesHolder {
     
     /// The group
     var group : String = "";
+    
+    /// The published date
+    var releaseDate : NSDate? = nil;
     
     /// Is this manga a favourite?
     var favourite : Bool = false;
@@ -165,6 +175,12 @@ class KMSetSelectedPropertiesHolder {
         if(group != "") {
             // Set the mangas group to the group value
             manga.group = group;
+        }
+        
+        // If the published date isnt nil...
+        if(releaseDate != nil) {
+            // Set the mangas piblished date
+            manga.releaseDate = releaseDate!;
         }
         
         // If we said to change the manga's favourite value...
