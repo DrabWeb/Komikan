@@ -174,6 +174,12 @@ class KMEHDownloadController : NSObject {
         // Load the tags
         item.manga.tags = (newMangaJson["gmetadata"][0]["tags"].arrayObject as? [String])!;
         
+        // Set the release date
+        item.manga.releaseDate = NSDate(timeIntervalSince1970: NSTimeInterval(newMangaJson["gmetadata"][0]["posted"].intValue));
+        
+        // Add a day to the release date(NSDate is odd and is always a day off with these EH downloads)
+        item.manga.releaseDate = item.manga.releaseDate.dateByAddingTimeInterval(NSTimeInterval(60 * 60 * 24));
+        
         // If the item's group isnt blank...
         if(item.group != "") {
             // Set the manga's group to the item's group
@@ -265,7 +271,10 @@ class KMEHDownloadController : NSObject {
         getTagInfoFromEX(NSHomeDirectory() + "/Library/Application Support/Komikan/newehpage.xml", manga: item.manga);
         
         // Set the release date
-        item.manga.releaseDate = NSDate(timeIntervalSince1970: NSTimeInterval(NSString(string: newMangaJson["gmetadata"][0]["posted"].stringValue).integerValue));
+        item.manga.releaseDate = NSDate(timeIntervalSince1970: NSTimeInterval(newMangaJson["gmetadata"][0]["posted"].intValue));
+        
+        // Add a day to the release date(NSDate is odd and is always a day off with these EH downloads)
+        item.manga.releaseDate = item.manga.releaseDate.dateByAddingTimeInterval(NSTimeInterval(60 * 60 * 24));
         
         // If the item's group isnt blank...
         if(item.group != "") {
