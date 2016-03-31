@@ -110,7 +110,7 @@ a:hover { text-decoration: underline }
     margin-top: 2rem;
     margin-bottom: 1rem;
     font-weight: normal;
-    color: #C2B4EC;
+    color: rgba(256, 256, 256, 0.5);
 }
 .main-content p { margin-bottom: 1em }
 .main-content code {
