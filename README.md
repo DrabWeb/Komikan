@@ -89,7 +89,7 @@ Requires at least OSX 10.10 Yosemite. Tested on OSX 10.11 El Capitan
 > * Downloading from ``` g.e-hentai.org ``` and ``` exhentai.org ```
 > * Login to ``` exhentai.org ``` from the Application
 > * Choose to use Japanese or English title
-> * Automatic marking of l-lewd... mode for downloads from EH depending on if they have the ``` non-h ``` tag
+> * Automatic marking of l-lewd... mode for downloads from EH depending on if they are in the ``` Non-H ``` category
 
 ## Compiling
 
