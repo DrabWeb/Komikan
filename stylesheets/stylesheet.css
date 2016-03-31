@@ -117,8 +117,8 @@ a:hover { text-decoration: underline }
     padding: 2px 4px;
     font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
     font-size: 0.9rem;
-    color: #383e41;
-    background-color: #f3f6fa;
+    color: rgba(256, 256, 256, 0.5);
+    background-color: rgba(256, 256, 256, 0.1);
     border-radius: 0.3rem;
 }
 .main-content pre {
@@ -176,7 +176,7 @@ a:hover { text-decoration: underline }
 .main-content blockquote {
     padding: 0 1rem;
     margin-left: 0;
-    color: #819198;
+    /*color: #819198;*/
     border-left: 0.3rem solid #dce6f0;
 }
 .main-content blockquote > :first-child { margin-top: 0 }
@@ -241,7 +241,7 @@ a:hover { text-decoration: underline }
     display: block;
     font-weight: bold;
 }
-.site-footer-credits { color: rgba(256, 256, 256, 0.25) }
+.site-footer-credits { opacity: 0.75; }
 @media screen and (min-width: 64em) { 
     .site-footer { font-size: 1rem }
 }
