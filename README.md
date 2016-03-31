@@ -24,7 +24,8 @@ Requires at least OSX 10.10 Yosemite. Tested on OSX 10.11 El Capitan
 > * Import single or multiple Manga at once
 > * Supports ZIP, RAR, CBZ, CBR and Folders of images
 > * Grid and List views
-> * Set Series, Artist, Writer, Tags, Group, Favourite and mark as l-lewd... on import
+> * Set Series, Artist, Writer, Tags, Group, Favourite, mark as
+        l-lewd..., set published dates and more on import
 > * Edit any of the above after import(Either one at a time or by groups)
 > * Use JSON to predefine info about multiple or single Manga
 > * Fetch Metadata from <a href="http://mcd.iosphe.re/">http://mcd.iosphe.re/</a>
@@ -74,6 +75,7 @@ Requires at least OSX 10.10 Yosemite. Tested on OSX 10.11 El Capitan
 > > * Read
 > > * Percent finished
 > > * L-lewd...
+> > * Published date
 
 > * Very similar to EH searching
 > * Optional simplified search terms
