@@ -565,6 +565,9 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         titlebarSearchField.enabled = false;
         titlebarSearchField.hidden = true;
         
+        // Disable the view switch button
+        titlebarToggleListViewCheckbox.enabled = false;
+        
         // Set the select search field menu item's action
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.selectSearchFieldMenuItem.action = Selector("selectGroupViewSearchField");
         
@@ -620,6 +623,9 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         
         titlebarSearchField.enabled = true;
         titlebarSearchField.hidden = false;
+        
+        // Enable the view switch button
+        titlebarToggleListViewCheckbox.enabled = true;
         
         // Set the select search field menu item's action
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.selectSearchFieldMenuItem.action = Selector("selectSearchField");
