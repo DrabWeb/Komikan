@@ -115,7 +115,7 @@ class KMAddMangaViewController: NSViewController {
         groupTokenTextField.suggestions = (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.allGroups();
         
         // Start a 0.1 second loop that will set if we can add this manga or not
-        addButtonUpdateLoop = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("updateAddButton"), userInfo: nil, repeats:true);
+        addButtonUpdateLoop = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target: self, selector: Selector("updateAddButton"), userInfo: nil, repeats: true);
         
         // Prompt for a manga
         startPrompt();
@@ -622,6 +622,9 @@ class KMAddMangaViewController: NSViewController {
     override func viewWillDisappear() {
         // Unsubscribe from key down
         NSEvent.removeMonitor(keyDownMonitor!);
+        
+        // Stop the add button update loop
+        addButtonUpdateLoop.invalidate();
     }
     
     func styleWindow() {

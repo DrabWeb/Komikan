@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (3.1.0)
-  - SWXMLHash (2.2.0)
+  - SWXMLHash (2.3.1)
   - UnrarKit (2.6):
     - UnrarKit/unrar-lib (= 2.6)
   - UnrarKit/unrar-lib (2.6)
@@ -14,7 +14,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Alamofire: 415bd7f56197722978759078486689f7ef913dce
-  SWXMLHash: cf2a62b04514211b238b39b3aa348ba4746523af
+  SWXMLHash: 795c66e74f4cc9473ad6465c6653c5a6f59f417e
   UnrarKit: 062431740d7910ede1fc7455a58aac1649694c61
   WPZipArchive: 3a31c553e4c0d6225ae6661b20d189366d19c79f
 

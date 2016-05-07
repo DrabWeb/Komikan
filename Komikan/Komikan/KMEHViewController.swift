@@ -98,10 +98,12 @@ class KMEHViewController: NSViewController {
         styleWindow();
         
         // Start a 0.1 second loop that will set if we can add from the inpputed URL or not
-        addButtonUpdateLoop = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("updateAddButton"), userInfo: nil, repeats:true);
+        addButtonUpdateLoop = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target: self, selector: Selector("updateAddButton"), userInfo: nil, repeats: true);
     }
     
+    /// Updates the add button to if we can add the current entered URL to the downloads
     func updateAddButton() {
+        // Say we cant download if the URL is blank
         if(addFromEHTextField.stringValue != "") {
             addFromEHButton.enabled = true;
         }
@@ -109,12 +111,18 @@ class KMEHViewController: NSViewController {
             addFromEHButton.enabled = false;
         }
         
+        // Say we cant download if the URL is blank
         if(addFromEXTextField.stringValue != "") {
             addFromEXButton.enabled = true;
         }
         else {
             addFromEXButton.enabled = false;
         }
+    }
+    
+    override func viewWillDisappear() {
+        // Stop the add button update loop
+        addButtonUpdateLoop.invalidate();
     }
     
     func styleWindow() {

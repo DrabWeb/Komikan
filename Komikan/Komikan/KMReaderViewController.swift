@@ -211,7 +211,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         readerImageScrollView.addGestureRecognizer(readerMagnificationGestureRecognizer);
         
         // Start the 0.1 second loop for the mouse hovering
-        mouseHoverHandlingTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("mouseHoverHandling"), userInfo: nil, repeats:true);
+        mouseHoverHandlingTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target: self, selector: Selector("mouseHoverHandling"), userInfo: nil, repeats: true);
         
         // Subscribe to the preferences saved notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadPreferences", name:"Application.PreferencesSaved", object: nil);
@@ -962,7 +962,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         closingView = false;
         
         // Restart the 0.1 second loop for the mouse hovering
-        mouseHoverHandlingTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("mouseHoverHandling"), userInfo: nil, repeats:true);
+        mouseHoverHandlingTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target: self, selector: Selector("mouseHoverHandling"), userInfo: nil, repeats: true);
         
         // Wait 0.2 seconds to disable the jump to page view, so the animation can finish
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.2), target:self, selector: Selector("disableJumpToPageDialog"), userInfo: nil, repeats: false);

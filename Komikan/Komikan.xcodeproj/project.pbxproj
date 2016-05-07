@@ -79,7 +79,7 @@
 		5DDD43651C6FBC82005DBAAF /* KMSetSelectedItemsPropertiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDD43641C6FBC82005DBAAF /* KMSetSelectedItemsPropertiesViewController.swift */; };
 		5DEC44851CA6D3CB00F9BF0D /* KMReaderImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DEC44841CA6D3CB00F9BF0D /* KMReaderImageView.swift */; };
 		5DFBC77D1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFBC77C1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift */; };
-		8E9458EC3B679DEA644AEA28 /* Pods_Komikan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEA04E1AA7A1B26A2BAE76E6 /* Pods_Komikan.framework */; };
+		A9A81885622EBDC33449E354 /* Pods_Komikan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DA3AAFB33F1B5E4DF7F1B2D /* Pods_Komikan.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -181,9 +181,9 @@
 		5DDD43641C6FBC82005DBAAF /* KMSetSelectedItemsPropertiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMSetSelectedItemsPropertiesViewController.swift; sourceTree = "<group>"; };
 		5DEC44841CA6D3CB00F9BF0D /* KMReaderImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMReaderImageView.swift; sourceTree = "<group>"; };
 		5DFBC77C1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaGridSelectionBox.swift; sourceTree = "<group>"; };
+		8DA3AAFB33F1B5E4DF7F1B2D /* Pods_Komikan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Komikan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B086CA4387890A79C8FD3E35 /* Pods-Komikan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Komikan.release.xcconfig"; path = "Pods/Target Support Files/Pods-Komikan/Pods-Komikan.release.xcconfig"; sourceTree = "<group>"; };
 		CB22335385156945A0ABCB06 /* Pods-Komikan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Komikan.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Komikan/Pods-Komikan.debug.xcconfig"; sourceTree = "<group>"; };
-		DEA04E1AA7A1B26A2BAE76E6 /* Pods_Komikan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Komikan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,7 +191,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E9458EC3B679DEA644AEA28 /* Pods_Komikan.framework in Frameworks */,
+				A9A81885622EBDC33449E354 /* Pods_Komikan.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -552,7 +552,7 @@
 			children = (
 				5D304F571C90C52A00B824A3 /* Security.framework */,
 				39B1CCABE43DCFDDE2111753 /* libPods.a */,
-				DEA04E1AA7A1B26A2BAE76E6 /* Pods_Komikan.framework */,
+				8DA3AAFB33F1B5E4DF7F1B2D /* Pods_Komikan.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

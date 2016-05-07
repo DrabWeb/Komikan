@@ -9,7 +9,7 @@
 import Cocoa
 import WebKit
 
-class KMEHLoginViewController: NSViewController {
+class KMEHLoginViewController: NSViewController, WebFrameLoadDelegate {
     
     /// The main window of the login view controller
     var loginWindow : NSWindow!;
@@ -19,9 +19,6 @@ class KMEHLoginViewController: NSViewController {
     
     /// The label in the titlebar to show the URL
     @IBOutlet weak var urlLabel: NSTextField!
-    
-    /// The timer that updates the title of the window
-    var labelTimer : NSTimer = NSTimer();
     
     /// Have we already opened ExHentai?
     var openedExhentai : Bool =  false;
@@ -35,8 +32,8 @@ class KMEHLoginViewController: NSViewController {
         // Load the web view
         loadWebView();
         
-        // Start the timer to update the label
-        labelTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("updateTitle"), userInfo: nil, repeats: true);
+        // Set the WebView's frame load delegate
+        webView.frameLoadDelegate = self;
         
         /// The webviews cookie storage
         let storage : NSHTTPCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage();
@@ -51,13 +48,13 @@ class KMEHLoginViewController: NSViewController {
         NSUserDefaults.standardUserDefaults().synchronize();
     }
     
-    override func viewWillDisappear() {
-        // Stop the label timer
-        labelTimer.invalidate();
+    func webView(sender: WebView!, didStartProvisionalLoadForFrame frame: WebFrame!) {
+        // Update the webview
+        updateWebView();
     }
     
-    /// Updates the window title to match the webviews URL
-    func updateTitle() {
+    /// Updates the window title to match the webviews URL, if we are on exhentai it stores the cookies and closes the webview, and if we are on sadpanda it opens the guide to get past it
+    func updateWebView() {
         // Set the URL labels string value to the current URL in the webview
         urlLabel.stringValue = webView.mainFrameURL;
         
@@ -80,7 +77,7 @@ class KMEHLoginViewController: NSViewController {
                 // Try to write the cookies
                 try webView.stringByEvaluatingJavaScriptFromString("document.cookie").writeToFile(NSHomeDirectory() + "/Library/Application Support/Komikan/excookies", atomically: true, encoding: NSUTF8StringEncoding);
             }
-            // If there is an error...
+                // If there is an error...
             catch _ as NSError {
                 // Do nothing
             }
@@ -105,6 +102,9 @@ class KMEHLoginViewController: NSViewController {
         
         // Load the EH request
         webView.mainFrame.loadRequest(ehLoadRequest);
+        
+        // Do the initial webview update
+        updateWebView();
     }
     
     /// Styles the window

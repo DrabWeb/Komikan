@@ -12,7 +12,7 @@ import SWXMLHash
 class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     
     // The main window of the application
-    var window : NSWindow! = NSWindow();
+    var window : NSWindow = NSWindow();
 
     // The visual effect view for the main windows titlebar
     @IBOutlet weak var titlebarVisualEffectView: NSVisualEffectView!
@@ -282,9 +282,6 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // Set the toggle group view menubar items action
         (NSApplication.sharedApplication().delegate as? AppDelegate)?.toggleGroupViewMenuItem.action = Selector("toggleGroupView");
         
-        // Start a 0.1 second loop that will fix the windows look in fullscreen
-        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("deleteTitlebarInFullscreen"), userInfo: nil, repeats:true);
-        
         // Set the AppDelegate's manga grid controller
         (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController = mangaGridController;
         
@@ -379,8 +376,8 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // Subscribe to when the manga grid changes its values in any way
         mangaGridController.arrayController.addObserver(self, forKeyPath: "arrangedObjects", options: options, context: nil);
         
-        // Show the window after 0.1 seconds
-        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target:self, selector: Selector("showWindowAlpha"), userInfo: nil, repeats: false);
+        // Show the window after 0.1 seconds, so we dont get loading artifacts
+        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target: self, selector: Selector("showWindowAlpha"), userInfo: nil, repeats: false);
         
         // Subscribe to the edit manga popovers remove notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "removeSelectItemFromMangaGrid:", name:"KMEditMangaViewController.Remove", object: nil);
@@ -1501,27 +1498,33 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         infoBarGridSizeSlider.enabled = false;
     }
     
-    func deleteTitlebarInFullscreen() {
-        // If the window is in fullscreen(Window height matches the screen height(This is really cheaty and I need to find a better way to do this))
-        if(window.isFullscreen()) {
-            // Hide the toolbar so we dont get a grey bar at the top
-            window.toolbar?.visible = false;
-            
-            // Move the toggle list view button over to the edge
-            titlebarToggleListViewCheckbox.frame.origin = CGPoint(x: 2, y: titlebarToggleListViewCheckbox.frame.origin.y);
-        }
-        else {
-            // Show the toolbar again in non-fullscreen(So we still get the traffic lights in the right place)
-            window.toolbar?.visible = true;
-            
-            // Move the toggle list view button beside the traffic lights
-            titlebarToggleListViewCheckbox.frame.origin = CGPoint(x: 72, y: titlebarToggleListViewCheckbox.frame.origin.y);
-        }
+    func windowDidEnterFullScreen(notification: NSNotification) {
+        // Move the toggle list view button over to the edge
+        titlebarToggleListViewCheckbox.frame.origin = CGPoint(x: 2, y: titlebarToggleListViewCheckbox.frame.origin.y);
+        
+        // Set the appearance back to vibrant dark
+        self.window.appearance = NSAppearance(named: NSAppearanceNameVibrantDark);
+    }
+    
+    func windowWillEnterFullScreen(notification: NSNotification) {
+        // Hide the toolbar so we dont get a grey bar at the top
+        window.toolbar?.visible = false;
+    }
+    
+    func windowDidExitFullScreen(notification: NSNotification) {
+        // Show the toolbar again in non-fullscreen(So we still get the traffic lights in the right place)
+        window.toolbar?.visible = true;
+        
+        // Move the toggle list view button beside the traffic lights
+        titlebarToggleListViewCheckbox.frame.origin = CGPoint(x: 72, y: titlebarToggleListViewCheckbox.frame.origin.y);
+        
+        // Set the appearance back to aqua
+        self.window.appearance = NSAppearance(named: NSAppearanceNameAqua);
     }
     
     func updateInfoBarMangaCountLabel() {
         // Set the manga count labels label to the manga count awith "Manga" on the end
-        infoBarMangaCountLabel.stringValue = String(mangaGridController.arrayController.arrangedObjects.count) + " Manga";
+        infoBarMangaCountLabel.stringValue = String(mangaGridController.gridItems.count) + " Manga";
     }
     
     // Saves the manga in the grid
