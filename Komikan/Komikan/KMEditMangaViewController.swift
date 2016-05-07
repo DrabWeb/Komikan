@@ -308,7 +308,7 @@ class KMEditMangaViewController: NSViewController {
     
     func getMangaFromGrid(notification : NSNotification) {
         // Print to the log that we are receiving a manga from the grid
-        print("Receiving manga \"" + ((notification.object as? KMManga)?.title)! + "\" from manga grid");
+        print("KMEditMangaViewController: Receiving manga \"" + ((notification.object as? KMManga)?.title)! + "\" from manga grid");
         
         // Set manga to the notifications manga
         manga = (notification.object as? KMManga)!;

@@ -137,7 +137,7 @@ class KMReaderNotesViewController: NSViewController, NSWindowDelegate, NSTextVie
     /// Saves the current notes in the text field
     func saveNotes() {
         // Print to the log that we are loading notes
-        print("Saving notes for \"" + manga.title + "\" to " + KMFileUtilities().folderPathForFile(manga.directory) + "Komikan/" + NSURL(fileURLWithPath: manga.directory).lastPathComponent!.stringByRemovingPercentEncoding! + ".notes.rtfd");
+        print("KMReaderNotesViewController: Saving notes for \"" + manga.title + "\" to " + KMFileUtilities().folderPathForFile(manga.directory) + "Komikan/" + NSURL(fileURLWithPath: manga.directory).lastPathComponent!.stringByRemovingPercentEncoding! + ".notes.rtfd");
         
         // Set the text color to black so we can see it in text edit
         notesTextField.textColor = NSColor.blackColor();
@@ -152,7 +152,7 @@ class KMReaderNotesViewController: NSViewController, NSWindowDelegate, NSTextVie
     /// Loads the notes for this manga(Also if there is a (archive name).notes.txt it takes the text from that and then converts it to RTFD)
     func loadNotes() {
         // Print to the log that we are loading notes
-        print("Loading notes for \"" + manga.title + "\", looking in " + KMFileUtilities().folderPathForFile(manga.directory) + "Komikan/");
+        print("KMReaderNotesViewController: Loading notes for \"" + manga.title + "\", looking in " + KMFileUtilities().folderPathForFile(manga.directory) + "Komikan/");
         
         // If there is a .notes.txt file...
         if(NSFileManager.defaultManager().fileExistsAtPath(KMFileUtilities().folderPathForFile(manga.directory) + "Komikan/" + NSURL(fileURLWithPath: manga.directory).lastPathComponent!.stringByRemovingPercentEncoding! + ".notes.txt")) {
@@ -167,7 +167,7 @@ class KMReaderNotesViewController: NSViewController, NSWindowDelegate, NSTextVie
             // If there is an error...
             catch let error as NSError {
                 // Print the error description
-                print(error.description);
+                print("KMReaderNotesViewController: Error loading notes file, \(error.description)");
             }
         }
         

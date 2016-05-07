@@ -107,7 +107,7 @@ class KMMangaGridCollectionItem: NSCollectionViewItem {
         // If the UUID matches...
         if((self.representedObject as? KMMangaGridItem)?.manga.uuid == (notification.object as? KMManga)!.uuid) {
             // Print to the log the manga we received
-            print("Saving manga \"" + ((self.representedObject as? KMMangaGridItem)?.manga.title)! + "\"");
+            print("KMMangaGridCollectionItem: Saving manga \"\(((self.representedObject as? KMMangaGridItem)?.manga.title)!)\"");
             
             // Set this items manga to the notiifcations manga
             (self.representedObject as? KMMangaGridItem)?.changeManga((notification.object as? KMManga)!);

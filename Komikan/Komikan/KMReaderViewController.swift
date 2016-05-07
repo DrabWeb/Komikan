@@ -77,7 +77,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     // When we interact with readerControlPanelSaturationSlider...
     @IBAction func readerControlPanelSaturationSliderInteracted(sender: AnyObject) {
         // Print to the log what value we are changing it to
-        print("Saturation: " + String(readerControlPanelSaturationSlider.floatValue));
+        print("KMReaderViewController: Changing saturation to " + String(readerControlPanelSaturationSlider.floatValue));
         
         // Set the represented value to the represented sliders value
         manga.saturation = CGFloat(readerControlPanelSaturationSlider.floatValue);
@@ -92,7 +92,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     // When we interact with readerControlPanelBrightnessSlider...
     @IBAction func readerControlPanelBrightnessSliderInteracted(sender: AnyObject) {
         // Print to the log what value we are changing it to
-        print("Brightness: " + String(readerControlPanelBrightnessSlider.floatValue));
+        print("KMReaderViewController: Changing brightness to " + String(readerControlPanelBrightnessSlider.floatValue));
         
         // Set the represented value to the represented sliders value
         manga.brightness = CGFloat(readerControlPanelBrightnessSlider.floatValue);
@@ -107,7 +107,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     // When we interact with readerControlPanelContrastSlider...
     @IBAction func readerControlPanelContrastSliderInteracted(sender: AnyObject) {
         // Print to the log what value we are changing it to
-        print("Contrast: " + String(readerControlPanelContrastSlider.floatValue));
+        print("KMReaderViewController: Changing contrast to  " + String(readerControlPanelContrastSlider.floatValue));
         
         // Set the represented value to the represented sliders value
         manga.contrast = CGFloat(readerControlPanelContrastSlider.floatValue);
@@ -122,7 +122,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     // When we interact with readerControlPanelSharpnessSlider...
     @IBAction func readerControlPanelSharpnessSliderInteracted(sender: AnyObject) {
         // Print to the log what value we are changing it to
-        print("Sharpness: " + String(readerControlPanelSharpnessSlider.floatValue));
+        print("KMReaderViewController: Changing sharpness to " + String(readerControlPanelSharpnessSlider.floatValue));
         
         // Set the represented value to the represented sliders value
         manga.sharpness = CGFloat(readerControlPanelSharpnessSlider.floatValue);
@@ -225,7 +225,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         manga = openingManga;
         
         // Print to the log what we are opening
-        print("Opening \"" + manga.title + "\"");
+        print("KMReaderViewController: Opening \"" + manga.title + "\"");
     
         // Set the windows title to match the mangas name
         readerWindow.title = manga.title;
@@ -828,7 +828,6 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         
         // If we are in dualpage mode...
         if(dualPage) {
-            print(manga.currentPage % 2);
             // If the current page number is even...
             if(manga.currentPage % 2 == 1) {
                 // Subtract one from current page to make it odd
@@ -879,7 +878,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
                 alreadyBookmarked = true;
                 
                 // Print to the log that we removed that bookmark
-                print("Removed bookmarked for page " + String(page + 1) + " in \"" + manga.title + "\"");
+                print("KMReaderViewController: Removed bookmarked for page " + String(page + 1) + " in \"" + manga.title + "\"");
             }
         }
         
@@ -889,7 +888,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
             manga.bookmarks.append(page);
             
             // Print to the log that we are bookmarking this page
-            print("Bookmarked page " + String(page + 1) + " in \"" + manga.title + "\"");
+            print("KMReaderViewController: Bookmarked page " + String(page + 1) + " in \"" + manga.title + "\"");
         }
         
         // Update the page page to show that the page is bookmarked
@@ -980,7 +979,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
             // If we were to add 2 to mangaCurrentPage and it would be less than the openMangaPages count...
             if(manga.currentPage + 2 < manga.pageCount) {
                 // Print to the log that we are going to the next page
-                print("Loading next page in \"" + manga.title + "\"");
+                print("KMReaderViewController: Loading next page in \"" + manga.title + "\"");
                 
                 // Add 2 to mangaCurrentPage
                 manga.currentPage += 2;
@@ -992,7 +991,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
                 // If we have mark as read when completed in reader enabled...
                 if((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.markAsReadWhenCompletedInReader) {
                     // Print to the log that we have finished the book and are marking it as read
-                    print("Finished \"" + manga.title + "\", marking it as read and exiting");
+                    print("KMReaderViewController: Finished \"" + manga.title + "\", marking it as read and exiting");
                     
                     // Set the mangas read variable to true
                     manga.read = true;
@@ -1010,7 +1009,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
             // If we were to add 1 to mangaCurrentPage and it would be less than the openMangaPages count...
             if(manga.currentPage + 1 < manga.pageCount) {
                 // Print to the log that we are going to the next page
-                print("Loading next page in \"" + manga.title + "\"");
+                print("KMReaderViewController: Loading next page in \"" + manga.title + "\"");
                 
                 // Add 1 to mangaCurrentPage
                 manga.currentPage++;
@@ -1022,7 +1021,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
                 // If we have mark as read when completed in reader enabled...
                 if((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.markAsReadWhenCompletedInReader) {
                     // Print to the log that we have finished the book and are marking it as read
-                    print("Finished \"" + manga.title + "\", marking it as read and exiting");
+                    print("KMReaderViewController: Finished \"" + manga.title + "\", marking it as read and exiting");
                     
                     // Set the mangas read variable to true
                     manga.read = true;
@@ -1043,7 +1042,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
             // If we were to subtract 2 from mangaCurrentPage and it would be greater than 0...
             if(manga.currentPage - 2 > -1) {
                 // Print to the log that we are going to the previous page
-                print("Loading previous page in \"" + manga.title + "\"");
+                print("KMReaderViewController: Loading previous page in \"" + manga.title + "\"");
                 
                 // Subtract 2 from mangaCurrentPage
                 manga.currentPage -= 2;
@@ -1053,14 +1052,14 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
             }
             else {
                 // Print to the log that there is no previous page
-                print("There is no previous page in \"" + manga.title + "\"");
+                print("KMReaderViewController: There is no previous page in \"" + manga.title + "\"");
             }
         }
         else {
             // If we were to subtract 1 from mangaCurrentPage and it would be greater than 0...
             if(manga.currentPage - 1 > -1) {
                 // Print to the log that we are going to the previous page
-                print("Loading previous page in \"" + manga.title + "\"");
+                print("KMReaderViewController: Loading previous page in \"" + manga.title + "\"");
                 
                 // Subtract 1 from mangaCurrentPage
                 manga.currentPage--;
@@ -1070,7 +1069,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
             }
             else {
                 // Print to the log that there is no previous page
-                print("There is no previous page in \"" + manga.title + "\"");
+                print("KMReaderViewController: There is no previous page in \"" + manga.title + "\"");
             }
         }
     }
@@ -1080,7 +1079,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         // See if the page we are trying to jump to is existant
         if(page >= 0 && page < manga.pageCount) {
             // Print to the log that we are jumping to a page
-            print("Jumping to page " + String(page) + " in \"" + manga.title + "\"");
+            print("KMReaderViewController: Jumping to page " + String(page) + " in \"" + manga.title + "\"");
             
             // Set the current page to the page we want to jump to
             manga.currentPage = page;
@@ -1106,7 +1105,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
                 }
                 
                 // Print to the log that we are jumping to roundedPage, and what page that is
-                print("Jumping to rounded off page " + String(roundedPage) + " in \"" + manga.title + "\"");
+                print("KMReaderViewController: Jumping to rounded off page " + String(roundedPage) + " in \"" + manga.title + "\"");
                 
                 // Set the current page to roundedPage
                 manga.currentPage = roundedPage;
@@ -1116,7 +1115,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
             }
             else {
                 // Print to the log that we cant jump to that page
-                print("Cant jump to page " + String(page) + " in \"" + manga.title + "\"");
+                print("KMReaderViewController: Cant jump to page " + String(page) + " in \"" + manga.title + "\"");
             }
         }
     }

@@ -33,7 +33,7 @@ class KMEHDownloadController : NSObject {
             // If the URL is on ExHentai or E-Hentai...
             if(NSURL(string: item.url)!.host!.containsString("exhentai.org") || NSURL(string: item.url)!.host!.containsString("g.e-hentai.org")) {
                 // Print to the log what item was added to the queue
-                print("Added \"" + item.url + "\" to queue");
+                print("KMEHDownloadController: Added \"" + item.url + "\" to queue");
                 
                 // Show the notification saying the item is added to the queue
                 KMNotificationUtilities().sendNotification("Komikan", message: "Added \"" + item.url + "\" to the download queue");
@@ -64,7 +64,7 @@ class KMEHDownloadController : NSObject {
         // If the URL was invalid...
         if(invalidURL) {
             // Print to the log that the item had an invalid URL
-            print("Invalid URL for \"" + item.url + "\"");
+            print("KMEHDownloadController: Invalid URL for \"" + item.url + "\"");
             
             // Show the notification saying the item couldnt be added
             KMNotificationUtilities().sendNotification("Komikan", message: "Invalid URL for \"" + item.url + "\"");
@@ -79,7 +79,7 @@ class KMEHDownloadController : NSObject {
         // For every item in the download queue...
         for(_, currentItem) in downloadQueue.enumerate() {
             // Say we are currently downloading something
-            print("Downloading item: \(currentItem.url)");
+            print("KMEHDownloadController: Downloading item: \(currentItem.url)");
             
             // Create the new notification to tell the user the download has started
             let startedNotification = NSUserNotification();
@@ -141,7 +141,7 @@ class KMEHDownloadController : NSObject {
         let commandUtilities : KMCommandUtilities = KMCommandUtilities();
         
         // Call the command
-        print(commandUtilities.runCommand(NSBundle.mainBundle().bundlePath + "/Contents/Resources/ehadd", arguments: [item.url, NSBundle.mainBundle().bundlePath + "/Contents/Resources/"], waitUntilExit: false));
+        print("KMEHDownloadController: \(commandUtilities.runCommand(NSBundle.mainBundle().bundlePath + "/Contents/Resources/ehadd", arguments: [item.url, NSBundle.mainBundle().bundlePath + "/Contents/Resources/"], waitUntilExit: false))");
         
         // Create a variable to store the name of the new manga
         var newMangaFileName : String = "";
@@ -204,7 +204,7 @@ class KMEHDownloadController : NSObject {
         item.manga.directory = NSHomeDirectory() + "/Library/Application Support/Komikan/EH/" + newMangaFileName + ".cbz";
         
         // Print to the log where the downloaded manga is
-        print("Manga Directory: " + item.manga.directory);
+        print("KMEHDownloadController: Manga directory: " + item.manga.directory);
         
         // Export the downloaded manga's JSON
         KMFileUtilities().exportMangaJSON(item.manga, exportInternalInfo: false);
@@ -237,7 +237,7 @@ class KMEHDownloadController : NSObject {
         let commandUtilities : KMCommandUtilities = KMCommandUtilities();
         
         // Call the command
-        print(commandUtilities.runCommand(NSBundle.mainBundle().bundlePath + "/Contents/Resources/exadd", arguments: [item.url, NSBundle.mainBundle().bundlePath + "/Contents/Resources/"], waitUntilExit: false));
+        print("KMEHDownloadController: \(commandUtilities.runCommand(NSBundle.mainBundle().bundlePath + "/Contents/Resources/exadd", arguments: [item.url, NSBundle.mainBundle().bundlePath + "/Contents/Resources/"], waitUntilExit: false))");
         
         // Create a variable to store the name of the new manga
         var newMangaFileName : String = "";
@@ -300,7 +300,7 @@ class KMEHDownloadController : NSObject {
         item.manga.directory = NSHomeDirectory() + "/Library/Application Support/Komikan/EH/" + newMangaFileName + ".cbz";
         
         // Print to the log where the downloaded manga is
-        print("Manga Directory: " + item.manga.directory);
+        print("KMEHDownloadController: Manga directory: " + item.manga.directory);
         
         // Export the downloaded manga's JSON
         KMFileUtilities().exportMangaJSON(item.manga, exportInternalInfo: false);

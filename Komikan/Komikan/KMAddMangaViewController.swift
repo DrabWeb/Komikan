@@ -157,7 +157,7 @@ class KMAddMangaViewController: NSViewController {
             // For every part of the tags text field's string value split at every ", "...
             for (_, currentTag) in tagsTextField.stringValue.componentsSeparatedByString(", ").enumerate() {
                 // Print to the log what tag we are adding and what manga we are adding it to
-                print("Adding tag \"" + currentTag + "\" to \"" + newManga.title + "\"");
+                print("KMAddMangaViewController: Adding tag \"" + currentTag + "\" to \"" + newManga.title + "\"");
                 
                 // Append the current tags to the mangas tags
                 newManga.tags.append(currentTag);
@@ -204,7 +204,7 @@ class KMAddMangaViewController: NSViewController {
                 // For every part of the tags text field's string value split at every ", "...
                 for (_, currentTag) in tagsTextField.stringValue.componentsSeparatedByString(", ").enumerate() {
                     // Print to the log what tag we are adding and what manga we are adding it to
-                    print("Adding tag \"" + currentTag + "\" to \"" + newManga.title + "\"");
+                    print("KMAddMangaViewController: Adding tag \"" + currentTag + "\" to \"" + newManga.title + "\"");
                     
                     // Append the current tags to the mangas tags
                     currentManga.tags.append(currentTag);
@@ -239,7 +239,7 @@ class KMAddMangaViewController: NSViewController {
         // If we actually selected anything...
         if(addingMangaURLs != []) {
             // Print to the log that we are fetching the JSON data
-            print("Fetching JSON data...");
+            print("KMAddMangaViewController: Fetching JSON data...");
             
             /// The selected Mangas folder it is in
             var folderURLString : String = (addingMangaURLs.first?.absoluteString)!;
@@ -267,7 +267,7 @@ class KMAddMangaViewController: NSViewController {
                 // If there is a "series.json" file in the Manga's folder...
                 if(NSFileManager.defaultManager().fileExistsAtPath(mangaJsonURL)) {
                     // Print to the log that we found the JSON file for the selected manga
-                    print("Found a series.json file for the selected Manga at \"" + mangaJsonURL + "\"");
+                    print("KMAddMangaViewController: Found a series.json file for the selected Manga at \"" + mangaJsonURL + "\"");
                     
                     /// The SwiftyJSON object for the Manga's JSON info
                     let mangaJson = JSON(data: NSFileManager.defaultManager().contentsAtPath(mangaJsonURL)!);
@@ -296,7 +296,7 @@ class KMAddMangaViewController: NSViewController {
                     // For every item in the tags value of the JSON...
                     for(_, currentTag) in mangaJson["tags"].arrayValue.enumerate() {
                         // Print the current tag
-                        print("Found tag \"" + currentTag.stringValue + "\"");
+                        print("KMAddMangaViewController: Found tag \"" + currentTag.stringValue + "\"");
                         
                         // Add the current item to the tag text field
                         tagsTextField.stringValue += currentTag.stringValue + ", ";
@@ -329,7 +329,7 @@ class KMAddMangaViewController: NSViewController {
                 // If there is a file that has the same name but with a .json on the end...
                 if(NSFileManager.defaultManager().fileExistsAtPath(mangaJsonURL)) {
                     // Print to the log that we found the JSON file for the single manga
-                    print("Found single Manga's JSON file at \"" + mangaJsonURL + "\"");
+                    print("KMAddMangaViewController: Found single Manga's JSON file at \"" + mangaJsonURL + "\"");
                     
                     /// The SwiftyJSON object for the Manga's JSON info
                     let mangaJson = JSON(data: NSFileManager.defaultManager().contentsAtPath(mangaJsonURL)!);
@@ -386,7 +386,7 @@ class KMAddMangaViewController: NSViewController {
                     // For every item in the tags value of the JSON...
                     for(_, currentTag) in mangaJson["tags"].arrayValue.enumerate() {
                         // Print the current tag
-                        print("Found tag \"" + currentTag.stringValue + "\"");
+                        print("KMAddMangaViewController: Found tag \"" + currentTag.stringValue + "\"");
                         
                         // Add the current item to the tag text field
                         tagsTextField.stringValue += currentTag.stringValue + ", ";
@@ -459,11 +459,11 @@ class KMAddMangaViewController: NSViewController {
             try NSFileManager().removeItemAtPath("/tmp/komikan/addmanga");
             
             // Print to the log that we deleted it
-            print("Deleted /tmp/komikan/addmanga folder for \"" + manga.title + "\"");
+            print("KMAddMangaViewController: Deleted /tmp/komikan/addmanga folder for \"" + manga.title + "\"");
             // If there is an error...
         } catch _ as NSError {
             // Print to the log that there is no /tmp/komikan/addmanga folder to delete
-            print("No /tmp/komikan/addmanga to delete for \"" + manga.title + "\"");
+            print("KMAddMangaViewController: No /tmp/komikan/addmanga to delete for \"" + manga.title + "\"");
         }
         
         // If the manga's file isnt a folder...
@@ -483,7 +483,7 @@ class KMAddMangaViewController: NSViewController {
         }
         
         // Clean up the directory
-        print(KMCommandUtilities().runCommand(NSBundle.mainBundle().bundlePath + "/Contents/Resources/cleanmangadir", arguments: ["/tmp/komikan/addmanga"], waitUntilExit: true));
+        print("KMAddMangaViewController: \(KMCommandUtilities().runCommand(NSBundle.mainBundle().bundlePath + "/Contents/Resources/cleanmangadir", arguments: ["/tmp/komikan/addmanga"], waitUntilExit: true))");
         
         /// All the files in /tmp/komikan/addmanga
         var addMangaFolderContents : NSArray = [];
@@ -523,7 +523,7 @@ class KMAddMangaViewController: NSViewController {
         manga.coverImage = manga.coverImage.resizeToHeight(400);
         
         // Print the image to the log(It for some reason needs this print or it wont work)
-        print(firstImage);
+        print("KMAddMangaViewController: \(firstImage)");
         
         // Return the changed manga
         return manga;

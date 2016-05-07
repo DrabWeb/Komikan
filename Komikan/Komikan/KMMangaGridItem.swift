@@ -78,7 +78,7 @@ class KMMangaGridItem: NSObject, NSCoding {
         percentAlpha = (1.0 - CGFloat(manga.percentFinished) / 100.0) + 0.3;
         
         // Print that we are changing manga info
-        print("Loaded / Changed \"" + title + "\"");
+        print("KMMangaGridItem: Loaded / Changed \"" + title + "\"");
     }
     
     func encodeWithCoder(coder: NSCoder) {

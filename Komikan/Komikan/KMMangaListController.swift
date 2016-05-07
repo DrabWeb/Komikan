@@ -111,7 +111,7 @@ class KMMangaListController: NSObject {
     func openManga() {
         // For every selected manga...
         for(_, currentSelectedManga) in selectedMangaList().enumerate() {
-            print("Opening \"" + currentSelectedManga.title + "\"");
+            print("KMMangaListController: Opening \"" + currentSelectedManga.title + "\"");
             
             // Open the popover
             openPopover(true, manga: currentSelectedManga);
@@ -126,10 +126,10 @@ class KMMangaListController: NSObject {
         for(_, currentManga) in openedManga.enumerate() {
             // If the UUID matches...
             if(currentManga.uuid == (notification.object as? KMManga)!.uuid) {
-                print("UUID matched for \"" + currentManga.title + "\"");
+                print("KMMangaListController: UUID matched for \"" + currentManga.title + "\"");
                 
                 // Print to the log the manga we received
-                print("Saving manga \"" + currentManga.title + "\"");
+                print("KMMangaListController: Saving manga \"" + currentManga.title + "\"");
                 
                 // For every manga inside the opened manga...
                 for(_, _) in openedManga.enumerate() {
@@ -162,13 +162,13 @@ class KMMangaListController: NSObject {
     }
     
     func updatePercentFinished(notification : NSNotification) {
-        print("Updating percent...");
+        print("KMMangaListController: Updating percent...");
         
         // For every manga in the opened manga...
         for(_, currentManga) in openedManga.enumerate() {
             // If the UUID matches...
             if(currentManga.uuid == (notification.object as? KMManga)!.uuid) {
-                print("UUID matched for \"" + currentManga.title + "\"");
+                print("KMMangaListController: UUID matched for \"" + currentManga.title + "\"");
                 
                 // Update the passed mangas percent finished
                 (notification.object as? KMManga)!.updatePercent();

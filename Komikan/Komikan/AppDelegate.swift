@@ -208,7 +208,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
             // If there is an error...
         } catch let error as NSError {
             // Print the error description to the log
-            print(error.description);
+            print("AppDelegate: Error loading preferences file, \(error.description)");
         }
     }
     
@@ -318,7 +318,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
             // Delete all of them
             for (_, currentFile) in files.enumerate() {
                 // Print to the log what we are removing
-                print("Deleting /tmp/komikan/" + currentFile);
+                print("AppDelegate: Deleting /tmp/komikan/" + currentFile);
                 
                 // Try to remove it
                 try NSFileManager.defaultManager().removeItemAtPath("/tmp/komikan/" + currentFile);
@@ -327,13 +327,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
             // If there is an error...
         } catch _ as NSError {
             // Print to the log that the cache is already cleared
-            print("Cache is already cleared");
+            print("AppDelegate: Cache is already cleared");
         }
     }
     
     func actOnPreferences() {
         // Print to the log that we are acting upon preferences
-        print("Acting On Preferences");
+        print("AppDelegate: Acting On Preferences");
         
         // Hide/show the Add From EH Menu Item depending on if we have l-lewd... mode enabled
         addFromEHMenuItem.hidden = !preferencesKepper.llewdModeEnabled;

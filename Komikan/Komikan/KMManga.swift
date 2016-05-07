@@ -131,11 +131,11 @@ class KMManga {
             }
             else {
                 // Print to the log that it has already been extracted
-                print("\"" + title + "\" has already been extracted to \"" + tmpDirectory + "\"");
+                print("KMManga: \"\(title)\" has already been extracted to \"\(tmpDirectory)\"");
             }
             
             // Print that we are done extracting
-            print("Done extracting");
+            print("KMManga: Done extracting \"\(title)\"");
             
             // Run the cleanmangadir binary to make the directory readable for us
             KMCommandUtilities().runCommand(NSBundle.mainBundle().bundlePath + "/Contents/Resources/cleanmangadir", arguments: [tmpDirectory], waitUntilExit: true);
@@ -166,12 +166,12 @@ class KMManga {
                     // If the current page's filename matched the ignore regex...
                     if let _ = (currentPage.element as! String).rangeOfString(excludeRegexPattern, options: .RegularExpressionSearch) {
                         // Print to the log that we are ignoring this file
-                        print("Ignoring page \"" + (currentPage.element as! String) + "\"");
+                        print("KMManga: Ignoring page \"\((currentPage.element as! String))\"");
                     }
                     // If the current page's filename didnt match the regex...
                     else {
                         // Print to the log what page we found
-                        print("Found page \"" + (currentPage.element as! String) + "\"");
+                        print("KMManga: Found page \"\((currentPage.element as! String))\"");
                         
                         // Append this image to the manga.pages array
                         pages.append(NSImage(contentsOfFile: tmpDirectory + (currentPage.element as! String))!);
@@ -180,7 +180,7 @@ class KMManga {
                 // If its not an image...
                 else {
                     // Print to the log that we found a non-image file
-                    print("Found file \"" + (currentPage.element as! String) + "\" that was not a page");
+                    print("KMManga: Found file \"\((currentPage.element as! String))\" that was not a page");
                 }
             }
             
@@ -193,7 +193,7 @@ class KMManga {
         // If we did already get the pages...
         else {
             // Print to the log that we already have the pages
-            print("Already got pages for \"" + title + "\"");
+            print("KMManga: Already got pages for \"\(title)\"");
         }
     }
     

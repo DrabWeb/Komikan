@@ -16,7 +16,7 @@ class KMMigrationImporter {
     /// Imports all the manga in the passed folder and all it's subfolders. Only imports ones that have metadata exported
     func importFolder(path : String) {
         // Print to the log that we are importing
-        print("Trying to import files in \(path)");
+        print("KMMigrationImporter: Trying to import files in \(path)");
         
         /// The file enumerator for the import folder
         let importFolderFileEnumerator : NSDirectoryEnumerator = NSFileManager.defaultManager().enumeratorAtPath(path)!;
@@ -34,7 +34,7 @@ class KMMigrationImporter {
                 // If the current file has a Komikan JSON file...
                 if(KMFileUtilities().mangaFileHasJSON(currentFileFullPath)) {
                     // Print to the log that we are importing the current manga
-                    print("Importing file \(currentFileFullPath)");
+                    print("KMMigrationImporter: Importing file \(currentFileFullPath)");
                     
                     /// The manga we will add
                     let manga : KMManga = KMManga();

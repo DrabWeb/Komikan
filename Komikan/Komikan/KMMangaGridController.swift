@@ -78,7 +78,7 @@ class KMMangaGridController: NSObject {
                 try NSFileManager.defaultManager().trashItemAtURL(NSURL(fileURLWithPath: gridItem.manga.directory), resultingItemURL: nil);
                 
                 // Print to the log that we deleted it
-                print("Deleted manga \"" + gridItem.manga.title + "\"'s file");
+                print("KMMangaGridController: Deleted manga \"" + gridItem.manga.title + "\"'s file");
             }
                 // If there is an error...
             catch _ as NSError {
@@ -141,7 +141,7 @@ class KMMangaGridController: NSObject {
     /// Adds the given manga to the manga grid, and redos the search / show/hide l-lewd... manga
     func addManga(manga : KMManga, updateFilters : Bool) {
         // Print to the log that we are adding a manga to the grid and what its name is
-        print("Adding manga \"" + manga.title + "\" to the manga grid");
+        print("KMMangaGridController: Adding manga \"\(manga.title)\" to the manga grid");
         
         // Create a new item
         let newItem : KMMangaGridItem = KMMangaGridItem();
@@ -611,7 +611,7 @@ class KMMangaGridController: NSObject {
             searching = true;
             
             // Print to the log what we are searching for
-            print("Searching for \"" + searchText + "\"");
+            print("KMMangaGridController: Searching for \"\(searchText)\"");
             
             // Remove all items from the array controller
             removeAllGridItems(false);
@@ -665,7 +665,7 @@ class KMMangaGridController: NSObject {
             let searchStringSplit : [String] = cleanedSearchText.componentsSeparatedByString("\" ");
             
             // Print the split search string
-            print("Search string split at every \"\" \": " + String(searchStringSplit));
+            print("KMMangaGridController: Search string split at every \"\" \": " + String(searchStringSplit));
             
             // For every item in the split search string
             for(_, currentString) in searchStringSplit.enumerate() {
@@ -734,7 +734,7 @@ class KMMangaGridController: NSObject {
                     // If it is one that we dont have...
                     default:
                         // Print to the log that it didnt match any types we search by
-                        print("Did not match any search types, defaulting to title");
+                        print("KMMangaGridController: Did not match any search types, defaulting to title");
                         
                         // Set the title search to this search
                         titleSearch = currentString;
@@ -1730,7 +1730,7 @@ class KMMangaGridController: NSObject {
         // If we said to show l-lewd... manga...
         if(show) {
             // Print to the log that we are showing l-lewd... manga
-            print("Showing l-lewd... manga");
+            print("KMMangaGridController: Showing l-lewd... manga");
             
             // Set the manga grid to show gridItems
             setGridToItems(gridItems);
@@ -1738,7 +1738,7 @@ class KMMangaGridController: NSObject {
         // If we said to show l-lewd... manga(B-but thats l-lewd...!)
         else {
             // Print to the log that we are hiding l-lewd... manga
-            print("Hiding l-lewd... manga");
+            print("KMMangaGridController: Hiding l-lewd... manga");
             
             // For every item in gridItems...
             for(_, currentItem) in gridItems.enumerate() {
@@ -1769,7 +1769,7 @@ class KMMangaGridController: NSObject {
     /// Sorts the manga grid by sortType and ascends/decends based on ascending
     func sort(sortType : KMMangaGridSortType, ascending : Bool) {
         // Print to the log how we are sorting
-        print("Sorting manga grid by " + String(sortType));
+        print("KMMangaGridController: Sorting manga grid by " + String(sortType));
         
         // Set the current sort type to be the type we are sorting as
         currentSortOrder = sortType;

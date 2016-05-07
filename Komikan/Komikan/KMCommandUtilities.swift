@@ -15,7 +15,7 @@ class KMCommandUtilities {
     // Runs the specified command as a shell script, returns the output
     func runCommand(launchPath : String, arguments : [String], waitUntilExit : Bool) -> String {
         // Print to the log what command we are running
-        print("Running command \"" + launchPath + " " + String(arguments) + "\"");
+        print("KMCommandUtilities: Running command \"" + launchPath + " " + String(arguments) + "\"");
         
         // Reset lastCommandTask
         lastCommandTask = NSTask();

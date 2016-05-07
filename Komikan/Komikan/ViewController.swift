@@ -149,12 +149,12 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     // Called when we hit "Add" in the addmanga popover
     func addMangaFromAddMangaPopover(notification: NSNotification) {
         // Print to the log that we are adding from the add popover
-        print("Adding from the add popover...");
+        print("ViewController: Adding from the add popover...");
         
         // If we were passed an array of manga...
         if((notification.object as? [KMManga]) != nil) {
             // Print to the log that we are batch adding
-            print("Batch adding manga");
+            print("ViewController: Batch adding manga");
             
             // For every manga in the notifications manga array...
             for (_, currentManga) in ((notification.object as? [KMManga])?.enumerate())! {
@@ -182,7 +182,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         }
         else {
             // Print to the log that we have recieved it and its name
-            print("Recieving manga \"" + ((notification.object as? KMManga)?.title)! + "\" from Add Manga popover");
+            print("ViewController: Recieving manga \"" + ((notification.object as? KMManga)?.title)! + "\" from Add Manga popover");
             
             // Add the manga to the grid, and store the item in a new variable
             mangaGridController.addManga((notification.object as? KMManga)!, updateFilters: true);
@@ -842,7 +842,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     /// Switches from the grid view to the table view
     func displayListView() {
         // Print to the log that we are going into list view
-        print("Switching to list view");
+        print("ViewController: Switching to list view");
         
         // Say we are in list view
         inListView = true;
@@ -886,7 +886,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     /// Switches from the table view to the grid view
     func displayGridView() {
         // Print to the log that we are going into grid view
-        print("Switching to grid view");
+        print("ViewController: Switching to grid view");
         
         // Say we arent in list view
         inListView = false;
@@ -1030,7 +1030,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     /// Exports JSON for all the selected manga in the grid without internal information
     func exportMangaJSONForSelected() {
         // Print to the log that we are exporting metadata for selected manga
-        print("Exporting JSON metadata for selected manga");
+        print("ViewController: Exporting JSON metadata for selected manga");
         
         /// The selected KMManga in the grid
         let selectedManga : [KMManga] = selectedGridItemManga();
@@ -1162,7 +1162,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     /// Called by the set selected items properties popover to apply the given values to the selected items
     func setSelectedItemsProperties(notification : NSNotification) {
         // Print to the log thatr we are setting the selected items properties
-        print("Setting selected items properties to properties from popover");
+        print("ViewController: Setting selected items properties to properties from popover");
         
         /// The manga grid items that we want to set properties of
         let selectionItemsToSetProperties : [KMMangaGridItem] = selectedGridItems();
@@ -1219,7 +1219,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             // If the extension is unsupported...
             else {
                 // Print to the log that it is unsupported and what the extension is
-                print("Unsupported file extension \"" + currentFileExtension + "\"");
+                print("ViewController: Unsupported file extension \"" + currentFileExtension + "\"");
             }
         }
         
@@ -1293,12 +1293,12 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     
     func addMangaFromEHPopover(notification : NSNotification) {
         // Print to the log that we are adding a manga from the EH popover
-        print("Adding from EH...");
+        print("ViewController: Adding from EH...");
         
         // If we were passed an array of manga...
         if((notification.object as? [KMManga]) != nil) {
             /// Print to the log that we are batch adding
-            print("Batch adding manga from EH");
+            print("ViewController: Batch adding manga from EH");
             
             // For every manga in the passed manga...
             for (_, currentManga) in ((notification.object as? [KMManga])?.enumerate())! {
@@ -1312,7 +1312,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // If we only passed a single manga...
         else {
             // Print to the log that we have recieved it and its name
-            print("Recieving manga \"" + ((notification.object as? KMManga)?.title)! + "\" from Add From EH Manga popover");
+            print("ViewController: Recieving manga \"" + ((notification.object as? KMManga)?.title)! + "\" from Add From EH Manga popover");
             
             // Add the manga to the grid
             mangaGridController.addManga((notification.object as? KMManga)!, updateFilters: true);
@@ -1346,7 +1346,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     // Removes the last selected manga item
     func removeSelectItemFromMangaGrid(notification : NSNotification) {
         // Print to the log that we are removing this manga
-        print("Removing \"" + (notification.object as? KMManga)!.title + "\" manga item");
+        print("ViewController: Removing \"" + (notification.object as? KMManga)!.title + "\" manga item");
         
         // Remove this item from the grid controller
         mangaGridController.removeGridItem((mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])![selectedItemIndexes().lastIndex], resort: true);
@@ -1355,7 +1355,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     /// Removes all the selected manga items(Use this for multiple)
     func removeSelectedItemsFromMangaGrid() {
         // Print to the log that we are removing the selected manga items
-        print("Removing selected manga items");
+        print("ViewController: Removing selected manga items");
         
         /// The manga grid items that we want to remove
         let selectionItemsToRemove : [KMMangaGridItem] = selectedGridItems();
@@ -1370,7 +1370,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     /// Marks the selected manga items as unread
     func markSelectedItemsAsUnread() {
         // Print to the log that we are marking the selected items as unread
-        print("Marking selected manga items as unread");
+        print("ViewController: Marking selected manga items as unread");
         
         /// The selected manga items that we will mark as read
         let selectionItemsToMarkAsUnread : [KMMangaGridItem] = selectedGridItems();
@@ -1406,7 +1406,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     /// Marks the selected manga items as read
     func markSelectedItemsAsRead() {
         // Print to the log that we are marking the selected manga items as read
-        print("Marking selected manga items as read");
+        print("ViewController: Marking selected manga items as read");
         
         /// The selected manga items that we will mark as read
         let selectionItemsToMarkAsRead : [KMMangaGridItem] = selectedGridItems();

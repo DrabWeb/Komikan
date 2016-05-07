@@ -281,7 +281,7 @@ class KMFileUtilities {
         // If the directory we are trying to extract to doesnt already exist...
         if(!NSFileManager.defaultManager().fileExistsAtPath(toDirectory)) {
             // Print to the log what we are extracting and where to
-            print("Extracting \"" + archiveDirectory + "\" to \"" + toDirectory + "\"");
+            print("KMFileUtilities: Extracting \"" + archiveDirectory + "\" to \"" + toDirectory + "\"");
             
             // Get the extension
             let archiveType : String = getFileExtension(NSURL(fileURLWithPath: archiveDirectory));
@@ -306,7 +306,7 @@ class KMFileUtilities {
                     // If there is an error...
                 catch let error as NSError {
                     // Print the errors description
-                    print(error.description);
+                    print("KMFileUtilities: Error getting RAR archive, \(error.description)");
                 }
                 
                 // Extract the archive
@@ -317,14 +317,14 @@ class KMFileUtilities {
                     // If there is an error...
                 catch let error as NSError {
                     // Print the errors description
-                    print(error.description);
+                    print("KMFileUtilities: Error extracting RAR archive, \(error.description)");
                 }
             }
         }
         // If we did already extract it...
         else {
             // Print to the log that it is already extracted
-            print("Already extracted \"" + archiveDirectory + "\" to \"" + toDirectory + "\"");
+            print("KMFileUtilities: Already extracted \"" + archiveDirectory + "\" to \"" + toDirectory + "\"");
         }
     }
 }

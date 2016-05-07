@@ -87,7 +87,7 @@ class KMMangaGroupController: NSObject {
     /// Searches for the given string and displays the results
     func searchFor(searchString : String) {
         // Print to the log what we are searching for
-        print("Searching for \"\(searchString)\" in manga groups");
+        print("KMMangaGroupController: Searching for \"\(searchString)\" in manga groups");
         
         // Set last search
         lastSearch = searchString;

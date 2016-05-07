@@ -47,7 +47,7 @@ extension Array {
         // If the first element in the array is not a string...
         if((self[0] as? String) == nil) {
             // Tell the developer that this is not the right kind of array
-            print("Unsupported array \"" + String(self) + "\"");
+            print("KMExtensions(Array): Unsupported array \"" + String(self) + "\"");
             
             // Return 0
             return 0;

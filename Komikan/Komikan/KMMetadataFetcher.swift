@@ -54,7 +54,7 @@ class KMMetadataFetcher {
     /// Makes the actual search request from searchForManga
     private func searchForMangaRequest(title : String, completionHandler: ([KMMetadataInfo]?, NSError?) -> ()) -> [KMMetadataInfo] {
         // Print to the log what we are searching for
-        print("Searching for \"" + title + "\"");
+        print("KMMetadataFetcher: Searching for \"" + title + "\"");
         
         /// The list of KMMetadataInfo that we will return to say what items came up in the search
         var metadataSearchItems : [KMMetadataInfo] = [];
@@ -81,7 +81,7 @@ class KMMetadataFetcher {
                 // If the metadata search items are empty...
                 if(metadataSearchItems.isEmpty) {
                     // Say there were no results
-                    print("No search results found");
+                    print("KMMetadataFetcher: No search results found");
                 }
                 
                 // Return the search items
@@ -103,7 +103,7 @@ class KMMetadataFetcher {
     /// Makes the actual search request from searchForManga
     private func getSeriesMetadataRequest(metadata : KMMetadataInfo, completionHandler: (KMSeriesMetadata?, NSError?) -> ()) -> KMSeriesMetadata {
         // Print to the log what we are searching for
-        print("Getting metadata for \"" + metadata.title + "\"");
+        print("KMMetadataFetcher: Getting metadata for \"" + metadata.title + "\"");
         
         /// The KMSeriesMetadata we will receive from MCD and return at the end
         let seriesMetadata : KMSeriesMetadata = KMSeriesMetadata();

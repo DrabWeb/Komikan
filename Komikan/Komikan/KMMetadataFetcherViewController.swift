@@ -99,7 +99,7 @@ class KMMetadataFetcherViewController: NSViewController {
     /// Applys the chosen metadata to the selected manga
     func applyMetadata() {
         // Print to the log that we are applying metadata
-        print("Applying metadata to selected manga");
+        print("KMMetadataFetcherViewController: Applying metadata to selected manga");
         
         // For every manga grid item in the selected manga grid item...
         for(_, currentMangaGridItem) in selectedMangaGridItems.enumerate() {
@@ -148,7 +148,7 @@ class KMMetadataFetcherViewController: NSViewController {
             currentMangaGridItem.changeManga(modifiedManga);
             
             // Print to the log what manga we applied the metadata to
-            print("Applied fetched metadata to \"" + modifiedManga.title + "\"");
+            print("KMMetadataFetcherViewController: Applied fetched metadata to \"" + modifiedManga.title + "\"");
         }
         
         // Post the notification to say we are done applying metadata
@@ -279,7 +279,7 @@ extension KMMetadataFetcherViewController: NSTableViewDelegate {
         let senderCell : KMMetadataFetcherSeriesSearchResultsTableViewCell = ((sender as! NSButton).superview as? KMMetadataFetcherSeriesSearchResultsTableViewCell)!;
         
         // Print to the log what teh user selectedand its ID
-        print("Chose \"" + senderCell.data.seriesName + "\", ID:", senderCell.data.seriesId);
+        print("KMMetadataFetcherViewController: Chose \"" + senderCell.data.seriesName + "\", ID:", senderCell.data.seriesId);
         
         /// The metadata info we will use to get the metadata for the selected item
         let metadataInfo : KMMetadataInfo = KMMetadataInfo(title: senderCell.data.seriesName, id: senderCell.data.seriesId);
