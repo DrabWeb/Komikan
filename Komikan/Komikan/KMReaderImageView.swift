@@ -14,6 +14,6 @@ class KMReaderImageView: KMDraggableImageView {
         // Set the image rendering to be the highest of qualities
         NSGraphicsContext.currentContext()?.imageInterpolation = NSImageInterpolation.High;
         
-        super.drawRect(dirtyRect)
+        super.drawRect(dirtyRect);
     }
 }

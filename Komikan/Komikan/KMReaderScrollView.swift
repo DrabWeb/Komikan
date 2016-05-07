@@ -105,7 +105,7 @@ class KMReaderScrollView: NSScrollView {
             // Say the cooldown isnt over
             swipeCooldownOver = false;
         }
-            // If the delta X is greater than 5(Meaning you are swiping right)...
+        // If the delta X is greater than 5(Meaning you are swiping right)...
         else if(theEvent.deltaX > 5) {
             // If the swipe cooldown is over...
             if(swipeCooldownOver) {
@@ -139,7 +139,7 @@ class KMReaderScrollView: NSScrollView {
             // Say the swipe cooldown isnt over
             swipeCooldownOver = false;
         }
-            // If the trackpad's scroll force on the X is 0...
+        // If the trackpad's scroll force on the X is 0...
         else if(theEvent.deltaX == 0) {
             // Say the cooldown is over
             swipeCooldownOver = true;

@@ -43,12 +43,16 @@ class KMReaderPageJumpController: NSObject {
         // Clear all the current items
         arrayController.removeObjects(arrayController.arrangedObjects as! [AnyObject]);
         
+        // For every page in the given manga's pages...
         for(currentPageIndex, currentPage) in manga.pages.enumerate() {
-            arrayController.addObject(KMReaderPageJumpGridItem(thumbnail: currentPage, currentPage: (manga.currentPage == currentPageIndex), bookmarked: manga.bookmarks.contains(currentPageIndex)));
+            // Add the current page to the page jump collection view
+            self.arrayController.addObject(KMReaderPageJumpGridItem(thumbnail: currentPage, currentPage: (manga.currentPage == currentPageIndex), bookmarked: manga.bookmarks.contains(currentPageIndex)));
             
-            (arrayController.arrangedObjects as! [KMReaderPageJumpGridItem]).last!.readerViewController = self.readerViewController;
+            // Set the item's reader view controller to this
+            (self.arrayController.arrangedObjects as! [KMReaderPageJumpGridItem]).last!.readerViewController = self.readerViewController;
             
-            (arrayController.arrangedObjects as! [KMReaderPageJumpGridItem]).last!.page = currentPageIndex;
+            // Set the current item's page to the current index
+            (self.arrayController.arrangedObjects as! [KMReaderPageJumpGridItem]).last!.page = currentPageIndex;
         }
         
         // Say a manga's thumbnails have already been loaded at least once
