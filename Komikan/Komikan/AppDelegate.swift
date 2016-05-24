@@ -465,6 +465,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         // Make sure we have an application support folder
         KMCommandUtilities().runCommand("/bin/mkdir", arguments: [NSHomeDirectory() + "/Library/Application Support/Komikan"], waitUntilExit: true);
         
+        // Make sure we have a /tmp/komikan folder
+        KMCommandUtilities().runCommand("/bin/mkdir", arguments: ["/tmp/komikan"], waitUntilExit: true);
+        
         // Clear the cache on load
         clearCache();
         
