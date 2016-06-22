@@ -3,7 +3,6 @@
 //  Komikan
 //
 //  Created by Seth on 2016-02-22.
-//  Copyright © 2016 DrabWeb. All rights reserved.
 //
 
 import Foundation
