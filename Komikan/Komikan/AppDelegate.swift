@@ -150,12 +150,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     var modifierValue : Int = 0;
     
     // Opens the specified manga in the reader at the specified page
-    func openManga(manga : KMManga, page : Int) {
+    func openManga(_ manga : KMManga, page : Int) {
         // Get the main storyboard
         let storyboard = NSStoryboard(name: "Main", bundle: nil);
         
         // Instanstiate the view controller for the reader
-        mangaReaderWindowController = storyboard.instantiateControllerWithIdentifier("reader") as? NSWindowController;
+        mangaReaderWindowController = storyboard.instantiateController(withIdentifier: "reader") as? NSWindowController;
         
         // Get the view controller from the window
         mangaReaderViewController = (mangaReaderWindowController.contentViewController as? KMReaderViewController);
@@ -172,39 +172,40 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         var preferencesString : String = "";
         
         // Add the l-lewd... mode enabled bool to the end of it
-        preferencesString.appendContentsOf(String(preferencesKepper.llewdModeEnabled));
+        preferencesString.append(String(preferencesKepper.llewdModeEnabled));
         
         // Add the l-lewd... mode delete when removing enabled bool to the end of it
-        preferencesString.appendContentsOf("\n" + String(preferencesKepper.deleteLLewdMangaWhenRemovingFromTheGrid));
+        preferencesString.append("\n" + String(preferencesKepper.deleteLLewdMangaWhenRemovingFromTheGrid));
         
         // Add mark as read when completed in reader bool to the end of it
-        preferencesString.appendContentsOf("\n" + String(preferencesKepper.markAsReadWhenCompletedInReader));
+        preferencesString.append("\n" + String(preferencesKepper.markAsReadWhenCompletedInReader));
         
         // Add hide cursor in distraction free mode bool to the end of it
-        preferencesString.appendContentsOf("\n" + String(preferencesKepper.hideCursorInDistractionFreeMode));
+        preferencesString.append("\n" + String(preferencesKepper.hideCursorInDistractionFreeMode));
         
         // Add the distraction free mode dim amount float to the end of it
-        preferencesString.appendContentsOf("\n" + String(preferencesKepper.distractionFreeModeDimAmount));
+        preferencesString.append("\n" + String(describing: preferencesKepper.distractionFreeModeDimAmount));
         
         // Add the drag reader window by background without holding alt bool to the end of it
-        preferencesString.appendContentsOf("\n" + String(preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt));
+        preferencesString.append("\n" + String(preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt));
         
         // Add the manga grid scale to the end of it
-        preferencesString.appendContentsOf("\n" + String(preferencesKepper.mangaGridScale));
+        preferencesString.append("\n" + String(preferencesKepper.mangaGridScale));
         
         // Add the page ignore regex to the end of it
-        preferencesString.appendContentsOf("\n" + String(preferencesKepper.pageIgnoreRegex));
+        preferencesString.append("\n" + String(preferencesKepper.pageIgnoreRegex));
         
         // Add the reader window background color to the end of it
-        preferencesString.appendContentsOf("\n" + String(preferencesKepper.readerWindowBackgroundColor.redComponent) + ", " + String(preferencesKepper.readerWindowBackgroundColor.blueComponent) + ", " + String(preferencesKepper.readerWindowBackgroundColor.greenComponent));
+        preferencesString.append("\n" + String(describing: preferencesKepper.readerWindowBackgroundColor.redComponent) + ", " + String(describing: preferencesKepper.readerWindowBackgroundColor.blueComponent) + ", " + String(describing: preferencesKepper.readerWindowBackgroundColor.greenComponent));
         
         // Add the default screen to the end of it
-        preferencesString.appendContentsOf("\n" + String(preferencesKepper.defaultScreen));
+        preferencesString.append("\n" + String(preferencesKepper.defaultScreen));
         
+        print(NSHomeDirectory());
         // Write the preferences to the preferences file in Komikan's application support
         do {
             // Try to write to the preferences file in Komikan's application support directory
-            try preferencesString.writeToFile(NSHomeDirectory() + "/Library/Application Support/Komikan/preferences", atomically: true, encoding: NSUTF8StringEncoding);
+            try preferencesString.write(toFile: NSHomeDirectory() + "/Library/Application Support/Komikan/preferences", atomically: true, encoding: String.Encoding.utf8);
             // If there is an error...
         } catch let error as NSError {
             // Print the error description to the log
@@ -214,15 +215,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     
     func loadPreferences() {
         // Make sure the preferences file exists
-        if(NSFileManager.defaultManager().fileExistsAtPath(NSHomeDirectory() + "/Library/Application Support/Komikan/preferences")) {
+        if(FileManager.default.fileExists(atPath: NSHomeDirectory() + "/Library/Application Support/Komikan/preferences")) {
             // Create a variable to hold the preferences
             var preferencesString : String = "";
             
             // Try to get the contents of the preferences file in our application support folder
-            preferencesString = String(data: NSFileManager.defaultManager().contentsAtPath(NSHomeDirectory() + "/Library/Application Support/Komikan/preferences")!, encoding: NSUTF8StringEncoding)!;
+            preferencesString = String(data: FileManager.default.contents(atPath: NSHomeDirectory() + "/Library/Application Support/Komikan/preferences")!, encoding: String.Encoding.utf8)!;
             
             // For every line in the preferences string
-            for (currentIndex, currentElement) in preferencesString.componentsSeparatedByString("\n").enumerate() {
+            for (currentIndex, currentElement) in preferencesString.components(separatedBy: "\n").enumerated() {
                 // If this is the first line...
                 if(currentIndex == 0) {
                     // Set the l-lewd... mode enabled bool to be this lines value
@@ -275,7 +276,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                     var green : CGFloat = 0;
                     
                     // For every value in the current line split at every ", "...
-                    for(currentIndex, currentString) in currentElement.componentsSeparatedByString(", ").enumerate() {
+                    for(currentIndex, currentString) in currentElement.components(separatedBy: ", ").enumerated() {
                         // If this is the first element...
                         if(currentIndex == 0) {
                             // Set the red value to this line
@@ -305,7 +306,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         }
         
         // Post the notification saying the preferences have been loaded
-        NSNotificationCenter.defaultCenter().postNotificationName("Application.PreferencesLoaded", object: nil);
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "Application.PreferencesLoaded"), object: nil);
     }
     
     // Clears the cache
@@ -313,15 +314,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         // Get everything in /tmp/komikan and delete it
         do {
             // Get all files in /tmp/komikan
-            let files = try NSFileManager.defaultManager().contentsOfDirectoryAtPath("/tmp/komikan");
+            let files = try FileManager.default.contentsOfDirectory(atPath: "/tmp/komikan");
             
             // Delete all of them
-            for (_, currentFile) in files.enumerate() {
+            for (_, currentFile) in files.enumerated() {
                 // Print to the log what we are removing
                 print("AppDelegate: Deleting /tmp/komikan/" + currentFile);
                 
                 // Try to remove it
-                try NSFileManager.defaultManager().removeItemAtPath("/tmp/komikan/" + currentFile);
+                try FileManager.default.removeItem(atPath: "/tmp/komikan/" + currentFile);
             }
             
             // If there is an error...
@@ -336,7 +337,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         print("AppDelegate: Acting On Preferences");
         
         // Hide/show the Add From EH Menu Item depending on if we have l-lewd... mode enabled
-        addFromEHMenuItem.hidden = !preferencesKepper.llewdModeEnabled;
+        addFromEHMenuItem.isHidden = !preferencesKepper.llewdModeEnabled;
         
         // Set the distraction free mode dim amount
         backgroundDarkenAmount = preferencesKepper.distractionFreeModeDimAmount;
@@ -355,7 +356,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         mangaGridController.updateFilters();
         
         // Post the notification saying the preferences have been saved
-        NSNotificationCenter.defaultCenter().postNotificationName("Application.PreferencesSaved", object: nil);
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "Application.PreferencesSaved"), object: nil);
         
         // Restore the scroll position and selection in the grid
         mangaGridController.restoreSelection();
@@ -372,28 +373,28 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         let storyboard = NSStoryboard(name: "Main", bundle: nil);
         
         // Instantiate the window controller for darkening the background
-        darkenBackgroundWindowController = storyboard.instantiateControllerWithIdentifier("backgroundDarkenWindow") as? NSWindowController;
+        darkenBackgroundWindowController = storyboard.instantiateController(withIdentifier: "backgroundDarkenWindow") as? NSWindowController;
         
         // Set the darken background windows frame to be the same as the srceens frame
-        darkenBackgroundWindowController.window?.setFrame(NSRect(x: 0, y: 0, width: (NSScreen.mainScreen()?.frame.width)!, height: (NSScreen.mainScreen()?.frame.height)!), display: false);
+        darkenBackgroundWindowController.window?.setFrame(NSRect(x: 0, y: 0, width: (NSScreen.main()?.frame.width)!, height: (NSScreen.main()?.frame.height)!), display: false);
         
         // Allow the window to be transparent
-        darkenBackgroundWindowController.window?.opaque = false;
+        darkenBackgroundWindowController.window?.isOpaque = false;
         
         // Set the background color to black
-        darkenBackgroundWindowController.window?.backgroundColor = NSColor.blackColor();
+        darkenBackgroundWindowController.window?.backgroundColor = NSColor.black;
         
         // Set the transpareny to something /comfy/
         darkenBackgroundWindowController.window?.alphaValue = backgroundDarkenAmount;
         
         // Make the window borderless
-        darkenBackgroundWindowController.window?.styleMask |= NSBorderlessWindowMask;
+        darkenBackgroundWindowController.window?.styleMask.insert(NSBorderlessWindowMask);
         
         // Make it so you cant click the window
         darkenBackgroundWindowController.window?.ignoresMouseEvents = true;
         
         // Set the windows level
-        darkenBackgroundWindowController.window?.level--;
+        darkenBackgroundWindowController.window?.level -= 1;
         
         // Fade out the darken. If you dont do this, the first time you toggle distraction free mode it will only show and not fade in
         // Make the darken window clear
@@ -422,7 +423,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         darkenBackgroundWindowController.window?.animator().alphaValue = 0;
         
         // Wait for the animation to finish and hide the window
-        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.2), target: self, selector: Selector("closeDarkenWindow"), userInfo: nil, repeats:false);
+        Timer.scheduledTimer(timeInterval: TimeInterval(0.2), target: self, selector: #selector(AppDelegate.closeDarkenWindow), userInfo: nil, repeats:false);
         
         // If we said to hide the cursor in distraction free mode...
         if(preferencesKepper.hideCursorInDistractionFreeMode) {
@@ -452,7 +453,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         darkenBackgroundWindowController.window?.orderBack(self);
     }
     
-    func modifierKeyEventHandler(theEvent : NSEvent) -> NSEvent {
+    func modifierKeyEventHandler(_ theEvent : NSEvent) -> NSEvent {
         // Set modifierValue to the raw modifier key values
         self.modifierValue = Int(theEvent.modifierFlags.rawValue);
         
@@ -460,13 +461,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         return theEvent;
     }
     
-    func applicationDidFinishLaunching(aNotification: NSNotification) {
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
         // Make sure we have an application support folder
-        KMCommandUtilities().runCommand("/bin/mkdir", arguments: [NSHomeDirectory() + "/Library/Application Support/Komikan"], waitUntilExit: true);
+        _ = KMCommandUtilities().runCommand("/bin/mkdir", arguments: [NSHomeDirectory() + "/Library/Application Support/Komikan"], waitUntilExit: true);
         
         // Make sure we have a /tmp/komikan folder
-        KMCommandUtilities().runCommand("/bin/mkdir", arguments: ["/tmp/komikan"], waitUntilExit: true);
+        _ = KMCommandUtilities().runCommand("/bin/mkdir", arguments: ["/tmp/komikan"], waitUntilExit: true);
         
         // Clear the cache on load
         clearCache();
@@ -481,27 +482,27 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         setupBackgroundDarkenWindow();
         
         // Setup the darken background menu items action
-        toggleBackgroundDarkenMenuItem.action = Selector("toggleDarken");
+        toggleBackgroundDarkenMenuItem.action = #selector(AppDelegate.toggleDarken);
         
         // Get the default notification center
-        let nc = NSUserNotificationCenter.defaultUserNotificationCenter();
+        let nc = NSUserNotificationCenter.default;
         
         // Set its delegate to this class
         nc.delegate = self;
         
         // Subscribe to the modifier key changed event
-        NSEvent.addLocalMonitorForEventsMatchingMask(NSEventMask.FlagsChangedMask, handler: modifierKeyEventHandler);
+        NSEvent.addLocalMonitorForEvents(matching: NSEventMask.flagsChanged, handler: modifierKeyEventHandler);
     }
     
-    internal func userNotificationCenter(center: NSUserNotificationCenter, shouldPresentNotification notification: NSUserNotification) -> Bool {
+    internal func userNotificationCenter(_ center: NSUserNotificationCenter, shouldPresent notification: NSUserNotification) -> Bool {
         // Always show notifications from this app, even if it is frontmost
         return true
     }
 
-    func applicationWillTerminate(aNotification: NSNotification) {
+    func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
         // Post the notification saying the app will quit
-        NSNotificationCenter.defaultCenter().postNotificationName("Application.WillQuit", object: nil);
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "Application.WillQuit"), object: nil);
         
         // Save the preferences
         savePreferences();

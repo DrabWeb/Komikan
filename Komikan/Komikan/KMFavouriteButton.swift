@@ -9,8 +9,8 @@ import Cocoa
 
 class KMFavouriteButton: NSButton {
 
-    override func drawRect(dirtyRect: NSRect) {
-        super.drawRect(dirtyRect)
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
 
         // Drawing code here.
         // Set the alternate and regular images to the star
@@ -18,20 +18,20 @@ class KMFavouriteButton: NSButton {
         self.alternateImage = NSImage(named: "Star");
         
         // Set the alternate and regular images to be vibrant
-        self.image?.template = true;
-        self.alternateImage?.template = true;
+        self.image?.isTemplate = true;
+        self.alternateImage?.isTemplate = true;
         
         // Set the target to this
         self.target = self;
         
         // Set the action to update the button
-        self.action = Selector("updateButton");
+        self.action = #selector(KMFavouriteButton.updateButton);
     }
     
     /// Updates the button based on its state
     func updateButton() {
         // If state is true...
-        if(Bool(self.state)) {
+        if(Bool(self.state as NSNumber)) {
             // Animate the buttons alpha value to 1
             self.animator().alphaValue = 1;
         }

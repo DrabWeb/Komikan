@@ -9,12 +9,12 @@ import Cocoa
 
 class KMMangaGroupCollectionItem: NSCollectionViewItem {
 
-    override func mouseDown(theEvent: NSEvent) {
+    override func mouseDown(with theEvent: NSEvent) {
         // Select this item
-        self.selected = true;
+        self.isSelected = true;
         
         // Set the collection view to be frontmost
-        NSApplication.sharedApplication().windows.first!.makeFirstResponder(self.collectionView);
+        NSApplication.shared().windows.first!.makeFirstResponder(self.collectionView);
         
         // If we double clicked...
         if(theEvent.clickCount == 2) {
@@ -29,34 +29,34 @@ class KMMangaGroupCollectionItem: NSCollectionViewItem {
         var searchTerm : String = "";
         
         // If this item's group type is Series...
-        if((self.representedObject as! KMMangaGroupItem).groupType == KMMangaGroupType.Series) {
+        if((self.representedObject as! KMMangaGroupItem).groupType == KMMangaGroupType.series) {
             // Set the search term to series
             searchTerm = "s";
         }
         // If this item's group type is Artist...
-        else if((self.representedObject as! KMMangaGroupItem).groupType == KMMangaGroupType.Artist) {
+        else if((self.representedObject as! KMMangaGroupItem).groupType == KMMangaGroupType.artist) {
             // Set the search term to artist
             searchTerm = "a";
         }
         // If this item's group type is Writer...
-        else if((self.representedObject as! KMMangaGroupItem).groupType == KMMangaGroupType.Writer) {
+        else if((self.representedObject as! KMMangaGroupItem).groupType == KMMangaGroupType.writer) {
             // Set the search term to writer
             searchTerm = "w";
         }
         // If this item's group type is Group...
-        else if((self.representedObject as! KMMangaGroupItem).groupType == KMMangaGroupType.Group) {
+        else if((self.representedObject as! KMMangaGroupItem).groupType == KMMangaGroupType.group) {
             // Set the search term to group
             searchTerm = "g";
         }
         
         // Make the search
-        (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.searchFor(searchTerm + ":\"" + (self.representedObject as! KMMangaGroupItem).groupName.stringByReplacingOccurrencesOfString((self.representedObject as! KMMangaGroupItem).countLabel, withString: "") + "\"");
+        (NSApplication.shared().delegate as! AppDelegate).mangaGridController.searchFor(searchTerm + ":\"" + (self.representedObject as! KMMangaGroupItem).groupName.replacingOccurrences(of: (self.representedObject as! KMMangaGroupItem).countLabel, with: "") + "\"");
         
         // Update the search field
-        (NSApplication.sharedApplication().delegate as! AppDelegate).searchTextField.stringValue = searchTerm + ":\"" + (self.representedObject as! KMMangaGroupItem).groupName.stringByReplacingOccurrencesOfString((self.representedObject as! KMMangaGroupItem).countLabel, withString: "") + "\"";
+        (NSApplication.shared().delegate as! AppDelegate).searchTextField.stringValue = searchTerm + ":\"" + (self.representedObject as! KMMangaGroupItem).groupName.replacingOccurrences(of: (self.representedObject as! KMMangaGroupItem).countLabel, with: "") + "\"";
         
         // Hide the group view
-        (NSApplication.sharedApplication().delegate as! AppDelegate).mainViewController.hideGroupView();
+        (NSApplication.shared().delegate as! AppDelegate).mainViewController.hideGroupView();
     }
     
     override func viewDidLoad() {

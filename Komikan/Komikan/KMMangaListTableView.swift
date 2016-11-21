@@ -12,12 +12,12 @@ class KMMangaListTableView: NSTableView {
     /// A reference to the manga list controller
     var mangaListController : KMMangaListController?;
 
-    override func rightMouseDown(theEvent: NSEvent) {
+    override func rightMouseDown(with theEvent: NSEvent) {
         // Get the row index at the cursors position
-        let row : Int = self.rowAtPoint(self.convertPoint(theEvent.locationInWindow, fromView: nil));
+        let row : Int = self.row(at: self.convert(theEvent.locationInWindow, from: nil));
         
         // Select the row the mouse is over
-        self.selectRowIndexes(NSIndexSet(index: row), byExtendingSelection: false);
+        self.selectRowIndexes(IndexSet(integer: row), byExtendingSelection: false);
         
         // If the manga list has any items selected...
         if(self.selectedRow != -1) {
@@ -26,14 +26,14 @@ class KMMangaListTableView: NSTableView {
         }
     }
     
-    override func drawRect(dirtyRect: NSRect) {
-        super.drawRect(dirtyRect)
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
 
         // Drawing code here.
     }
     
-    func simulateClick(theEvent : NSEvent) {
-        super.mouseDown(theEvent);
-        super.mouseUp(theEvent);
+    func simulateClick(_ theEvent : NSEvent) {
+        super.mouseDown(with: theEvent);
+        super.mouseUp(with: theEvent);
     }
 }

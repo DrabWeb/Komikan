@@ -14,8 +14,8 @@ class KMReaderScrollView: NSScrollView {
         return true
     }
 
-    override func drawRect(dirtyRect: NSRect) {
-        super.drawRect(dirtyRect)
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
 
         // Drawing code here.
     }
@@ -27,10 +27,10 @@ class KMReaderScrollView: NSScrollView {
         super.init(coder: coder);
         
         // Subscribe to the magnify event
-        magnifyMonitor = NSEvent.addLocalMonitorForEventsMatchingMask(NSEventMask.EventMaskMagnify, handler: magnifyEvent);
+        magnifyMonitor = NSEvent.addLocalMonitorForEvents(matching: NSEventMask.magnify, handler: magnifyEvent) as AnyObject?;
     }
     
-    func magnifyEvent(event: NSEvent) -> NSEvent {
+    func magnifyEvent(_ event: NSEvent) -> NSEvent {
         // Add the magnification amount to the current magnification amount
         self.magnification = event.magnification + self.magnification;
         
@@ -66,7 +66,7 @@ class KMReaderScrollView: NSScrollView {
     var pageSwipeCount : Int = 0;
     
     // This is called not only when you scroll, but when you swipe the trackpad. This should also work with Magic Mouse(Not tested)
-    override func scrollWheel(theEvent: NSEvent) {
+    override func scrollWheel(with theEvent: NSEvent) {
         /// Did we flip the page?
         var flippedPages : Bool = false;
         
@@ -75,7 +75,7 @@ class KMReaderScrollView: NSScrollView {
             // If the swipe cooldown is over...
             if(swipeCooldownOver) {
                 // Add 1 to the page swipe count
-                pageSwipeCount++;
+                pageSwipeCount += 1;
                 
                 // If the page swipe count is 2...
                 if(pageSwipeCount == 2) {
@@ -109,7 +109,7 @@ class KMReaderScrollView: NSScrollView {
             // If the swipe cooldown is over...
             if(swipeCooldownOver) {
                 // Add 1 to the page swipe count
-                pageSwipeCount++;
+                pageSwipeCount += 1;
                 
                 // If the page swipe count is 2...
                 if(pageSwipeCount == 2) {
@@ -147,7 +147,7 @@ class KMReaderScrollView: NSScrollView {
         // If we didnt flip pages and we are zoomed in...
         if(!flippedPages && self.magnification > 1) {
             // Tell the scroll view to scroll
-            super.scrollWheel(theEvent);
+            super.scrollWheel(with: theEvent);
         }
     }
 }

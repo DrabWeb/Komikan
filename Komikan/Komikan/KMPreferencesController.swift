@@ -28,7 +28,7 @@ class KMPreferencesController: NSViewController {
     @IBOutlet weak var llewdModeDeleteWhenRemovingCheckbox: NSButton!
     
     // When we interact llewdModeEnabledCheckbox...
-    @IBAction func llewdModeEnabledCheckboxInteracted(sender: AnyObject) {
+    @IBAction func llewdModeEnabledCheckboxInteracted(_ sender: AnyObject) {
         // Disable / enable all the checkboxes under it
         enableOrDisableLLewdModeCheckboxes();
     }
@@ -69,68 +69,68 @@ class KMPreferencesController: NSViewController {
     
     override func viewWillDisappear() {
         // Set the global preferences keepers value to the preference value
-        (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.llewdModeEnabled = Bool(llewdModeEnabledCheckbox.state);
-        (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.deleteLLewdMangaWhenRemovingFromTheGrid = Bool(llewdModeDeleteWhenRemovingCheckbox.state);
-        (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.markAsReadWhenCompletedInReader = Bool(markAsReadWhenCompletedInReaderCheckbox.state);
-        (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.hideCursorInDistractionFreeMode = Bool(hideCursorInDistractionFreeModeCheckbox.state);
-        (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.distractionFreeModeDimAmount = CGFloat(distractionFreeModeDimAmountSlider.floatValue);
-        (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt = Bool(dragReaderWindowByBackgroundWithoutHoldingAltCheckbox.state);
-        (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.pageIgnoreRegex = ignorePagesMatchingRegexTextField.stringValue;
-        (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.readerWindowBackgroundColor = readerWindowBackgroundColorColorWell.color;
-        (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.defaultScreen = defaultScreenPopupButton.indexOfSelectedItem;
+        (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.llewdModeEnabled = Bool(llewdModeEnabledCheckbox.state as NSNumber);
+        (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.deleteLLewdMangaWhenRemovingFromTheGrid = Bool(llewdModeDeleteWhenRemovingCheckbox.state as NSNumber);
+        (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.markAsReadWhenCompletedInReader = Bool(markAsReadWhenCompletedInReaderCheckbox.state as NSNumber);
+        (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.hideCursorInDistractionFreeMode = Bool(hideCursorInDistractionFreeModeCheckbox.state as NSNumber);
+        (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.distractionFreeModeDimAmount = CGFloat(distractionFreeModeDimAmountSlider.floatValue);
+        (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt = Bool(dragReaderWindowByBackgroundWithoutHoldingAltCheckbox.state as NSNumber);
+        (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.pageIgnoreRegex = ignorePagesMatchingRegexTextField.stringValue;
+        (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.readerWindowBackgroundColor = readerWindowBackgroundColorColorWell.color;
+        (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.defaultScreen = defaultScreenPopupButton.indexOfSelectedItem;
         
         // Tell AppDelegate to act upon the preferences
-        (NSApplication.sharedApplication().delegate as! AppDelegate).actOnPreferences();
+        (NSApplication.shared().delegate as! AppDelegate).actOnPreferences();
     }
     
     // Lods the preferences from the global preferences keeper object
     func loadPreferences() {
         // Load the checkbox values
-        llewdModeEnabledCheckbox.state = Int((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.llewdModeEnabled);
-        llewdModeDeleteWhenRemovingCheckbox.state = Int((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.deleteLLewdMangaWhenRemovingFromTheGrid);
-        markAsReadWhenCompletedInReaderCheckbox.state = Int((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.markAsReadWhenCompletedInReader);
-        hideCursorInDistractionFreeModeCheckbox.state = Int((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.hideCursorInDistractionFreeMode);
-        distractionFreeModeDimAmountSlider.floatValue = Float((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.distractionFreeModeDimAmount);
-        dragReaderWindowByBackgroundWithoutHoldingAltCheckbox.state = Int((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt);
-        ignorePagesMatchingRegexTextField.stringValue = (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.pageIgnoreRegex;
-        readerWindowBackgroundColorColorWell.color = (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.readerWindowBackgroundColor;
-        defaultScreenPopupButton.selectItemAtIndex((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.defaultScreen);
+        llewdModeEnabledCheckbox.state = Int.fromBool(bool: (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.llewdModeEnabled);
+        llewdModeDeleteWhenRemovingCheckbox.state = Int.fromBool(bool: (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.deleteLLewdMangaWhenRemovingFromTheGrid);
+        markAsReadWhenCompletedInReaderCheckbox.state = Int.fromBool(bool: (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.markAsReadWhenCompletedInReader);
+        hideCursorInDistractionFreeModeCheckbox.state = Int.fromBool(bool: (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.hideCursorInDistractionFreeMode);
+        distractionFreeModeDimAmountSlider.floatValue = Float((NSApplication.shared().delegate as! AppDelegate).preferencesKepper.distractionFreeModeDimAmount);
+        dragReaderWindowByBackgroundWithoutHoldingAltCheckbox.state = Int.fromBool(bool: (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt);
+        ignorePagesMatchingRegexTextField.stringValue = (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.pageIgnoreRegex;
+        readerWindowBackgroundColorColorWell.color = (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.readerWindowBackgroundColor;
+        defaultScreenPopupButton.selectItem(at: (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.defaultScreen);
     }
     
     // Enables / disables all the checkboxes under the l-lewd... mode enabled checkbox
     func enableOrDisableLLewdModeCheckboxes() {
         // Do the delete when removing checkbox
-        llewdModeDeleteWhenRemovingCheckbox.enabled = Bool(llewdModeEnabledCheckbox.state);
+        llewdModeDeleteWhenRemovingCheckbox.isEnabled = Bool(llewdModeEnabledCheckbox.state as NSNumber);
     }
     
     func styleWindow() {
         // Get a reference to the main window
-        preferencesWindow = NSApplication.sharedApplication().windows.last!;
+        preferencesWindow = NSApplication.shared().windows.last!;
         
         // Set the main window to have a full size content view
-        preferencesWindow.styleMask |= NSFullSizeContentViewWindowMask;
+        preferencesWindow.styleMask.insert(NSFullSizeContentViewWindowMask);
         
         // Hide the titlebar background
         preferencesWindow.titlebarAppearsTransparent = true;
         
         // Hide the titlebar title
-        preferencesWindow.titleVisibility = NSWindowTitleVisibility.Hidden;
+        preferencesWindow.titleVisibility = NSWindowTitleVisibility.hidden;
         
         // Set the backgrouynd effect view to be dark
-        backgroundVisualEffectView.material = NSVisualEffectMaterial.Dark;
+        backgroundVisualEffectView.material = NSVisualEffectMaterial.dark;
         
         // Set the titlebar effect to be ultra dark
         if #available(OSX 10.11, *) {
-            titlebarVisualEffectView.material = NSVisualEffectMaterial.UltraDark
+            titlebarVisualEffectView.material = NSVisualEffectMaterial.ultraDark
         } else {
-            titlebarVisualEffectView.material = NSVisualEffectMaterial.Titlebar
+            titlebarVisualEffectView.material = NSVisualEffectMaterial.titlebar
         };
         
         // Get the windows center position on the X
-        let windowX = ((NSScreen.mainScreen()?.frame.width)! / 2) - (480 / 2);
+        let windowX = ((NSScreen.main()?.frame.width)! / 2) - (480 / 2);
         
         // Get the windows center position on the Y
-        let windowY = ((NSScreen.mainScreen()?.frame.height)! / 2) - (270 / 2);
+        let windowY = ((NSScreen.main()?.frame.height)! / 2) - (270 / 2);
         
         // Center the window
         preferencesWindow.setFrame(NSRect(x: windowX, y: windowY, width: 480, height: 270), display: false);

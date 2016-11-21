@@ -8,6 +8,19 @@
 
 import Cocoa
 import Quartz
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
 
 class KMReaderViewController: NSViewController, NSWindowDelegate {
 
@@ -51,7 +64,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     @IBOutlet weak var readerControlPanelSaveButton: NSButton!
     
     // When we press the save button in the reader control panel...
-    @IBAction func readerControlPanelSaveButtonPressed(sender: AnyObject) {
+    @IBAction func readerControlPanelSaveButtonPressed(_ sender: AnyObject) {
         // Say the controls panel is closed
         readerControlsOpen = false;
         
@@ -59,23 +72,23 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         closeControlsPanel();
         
         // Apply the new filter values to all pages(In a new thread so we dont get lots of beachballing for long manga)
-        NSThread.detachNewThreadSelector(Selector("updateFiltersForAllPages"), toTarget: self, withObject: nil);
+        Thread.detachNewThreadSelector(#selector(KMReaderViewController.updateFiltersForAllPages), toTarget: self, with: nil);
     }
     
     /// The reset button in the reader control panel
     @IBOutlet weak var readerControlPanelResetButton: NSButton!
     
     // When we press the reset button in the reader control panel...
-    @IBAction func readerControlPanelResetButtonPressed(sender: AnyObject) {
+    @IBAction func readerControlPanelResetButtonPressed(_ sender: AnyObject) {
         // Reset the values to default(In a new thread so we dont beachball in long manga)
-        NSThread.detachNewThreadSelector(Selector("resetCGValues"), toTarget: self, withObject: nil);
+        Thread.detachNewThreadSelector(#selector(KMReaderViewController.resetCGValues), toTarget: self, with: nil);
     }
     
     // The slider in the control panel that controls the readers saturation
     @IBOutlet weak var readerControlPanelSaturationSlider : NSSlider!
     
     // When we interact with readerControlPanelSaturationSlider...
-    @IBAction func readerControlPanelSaturationSliderInteracted(sender: AnyObject) {
+    @IBAction func readerControlPanelSaturationSliderInteracted(_ sender: AnyObject) {
         // Print to the log what value we are changing it to
         print("KMReaderViewController: Changing saturation to " + String(readerControlPanelSaturationSlider.floatValue));
         
@@ -90,7 +103,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     @IBOutlet weak var readerControlPanelBrightnessSlider : NSSlider!
     
     // When we interact with readerControlPanelBrightnessSlider...
-    @IBAction func readerControlPanelBrightnessSliderInteracted(sender: AnyObject) {
+    @IBAction func readerControlPanelBrightnessSliderInteracted(_ sender: AnyObject) {
         // Print to the log what value we are changing it to
         print("KMReaderViewController: Changing brightness to " + String(readerControlPanelBrightnessSlider.floatValue));
         
@@ -105,7 +118,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     @IBOutlet weak var readerControlPanelContrastSlider : NSSlider!
     
     // When we interact with readerControlPanelContrastSlider...
-    @IBAction func readerControlPanelContrastSliderInteracted(sender: AnyObject) {
+    @IBAction func readerControlPanelContrastSliderInteracted(_ sender: AnyObject) {
         // Print to the log what value we are changing it to
         print("KMReaderViewController: Changing contrast to  " + String(readerControlPanelContrastSlider.floatValue));
         
@@ -120,7 +133,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     @IBOutlet weak var readerControlPanelSharpnessSlider : NSSlider!
     
     // When we interact with readerControlPanelSharpnessSlider...
-    @IBAction func readerControlPanelSharpnessSliderInteracted(sender: AnyObject) {
+    @IBAction func readerControlPanelSharpnessSliderInteracted(_ sender: AnyObject) {
         // Print to the log what value we are changing it to
         print("KMReaderViewController: Changing sharpness to " + String(readerControlPanelSharpnessSlider.floatValue));
         
@@ -135,7 +148,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     @IBOutlet weak var readerPageJumpButton: NSButton!
     
     // When readerPageJumpButton is pressed...
-    @IBAction func readerPageJumpButtonPressed(sender: AnyObject) {
+    @IBAction func readerPageJumpButtonPressed(_ sender: AnyObject) {
         // Prompt the user to jump to a page
         promptToJumpToPage();
     }
@@ -150,7 +163,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     @IBOutlet weak var readerBookmarkButton: NSButton!
     
     // When readerBookmarkButton is pressed...
-    @IBAction func readerBookmarkButtonPressed(sender: AnyObject) {
+    @IBAction func readerBookmarkButtonPressed(_ sender: AnyObject) {
         // Bookmark the current page
         bookmarkCurrentPage();
     }
@@ -162,7 +175,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     @IBOutlet weak var readerSettingsButton: NSButton!
     
     // When readerSettingsButton is pressed...
-    @IBAction func readerSettingsButtonPressed(sender: AnyObject) {
+    @IBAction func readerSettingsButtonPressed(_ sender: AnyObject) {
         // Disabled for now, need to find out how to apply filters directly to an NSImage
         // Say that the controls panel is open
         readerControlsOpen = true;
@@ -184,7 +197,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     var dualPage : Bool = false;
     
     // The direction we are reading(Default Right to Left)
-    var dualPageDirection : KMDualPageDirection = KMDualPageDirection.RightToLeft;
+    var dualPageDirection : KMDualPageDirection = KMDualPageDirection.rightToLeft;
     
     // Are we fullscreen?
     var isFullscreen : Bool = false;
@@ -193,7 +206,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     var closingView : Bool = false;
     
     // The NSTimer to handle the mouse hovering when we arent in fullscreen
-    var mouseHoverHandlingTimer : NSTimer = NSTimer();
+    var mouseHoverHandlingTimer : Timer = Timer();
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -211,16 +224,16 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         readerImageScrollView.addGestureRecognizer(readerMagnificationGestureRecognizer);
         
         // Start the 0.1 second loop for the mouse hovering
-        mouseHoverHandlingTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target: self, selector: Selector("mouseHoverHandling"), userInfo: nil, repeats: true);
+        mouseHoverHandlingTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.1), target: self, selector: #selector(KMReaderViewController.mouseHoverHandling), userInfo: nil, repeats: true);
         
         // Subscribe to the preferences saved notification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadPreferences", name:"Application.PreferencesSaved", object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(KMReaderViewController.reloadPreferences), name:NSNotification.Name(rawValue: "Application.PreferencesSaved"), object: nil);
         
         // Show the reader panel and hide the controls panel
         hideControlsPanelShowReaderPanel();
     }
     
-    func openManga(openingManga : KMManga, page : Int) {
+    func openManga(_ openingManga : KMManga, page : Int) {
         // Set the readers manga to the manga we want to open
         manga = openingManga;
         
@@ -264,21 +277,21 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         readerWindow.center();
         
         // Setup the menubar items actions
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.nextPageMenubarItem.action = Selector("nextPage");
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.previousPageMenubarItem.action = Selector("previousPage");
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.jumpToPageMenuItem.action = Selector("promptToJumpToPage");
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.bookmarkCurrentPageMenuItem.action = Selector("bookmarkCurrentPage");
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.dualPageMenuItem.action = Selector("toggleDualPage");
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.fitWindowToPageMenuItem.action = Selector("fitWindowToManga");
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.switchDualPageDirectionMenuItem.action = Selector("switchDualPageDirection");
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.readerZoomInMenuItem.action = Selector("magnifyIn");
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.readerZoomOutMenuItem.action = Selector("magnifyOut");
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.readerResetZoomMenuItem.action = Selector("resetMagnification");
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.readerOpenNotesMenuItem.action = Selector("openNotesWindow");
+        (NSApplication.shared().delegate as? AppDelegate)?.nextPageMenubarItem.action = #selector(KMReaderViewController.nextPage);
+        (NSApplication.shared().delegate as? AppDelegate)?.previousPageMenubarItem.action = #selector(KMReaderViewController.previousPage);
+        (NSApplication.shared().delegate as? AppDelegate)?.jumpToPageMenuItem.action = #selector(KMReaderViewController.promptToJumpToPage);
+        (NSApplication.shared().delegate as? AppDelegate)?.bookmarkCurrentPageMenuItem.action = #selector(KMReaderViewController.bookmarkCurrentPage);
+        (NSApplication.shared().delegate as? AppDelegate)?.dualPageMenuItem.action = #selector(KMReaderViewController.toggleDualPage);
+        (NSApplication.shared().delegate as? AppDelegate)?.fitWindowToPageMenuItem.action = #selector(KMReaderViewController.fitWindowToManga);
+        (NSApplication.shared().delegate as? AppDelegate)?.switchDualPageDirectionMenuItem.action = #selector(KMReaderViewController.switchDualPageDirection);
+        (NSApplication.shared().delegate as? AppDelegate)?.readerZoomInMenuItem.action = #selector(KMReaderViewController.magnifyIn);
+        (NSApplication.shared().delegate as? AppDelegate)?.readerZoomOutMenuItem.action = #selector(KMReaderViewController.magnifyOut);
+        (NSApplication.shared().delegate as? AppDelegate)?.readerResetZoomMenuItem.action = #selector(KMReaderViewController.resetMagnification);
+        (NSApplication.shared().delegate as? AppDelegate)?.readerOpenNotesMenuItem.action = #selector(KMReaderViewController.openNotesWindow);
         
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.readerRotateNinetyDegressLeftMenuItem.action = Selector("rotateLeftNinetyDegrees");
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.readerRotateNinetyDegressRightMenuItem.action = Selector("rotateRightNinetyDegrees");
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.readerResetRotationMenuItem.action = Selector("resetRotation");
+        (NSApplication.shared().delegate as? AppDelegate)?.readerRotateNinetyDegressLeftMenuItem.action = #selector(KMReaderViewController.rotateLeftNinetyDegrees);
+        (NSApplication.shared().delegate as? AppDelegate)?.readerRotateNinetyDegressRightMenuItem.action = #selector(KMReaderViewController.rotateRightNinetyDegrees);
+        (NSApplication.shared().delegate as? AppDelegate)?.readerResetRotationMenuItem.action = #selector(KMReaderViewController.resetRotation);
     }
     
     /// The window controller for the notes window
@@ -292,7 +305,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         // If the window isnt loaded...
         if(notesWindowController == nil) {
             // Load the notes window controller
-            notesWindowController = (storyboard?.instantiateControllerWithIdentifier("readerNotesWindowController") as! NSWindowController);
+            notesWindowController = (storyboard?.instantiateController(withIdentifier: "readerNotesWindowController") as! NSWindowController);
             
             // Set the notes view controller to the windows view controller
             notesViewController = (notesWindowController!.contentViewController as! KMReaderNotesViewController);
@@ -308,7 +321,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         notesWindowController!.loadWindow();
         
         // Set the notes window to be full size
-        notesWindowController!.window!.styleMask |= NSFullSizeContentViewWindowMask;
+        notesWindowController!.window!.styleMask.insert(NSFullSizeContentViewWindowMask);
         
         // Hide the edit bar in the notes window
         notesViewController.hideEditingBar();
@@ -332,7 +345,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     /// Reloads the values needed from the preferences
     func reloadPreferences() {
         // Set the window background color
-        readerWindow.backgroundColor = (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.readerWindowBackgroundColor;
+        readerWindow.backgroundColor = (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.readerWindowBackgroundColor;
     }
     
     /// Resets the zoom amount
@@ -374,7 +387,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         dualPageStackView.frameCenterRotation = 0;
     }
     
-    func windowWillResize(sender: NSWindow, toSize frameSize: NSSize) -> NSSize {
+    func windowWillResize(_ sender: NSWindow, to frameSize: NSSize) -> NSSize {
         // Temporary fix for the image view dissapearing when rotated and the window resizes
         readerImageView.frameCenterRotation = 0;
         dualPageStackView.frameCenterRotation = 0;
@@ -382,24 +395,24 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         return frameSize;
     }
     
-    override func mouseUp(theEvent: NSEvent) {
+    override func mouseUp(with theEvent: NSEvent) {
         // If we arent dragging and the jump to page dialog isnt open...
         if(!dragging && !pageJumpOpen) {
             // If we said in the preferences to be able to drag the reader window without holding alt...
-            if((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt) {
+            if((NSApplication.shared().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt) {
                 // If the reader controls panel isnt open...
                 if(!readerControlsOpen) {
                     // Create a new CGEventRef, for the mouse position
-                    let mouseEvent : CGEventRef = CGEventCreate(nil)!;
+                    let mouseEvent : CGEvent = CGEvent(source: nil)!;
                     
                     // Get the mouse point onscreen from ourEvent
-                    let mousePosition = CGEventGetLocation(mouseEvent);
+                    let mousePosition = mouseEvent.location;
                     
                     // Store the titlebars frame
                     let titlebarFrame : NSRect = titlebarVisualEffectView.frame;
                     
                     /// The mouses position on the Y
-                    let pointY = abs(mousePosition.y - NSScreen.mainScreen()!.frame.height);
+                    let pointY = abs(mousePosition.y - NSScreen.main()!.frame.height);
                     
                     /// The mouses position where 0 0 is the bottom left of the reader window
                     let mousePositionFromWindow : CGPoint = NSPoint(x: mousePosition.x - readerWindow.frame.origin.x, y: pointY - readerWindow.frame.origin.y);
@@ -452,7 +465,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
                     closeControlsPanel();
                     
                     // Apply the new filter values to all pages(In a new thread so we dont get lots of beachballing for long manga)
-                    NSThread.detachNewThreadSelector(Selector("updateFiltersForAllPages"), toTarget: self, withObject: nil);
+                    Thread.detachNewThreadSelector(#selector(KMReaderViewController.updateFiltersForAllPages), toTarget: self, with: nil);
                 }
             }
             else {
@@ -461,16 +474,16 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
                     // If the reader controls panel isnt open...
                     if(!readerControlsOpen) {
                         // Create a new CGEventRef, for the mouse position
-                        let mouseEvent : CGEventRef = CGEventCreate(nil)!;
+                        let mouseEvent : CGEvent = CGEvent(source: nil)!;
                         
                         // Get the mouse point onscreen from ourEvent
-                        let mousePosition = CGEventGetLocation(mouseEvent);
+                        let mousePosition = mouseEvent.location;
                         
                         // Store the titlebars frame
                         let titlebarFrame : NSRect = titlebarVisualEffectView.frame;
                         
                         /// The mouses position on the Y
-                        let pointY = abs(mousePosition.y - NSScreen.mainScreen()!.frame.height);
+                        let pointY = abs(mousePosition.y - NSScreen.main()!.frame.height);
                         
                         /// The mouses position where 0 0 is the bottom left of the reader window
                         let mousePositionFromWindow : CGPoint = NSPoint(x: mousePosition.x - readerWindow.frame.origin.x, y: pointY - readerWindow.frame.origin.y);
@@ -523,7 +536,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
                         closeControlsPanel();
                         
                         // Apply the new filter values to all pages(In a new thread so we dont get lots of beachballing for long manga)
-                        NSThread.detachNewThreadSelector(Selector("updateFiltersForAllPages"), toTarget: self, withObject: nil);
+                        Thread.detachNewThreadSelector(#selector(KMReaderViewController.updateFiltersForAllPages), toTarget: self, with: nil);
                     }
                 }
             }
@@ -531,7 +544,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         // If we arent dragging and the jump to page dialog is open...
         else if(!dragging && pageJumpOpen) {
             // If we said we could drag the window without holding alt...
-            if((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt) {
+            if((NSApplication.shared().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt) {
                 // Close the page jump view
                 closeJumpToPageDialog();
             }
@@ -549,12 +562,12 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     /// Is the user dragging the mouse?
     var dragging : Bool = false;
     
-    override func mouseDragged(theEvent: NSEvent) {
+    override func mouseDragged(with theEvent: NSEvent) {
         // If we said in the preferences to be able to drag the reader window without holding alt...
-        if((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt) {
+        if((NSApplication.shared().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt) {
             // Perform a window drag with the drag event
             if #available(OSX 10.11, *) {
-                readerWindow.performWindowDragWithEvent(theEvent);
+                readerWindow.performDrag(with: theEvent);
             } else {
                 // Move the window with the mouse's delta
                 readerWindow.setFrameOrigin(NSPoint(x: readerWindow.frame.origin.x + theEvent.deltaX, y: readerWindow.frame.origin.y - theEvent.deltaY));
@@ -568,7 +581,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
             if(theEvent.modifierFlags.rawValue == 524576) {
                 // Perform a window drag with the drag event
                 if #available(OSX 10.11, *) {
-                    readerWindow.performWindowDragWithEvent(theEvent);
+                    readerWindow.performDrag(with: theEvent);
                 } else {
                     // Move the window with the mouse's delta
                     readerWindow.setFrameOrigin(NSPoint(x: readerWindow.frame.origin.x + theEvent.deltaX, y: readerWindow.frame.origin.y - theEvent.deltaY));
@@ -579,14 +592,14 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     
     func switchDualPageDirection() {
         // If we are reading Right to Left...
-        if(dualPageDirection == KMDualPageDirection.RightToLeft) {
+        if(dualPageDirection == KMDualPageDirection.rightToLeft) {
             // Switch the direction to Left to Right
-            dualPageDirection = KMDualPageDirection.LeftToRight;
+            dualPageDirection = KMDualPageDirection.leftToRight;
         }
         // If we are reading Left to Right...
-        else if(dualPageDirection == KMDualPageDirection.LeftToRight) {
+        else if(dualPageDirection == KMDualPageDirection.leftToRight) {
             // Switch the direction to Right to Left
-            dualPageDirection = KMDualPageDirection.RightToLeft;
+            dualPageDirection = KMDualPageDirection.rightToLeft;
         }
         
         // Update the page
@@ -616,14 +629,14 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
             rightImageSize = pixelSizeOfImage(manga.pages[manga.currentPage]);
             
             // If the right pages height is smaller than the screen...
-            if(rightImageSize.height < NSScreen.mainScreen()?.frame.height) {
+            if(rightImageSize.height < NSScreen.main()?.frame.height) {
                 // Set the reader windows frame to be two times the width of the current open page
                 readerWindow.setFrame(NSRect(x: 0, y: 0, width: leftImageSize.width + rightImageSize.width, height: rightImageSize.height), display: false);
             }
             // If its larger vertically...
             else {
                 // The height we want the window to have
-                let height = (NSScreen.mainScreen()?.frame.height)! - 150;
+                let height = (NSScreen.main()?.frame.height)! - 150;
                 
                 // Get the aspect ratio of the image
                 let aspectRatio = (leftImageSize.width + rightImageSize.width) / (rightImageSize.height);
@@ -640,14 +653,14 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         }
         else if(!dualPage && !isFullscreen) {
             // If the current pages image is smaller than the screen vertically...
-            if(pixelSizeOfImage(readerImageView.image!).height < ((NSScreen.mainScreen()?.frame.height)! - 150)) {
+            if(pixelSizeOfImage(readerImageView.image!).height < ((NSScreen.main()?.frame.height)! - 150)) {
                 // Set the reader windows frame to be the reader image views image size
                 readerWindow.setFrame(NSRect(x: 0, y: 0, width: pixelSizeOfImage(readerImageView.image!).width, height: pixelSizeOfImage(readerImageView.image!).height), display: false);
             }
             // If its larger vertically...
             else {
                 // The height we want the window to have
-                let height = (NSScreen.mainScreen()?.frame.height)! - 150;
+                let height = (NSScreen.main()?.frame.height)! - 150;
                 
                 // Get the aspect ratio of the image
                 let aspectRatio = pixelSizeOfImage(readerImageView.image!).width / pixelSizeOfImage(readerImageView.image!).height;
@@ -668,9 +681,9 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     }
     
     /// Returns the pixel size of the passed NSImage
-    func pixelSizeOfImage(image : NSImage) -> NSSize {
+    func pixelSizeOfImage(_ image : NSImage) -> NSSize {
         /// The NSBitmapImageRep to the image
-        let imageRep : NSBitmapImageRep = (NSBitmapImageRep(data: image.TIFFRepresentation!))!;
+        let imageRep : NSBitmapImageRep = (NSBitmapImageRep(data: image.tiffRepresentation!))!;
         
         /// The size of the iamge
         let imageSize : NSSize = NSSize(width: imageRep.pixelsWide, height: imageRep.pixelsHigh);
@@ -679,7 +692,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         return imageSize;
     }
     
-    func windowWillClose(notification: NSNotification) {
+    func windowWillClose(_ notification: Notification) {
         // Save the notes and close the notes window
         notesWindowController?.close();
         
@@ -687,10 +700,10 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         closeView();
     }
     
-    func windowDidBecomeKey(notification: NSNotification) {
+    func windowDidBecomeKey(_ notification: Notification) {
         // Re-enable the next and previous menu items in case the notes popover disabled them
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.nextPageMenubarItem.action = Selector("nextPage");
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.previousPageMenubarItem.action = Selector("previousPage");
+        (NSApplication.shared().delegate as? AppDelegate)?.nextPageMenubarItem.action = #selector(KMReaderViewController.nextPage);
+        (NSApplication.shared().delegate as? AppDelegate)?.previousPageMenubarItem.action = #selector(KMReaderViewController.previousPage);
     }
     
     /// Call this when the window will close
@@ -708,13 +721,13 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         readerImageScrollView.removeAllMonitors();
         
         // Unsubscribe from all notifications
-        NSNotificationCenter.defaultCenter().removeObserver(self);
+        NotificationCenter.default.removeObserver(self);
         
         // Post the notification to update the percent finished
-        NSNotificationCenter.defaultCenter().postNotificationName("KMMangaGridCollectionItem.UpdatePercentFinished", object: manga);
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "KMMangaGridCollectionItem.UpdatePercentFinished"), object: manga);
         
         // Update the grid(For some reason I have to call this function instead of the update grid one)
-        NSNotificationCenter.defaultCenter().postNotificationName("KMEditMangaViewController.Saving", object: manga);
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "KMEditMangaViewController.Saving"), object: manga);
         
         // Show the cursor
         NSCursor.unhide();
@@ -741,7 +754,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     // Opens the control panel for the user to modify the Saturation, Contrast, ETC.
     func openControlsPanel() {
         // Show the reader controls panel
-        readerControlsPanelVisualEffectView.hidden = false;
+        readerControlsPanelVisualEffectView.isHidden = false;
         
         // Animate out the reader panel
         readerPanelVisualEffectView.animator().alphaValue = 0;
@@ -750,7 +763,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         readerControlsPanelVisualEffectView.animator().alphaValue = 1;
         
         // Do the 0.2 second wait to hide the reader panel and show the controls panel
-        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.2), target:self, selector: Selector("hideReaderPanelShowControlsPanel"), userInfo: nil, repeats:false);
+        Timer.scheduledTimer(timeInterval: TimeInterval(0.2), target:self, selector: #selector(KMReaderViewController.hideReaderPanelShowControlsPanel), userInfo: nil, repeats:false);
     }
     
     /// Closes the control panel for the user to modify the Saturation, Contrast, ETC.
@@ -762,7 +775,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         readerControlsPanelVisualEffectView.animator().alphaValue = 0;
         
         // Do the 0.2 second wait to hide the controls panel and show the reader panel
-        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.2), target:self, selector: Selector("hideControlsPanelShowReaderPanel"), userInfo: nil, repeats:false);
+        Timer.scheduledTimer(timeInterval: TimeInterval(0.2), target:self, selector: #selector(KMReaderViewController.hideControlsPanelShowReaderPanel), userInfo: nil, repeats:false);
     }
     
     /// Hides the controls panel and shows the reader panel
@@ -771,26 +784,26 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         readerControlsOpen = false;
         
         // Disable all the reader control panel buttons
-        readerControlPanelSaturationSlider.enabled = false;
-        readerControlPanelContrastSlider.enabled = false;
-        readerControlPanelBrightnessSlider.enabled = false;
-        readerControlPanelSharpnessSlider.enabled = false;
-        readerControlPanelSaveButton.enabled = false;
-        readerControlPanelResetButton.enabled = false;
+        readerControlPanelSaturationSlider.isEnabled = false;
+        readerControlPanelContrastSlider.isEnabled = false;
+        readerControlPanelBrightnessSlider.isEnabled = false;
+        readerControlPanelSharpnessSlider.isEnabled = false;
+        readerControlPanelSaveButton.isEnabled = false;
+        readerControlPanelResetButton.isEnabled = false;
         
         // Set the controls panel to be hidden
-        readerControlsPanelVisualEffectView.hidden = true;
+        readerControlsPanelVisualEffectView.isHidden = true;
         
         readerControlsPanelVisualEffectView.appearance = NSAppearance(named: NSAppearanceNameVibrantDark);
         
         // For every item in the reader panel...
-        for (_, currentItem) in readerPanelVisualEffectView.subviews.enumerate() {
+        for (_, currentItem) in readerPanelVisualEffectView.subviews.enumerated() {
             // Enable it(Cast it to a NSControl first so we can enable it)
-            (currentItem as! NSControl).enabled = true;
+            (currentItem as! NSControl).isEnabled = true;
         }
         
         // Set the reader panel to show
-        readerPanelCornerRounding.hidden = false;
+        readerPanelCornerRounding.isHidden = false;
     }
     
     /// Hides the reader panel and shows the control panel
@@ -799,24 +812,24 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         readerControlsOpen = true;
         
         // Enable all the reader control panel buttons
-        readerControlPanelSaturationSlider.enabled = true;
-        readerControlPanelContrastSlider.enabled = true;
-        readerControlPanelBrightnessSlider.enabled = true;
-        readerControlPanelSharpnessSlider.enabled = true;
-        readerControlPanelSaveButton.enabled = true;
-        readerControlPanelResetButton.enabled = true;
+        readerControlPanelSaturationSlider.isEnabled = true;
+        readerControlPanelContrastSlider.isEnabled = true;
+        readerControlPanelBrightnessSlider.isEnabled = true;
+        readerControlPanelSharpnessSlider.isEnabled = true;
+        readerControlPanelSaveButton.isEnabled = true;
+        readerControlPanelResetButton.isEnabled = true;
         
         // Set the controls panel to show
-        readerControlsPanelVisualEffectView.hidden = false;
+        readerControlsPanelVisualEffectView.isHidden = false;
         
         // For every item in the reader panel...
-        for (_, currentItem) in readerPanelVisualEffectView.subviews.enumerate() {
+        for (_, currentItem) in readerPanelVisualEffectView.subviews.enumerated() {
             // Disable it(Cast it to a NSControl first so we can enable it)
-            (currentItem as! NSControl).enabled = false;
+            (currentItem as! NSControl).isEnabled = false;
         }
         
         // Set the reader panel to be hidden
-        readerPanelCornerRounding.hidden = true;
+        readerPanelCornerRounding.isHidden = true;
     }
     
     func toggleDualPage() {
@@ -839,12 +852,12 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         updatePage();
     }
     
-    func isPageBookmarked(page : Int) -> Bool {
+    func isPageBookmarked(_ page : Int) -> Bool {
         // Is the page bookmarked?
         var bookmarked : Bool = false;
         
         // Iterate through manga.bookmarks
-        for (_, bookmarksElement) in manga.bookmarks.enumerate() {
+        for (_, bookmarksElement) in manga.bookmarks.enumerated() {
             // If the current element we are iterating is equal to the page we are wanting to see if it is bookmarked...
             if(bookmarksElement == page) {
                 // Set bookmarked to true
@@ -863,16 +876,16 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     }
     
     /// Bookmarks the current page(Starts at 0). If it is already bookmarked, it removes that bookmark
-    func bookmarkPage(page : Int) {
+    func bookmarkPage(_ page : Int) {
         // A bool to say if we already bookmarked this page
         var alreadyBookmarked = false;
         
         // Iterate through mangaBookmarks
-        for (bookmarksIndex, bookmarksElement) in manga.bookmarks.enumerate() {
+        for (bookmarksIndex, bookmarksElement) in manga.bookmarks.enumerated() {
             // If the current element we are iterating is equal to the page we are trying to bookmark...
             if(bookmarksElement == page) {
                 // Remove that element
-                manga.bookmarks.removeAtIndex(bookmarksIndex);
+                manga.bookmarks.remove(at: bookmarksIndex);
                 
                 // Say it was already bookmarked
                 alreadyBookmarked = true;
@@ -910,13 +923,13 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         mouseHoverHandlingTimer.invalidate();
         
         // Show the page jump scroll view
-        readerPageJumpController.readerPageJumpCollectionViewScrollView.hidden = false;
+        readerPageJumpController.readerPageJumpCollectionViewScrollView.isHidden = false;
         
         // Load the manga's pages
         readerPageJumpController.loadPagesFromManga(manga);
         
         // Scroll to the current page
-        readerPageJumpController.readerPageJumpCollectionView.scrollRectToVisible(readerPageJumpController.readerPageJumpCollectionView.frameForItemAtIndex(manga.currentPage));
+        readerPageJumpController.readerPageJumpCollectionView.scrollToVisible(readerPageJumpController.readerPageJumpCollectionView.frameForItem(at: manga.currentPage));
         
         // Say we are closing the view(This is a cheap way to make sure the cursor doesnt hide)
         closingView = true;
@@ -928,16 +941,16 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         NSCursor.unhide();
         
         // Monitor the keyboard locally
-        pageJumpKeyListener = NSEvent.addLocalMonitorForEventsMatchingMask(NSEventMask.KeyDownMask, handler: pageJumpKeyHandler);
+        pageJumpKeyListener = NSEvent.addLocalMonitorForEvents(matching: NSEventMask.keyDown, handler: pageJumpKeyHandler) as AnyObject?;
         
         // Fade in the thumbnail page jump view
         thumbnailPageJumpVisualEffectView.animator().alphaValue = 1;
     }
     
     /// The handler for listening for the escape key when the page jump view is up
-    func pageJumpKeyHandler(event : NSEvent) -> NSEvent {
+    func pageJumpKeyHandler(_ event : NSEvent) -> NSEvent {
         // If we pressed the escape key and the window is frontmost...
-        if(event.keyCode == 53 && readerWindow.keyWindow) {
+        if(event.keyCode == 53 && readerWindow.isKeyWindow) {
             // Close the page jump view
             closeJumpToPageDialog();
         }
@@ -961,16 +974,16 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         closingView = false;
         
         // Restart the 0.1 second loop for the mouse hovering
-        mouseHoverHandlingTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target: self, selector: Selector("mouseHoverHandling"), userInfo: nil, repeats: true);
+        mouseHoverHandlingTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.1), target: self, selector: #selector(KMReaderViewController.mouseHoverHandling), userInfo: nil, repeats: true);
         
         // Wait 0.2 seconds to disable the jump to page view, so the animation can finish
-        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.2), target:self, selector: Selector("disableJumpToPageDialog"), userInfo: nil, repeats: false);
+        Timer.scheduledTimer(timeInterval: TimeInterval(0.2), target:self, selector: #selector(KMReaderViewController.disableJumpToPageDialog), userInfo: nil, repeats: false);
     }
     
     /// Disables the page jump view
     func disableJumpToPageDialog() {
         // Hide the page jump scroll view
-        readerPageJumpController.readerPageJumpCollectionViewScrollView.hidden = true;
+        readerPageJumpController.readerPageJumpCollectionViewScrollView.isHidden = true;
     }
     
     func nextPage() {
@@ -989,7 +1002,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
             }
             else {
                 // If we have mark as read when completed in reader enabled...
-                if((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.markAsReadWhenCompletedInReader) {
+                if((NSApplication.shared().delegate as! AppDelegate).preferencesKepper.markAsReadWhenCompletedInReader) {
                     // Print to the log that we have finished the book and are marking it as read
                     print("KMReaderViewController: Finished \"" + manga.title + "\", marking it as read and exiting");
                     
@@ -1012,14 +1025,14 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
                 print("KMReaderViewController: Loading next page in \"" + manga.title + "\"");
                 
                 // Add 1 to mangaCurrentPage
-                manga.currentPage++;
+                manga.currentPage += 1;
                 
                 // Load the new page
                 updatePage();
             }
             else {
                 // If we have mark as read when completed in reader enabled...
-                if((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.markAsReadWhenCompletedInReader) {
+                if((NSApplication.shared().delegate as! AppDelegate).preferencesKepper.markAsReadWhenCompletedInReader) {
                     // Print to the log that we have finished the book and are marking it as read
                     print("KMReaderViewController: Finished \"" + manga.title + "\", marking it as read and exiting");
                     
@@ -1062,7 +1075,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
                 print("KMReaderViewController: Loading previous page in \"" + manga.title + "\"");
                 
                 // Subtract 1 from mangaCurrentPage
-                manga.currentPage--;
+                manga.currentPage -= 1;
                 
                 // Load the new page
                 updatePage();
@@ -1075,7 +1088,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     }
     
     // The page number starts at 0, keep that in mind
-    func jumpToPage(page : Int, round : Bool) {
+    func jumpToPage(_ page : Int, round : Bool) {
         // See if the page we are trying to jump to is existant
         if(page >= 0 && page < manga.pageCount) {
             // Print to the log that we are jumping to a page
@@ -1151,26 +1164,26 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
             readerBookmarkButton.alphaValue = 1;
             
             // Also add a check mark next to the bookmark menu item
-            (NSApplication.sharedApplication().delegate as? AppDelegate)?.bookmarkCurrentPageMenuItem.state = 1;
+            (NSApplication.shared().delegate as? AppDelegate)?.bookmarkCurrentPageMenuItem.state = 1;
         }
         else {
             // Set the manga bookmarks button alpha value to 0.2, as to indicate to the user this page is not boomarked
             readerBookmarkButton.animator().alphaValue = 0.2;
             
             // Also remove the check mark next to the bookmark menu item
-            (NSApplication.sharedApplication().delegate as? AppDelegate)?.bookmarkCurrentPageMenuItem.state = 0;
+            (NSApplication.shared().delegate as? AppDelegate)?.bookmarkCurrentPageMenuItem.state = 0;
         }
         
         // If we are in dual page mode...
         if(dualPage) {
             // Hide the one page image view
-            readerImageView.hidden = true;
+            readerImageView.isHidden = true;
             
             // Show the dual page stack view for dual page mode
-            dualPageStackView.hidden = false;
+            dualPageStackView.isHidden = false;
             
             // If we are reading from Right to Left...
-            if(dualPageDirection == KMDualPageDirection.RightToLeft) {
+            if(dualPageDirection == KMDualPageDirection.rightToLeft) {
                 // If we add 1 to manga.currentPage and there would be an image at that index in manga.pages...
                 if(manga.currentPage + 1 < manga.pages.count) {
                     // Set the left sides image to the current page + 1
@@ -1185,7 +1198,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
                 rightPageReaderImageView.image = manga.pages[manga.currentPage];
             }
             // If we are reading from Left to Right...
-            else if(dualPageDirection == KMDualPageDirection.LeftToRight) {
+            else if(dualPageDirection == KMDualPageDirection.leftToRight) {
                 // If we add 1 to manga.currentPage and there would be an image at that index in manga.pages...
                 if(manga.currentPage + 1 < manga.pages.count) {
                     // Set the right sides image to the ucrrent page + 1
@@ -1202,16 +1215,16 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         }
         else {
             // Show the one page image view
-            readerImageView.hidden = false;
+            readerImageView.isHidden = false;
             
             // Hide the dual page stack view
-            dualPageStackView.hidden = true;
+            dualPageStackView.isHidden = true;
         }
     }
     
     func updateFiltersForAllPages() {
         // For every original page...
-        for(currentPageIndex, currentPage) in mangaOriginalPages.enumerate() {
+        for(currentPageIndex, currentPage) in mangaOriginalPages.enumerated() {
             // Set the current page to be the current page with the chosen filter amounts
             manga.pages[currentPageIndex] = KMImageFilterUtilities().applyColorAndSharpness(currentPage, saturation: manga.saturation, brightness: manga.brightness, contrast: manga.contrast, sharpness: manga.sharpness);
         }
@@ -1271,7 +1284,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     var oldMousePosition : CGPoint!;
     
     // The NSTimer to handle fading out the panel when we dont move the mouse
-    var fadeTimer : NSTimer = NSTimer();
+    var fadeTimer : Timer = Timer();
     
     // Is the cursor hidden(Come on Apple, why isnt this part of NSCursor?)
     var cursorHidden : Bool = false;
@@ -1283,27 +1296,27 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         // if we arent fullscreen...
         if(!fullscreen) {
             // If the titlebar visual effect view is hidden...
-            if(titlebarVisualEffectView.hidden) {
+            if(titlebarVisualEffectView.isHidden) {
                 // Show the titlebar visual effect view
-                titlebarVisualEffectView.hidden = false;
+                titlebarVisualEffectView.isHidden = false;
             }
         }
         else {
             // Hide the titlebar visual effect view
-            titlebarVisualEffectView.hidden = true;
+            titlebarVisualEffectView.isHidden = true;
             
             // Show the window titlebar
-            readerWindow.standardWindowButton(NSWindowButton.CloseButton)?.superview?.superview?.alphaValue = 1;
+            readerWindow.standardWindowButton(NSWindowButton.closeButton)?.superview?.superview?.alphaValue = 1;
         }
         
         // Set isFullscreen to fullscreen
         isFullscreen = fullscreen;
         
         // Create a new CGEventRef, for the mouse position
-        let mouseEvent : CGEventRef = CGEventCreate(nil)!;
+        let mouseEvent : CGEvent = CGEvent(source: nil)!;
         
         // Get the mouse point onscreen from ourEvent
-        let mousePosition = CGEventGetLocation(mouseEvent);
+        let mousePosition = mouseEvent.location;
         
         // If we have moved the mouse...
         if(mousePosition != oldMousePosition) {
@@ -1314,7 +1327,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
             let readerPanelFrame : NSRect = readerPanelCornerRounding.frame;
             
             /// The mouses position on the Y
-            let pointY = abs(mousePosition.y - NSScreen.mainScreen()!.frame.height);
+            let pointY = abs(mousePosition.y - NSScreen.main()!.frame.height);
             
             /// The mouses position where 0 0 is the bottom left of the reader window
             let mousePositionFromWindow : CGPoint = NSPoint(x: mousePosition.x - readerWindow.frame.origin.x, y: pointY - readerWindow.frame.origin.y);
@@ -1344,7 +1357,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
             }
             
             // If the reader window is currently selected...
-            if(readerWindow.keyWindow) {
+            if(readerWindow.isKeyWindow) {
                 // Fade in the titlebar(Fullscreen mode)
                 fadeInTitlebarFullscreen();
             }
@@ -1352,23 +1365,23 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
             // If the cursor isnt inside the reader panel and in fullscreen...
             if(!insideReaderPanel && fullscreen) {
                 // Fade out the titlebar(Fullscreen mode) in one second
-                fadeTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(1), target:self, selector: Selector("fadeOutTitlebarFullscreen"), userInfo: nil, repeats:false);
+                fadeTimer = Timer.scheduledTimer(timeInterval: TimeInterval(1), target:self, selector: #selector(KMReaderViewController.fadeOutTitlebarFullscreen), userInfo: nil, repeats:false);
             }
             // If the reader window is the key window and the cursor isnt inside the reader panel and we are inside the window...
-            else if(readerWindow.keyWindow && !insideReaderPanel && insideWindow) {
+            else if(readerWindow.isKeyWindow && !insideReaderPanel && insideWindow) {
                 // Fade out the titlebar(Fullscreen mode) in 2 seconds
-                fadeTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(2), target:self, selector: Selector("fadeOutTitlebarFullscreen"), userInfo: nil, repeats:false);
+                fadeTimer = Timer.scheduledTimer(timeInterval: TimeInterval(2), target:self, selector: #selector(KMReaderViewController.fadeOutTitlebarFullscreen), userInfo: nil, repeats:false);
             }
             // If the reader window is the key window and the cursor isnt inside the reader panel and we arent inside the window...
-            else if(readerWindow.keyWindow && !insideReaderPanel && !insideWindow) {
+            else if(readerWindow.isKeyWindow && !insideReaderPanel && !insideWindow) {
                 // Fade out the titlebar(Fullscreen mode) in 0.5 seconds
-                fadeTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.5), target:self, selector: Selector("fadeOutTitlebarFullscreen"), userInfo: nil, repeats:false);
+                fadeTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.5), target:self, selector: #selector(KMReaderViewController.fadeOutTitlebarFullscreen), userInfo: nil, repeats:false);
             }
             
             // If the reader window isnt key...
-            if(!readerWindow.keyWindow) {
+            if(!readerWindow.isKeyWindow) {
                 // Fade out the titlebar
-                fadeTimer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0), target:self, selector: Selector("fadeOutTitlebar"), userInfo: nil, repeats:false);
+                fadeTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0), target:self, selector: #selector(KMReaderViewController.fadeOutTitlebar), userInfo: nil, repeats:false);
                 
                 // Show the cursor
                 NSCursor.unhide();
@@ -1384,7 +1397,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         titlebarVisualEffectView.animator().alphaValue = 0;
         
         // Use the animator to fade out the windows titlebar
-        readerWindow.standardWindowButton(NSWindowButton.CloseButton)?.superview?.superview?.animator().alphaValue = 0;
+        readerWindow.standardWindowButton(NSWindowButton.closeButton)?.superview?.superview?.animator().alphaValue = 0;
         
         // Use the animator to fade out the reader panel
         readerPanelVisualEffectView.animator().alphaValue = 0;
@@ -1395,7 +1408,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         titlebarVisualEffectView.animator().alphaValue = 1;
         
         // Use the animator to fade in the windows titlebar
-        readerWindow.standardWindowButton(NSWindowButton.CloseButton)?.superview?.superview?.animator().alphaValue = 1;
+        readerWindow.standardWindowButton(NSWindowButton.closeButton)?.superview?.superview?.animator().alphaValue = 1;
         
         // If we dont have the reader controls open...
         if(!readerControlsOpen) {
@@ -1406,10 +1419,10 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     
     func styleWindow() {
         // Get the reader window
-        readerWindow = NSApplication.sharedApplication().windows.last!;
+        readerWindow = NSApplication.shared().windows.last!;
         
         // Hide the titlebar
-        readerWindow.standardWindowButton(NSWindowButton.CloseButton)?.superview?.superview?.alphaValue = 0;
+        readerWindow.standardWindowButton(NSWindowButton.closeButton)?.superview?.superview?.alphaValue = 0;
         
         // Hide the reader panels visual effect view
         readerPanelVisualEffectView.alphaValue = 0;
@@ -1418,16 +1431,16 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         readerControlsPanelVisualEffectView.alphaValue = 0;
         
         // Set it to have a full size content view
-        readerWindow.styleMask |= NSFullSizeContentViewWindowMask;
+        readerWindow.styleMask.insert(NSFullSizeContentViewWindowMask);
         
         // Hide the titlebar background
         readerWindow.titlebarAppearsTransparent = true;
         
         // Hide the title
-        readerWindow.titleVisibility = NSWindowTitleVisibility.Hidden;
+        readerWindow.titleVisibility = NSWindowTitleVisibility.hidden;
         
         // Create some options for the reader window title KVO
-        let options = NSKeyValueObservingOptions([.New, .Old, .Initial, .Prior]);
+        let options = NSKeyValueObservingOptions([.new, .old, .initial, .prior]);
         
         // Subscribe to when the reader window changes its title
         self.readerWindow.addObserver(self, forKeyPath: "title", options: options, context: nil);
@@ -1436,16 +1449,16 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         readerWindow.delegate = self;
         
         // Set the window background color
-        readerWindow.backgroundColor = (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.readerWindowBackgroundColor;
+        readerWindow.backgroundColor = (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.readerWindowBackgroundColor;
         
         // Set the background of the thumbnail page jump view to be dark
-        thumbnailPageJumpVisualEffectView.material = NSVisualEffectMaterial.Dark;
+        thumbnailPageJumpVisualEffectView.material = NSVisualEffectMaterial.dark;
         
         // Hide the background of the thumbnail page jump view
         thumbnailPageJumpVisualEffectView.alphaValue = 0;
         
         // Unhide the background of the thumbnail page jump view(Its hidden in IB because it makes it unusable)
-        thumbnailPageJumpVisualEffectView.hidden = false;
+        thumbnailPageJumpVisualEffectView.isHidden = false;
         
         // DIsable the page jump scroll view(It stops scrolling/gestures in the reader until it is shown and hidden again)
         disableJumpToPageDialog();
@@ -1458,7 +1471,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         readerControlsPanelVisualEffectView.appearance = NSAppearance(named: NSAppearanceNameVibrantDark);
     }
     
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         // If the keyPath is the one for the window title...
         if(keyPath == "title") {
             // Update the custom title text field

@@ -43,7 +43,7 @@ class KMMangaGridItem: NSObject, NSCoding {
     var manga : KMManga = KMManga();
     
     // Updates the grid item with the passed mangas info
-    func changeManga(newManga : KMManga) {
+    func changeManga(_ newManga : KMManga) {
         // Set manga to newManga
         manga = newManga;
         
@@ -81,123 +81,193 @@ class KMMangaGridItem: NSObject, NSCoding {
         print("KMMangaGridItem: Loaded / Changed \"" + title + "\"");
     }
     
-    func encodeWithCoder(coder: NSCoder) {
+    public func encode(with aCoder: NSCoder) {
         // Encode the mangas values
         // The image must be saved as NSData
-        coder.encodeObject(self.manga.coverImage.TIFFRepresentation, forKey: "manga.coverImage");
+        aCoder.encode(self.manga.coverImage.tiffRepresentation, forKey: "manga.coverImage");
         
-        coder.encodeObject(self.manga.title, forKey: "manga.title");
-        coder.encodeObject(self.manga.series, forKey: "manga.series");
-        coder.encodeObject(self.manga.artist, forKey: "manga.artist");
-        coder.encodeObject(self.manga.writer, forKey: "manga.writer");
-        coder.encodeObject(self.manga.directory, forKey: "manga.directory");
-        coder.encodeObject(self.manga.bookmarks, forKey: "manga.bookmarks");
-        coder.encodeObject(self.manga.currentPage, forKey: "manga.currentPage");
-        coder.encodeObject(self.manga.tags, forKey: "manga.tags");
-        coder.encodeObject(self.manga.read, forKey: "manga.read");
-        coder.encodeObject(self.manga.uuid, forKey: "manga.uuid");
-        coder.encodeObject(self.manga.lewd, forKey: "manga.lewd");
-        coder.encodeObject(self.manga.group, forKey: "manga.group");
-        coder.encodeObject(self.manga.favourite, forKey: "manga.favourite");
-        coder.encodeObject(self.manga.releaseDate, forKey: "manga.releaseDate");
+        aCoder.encode(self.manga.title, forKey: "manga.title");
+        aCoder.encode(self.manga.series, forKey: "manga.series");
+        aCoder.encode(self.manga.artist, forKey: "manga.artist");
+        aCoder.encode(self.manga.writer, forKey: "manga.writer");
+        aCoder.encode(self.manga.directory, forKey: "manga.directory");
+        aCoder.encode(self.manga.bookmarks, forKey: "manga.bookmarks");
+        aCoder.encode(self.manga.currentPage, forKey: "manga.currentPage");
+        aCoder.encode(self.manga.tags, forKey: "manga.tags");
+        aCoder.encode(self.manga.read, forKey: "manga.read");
+        aCoder.encode(self.manga.uuid, forKey: "manga.uuid");
+        aCoder.encode(self.manga.lewd, forKey: "manga.lewd");
+        aCoder.encode(self.manga.group, forKey: "manga.group");
+        aCoder.encode(self.manga.favourite, forKey: "manga.favourite");
+        aCoder.encode(self.manga.releaseDate, forKey: "manga.releaseDate");
         
-        coder.encodeObject(self.manga.saturation, forKey: "manga.saturation");
-        coder.encodeObject(self.manga.brightness, forKey: "manga.brightness");
-        coder.encodeObject(self.manga.contrast, forKey: "manga.contrast");
-        coder.encodeObject(self.manga.sharpness, forKey: "manga.sharpness");
+        aCoder.encode(self.manga.saturation, forKey: "manga.saturation");
+        aCoder.encode(self.manga.brightness, forKey: "manga.brightness");
+        aCoder.encode(self.manga.contrast, forKey: "manga.contrast");
+        aCoder.encode(self.manga.sharpness, forKey: "manga.sharpness");
         
-        coder.encodeObject(self.manga.pageCount, forKey: "manga.pageCount");
+        aCoder.encode(self.manga.pageCount, forKey: "manga.pageCount");
         
-        coder.encodeObject(self.manga.percentFinished, forKey: "manga.percentFinished");
+        aCoder.encode(self.manga.percentFinished, forKey: "manga.percentFinished");
     }
     
-    required convenience init(coder decoder: NSCoder) {
-        self.init()
-        // Decode and laod the mangas values
-        // Convert the data to an image
-        self.manga.coverImage = NSImage(data: (decoder.decodeObjectForKey("manga.coverImage") as! NSData?)!)!;
+    public required init?(coder aDecoder: NSCoder) {
+        super.init();
         
-        self.manga.title = (decoder.decodeObjectForKey("manga.title") as! String?)!;
-        self.manga.series = (decoder.decodeObjectForKey("manga.series") as! String?)!;
-        self.manga.artist = (decoder.decodeObjectForKey("manga.artist") as! String?)!;
-        self.manga.writer = (decoder.decodeObjectForKey("manga.writer") as! String?)!;
-        self.manga.directory = (decoder.decodeObjectForKey("manga.directory") as! String?)!;
-        self.manga.bookmarks = (decoder.decodeObjectForKey("manga.bookmarks") as! [Int]?)!;
-        self.manga.currentPage = (decoder.decodeObjectForKey("manga.currentPage") as! Int?)!;
-        self.manga.tags = (decoder.decodeObjectForKey("manga.tags") as! [String]?)!;
+        // Decode and load the manga's values
         
-        // I need to stop breaking the app... This should help
-        if((decoder.decodeObjectForKey("manga.read") as? Bool) != nil) {
-            self.manga.read = (decoder.decodeObjectForKey("manga.read") as! Bool?)!;
+        // If the user's manga database is still on <=v1.2.2...
+        if((aDecoder.decodeObject(forKey: "manga.currentPage") as! Int?) != nil) {
+            // Convert the data to an image
+            self.manga.coverImage = NSImage(data: (aDecoder.decodeObject(forKey: "manga.coverImage") as! Data?)!)!;
+            
+            self.manga.title = (aDecoder.decodeObject(forKey: "manga.title") as! String?)!;
+            self.manga.series = (aDecoder.decodeObject(forKey: "manga.series") as! String?)!;
+            self.manga.artist = (aDecoder.decodeObject(forKey: "manga.artist") as! String?)!;
+            self.manga.writer = (aDecoder.decodeObject(forKey: "manga.writer") as! String?)!;
+            self.manga.directory = (aDecoder.decodeObject(forKey: "manga.directory") as! String?)!;
+            self.manga.bookmarks = (aDecoder.decodeObject(forKey: "manga.bookmarks") as! [Int]?)!;
+            self.manga.currentPage = (aDecoder.decodeObject(forKey: "manga.currentPage") as! Int?)!;
+            self.manga.tags = (aDecoder.decodeObject(forKey: "manga.tags") as! [String]?)!;
+            
+            // I need to stop breaking the app... This should help
+            if((aDecoder.decodeObject(forKey: "manga.read") as? Bool) != nil) {
+                self.manga.read = (aDecoder.decodeObject(forKey: "manga.read") as! Bool?)!;
+            }
+            
+            // Same here, if there is a UUID...
+            if((aDecoder.decodeObject(forKey: "manga.uuid") as? String) != nil) {
+                // Load it
+                self.manga.uuid = (aDecoder.decodeObject(forKey: "manga.uuid") as! String?)!;
+            }
+            
+            // If there is a saturation value...
+            if((aDecoder.decodeObject(forKey: "manga.saturation") as? CGFloat) != nil) {
+                // Load it
+                self.manga.saturation = (aDecoder.decodeObject(forKey: "manga.saturation") as! CGFloat?)!;
+            }
+            
+            // If there is a brightness value...
+            if((aDecoder.decodeObject(forKey: "manga.brightness") as? CGFloat) != nil) {
+                // Load it
+                self.manga.brightness = (aDecoder.decodeObject(forKey: "manga.brightness") as! CGFloat?)!;
+            }
+            
+            // If there is a contrast value...
+            if((aDecoder.decodeObject(forKey: "manga.contrast") as? CGFloat) != nil) {
+                // Load it
+                self.manga.contrast = (aDecoder.decodeObject(forKey: "manga.contrast") as! CGFloat?)!;
+            }
+            
+            // If there is a sharpness value...
+            if((aDecoder.decodeObject(forKey: "manga.sharpness") as? CGFloat) != nil) {
+                // Load it
+                self.manga.sharpness = (aDecoder.decodeObject(forKey: "manga.sharpness") as! CGFloat?)!;
+            }
+            
+            // If there is a pageCount value...
+            if((aDecoder.decodeObject(forKey: "manga.pageCount") as? Int) != nil) {
+                // Load it
+                self.manga.pageCount = (aDecoder.decodeObject(forKey: "manga.pageCount") as! Int?)!;
+            }
+            
+            // If there is a percentFinished value...
+            if((aDecoder.decodeObject(forKey: "manga.percentFinished") as? Int) != nil) {
+                // Load it
+                self.manga.percentFinished = (aDecoder.decodeObject(forKey: "manga.percentFinished") as! Int?)!;
+            }
+            
+            // If there is a l-lewd... value...
+            if((aDecoder.decodeObject(forKey: "manga.lewd") as? Bool) != nil) {
+                // Load it
+                self.manga.lewd = (aDecoder.decodeObject(forKey: "manga.lewd") as! Bool?)!;
+            }
+            
+            // If there is a group value...
+            if((aDecoder.decodeObject(forKey: "manga.group") as? String) != nil) {
+                // Load it
+                self.manga.group = (aDecoder.decodeObject(forKey: "manga.group") as! String?)!;
+            }
+            
+            // If there is a favourite value...
+            if((aDecoder.decodeObject(forKey: "manga.favourite") as? Bool) != nil) {
+                // Load it
+                self.manga.favourite = (aDecoder.decodeObject(forKey: "manga.favourite") as! Bool?)!;
+            }
+            
+            // If there is a release date value...
+            if((aDecoder.decodeObject(forKey: "manga.releaseDate") as? NSDate) != nil) {
+                // Load it
+                self.manga.releaseDate = (aDecoder.decodeObject(forKey: "manga.releaseDate") as! Date?)!;
+            }
         }
-        
-        // Same here, if there is a UUID...
-        if((decoder.decodeObjectForKey("manga.uuid") as? String) != nil) {
-            // Load it
-            self.manga.uuid = (decoder.decodeObjectForKey("manga.uuid") as! String?)!;
-        }
-        
-        // If there is a saturation value...
-        if((decoder.decodeObjectForKey("manga.saturation") as? CGFloat) != nil) {
-            // Load it
-            self.manga.saturation = (decoder.decodeObjectForKey("manga.saturation") as! CGFloat?)!;
-        }
-        
-        // If there is a brightness value...
-        if((decoder.decodeObjectForKey("manga.brightness") as? CGFloat) != nil) {
-            // Load it
-            self.manga.brightness = (decoder.decodeObjectForKey("manga.brightness") as! CGFloat?)!;
-        }
-        
-        // If there is a contrast value...
-        if((decoder.decodeObjectForKey("manga.contrast") as? CGFloat) != nil) {
-            // Load it
-            self.manga.contrast = (decoder.decodeObjectForKey("manga.contrast") as! CGFloat?)!;
-        }
-        
-        // If there is a sharpness value...
-        if((decoder.decodeObjectForKey("manga.sharpness") as? CGFloat) != nil) {
-            // Load it
-            self.manga.sharpness = (decoder.decodeObjectForKey("manga.sharpness") as! CGFloat?)!;
-        }
-        
-        // If there is a pageCount value...
-        if((decoder.decodeObjectForKey("manga.pageCount") as? Int) != nil) {
-            // Load it
-            self.manga.pageCount = (decoder.decodeObjectForKey("manga.pageCount") as! Int?)!;
-        }
-        
-        // If there is a percentFinished value...
-        if((decoder.decodeObjectForKey("manga.percentFinished") as? Int) != nil) {
-            // Load it
-            self.manga.percentFinished = (decoder.decodeObjectForKey("manga.percentFinished") as! Int?)!;
-        }
-        
-        // If there is a l-lewd... value...
-        if((decoder.decodeObjectForKey("manga.lewd") as? Bool) != nil) {
-            // Load it
-            self.manga.lewd = (decoder.decodeObjectForKey("manga.lewd") as! Bool?)!;
-        }
-        
-        // If there is a group value...
-        if((decoder.decodeObjectForKey("manga.group") as? String) != nil) {
-            // Load it
-            self.manga.group = (decoder.decodeObjectForKey("manga.group") as! String?)!;
-        }
-        
-        // If there is a favourite value...
-        if((decoder.decodeObjectForKey("manga.favourite") as? Bool) != nil) {
-            // Load it
-            self.manga.favourite = (decoder.decodeObjectForKey("manga.favourite") as! Bool?)!;
-        }
-        
-        // If there is a release date value...
-        if((decoder.decodeObjectForKey("manga.releaseDate") as? NSDate) != nil) {
-            // Load it
-            self.manga.releaseDate = (decoder.decodeObjectForKey("manga.releaseDate") as! NSDate?)!;
+        // If the user's manga database is on >=v.1.2.3...
+        else {
+            // Convert the data to an image
+            self.manga.coverImage = NSImage(data: (aDecoder.decodeObject(forKey: "manga.coverImage") as! NSData?)! as Data)!;
+            
+            self.manga.title = (aDecoder.decodeObject(forKey: "manga.title") as! String?)!;
+            self.manga.series = (aDecoder.decodeObject(forKey: "manga.series") as! String?)!;
+            self.manga.artist = (aDecoder.decodeObject(forKey: "manga.artist") as! String?)!;
+            self.manga.writer = (aDecoder.decodeObject(forKey: "manga.writer") as! String?)!;
+            self.manga.directory = (aDecoder.decodeObject(forKey: "manga.directory") as! String?)!;
+            self.manga.bookmarks = (aDecoder.decodeObject(forKey: "manga.bookmarks") as! [Int]?)!;
+            self.manga.currentPage = aDecoder.decodeInteger(forKey: "manga.currentPage");
+            self.manga.tags = (aDecoder.decodeObject(forKey: "manga.tags") as! [String]?)!;
+            
+            self.manga.read = aDecoder.decodeBool(forKey: "manga.read");
+            self.manga.pageCount = aDecoder.decodeInteger(forKey: "manga.pageCount");
+            self.manga.percentFinished = aDecoder.decodeInteger(forKey: "manga.percentFinished");
+            self.manga.lewd = aDecoder.decodeBool(forKey: "manga.lewd");
+            self.manga.favourite = aDecoder.decodeBool(forKey: "manga.favourite");
+            
+            if(aDecoder.containsValue(forKey: "manga.uuid")) {
+                self.manga.uuid = (aDecoder.decodeObject(forKey: "manga.uuid") as! String?)!;
+            }
+            
+            if(aDecoder.containsValue(forKey: "manga.saturation")) {
+                self.manga.saturation = (aDecoder.decodeObject(forKey: "manga.saturation") as! CGFloat?)!;
+            }
+            
+            if(aDecoder.containsValue(forKey: "manga.brightness")) {
+                self.manga.brightness = (aDecoder.decodeObject(forKey: "manga.brightness") as! CGFloat?)!;
+            }
+            
+            if(aDecoder.containsValue(forKey: "manga.contrast")) {
+                self.manga.contrast = (aDecoder.decodeObject(forKey: "manga.contrast") as! CGFloat?)!;
+            }
+            
+            if(aDecoder.containsValue(forKey: "manga.sharpness")) {
+                self.manga.sharpness = (aDecoder.decodeObject(forKey: "manga.sharpness") as! CGFloat?)!;
+            }
+            
+            if(aDecoder.containsValue(forKey: "manga.group")) {
+                self.manga.group = (aDecoder.decodeObject(forKey: "manga.group") as! String?)!;
+            }
+            
+            if(aDecoder.containsValue(forKey: "manga.releaseDate")) {
+                // Load it
+                self.manga.releaseDate = (aDecoder.decodeObject(forKey: "manga.releaseDate") as! Date?)!;
+            }
         }
         
         // Load up the manga info
         changeManga(self.manga);
+    }
+    
+    override init() {
+        super.init();
+        
+        self.coverImage = NSImage(named: "NSCaution")!;
+        self.title = "Failed to load title";
+        self.series = "";
+        self.artist = "";
+        self.writer = "";
+        self.group = "";
+        self.percentFinished = 0;
+        self.favourite = false;
+        self.lewd = false;
+        self.percentAlpha = 1;
+        self.manga = KMManga();
     }
 }

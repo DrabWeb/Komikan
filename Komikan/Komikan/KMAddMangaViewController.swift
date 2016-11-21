@@ -19,7 +19,7 @@ class KMAddMangaViewController: NSViewController {
     var newMangaMultiple : [KMManga] = [KMManga()];
     
     // The NSTimer to update if we can add the manga with our given values
-    var addButtonUpdateLoop : NSTimer = NSTimer();
+    var addButtonUpdateLoop : Timer = Timer();
     
     // Does the user want to batch add them?
     var addingMultiple : Bool = false;
@@ -49,7 +49,7 @@ class KMAddMangaViewController: NSViewController {
     @IBOutlet var releaseDateTextField: KMAlwaysActiveTextField!
     
     /// The date formatter for releaseDateTextField
-    @IBOutlet var releaseDateTextFieldDateFormatter: NSDateFormatter!
+    @IBOutlet var releaseDateTextFieldDateFormatter: DateFormatter!
     
     /// The checkbox to say if this manga is l-lewd...
     @IBOutlet weak var llewdCheckBox: NSButton!
@@ -64,7 +64,7 @@ class KMAddMangaViewController: NSViewController {
     @IBOutlet weak var chooseDirectoryButton: NSButton!
     
     /// When we click chooseDirectoryButton...
-    @IBAction func chooseDirectoryButtonPressed(sender: AnyObject) {
+    @IBAction func chooseDirectoryButtonPressed(_ sender: AnyObject) {
         // Run he choose directory open panel
         chooseDirectoryOpenPanel.runModal();
     }
@@ -73,16 +73,16 @@ class KMAddMangaViewController: NSViewController {
     @IBOutlet weak var addButton: NSButton!
     
     /// When we click the add button...
-    @IBAction func addButtonPressed(sender: AnyObject) {
+    @IBAction func addButtonPressed(_ sender: AnyObject) {
         // Dismiss the popver
-        self.dismissController(self);
+        self.dismiss(self);
         
         // Add the manga we described in the open panel
         addSelf();
     }
     
     /// The URLs of the files we are adding
-    var addingMangaURLs : [NSURL] = [];
+    var addingMangaURLs : [URL] = [];
     
     /// The local key down monitor
     var keyDownMonitor : AnyObject?;
@@ -108,13 +108,13 @@ class KMAddMangaViewController: NSViewController {
         chooseDirectoryOpenPanel.prompt = "Choose";
         
         // Setup all the suggestions for the property text fields
-        seriesTokenTextField.suggestions = (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.allSeries();
-        artistTokenTextField.suggestions = (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.allArtists();
-        writerTokenTextField.suggestions = (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.allWriters();
-        groupTokenTextField.suggestions = (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.allGroups();
+        seriesTokenTextField.suggestions = (NSApplication.shared().delegate as! AppDelegate).mangaGridController.allSeries();
+        artistTokenTextField.suggestions = (NSApplication.shared().delegate as! AppDelegate).mangaGridController.allArtists();
+        writerTokenTextField.suggestions = (NSApplication.shared().delegate as! AppDelegate).mangaGridController.allWriters();
+        groupTokenTextField.suggestions = (NSApplication.shared().delegate as! AppDelegate).mangaGridController.allGroups();
         
         // Start a 0.1 second loop that will set if we can add this manga or not
-        addButtonUpdateLoop = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target: self, selector: Selector("updateAddButton"), userInfo: nil, repeats: true);
+        addButtonUpdateLoop = Timer.scheduledTimer(timeInterval: TimeInterval(0.1), target: self, selector: #selector(KMAddMangaViewController.updateAddButton), userInfo: nil, repeats: true);
         
         // Prompt for a manga
         startPrompt();
@@ -141,20 +141,20 @@ class KMAddMangaViewController: NSViewController {
             // If the release date field isnt blank...
             if(releaseDateTextField.stringValue != "") {
                 // Set the release date
-                newManga.releaseDate = releaseDateTextFieldDateFormatter.dateFromString(releaseDateTextField.stringValue)!;
+                newManga.releaseDate = releaseDateTextFieldDateFormatter.date(from: releaseDateTextField.stringValue)!;
             }
             
             // Set if the manga is l-lewd...
-            newManga.lewd = Bool(llewdCheckBox.state);
+            newManga.lewd = Bool(llewdCheckBox.state as NSNumber);
             
             // Set the new mangas directory
-            newManga.directory = (addingMangaURLs[0].absoluteString.stringByRemovingPercentEncoding!).stringByReplacingOccurrencesOfString("file://", withString: "");
+            newManga.directory = (addingMangaURLs[0].absoluteString.removingPercentEncoding!).replacingOccurrences(of: "file://", with: "");
             
             // Set the new mangas writer
             newManga.writer = writerTokenTextField.stringValue;
             
             // For every part of the tags text field's string value split at every ", "...
-            for (_, currentTag) in tagsTextField.stringValue.componentsSeparatedByString(", ").enumerate() {
+            for (_, currentTag) in tagsTextField.stringValue.components(separatedBy: ", ").enumerated() {
                 // Print to the log what tag we are adding and what manga we are adding it to
                 print("KMAddMangaViewController: Adding tag \"" + currentTag + "\" to \"" + newManga.title + "\"");
                 
@@ -166,18 +166,18 @@ class KMAddMangaViewController: NSViewController {
             newManga.group = groupTokenTextField.stringValue;
             
             // Set if the manga is a favourite
-            newManga.favourite = Bool(favouriteButton.state);
+            newManga.favourite = Bool(favouriteButton.state as NSNumber);
             
             // Post the notification saying we are done and sending back the manga
-            NSNotificationCenter.defaultCenter().postNotificationName("KMAddMangaViewController.Finished", object: newManga);
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "KMAddMangaViewController.Finished"), object: newManga);
         }
         else {
-            for (_, currentMangaURL) in addingMangaURLs.enumerate() {
+            for (_, currentMangaURL) in addingMangaURLs.enumerated() {
                 // A temporary variable for storing the manga we are currently working on
                 var currentManga : KMManga = KMManga();
                 
                 // Set the new mangas directory
-                currentManga.directory = (currentMangaURL.absoluteString).stringByRemovingPercentEncoding!.stringByReplacingOccurrencesOfString("file://", withString: "");
+                currentManga.directory = (currentMangaURL.absoluteString).removingPercentEncoding!.replacingOccurrences(of: "file://", with: "");
                 
                 // Get the information of the manga(Cover image, title, ETC.)(Change this function to be in KMManga)
                 currentManga = getMangaInfo(currentManga);
@@ -194,14 +194,14 @@ class KMAddMangaViewController: NSViewController {
                 // If the release date field isnt blank...
                 if(releaseDateTextField.stringValue != "") {
                     // Set the release date
-                    currentManga.releaseDate = releaseDateTextFieldDateFormatter.dateFromString(releaseDateTextField.stringValue)!;
+                    currentManga.releaseDate = releaseDateTextFieldDateFormatter.date(from: releaseDateTextField.stringValue)!;
                 }
                 
                 // Set if the manga is l-lewd...
-                currentManga.lewd = Bool(llewdCheckBox.state);
+                currentManga.lewd = Bool(llewdCheckBox.state as NSNumber);
                 
                 // For every part of the tags text field's string value split at every ", "...
-                for (_, currentTag) in tagsTextField.stringValue.componentsSeparatedByString(", ").enumerate() {
+                for (_, currentTag) in tagsTextField.stringValue.components(separatedBy: ", ").enumerated() {
                     // Print to the log what tag we are adding and what manga we are adding it to
                     print("KMAddMangaViewController: Adding tag \"" + currentTag + "\" to \"" + newManga.title + "\"");
                     
@@ -213,17 +213,17 @@ class KMAddMangaViewController: NSViewController {
                 currentManga.group = groupTokenTextField.stringValue;
                 
                 // Set if the manga is a favourite
-                currentManga.favourite = Bool(favouriteButton.state);
+                currentManga.favourite = Bool(favouriteButton.state as NSNumber);
                 
                 // Add curentManga to the newMangaMultiple array
                 newMangaMultiple.append(currentManga);
             }
             
             // Remove the first element in newMangaMultiple, for some reason its always empty
-            newMangaMultiple.removeAtIndex(0);
+            newMangaMultiple.remove(at: 0);
             
             // Post the notification saying we are done and sending back the manga
-            NSNotificationCenter.defaultCenter().postNotificationName("KMAddMangaViewController.Finished", object: newMangaMultiple);
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "KMAddMangaViewController.Finished"), object: newMangaMultiple);
         }
     }
     
@@ -244,16 +244,16 @@ class KMAddMangaViewController: NSViewController {
             var folderURLString : String = (addingMangaURLs.first?.absoluteString)!;
             
             // Remove everything after the last "/" in the string so we can get the folder
-            folderURLString = folderURLString.substringToIndex(folderURLString.rangeOfString("/", options: NSStringCompareOptions.BackwardsSearch, range: nil, locale: nil)!.startIndex);
+            folderURLString = folderURLString.substring(to: folderURLString.range(of: "/", options: NSString.CompareOptions.backwards, range: nil, locale: nil)!.lowerBound);
             
             // Append a slash to the end because it removes it
             folderURLString += "/";
             
             // Remove the file:// from the folder URL string
-            folderURLString = folderURLString.stringByReplacingOccurrencesOfString("file://", withString: "");
+            folderURLString = folderURLString.replacingOccurrences(of: "file://", with: "");
             
             // Remove the percent encoding from the folder URL string
-            folderURLString = folderURLString.stringByRemovingPercentEncoding!;
+            folderURLString = folderURLString.removingPercentEncoding!;
             
             // Add the "Komikan" folder to the end of it
             folderURLString += "Komikan/"
@@ -264,12 +264,12 @@ class KMAddMangaViewController: NSViewController {
                 let mangaJsonURL : String = folderURLString + "series.json";
                 
                 // If there is a "series.json" file in the Manga's folder...
-                if(NSFileManager.defaultManager().fileExistsAtPath(mangaJsonURL)) {
+                if(FileManager.default.fileExists(atPath: mangaJsonURL)) {
                     // Print to the log that we found the JSON file for the selected manga
                     print("KMAddMangaViewController: Found a series.json file for the selected Manga at \"" + mangaJsonURL + "\"");
                     
                     /// The SwiftyJSON object for the Manga's JSON info
-                    let mangaJson = JSON(data: NSFileManager.defaultManager().contentsAtPath(mangaJsonURL)!);
+                    let mangaJson = JSON(data: FileManager.default.contents(atPath: mangaJsonURL)!);
                     
                     // Set the series text field's value to the series value
                     seriesTokenTextField.stringValue = mangaJson["series"].stringValue;
@@ -281,19 +281,19 @@ class KMAddMangaViewController: NSViewController {
                     writerTokenTextField.stringValue = mangaJson["writer"].stringValue;
                     
                     // If there is a released value...
-                    if(mangaJson["published"].isExists()) {
+                    if(mangaJson["published"].exists()) {
                         // If there is a release date listed...
-                        if(mangaJson["published"].stringValue.lowercaseString != "unknown" && mangaJson["published"].stringValue != "") {
+                        if(mangaJson["published"].stringValue.lowercased() != "unknown" && mangaJson["published"].stringValue != "") {
                             // If the release date is valid...
-                            if(releaseDateTextFieldDateFormatter.dateFromString(mangaJson["published"].stringValue) != nil) {
+                            if(releaseDateTextFieldDateFormatter.date(from: mangaJson["published"].stringValue) != nil) {
                                 // Set the release date text field's value to the release date value
-                                releaseDateTextField.stringValue = releaseDateTextFieldDateFormatter.stringFromDate((releaseDateTextFieldDateFormatter.dateFromString(mangaJson["published"].stringValue)!));
+                                releaseDateTextField.stringValue = releaseDateTextFieldDateFormatter.string(from: (releaseDateTextFieldDateFormatter.date(from: mangaJson["published"].stringValue)!));
                             }
                         }
                     }
                     
                     // For every item in the tags value of the JSON...
-                    for(_, currentTag) in mangaJson["tags"].arrayValue.enumerate() {
+                    for(_, currentTag) in mangaJson["tags"].arrayValue.enumerated() {
                         // Print the current tag
                         print("KMAddMangaViewController: Found tag \"" + currentTag.stringValue + "\"");
                         
@@ -304,34 +304,34 @@ class KMAddMangaViewController: NSViewController {
                     // If the tags text field is not still blank...
                     if(tagsTextField.stringValue != "") {
                         // Remove the extra ", " from the tags text field
-                        tagsTextField.stringValue = tagsTextField.stringValue.substringToIndex(tagsTextField.stringValue.endIndex.predecessor().predecessor());
+                        tagsTextField.stringValue = tagsTextField.stringValue.substring(to: tagsTextField.stringValue.index(before: tagsTextField.stringValue.characters.index(before: tagsTextField.stringValue.endIndex)));
                     }
                     
                     // Set the group text field's value to the group value
                     groupTokenTextField.stringValue = mangaJson["group"].stringValue;
                     
                     // Set the favourites buttons value to the favourites value of the JSON
-                    favouriteButton.state = Int(mangaJson["favourite"].boolValue);
+                    favouriteButton.state = Int.fromBool(bool: mangaJson["favourite"].boolValue);
                     
                     // Update the favourites button
                     favouriteButton.updateButton();
                     
                     // Set the l-lewd... checkboxes state to the lewd value of the JSON
-                    llewdCheckBox.state = Int(mangaJson["lewd"].boolValue);
+                    llewdCheckBox.state = Int.fromBool(bool: mangaJson["lewd"].boolValue);
                 }
             }
             // If we chose 1 manga...
             else if(addingMangaURLs.count == 1) {
                 /// The URL to the single Manga's possible JSON file
-                let mangaJsonURL : String = folderURLString + (addingMangaURLs.first?.lastPathComponent!.stringByRemovingPercentEncoding!)! + ".json";
+                let mangaJsonURL : String = folderURLString + (addingMangaURLs.first?.lastPathComponent.removingPercentEncoding!)! + ".json";
                 
                 // If there is a file that has the same name but with a .json on the end...
-                if(NSFileManager.defaultManager().fileExistsAtPath(mangaJsonURL)) {
+                if(FileManager.default.fileExists(atPath: mangaJsonURL)) {
                     // Print to the log that we found the JSON file for the single manga
                     print("KMAddMangaViewController: Found single Manga's JSON file at \"" + mangaJsonURL + "\"");
                     
                     /// The SwiftyJSON object for the Manga's JSON info
-                    let mangaJson = JSON(data: NSFileManager.defaultManager().contentsAtPath(mangaJsonURL)!);
+                    let mangaJson = JSON(data: FileManager.default.contents(atPath: mangaJsonURL)!);
                     
                     // If the title value from the JSON is not "auto" or blank...
                     if(mangaJson["title"].stringValue != "auto" && mangaJson["title"].stringValue != "") {
@@ -345,16 +345,16 @@ class KMAddMangaViewController: NSViewController {
                     // If the cover image value from the JSON is not "auto" or blank...
                     if(mangaJson["cover-image"].stringValue != "auto" && mangaJson["cover-image"].stringValue != "") {
                         // If the first character is not a "/"...
-                        if(mangaJson["cover-image"].stringValue.substringToIndex(mangaJson["cover-image"].stringValue.startIndex.successor()) == "/") {
+                        if(mangaJson["cover-image"].stringValue.substring(to: mangaJson["cover-image"].stringValue.characters.index(after: mangaJson["cover-image"].stringValue.startIndex)) == "/") {
                             // Set the cover image views image to an NSImage at the path specified in the JSON
-                            coverImageView.image = NSImage(contentsOfURL: NSURL(fileURLWithPath: mangaJson["cover-image"].stringValue));
+                            coverImageView.image = NSImage(contentsOf: URL(fileURLWithPath: mangaJson["cover-image"].stringValue));
                             
                             // Say we got a cover image from the JSON
                             gotCoverImageFromJSON = true;
                         }
                         else {
                             // Get the relative image
-                            coverImageView.image = NSImage(contentsOfURL: NSURL(fileURLWithPath: folderURLString + mangaJson["cover-image"].stringValue));
+                            coverImageView.image = NSImage(contentsOf: URL(fileURLWithPath: folderURLString + mangaJson["cover-image"].stringValue));
                             
                             // Say we got a cover image from the JSON
                             gotCoverImageFromJSON = true;
@@ -371,19 +371,19 @@ class KMAddMangaViewController: NSViewController {
                     writerTokenTextField.stringValue = mangaJson["writer"].stringValue;
                     
                     // If there is a released value...
-                    if(mangaJson["published"].isExists()) {
+                    if(mangaJson["published"].exists()) {
                         // If there is a release date listed...
-                        if(mangaJson["published"].stringValue.lowercaseString != "unknown" && mangaJson["published"].stringValue != "") {
+                        if(mangaJson["published"].stringValue.lowercased() != "unknown" && mangaJson["published"].stringValue != "") {
                             // If the release date is valid...
-                            if(releaseDateTextFieldDateFormatter.dateFromString(mangaJson["published"].stringValue) != nil) {
+                            if(releaseDateTextFieldDateFormatter.date(from: mangaJson["published"].stringValue) != nil) {
                                 // Set the release date text field's value to the release date value
-                                releaseDateTextField.stringValue = releaseDateTextFieldDateFormatter.stringFromDate((releaseDateTextFieldDateFormatter.dateFromString(mangaJson["published"].stringValue)!));
+                                releaseDateTextField.stringValue = releaseDateTextFieldDateFormatter.string(from: (releaseDateTextFieldDateFormatter.date(from: mangaJson["published"].stringValue)!));
                             }
                         }
                     }
                     
                     // For every item in the tags value of the JSON...
-                    for(_, currentTag) in mangaJson["tags"].arrayValue.enumerate() {
+                    for(_, currentTag) in mangaJson["tags"].arrayValue.enumerated() {
                         // Print the current tag
                         print("KMAddMangaViewController: Found tag \"" + currentTag.stringValue + "\"");
                         
@@ -394,20 +394,20 @@ class KMAddMangaViewController: NSViewController {
                     // If the tags text field is not still blank...
                     if(tagsTextField.stringValue != "") {
                         // Remove the extra ", " from the tags text field
-                        tagsTextField.stringValue = tagsTextField.stringValue.substringToIndex(tagsTextField.stringValue.endIndex.predecessor().predecessor());
+                        tagsTextField.stringValue = tagsTextField.stringValue.substring(to: tagsTextField.stringValue.index(before: tagsTextField.stringValue.characters.index(before: tagsTextField.stringValue.endIndex)));
                     }
                     
                     // Set the group text field's value to the group value
                     groupTokenTextField.stringValue = mangaJson["group"].stringValue;
                     
                     // Set the favourites buttons value to the favourites value of the JSON
-                    favouriteButton.state = Int(mangaJson["favourite"].boolValue);
+                    favouriteButton.state = Int.fromBool(bool: mangaJson["favourite"].boolValue);
                     
                     // Update the favourites button
                     favouriteButton.updateButton();
                     
                     // Set the l-lewd... checkboxes state to the lewd value of the JSON
-                    llewdCheckBox.state = Int(mangaJson["lewd"].boolValue);
+                    llewdCheckBox.state = Int.fromBool(bool: mangaJson["lewd"].boolValue);
                 }
             }
         }
@@ -440,22 +440,22 @@ class KMAddMangaViewController: NSViewController {
         // If we can add with these variables...
         if(canAdd) {
             // Enable the add button
-            addButton.enabled = true;
+            addButton.isEnabled = true;
         }
         else {
             // Disable the add button
-            addButton.enabled = false;
+            addButton.isEnabled = false;
         }
     }
     
-    func getMangaInfo(manga : KMManga) -> KMManga {
+    func getMangaInfo(_ manga : KMManga) -> KMManga {
         // Set the mangas title to the mangas archive name
         manga.title = KMFileUtilities().getFileNameWithoutExtension(manga.directory);
         
         // Delete /tmp/komikan/addmanga, if it exists
         do {
             // Remove /tmp/komikan/addmanga
-            try NSFileManager().removeItemAtPath("/tmp/komikan/addmanga");
+            try FileManager().removeItem(atPath: "/tmp/komikan/addmanga");
             
             // Print to the log that we deleted it
             print("KMAddMangaViewController: Deleted /tmp/komikan/addmanga folder for \"" + manga.title + "\"");
@@ -466,15 +466,15 @@ class KMAddMangaViewController: NSViewController {
         }
         
         // If the manga's file isnt a folder...
-        if(!KMFileUtilities().isFolder(manga.directory.stringByReplacingOccurrencesOfString("file://", withString: ""))) {
+        if(!KMFileUtilities().isFolder(manga.directory.replacingOccurrences(of: "file://", with: ""))) {
             // Extract the passed manga to /tmp/komikan/addmanga
-            KMFileUtilities().extractArchive(manga.directory.stringByReplacingOccurrencesOfString("file://", withString: ""), toDirectory:  "/tmp/komikan/addmanga");
+            KMFileUtilities().extractArchive(manga.directory.replacingOccurrences(of: "file://", with: ""), toDirectory:  "/tmp/komikan/addmanga");
         }
         // If the manga's file is a folder...
         else {
             // Copy the folder to /tmp/komikan/addmanga
             do {
-                try NSFileManager.defaultManager().copyItemAtPath(manga.directory.stringByReplacingOccurrencesOfString("file://", withString: ""), toPath: "/tmp/komikan/addmanga");
+                try FileManager.default.copyItem(atPath: manga.directory.replacingOccurrences(of: "file://", with: ""), toPath: "/tmp/komikan/addmanga");
             }
             catch _ as NSError {
                 
@@ -482,18 +482,18 @@ class KMAddMangaViewController: NSViewController {
         }
         
         // Clean up the directory
-        print("KMAddMangaViewController: \(KMCommandUtilities().runCommand(NSBundle.mainBundle().bundlePath + "/Contents/Resources/cleanmangadir", arguments: ["/tmp/komikan/addmanga"], waitUntilExit: true))");
+        print("KMAddMangaViewController: \(KMCommandUtilities().runCommand(Bundle.main.bundlePath + "/Contents/Resources/cleanmangadir", arguments: ["/tmp/komikan/addmanga"], waitUntilExit: true))");
         
         /// All the files in /tmp/komikan/addmanga
-        var addMangaFolderContents : NSArray = [];
+        var addMangaFolderContents : [String] = [];
         
         // Get the contents of /tmp/komikan/addmanga
         do {
             // Set addMangaFolderContents to all the files in /tmp/komikan/addmanga
-            addMangaFolderContents = try NSFileManager().contentsOfDirectoryAtPath("/tmp/komikan/addmanga");
+            addMangaFolderContents = try FileManager().contentsOfDirectory(atPath: "/tmp/komikan/addmanga");
             
             // Sort the files by their integer values
-            addMangaFolderContents = addMangaFolderContents.sortedArrayUsingDescriptors([NSSortDescriptor(key: "integerValue", ascending: true)]);
+            addMangaFolderContents = (addMangaFolderContents as NSArray).sortedArray(using: [NSSortDescriptor(key: "integerValue", ascending: true)]) as! [String];
         }
         catch _ as NSError {
             // Do nothing
@@ -504,13 +504,13 @@ class KMAddMangaViewController: NSViewController {
         var firstImage : NSImage = NSImage();
         
         // For every item in the addmanga folder...
-        for(_, currentFile) in addMangaFolderContents.enumerate() {
+        for(_, currentFile) in addMangaFolderContents.enumerated() {
             // If this file is an image and not a dot file...
-            if(KMFileUtilities().isImage("/tmp/komikan/addmanga/" + (currentFile as! String)) && ((currentFile as! String).substringToIndex((currentFile as! String).startIndex.successor())) != ".") {
+            if(KMFileUtilities().isImage("/tmp/komikan/addmanga/" + (currentFile )) && ((currentFile).substring(to: (currentFile).characters.index(after: (currentFile).startIndex))) != ".") {
                 // If the first image isnt already set...
                 if(firstImage.size == NSSize.zero) {
                     // Set the first image to the current image file
-                    firstImage = NSImage(contentsOfFile: "/tmp/komikan/addmanga/" + (currentFile as! String))!;
+                    firstImage = NSImage(contentsOfFile: "/tmp/komikan/addmanga/\(currentFile)")!;
                 }
             }
         }
@@ -533,16 +533,16 @@ class KMAddMangaViewController: NSViewController {
         // Delete /tmp/komikan/addmanga
         do {
             // Remove /tmp/komikan/addmanga
-            try NSFileManager().removeItemAtPath("/tmp/komikan/addmanga");
+            try FileManager().removeItem(atPath: "/tmp/komikan/addmanga");
             // If there is an error...
         } catch _ as NSError {
             // Do nothing
         }
         
         // Ask for the manga's directory, and if we clicked "Choose"...
-        if(Bool(chooseDirectoryOpenPanel.runModal())) {
+        if(Bool(chooseDirectoryOpenPanel.runModal() as NSNumber)) {
             // Set the adding manga URLs to the choose directory open panels URLs
-            addingMangaURLs = chooseDirectoryOpenPanel.URLs;
+            addingMangaURLs = chooseDirectoryOpenPanel.urls;
         }
     }
     
@@ -558,7 +558,7 @@ class KMAddMangaViewController: NSViewController {
         fetchJsonData();
         
         // Subscribe to the key down event
-        keyDownMonitor = NSEvent.addLocalMonitorForEventsMatchingMask(NSEventMask.KeyDownMask, handler: keyHandler);
+        keyDownMonitor = NSEvent.addLocalMonitorForEvents(matching: NSEventMask.keyDown, handler: keyHandler) as AnyObject?;
         
         // If we selected multiple files...
         if(addingMangaURLs.count > 1) {
@@ -566,13 +566,13 @@ class KMAddMangaViewController: NSViewController {
             addingMultiple = true;
             
             // Say we cant edit the image view
-            coverImageView.editable = false;
+            coverImageView.isEditable = false;
             
             // Dont allow us to set the title
-            titleTokenTextField.enabled = false;
+            titleTokenTextField.isEnabled = false;
             
             // Dont allow us to change the directory
-            chooseDirectoryButton.enabled = false;
+            chooseDirectoryButton.isEnabled = false;
             
             // Set the cover image image views image to NSFlowViewTemplate
             coverImageView.image = NSImage(named: "NSFlowViewTemplate");
@@ -581,7 +581,7 @@ class KMAddMangaViewController: NSViewController {
             // If the directory is not nothing...
             if(addingMangaURLs != []) {
                 // Set the new mangas directory
-                newManga.directory = addingMangaURLs[0].absoluteString.stringByRemovingPercentEncoding!;
+                newManga.directory = addingMangaURLs[0].absoluteString.removingPercentEncoding!;
             
                 // Get the information of the manga(Cover image, title, ETC.)(Change this function to be in KMManga)
                 newManga = getMangaInfo(newManga);
@@ -601,13 +601,13 @@ class KMAddMangaViewController: NSViewController {
         }
     }
     
-    func keyHandler(event : NSEvent) -> NSEvent {
+    func keyHandler(_ event : NSEvent) -> NSEvent {
         // If we pressed enter...
         if(event.keyCode == 36 || event.keyCode == 76) {
             // If the add button is enabled...
-            if(addButton.enabled) {
+            if(addButton.isEnabled) {
                 // Hide the popover
-                self.dismissController(self);
+                self.dismiss(self);
                 
                 // Add the chosen manga
                 addSelf();
@@ -628,6 +628,6 @@ class KMAddMangaViewController: NSViewController {
     
     func styleWindow() {
         // Set the background effect view to be dark
-        backgroundVisualEffectView.material = NSVisualEffectMaterial.Dark;
+        backgroundVisualEffectView.material = NSVisualEffectMaterial.dark;
     }
 }

@@ -69,7 +69,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     @IBOutlet weak var titlebarSearchField: NSTextField!
     
     // When we finish editing the titlebarSearchField...
-    @IBAction func titlebarSearchFieldInteracted(sender: AnyObject) {
+    @IBAction func titlebarSearchFieldInteracted(_ sender: AnyObject) {
         // Search for the passed string
         mangaGridController.searchFor((sender as? NSTextField)!.stringValue);
     }
@@ -78,12 +78,12 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     @IBOutlet weak var titlebarToggleSortDirectionButton: NSButton!
     
     // When we interact with titlebarToggleSortDirectionButton...
-    @IBAction func titlebarToggleSortDirectionButtonInteracted(sender: AnyObject) {
+    @IBAction func titlebarToggleSortDirectionButtonInteracted(_ sender: AnyObject) {
         // Set the current ascending order on the grid controller
-        mangaGridController.currentSortAscending = Bool(titlebarToggleSortDirectionButton.state);
+        mangaGridController.currentSortAscending = Bool(titlebarToggleSortDirectionButton.state as NSNumber);
         
         // Resort the grid based on which direction we said to sort it in
-        mangaGridController.arrayController.sortDescriptors = [NSSortDescriptor(key: mangaGridController.arrayController.sortDescriptors[0].key, ascending: Bool(titlebarToggleSortDirectionButton.state))];
+        mangaGridController.arrayController.sortDescriptors = [NSSortDescriptor(key: mangaGridController.arrayController.sortDescriptors[0].key, ascending: Bool(titlebarToggleSortDirectionButton.state as NSNumber))];
     }
     
     // The view controller we will load for the add manga popover
@@ -99,7 +99,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     @IBOutlet weak var infoBarGridSizeSlider: NSSlider!
     
     /// When the value for infoBarGridSizeSlider changes...
-    @IBAction func infoBarGridSizeSliderInteracted(sender: AnyObject) {
+    @IBAction func infoBarGridSizeSliderInteracted(_ sender: AnyObject) {
         // Set the manga collection view's item size to the sliders value(For both width and height so we get a square)
         mangaCollectionView.minItemSize = NSSize(width: infoBarGridSizeSlider.integerValue, height: infoBarGridSizeSlider.integerValue);
     }
@@ -111,9 +111,9 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     @IBOutlet weak var titlebarAddMangaButton: NSButton!
     
     // When we click titlebarAddMangaButton...
-    @IBAction func titlebarAddMangaButtonInteracted(sender: AnyObject) {
+    @IBAction func titlebarAddMangaButtonInteracted(_ sender: AnyObject) {
         // Show the add / import popover
-        showAddImportPopover(titlebarAddMangaButton.bounds, preferredEdge: NSRectEdge.MaxY, fileUrls: []);
+        showAddImportPopover(titlebarAddMangaButton.bounds, preferredEdge: NSRectEdge.maxY, fileUrls: []);
     }
     
     // The tab view in the titlebar that lets us sort the manga grid
@@ -123,7 +123,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     @IBOutlet var titlebarToggleListViewCheckbox: NSButton!
     
     /// When we interact with titlebarToggleListViewCheckbox...
-    @IBAction func titlebarToggleListViewCheckboxAction(sender: AnyObject) {
+    @IBAction func titlebarToggleListViewCheckboxAction(_ sender: AnyObject) {
         // Toggle the view we are in(List or grid)
         toggleView();
     }
@@ -132,7 +132,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     @IBOutlet var titlebarGroupViewTypeSelectionSegmentedControl: NSSegmentedControl!
     
     /// When we interact with titlebarGroupViewTypeSelectionSegmentedControl...
-    @IBAction func titlebarGroupViewTypeSelectionSegmentedControlInteracted(sender: AnyObject) {
+    @IBAction func titlebarGroupViewTypeSelectionSegmentedControlInteracted(_ sender: AnyObject) {
         // Update the group view to show the now selected group type
         updateGroupViewToSegmentedControl();
     }
@@ -141,13 +141,13 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     @IBOutlet var titlebarGroupViewSearchField: KMAlwaysActiveTextField!
     
     /// When we interact with titlebarGroupViewSearchField...
-    @IBAction func titlebarGroupViewSearchFieldInteracted(sender: AnyObject) {
+    @IBAction func titlebarGroupViewSearchFieldInteracted(_ sender: AnyObject) {
         // Search for the entered text
         mangaGroupController.searchFor(titlebarGroupViewSearchField.stringValue);
     }
     
     // Called when we hit "Add" in the addmanga popover
-    func addMangaFromAddMangaPopover(notification: NSNotification) {
+    func addMangaFromAddMangaPopover(_ notification: Notification) {
         // Print to the log that we are adding from the add popover
         print("ViewController: Adding from the add popover...");
         
@@ -157,7 +157,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             print("ViewController: Batch adding manga");
             
             // For every manga in the notifications manga array...
-            for (_, currentManga) in ((notification.object as? [KMManga])?.enumerate())! {
+            for (_, currentManga) in ((notification.object as? [KMManga])?.enumerated())! {
                 // Add the current manga to the grid
                 mangaGridController.addManga(currentManga, updateFilters: false);
             }
@@ -172,10 +172,10 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             finishedImportNotification.informativeText = "Finished importing \"" + (notification.object as? [KMManga])![0].series + "\"";
             
             // Set the notifications identifier to be an obscure string, so we can show multiple at once
-            finishedImportNotification.identifier = NSUUID().UUIDString;
+            finishedImportNotification.identifier = UUID().uuidString;
             
             // Deliver the notification
-            NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(finishedImportNotification);
+            NSUserNotificationCenter.default.deliver(finishedImportNotification);
             
             // Reload the filters
             mangaGridController.updateFilters();
@@ -212,10 +212,10 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         window.alphaValue = 0;
         
         // Set the collections views item prototype to the collection view item we created in Main.storyboard
-        mangaCollectionView.itemPrototype = storyboard?.instantiateControllerWithIdentifier("mangaCollectionViewItem") as? NSCollectionViewItem;
+        mangaCollectionView.itemPrototype = storyboard?.instantiateController(withIdentifier: "mangaCollectionViewItem") as? NSCollectionViewItem;
         
         // Set the group collection view's item prototype
-        groupCollectionView.itemPrototype = storyboard?.instantiateControllerWithIdentifier("groupCollectionViewItem") as? NSCollectionViewItem;
+        groupCollectionView.itemPrototype = storyboard?.instantiateController(withIdentifier: "groupCollectionViewItem") as? NSCollectionViewItem;
         
         // Set the max item size
         mangaCollectionView.maxItemSize = NSSize(width: 300, height: 300);
@@ -225,71 +225,71 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         groupCollectionView.minItemSize = NSSize(width: 200, height: 200);
         
         // Set the addFromEHMenuItem menu items action
-        (NSApplication.sharedApplication().delegate as! AppDelegate).addFromEHMenuItem.action = Selector("showAddFromEHPopover");
+        (NSApplication.shared().delegate as! AppDelegate).addFromEHMenuItem.action = #selector(ViewController.showAddFromEHPopover);
         
         // Set the toggle info bar menu items action
-        (NSApplication.sharedApplication().delegate as! AppDelegate).toggleInfoBarMenuItem.action = Selector("toggleInfoBar");
+        (NSApplication.shared().delegate as! AppDelegate).toggleInfoBarMenuItem.action = #selector(ViewController.toggleInfoBar);
         
         // Set the delete selected manga menu items action
-        (NSApplication.sharedApplication().delegate as! AppDelegate).deleteSelectedMangaMenuItem.action = Selector("removeSelectedItemsFromMangaGrid");
+        (NSApplication.shared().delegate as! AppDelegate).deleteSelectedMangaMenuItem.action = #selector(ViewController.removeSelectedItemsFromMangaGrid);
         
         // Set the mark selected manga as read menu items action
-        (NSApplication.sharedApplication().delegate as! AppDelegate).markSelectedAsReadMenuItem.action = Selector("markSelectedItemsAsRead");
+        (NSApplication.shared().delegate as! AppDelegate).markSelectedAsReadMenuItem.action = #selector(ViewController.markSelectedItemsAsRead);
         
         // Set the mark selected manga as unread menu items action
-        (NSApplication.sharedApplication().delegate as! AppDelegate).markSelectedAsUnreadMenuItem.action = Selector("markSelectedItemsAsUnread");
+        (NSApplication.shared().delegate as! AppDelegate).markSelectedAsUnreadMenuItem.action = #selector(ViewController.markSelectedItemsAsUnread);
         
         // Set the delete all manga menubar items action
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.deleteAllMangaMenuItem.action = Selector("deleteAllManga");
+        (NSApplication.shared().delegate as? AppDelegate)?.deleteAllMangaMenuItem.action = #selector(ViewController.deleteAllManga);
         
         // Set the add / import manga menubar items action
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.importAddMenuItem.action = Selector("showAddImportPopoverMenuItem");
+        (NSApplication.shared().delegate as? AppDelegate)?.importAddMenuItem.action = #selector(ViewController.showAddImportPopoverMenuItem);
         
         // Set the set selected items properties menubar items action
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.setSelectedItemsPropertiesMenuItems.action = Selector("showSetSelectedItemsPropertiesPopover");
+        (NSApplication.shared().delegate as? AppDelegate)?.setSelectedItemsPropertiesMenuItems.action = #selector(ViewController.showSetSelectedItemsPropertiesPopover);
         
         // Set the export manga JSON menubar items action
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.exportJsonForAllMangaMenuItem.action = Selector("exportMangaJSONForSelected");
+        (NSApplication.shared().delegate as? AppDelegate)?.exportJsonForAllMangaMenuItem.action = #selector(ViewController.exportMangaJSONForSelected);
         
         // Set the export manga JSON for migration menubar items action
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.exportJsonForAllMangaForMigrationMenuItem.action = Selector("exportMangaJSONForSelectedForMigration");
+        (NSApplication.shared().delegate as? AppDelegate)?.exportJsonForAllMangaForMigrationMenuItem.action = #selector(ViewController.exportMangaJSONForSelectedForMigration);
         
         // Set the fetch metadata for selected menubar items action
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.fetchMetadataForSelectedMenuItem.action = Selector("showFetchMetadataForSelectedItemsPopoverAtCenter");
+        (NSApplication.shared().delegate as? AppDelegate)?.fetchMetadataForSelectedMenuItem.action = #selector(ViewController.showFetchMetadataForSelectedItemsPopoverAtCenter);
         
         // Set the import menubar items action
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.importMenuItem.action = Selector("importMigrationFolder");
+        (NSApplication.shared().delegate as? AppDelegate)?.importMenuItem.action = #selector(ViewController.importMigrationFolder);
         
         // Set the toggle list view menubar items action
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.toggleListViewMenuItem.action = Selector("toggleView");
+        (NSApplication.shared().delegate as? AppDelegate)?.toggleListViewMenuItem.action = #selector(ViewController.toggleView);
         
         // Set the open menubar items action
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.openMenuItem.action = Selector("openSelectedManga");
+        (NSApplication.shared().delegate as? AppDelegate)?.openMenuItem.action = #selector(ViewController.openSelectedManga);
         
         // Set the select search field menubar items action
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.selectSearchFieldMenuItem.action = Selector("selectSearchField");
+        (NSApplication.shared().delegate as? AppDelegate)?.selectSearchFieldMenuItem.action = #selector(ViewController.selectSearchField);
         
         // Set the edit selected menubar items action
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.editSelectedMenuItem.action = Selector("openEditPopoverForSelected");
+        (NSApplication.shared().delegate as? AppDelegate)?.editSelectedMenuItem.action = #selector(ViewController.openEditPopoverForSelected);
         
         // Set the select manga view menubar items action
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.selectMangaViewMenuItem.action = Selector("selectMangaView");
+        (NSApplication.shared().delegate as? AppDelegate)?.selectMangaViewMenuItem.action = #selector(ViewController.selectMangaView);
         
         // Set the hide and show Komikan folders menubar items actions
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.hideKomikanFoldersMenuItem.action = Selector("hideKomikanMetadataFolders");
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.showKomikanFoldersMenuItem.action = Selector("showKomikanMetadataFolders");
+        (NSApplication.shared().delegate as? AppDelegate)?.hideKomikanFoldersMenuItem.action = #selector(ViewController.hideKomikanMetadataFolders);
+        (NSApplication.shared().delegate as? AppDelegate)?.showKomikanFoldersMenuItem.action = #selector(ViewController.showKomikanMetadataFolders);
         
         // Set the toggle group view menubar items action
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.toggleGroupViewMenuItem.action = Selector("toggleGroupView");
+        (NSApplication.shared().delegate as? AppDelegate)?.toggleGroupViewMenuItem.action = #selector(ViewController.toggleGroupView);
         
         // Set the AppDelegate's manga grid controller
-        (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController = mangaGridController;
+        (NSApplication.shared().delegate as! AppDelegate).mangaGridController = mangaGridController;
         
         // Set the AppDelegate's search text field
-        (NSApplication.sharedApplication().delegate as! AppDelegate).searchTextField = titlebarSearchField;
+        (NSApplication.shared().delegate as! AppDelegate).searchTextField = titlebarSearchField;
         
         // Set the AppDelegate's main view controller
-        (NSApplication.sharedApplication().delegate as! AppDelegate).mainViewController = self;
+        (NSApplication.shared().delegate as! AppDelegate).mainViewController = self;
         
         // Set the titlebar tab views delegate to self
         titlebarTabView.delegate = self;
@@ -299,30 +299,30 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         
         // Yes, I know I shouldnt do this here
         // Make sure the preferences file exists
-        if(NSFileManager.defaultManager().fileExistsAtPath(NSHomeDirectory() + "/Library/Application Support/Komikan/preferences")) {
+        if(FileManager.default.fileExists(atPath: NSHomeDirectory() + "/Library/Application Support/Komikan/preferences")) {
             // Create a variable to hold the preferences
             var preferencesString : String = "";
             
             // Try to get the contents of the preferences file in our application support folder
-            preferencesString = String(data: NSFileManager.defaultManager().contentsAtPath(NSHomeDirectory() + "/Library/Application Support/Komikan/preferences")!, encoding: NSUTF8StringEncoding)!;
+            preferencesString = String(data: FileManager.default.contents(atPath: NSHomeDirectory() + "/Library/Application Support/Komikan/preferences")!, encoding: String.Encoding.utf8)!;
             
             // For every line in the preferences string
-            for (currentIndex, currentElement) in preferencesString.componentsSeparatedByString("\n").enumerate() {
+            for (currentIndex, currentElement) in preferencesString.components(separatedBy: "\n").enumerated() {
                 // If this is the tenth line...
                 if(currentIndex == 9) {
                     // Set the default screen to be this lines value
-                    (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.defaultScreen = NSString(string: currentElement).integerValue;
+                    (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.defaultScreen = NSString(string: currentElement).integerValue;
                 }
             }
         }
         
         // If the default screen is the list...
-        if((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.defaultScreen == 1) {
+        if((NSApplication.shared().delegate as! AppDelegate).preferencesKepper.defaultScreen == 1) {
             // Show the list
             displayListView();
         }
         // If the default screen is the groups...
-        else if((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.defaultScreen == 2) {
+        else if((NSApplication.shared().delegate as! AppDelegate).preferencesKepper.defaultScreen == 2) {
             // Show the groups
             showGroupView();
         }
@@ -342,11 +342,11 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // If we arent in the group view...
         if(!groupViewOpen) {
             // Hide titlebarGroupViewTypeSelectionSegmentedControl
-            titlebarGroupViewTypeSelectionSegmentedControl.enabled = false;
+            titlebarGroupViewTypeSelectionSegmentedControl.isEnabled = false;
             titlebarGroupViewTypeSelectionSegmentedControl.alphaValue = 0;
             
             // Hide the group view search field
-            titlebarGroupViewSearchField.enabled = false;
+            titlebarGroupViewSearchField.isEnabled = false;
             titlebarGroupViewSearchField.alphaValue = 0;
         }
         
@@ -354,51 +354,51 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // If the tab view item we have selected is the Title sort one...
         if(titlebarTabView.selectedTabViewItem!.label == "Title") {
             // Sort the manga grid by title
-            mangaGridController.sort(KMMangaGridSortType.Title, ascending: true);
+            mangaGridController.sort(KMMangaGridSortType.title, ascending: true);
         }
         // If the tab view item we have selected is the Series sort one...
         else if(titlebarTabView.selectedTabViewItem!.label == "Series") {
             // Sort the manga grid by series
-            mangaGridController.sort(KMMangaGridSortType.Series, ascending: true);
+            mangaGridController.sort(KMMangaGridSortType.series, ascending: true);
         }
         // If the tab view item we have selected is the Artist sort one...
         else if(titlebarTabView.selectedTabViewItem!.label == "Artist") {
             // Sort the manga grid by artist
-            mangaGridController.sort(KMMangaGridSortType.Artist, ascending: true);
+            mangaGridController.sort(KMMangaGridSortType.artist, ascending: true);
         }
         
         // Subscribe to the magnify event
-        NSEvent.addLocalMonitorForEventsMatchingMask(NSEventMask.EventMaskMagnify, handler: magnifyEvent);
+        NSEvent.addLocalMonitorForEvents(matching: NSEventMask.magnify, handler: magnifyEvent);
         
         // Create some options for the manga grid KVO
-        let options = NSKeyValueObservingOptions([.New, .Old, .Initial, .Prior]);
+        let options = NSKeyValueObservingOptions([.new, .old, .initial, .prior]);
         
         // Subscribe to when the manga grid changes its values in any way
         mangaGridController.arrayController.addObserver(self, forKeyPath: "arrangedObjects", options: options, context: nil);
         
         // Show the window after 0.1 seconds, so we dont get loading artifacts
-        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target: self, selector: Selector("showWindowAlpha"), userInfo: nil, repeats: false);
+        Timer.scheduledTimer(timeInterval: TimeInterval(0.1), target: self, selector: #selector(ViewController.showWindowAlpha), userInfo: nil, repeats: false);
         
         // Subscribe to the edit manga popovers remove notification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "removeSelectItemFromMangaGrid:", name:"KMEditMangaViewController.Remove", object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.removeSelectItemFromMangaGrid(_:)), name:NSNotification.Name(rawValue: "KMEditMangaViewController.Remove"), object: nil);
         
         // Subscribe to the global redraw manga grid notification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateMangaGrid", name:"ViewController.UpdateMangaGrid", object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.updateMangaGrid), name:NSNotification.Name(rawValue: "ViewController.UpdateMangaGrid"), object: nil);
         
         // Subscribe to the global application will quit notification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "saveManga", name:"Application.WillQuit", object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.saveManga), name:NSNotification.Name(rawValue: "Application.WillQuit"), object: nil);
         
         // Subscribe to the global application will quit notification with the manga grid scale
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "saveMangaGridScale", name:"Application.WillQuit", object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.saveMangaGridScale), name:NSNotification.Name(rawValue: "Application.WillQuit"), object: nil);
         
         // Subscribe to the Drag and Drop add / import notification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "showAddImportPopoverDragAndDrop:", name:"MangaGrid.DropFiles", object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.showAddImportPopoverDragAndDrop(_:)), name:NSNotification.Name(rawValue: "MangaGrid.DropFiles"), object: nil);
         
         // Subscribe to the application's preferences saved notification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadPreferenceValues", name:"Application.PreferencesLoaded", object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.loadPreferenceValues), name:NSNotification.Name(rawValue: "Application.PreferencesLoaded"), object: nil);
     }
     
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         // If the keyPath is the one for the manga grids arranged objets...
         if(keyPath == "arrangedObjects") {
             // Update the manga count in the info bar
@@ -424,10 +424,10 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     }
     
     /// The grid selection stored by storeCurrentSelection
-    var storedGridSelection : NSIndexSet = NSIndexSet();
+    var storedGridSelection : IndexSet = IndexSet();
     
     /// The list selection stored by storeCurrentSelection
-    var storedListSelection : NSIndexSet = NSIndexSet();
+    var storedListSelection : IndexSet = IndexSet();
     
     /// The grid scroll point stored by storeCurrentSelection
     var storedGridScrollPoint : NSPoint = NSPoint();
@@ -443,7 +443,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             mangaTableView.selectRowIndexes(storedListSelection, byExtendingSelection: false);
             
             // Restore the scroll position
-            mangaTableViewScrollView.contentView.scrollToPoint(storedListScrollPoint)
+            mangaTableViewScrollView.contentView.scroll(to: storedListScrollPoint)
         }
         // If we are in grid view...
         else {
@@ -451,7 +451,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             mangaCollectionView.selectionIndexes = storedGridSelection;
             
             // Restore the scroll position
-            mangaCollectionViewScrollView.contentView.scrollToPoint(storedGridScrollPoint);
+            mangaCollectionViewScrollView.contentView.scroll(to: storedGridScrollPoint);
         }
     }
     
@@ -479,7 +479,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     /// Shows the selected group in the group view's manga
     func openSelectedGroupItem() {
         /// Display the manga for the selected item
-        (groupCollectionView.itemAtIndex(groupCollectionView.selectionIndexes.firstIndex) as! KMMangaGroupCollectionItem).displayManga();
+        (groupCollectionView.item(at: groupCollectionView.selectionIndexes.first!) as! KMMangaGroupCollectionItem).displayManga();
     }
     
     /// Updates the group view to match the selected cell in titlebarGroupViewTypeSelectionSegmentedControl
@@ -487,19 +487,19 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // Switch on the selected segment, no comments(Its pretty obvious what it's doing)
         switch(titlebarGroupViewTypeSelectionSegmentedControl.selectedSegment) {
             case 0:
-                mangaGroupController.showGroupType(.Series);
+                mangaGroupController.showGroupType(.series);
                 break;
             case 1:
-                mangaGroupController.showGroupType(.Artist);
+                mangaGroupController.showGroupType(.artist);
                 break;
             case 2:
-                mangaGroupController.showGroupType(.Writer);
+                mangaGroupController.showGroupType(.writer);
                 break;
             case 3:
-                mangaGroupController.showGroupType(.Group);
+                mangaGroupController.showGroupType(.group);
                 break;
             default:
-                mangaGroupController.showGroupType(.Series);
+                mangaGroupController.showGroupType(.series);
                 break;
         }
         
@@ -536,7 +536,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         updateGroupViewToSegmentedControl();
         
         // Show the group view
-        groupCollectionViewScrollView.hidden = false;
+        groupCollectionViewScrollView.isHidden = false;
         
         // Select the group view
         self.window.makeFirstResponder(groupCollectionViewScrollView);
@@ -544,7 +544,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // If we are in list view...
         if(inListView) {
             // Hide the list view
-            mangaTableViewScrollView.hidden = true;
+            mangaTableViewScrollView.isHidden = true;
             
             // Hide any possible hover thumbnails
             thumbnailImageHoverController.hide();
@@ -552,21 +552,21 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // If we are in grid view...
         else {
             // Hide the grid view
-            mangaCollectionViewScrollView.hidden = true;
+            mangaCollectionViewScrollView.isHidden = true;
         }
         
         // Swap search fields
-        titlebarGroupViewSearchField.enabled = true;
-        titlebarGroupViewSearchField.hidden = false;
+        titlebarGroupViewSearchField.isEnabled = true;
+        titlebarGroupViewSearchField.isHidden = false;
         
-        titlebarSearchField.enabled = false;
-        titlebarSearchField.hidden = true;
+        titlebarSearchField.isEnabled = false;
+        titlebarSearchField.isHidden = true;
         
         // Disable the view switch button
-        titlebarToggleListViewCheckbox.enabled = false;
+        titlebarToggleListViewCheckbox.isEnabled = false;
         
         // Set the select search field menu item's action
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.selectSearchFieldMenuItem.action = Selector("selectGroupViewSearchField");
+        (NSApplication.shared().delegate as? AppDelegate)?.selectSearchFieldMenuItem.action = #selector(ViewController.selectGroupViewSearchField);
         
         // Fade out the toggle view button
         titlebarToggleListViewCheckbox.animator().alphaValue = 0;
@@ -582,11 +582,11 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         }
         
         // Fade in titlebarGroupViewTypeSelectionSegmentedControl
-        titlebarGroupViewTypeSelectionSegmentedControl.enabled = true;
+        titlebarGroupViewTypeSelectionSegmentedControl.isEnabled = true;
         titlebarGroupViewTypeSelectionSegmentedControl.animator().alphaValue = 1;
         
         // Set the open menubar items action
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.openMenuItem.action = Selector("openSelectedGroupItem");
+        (NSApplication.shared().delegate as? AppDelegate)?.openMenuItem.action = #selector(ViewController.openSelectedGroupItem);
     }
     
     /// Hides the group view
@@ -595,12 +595,12 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         groupViewOpen = false;
         
         // Hide the group view
-        groupCollectionViewScrollView.hidden = true;
+        groupCollectionViewScrollView.isHidden = true;
         
         // If we are in list view...
         if(inListView) {
             // Show the list view
-            mangaTableViewScrollView.hidden = false;
+            mangaTableViewScrollView.isHidden = false;
             
             // Select the list view
             self.window.makeFirstResponder(mangaTableView);
@@ -608,24 +608,24 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // If we are in grid view...
         else {
             // Show the grid view
-            mangaCollectionViewScrollView.hidden = false;
+            mangaCollectionViewScrollView.isHidden = false;
             
             // Select the grid view
             self.window.makeFirstResponder(mangaCollectionView);
         }
         
         // Swap search fields
-        titlebarGroupViewSearchField.enabled = false;
-        titlebarGroupViewSearchField.hidden = true;
+        titlebarGroupViewSearchField.isEnabled = false;
+        titlebarGroupViewSearchField.isHidden = true;
         
-        titlebarSearchField.enabled = true;
-        titlebarSearchField.hidden = false;
+        titlebarSearchField.isEnabled = true;
+        titlebarSearchField.isHidden = false;
         
         // Enable the view switch button
-        titlebarToggleListViewCheckbox.enabled = true;
+        titlebarToggleListViewCheckbox.isEnabled = true;
         
         // Set the select search field menu item's action
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.selectSearchFieldMenuItem.action = Selector("selectSearchField");
+        (NSApplication.shared().delegate as? AppDelegate)?.selectSearchFieldMenuItem.action = #selector(ViewController.selectSearchField);
         
         // Fade in the toggle view button
         titlebarToggleListViewCheckbox.animator().alphaValue = 1;
@@ -641,11 +641,11 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         }
         
         // Fade out titlebarGroupViewTypeSelectionSegmentedControl
-        titlebarGroupViewTypeSelectionSegmentedControl.enabled = false;
+        titlebarGroupViewTypeSelectionSegmentedControl.isEnabled = false;
         titlebarGroupViewTypeSelectionSegmentedControl.animator().alphaValue = 0;
         
         // Set the open menubar items action back
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.openMenuItem.action = Selector("openSelectedManga");
+        (NSApplication.shared().delegate as? AppDelegate)?.openMenuItem.action = #selector(ViewController.openSelectedManga);
     }
     
     /// Asks the user for a folder, then hides all the Komikan metadata folders in that folder and it's subfolders
@@ -663,21 +663,21 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         hideOpenPanel.prompt = "Select";
         
         // Run the modal, and if they clicked "Select"...
-        if(Bool(hideOpenPanel.runModal())) {
+        if(Bool(hideOpenPanel.runModal() as NSNumber)) {
             /// The path to the folder we want to hide Komikan folders in
-            let hideFolderPath : String = hideOpenPanel.URL!.absoluteString.stringByRemovingPercentEncoding!.stringByReplacingOccurrencesOfString("file://", withString: "");
+            let hideFolderPath : String = hideOpenPanel.url!.absoluteString.removingPercentEncoding!.replacingOccurrences(of: "file://", with: "");
             
             /// The file enumerator for the folder we want to hide Komikan folders in
-            let hideFolderFileEnumerator : NSDirectoryEnumerator = NSFileManager.defaultManager().enumeratorAtPath(hideFolderPath)!;
+            let hideFolderFileEnumerator : FileManager.DirectoryEnumerator = FileManager.default.enumerator(atPath: hideFolderPath)!;
             
             // For every file in the folder we want to hide Komikan folders in...
-            for(_, currentFile) in hideFolderFileEnumerator.enumerate() {
+            for(_, currentFile) in hideFolderFileEnumerator.enumerated() {
                 // If the current file is a folder...
-                if(NSString(string: hideFolderPath + String(currentFile)).pathExtension == "") {
+                if(NSString(string: hideFolderPath + String(describing: currentFile)).pathExtension == "") {
                     // If the current file's name is "Komikan"...
-                    if(NSString(string: hideFolderPath + String(currentFile)).lastPathComponent == "Komikan") {
+                    if(NSString(string: hideFolderPath + String(describing: currentFile)).lastPathComponent == "Komikan") {
                         // Hide the current folder
-                        KMCommandUtilities().runCommand("/usr/bin/chflags", arguments: ["hidden", hideFolderPath + String(currentFile)], waitUntilExit: true);
+                        _ = KMCommandUtilities().runCommand("/usr/bin/chflags", arguments: ["hidden", hideFolderPath + String(describing: currentFile)], waitUntilExit: true);
                     }
                 }
             }
@@ -699,21 +699,21 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         showOpenPanel.prompt = "Select";
         
         // Run the modal, and if they clicked "Select"...
-        if(Bool(showOpenPanel.runModal())) {
+        if(Bool(showOpenPanel.runModal() as NSNumber)) {
             /// The path to the folder we want to show Komikan folders in
-            let showFolderPath : String = showOpenPanel.URL!.absoluteString.stringByRemovingPercentEncoding!.stringByReplacingOccurrencesOfString("file://", withString: "");
+            let showFolderPath : String = showOpenPanel.url!.absoluteString.removingPercentEncoding!.replacingOccurrences(of: "file://", with: "");
             
             /// The file enumerator for the folder we want to show Komikan folders in
-            let showFolderFileEnumerator : NSDirectoryEnumerator = NSFileManager.defaultManager().enumeratorAtPath(showFolderPath)!;
+            let showFolderFileEnumerator : FileManager.DirectoryEnumerator = FileManager.default.enumerator(atPath: showFolderPath)!;
             
             // For every file in the folder we want to show Komikan folders in...
-            for(_, currentFile) in showFolderFileEnumerator.enumerate() {
+            for(_, currentFile) in showFolderFileEnumerator.enumerated() {
                 // If the current file is a folder...
-                if(NSString(string: showFolderPath + String(currentFile)).pathExtension == "") {
+                if(NSString(string: showFolderPath + String(describing: currentFile)).pathExtension == "") {
                     // If the current file's name is "Komikan"...
-                    if(NSString(string: showFolderPath + String(currentFile)).lastPathComponent == "Komikan") {
+                    if(NSString(string: showFolderPath + String(describing: currentFile)).lastPathComponent == "Komikan") {
                         // Show the current folder
-                        KMCommandUtilities().runCommand("/usr/bin/chflags", arguments: ["nohidden", showFolderPath + String(currentFile)], waitUntilExit: true);
+                        _ = KMCommandUtilities().runCommand("/usr/bin/chflags", arguments: ["nohidden", showFolderPath + String(describing: currentFile)], waitUntilExit: true);
                     }
                 }
             }
@@ -735,9 +735,9 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         importOpenPanel.prompt = "Import";
         
         // Run the modal, and if they click "Choose"....
-        if(Bool(importOpenPanel.runModal())) {
+        if(Bool(importOpenPanel.runModal() as NSNumber)) {
             /// The path to the folder the user said to import
-            let importFolderPath : String = (importOpenPanel.URL!.absoluteString.stringByRemovingPercentEncoding?.stringByReplacingOccurrencesOfString("file://", withString: ""))!;
+            let importFolderPath : String = (importOpenPanel.url!.absoluteString.removingPercentEncoding?.replacingOccurrences(of: "file://", with: ""))!;
             
             /// The migration importer we will use
             let migrationImporter : KMMigrationImporter = KMMigrationImporter();
@@ -767,7 +767,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     /// Opens the edit popover for the selected manga items
     func openEditPopoverForSelected() {
         /// The index of the item we want to open the edit popover for(The first index in the selection indexes)
-        let indexToPopover : Int = selectedItemIndexes().firstIndex;
+        let indexToPopover : Int = selectedItemIndexes().first!;
         
         // If we are in list view...
         if(inListView) {
@@ -775,7 +775,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             mangaListController.mangaListTableView.deselectAll(self);
             
             // Select the one we wanted to popover
-            mangaListController.mangaListTableView.selectRowIndexes(NSIndexSet(index: indexToPopover), byExtendingSelection: false);
+            mangaListController.mangaListTableView.selectRowIndexes(IndexSet(integer: indexToPopover), byExtendingSelection: false);
             
             // Open the popover for the selected item
             mangaListController.openPopover(false, manga: mangaListController.selectedManga());
@@ -786,10 +786,10 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             mangaCollectionView.deselectAll(self);
             
             // Select the item at indexToPopover
-            mangaCollectionView.itemAtIndex(indexToPopover)?.selected = true;
+            mangaCollectionView.item(at: indexToPopover)?.isSelected = true;
             
             // Open the popover for the item at indexToPopover
-            (mangaCollectionView.itemAtIndex(indexToPopover) as! KMMangaGridCollectionItem).openPopover(false);
+            (mangaCollectionView.item(at: indexToPopover) as! KMMangaGridCollectionItem).openPopover(false);
         }
     }
     
@@ -803,9 +803,9 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // If we are in grid view...
         else {
             // For every selection index...
-            for(_, currentSelectionIndex) in selectedItemIndexes().enumerate() {
+            for(_, currentSelectionIndex) in selectedItemIndexes().enumerated() {
                 // Get the KMMangaGridCollectionItem at the current selection index and open it in the reader
-                (mangaCollectionView.itemAtIndex(currentSelectionIndex) as? KMMangaGridCollectionItem)!.openManga();
+                (mangaCollectionView.item(at: currentSelectionIndex) as? KMMangaGridCollectionItem)!.openManga();
             }
         }
     }
@@ -867,10 +867,10 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         mangaTableView.needsDisplay = true;
         
         // Show the list view
-        mangaTableViewScrollView.hidden = false;
+        mangaTableViewScrollView.isHidden = false;
         
         // Hide the grid view
-        mangaCollectionViewScrollView.hidden = true;
+        mangaCollectionViewScrollView.isHidden = true;
         
         // Hide the thumbnail window
         thumbnailImageHoverController.hide();
@@ -901,9 +901,9 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         mangaCollectionView.deselectAll(self);
         
         // For every selected index in the list...
-        for(_, currentIndexSet) in mangaTableView.selectedRowIndexes.enumerate() {
+        for(_, currentIndexSet) in mangaTableView.selectedRowIndexes.enumerated() {
             // Select the item at the given index in the grid
-            mangaCollectionView.itemAtIndex(currentIndexSet)?.selected = true;
+            mangaCollectionView.item(at: currentIndexSet)?.isSelected = true;
         }
         
         // Deselect all the items in the list
@@ -914,10 +914,10 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         mangaCollectionViewScrollView.needsDisplay = true;
         
         // Hide the list view
-        mangaTableViewScrollView.hidden = true;
+        mangaTableViewScrollView.isHidden = true;
         
         // Show the grid view
-        mangaCollectionViewScrollView.hidden = false;
+        mangaCollectionViewScrollView.isHidden = false;
         
         // Hide the thumbnail window
         thumbnailImageHoverController.hide();
@@ -931,9 +931,9 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     }
     
     /// Returns the indexes of the selected manga items
-    func selectedItemIndexes() -> NSIndexSet {
+    func selectedItemIndexes() -> IndexSet {
         /// The indexes of the selected manga items
-        var selectionIndexes : NSIndexSet = NSIndexSet();
+        var selectionIndexes : IndexSet = IndexSet();
         
         // If we are in list view...
         if(inListView) {
@@ -976,7 +976,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         var selectedGridItems : [KMMangaGridItem] = [];
         
         // For every selection index of the manga grid...
-        for(_, currentIndex) in selectedItemIndexes().enumerate() {
+        for(_, currentIndex) in selectedItemIndexes().enumerated() {
             // Add the item at the set index to the selected items
             selectedGridItems.append((mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])![currentIndex]);
         }
@@ -991,7 +991,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         var selectedManga : [KMManga] = [];
         
         // For every item in the selected grid items...
-        for(_, currentGridItem) in selectedGridItems().enumerate() {
+        for(_, currentGridItem) in selectedGridItems().enumerated() {
             // Add the current grid item's manga to the selected manga
             selectedManga.append(currentGridItem.manga);
         }
@@ -1001,7 +1001,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     }
     
     /// Called when the user does a magnify gesture on the trackpad
-    func magnifyEvent(event : NSEvent) -> NSEvent {
+    func magnifyEvent(_ event : NSEvent) -> NSEvent {
         // Add the magnification amount to the grid size slider
         infoBarGridSizeSlider.floatValue += Float(event.magnification);
         
@@ -1015,7 +1015,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     /// Called after AppDelegate has loaded the preferences from the preferences file
     func loadPreferenceValues() {
         // Load the manga grid scale
-        infoBarGridSizeSlider.integerValue = (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.mangaGridScale;
+        infoBarGridSizeSlider.integerValue = (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.mangaGridScale;
         
         // Update the grid size with the grid size slider
         infoBarGridSizeSliderInteracted(infoBarGridSizeSlider);
@@ -1024,7 +1024,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     /// Saves the scale of the manga grid
     func saveMangaGridScale() {
         // Save the manga grid scale into AppDelegate
-        (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.mangaGridScale = infoBarGridSizeSlider.integerValue;
+        (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.mangaGridScale = infoBarGridSizeSlider.integerValue;
     }
     
     /// Exports JSON for all the selected manga in the grid without internal information
@@ -1036,7 +1036,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         let selectedManga : [KMManga] = selectedGridItemManga();
         
         // For every selected manga...
-        for(_, currentManga) in selectedManga.enumerate() {
+        for(_, currentManga) in selectedManga.enumerated() {
             // Export the current manga's JSON
             KMFileUtilities().exportMangaJSON(currentManga, exportInternalInfo: false);
         }
@@ -1051,16 +1051,16 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         finishedNotification.informativeText = "Finshed exporting Metadata";
         
         // Set the notifications identifier to be an obscure string, so we can show multiple at once
-        finishedNotification.identifier = NSUUID().UUIDString;
+        finishedNotification.identifier = UUID().uuidString;
         
         // Deliver the notification
-        NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(finishedNotification);
+        NSUserNotificationCenter.default.deliver(finishedNotification);
     }
     
     /// Exports the internal JSON for the selected manga items(Meant for when the user switches computers or something and wants to keep metadata)
     func exportMangaJSONForSelectedForMigration() {
         // For every selected manga item...
-        for(_, currentGridItem) in selectedGridItems().enumerate() {
+        for(_, currentGridItem) in selectedGridItems().enumerated() {
             // Export this items manga's info
             KMFileUtilities().exportMangaJSON(currentGridItem.manga, exportInternalInfo: true);
         }
@@ -1075,10 +1075,10 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         finishedNotification.informativeText = "Finshed exporting Metadata";
         
         // Set the notifications identifier to be an obscure string, so we can show multiple at once
-        finishedNotification.identifier = NSUUID().UUIDString;
+        finishedNotification.identifier = UUID().uuidString;
         
         // Deliver the notification
-        NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(finishedNotification);
+        NSUserNotificationCenter.default.deliver(finishedNotification);
     }
     
     /// The view controller that will load for the metadata fetching popover
@@ -1088,25 +1088,25 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     var fetchMetadataViewFirstLoad : Bool = true;
     
     /// Shows the fetch metadata popover at the given rect on the given side
-    func showFetchMetadataForSelectedItemsPopover(relativeToRect: NSRect, preferredEdge: NSRectEdge) {
+    func showFetchMetadataForSelectedItemsPopover(_ relativeToRect: NSRect, preferredEdge: NSRectEdge) {
         // If there are any selected manga...
         if(selectedItemCount() != 0) {
             // Get the main storyboard
             let storyboard = NSStoryboard(name: "Main", bundle: nil);
             
             // Instanstiate the view controller for the fetch metadata popover
-            fetchMetadataViewController = storyboard.instantiateControllerWithIdentifier("metadataFetcherViewController") as? KMMetadataFetcherViewController;
+            fetchMetadataViewController = storyboard.instantiateController(withIdentifier: "metadataFetcherViewController") as? KMMetadataFetcherViewController;
             
             // Set the fetch metadata popover's selected manga
             fetchMetadataViewController?.selectedMangaGridItems = selectedGridItems();
             
             // Present the fetchMetadataViewController as a popover at the given relative rect on the given preferred edge
-            fetchMetadataViewController!.presentViewController(fetchMetadataViewController!, asPopoverRelativeToRect: relativeToRect, ofView: backgroundVisualEffectView, preferredEdge: preferredEdge, behavior: NSPopoverBehavior.Transient);
+            fetchMetadataViewController!.presentViewController(fetchMetadataViewController!, asPopoverRelativeTo: relativeToRect, of: backgroundVisualEffectView, preferredEdge: preferredEdge, behavior: NSPopoverBehavior.transient);
             
             // If this is the first time we have opened the popover...
             if(fetchMetadataViewFirstLoad) {
                 // Subscribe to the popovers finished notification
-                NSNotificationCenter.defaultCenter().addObserver(self, selector: "fetchMetadataForSelectedItemsPopoverFinished:", name:"KMMetadataFetcherViewController.Finished", object: nil);
+                NotificationCenter.default.addObserver(self, selector: #selector(ViewController.fetchMetadataForSelectedItemsPopoverFinished(_:)), name:NSNotification.Name(rawValue: "KMMetadataFetcherViewController.Finished"), object: nil);
                 
                 // Say that all the next loads are not the first
                 fetchMetadataViewFirstLoad = false;
@@ -1117,11 +1117,11 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     /// Calls showFetchMetadataForSelectedItemsPopover so it opens in the center
     func showFetchMetadataForSelectedItemsPopoverAtCenter() {
         // Show the fetch metadata popover in the center of the window with the arrow pointing down
-        showFetchMetadataForSelectedItemsPopover(NSRect(x: 0, y: 0, width: window.contentView!.bounds.width, height: window.contentView!.bounds.height / 2), preferredEdge: NSRectEdge.MaxY);
+        showFetchMetadataForSelectedItemsPopover(NSRect(x: 0, y: 0, width: window.contentView!.bounds.width, height: window.contentView!.bounds.height / 2), preferredEdge: NSRectEdge.maxY);
     }
     
     /// Called when the fetch metadata for selected manga popover is done
-    func fetchMetadataForSelectedItemsPopoverFinished(notification : NSNotification) {
+    func fetchMetadataForSelectedItemsPopoverFinished(_ notification : Notification) {
         // Update the manga
         updateMangaGrid();
         
@@ -1143,15 +1143,15 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             let storyboard = NSStoryboard(name: "Main", bundle: nil);
             
             // Instanstiate the view controller for the set selected items properties popover
-            setSelectedItemsPropertiesViewController = storyboard.instantiateControllerWithIdentifier("setSelectedItemsPropertiesViewController") as? KMSetSelectedItemsPropertiesViewController;
+            setSelectedItemsPropertiesViewController = storyboard.instantiateController(withIdentifier: "setSelectedItemsPropertiesViewController") as? KMSetSelectedItemsPropertiesViewController;
             
             // Present the setSelectedItemsPropertiesViewController as a popover so it is in the center of the window and the arrow is pointing down
-            setSelectedItemsPropertiesViewController!.presentViewController(setSelectedItemsPropertiesViewController!, asPopoverRelativeToRect: NSRect(x: 0, y: 0, width: window.contentView!.bounds.width, height: window.contentView!.bounds.height / 2), ofView: backgroundVisualEffectView, preferredEdge: NSRectEdge.MaxY, behavior: NSPopoverBehavior.Transient);
+            setSelectedItemsPropertiesViewController!.presentViewController(setSelectedItemsPropertiesViewController!, asPopoverRelativeTo: NSRect(x: 0, y: 0, width: window.contentView!.bounds.width, height: window.contentView!.bounds.height / 2), of: backgroundVisualEffectView, preferredEdge: NSRectEdge.maxY, behavior: NSPopoverBehavior.transient);
             
             // If this is the first time we have opened the popover...
             if(setSelectedItemsPropertiesViewFirstLoad) {
                 // Subscribe to the popovers finished notification
-                NSNotificationCenter.defaultCenter().addObserver(self, selector: "setSelectedItemsProperties:", name:"KMSetSelectedItemsPropertiesViewController.Finished", object: nil);
+                NotificationCenter.default.addObserver(self, selector: #selector(ViewController.setSelectedItemsProperties(_:)), name:NSNotification.Name(rawValue: "KMSetSelectedItemsPropertiesViewController.Finished"), object: nil);
                 
                 // Say that all the next loads are not the first
                 setSelectedItemsPropertiesViewFirstLoad = false;
@@ -1160,7 +1160,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     }
     
     /// Called by the set selected items properties popover to apply the given values to the selected items
-    func setSelectedItemsProperties(notification : NSNotification) {
+    func setSelectedItemsProperties(_ notification : Notification) {
         // Print to the log thatr we are setting the selected items properties
         print("ViewController: Setting selected items properties to properties from popover");
         
@@ -1171,7 +1171,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         let propertiesHolder : KMSetSelectedPropertiesHolder = (notification.object as! KMSetSelectedPropertiesHolder);
         
         // For every item in the manga grid that we set the properties of...
-        for(_, currentItem) in selectionItemsToSetProperties.enumerate() {
+        for(_, currentItem) in selectionItemsToSetProperties.enumerated() {
             // Apply the propertie holders values to the current item
             propertiesHolder.applyValuesToManga(currentItem.manga);
         }
@@ -1195,18 +1195,18 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     /// Shows the add / import popover, without passing variables for the menu item
     func showAddImportPopoverMenuItem() {
         // Show the add / import popover
-        showAddImportPopover(titlebarAddMangaButton.bounds, preferredEdge: NSRectEdge.MaxY, fileUrls: []);
+        showAddImportPopover(titlebarAddMangaButton.bounds, preferredEdge: NSRectEdge.maxY, fileUrls: []);
     }
     
     /// Shows the add / import popover with the passed notifications object(Should be a list of file URL strings)(Used only by drag and drop import)
-    func showAddImportPopoverDragAndDrop(notification : NSNotification) {
+    func showAddImportPopoverDragAndDrop(_ notification : Notification) {
         /// The file URLs we will pass to the popover
-        var fileUrls : [NSURL] = [];
+        var fileUrls : [URL] = [];
         
         // For every item in the notifications objects(As a list of strings)...
-        for(_, currentStringURL) in (notification.object as! [String]).enumerate() {
+        for(_, currentStringURL) in (notification.object as! [String]).enumerated() {
             /// The NSURL of the current file
-            let currentFileURL : NSURL = NSURL(fileURLWithPath: currentStringURL);
+            let currentFileURL : URL = URL(fileURLWithPath: currentStringURL);
             
             /// The extension of the current file
             let currentFileExtension : String = KMFileUtilities().getFileExtension(currentFileURL);
@@ -1226,28 +1226,28 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // If there were any files that matched the extension...
         if(fileUrls != []) {
             // Show the add / import popover under the add button with the file URLs we dragged in
-            showAddImportPopover(titlebarAddMangaButton.bounds, preferredEdge: NSRectEdge.MaxY, fileUrls: fileUrls);
+            showAddImportPopover(titlebarAddMangaButton.bounds, preferredEdge: NSRectEdge.maxY, fileUrls: fileUrls);
         }
     }
     
     /// Shows the add / import popover with the origin rect as where the arrow comes from, and the preferredEdge as to which side to come from. Also if fileUrls is not [], it will not show the file choosing dialog and go staright to the properties popover with the passed file URLs
-    func showAddImportPopover(origin : NSRect, preferredEdge : NSRectEdge, fileUrls : [NSURL]) {
+    func showAddImportPopover(_ origin : NSRect, preferredEdge : NSRectEdge, fileUrls : [URL]) {
         // Get the main storyboard
         let storyboard = NSStoryboard(name: "Main", bundle: nil);
         
         // Instanstiate the view controller for the add manga view controller
-        addMangaViewController = storyboard.instantiateControllerWithIdentifier("addMangaViewController") as? KMAddMangaViewController;
+        addMangaViewController = storyboard.instantiateController(withIdentifier: "addMangaViewController") as? KMAddMangaViewController;
         
         // Set the add manga view controllers add manga file URLs that we were passed
         addMangaViewController!.addingMangaURLs = fileUrls;
         
         // Present the addMangaViewController as a popover using the add buttons rect, on the max y edge, and with a semitransient behaviour
-        addMangaViewController!.presentViewController(addMangaViewController!, asPopoverRelativeToRect: origin, ofView: titlebarAddMangaButton, preferredEdge: preferredEdge, behavior: NSPopoverBehavior.Semitransient);
+        addMangaViewController!.presentViewController(addMangaViewController!, asPopoverRelativeTo: origin, of: titlebarAddMangaButton, preferredEdge: preferredEdge, behavior: NSPopoverBehavior.semitransient);
         
         // If this is the first time we have pushed this button...
         if(addMangaViewFirstLoad) {
             // Subscribe to the popovers finished notification
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "addMangaFromAddMangaPopover:", name:"KMAddMangaViewController.Finished", object: nil);
+            NotificationCenter.default.addObserver(self, selector: #selector(ViewController.addMangaFromAddMangaPopover(_:)), name:NSNotification.Name(rawValue: "KMAddMangaViewController.Finished"), object: nil);
             
             // Say that all the next loads are not the first
             addMangaViewFirstLoad = false;
@@ -1262,7 +1262,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     // When changing the values, it doesnt update right. Call this function to reload it
     func updateMangaGrid() {
         // Redraw the collection view to match the updated content
-        mangaCollectionView.itemPrototype = storyboard?.instantiateControllerWithIdentifier("mangaCollectionViewItem") as? NSCollectionViewItem;
+        mangaCollectionView.itemPrototype = storyboard?.instantiateController(withIdentifier: "mangaCollectionViewItem") as? NSCollectionViewItem;
     }
     
     // The view controller we will load for the add manga popover
@@ -1276,22 +1276,22 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         let storyboard = NSStoryboard(name: "Main", bundle: nil);
         
         // Instanstiate the view controller for the add from eh view controller
-        addFromEHViewController = storyboard.instantiateControllerWithIdentifier("addFromEHViewController") as? KMEHViewController;
+        addFromEHViewController = storyboard.instantiateController(withIdentifier: "addFromEHViewController") as? KMEHViewController;
         
         // Present the addFromEHViewController as a popover using the add buttons rect, on the max y edge, and with a semitransient behaviour
-        addFromEHViewController!.presentViewController(addFromEHViewController!, asPopoverRelativeToRect: titlebarAddMangaButton.bounds, ofView: titlebarAddMangaButton, preferredEdge: NSRectEdge.MaxY, behavior: NSPopoverBehavior.Semitransient);
+        addFromEHViewController!.presentViewController(addFromEHViewController!, asPopoverRelativeTo: titlebarAddMangaButton.bounds, of: titlebarAddMangaButton, preferredEdge: NSRectEdge.maxY, behavior: NSPopoverBehavior.semitransient);
         
         // If this is the first time we have opened the popover...
         if(addFromEHViewFirstLoad) {
             // Subscribe to the popovers finished notification
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "addMangaFromEHPopover:", name:"KMEHViewController.Finished", object: nil);
+            NotificationCenter.default.addObserver(self, selector: #selector(ViewController.addMangaFromEHPopover(_:)), name:NSNotification.Name(rawValue: "KMEHViewController.Finished"), object: nil);
             
             // Say that all the next loads are not the first
             addFromEHViewFirstLoad = false;
         }
     }
     
-    func addMangaFromEHPopover(notification : NSNotification) {
+    func addMangaFromEHPopover(_ notification : Notification) {
         // Print to the log that we are adding a manga from the EH popover
         print("ViewController: Adding from EH...");
         
@@ -1301,7 +1301,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             print("ViewController: Batch adding manga from EH");
             
             // For every manga in the passed manga...
-            for (_, currentManga) in ((notification.object as? [KMManga])?.enumerate())! {
+            for (_, currentManga) in ((notification.object as? [KMManga])?.enumerated())! {
                 // Add the current manga to the grid
                 mangaGridController.addManga(currentManga, updateFilters: false);
             }
@@ -1344,12 +1344,12 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     }
     
     // Removes the last selected manga item
-    func removeSelectItemFromMangaGrid(notification : NSNotification) {
+    func removeSelectItemFromMangaGrid(_ notification : Notification) {
         // Print to the log that we are removing this manga
         print("ViewController: Removing \"" + (notification.object as? KMManga)!.title + "\" manga item");
         
         // Remove this item from the grid controller
-        mangaGridController.removeGridItem((mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])![selectedItemIndexes().lastIndex], resort: true);
+        mangaGridController.removeGridItem((mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])![selectedItemIndexes().last!], resort: true);
     }
     
     /// Removes all the selected manga items(Use this for multiple)
@@ -1361,7 +1361,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         let selectionItemsToRemove : [KMMangaGridItem] = selectedGridItems();
         
         // For every item in the manga grid items we want to remove...
-        for(_, currentItem) in selectionItemsToRemove.enumerate() {
+        for(_, currentItem) in selectionItemsToRemove.enumerated() {
             // Remove the curent item from the grid, with resorting
             mangaGridController.removeGridItem(currentItem, resort: true);
         }
@@ -1376,7 +1376,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         let selectionItemsToMarkAsUnread : [KMMangaGridItem] = selectedGridItems();
         
         // For every manga item that we want to mark as read...
-        for(_, currentItem) in selectionItemsToMarkAsUnread.enumerate() {
+        for(_, currentItem) in selectionItemsToMarkAsUnread.enumerated() {
             // Set the current item's manga's current page to 0 so its marked as 0% done
             currentItem.manga.currentPage = 0;
             
@@ -1412,7 +1412,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         let selectionItemsToMarkAsRead : [KMMangaGridItem] = selectedGridItems();
         
         // For every manga item that we want to mark as read...
-        for(_, currentItem) in selectionItemsToMarkAsRead.enumerate() {
+        for(_, currentItem) in selectionItemsToMarkAsRead.enumerated() {
             // Set the current item's manga's current page to the last page, so we get it marked as 100% finished
             currentItem.manga.currentPage = currentItem.manga.pageCount - 1;
             
@@ -1446,7 +1446,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // If the info bar is now open...
         if(infoBarOpen) {
             // Enable the grid size slider
-            infoBarGridSizeSlider.enabled = true;
+            infoBarGridSizeSlider.isEnabled = true;
             
             // Fade it in
             infoBarContainer.animator().alphaValue = 1;
@@ -1454,7 +1454,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // If the info bar is now closed...
         else {
             // Disable the grid size slider
-            infoBarGridSizeSlider.enabled = false;
+            infoBarGridSizeSlider.isEnabled = false;
             
             // Fade it out
             infoBarContainer.animator().alphaValue = 0;
@@ -1463,42 +1463,42 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     
     func styleWindow() {
         // Get a reference to the main window
-        window = NSApplication.sharedApplication().windows.last!;
+        window = NSApplication.shared().windows.last!;
         
         // Set the main window to have a full size content view
-        window.styleMask |= NSFullSizeContentViewWindowMask;
+        window.styleMask.insert(NSFullSizeContentViewWindowMask);
         
         // Hide the titlebar background
         window.titlebarAppearsTransparent = true;
         
         // Hide the titlebar title
-        window.titleVisibility = NSWindowTitleVisibility.Hidden;
+        window.titleVisibility = NSWindowTitleVisibility.hidden;
         
         // Set the background visual effect view to be dark
-        backgroundVisualEffectView.material = NSVisualEffectMaterial.Dark;
+        backgroundVisualEffectView.material = NSVisualEffectMaterial.dark;
         
         // Set the titlebar visual effect view to be ultra dark
         if #available(OSX 10.11, *) {
-            titlebarVisualEffectView.material = NSVisualEffectMaterial.UltraDark
+            titlebarVisualEffectView.material = NSVisualEffectMaterial.ultraDark
         } else {
-            titlebarVisualEffectView.material = NSVisualEffectMaterial.Titlebar
+            titlebarVisualEffectView.material = NSVisualEffectMaterial.titlebar
         };
         
         // Set the info visual effect view to be ultra dark
         if #available(OSX 10.11, *) {
-            infoBarVisualEffectView.material = NSVisualEffectMaterial.UltraDark
+            infoBarVisualEffectView.material = NSVisualEffectMaterial.ultraDark
         } else {
-            infoBarVisualEffectView.material = NSVisualEffectMaterial.Titlebar
+            infoBarVisualEffectView.material = NSVisualEffectMaterial.titlebar
         };
         
         // Hide the info bar
         infoBarContainer.alphaValue = 0;
         
         // Disable the grid size slider
-        infoBarGridSizeSlider.enabled = false;
+        infoBarGridSizeSlider.isEnabled = false;
     }
     
-    func windowDidEnterFullScreen(notification: NSNotification) {
+    func windowDidEnterFullScreen(_ notification: Notification) {
         // Move the toggle list view button over to the edge
         titlebarToggleListViewCheckbox.frame.origin = CGPoint(x: 2, y: titlebarToggleListViewCheckbox.frame.origin.y);
         
@@ -1506,14 +1506,14 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         self.window.appearance = NSAppearance(named: NSAppearanceNameVibrantDark);
     }
     
-    func windowWillEnterFullScreen(notification: NSNotification) {
+    func windowWillEnterFullScreen(_ notification: Notification) {
         // Hide the toolbar so we dont get a grey bar at the top
-        window.toolbar?.visible = false;
+        window.toolbar?.isVisible = false;
     }
     
-    func windowDidExitFullScreen(notification: NSNotification) {
+    func windowDidExitFullScreen(_ notification: Notification) {
         // Show the toolbar again in non-fullscreen(So we still get the traffic lights in the right place)
-        window.toolbar?.visible = true;
+        window.toolbar?.isVisible = true;
         
         // Move the toggle list view button beside the traffic lights
         titlebarToggleListViewCheckbox.frame.origin = CGPoint(x: 72, y: titlebarToggleListViewCheckbox.frame.origin.y);
@@ -1530,21 +1530,21 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     // Saves the manga in the grid
     func saveManga() {
         // Create a NSKeyedArchiver data with the manga grid controllers grid items
-        let data = NSKeyedArchiver.archivedDataWithRootObject(mangaGridController.gridItems);
+        let data = NSKeyedArchiver.archivedData(withRootObject: mangaGridController.gridItems);
         
         // Set the standard user defaults mangaArray key to that data
-        NSUserDefaults.standardUserDefaults().setObject(data, forKey: "mangaArray");
+        UserDefaults.standard.set(data, forKey: "mangaArray");
         
         // Synchronize the data
-        NSUserDefaults.standardUserDefaults().synchronize();
+        UserDefaults.standard.synchronize();
     }
     
     // Load the saved manga back to the grid
     func loadManga() {
         // If we have any data to load...
-        if let data = NSUserDefaults.standardUserDefaults().objectForKey("mangaArray") as? NSData {
+        if let data = UserDefaults.standard.object(forKey: "mangaArray") as? Data {
             // For every KMMangaGridItem in the saved manga grids items...
-            for (_, currentManga) in (NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [KMMangaGridItem]).enumerate() {
+            for (_, currentManga) in (NSKeyedUnarchiver.unarchiveObject(with: data) as! [KMMangaGridItem]).enumerated() {
                 // Add the current object to the manga grid
                 mangaGridController.addGridItem(currentManga);
             }
@@ -1554,30 +1554,30 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         updateMangaGrid();
     }
     
-    func windowDidResignKey(notification: NSNotification) {
+    func windowDidResignKey(_ notification: Notification) {
         // Hide the thumbnail hover window
         thumbnailImageHoverController.hide();
     }
     
-    func tabView(tabView: NSTabView, didSelectTabViewItem tabViewItem: NSTabViewItem?) {
+    func tabView(_ tabView: NSTabView, didSelect tabViewItem: NSTabViewItem?) {
         // If the tab view item we selected was the Title sort one...
         if(tabViewItem!.label == "Title") {
             // Sort the manga grid by title
-            mangaGridController.sort(KMMangaGridSortType.Title, ascending: true);
+            mangaGridController.sort(KMMangaGridSortType.title, ascending: true);
         }
             // If the tab view item we selected was the Series sort one...
         else if(tabViewItem!.label == "Series") {
             // Sort the manga grid by series
-            mangaGridController.sort(KMMangaGridSortType.Series, ascending: true);
+            mangaGridController.sort(KMMangaGridSortType.series, ascending: true);
         }
         // If the tab view item we selected was the Artist sort one...
         else if(tabViewItem!.label == "Artist") {
             // Sort the manga grid by artist
-            mangaGridController.sort(KMMangaGridSortType.Artist, ascending: true);
+            mangaGridController.sort(KMMangaGridSortType.artist, ascending: true);
         }
     }
 
-    override var representedObject: AnyObject? {
+    override var representedObject: Any? {
         didSet {
             // Update the view, if already loaded.
         }

@@ -18,7 +18,7 @@ class KMThumbnailImageHoverViewController: NSViewController {
     }
     
     /// Sets the thumbnail image view's image to the given image
-    func setImage(image : NSImage) {
+    func setImage(_ image : NSImage) {
         // Set thumbnailImageView's image to the passed image
         thumbnailImageView.image = image;
     }

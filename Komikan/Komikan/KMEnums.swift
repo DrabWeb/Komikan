@@ -10,54 +10,54 @@ import Cocoa
 // Used to describe how to sort the manga grid
 enum KMMangaGridSortType {
     // Sorts by series
-    case Series
+    case series
     
     // Sorts by artist
-    case Artist
+    case artist
     
     // Sorts by title
-    case Title
+    case title
 }
 
 // Used to tell what direction we are reading
 enum KMDualPageDirection {
     // Right to Left(The right way)
-    case RightToLeft
+    case rightToLeft
     
     // Left to Right(Just in case you need it)
-    case LeftToRight
+    case leftToRight
 }
 
 /// Different types of Manga properties
 enum KMPropertyType {
-    case Series
-    case Artist
-    case Writer
-    case Tags
-    case Group
+    case series
+    case artist
+    case writer
+    case tags
+    case group
 }
 
 class KMEnumUtilities {
     /// Turns the passed KMPropertyType into a string
-    func propertyTypeToString(type : KMPropertyType) -> String {
+    func propertyTypeToString(_ type : KMPropertyType) -> String {
         /// The string we will return at the end that says what the property type's name is
         var typeString : String = "";
         
         // Switch on the type we want to get the name of(This doesnt need to be commented)
         switch(type) {
-            case KMPropertyType.Series:
+            case KMPropertyType.series:
                 typeString = "Series";
                 break;
-            case KMPropertyType.Artist:
+            case KMPropertyType.artist:
                 typeString = "Artist";
                 break;
-            case KMPropertyType.Writer:
+            case KMPropertyType.writer:
                 typeString = "Writer";
                 break;
-            case KMPropertyType.Tags:
+            case KMPropertyType.tags:
                 typeString = "Tag";
                 break;
-            case KMPropertyType.Group:
+            case KMPropertyType.group:
                 typeString = "Group";
                 break;
         }
@@ -69,10 +69,10 @@ class KMEnumUtilities {
 
 /// The types of lists on MyAnimeList
 enum KMMALListType {
-    case All
-    case CurrentlyReading
-    case Completed
-    case OnHold
-    case Dropped
-    case PlanToRead
+    case all
+    case currentlyReading
+    case completed
+    case onHold
+    case dropped
+    case planToRead
 }

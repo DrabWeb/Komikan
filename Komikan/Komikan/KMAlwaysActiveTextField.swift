@@ -14,8 +14,8 @@ class KMAlwaysActiveTextField: NSTextField {
         return true;
     }
 
-    override func drawRect(dirtyRect: NSRect) {
-        super.drawRect(dirtyRect)
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
 
         // Drawing code here.
     }
@@ -29,8 +29,8 @@ class KMAlwaysActiveSecureTextField: NSSecureTextField {
         return true;
     }
     
-    override func drawRect(dirtyRect: NSRect) {
-        super.drawRect(dirtyRect)
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
         
         // Drawing code here.
     }

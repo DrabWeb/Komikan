@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import AppKit
 
 class KMReaderPageJumpData : NSObject {
     /// The NSImage for the leftmost thumbnails image
@@ -36,9 +37,9 @@ class KMReaderPageJumpData : NSObject {
     var thumbnailThreeBookmarked : Bool = false;
     
     /// Loads the passed array of NSImages into their respective thumbnail slots
-    func loadThumbnailsFromArray(thumbnails : [NSImage]) {
+    func loadThumbnailsFromArray(_ thumbnails : [NSImage]) {
         // For every image in the thumbnails array...
-        for(currentIndex, currentImage) in thumbnails.enumerate() {
+        for(currentIndex, currentImage) in thumbnails.enumerated() {
             // If this is the first image...
             if(currentIndex == 0) {
                 thumbnailOne = currentImage;
@@ -56,9 +57,9 @@ class KMReaderPageJumpData : NSObject {
     }
     
     /// Loads the page numbers from the passed array of Bools
-    func loadPageNumbersFromArray(pages : [Int]) {
+    func loadPageNumbersFromArray(_ pages : [Int]) {
         // For every item in the pages array...
-        for(currentIndex, currentPageNumber) in pages.enumerate() {
+        for(currentIndex, currentPageNumber) in pages.enumerated() {
             // If this is the first page number...
             if(currentIndex == 0) {
                 // Set the first thumbnails page to the current page
@@ -78,9 +79,9 @@ class KMReaderPageJumpData : NSObject {
     }
     
     /// Loads the bookmarks from the passed array of Ints
-    func loadBookmarksFromArray(bookmarks : [Bool]) {
+    func loadBookmarksFromArray(_ bookmarks : [Bool]) {
         // For every item in the bookmarks array...
-        for(currentIndex, currentBookmark) in bookmarks.enumerate() {
+        for(currentIndex, currentBookmark) in bookmarks.enumerated() {
             // If this is the first bookmark...
             if(currentIndex == 0) {
                 // Set the first thumbnails bookmarked value to the current bookmark value

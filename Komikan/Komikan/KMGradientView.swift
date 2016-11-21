@@ -13,13 +13,13 @@ import Cocoa
     @IBInspectable var startColor : NSColor = NSColor(calibratedRed: 0, green: 0, blue: 0, alpha: 0.5);
     
     // The color for the end of the gradient
-    @IBInspectable var endColor : NSColor = NSColor.clearColor();
+    @IBInspectable var endColor : NSColor = NSColor.clear;
     
     // The angle of the gradient
     var angle : CGFloat = 90;
     
-    override func drawRect(dirtyRect: NSRect) {
-        super.drawRect(dirtyRect)
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
 
         // Drawing code here.
         // Set the view to have a core animation layer
@@ -31,9 +31,9 @@ import Cocoa
     
     func redrawGradient() {
         // Create the gradient
-        let gradient : NSGradient = NSGradient(startingColor: startColor, endingColor: endColor)!;
+        let gradient : NSGradient = NSGradient(starting: startColor, ending: endColor)!;
         
         // Draw it in the views rect
-        gradient.drawInRect(self.bounds, angle: angle);
+        gradient.draw(in: self.bounds, angle: angle);
     }
 }

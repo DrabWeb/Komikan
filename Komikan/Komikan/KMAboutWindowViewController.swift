@@ -28,22 +28,22 @@ class KMAboutWindowViewController: NSViewController {
     /// Styles the window
     func styleWindow() {
         // Get the about window
-        aboutWindow = NSApplication.sharedApplication().windows.last!;
+        aboutWindow = NSApplication.shared().windows.last!;
         
         // Make the window have a full size content view
-        aboutWindow.styleMask |= NSFullSizeContentViewWindowMask;
+        aboutWindow.styleMask.insert(NSFullSizeContentViewWindowMask);
         
         // Hide the titlebar
         aboutWindow.titlebarAppearsTransparent = true;
         
         // Hide the title
-        aboutWindow.titleVisibility = .Hidden;
+        aboutWindow.titleVisibility = .hidden;
         
         // Hide the minimize and zoom buttons
-        aboutWindow.standardWindowButton(.MiniaturizeButton)?.hidden = true;
-        aboutWindow.standardWindowButton(.ZoomButton)?.hidden = true;
+        aboutWindow.standardWindowButton(.miniaturizeButton)?.isHidden = true;
+        aboutWindow.standardWindowButton(.zoomButton)?.isHidden = true;
         
         // Set the window background to be more vibrant
-        backgroundVisualEffectView.material = NSVisualEffectMaterial.Dark;
+        backgroundVisualEffectView.material = NSVisualEffectMaterial.dark;
     }
 }

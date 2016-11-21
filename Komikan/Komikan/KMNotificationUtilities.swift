@@ -9,7 +9,7 @@ import Cocoa
 
 class KMNotificationUtilities {
     /// Sends a notification with the given title and message
-    func sendNotification(title : String, message : String) {
+    func sendNotification(_ title : String, message : String) {
         // Create the new notification
         let notification = NSUserNotification();
         
@@ -20,9 +20,9 @@ class KMNotificationUtilities {
         notification.informativeText = message;
         
         // Set the notifications identifier to be an obscure string, so we can show multiple at once
-        notification.identifier = NSUUID().UUIDString;
+        notification.identifier = UUID().uuidString;
         
         // Deliver the notification
-        NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(notification);
+        NSUserNotificationCenter.default.deliver(notification);
     }
 }

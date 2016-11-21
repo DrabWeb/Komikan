@@ -15,7 +15,7 @@ class KMThumbnailImageHoverController : NSObject {
     var thumbnailViewController : KMThumbnailImageHoverViewController = KMThumbnailImageHoverViewController();
     
     /// Shows the thumbnail window at the given point(The bottom left matches up to the given point), with the given height(Maintains aspect ratio)
-    func showAtPoint(thumbnail : NSImage, point : NSPoint, height : Float) {
+    func showAtPoint(_ thumbnail : NSImage, point : NSPoint, height : Float) {
         // Set the thumbnail image view's image to the passed thumbnail
         thumbnailViewController.setImage(thumbnail);
         
@@ -42,9 +42,9 @@ class KMThumbnailImageHoverController : NSObject {
     }
     
     /// Returns the pixel size of the passed NSImage
-    func pixelSizeOfImage(image : NSImage) -> NSSize {
+    func pixelSizeOfImage(_ image : NSImage) -> NSSize {
         /// The NSBitmapImageRep to the image
-        let imageRep : NSBitmapImageRep = (NSBitmapImageRep(data: image.TIFFRepresentation!))!;
+        let imageRep : NSBitmapImageRep = (NSBitmapImageRep(data: image.tiffRepresentation!))!;
         
         /// The size of the iamge
         let imageSize : NSSize = NSSize(width: imageRep.pixelsWide, height: imageRep.pixelsHigh);
@@ -56,7 +56,7 @@ class KMThumbnailImageHoverController : NSObject {
     /// Init/Styling the window
     func styleWindow() {
         // Get the thumbnail window controller
-        thumbnailWindowController = NSStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateControllerWithIdentifier("thumbnailHoverWindowController") as! NSWindowController;
+        thumbnailWindowController = NSStoryboard(name: "Main", bundle: Bundle.main).instantiateController(withIdentifier: "thumbnailHoverWindowController") as! NSWindowController;
         
         // Set thumbnailViewController
         thumbnailViewController = (thumbnailWindowController.contentViewController as! KMThumbnailImageHoverViewController);
@@ -65,22 +65,22 @@ class KMThumbnailImageHoverController : NSObject {
         thumbnailWindowController.loadWindow();
         
         // Set the window to be borderless rounded
-        thumbnailWindowController.window?.styleMask |= NSFullSizeContentViewWindowMask;
-        thumbnailWindowController.window?.standardWindowButton(.CloseButton)?.superview?.superview?.removeFromSuperview();
+        thumbnailWindowController.window?.styleMask.insert(NSFullSizeContentViewWindowMask);
+        thumbnailWindowController.window?.standardWindowButton(.closeButton)?.superview?.superview?.removeFromSuperview();
         
         // Make the background of the window transparent
-        thumbnailWindowController.window?.opaque = false;
-        thumbnailWindowController.window?.backgroundColor = NSColor.clearColor();
+        thumbnailWindowController.window?.isOpaque = false;
+        thumbnailWindowController.window?.backgroundColor = NSColor.clear;
         
         // Dont allow any mouse events on the window
         thumbnailWindowController.window?.ignoresMouseEvents = true;
         
         // Set the thumbnail window to be a higher level than the others
-        self.thumbnailWindowController.window?.level++;
+        self.thumbnailWindowController.window?.level += 1;
     }
 }
 
 class KMThumbnailHoverWindow : NSWindow {
     // Dont allow the window to become key
-    override var canBecomeKeyWindow : Bool { return false }
+    override var canBecomeKey : Bool { return false }
 }

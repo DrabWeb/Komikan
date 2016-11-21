@@ -9,10 +9,10 @@ import Cocoa
 
 class KMReaderImageView: KMDraggableImageView {
 
-    override func drawRect(dirtyRect: NSRect) {
+    override func draw(_ dirtyRect: NSRect) {
         // Set the image rendering to be the highest of qualities
-        NSGraphicsContext.currentContext()?.imageInterpolation = NSImageInterpolation.High;
+        NSGraphicsContext.current()?.imageInterpolation = NSImageInterpolation.high;
         
-        super.drawRect(dirtyRect);
+        super.draw(dirtyRect);
     }
 }

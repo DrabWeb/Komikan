@@ -20,9 +20,9 @@ class KMMangaListTableCellView: NSTableCellView {
     /// The thumbnail controller to use to display thumbnailImage
     var thumbnailImageHoverController : KMThumbnailImageHoverController = KMThumbnailImageHoverController();
     
-    override func mouseEntered(theEvent: NSEvent) {
+    override func mouseEntered(with theEvent: NSEvent) {
         // If the window is frontmost...
-        if(self.window!.keyWindow) {
+        if(self.window!.isKeyWindow) {
             // If the edit popover isnt open...
             if(!mangaListController.editPopoverOpen) {
                 // Show the thumbnail window
@@ -31,18 +31,18 @@ class KMMangaListTableCellView: NSTableCellView {
         }
     }
     
-    override func mouseExited(theEvent: NSEvent) {
+    override func mouseExited(with theEvent: NSEvent) {
         // Hide the thumbnail window
         thumbnailImageHoverController.hide();
     }
 
-    override func drawRect(dirtyRect: NSRect) {
-        super.drawRect(dirtyRect)
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
 
         // Drawing code here.
     }
     
-    override func resizeWithOldSuperviewSize(oldSize: NSSize) {
+    override func resize(withOldSuperviewSize oldSize: NSSize) {
         // Update the tracking areas
         self.updateTrackingAreas();
     }
@@ -52,7 +52,7 @@ class KMMangaListTableCellView: NSTableCellView {
         self.removeTrackingArea(self.trackingAreas[0]);
         
         /// The same as the original tracking area, but updates to match the frame of this cell
-        let trackingArea : NSTrackingArea = NSTrackingArea(rect: frame, options: [NSTrackingAreaOptions.MouseEnteredAndExited, NSTrackingAreaOptions.ActiveInKeyWindow], owner: self, userInfo: nil);
+        let trackingArea : NSTrackingArea = NSTrackingArea(rect: frame, options: [NSTrackingAreaOptions.mouseEnteredAndExited, NSTrackingAreaOptions.activeInKeyWindow], owner: self, userInfo: nil);
         
         // Add the tracking area
         self.addTrackingArea(trackingArea);
@@ -60,7 +60,7 @@ class KMMangaListTableCellView: NSTableCellView {
     
     override func awakeFromNib() {
         /// The tracking are we will use for getting mouse entered and exited events
-        let trackingArea : NSTrackingArea = NSTrackingArea(rect: frame, options: [NSTrackingAreaOptions.MouseEnteredAndExited, NSTrackingAreaOptions.ActiveInKeyWindow], owner: self, userInfo: nil);
+        let trackingArea : NSTrackingArea = NSTrackingArea(rect: frame, options: [NSTrackingAreaOptions.mouseEnteredAndExited, NSTrackingAreaOptions.activeInKeyWindow], owner: self, userInfo: nil);
         
         // Add the tracking area
         self.addTrackingArea(trackingArea);

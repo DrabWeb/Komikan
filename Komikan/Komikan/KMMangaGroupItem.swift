@@ -15,7 +15,7 @@ class KMMangaGroupItem: NSObject {
     var groupName : String = "Error";
     
     /// The type of group this item is
-    var groupType : KMMangaGroupType = KMMangaGroupType.Series;
+    var groupType : KMMangaGroupType = KMMangaGroupType.series;
     
     /// The label for how many items are in this group
     var countLabel : String = "(nil)";

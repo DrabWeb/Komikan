@@ -15,8 +15,8 @@ class KMMetadataFetcherSeriesSearchResultsTableViewCell: NSTableCellView {
     /// The KMMetadataFetcherSeriesSearchResultsItemData of this search result item
     var data : KMMetadataFetcherSeriesSearchResultsItemData = KMMetadataFetcherSeriesSearchResultsItemData();
     
-    override func drawRect(dirtyRect: NSRect) {
-        super.drawRect(dirtyRect)
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
 
         // Drawing code here.
     }

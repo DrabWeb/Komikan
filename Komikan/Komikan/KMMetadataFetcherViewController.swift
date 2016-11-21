@@ -26,12 +26,12 @@ class KMMetadataFetcherViewController: NSViewController {
     @IBOutlet var seriesSearchField: NSSearchField!
     
     /// When text is entered into seriesSearchField...
-    @IBAction func seriesSearchFieldInteracted(sender: AnyObject) {
+    @IBAction func seriesSearchFieldInteracted(_ sender: AnyObject) {
         // Clear the results table
         seriesSearchResultsItems.removeAll();
         
         // Search for the entered text
-        KMMetadataFetcher().searchForManga(seriesSearchField.stringValue, completionHandler: searchCompletionHandler);
+        _ = KMMetadataFetcher().searchForManga(seriesSearchField.stringValue, completionHandler: searchCompletionHandler);
     }
     
     /// The table view for the search results of the series search
@@ -56,9 +56,9 @@ class KMMetadataFetcherViewController: NSViewController {
     @IBOutlet var applyPropertiesAppendTagsCheckbox: NSButton!
     
     /// When we click the "Apply" button in the apply properties view...
-    @IBAction func applyPropertiesApplyButtonPressed(sender: AnyObject) {
+    @IBAction func applyPropertiesApplyButtonPressed(_ sender: AnyObject) {
         // Dismiss the popover
-        self.dismissController(self);
+        self.dismiss(self);
         
         // Apply the metadata
         applyMetadata();
@@ -83,7 +83,7 @@ class KMMetadataFetcherViewController: NSViewController {
         var selectedMangaSeries : [String] = [];
         
         // For every selected manga grid item...
-        for(_, currentMangaGridItem) in selectedMangaGridItems.enumerate() {
+        for(_, currentMangaGridItem) in selectedMangaGridItems.enumerated() {
             // Add this grid item's manga's series to the selected manga's series array
             selectedMangaSeries.append(currentMangaGridItem.manga.series);
         }
@@ -92,7 +92,7 @@ class KMMetadataFetcherViewController: NSViewController {
         seriesSearchField.stringValue = selectedMangaSeries.frequencies()[0].0;
         
         // Search for the series search fields string value
-        KMMetadataFetcher().searchForManga(seriesSearchField.stringValue, completionHandler: searchCompletionHandler);
+        _ = KMMetadataFetcher().searchForManga(seriesSearchField.stringValue, completionHandler: searchCompletionHandler);
     }
     
     /// Applys the chosen metadata to the selected manga
@@ -101,7 +101,7 @@ class KMMetadataFetcherViewController: NSViewController {
         print("KMMetadataFetcherViewController: Applying metadata to selected manga");
         
         // For every manga grid item in the selected manga grid item...
-        for(_, currentMangaGridItem) in selectedMangaGridItems.enumerate() {
+        for(_, currentMangaGridItem) in selectedMangaGridItems.enumerated() {
             /// The current items manga with the new modified values
             let modifiedManga : KMManga = currentMangaGridItem.manga;
             
@@ -126,9 +126,9 @@ class KMMetadataFetcherViewController: NSViewController {
             // If we said to set the tags...
             if(applyPropertiesTagsPopupButton.selectedItem?.title != "Dont Change") {
                 // If we said to append the tags...
-                if(Bool(applyPropertiesAppendTagsCheckbox.state)) {
+                if(Bool(applyPropertiesAppendTagsCheckbox.state as NSNumber)) {
                     // Append the metadatas tags to the current manga's tags
-                    modifiedManga.tags.appendContentsOf(seriesMetadata.tags);
+                    modifiedManga.tags.append(contentsOf: seriesMetadata.tags);
                 }
                 // If we said to replace the tags...
                 else {
@@ -151,15 +151,15 @@ class KMMetadataFetcherViewController: NSViewController {
         }
         
         // Post the notification to say we are done applying metadata
-        NSNotificationCenter.defaultCenter().postNotificationName("KMMetadataFetcherViewController.Finished", object: nil);
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "KMMetadataFetcherViewController.Finished"), object: nil);
     }
     
     // This will get called when the series search is completed
-    func searchCompletionHandler(searchResults : [KMMetadataInfo]?, error : NSError?) {
+    func searchCompletionHandler(_ searchResults : [KMMetadataInfo]?, error : NSError?) {
         // If there were any search results...
         if(!(searchResults!.isEmpty)) {
             // For every item in the results of the search...
-            for(_, currentItem) in searchResults!.enumerate() {
+            for(_, currentItem) in searchResults!.enumerated() {
                 // Add the current item's title and MU ID to the series search results table
                 seriesSearchResultsItems.append(KMMetadataFetcherSeriesSearchResultsItemData(seriesName: currentItem.title, seriesId: currentItem.id));
             }
@@ -178,7 +178,7 @@ class KMMetadataFetcherViewController: NSViewController {
     }
     
     // This will get called when the metadata fetching is completed
-    func seriesMetadataCompletionHandler(metadata : KMSeriesMetadata?, error : NSError?) {
+    func seriesMetadataCompletionHandler(_ metadata : KMSeriesMetadata?, error : NSError?) {
         // Set the series metadata
         seriesMetadata = metadata!;
         
@@ -186,66 +186,76 @@ class KMMetadataFetcherViewController: NSViewController {
         viewContainer.animator().replaceSubview(searchViewContainer, with: applyingViewContainer);
         
         // Add the title and alternate titles to the series popup
-        applyPropertiesSeriesPopupButton.addItemWithTitle(metadata!.title);
-        applyPropertiesSeriesPopupButton.addItemsWithTitles(metadata!.alternateTitles);
+        applyPropertiesSeriesPopupButton.addItem(withTitle: metadata!.title);
+        applyPropertiesSeriesPopupButton.addItems(withTitles: metadata!.alternateTitles);
         
         // Add the writers to the writers popup
-        applyPropertiesWritersPopupButton.addItemWithTitle(metadata!.writers.listString());
+        applyPropertiesWritersPopupButton.addItem(withTitle: metadata!.writers.listString());
         
         // Add the artists to the artists popup
-        applyPropertiesArtistPopupButton.addItemWithTitle(metadata!.artists.listString());
+        applyPropertiesArtistPopupButton.addItem(withTitle: metadata!.artists.listString());
         
         // Add the tags to the tags popup
-        applyPropertiesTagsPopupButton.addItemWithTitle(metadata!.tags.listString());
+        applyPropertiesTagsPopupButton.addItem(withTitle: metadata!.tags.listString());
         
         // For evert cover URL...
-        for(_, currentCover) in metadata!.coverURLs.enumerate() {
-            // Download the image with Alamofire...
-            Alamofire.request(.GET, currentCover.absoluteString.stringByRemovingPercentEncoding!).response { (request, response, data, error) in
-                // The new menu item we will add to the covers popup
-                let newCoverItem : NSMenuItem = NSMenuItem();
-                
-                // Set the new items image to the cover we downloaded
-                newCoverItem.image = NSImage(data: data!);
-                
-                // Clear the title of the new item
-                newCoverItem.title = "";
-                
-                // Resize the new items cover to 400 height
-                newCoverItem.image = newCoverItem.image?.resizeToHeight(400);
-                
-                // Add the new itme to the covers popup
-                self.applyPropertiesCoverPopupButton.menu?.addItem(newCoverItem);
-                
-                // Select the first cover
-                self.applyPropertiesCoverPopupButton.selectItemAtIndex(2);
-            }
+        for(_, currentCover) in metadata!.coverURLs.enumerated() {
+            // Download the cover image
+            Alamofire.request(currentCover.absoluteString.removingPercentEncoding!)
+                .responseData { response in
+                    // If data isnt nil...
+                    if let data = response.result.value {
+                        /// The downloaded image
+                        let image : NSImage? = NSImage(data: data);
+                        
+                        // If image isnt nil...
+                        if(image != nil) {
+                            // The new menu item we will add to the covers popup
+                            let newCoverItem : NSMenuItem = NSMenuItem();
+                            
+                            // Set the new items image to the cover we downloaded
+                            newCoverItem.image = image;
+                            
+                            // Clear the title of the new item
+                            newCoverItem.title = "";
+                            
+                            // Resize the new items cover to 400 height
+                            newCoverItem.image = newCoverItem.image?.resizeToHeight(400);
+                            
+                            // Add the new itme to the covers popup
+                            self.applyPropertiesCoverPopupButton.menu?.addItem(newCoverItem);
+                            
+                            // Select the first cover
+                            self.applyPropertiesCoverPopupButton.selectItem(at: 2);
+                        }
+                    }
+            };
         }
         
         // Select the first added item in all the popups
-        applyPropertiesSeriesPopupButton.selectItemAtIndex(2);
-        applyPropertiesWritersPopupButton.selectItemAtIndex(2);
-        applyPropertiesArtistPopupButton.selectItemAtIndex(2);
-        applyPropertiesTagsPopupButton.selectItemAtIndex(2);
+        applyPropertiesSeriesPopupButton.selectItem(at: 2);
+        applyPropertiesWritersPopupButton.selectItem(at: 2);
+        applyPropertiesArtistPopupButton.selectItem(at: 2);
+        applyPropertiesTagsPopupButton.selectItem(at: 2);
     }
     
     /// Styles the window
     func styleWindow() {
         // Set the background to be more vibrant
-        backgroundVisualEffectView.material = .Dark;
+        backgroundVisualEffectView.material = .dark;
     }
 }
 
 extension KMMetadataFetcherViewController: NSTableViewDelegate {
     
-    func numberOfRowsInTableView(aTableView: NSTableView) -> Int {
+    func numberOfRows(in aTableView: NSTableView) -> Int {
         // Return the amount of series search result items
         return self.seriesSearchResultsItems.count;
     }
     
-    func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         /// The cell view it is asking us about for the data
-        let cellView : NSTableCellView = tableView.makeViewWithIdentifier(tableColumn!.identifier, owner: self) as! NSTableCellView;
+        let cellView : NSTableCellView = tableView.make(withIdentifier: tableColumn!.identifier, owner: self) as! NSTableCellView;
         
         // If the column is the Main Column...
         if(tableColumn!.identifier == "Main Column") {
@@ -261,7 +271,7 @@ extension KMMetadataFetcherViewController: NSTableViewDelegate {
                 (cellView as? KMMetadataFetcherSeriesSearchResultsTableViewCell)?.data = seriesSearchResultListItemData;
                 
                 /// Set the cell's button's action to call seriesSearchResultItemPressed
-                (cellView as? KMMetadataFetcherSeriesSearchResultsTableViewCell)?.selectButton.action = Selector("seriesSearchResultItemPressed:");
+                (cellView as? KMMetadataFetcherSeriesSearchResultsTableViewCell)?.selectButton.action = #selector(KMMetadataFetcherViewController.seriesSearchResultItemPressed(_:));
                 
                 // Return the modified cell view
                 return cellView;
@@ -273,7 +283,7 @@ extension KMMetadataFetcherViewController: NSTableViewDelegate {
     }
     
     /// Called when we click on an item in the series search results
-    func seriesSearchResultItemPressed(sender : AnyObject?) {
+    func seriesSearchResultItemPressed(_ sender : AnyObject?) {
         /// The sender converted to KMMetadataFetcherSeriesSearchResultsTableViewCell
         let senderCell : KMMetadataFetcherSeriesSearchResultsTableViewCell = ((sender as! NSButton).superview as? KMMetadataFetcherSeriesSearchResultsTableViewCell)!;
         
@@ -284,7 +294,7 @@ extension KMMetadataFetcherViewController: NSTableViewDelegate {
         let metadataInfo : KMMetadataInfo = KMMetadataInfo(title: senderCell.data.seriesName, id: senderCell.data.seriesId);
         
         // Call the metadata getter so we can load the metadata
-        KMMetadataFetcher().getSeriesMetadata(metadataInfo, completionHandler: seriesMetadataCompletionHandler);
+        _ = KMMetadataFetcher().getSeriesMetadata(metadataInfo, completionHandler: seriesMetadataCompletionHandler);
     }
 }
 

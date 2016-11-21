@@ -13,9 +13,9 @@ class KMSearchListTableViewCell: NSTableCellView {
     @IBOutlet weak var checkbox: NSButton!
     
     /// When we click on the checkbox...
-    @IBAction func checkboxInteracted(sender: AnyObject) {
+    @IBAction func checkboxInteracted(_ sender: AnyObject) {
         // Update the datas checked value to match the checkbox
-        data.checked = Bool(checkbox.state);
+        data.checked = Bool(checkbox.state as NSNumber);
     }
     
     /// The text field to tell the user what type this item is
@@ -24,8 +24,8 @@ class KMSearchListTableViewCell: NSTableCellView {
     /// The data object to update with the checkbox
     var data : KMSearchListItemData = KMSearchListItemData();
     
-    override func drawRect(dirtyRect: NSRect) {
-        super.drawRect(dirtyRect)
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
 
         // Drawing code here.
     }

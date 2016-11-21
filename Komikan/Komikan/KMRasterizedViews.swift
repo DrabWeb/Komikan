@@ -9,8 +9,8 @@ import Cocoa
 
 class KMRasterizedImageView: NSImageView {
 
-    override func drawRect(dirtyRect: NSRect) {
-        super.drawRect(dirtyRect)
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
 
         // Drawing code here.
         // Rasterize the layer
@@ -20,8 +20,8 @@ class KMRasterizedImageView: NSImageView {
 
 class KMRasterizedButton: NSButton {
     
-    override func drawRect(dirtyRect: NSRect) {
-        super.drawRect(dirtyRect)
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
         
         // Drawing code here.
         // Rasterize the layer

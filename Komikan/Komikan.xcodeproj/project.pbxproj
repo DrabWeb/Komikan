@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C534087FB8B30B0685D1F12 /* Pods_KomikanTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F0DB37AD8A1D751A51B6E7 /* Pods_KomikanTests.framework */; };
+		3A69BC3269619DA498ADD145 /* Pods_KomikanUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16A3350EE8E8B51B3941975A /* Pods_KomikanUITests.framework */; };
 		5D020D121C83486700E62CC1 /* KMMetadataFetcherSeriesSearchResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D020D111C83486700E62CC1 /* KMMetadataFetcherSeriesSearchResultsTableViewCell.swift */; };
 		5D020D151C83499900E62CC1 /* KMMetadataFetcherSeriesSearchResultsItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D020D141C83499900E62CC1 /* KMMetadataFetcherSeriesSearchResultsItemData.swift */; };
 		5D0D2A4C1C39830D00E3B8D0 /* KMManga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0D2A4B1C39830D00E3B8D0 /* KMManga.swift */; };
@@ -79,7 +81,7 @@
 		5DDD43651C6FBC82005DBAAF /* KMSetSelectedItemsPropertiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDD43641C6FBC82005DBAAF /* KMSetSelectedItemsPropertiesViewController.swift */; };
 		5DEC44851CA6D3CB00F9BF0D /* KMReaderImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DEC44841CA6D3CB00F9BF0D /* KMReaderImageView.swift */; };
 		5DFBC77D1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFBC77C1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift */; };
-		A9A81885622EBDC33449E354 /* Pods_Komikan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DA3AAFB33F1B5E4DF7F1B2D /* Pods_Komikan.framework */; };
+		769CCD4E15857056792C969D /* Pods_Komikan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B98B560F59C35A72E26DE91 /* Pods_Komikan.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,7 +102,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		39B1CCABE43DCFDDE2111753 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		0EBA0F78306239B41430E4EC /* Pods-KomikanTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KomikanTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KomikanTests/Pods-KomikanTests.debug.xcconfig"; sourceTree = "<group>"; };
+		16A3350EE8E8B51B3941975A /* Pods_KomikanUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KomikanUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		46B64BC8AB7FB230603B33C3 /* Pods-KomikanUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KomikanUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KomikanUITests/Pods-KomikanUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		53A1E71DB94FDBC78A3EF017 /* Pods-KomikanUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KomikanUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-KomikanUITests/Pods-KomikanUITests.release.xcconfig"; sourceTree = "<group>"; };
 		5D020D111C83486700E62CC1 /* KMMetadataFetcherSeriesSearchResultsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMetadataFetcherSeriesSearchResultsTableViewCell.swift; sourceTree = "<group>"; };
 		5D020D141C83499900E62CC1 /* KMMetadataFetcherSeriesSearchResultsItemData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMetadataFetcherSeriesSearchResultsItemData.swift; sourceTree = "<group>"; };
 		5D0D2A4B1C39830D00E3B8D0 /* KMManga.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMManga.swift; sourceTree = "<group>"; };
@@ -181,9 +186,11 @@
 		5DDD43641C6FBC82005DBAAF /* KMSetSelectedItemsPropertiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMSetSelectedItemsPropertiesViewController.swift; sourceTree = "<group>"; };
 		5DEC44841CA6D3CB00F9BF0D /* KMReaderImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMReaderImageView.swift; sourceTree = "<group>"; };
 		5DFBC77C1C3C6B490044A5B6 /* KMMangaGridSelectionBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMMangaGridSelectionBox.swift; sourceTree = "<group>"; };
-		8DA3AAFB33F1B5E4DF7F1B2D /* Pods_Komikan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Komikan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B086CA4387890A79C8FD3E35 /* Pods-Komikan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Komikan.release.xcconfig"; path = "Pods/Target Support Files/Pods-Komikan/Pods-Komikan.release.xcconfig"; sourceTree = "<group>"; };
-		CB22335385156945A0ABCB06 /* Pods-Komikan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Komikan.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Komikan/Pods-Komikan.debug.xcconfig"; sourceTree = "<group>"; };
+		6DE865D0A6000596D688ED5B /* Pods-Komikan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Komikan.release.xcconfig"; path = "Pods/Target Support Files/Pods-Komikan/Pods-Komikan.release.xcconfig"; sourceTree = "<group>"; };
+		8B98B560F59C35A72E26DE91 /* Pods_Komikan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Komikan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9F0DB37AD8A1D751A51B6E7 /* Pods_KomikanTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KomikanTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D559AC662B87141E2AC94C6C /* Pods-KomikanTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KomikanTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-KomikanTests/Pods-KomikanTests.release.xcconfig"; sourceTree = "<group>"; };
+		DEE480FA9BDF4898C36F98B5 /* Pods-Komikan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Komikan.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Komikan/Pods-Komikan.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,7 +198,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A9A81885622EBDC33449E354 /* Pods_Komikan.framework in Frameworks */,
+				769CCD4E15857056792C969D /* Pods_Komikan.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,6 +206,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C534087FB8B30B0685D1F12 /* Pods_KomikanTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,6 +214,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A69BC3269619DA498ADD145 /* Pods_KomikanUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,8 +361,8 @@
 				5D5DBEDF1C3584F5004D8C5D /* KomikanTests */,
 				5D5DBEEA1C3584F5004D8C5D /* KomikanUITests */,
 				5D5DBECC1C3584F5004D8C5D /* Products */,
-				DFB5AF07552EBB28896A006B /* Pods */,
 				66B68D79869D1A6E84FB159B /* Frameworks */,
+				ECBB513705D9EF9B97CC4053 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -551,17 +560,22 @@
 			isa = PBXGroup;
 			children = (
 				5D304F571C90C52A00B824A3 /* Security.framework */,
-				39B1CCABE43DCFDDE2111753 /* libPods.a */,
-				8DA3AAFB33F1B5E4DF7F1B2D /* Pods_Komikan.framework */,
+				8B98B560F59C35A72E26DE91 /* Pods_Komikan.framework */,
+				C9F0DB37AD8A1D751A51B6E7 /* Pods_KomikanTests.framework */,
+				16A3350EE8E8B51B3941975A /* Pods_KomikanUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		DFB5AF07552EBB28896A006B /* Pods */ = {
+		ECBB513705D9EF9B97CC4053 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				CB22335385156945A0ABCB06 /* Pods-Komikan.debug.xcconfig */,
-				B086CA4387890A79C8FD3E35 /* Pods-Komikan.release.xcconfig */,
+				DEE480FA9BDF4898C36F98B5 /* Pods-Komikan.debug.xcconfig */,
+				6DE865D0A6000596D688ED5B /* Pods-Komikan.release.xcconfig */,
+				0EBA0F78306239B41430E4EC /* Pods-KomikanTests.debug.xcconfig */,
+				D559AC662B87141E2AC94C6C /* Pods-KomikanTests.release.xcconfig */,
+				46B64BC8AB7FB230603B33C3 /* Pods-KomikanUITests.debug.xcconfig */,
+				53A1E71DB94FDBC78A3EF017 /* Pods-KomikanUITests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -573,12 +587,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5D5DBEF01C3584F5004D8C5D /* Build configuration list for PBXNativeTarget "Komikan" */;
 			buildPhases = (
-				80387E2EBE34800A09D34490 /* Check Pods Manifest.lock */,
+				C06C41C654809C53B506C87A /* [CP] Check Pods Manifest.lock */,
 				5D5DBEC71C3584F5004D8C5D /* Sources */,
 				5D5DBEC81C3584F5004D8C5D /* Frameworks */,
 				5D5DBEC91C3584F5004D8C5D /* Resources */,
-				04D991387765BEF37DEB3178 /* Embed Pods Frameworks */,
-				690F17290B7B5E14B42AF418 /* Copy Pods Resources */,
+				DAFE3384EA50B44DB2383EDD /* [CP] Embed Pods Frameworks */,
+				623DFE2278CFE2174307C0D9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -593,9 +607,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5D5DBEF31C3584F5004D8C5D /* Build configuration list for PBXNativeTarget "KomikanTests" */;
 			buildPhases = (
+				F7FEEEE51C3B20EA762DAE20 /* [CP] Check Pods Manifest.lock */,
 				5D5DBED81C3584F5004D8C5D /* Sources */,
 				5D5DBED91C3584F5004D8C5D /* Frameworks */,
 				5D5DBEDA1C3584F5004D8C5D /* Resources */,
+				45496960FA49B330B43C3BE4 /* [CP] Embed Pods Frameworks */,
+				5806CFC5C826A17CA071AFD1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -611,9 +628,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5D5DBEF61C3584F5004D8C5D /* Build configuration list for PBXNativeTarget "KomikanUITests" */;
 			buildPhases = (
+				09899C1D36179A688954254E /* [CP] Check Pods Manifest.lock */,
 				5D5DBEE31C3584F5004D8C5D /* Sources */,
 				5D5DBEE41C3584F5004D8C5D /* Frameworks */,
 				5D5DBEE51C3584F5004D8C5D /* Resources */,
+				00AE0FFDF79DC087DE30F163 /* [CP] Embed Pods Frameworks */,
+				0DFBF45B10CC3337EA4EFE02 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -637,13 +657,16 @@
 				TargetAttributes = {
 					5D5DBECA1C3584F5004D8C5D = {
 						CreatedOnToolsVersion = 7.0.1;
+						LastSwiftMigration = 0810;
 					};
 					5D5DBEDB1C3584F5004D8C5D = {
 						CreatedOnToolsVersion = 7.0.1;
+						LastSwiftMigration = 0810;
 						TestTargetID = 5D5DBECA1C3584F5004D8C5D;
 					};
 					5D5DBEE61C3584F5004D8C5D = {
 						CreatedOnToolsVersion = 7.0.1;
+						LastSwiftMigration = 0810;
 						TestTargetID = 5D5DBECA1C3584F5004D8C5D;
 					};
 				};
@@ -702,29 +725,89 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		04D991387765BEF37DEB3178 /* Embed Pods Frameworks */ = {
+		00AE0FFDF79DC087DE30F163 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Komikan/Pods-Komikan-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KomikanUITests/Pods-KomikanUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		690F17290B7B5E14B42AF418 /* Copy Pods Resources */ = {
+		09899C1D36179A688954254E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		0DFBF45B10CC3337EA4EFE02 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KomikanUITests/Pods-KomikanUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		45496960FA49B330B43C3BE4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KomikanTests/Pods-KomikanTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5806CFC5C826A17CA071AFD1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KomikanTests/Pods-KomikanTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		623DFE2278CFE2174307C0D9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -732,19 +815,49 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Komikan/Pods-Komikan-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		80387E2EBE34800A09D34490 /* Check Pods Manifest.lock */ = {
+		C06C41C654809C53B506C87A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		DAFE3384EA50B44DB2383EDD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Komikan/Pods-Komikan-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F7FEEEE51C3B20EA762DAE20 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -943,39 +1056,42 @@
 		};
 		5D5DBEF11C3584F5004D8C5D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CB22335385156945A0ABCB06 /* Pods-Komikan.debug.xcconfig */;
+			baseConfigurationReference = DEE480FA9BDF4898C36F98B5 /* Pods-Komikan.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Komikan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = drabweb.Komikan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Komikan/Komikan-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		5D5DBEF21C3584F5004D8C5D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B086CA4387890A79C8FD3E35 /* Pods-Komikan.release.xcconfig */;
+			baseConfigurationReference = 6DE865D0A6000596D688ED5B /* Pods-Komikan.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Komikan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = drabweb.Komikan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Komikan/Komikan-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
 		5D5DBEF41C3584F5004D8C5D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0EBA0F78306239B41430E4EC /* Pods-KomikanTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -983,12 +1099,14 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = drabweb.KomikanTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Komikan.app/Contents/MacOS/Komikan";
 			};
 			name = Debug;
 		};
 		5D5DBEF51C3584F5004D8C5D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D559AC662B87141E2AC94C6C /* Pods-KomikanTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -996,18 +1114,21 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = drabweb.KomikanTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Komikan.app/Contents/MacOS/Komikan";
 			};
 			name = Release;
 		};
 		5D5DBEF71C3584F5004D8C5D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 46B64BC8AB7FB230603B33C3 /* Pods-KomikanUITests.debug.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = KomikanUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = drabweb.KomikanUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Komikan;
 				USES_XCTRUNNER = YES;
 			};
@@ -1015,12 +1136,14 @@
 		};
 		5D5DBEF81C3584F5004D8C5D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 53A1E71DB94FDBC78A3EF017 /* Pods-KomikanUITests.release.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = KomikanUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = drabweb.KomikanUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Komikan;
 				USES_XCTRUNNER = YES;
 			};

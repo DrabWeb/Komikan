@@ -35,19 +35,19 @@ class KMEHLoginViewController: NSViewController, WebFrameLoadDelegate {
         webView.frameLoadDelegate = self;
         
         /// The webviews cookie storage
-        let storage : NSHTTPCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage();
+        let storage : HTTPCookieStorage = HTTPCookieStorage.shared;
         
         // For every cookie in the cookie storage...
-        for(_, currentCookie) in (storage.cookies?.enumerate())! {
+        for(_, currentCookie) in (storage.cookies?.enumerated())! {
             // Delete the cookie
             storage.deleteCookie(currentCookie);
         }
         
         // Reload the user defaults
-        NSUserDefaults.standardUserDefaults().synchronize();
+        UserDefaults.standard.synchronize();
     }
     
-    func webView(sender: WebView!, didStartProvisionalLoadForFrame frame: WebFrame!) {
+    func webView(_ sender: WebView!, didStartProvisionalLoadFor frame: WebFrame!) {
         // Update the webview
         updateWebView();
     }
@@ -58,12 +58,12 @@ class KMEHLoginViewController: NSViewController, WebFrameLoadDelegate {
         urlLabel.stringValue = webView.mainFrameURL;
         
         // If the cookies contains a "ipb_member_id" and we arent already on ExHentai...
-        if(webView.stringByEvaluatingJavaScriptFromString("document.cookie").containsString("ipb_member_id") && !openedExhentai) {
+        if(webView.stringByEvaluatingJavaScript(from: "document.cookie").contains("ipb_member_id") && !openedExhentai) {
             /// The URL request to open ExHentai
-            let exLoadRequest : NSURLRequest = NSURLRequest(URL: NSURL(string: "http://exhentai.org")!);
+            let exLoadRequest : URLRequest = URLRequest(url: URL(string: "http://exhentai.org")!);
             
             // Load the EX request
-            webView.mainFrame.loadRequest(exLoadRequest);
+            webView.mainFrame.load(exLoadRequest);
             
             // Say we have already opened ExHentai
             openedExhentai = true;
@@ -74,7 +74,7 @@ class KMEHLoginViewController: NSViewController, WebFrameLoadDelegate {
             // Write the cookies into the Application Supports excookies file
             do {
                 // Try to write the cookies
-                try webView.stringByEvaluatingJavaScriptFromString("document.cookie").writeToFile(NSHomeDirectory() + "/Library/Application Support/Komikan/excookies", atomically: true, encoding: NSUTF8StringEncoding);
+                try webView.stringByEvaluatingJavaScript(from: "document.cookie").write(toFile: NSHomeDirectory() + "/Library/Application Support/Komikan/excookies", atomically: true, encoding: String.Encoding.utf8);
             }
                 // If there is an error...
             catch _ as NSError {
@@ -90,17 +90,17 @@ class KMEHLoginViewController: NSViewController, WebFrameLoadDelegate {
             loginWindow.close();
             
             // Open https://a.pomf.cat/lkyaft.png . It is a small flow graph posted on /h/ that tells users how to get past sad panda(Though they really shouldnt need this, im just being kind)
-            NSWorkspace.sharedWorkspace().openURL(NSURL(string: "https://a.pomf.cat/lkyaft.png")!);
+            NSWorkspace.shared().open(URL(string: "https://a.pomf.cat/lkyaft.png")!);
         }
     }
     
     /// Loads the web view
     func loadWebView() {
         /// The URL request to open E-Hentai
-        let ehLoadRequest : NSURLRequest = NSURLRequest(URL: NSURL(string: "http://g.e-hentai.org/home.php")!);
+        let ehLoadRequest : URLRequest = URLRequest(url: URL(string: "http://g.e-hentai.org/home.php")!);
         
         // Load the EH request
-        webView.mainFrame.loadRequest(ehLoadRequest);
+        webView.mainFrame.load(ehLoadRequest);
         
         // Do the initial webview update
         updateWebView();
@@ -109,18 +109,18 @@ class KMEHLoginViewController: NSViewController, WebFrameLoadDelegate {
     /// Styles the window
     func styleWindow() {
         // Set the window to the last application window
-        loginWindow = NSApplication.sharedApplication().windows.last!;
+        loginWindow = NSApplication.shared().windows.last!;
         
         // Set the window to have a full size content view
-        loginWindow.styleMask |= NSFullSizeContentViewWindowMask;
+        loginWindow.styleMask.insert(NSFullSizeContentViewWindowMask);
         
         // Hide the titlebar
         loginWindow.titlebarAppearsTransparent = true;
         
         // Hide the title of the window
-        loginWindow.titleVisibility = NSWindowTitleVisibility.Hidden;
+        loginWindow.titleVisibility = NSWindowTitleVisibility.hidden;
         
         // Center the window
-        loginWindow.setFrame(NSRect(x: (NSScreen.mainScreen()!.frame.width / 2) - (480 / 2), y: (NSScreen.mainScreen()!.frame.height / 2) - (500 / 2), width: 480, height: 500), display: false);
+        loginWindow.setFrame(NSRect(x: (NSScreen.main()!.frame.width / 2) - (480 / 2), y: (NSScreen.main()!.frame.height / 2) - (500 / 2), width: 480, height: 500), display: false);
     }
 }

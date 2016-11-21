@@ -6,14 +6,15 @@
 //
 
 import Foundation
+import AppKit
 
 class KMImageFilterUtilities {
-    func applyColorAndSharpness(image : NSImage, saturation : CGFloat, brightness : CGFloat, contrast : CGFloat, sharpness : CGFloat) -> NSImage {
+    func applyColorAndSharpness(_ image : NSImage, saturation : CGFloat, brightness : CGFloat, contrast : CGFloat, sharpness : CGFloat) -> NSImage {
         // Store the original image
         var originalImage = image;
         
         // Create a variable for the input image as a CIImage
-        var inputImage = CIImage(data: (originalImage.TIFFRepresentation)!);
+        var inputImage = CIImage(data: (originalImage.tiffRepresentation)!);
         
         // Create the filter for the color controls
         var filter = CIFilter(name: "CIColorControls");
@@ -34,7 +35,7 @@ class KMImageFilterUtilities {
         filter!.setValue(contrast, forKey: "inputContrast");
         
         // Create the output image as a CIImage
-        var outputImage = filter!.valueForKey(kCIOutputImageKey) as! CIImage;
+        var outputImage = filter!.value(forKey: kCIOutputImageKey) as! CIImage;
         
         // Create the rect for the output image as its full size
         var outputImageRect = NSRectFromCGRect(outputImage.extent);
@@ -46,7 +47,7 @@ class KMImageFilterUtilities {
         colorControlledImage.lockFocus();
         
         // Draw the image onto the NSImage
-        outputImage.drawAtPoint(NSZeroPoint, fromRect: outputImageRect, operation: .CompositeCopy, fraction: 1.0);
+        outputImage.draw(at: NSZeroPoint, from: outputImageRect, operation: .copy, fraction: 1.0);
         
         // Unlock the images focus
         colorControlledImage.unlockFocus();
@@ -55,7 +56,7 @@ class KMImageFilterUtilities {
         originalImage = colorControlledImage;
         
         // Set inputImage to the color controlled image as a CIImage
-        inputImage = CIImage(data: (originalImage.TIFFRepresentation)!);
+        inputImage = CIImage(data: (originalImage.tiffRepresentation)!);
         
         // Set filter to the sharpen filter
         filter = CIFilter(name: "CISharpenLuminance");
@@ -70,7 +71,7 @@ class KMImageFilterUtilities {
         filter!.setValue(sharpness, forKey: "inputSharpness");
         
         // Set outputImage to the filters image as a CGImage
-        outputImage = filter!.valueForKey(kCIOutputImageKey) as! CIImage;
+        outputImage = filter!.value(forKey: kCIOutputImageKey) as! CIImage;
         
         // Set outputImageRect to the now sharpened images full size
         outputImageRect = NSRectFromCGRect(outputImage.extent);
@@ -82,7 +83,7 @@ class KMImageFilterUtilities {
         sharpenedImage.lockFocus();
         
         // Draw the output image onto sharpenedImage
-        outputImage.drawAtPoint(NSZeroPoint, fromRect: outputImageRect, operation: .CompositeCopy, fraction: 1.0);
+        outputImage.draw(at: NSZeroPoint, from: outputImageRect, operation: .copy, fraction: 1.0);
         
         // Unlock the focus
         sharpenedImage.unlockFocus();
@@ -91,12 +92,12 @@ class KMImageFilterUtilities {
         return sharpenedImage;
     }
     
-    func applyColorAndSharpnessMultiple(images : [NSImage], saturation : CGFloat, brightness : CGFloat, contrast : CGFloat, sharpness : CGFloat) -> [NSImage] {
+    func applyColorAndSharpnessMultiple(_ images : [NSImage], saturation : CGFloat, brightness : CGFloat, contrast : CGFloat, sharpness : CGFloat) -> [NSImage] {
         // Create the variable that will hold all the filtered images
         var filteredImages : [NSImage] = [NSImage()];
         
         // For every image in the passed images...
-        for(_, currentImage) in images.enumerate() {
+        for(_, currentImage) in images.enumerated() {
             // Create the variable for storing this images filtered version, and set it to the current image filtered with the passed amounts
             let filteredImage : NSImage = applyColorAndSharpness(currentImage, saturation: saturation, brightness: brightness, contrast: contrast, sharpness: sharpness);
             

@@ -10,7 +10,7 @@ import Cocoa
 class KMEHViewController: NSViewController {
     
     // The NSTimer to update if we can add the manga with our given values
-    var addButtonUpdateLoop : NSTimer = NSTimer();
+    var addButtonUpdateLoop : Timer = Timer();
 
     // The visual effect view for the background of the window
     @IBOutlet weak var backgroundVisualEffectView: NSVisualEffectView!
@@ -19,14 +19,14 @@ class KMEHViewController: NSViewController {
     @IBOutlet weak var addFromEHTextField: NSTextFieldCell!
     
     // When we intreact with addFromEHTextField...
-    @IBAction func addFromEHTextFieldInteracted(sender: AnyObject) {
+    @IBAction func addFromEHTextFieldInteracted(_ sender: AnyObject) {
         // Dismiss the popover
-        self.dismissController(self);
+        self.dismiss(self);
         
         // For every URL in the add from EH text field (Seperated ast each space)...
-        for(_, currentURL) in addFromEHTextField.stringValue.componentsSeparatedByString(", ").enumerate() {
+        for(_, currentURL) in addFromEHTextField.stringValue.components(separatedBy: ", ").enumerated() {
             // Add the current URL to the download queue
-            (NSApplication.sharedApplication().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: currentURL, useJapaneseTitle: Bool(addFromEHUseJapaneseTitle.state), group: addFromEHGroupTextField.stringValue));
+            (NSApplication.shared().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: currentURL, useJapaneseTitle: Bool(addFromEHUseJapaneseTitle.state as NSNumber), group: addFromEHGroupTextField.stringValue));
         }
     }
     
@@ -37,14 +37,14 @@ class KMEHViewController: NSViewController {
     @IBOutlet weak var addFromEHButton: NSButtonCell!
     
     // When we interact with addFromEHButton...
-    @IBAction func addFromEHButtonInteracted(sender: AnyObject) {
+    @IBAction func addFromEHButtonInteracted(_ sender: AnyObject) {
         // Dismiss the popover
-        self.dismissController(self);
+        self.dismiss(self);
         
         // For every URL in the add from EH text field (Seperated at each ", ")...
-        for(_, currentURL) in addFromEHTextField.stringValue.componentsSeparatedByString(", ").enumerate() {
+        for(_, currentURL) in addFromEHTextField.stringValue.components(separatedBy: ", ").enumerated() {
             // Add the current URL to the download queue
-            (NSApplication.sharedApplication().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: currentURL, useJapaneseTitle: Bool(addFromEHUseJapaneseTitle.state), group: addFromEHGroupTextField.stringValue));
+            (NSApplication.shared().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: currentURL, useJapaneseTitle: Bool(addFromEHUseJapaneseTitle.state as NSNumber), group: addFromEHGroupTextField.stringValue));
         }
     }
     
@@ -55,14 +55,14 @@ class KMEHViewController: NSViewController {
     @IBOutlet weak var addFromEXTextField: NSTextField!
     
     // When we intreact with addFromEXTextField...
-    @IBAction func addFromEXTextFieldInteracted(sender: AnyObject) {
+    @IBAction func addFromEXTextFieldInteracted(_ sender: AnyObject) {
         // Dismiss the popover
-        self.dismissController(self);
+        self.dismiss(self);
         
         // For every URL in the add from EX text field (Seperated ast each space)...
-        for(_, currentURL) in addFromEXTextField.stringValue.componentsSeparatedByString(", ").enumerate() {
+        for(_, currentURL) in addFromEXTextField.stringValue.components(separatedBy: ", ").enumerated() {
             // Add the current URL to the download queue
-            (NSApplication.sharedApplication().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: currentURL, useJapaneseTitle: Bool(addFromEXUseJapaneseTitle.state), group: addFromEXGroupTextField.stringValue, onExHentai: true));
+            (NSApplication.shared().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: currentURL, useJapaneseTitle: Bool(addFromEXUseJapaneseTitle.state as NSNumber), group: addFromEXGroupTextField.stringValue, onExHentai: true));
         }
     }
     
@@ -73,14 +73,14 @@ class KMEHViewController: NSViewController {
     @IBOutlet weak var addFromEXButton: NSButton!
     
     // When we interact with addFromEXButton...
-    @IBAction func addFromEXButtonInteracted(sender: AnyObject) {
+    @IBAction func addFromEXButtonInteracted(_ sender: AnyObject) {
         // Dismiss the popover
-        self.dismissController(self);
+        self.dismiss(self);
         
         // For every URL in the add from EX text field (Seperated at each ", ")...
-        for(_, currentURL) in addFromEXTextField.stringValue.componentsSeparatedByString(", ").enumerate() {
+        for(_, currentURL) in addFromEXTextField.stringValue.components(separatedBy: ", ").enumerated() {
             // Add the current URL to the download queue
-            (NSApplication.sharedApplication().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: currentURL, useJapaneseTitle: Bool(addFromEXUseJapaneseTitle.state), group: addFromEXGroupTextField.stringValue, onExHentai: true));
+            (NSApplication.shared().delegate as! AppDelegate).ehDownloadController.addItemToQueue(KMEHDownloadItem(url: currentURL, useJapaneseTitle: Bool(addFromEXUseJapaneseTitle.state as NSNumber), group: addFromEXGroupTextField.stringValue, onExHentai: true));
         }
     }
     
@@ -97,25 +97,25 @@ class KMEHViewController: NSViewController {
         styleWindow();
         
         // Start a 0.1 second loop that will set if we can add from the inpputed URL or not
-        addButtonUpdateLoop = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), target: self, selector: Selector("updateAddButton"), userInfo: nil, repeats: true);
+        addButtonUpdateLoop = Timer.scheduledTimer(timeInterval: TimeInterval(0.1), target: self, selector: #selector(KMEHViewController.updateAddButton), userInfo: nil, repeats: true);
     }
     
     /// Updates the add button to if we can add the current entered URL to the downloads
     func updateAddButton() {
         // Say we cant download if the URL is blank
         if(addFromEHTextField.stringValue != "") {
-            addFromEHButton.enabled = true;
+            addFromEHButton.isEnabled = true;
         }
         else {
-            addFromEHButton.enabled = false;
+            addFromEHButton.isEnabled = false;
         }
         
         // Say we cant download if the URL is blank
         if(addFromEXTextField.stringValue != "") {
-            addFromEXButton.enabled = true;
+            addFromEXButton.isEnabled = true;
         }
         else {
-            addFromEXButton.enabled = false;
+            addFromEXButton.isEnabled = false;
         }
     }
     
@@ -126,6 +126,6 @@ class KMEHViewController: NSViewController {
     
     func styleWindow() {
         // Set the backgrounds visual effect view material
-        backgroundVisualEffectView.material = NSVisualEffectMaterial.Dark;
+        backgroundVisualEffectView.material = NSVisualEffectMaterial.dark;
     }
 }

@@ -14,8 +14,8 @@ class KMMetadataFetcherCoverSelectionPopUpButton: NSPopUpButton {
         return self.selectedCell()?.title == "Dont Change";
     }
 
-    override func drawRect(dirtyRect: NSRect) {
-        super.drawRect(dirtyRect);
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect);
 
         // Drawing code here.
         // I know absolute frames are bad, but its the only way

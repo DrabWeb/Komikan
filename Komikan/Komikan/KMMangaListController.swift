@@ -20,9 +20,9 @@ class KMMangaListController: NSObject {
     @IBOutlet weak var mangaListTableView: KMMangaListTableView!
     
     /// When we click on mangaListTableView...
-    @IBAction func mangaListTableViewClicked(sender: AnyObject) {
+    @IBAction func mangaListTableViewClicked(_ sender: AnyObject) {
         // If we double clicked...
-        if(NSApplication.sharedApplication().currentEvent?.clickCount == 2) {
+        if(NSApplication.shared().currentEvent?.clickCount == 2) {
             // Open the selected manga
             openManga();
         }
@@ -43,7 +43,7 @@ class KMMangaListController: NSObject {
         var manga : [KMManga] = [];
         
         // For every selected row...
-        for(_, currentIndex) in self.mangaListTableView.selectedRowIndexes.enumerate() {
+        for(_, currentIndex) in self.mangaListTableView.selectedRowIndexes.enumerated() {
             // Add the manga at the current index to the manga list
             manga.append(((self.mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])![currentIndex].manga));
         }
@@ -64,7 +64,7 @@ class KMMangaListController: NSObject {
     /// Is the edit popover open?
     var editPopoverOpen : Bool = false;
     
-    func openPopover(hidden : Bool, manga : KMManga) {
+    func openPopover(_ hidden : Bool, manga : KMManga) {
         // Hide the thumbnail window
         viewController.thumbnailImageHoverController.hide();
         
@@ -72,7 +72,7 @@ class KMMangaListController: NSObject {
         let storyboard = NSStoryboard(name: "Main", bundle: nil);
         
         // Instanstiate the view controller for the edit/open manga view controller
-        editMangaViewController = storyboard.instantiateControllerWithIdentifier("editMangaViewController") as? KMEditMangaViewController;
+        editMangaViewController = storyboard.instantiateController(withIdentifier: "editMangaViewController") as? KMEditMangaViewController;
         
         // If we said to hide the popover...
         if(hidden) {
@@ -81,7 +81,7 @@ class KMMangaListController: NSObject {
         }
         else {
             // Show the popover
-            editMangaViewController!.presentViewController(editMangaViewController!, asPopoverRelativeToRect: viewController.backgroundVisualEffectView.bounds, ofView: viewController.backgroundVisualEffectView, preferredEdge: NSRectEdge.MaxY, behavior: NSPopoverBehavior.Semitransient);
+            editMangaViewController!.presentViewController(editMangaViewController!, asPopoverRelativeTo: viewController.backgroundVisualEffectView.bounds, of: viewController.backgroundVisualEffectView, preferredEdge: NSRectEdge.maxY, behavior: NSPopoverBehavior.semitransient);
             
             // Set editPopoverOpen to true
             editPopoverOpen = true;
@@ -91,15 +91,15 @@ class KMMangaListController: NSObject {
         openedManga.append(manga);
         
         // Say that we want to edit or open this manga
-        NSNotificationCenter.defaultCenter().postNotificationName("KMMangaGridCollectionItem.Editing", object: manga);
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "KMMangaGridCollectionItem.Editing"), object: manga);
         
         // If we havent already subscribed to the notifications...
         if(!alreadySubscribed) {
             // Subscribe to the popovers saved function
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "saveMangaFromPopover:", name:"KMEditMangaViewController.Saving", object: nil);
+            NotificationCenter.default.addObserver(self, selector: #selector(KMMangaListController.saveMangaFromPopover(_:)), name:NSNotification.Name(rawValue: "KMEditMangaViewController.Saving"), object: nil);
             
             // Subscribe to the readers update percent finished function
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "updatePercentFinished:", name:"KMMangaGridCollectionItem.UpdatePercentFinished", object: nil);
+            NotificationCenter.default.addObserver(self, selector: #selector(KMMangaListController.updatePercentFinished(_:)), name:NSNotification.Name(rawValue: "KMMangaGridCollectionItem.UpdatePercentFinished"), object: nil);
             
             // Say we subscribed
             alreadySubscribed = true;
@@ -109,20 +109,20 @@ class KMMangaListController: NSObject {
     /// Opens all the selected manga
     func openManga() {
         // For every selected manga...
-        for(_, currentSelectedManga) in selectedMangaList().enumerate() {
+        for(_, currentSelectedManga) in selectedMangaList().enumerated() {
             print("KMMangaListController: Opening \"" + currentSelectedManga.title + "\"");
             
             // Open the popover
             openPopover(true, manga: currentSelectedManga);
             
             // Open the current manga
-            (NSApplication.sharedApplication().delegate as! AppDelegate).openManga(currentSelectedManga, page: currentSelectedManga.currentPage);
+            (NSApplication.shared().delegate as! AppDelegate).openManga(currentSelectedManga, page: currentSelectedManga.currentPage);
         }
     }
     
-    func saveMangaFromPopover(notification : NSNotification) {
+    func saveMangaFromPopover(_ notification : Notification) {
         // For every manga in the opened manga...
-        for(_, currentManga) in openedManga.enumerate() {
+        for(_, currentManga) in openedManga.enumerated() {
             // If the UUID matches...
             if(currentManga.uuid == (notification.object as? KMManga)!.uuid) {
                 print("KMMangaListController: UUID matched for \"" + currentManga.title + "\"");
@@ -131,9 +131,9 @@ class KMMangaListController: NSObject {
                 print("KMMangaListController: Saving manga \"" + currentManga.title + "\"");
                 
                 // For every manga inside the opened manga...
-                for(_, _) in openedManga.enumerate() {
+                for(_, _) in openedManga.enumerated() {
                     // For every item in the array controller...
-                    for(_, currentMangaGridItem) in (self.mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])!.enumerate() {
+                    for(_, currentMangaGridItem) in (self.mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])!.enumerated() {
                         // If the current grid item's manga's UUID is the same as the notification's manga's UUID...
                         if(currentMangaGridItem.manga.uuid == (notification.object as? KMManga)!.uuid) {
                             // Set the current manga to the notifications manga
@@ -146,7 +146,7 @@ class KMMangaListController: NSObject {
                 mangaGridController.storeCurrentSelection();
                 
                 // Reload the view to match its contents
-                NSNotificationCenter.defaultCenter().postNotificationName("ViewController.UpdateMangaGrid", object: nil);
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "ViewController.UpdateMangaGrid"), object: nil);
                 
                 // Resort the grid
                 mangaGridController.resort();
@@ -160,11 +160,11 @@ class KMMangaListController: NSObject {
         }
     }
     
-    func updatePercentFinished(notification : NSNotification) {
+    func updatePercentFinished(_ notification : Notification) {
         print("KMMangaListController: Updating percent...");
         
         // For every manga in the opened manga...
-        for(_, currentManga) in openedManga.enumerate() {
+        for(_, currentManga) in openedManga.enumerated() {
             // If the UUID matches...
             if(currentManga.uuid == (notification.object as? KMManga)!.uuid) {
                 print("KMMangaListController: UUID matched for \"" + currentManga.title + "\"");
@@ -191,31 +191,31 @@ class KMMangaListController: NSObject {
         mangaListTableView.mangaListController = self;
         
         // Subscribe to the edit popover's closing notification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("sayEditPopoverIsClosed"), name: "KMEditMangaViewController.Closing", object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(KMMangaListController.sayEditPopoverIsClosed), name: NSNotification.Name(rawValue: "KMEditMangaViewController.Closing"), object: nil);
     }
 }
 
 extension KMMangaListController : NSTableViewDataSource {
     
-    func tableViewSelectionIsChanging(notification: NSNotification) {
+    func tableViewSelectionIsChanging(_ notification: Notification) {
         // If the selected row isnt blank and the edit popover is open...
-        if(self.mangaListTableView.selectedRowIndexes.firstIndex != -1 && self.editPopoverOpen) {
+        if(self.mangaListTableView.selectedRowIndexes.first != -1 && self.editPopoverOpen) {
             // Dismiss the edit popover
-            self.editMangaViewController?.dismissController(self);
+            self.editMangaViewController?.dismiss(self);
             
             // Show the edit popover with the newly selected manga
             self.openPopover(false, manga: self.selectedManga());
         }
     }
     
-    func tableView(tableView: NSTableView, sizeToFitWidthOfColumn column: Int) -> CGFloat {
+    func tableView(_ tableView: NSTableView, sizeToFitWidthOfColumn column: Int) -> CGFloat {
         /// The width we will set the cell to at the end
         var width : CGFloat = 0;
         
         // For every item in the table view's rows...
         for i in 0...(tableView.numberOfRows - 1) {
             /// The cell view at the current column
-            let view = tableView.viewAtColumn(column, row: i, makeIfNecessary: true) as! NSTableCellView;
+            let view = tableView.view(atColumn: column, row: i, makeIfNecessary: true) as! NSTableCellView;
             
             /// The size of this cell's text
             let size = view.textField!.attributedStringValue.size();
@@ -228,12 +228,12 @@ extension KMMangaListController : NSTableViewDataSource {
         return width + 20;
     }
     
-    func numberOfRowsInTableView(aTableView: NSTableView) -> Int {
+    func numberOfRows(in aTableView: NSTableView) -> Int {
         // Return the number of items in the manga grid array controller
         return (self.mangaGridController.arrayController.arrangedObjects as? [AnyObject])!.count;
     }
     
-    func tableView(tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
+    func tableView(_ tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
         // If this isnt the first time this was called...
         if(!firstSortChange) {
             // Set the sort descriptors of the manga array controller to the sort descriptors to use
@@ -247,9 +247,9 @@ extension KMMangaListController : NSTableViewDataSource {
         firstSortChange = false;
     }
     
-    func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         /// The cell view it is asking us about for the data
-        let cellView : NSTableCellView = tableView.makeViewWithIdentifier(tableColumn!.identifier, owner: self) as! NSTableCellView;
+        let cellView : NSTableCellView = tableView.make(withIdentifier: tableColumn!.identifier, owner: self) as! NSTableCellView;
         
         // If the row we are trying to get an item from is in range of the array controller...
         if(row < (self.mangaGridController.arrayController.arrangedObjects as? [KMMangaGridItem])!.count) {

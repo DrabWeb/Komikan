@@ -12,7 +12,7 @@ class KMReaderPageJumpCollectionItem: NSCollectionViewItem {
     /// The image view for the thumbnail
     @IBOutlet var thumbnailImageView: KMRasterizedImageView!
     
-    override func mouseDown(theEvent: NSEvent) {
+    override func mouseDown(with theEvent: NSEvent) {
         // Jump to this page
         (self.representedObject as! KMReaderPageJumpGridItem).readerViewController.jumpToPage((self.representedObject as! KMReaderPageJumpGridItem).page, round: false);
     }
@@ -22,6 +22,6 @@ class KMReaderPageJumpCollectionItem: NSCollectionViewItem {
         // Do view setup here.
         
         // Bind the alpha value of the thumbnail to if it is the current page
-        self.thumbnailImageView.bind("alphaValue", toObject: self, withKeyPath: "representedObject.alpha", options: nil);
+        self.thumbnailImageView.bind("alphaValue", to: self, withKeyPath: "representedObject.alpha", options: nil);
     }
 }

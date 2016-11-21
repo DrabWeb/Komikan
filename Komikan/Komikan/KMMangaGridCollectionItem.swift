@@ -22,27 +22,27 @@ class KMMangaGridCollectionItem: NSCollectionViewItem {
         super.viewDidLoad();
         
         // Bind the alpha value to the percent done
-        self.coverImageView.bind("alphaValue", toObject: self, withKeyPath: "representedObject.percentAlpha", options: nil);
-        self.titleTextField.bind("alphaValue", toObject: self, withKeyPath: "representedObject.percentAlpha", options: nil);
+        self.coverImageView.bind("alphaValue", to: self, withKeyPath: "representedObject.percentAlpha", options: nil);
+        self.titleTextField.bind("alphaValue", to: self, withKeyPath: "representedObject.percentAlpha", options: nil);
     }
     
-    override func rightMouseDown(theEvent: NSEvent) {
+    override func rightMouseDown(with theEvent: NSEvent) {
         // Open the edit/open popover
         openPopover(false);
         
         // Set the collection view to be frontmost
-        NSApplication.sharedApplication().windows.first!.makeFirstResponder(self.collectionView);
+        NSApplication.shared().windows.first!.makeFirstResponder(self.collectionView);
         
         // Deselect all the items
         self.collectionView.deselectAll(self);
         
         // Select this item
-        self.selected = true;
+        self.isSelected = true;
     }
     
-    override func mouseDown(theEvent: NSEvent) {
+    override func mouseDown(with theEvent: NSEvent) {
         // Get the modifier value and store it in a temporary variable
-        let modifierValue : Int = Int((NSApplication.sharedApplication().delegate as! AppDelegate).modifierValue);
+        let modifierValue : Int = Int((NSApplication.shared().delegate as! AppDelegate).modifierValue);
         
         // If we arent holding CMD or Shift...
         if(!(modifierValue == 1048840 || modifierValue == 131330)) {
@@ -50,15 +50,15 @@ class KMMangaGridCollectionItem: NSCollectionViewItem {
             self.collectionView.deselectAll(self);
             
             // Select this item
-            self.selected = true;
+            self.isSelected = true;
         }
         else {
             // Toggle selection on this item
-            self.selected = !self.selected;
+            self.isSelected = !self.isSelected;
         }
         
         // Set the collection view to be frontmost
-        NSApplication.sharedApplication().windows.first!.makeFirstResponder(self.collectionView);
+        NSApplication.shared().windows.first!.makeFirstResponder(self.collectionView);
         
         // If we double clicked...
         if(theEvent.clickCount == 2) {
@@ -66,17 +66,17 @@ class KMMangaGridCollectionItem: NSCollectionViewItem {
         }
     }
     
-    func openPopover(hidden : Bool) {
+    func openPopover(_ hidden : Bool) {
         // Get the main storyboard
         let storyboard = NSStoryboard(name: "Main", bundle: nil);
         
         // Instanstiate the view controller for the edit/open manga view controller
-        editMangaViewController = storyboard.instantiateControllerWithIdentifier("editMangaViewController") as? KMEditMangaViewController;
+        editMangaViewController = storyboard.instantiateController(withIdentifier: "editMangaViewController") as? KMEditMangaViewController;
         
         // If we said to show the popover...
         if(!hidden) {
             // Present editMangaViewController as a popover using this views bounds, the MaxX edge, and with a semitransient behaviour
-            self.presentViewController(editMangaViewController!, asPopoverRelativeToRect: self.view.bounds, ofView: self.view, preferredEdge: NSRectEdge.MaxX, behavior: NSPopoverBehavior.Semitransient);
+            self.presentViewController(editMangaViewController!, asPopoverRelativeTo: self.view.bounds, of: self.view, preferredEdge: NSRectEdge.maxX, behavior: NSPopoverBehavior.semitransient);
         }
         // If we said to hide the popover...
         else {
@@ -85,13 +85,13 @@ class KMMangaGridCollectionItem: NSCollectionViewItem {
         }
         
         // Say that we want to edit or open this manga
-        NSNotificationCenter.defaultCenter().postNotificationName("KMMangaGridCollectionItem.Editing", object: (self.representedObject as? KMMangaGridItem)?.manga);
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "KMMangaGridCollectionItem.Editing"), object: (self.representedObject as? KMMangaGridItem)?.manga);
         
         // Subscribe to the popovers saved function
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "saveMangaFromPopover:", name:"KMEditMangaViewController.Saving", object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(KMMangaGridCollectionItem.saveMangaFromPopover(_:)), name:NSNotification.Name(rawValue: "KMEditMangaViewController.Saving"), object: nil);
         
         // Subscribe to the readers update percent finished function
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updatePercentFinished:", name:"KMMangaGridCollectionItem.UpdatePercentFinished", object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(KMMangaGridCollectionItem.updatePercentFinished(_:)), name:NSNotification.Name(rawValue: "KMMangaGridCollectionItem.UpdatePercentFinished"), object: nil);
     }
     
     func openManga() {
@@ -99,10 +99,10 @@ class KMMangaGridCollectionItem: NSCollectionViewItem {
         openPopover(true);
         
         // Open this collection items manga
-        (NSApplication.sharedApplication().delegate as! AppDelegate).openManga((self.representedObject as? KMMangaGridItem)!.manga, page: (self.representedObject as? KMMangaGridItem)!.manga.currentPage);
+        (NSApplication.shared().delegate as! AppDelegate).openManga((self.representedObject as? KMMangaGridItem)!.manga, page: (self.representedObject as? KMMangaGridItem)!.manga.currentPage);
     }
     
-    func saveMangaFromPopover(notification : NSNotification) {
+    func saveMangaFromPopover(_ notification : Notification) {
         // If the UUID matches...
         if((self.representedObject as? KMMangaGridItem)?.manga.uuid == (notification.object as? KMManga)!.uuid) {
             // Print to the log the manga we received
@@ -112,26 +112,26 @@ class KMMangaGridCollectionItem: NSCollectionViewItem {
             (self.representedObject as? KMMangaGridItem)?.changeManga((notification.object as? KMManga)!);
             
             // Remove the observer so we dont get duplicate calls
-            NSNotificationCenter.defaultCenter().removeObserver(self);
+            NotificationCenter.default.removeObserver(self);
             
             // Store the current scroll position and selection
-            (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.storeCurrentSelection();
+            (NSApplication.shared().delegate as! AppDelegate).mangaGridController.storeCurrentSelection();
             
             // Reload the view to match its contents
-            NSNotificationCenter.defaultCenter().postNotificationName("ViewController.UpdateMangaGrid", object: nil);
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "ViewController.UpdateMangaGrid"), object: nil);
             
             // Resort the grid
-            (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.resort();
+            (NSApplication.shared().delegate as! AppDelegate).mangaGridController.resort();
             
             // Redo the search, if there was one
-            (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.redoSearch();
+            (NSApplication.shared().delegate as! AppDelegate).mangaGridController.redoSearch();
             
             // Restore the scroll position and selection
-            (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.restoreSelection();
+            (NSApplication.shared().delegate as! AppDelegate).mangaGridController.restoreSelection();
         }
     }
     
-    func updatePercentFinished(notification : NSNotification) {
+    func updatePercentFinished(_ notification : Notification) {
         // If the UUID matches...
         if((self.representedObject as? KMMangaGridItem)?.manga.uuid == (notification.object as? KMManga)!.uuid) {
             // Update the passed mangas percent finished

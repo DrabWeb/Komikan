@@ -20,7 +20,7 @@ class KMMangaGridController: NSObject {
     var gridItems : [KMMangaGridItem] = [];
     
     /// The current way we are sorting the grid
-    var currentSortOrder : KMMangaGridSortType = KMMangaGridSortType.Title;
+    var currentSortOrder : KMMangaGridSortType = KMMangaGridSortType.title;
     
     /// Are we currently ascending the grids sort?
     var currentSortAscending : Bool = false;
@@ -33,13 +33,13 @@ class KMMangaGridController: NSObject {
     
     override func awakeFromNib() {
         // Subscribe to the MangaGrid.Resort notification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "resort", name:"MangaGrid.Resort", object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(KMMangaGridController.resort), name:NSNotification.Name(rawValue: "MangaGrid.Resort"), object: nil);
     }
     
     /// Exports the JSON information for every manga in the grid(Also exports thre internal info if exportInternalInfo is true)
-    func exportAllMangaJSON(exportInternalInfo : Bool) {
+    func exportAllMangaJSON(_ exportInternalInfo : Bool) {
         // For every single grid item...
-        for(_, currentGridItem) in gridItems.enumerate() {
+        for(_, currentGridItem) in gridItems.enumerated() {
             // Export this items manga's info
             KMFileUtilities().exportMangaJSON(currentGridItem.manga, exportInternalInfo: exportInternalInfo);
         }
@@ -54,28 +54,28 @@ class KMMangaGridController: NSObject {
         finishedNotification.informativeText = "Finshed exporting Metadata";
         
         // Set the notifications identifier to be an obscure string, so we can show multiple at once
-        finishedNotification.identifier = NSUUID().UUIDString;
+        finishedNotification.identifier = UUID().uuidString;
         
         // Deliver the notification
-        NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(finishedNotification);
+        NSUserNotificationCenter.default.deliver(finishedNotification);
     }
     
     /// Removes gridItem from the manga grid
-    func removeGridItem(gridItem : KMMangaGridItem, resort : Bool) {
+    func removeGridItem(_ gridItem : KMMangaGridItem, resort : Bool) {
         // Convert grid items to a mutable array, remove the object we want to remove, and save it back to gridItems
         let gridItemsMutableArray : NSMutableArray = NSMutableArray(array: gridItems);
-        gridItemsMutableArray.removeObject(gridItem);
+        gridItemsMutableArray.remove(gridItem);
         gridItems = Array(gridItemsMutableArray) as! [KMMangaGridItem];
                 
         // Remove the grid object from the array controller
         arrayController.removeObject(gridItem);
         
         // If the manga is from EH and we said in the preferences to delete them...
-        if(gridItem.manga.directory.containsString("/Library/Application Support/Komikan/EH") && (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.deleteLLewdMangaWhenRemovingFromTheGrid) {
+        if(gridItem.manga.directory.contains("/Library/Application Support/Komikan/EH") && (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.deleteLLewdMangaWhenRemovingFromTheGrid) {
             // Also delete the file
             do {
                 // Move the manga file to the trash
-                try NSFileManager.defaultManager().trashItemAtURL(NSURL(fileURLWithPath: gridItem.manga.directory), resultingItemURL: nil);
+                try FileManager.default.trashItem(at: URL(fileURLWithPath: gridItem.manga.directory), resultingItemURL: nil);
                 
                 // Print to the log that we deleted it
                 print("KMMangaGridController: Deleted manga \"" + gridItem.manga.title + "\"'s file");
@@ -94,7 +94,7 @@ class KMMangaGridController: NSObject {
     }
     
     /// Adds the passed KMMangaGridItem to the manga grid
-    func addGridItem(gridItem : KMMangaGridItem) {
+    func addGridItem(_ gridItem : KMMangaGridItem) {
         // Append gridItem to gridItems
         gridItems.append(gridItem);
         
@@ -103,9 +103,9 @@ class KMMangaGridController: NSObject {
     }
     
     /// Clears the entire manga grid (If clearGridItems is true, it also clears gridItems)
-    func removeAllGridItems(clearGridItems : Bool) {
+    func removeAllGridItems(_ clearGridItems : Bool) {
         // Remove all objects from the array controller
-        arrayController.removeObjects(arrayController.arrangedObjects as! [AnyObject]);
+        arrayController.remove(contentsOf: arrayController.arrangedObjects as! [AnyObject]);
         
         // If we said to clear gridItems...
         if(clearGridItems) {
@@ -127,19 +127,19 @@ class KMMangaGridController: NSObject {
     }
     
     /// Shows all the items in objects to the manga grid
-    func setGridToItems(objects : [KMMangaGridItem]) {
+    func setGridToItems(_ objects : [KMMangaGridItem]) {
         // Clear the grid
         removeAllGridItems(false);
         
         // Add objects to the manga grid
-        arrayController.addObjects(objects);
+        arrayController.add(contentsOf: objects);
         
         // Resort the grid
         resort();
     }
     
     /// Adds the given manga to the manga grid, and redos the search / show/hide l-lewd... manga
-    func addManga(manga : KMManga, updateFilters : Bool) {
+    func addManga(_ manga : KMManga, updateFilters : Bool) {
         // Print to the log that we are adding a manga to the grid and what its name is
         print("KMMangaGridController: Adding manga \"\(manga.title)\" to the manga grid");
         
@@ -189,7 +189,7 @@ class KMMangaGridController: NSObject {
         var series : [String] = [];
         
         // For every item in the grid items...
-        for(_, currentGridItem) in gridItems.enumerate() {
+        for(_, currentGridItem) in gridItems.enumerated() {
             // If we havent already added this series and this series isnt blank...
             if(!series.contains(currentGridItem.manga.series) && currentGridItem.manga.series != "") {
                 // If we arent in l-lewd... mode and this manga is lewd...
@@ -208,12 +208,12 @@ class KMMangaGridController: NSObject {
     }
     
     /// Returns the amount of manga that are in the guven series
-    func countOfSeries(series : String) -> Int {
+    func countOfSeries(_ series : String) -> Int {
         /// All the series
         var allSeries : [String] = [];
         
         // For every item in the grid items...
-        for(_, currentGridItem) in gridItems.enumerate() {
+        for(_, currentGridItem) in gridItems.enumerated() {
             // If we arent in l-lewd... mode and this manga is lewd...
             if(!showingLewdManga && currentGridItem.manga.lewd) {
                 // Do nothing
@@ -234,7 +234,7 @@ class KMMangaGridController: NSObject {
         var artists : [String] = [];
         
         // For every item in the grid items...
-        for(_, currentGridItem) in gridItems.enumerate() {
+        for(_, currentGridItem) in gridItems.enumerated() {
             // If we havent already added this artist and this artist isnt blank...
             if(!artists.contains(currentGridItem.manga.artist) && currentGridItem.manga.artist != "") {
                 // If we arent in l-lewd... mode and this manga is lewd...
@@ -253,12 +253,12 @@ class KMMangaGridController: NSObject {
     }
     
     /// Returns the amount of manga that are drawn by the given artist
-    func countOfArtist(artist : String) -> Int {
+    func countOfArtist(_ artist : String) -> Int {
         /// All the artists
         var artists : [String] = [];
         
         // For every item in the grid items...
-        for(_, currentGridItem) in gridItems.enumerate() {
+        for(_, currentGridItem) in gridItems.enumerated() {
             // If we arent in l-lewd... mode and this manga is lewd...
             if(!showingLewdManga && currentGridItem.manga.lewd) {
                 // Do nothing
@@ -279,7 +279,7 @@ class KMMangaGridController: NSObject {
         var writers : [String] = [];
         
         // For every item in the grid items...
-        for(_, currentGridItem) in gridItems.enumerate() {
+        for(_, currentGridItem) in gridItems.enumerated() {
             // If we havent already added this writer and this writer isnt blank...
             if(!writers.contains(currentGridItem.manga.writer) && currentGridItem.manga.writer != "") {
                 // If we arent in l-lewd... mode and this manga is lewd...
@@ -298,12 +298,12 @@ class KMMangaGridController: NSObject {
     }
     
     /// Returns the amount of manga that are written by the given writer
-    func countOfWriter(writer : String) -> Int {
+    func countOfWriter(_ writer : String) -> Int {
         /// All the writers
         var writers : [String] = [];
         
         // For every item in the grid items...
-        for(_, currentGridItem) in gridItems.enumerate() {
+        for(_, currentGridItem) in gridItems.enumerated() {
             // If we arent in l-lewd... mode and this manga is lewd...
             if(!showingLewdManga && currentGridItem.manga.lewd) {
                 // Do nothing
@@ -324,9 +324,9 @@ class KMMangaGridController: NSObject {
         var tags : [String] = [];
         
         // For every item in the grid items...
-        for(_, currentGridItem) in gridItems.enumerate() {
+        for(_, currentGridItem) in gridItems.enumerated() {
             // For every tag in this item's tags...
-            for(_, currentTag) in currentGridItem.manga.tags.enumerate() {
+            for(_, currentTag) in currentGridItem.manga.tags.enumerated() {
                 // If we arent in l-lewd... mode and this manga is lewd...
                 if(!showingLewdManga && currentGridItem.manga.lewd) {
                     // Do nothing
@@ -346,19 +346,19 @@ class KMMangaGridController: NSObject {
     }
     
     /// Returns the amount of manga that have the given tag
-    func countOfTag(tag : String) -> Int {
+    func countOfTag(_ tag : String) -> Int {
         /// All the tags
         var tags : [String] = [];
         
         // For every item in the grid items...
-        for(_, currentGridItem) in gridItems.enumerate() {
+        for(_, currentGridItem) in gridItems.enumerated() {
             // If we arent in l-lewd... mode and this manga is lewd...
             if(!showingLewdManga && currentGridItem.manga.lewd) {
                 // Do nothing
             }
             else {
                 // For every tag in this item's tags...
-                for(_, currentTag) in currentGridItem.manga.tags.enumerate() {
+                for(_, currentTag) in currentGridItem.manga.tags.enumerated() {
                     // Add the current tag
                     tags.append(currentTag);
                 }
@@ -375,7 +375,7 @@ class KMMangaGridController: NSObject {
         var groups : [String] = [];
         
         // For every item in the grid items...
-        for(_, currentGridItem) in gridItems.enumerate() {
+        for(_, currentGridItem) in gridItems.enumerated() {
             // If we havent already added this group and this group isnt blank...
             if(!groups.contains(currentGridItem.manga.group) && currentGridItem.manga.group != "") {
                 // If we arent in l-lewd... mode and this manga is lewd...
@@ -394,12 +394,12 @@ class KMMangaGridController: NSObject {
     }
     
     /// Returns the amount of manga that are in the given group
-    func countOfGroup(group : String) -> Int {
+    func countOfGroup(_ group : String) -> Int {
         /// All the groups
         var groups : [String] = [];
         
         // For every item in the grid items...
-        for(_, currentGridItem) in gridItems.enumerate() {
+        for(_, currentGridItem) in gridItems.enumerated() {
             // If we arent in l-lewd... mode and this manga is lewd...
             if(!showingLewdManga && currentGridItem.manga.lewd) {
                 // Do nothing
@@ -415,12 +415,12 @@ class KMMangaGridController: NSObject {
     }
     
     /// Returns a random cover image from all the manga in the given series
-    func firstCoverImageForSeries(series : String) -> NSImage {
+    func firstCoverImageForSeries(_ series : String) -> NSImage {
         /// All the manga in the given series
         var matchingManga : [KMManga] = [];
         
         // For every item in the grid items...
-        for(_, currentGridItem) in gridItems.enumerate() {
+        for(_, currentGridItem) in gridItems.enumerated() {
             // If the current item's manga's series isnt blank and the series matches...
             if(currentGridItem.manga.series != "" && currentGridItem.manga.series == series) {
                 // If we arent in l-lewd... mode and this manga is lewd...
@@ -447,12 +447,12 @@ class KMMangaGridController: NSObject {
     }
     
     /// Returns a random cover image from all the manga by the given artist
-    func firstCoverImageForArtist(artist : String) -> NSImage {
+    func firstCoverImageForArtist(_ artist : String) -> NSImage {
         /// All the manga in the given series
         var matchingManga : [KMManga] = [];
         
         // For every item in the grid items...
-        for(_, currentGridItem) in gridItems.enumerate() {
+        for(_, currentGridItem) in gridItems.enumerated() {
             // If the current item's manga's artist isnt blank and the artist matches...
             if(currentGridItem.manga.artist != "" && currentGridItem.manga.artist == artist) {
                 // If we arent in l-lewd... mode and this manga is lewd...
@@ -479,12 +479,12 @@ class KMMangaGridController: NSObject {
     }
     
     /// Returns a random cover image from all the manga by the given author
-    func firstCoverImageForWriter(writer : String) -> NSImage {
+    func firstCoverImageForWriter(_ writer : String) -> NSImage {
         /// All the manga in the given series
         var matchingManga : [KMManga] = [];
         
         // For every item in the grid items...
-        for(_, currentGridItem) in gridItems.enumerate() {
+        for(_, currentGridItem) in gridItems.enumerated() {
             // If the current item's manga's author isnt blank and the author matches...
             if(currentGridItem.manga.artist != "" && currentGridItem.manga.writer == writer) {
                 // If we arent in l-lewd... mode and this manga is lewd...
@@ -511,12 +511,12 @@ class KMMangaGridController: NSObject {
     }
     
     /// Returns a random cover image from all the manga that have the given tag
-    func firstCoverImageForTag(tag : String) -> NSImage {
+    func firstCoverImageForTag(_ tag : String) -> NSImage {
         /// All the manga in the given series
         var matchingManga : [KMManga] = [];
         
         // For every item in the grid items...
-        for(_, currentGridItem) in gridItems.enumerate() {
+        for(_, currentGridItem) in gridItems.enumerated() {
             // If the current item's manga's tags contains the given tag...
             if(currentGridItem.manga.tags.contains(tag)) {
                 // If we arent in l-lewd... mode and this manga is lewd...
@@ -543,12 +543,12 @@ class KMMangaGridController: NSObject {
     }
     
     /// Returns a random cover image from all the manga in the given group
-    func firstCoverImageForGroup(group : String) -> NSImage {
+    func firstCoverImageForGroup(_ group : String) -> NSImage {
         /// All the manga in the given series
         var matchingManga : [KMManga] = [];
         
         // For every item in the grid items...
-        for(_, currentGridItem) in gridItems.enumerate() {
+        for(_, currentGridItem) in gridItems.enumerated() {
             // If the current item's manga's group isnt blank and the group matches...
             if(currentGridItem.manga.group != "" && currentGridItem.manga.group == group) {
                 // If we arent in l-lewd... mode and this manga is lewd...
@@ -584,7 +584,7 @@ class KMMangaGridController: NSObject {
     var searchItems : [KMMangaGridItem] = [];
     
     /// Searches the manga grid for the passed string, and updates it accordingly
-    func searchFor(searchText : String) {
+    func searchFor(_ searchText : String) {
         // RIP old search, you werent good enough. 2016-2016
         // Reset searchItems
         searchItems.removeAll();
@@ -658,78 +658,78 @@ class KMMangaGridController: NSObject {
             // If the last character in the search string is a "...
             if(cleanedSearchText.characters.last! == "\"") {
                 // Remove the last character of the string(Why does Swift make you do this like this?)
-                cleanedSearchText = cleanedSearchText.substringToIndex(cleanedSearchText.endIndex.predecessor());
+                cleanedSearchText = cleanedSearchText.substring(to: cleanedSearchText.characters.index(before: cleanedSearchText.endIndex));
             }
             
             /// The search string split at every "" "
-            let searchStringSplit : [String] = cleanedSearchText.componentsSeparatedByString("\" ");
+            let searchStringSplit : [String] = cleanedSearchText.components(separatedBy: "\" ");
             
             // Print the split search string
-            print("KMMangaGridController: Search string split at every \"\" \": " + String(searchStringSplit));
+            print("KMMangaGridController: Search string split at every \"\" \": " + String(describing: searchStringSplit));
             
             // For every item in the split search string
-            for(_, currentString) in searchStringSplit.enumerate() {
+            for(_, currentString) in searchStringSplit.enumerated() {
                 // Switch for the first part of the current search item(The type(title, writer, tags, ETC.))
-                switch currentString.componentsSeparatedByString(":\"").first! {
+                switch currentString.components(separatedBy: ":\"").first! {
                     // If its title...
                     case "title", "t":
                         // Set the appropriate variable to the current strings search content
-                        titleSearch = currentString.componentsSeparatedByString(":\"").last!;
+                        titleSearch = currentString.components(separatedBy: ":\"").last!;
                         break;
                     // If its series...
                     case "series", "s":
                         // Set the appropriate variable to the current strings search content
-                        seriesSearch = currentString.lowercaseString.componentsSeparatedByString(":\"").last!.componentsSeparatedByString(", ");
+                        seriesSearch = currentString.lowercased().components(separatedBy: ":\"").last!.components(separatedBy: ", ");
                         break;
                     // If its artist...
                     case "artist", "a":
                         // Set the appropriate variable to the current strings search content
-                        artistSearch = currentString.lowercaseString.componentsSeparatedByString(":\"").last!.componentsSeparatedByString(", ");
+                        artistSearch = currentString.lowercased().components(separatedBy: ":\"").last!.components(separatedBy: ", ");
                         break;
                     // If its writer...
                     case "writer", "w":
                         // Set the appropriate variable to the current strings search content
-                        writerSearch = currentString.lowercaseString.componentsSeparatedByString(":\"").last!.componentsSeparatedByString(", ");
+                        writerSearch = currentString.lowercased().components(separatedBy: ":\"").last!.components(separatedBy: ", ");
                         break;
                     // If its tags...
                     case "tags", "tg":
                         // Set the appropriate variable to the current strings search content
-                        tagsSearch = currentString.componentsSeparatedByString(":\"").last!.componentsSeparatedByString(", ");
+                        tagsSearch = currentString.components(separatedBy: ":\"").last!.components(separatedBy: ", ");
                         break;
                     // If its groups...
                     case "groups", "g":
                         // Set the appropriate variable to the current strings search content
-                        groupsSearch = currentString.componentsSeparatedByString(":\"").last!.componentsSeparatedByString(", ");
+                        groupsSearch = currentString.components(separatedBy: ":\"").last!.components(separatedBy: ", ");
                         break;
                     // If its favourites...
                     case "favourites", "f":
                         // Set the appropriate variable to the current strings search content
-                        favouritesSearch = currentString.componentsSeparatedByString(":\"").last!;
+                        favouritesSearch = currentString.components(separatedBy: ":\"").last!;
                         break;
                     // If its read...
                     case "read", "r":
                         // Set the appropriate variable to the current strings search content
-                        readSearch = currentString.componentsSeparatedByString(":\"").last!;
+                        readSearch = currentString.components(separatedBy: ":\"").last!;
                         break;
                     // If its percent...
                     case "percent", "p":
                         // Set the appropriate variable to the current strings search content
-                        percentSearch = currentString.componentsSeparatedByString(":\"").last!;
+                        percentSearch = currentString.components(separatedBy: ":\"").last!;
                         break;
                     // If its sort...
                     case "sort", "so":
                         // Set the appropriate variable to the current strings search content
-                        sortSearch = currentString.componentsSeparatedByString(":\"").last!;
+                        sortSearch = currentString.components(separatedBy: ":\"").last!;
                         break;
                     // If its l-lewd...
                     case "lewd", "l":
                         // Set the appropriate variable to the current strings search content
-                        lewdSearch = currentString.componentsSeparatedByString(":\"").last!;
+                        lewdSearch = currentString.components(separatedBy: ":\"").last!;
                         break;
                     // If its published date...
                     case "date", "d":
                         // Set the appropriate variable to the current strings search content
-                        publishedSearch = currentString.componentsSeparatedByString(":\"").last!;
+                        publishedSearch = currentString.components(separatedBy: ":\"").last!;
                         break;
                     // If it is one that we dont have...
                     default:
@@ -780,7 +780,7 @@ class KMMangaGridController: NSObject {
             let searchedByPublished : Bool = (publishedSearch != "");
             
             // For every manga we have...
-            for(_, currentItem) in gridItems.enumerate() {
+            for(_, currentItem) in gridItems.enumerated() {
                 /// Does this manga overall match the search?
                 var matching : Bool = false;
                 
@@ -820,9 +820,9 @@ class KMMangaGridController: NSObject {
                 // If we searched by title...
                 if(searchedByTitle) {
                     // If we had a "-" in front(Meaning we dont want to show manga with the title search in their name)...
-                    if(titleSearch.substringToIndex(titleSearch.startIndex.successor()) == "-") {
+                    if(titleSearch.substring(to: titleSearch.characters.index(after: titleSearch.startIndex)) == "-") {
                         // If the current items title doesnt contain the title search... (In lowercase to be case insensitive)
-                        if(!currentItem.manga.title.lowercaseString.containsString(titleSearch.lowercaseString.substringFromIndex(titleSearch.startIndex.successor()))) {
+                        if(!currentItem.manga.title.lowercased().contains(titleSearch.lowercased().substring(from: titleSearch.characters.index(after: titleSearch.startIndex)))) {
                             // Say there is a matching title
                             matchingTitle = true;
                         }
@@ -830,7 +830,7 @@ class KMMangaGridController: NSObject {
                     // If we want to show manga that have the title search in their name...
                     else {
                         // If the current items title contain the title search... (In lowercase to be case insensitive)
-                        if(currentItem.manga.title.lowercaseString.containsString(titleSearch.lowercaseString)) {
+                        if(currentItem.manga.title.lowercased().contains(titleSearch.lowercased())) {
                             // Say there is a matching title
                             matchingTitle = true;
                         }
@@ -849,9 +849,9 @@ class KMMangaGridController: NSObject {
                     var matchedSeries : Bool = false;
                     
                     // For every series search...
-                    for(_, currentSeriesSearch) in seriesSearch.enumerate() {
+                    for(_, currentSeriesSearch) in seriesSearch.enumerated() {
                         /// Are we doing an exclusion search for this series?
-                        let exclusionSearch : Bool = (currentSeriesSearch.substringToIndex(currentSeriesSearch.startIndex.successor()) == "-");
+                        let exclusionSearch : Bool = (currentSeriesSearch.substring(to: currentSeriesSearch.characters.index(after: currentSeriesSearch.startIndex)) == "-");
                         
                         /// The current series search without the possible "-" in front
                         var currentSeriesSearchWithoutPossibleMinus : String = currentSeriesSearch;
@@ -859,13 +859,13 @@ class KMMangaGridController: NSObject {
                         // If this is an exclusion search...
                         if(exclusionSearch) {
                             // Set the series search without possible minus to the series search without the first character
-                            currentSeriesSearchWithoutPossibleMinus = currentSeriesSearch.substringFromIndex(currentSeriesSearch.startIndex.successor());
+                            currentSeriesSearchWithoutPossibleMinus = currentSeriesSearch.substring(from: currentSeriesSearch.characters.index(after: currentSeriesSearch.startIndex));
                         }
                         
                         // If this is an exclusion search...
                         if(exclusionSearch) {
                             // If this manga's series equals the current series search...
-                            if(currentItem.manga.series.lowercaseString == currentSeriesSearchWithoutPossibleMinus) {
+                            if(currentItem.manga.series.lowercased() == currentSeriesSearchWithoutPossibleMinus) {
                                 // Say we matched exclusion series
                                 matchedExclusionSeries = true;
                             }
@@ -873,7 +873,7 @@ class KMMangaGridController: NSObject {
                         // If this wasnt an exclusion search...
                         else {
                             // If this manga's series equals the current series search...
-                            if(currentItem.manga.series.lowercaseString == currentSeriesSearchWithoutPossibleMinus) {
+                            if(currentItem.manga.series.lowercased() == currentSeriesSearchWithoutPossibleMinus) {
                                 // Say we matched series
                                 matchedSeries = true;
                             }
@@ -925,9 +925,9 @@ class KMMangaGridController: NSObject {
                     var matchedArtist : Bool = false;
                     
                     // For every artist search...
-                    for(_, currentArtistSearch) in artistSearch.enumerate() {
+                    for(_, currentArtistSearch) in artistSearch.enumerated() {
                         /// Are we doing an exclusion search for this artist?
-                        let exclusionSearch : Bool = (currentArtistSearch.substringToIndex(currentArtistSearch.startIndex.successor()) == "-");
+                        let exclusionSearch : Bool = (currentArtistSearch.substring(to: currentArtistSearch.characters.index(after: currentArtistSearch.startIndex)) == "-");
                         
                         /// The current artist search without the possible "-" in front
                         var currentArtistSearchWithoutPossibleMinus : String = currentArtistSearch;
@@ -935,13 +935,13 @@ class KMMangaGridController: NSObject {
                         // If this is an exclusion search...
                         if(exclusionSearch) {
                             // Set the artist search without possible minus to the artist search without the first character
-                            currentArtistSearchWithoutPossibleMinus = currentArtistSearch.substringFromIndex(currentArtistSearch.startIndex.successor());
+                            currentArtistSearchWithoutPossibleMinus = currentArtistSearch.substring(from: currentArtistSearch.characters.index(after: currentArtistSearch.startIndex));
                         }
                         
                         // If this is an exclusion search...
                         if(exclusionSearch) {
                             // If this manga's artist equals the current artist search...
-                            if(currentItem.manga.artist.lowercaseString == currentArtistSearchWithoutPossibleMinus) {
+                            if(currentItem.manga.artist.lowercased() == currentArtistSearchWithoutPossibleMinus) {
                                 // Say we matched exclusion artists
                                 matchedExclusionArtist = true;
                             }
@@ -949,7 +949,7 @@ class KMMangaGridController: NSObject {
                         // If this wasnt an exclusion search...
                         else {
                             // If this manga's artist equals the current artist search...
-                            if(currentItem.manga.artist.lowercaseString == currentArtistSearchWithoutPossibleMinus) {
+                            if(currentItem.manga.artist.lowercased() == currentArtistSearchWithoutPossibleMinus) {
                                 // Say we matched artists
                                 matchedArtist = true;
                             }
@@ -1001,9 +1001,9 @@ class KMMangaGridController: NSObject {
                     var matchedWriter : Bool = false;
                     
                     // For every artist search...
-                    for(_, currentWriterSearch) in writerSearch.enumerate() {
+                    for(_, currentWriterSearch) in writerSearch.enumerated() {
                         /// Are we doing an exclusion search for this author?
-                        let exclusionSearch : Bool = (currentWriterSearch.substringToIndex(currentWriterSearch.startIndex.successor()) == "-");
+                        let exclusionSearch : Bool = (currentWriterSearch.substring(to: currentWriterSearch.characters.index(after: currentWriterSearch.startIndex)) == "-");
                         
                         /// The current author search without the possible "-" in front
                         var currentWriterSearchWithoutPossibleMinus : String = currentWriterSearch;
@@ -1011,13 +1011,13 @@ class KMMangaGridController: NSObject {
                         // If this is an exclusion search...
                         if(exclusionSearch) {
                             // Set the author search without possible minus to the author search without the first character
-                            currentWriterSearchWithoutPossibleMinus = currentWriterSearch.substringFromIndex(currentWriterSearch.startIndex.successor());
+                            currentWriterSearchWithoutPossibleMinus = currentWriterSearch.substring(from: currentWriterSearch.characters.index(after: currentWriterSearch.startIndex));
                         }
                         
                         // If this is an exclusion search...
                         if(exclusionSearch) {
                             // If this manga's author equals the current author search...
-                            if(currentItem.manga.writer.lowercaseString == currentWriterSearchWithoutPossibleMinus) {
+                            if(currentItem.manga.writer.lowercased() == currentWriterSearchWithoutPossibleMinus) {
                                 // Say we matched exclusion author
                                 matchedExclusionWriter = true;
                             }
@@ -1025,7 +1025,7 @@ class KMMangaGridController: NSObject {
                         // If this wasnt an exclusion search...
                         else {
                             // If this manga's author equals the current author search...
-                            if(currentItem.manga.writer.lowercaseString == currentWriterSearchWithoutPossibleMinus) {
+                            if(currentItem.manga.writer.lowercased() == currentWriterSearchWithoutPossibleMinus) {
                                 // Say we matched authors
                                 matchedWriter = true;
                             }
@@ -1086,28 +1086,28 @@ class KMMangaGridController: NSObject {
                 // If we searched by percent finished...
                 if(searchedByPercent) {
                     // If the first character in the percent search is a >...
-                    if(percentSearch.substringToIndex(percentSearch.startIndex.successor()) == ">") {
+                    if(percentSearch.substring(to: percentSearch.characters.index(after: percentSearch.startIndex)) == ">") {
                         // If the current manga's percent finished is greater then the searched number...
-                        if(currentItem.manga.percentFinished > NSString(string: percentSearch.substringFromIndex(percentSearch.startIndex.successor())).integerValue) {
+                        if(currentItem.manga.percentFinished > NSString(string: percentSearch.substring(from: percentSearch.characters.index(after: percentSearch.startIndex))).integerValue) {
                             // Say the percent matched
                             matchingPercent = true;
                         }
                     }
                     // If the first character in the percent search is a <...
-                    else if(percentSearch.substringToIndex(percentSearch.startIndex.successor()) == "<") {
+                    else if(percentSearch.substring(to: percentSearch.characters.index(after: percentSearch.startIndex)) == "<") {
                         // If the current manga's percent finished is less then the searched number...
-                        if(currentItem.manga.percentFinished < NSString(string: percentSearch.substringFromIndex(percentSearch.startIndex.successor())).integerValue) {
+                        if(currentItem.manga.percentFinished < NSString(string: percentSearch.substring(from: percentSearch.characters.index(after: percentSearch.startIndex))).integerValue) {
                             // Say the percent matched
                             matchingPercent = true;
                         }
                     }
                     // If we searched for a percentage between two percentages...
-                    else if(percentSearch.containsString("<") && percentSearch.containsString(">")) {
+                    else if(percentSearch.contains("<") && percentSearch.contains(">")) {
                         /// The minimum percent we want to find manga by
-                        let minPercent : Int = NSString(string: percentSearch.componentsSeparatedByString(">").first!).integerValue;
+                        let minPercent : Int = NSString(string: percentSearch.components(separatedBy: ">").first!).integerValue;
                         
                         /// The maximum percent we want to find manga by
-                        let maxPercent : Int = NSString(string: percentSearch.componentsSeparatedByString("<").last!).integerValue;
+                        let maxPercent : Int = NSString(string: percentSearch.components(separatedBy: "<").last!).integerValue;
                         
                         // If the current manga's percent finished is in between the minimum and maximum percent...
                         if(currentItem.manga.percentFinished > minPercent && currentItem.manga.percentFinished < maxPercent) {
@@ -1145,31 +1145,31 @@ class KMMangaGridController: NSObject {
                     // If the release date is set(Dont waste time on non-set release dates)...
                     if(!currentItem.manga.releaseDate.isBeginningOfEpoch()) {
                         /// The Gregorian NSCalendar for converting date components to dates
-                        let gregorianCalendar : NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!;
+                        let gregorianCalendar : Calendar = Calendar(identifier: Calendar.Identifier.gregorian);
                         
                         // If there is a "<>" in the published search(Meaning we want to do between two dates)...
-                        if(publishedSearch.containsString("<>")) {
+                        if(publishedSearch.contains("<>")) {
                             /// The date we searched for to show manga from after
-                            var afterDateString : String = publishedSearch.componentsSeparatedByString("<>").first!;
+                            var afterDateString : String = publishedSearch.components(separatedBy: "<>").first!;
                             
                             /// The date we searched for to show manga from before
-                            var beforeDateString : String = publishedSearch.componentsSeparatedByString("<>").last!;
+                            var beforeDateString : String = publishedSearch.components(separatedBy: "<>").last!;
                             
                             // Remove any commas from beforeDateString and afterDateString
-                            beforeDateString = beforeDateString.stringByReplacingOccurrencesOfString(",", withString: "");
-                            afterDateString = afterDateString.stringByReplacingOccurrencesOfString(",", withString: "");
+                            beforeDateString = beforeDateString.replacingOccurrences(of: ",", with: "");
+                            afterDateString = afterDateString.replacingOccurrences(of: ",", with: "");
                             
                             /// The NSDateComponents for beforeDateString
-                            let beforeDateComponents : NSDateComponents = NSDateComponents();
+                            var beforeDateComponents : DateComponents = DateComponents();
 
                             /// The NSDateComponents for afterDateString
-                            let afterDateComponents : NSDateComponents = NSDateComponents();
+                            var afterDateComponents : DateComponents = DateComponents();
 
                             /// beforeDateString split at every " "
-                            let beforeDateStringComponents : [String] = beforeDateString .componentsSeparatedByString(" ");
+                            let beforeDateStringComponents : [String] = beforeDateString .components(separatedBy: " ");
                             
                             // For every item in beforeDateStringComponents
-                            for(_, currentComponent) in beforeDateStringComponents.enumerate() {
+                            for(_, currentComponent) in beforeDateStringComponents.enumerated() {
                                 // If the current component's character count is four(Meaning its a year)...
                                 if(currentComponent.characters.count == 4) {
                                     // Set the year to this component as an integer
@@ -1183,7 +1183,7 @@ class KMMangaGridController: NSObject {
                                 else {
                                     // I didnt want to have to do this
                                     // Switch on the month component, set the month accordingly. No comments needed
-                                    switch(currentComponent.lowercaseString) {
+                                    switch(currentComponent.lowercased()) {
                                     case "january", "jan":
                                         beforeDateComponents.month = 1;
                                         break;
@@ -1227,10 +1227,10 @@ class KMMangaGridController: NSObject {
                             }
                             
                             /// afterDateString split at every " "
-                            let afterDateStringComponents : [String] = afterDateString.componentsSeparatedByString(" ");
+                            let afterDateStringComponents : [String] = afterDateString.components(separatedBy: " ");
                             
                             // For every item in afterDateStringComponents
-                            for(_, currentComponent) in afterDateStringComponents.enumerate() {
+                            for(_, currentComponent) in afterDateStringComponents.enumerated() {
                                 // If the current component's character count is four(Meaning its a year)...
                                 if(currentComponent.characters.count == 4) {
                                     // Set the year to this component as an integer
@@ -1244,7 +1244,7 @@ class KMMangaGridController: NSObject {
                                 else {
                                     // I didnt want to have to do this
                                     // Switch on the month component, set the month accordingly. No comments needed
-                                    switch(currentComponent.lowercaseString) {
+                                    switch(currentComponent.lowercased()) {
                                     case "january", "jan":
                                         afterDateComponents.month = 1;
                                         break;
@@ -1288,24 +1288,24 @@ class KMMangaGridController: NSObject {
                             }
                             
                             // Set if the published date matched to if the publishing date is less than the before date and greater than the after date
-                            matchingPublished = currentItem.manga.releaseDate.isLessThan(gregorianCalendar.dateFromComponents(beforeDateComponents)) && currentItem.manga.releaseDate.isGreaterThan(gregorianCalendar.dateFromComponents(afterDateComponents));
+                            matchingPublished = (currentItem.manga.releaseDate as NSDate).isLessThan(gregorianCalendar.date(from: beforeDateComponents)) && (currentItem.manga.releaseDate as NSDate).isGreaterThan(gregorianCalendar.date(from: afterDateComponents));
                         }
                         // If the first character is a ">"(Meaning we want to do after a date)...
-                        else if(publishedSearch.substringToIndex(publishedSearch.startIndex.successor()) == ">") {
+                        else if(publishedSearch.substring(to: publishedSearch.characters.index(after: publishedSearch.startIndex)) == ">") {
                             /// The date we searched for to show manga from after
-                            var afterDateString : String = publishedSearch.substringFromIndex(publishedSearch.startIndex.successor());
+                            var afterDateString : String = publishedSearch.substring(from: publishedSearch.characters.index(after: publishedSearch.startIndex));
                             
                             // Remove any commas from afterDateString
-                            afterDateString = afterDateString.stringByReplacingOccurrencesOfString(",", withString: "");
+                            afterDateString = afterDateString.replacingOccurrences(of: ",", with: "");
                             
                             /// The NSDateComponents for afterDateString
-                            let afterDateComponents : NSDateComponents = NSDateComponents();
+                            var afterDateComponents : DateComponents = DateComponents();
                             
                             /// afterDateString split at every " "
-                            let afterDateStringComponents : [String] = afterDateString.componentsSeparatedByString(" ");
+                            let afterDateStringComponents : [String] = afterDateString.components(separatedBy: " ");
                             
                             // For every item in afterDateStringComponents
-                            for(_, currentComponent) in afterDateStringComponents.enumerate() {
+                            for(_, currentComponent) in afterDateStringComponents.enumerated() {
                                 // If the current component's character count is four(Meaning its a year)...
                                 if(currentComponent.characters.count == 4) {
                                     // Set the year to this component as an integer
@@ -1319,7 +1319,7 @@ class KMMangaGridController: NSObject {
                                 else {
                                     // I didnt want to have to do this
                                     // Switch on the month component, set the month accordingly. No comments needed
-                                    switch(currentComponent.lowercaseString) {
+                                    switch(currentComponent.lowercased()) {
                                     case "january", "jan":
                                         afterDateComponents.month = 1;
                                         break;
@@ -1363,24 +1363,24 @@ class KMMangaGridController: NSObject {
                             }
                             
                             // Set if the published date matched to if the publishing date is greater than the search date
-                            matchingPublished = currentItem.manga.releaseDate.isGreaterThan(gregorianCalendar.dateFromComponents(afterDateComponents));
+                            matchingPublished = (currentItem.manga.releaseDate as NSDate).isGreaterThan(gregorianCalendar.date(from: afterDateComponents));
                         }
                         // If the first character is a "<"(Meaning we want to do before a date)...
-                        else if(publishedSearch.substringToIndex(publishedSearch.startIndex.successor()) == "<") {
+                        else if(publishedSearch.substring(to: publishedSearch.characters.index(after: publishedSearch.startIndex)) == "<") {
                             /// The date we searched for to show manga from before
-                            var beforeDateString : String = publishedSearch.substringFromIndex(publishedSearch.startIndex.successor());
+                            var beforeDateString : String = publishedSearch.substring(from: publishedSearch.characters.index(after: publishedSearch.startIndex));
                             
                             // Remove any commas from beforeDateString
-                            beforeDateString = beforeDateString.stringByReplacingOccurrencesOfString(",", withString: "");
+                            beforeDateString = beforeDateString.replacingOccurrences(of: ",", with: "");
                             
                             /// The NSDateComponents for beforeDateString
-                            let beforeDateComponents : NSDateComponents = NSDateComponents();
+                            var beforeDateComponents : DateComponents = DateComponents();
                             
                             /// beforeDateString split at every " "
-                            let beforeDateStringComponents : [String] = beforeDateString .componentsSeparatedByString(" ");
+                            let beforeDateStringComponents : [String] = beforeDateString .components(separatedBy: " ");
                             
                             // For every item in beforeDateStringComponents
-                            for(_, currentComponent) in beforeDateStringComponents.enumerate() {
+                            for(_, currentComponent) in beforeDateStringComponents.enumerated() {
                                 // If the current component's character count is four(Meaning its a year)...
                                 if(currentComponent.characters.count == 4) {
                                     // Set the year to this component as an integer
@@ -1394,7 +1394,7 @@ class KMMangaGridController: NSObject {
                                 else {
                                     // I didnt want to have to do this
                                     // Switch on the month component, set the month accordingly. No comments needed
-                                    switch(currentComponent.lowercaseString) {
+                                    switch(currentComponent.lowercased()) {
                                     case "january", "jan":
                                         beforeDateComponents.month = 1;
                                         break;
@@ -1438,7 +1438,7 @@ class KMMangaGridController: NSObject {
                             }
                             
                             // Set if the published date matched to if the publishing date is less than the search date
-                            matchingPublished = currentItem.manga.releaseDate.isLessThan(gregorianCalendar.dateFromComponents(beforeDateComponents));
+                            matchingPublished = (currentItem.manga.releaseDate as NSDate).isLessThan(gregorianCalendar.date(from: beforeDateComponents));
                         }
                     }
                     // If the release date isnt set...
@@ -1460,37 +1460,37 @@ class KMMangaGridController: NSObject {
                     var exclusionTagCount : Int = 0;
                     
                     // For every search tag...
-                    for(_, currentSearchTag) in tagsSearch.enumerate() {
+                    for(_, currentSearchTag) in tagsSearch.enumerated() {
                         // If the first character in the string is a "-"...
-                        if(currentSearchTag.substringToIndex(currentSearchTag.startIndex.successor()) == "-") {
+                        if(currentSearchTag.substring(to: currentSearchTag.characters.index(after: currentSearchTag.startIndex)) == "-") {
                             // Add one to the exclusion tag count
-                            exclusionTagCount++;
+                            exclusionTagCount += 1;
                         }
                     }
                     
                     // Resort the search tags(For some reason my exclusion method doesnt work very well when you put exclusion tags first, so this is the solution)
-                    tagsSearch = tagsSearch.sort();
+                    tagsSearch = tagsSearch.sorted();
                     
                     // Flip the search tags(For the same reason as above)
-                    tagsSearch = tagsSearch.reverse();
+                    tagsSearch = tagsSearch.reversed();
                     
                     /// Are we only searching by exclusion tags?
                     let onlySearchingForExclusionTags : Bool = ((tagsSearch.count - exclusionTagCount) == 0);
                     
                     // For every tag in the current items tags...
-                    for(_, currentTag) in currentItem.manga.tags.enumerate() {
+                    for(_, currentTag) in currentItem.manga.tags.enumerated() {
                         // For every tag in the search tags....
-                        for(_, currentSearchTag) in tagsSearch.enumerate() {
+                        for(_, currentSearchTag) in tagsSearch.enumerated() {
                             /// The current search tag without the possible "-" in front for exclusion tags
-                            var searchTagWithoutPossibleMinus : String = currentSearchTag.lowercaseString;
+                            var searchTagWithoutPossibleMinus : String = currentSearchTag.lowercased();
                             
                             /// Is the current search tag an exclusion tag?
                             var searchTagIsExclusion : Bool = false;
                             
                             // If the first character in searchTagWithoutPossibleMinus is a "-"...
-                            if(searchTagWithoutPossibleMinus.substringToIndex(currentSearchTag.startIndex.successor()) == "-") {
+                            if(searchTagWithoutPossibleMinus.substring(to: currentSearchTag.characters.index(after: currentSearchTag.startIndex)) == "-") {
                                 // Remove the first character from searchTagWithoutPossibleMinus
-                                searchTagWithoutPossibleMinus = searchTagWithoutPossibleMinus.substringFromIndex(searchTagWithoutPossibleMinus.startIndex.successor());
+                                searchTagWithoutPossibleMinus = searchTagWithoutPossibleMinus.substring(from: searchTagWithoutPossibleMinus.characters.index(after: searchTagWithoutPossibleMinus.startIndex));
                                 
                                 // Set searchTagIsExclusion to true
                                 searchTagIsExclusion = true;
@@ -1499,7 +1499,7 @@ class KMMangaGridController: NSObject {
                             // If we arent only searching by exclusion tags...
                             if(!onlySearchingForExclusionTags) {
                                 // If the current tag matches the current search tag... (In lowercase to be case insensitive)
-                                if(currentTag.lowercaseString.containsString(searchTagWithoutPossibleMinus)) {
+                                if(currentTag.lowercased().contains(searchTagWithoutPossibleMinus)) {
                                     // If the current search tag is an exclusion search tag...
                                     if(searchTagIsExclusion) {
                                         // Say we dont matching tags
@@ -1518,7 +1518,7 @@ class KMMangaGridController: NSObject {
                                             matchingTags = true;
                                             
                                             // Add one to the matching tag count
-                                            matchingTagCount++;
+                                            matchingTagCount += 1;
                                         }
                                     }
                                 }
@@ -1532,7 +1532,7 @@ class KMMangaGridController: NSObject {
                                     matchingTags = true;
                                     
                                     // Add one to the matching tag count
-                                    matchingTagCount++;
+                                    matchingTagCount += 1;
                                 }
                                 else {
                                     // Say we dont have matching tags
@@ -1561,35 +1561,35 @@ class KMMangaGridController: NSObject {
                     var exclusionGroupCount : Int = 0;
                     
                     // For every search group...
-                    for(_, currentSearchGroup) in groupsSearch.enumerate() {
+                    for(_, currentSearchGroup) in groupsSearch.enumerated() {
                         // If the first character in the current search group is a "-"...
-                        if(currentSearchGroup.substringToIndex(currentSearchGroup.startIndex.successor()) == "-") {
+                        if(currentSearchGroup.substring(to: currentSearchGroup.characters.index(after: currentSearchGroup.startIndex)) == "-") {
                             // Add one to the exclusion group count
-                            exclusionGroupCount++;
+                            exclusionGroupCount += 1;
                         }
                     }
                     
                     // Resort the search groups(For some reason my exclusion method doesnt work very well when you put exclusion tags first, so this is the solution)
-                    groupsSearch = groupsSearch.sort();
+                    groupsSearch = groupsSearch.sorted();
                     
                     // Flip the search groups(For the same reason as above)
-                    groupsSearch = groupsSearch.reverse();
+                    groupsSearch = groupsSearch.reversed();
                     
                     /// Are we only searching by exclusion groups?
                     let onlySearchingForExclusionGroups : Bool = ((groupsSearch.count - exclusionGroupCount) == 0);
                     
                     // For every group in the search groups....
-                    for(_, currentSearchGroup) in groupsSearch.enumerate() {
+                    for(_, currentSearchGroup) in groupsSearch.enumerated() {
                         /// The current search group without the possible "-" in front for exclusion tags
-                        var searchGroupWithoutPossibleMinus : String = currentSearchGroup.lowercaseString;
+                        var searchGroupWithoutPossibleMinus : String = currentSearchGroup.lowercased();
                         
                         /// Is the current search group an exclusion group?
                         var searchGroupIsExclusion : Bool = false;
                         
                         // If the first character in searchGroupWithoutPossibleMinus is a "-"...
-                        if(searchGroupWithoutPossibleMinus.substringToIndex(currentSearchGroup.startIndex.successor()) == "-") {
+                        if(searchGroupWithoutPossibleMinus.substring(to: currentSearchGroup.characters.index(after: currentSearchGroup.startIndex)) == "-") {
                             // Remove the first character from searchGroupWithoutPossibleMinus
-                            searchGroupWithoutPossibleMinus = searchGroupWithoutPossibleMinus.substringFromIndex(searchGroupWithoutPossibleMinus.startIndex.successor());
+                            searchGroupWithoutPossibleMinus = searchGroupWithoutPossibleMinus.substring(from: searchGroupWithoutPossibleMinus.characters.index(after: searchGroupWithoutPossibleMinus.startIndex));
                             
                             // Set searchGroupIsExclusion to true
                             searchGroupIsExclusion = true;
@@ -1598,7 +1598,7 @@ class KMMangaGridController: NSObject {
                         // If we only searched for exclusion tags and we havent already had a matching exclusion group...
                         if(onlySearchingForExclusionGroups && !alreadyMatchedExclusionGroup) {
                             // If the current group doesnt match the exclusion group...
-                            if(currentItem.manga.group.lowercaseString != searchGroupWithoutPossibleMinus) {
+                            if(currentItem.manga.group.lowercased() != searchGroupWithoutPossibleMinus) {
                                 // Say we have matching groups
                                 matchingGroups = true;
                             }
@@ -1612,7 +1612,7 @@ class KMMangaGridController: NSObject {
                         }
                         // If we are searching for more than just exclusion groups...
                         else {
-                            if(currentItem.manga.group.lowercaseString == searchGroupWithoutPossibleMinus) {
+                            if(currentItem.manga.group.lowercased() == searchGroupWithoutPossibleMinus) {
                                 // If the current search tag is an exclusion search tag...
                                 if(searchGroupIsExclusion) {
                                     // Say we dont matching tags
@@ -1720,7 +1720,7 @@ class KMMangaGridController: NSObject {
     var nonLewdManga : [KMMangaGridItem] = [];
     
     /// Shows/hides all the l-lewd... manga based on show
-    func displayLewdManga(show : Bool) {
+    func displayLewdManga(_ show : Bool) {
         // Make sure nonLewdManga is empty
         nonLewdManga.removeAll();
         
@@ -1741,7 +1741,7 @@ class KMMangaGridController: NSObject {
             print("KMMangaGridController: Hiding l-lewd... manga");
             
             // For every item in gridItems...
-            for(_, currentItem) in gridItems.enumerate() {
+            for(_, currentItem) in gridItems.enumerated() {
                 // If the current item's manga isnt l-lewd...
                 if(!currentItem.manga.lewd) {
                     // Add the current manga to the grid
@@ -1757,7 +1757,7 @@ class KMMangaGridController: NSObject {
     /// Shows/hides all the l-lewd... manga based on the preferences keeper in AppDelegate
     func displayLewdMangaAppDelegate() {
         // Display l-lewd... manga based on the AppDelegate's preferences keeper
-        displayLewdManga((NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.llewdModeEnabled);
+        displayLewdManga((NSApplication.shared().delegate as! AppDelegate).preferencesKepper.llewdModeEnabled);
     }
     
     /// Resort the manga grid(Based on the last chosen sorting method)
@@ -1767,9 +1767,9 @@ class KMMangaGridController: NSObject {
     }
     
     /// Sorts the manga grid by sortType and ascends/decends based on ascending
-    func sort(sortType : KMMangaGridSortType, ascending : Bool) {
+    func sort(_ sortType : KMMangaGridSortType, ascending : Bool) {
         // Print to the log how we are sorting
-        print("KMMangaGridController: Sorting manga grid by " + String(sortType));
+        print("KMMangaGridController: Sorting manga grid by " + String(describing: sortType));
         
         // Set the current sort type to be the type we are sorting as
         currentSortOrder = sortType;
@@ -1778,17 +1778,17 @@ class KMMangaGridController: NSObject {
         currentSortAscending = ascending;
         
         // If the sort type is by series...
-        if(sortType == KMMangaGridSortType.Series) {
+        if(sortType == KMMangaGridSortType.series) {
             // Sort by series
             arrayController.sortDescriptors = [NSSortDescriptor(key: "series", ascending: ascending)];
         }
         // If the sort type is by artist...
-        else if(sortType == KMMangaGridSortType.Artist) {
+        else if(sortType == KMMangaGridSortType.artist) {
             // Sort by artist
             arrayController.sortDescriptors = [NSSortDescriptor(key: "artist", ascending: ascending)];
         }
         // If the sort type is by title...
-        else if(sortType == KMMangaGridSortType.Title) {
+        else if(sortType == KMMangaGridSortType.title) {
             // Sort by title
             arrayController.sortDescriptors = [NSSortDescriptor(key: "title", ascending: ascending)];
         }

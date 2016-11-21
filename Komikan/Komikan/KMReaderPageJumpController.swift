@@ -27,7 +27,7 @@ class KMReaderPageJumpController: NSObject {
     /// Sets up the collection view
     func setup() {
         // Set the collection views item prototype
-        readerPageJumpCollectionView.itemPrototype = NSStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateControllerWithIdentifier("readerPageJumpCollectionViewItem") as? NSCollectionViewItem;
+        readerPageJumpCollectionView.itemPrototype = NSStoryboard(name: "Main", bundle: Bundle.main).instantiateController(withIdentifier: "readerPageJumpCollectionViewItem") as? NSCollectionViewItem;
         
         // Set the min and max item sizes
         readerPageJumpCollectionView.minItemSize = NSSize(width: 150, height: 200);
@@ -38,12 +38,12 @@ class KMReaderPageJumpController: NSObject {
     var loadedOnce : Bool = false;
     
     /// Sets up the grid with the given manga's pages, current page, and bookmarks
-    func loadPagesFromManga(manga : KMManga) {
+    func loadPagesFromManga(_ manga : KMManga) {
         // Clear all the current items
-        arrayController.removeObjects(arrayController.arrangedObjects as! [AnyObject]);
+        arrayController.remove(contentsOf: arrayController.arrangedObjects as! [AnyObject]);
         
         // For every page in the given manga's pages...
-        for(currentPageIndex, currentPage) in manga.pages.enumerate() {
+        for(currentPageIndex, currentPage) in manga.pages.enumerated() {
             // Add the current page to the page jump collection view
             self.arrayController.addObject(KMReaderPageJumpGridItem(thumbnail: currentPage, currentPage: (manga.currentPage == currentPageIndex), bookmarked: manga.bookmarks.contains(currentPageIndex)));
             

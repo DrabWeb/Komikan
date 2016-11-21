@@ -9,8 +9,8 @@ import Cocoa
 
 class KMReaderPanelView: NSView {
 
-    override func drawRect(dirtyRect: NSRect) {
-        super.drawRect(dirtyRect)
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
 
         // Drawing code here.
         // Set it so we can have a CGLayer

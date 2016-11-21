@@ -49,7 +49,7 @@ class KMManga {
     var read : Bool = false;
     
     /// This manga's unique UUID so we dont cause the duplication bug among other things
-    var uuid : String = NSUUID().UUIDString.lowercaseString;
+    var uuid : String = NSUUID().uuidString.lowercased();
     
     /// The saturation for the pages
     var saturation : CGFloat = 1;
@@ -76,10 +76,10 @@ class KMManga {
     var percentFinished : Int = 0;
     
     /// The date this manga was released(If it's the beginning of the UNIX epoch, that means its not set)
-    var releaseDate : NSDate = NSDate(timeIntervalSince1970: NSTimeInterval(0));
+    var releaseDate : Date = Date(timeIntervalSince1970: TimeInterval(0));
     
     /// A bool to say if we have already set tmpDirectory
-    private var alreadySetTmpDirectory : Bool = false;
+    fileprivate var alreadySetTmpDirectory : Bool = false;
     
     /// addManga : Bool - Should we extract it to /tmp/komikan/addmanga?
     func extractToTmpFolder() {
@@ -103,7 +103,7 @@ class KMManga {
             // Get all the folders in /tmp/komikan/
             do {
                 // Try to set extractedFolders to all the folders in /tmp/komikan/
-                extractedFolders = try NSFileManager.defaultManager().contentsOfDirectoryAtPath("/tmp/komikan/");
+                extractedFolders = try FileManager.default.contentsOfDirectory(atPath: "/tmp/komikan/");
             }
             // If there is an error...
             catch _ as NSError {
@@ -111,7 +111,7 @@ class KMManga {
             }
             
             // If this manga hasnt already been extracted...
-            if(!extractedFolders.contains("komikanmanga-" + NSURL(fileURLWithPath: tmpDirectory).lastPathComponent!)) {
+            if(!extractedFolders.contains("komikanmanga-" + URL(fileURLWithPath: tmpDirectory).lastPathComponent)) {
                 // If the manga's file isnt a folder...
                 if(!KMFileUtilities().isFolder(directory)) {
                     // Unzip this manga to /tmp/komikan/komikanmanga-(title)
@@ -121,7 +121,7 @@ class KMManga {
                 else {
                     // Copy the folder to /tmp/komikan/komikanmanga-(title)
                     do {
-                        try NSFileManager.defaultManager().copyItemAtPath(directory, toPath: tmpDirectory);
+                        try FileManager.default.copyItem(atPath: directory, toPath: tmpDirectory);
                     }
                     catch _ as NSError {
                         
@@ -137,18 +137,18 @@ class KMManga {
             print("KMManga: Done extracting \"\(title)\"");
             
             // Run the cleanmangadir binary to make the directory readable for us
-            KMCommandUtilities().runCommand(NSBundle.mainBundle().bundlePath + "/Contents/Resources/cleanmangadir", arguments: [tmpDirectory], waitUntilExit: true);
+            _ = KMCommandUtilities().runCommand(Bundle.main.bundlePath + "/Contents/Resources/cleanmangadir", arguments: [tmpDirectory], waitUntilExit: true);
             
             /// The names of all the page image files
-            var imageFileNames : NSArray = [];
+            var imageFileNames : [String] = [];
             
             // Get the image file names
             do {
                 // Set imageFileNames to all the images in the manga's TMP directory
-                imageFileNames = try NSFileManager().contentsOfDirectoryAtPath(tmpDirectory);
+                imageFileNames = try FileManager().contentsOfDirectory(atPath: tmpDirectory);
                 
                 // Sort the image file names by their integer values
-                imageFileNames = imageFileNames.sortedArrayUsingDescriptors([NSSortDescriptor(key: "integerValue", ascending: true)]);
+                imageFileNames = (imageFileNames as NSArray).sortedArray(using: [NSSortDescriptor(key: "integerValue", ascending: true)]) as! [String];
             }
             catch _ as NSError {
                 // Do nothing
@@ -156,35 +156,35 @@ class KMManga {
             
             // Set pages to all the pages in /tmp/komikan/komikanmanga-(title)
             // For every file in this mangas tmp folder...
-            for currentPage in imageFileNames.enumerate() {
+            for currentPage in imageFileNames.enumerated() {
                 // If the current file is an image and its not a dot file...
-                if(KMFileUtilities().isImage(tmpDirectory + (currentPage.element as! String)) && ((currentPage.element as! String).substringToIndex((currentPage.element as! String).startIndex.successor())) != ".") {
+                if(KMFileUtilities().isImage(tmpDirectory + (currentPage.element)) && ((currentPage.element).substring(to: (currentPage.element).characters.index(after: (currentPage.element).startIndex))) != ".") {
                     /// The regex for pages that we want to ignore if they match this regex
-                    let excludeRegexPattern : String = (NSApplication.sharedApplication().delegate as! AppDelegate).preferencesKepper.pageIgnoreRegex;
+                    let excludeRegexPattern : String = (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.pageIgnoreRegex;
                     
                     // If the current page's filename matched the ignore regex...
-                    if let _ = (currentPage.element as! String).rangeOfString(excludeRegexPattern, options: .RegularExpressionSearch) {
+                    if let _ = (currentPage.element).range(of: excludeRegexPattern, options: .regularExpression) {
                         // Print to the log that we are ignoring this file
-                        print("KMManga: Ignoring page \"\((currentPage.element as! String))\"");
+                        print("KMManga: Ignoring page \"\((currentPage.element))\"");
                     }
                     // If the current page's filename didnt match the regex...
                     else {
                         // Print to the log what page we found
-                        print("KMManga: Found page \"\((currentPage.element as! String))\"");
+                        print("KMManga: Found page \"\((currentPage.element))\"");
                         
                         // Append this image to the manga.pages array
-                        pages.append(NSImage(contentsOfFile: tmpDirectory + (currentPage.element as! String))!);
+                        pages.append(NSImage(contentsOfFile: tmpDirectory + (currentPage.element))!);
                     }
                 }
                 // If its not an image...
                 else {
                     // Print to the log that we found a non-image file
-                    print("KMManga: Found file \"\((currentPage.element as! String))\" that was not a page");
+                    print("KMManga: Found file \"\((currentPage.element))\" that was not a page");
                 }
             }
             
             // Remove the first image in pages(Its always nil for no reason)
-            pages.removeAtIndex(0);
+            pages.remove(at: 0);
             
             // Set pageCount
             pageCount = pages.count;

@@ -28,12 +28,12 @@ class KMReaderNotesViewController: NSViewController, NSWindowDelegate, NSTextVie
     @IBOutlet var fontSizeTextField: KMAlwaysActiveTextField!
     
     /// When we interact with fontSizeTextField...
-    @IBAction func fontSizeTextFieldinteracted(sender: AnyObject) {
+    @IBAction func fontSizeTextFieldinteracted(_ sender: AnyObject) {
         setFontSizeForSelectedText(fontSizeTextField.integerValue);
     }
     
     /// When we click on the "Open Externally" button...
-    @IBAction func openInExternalEditorButtonInteracted(sender: AnyObject) {
+    @IBAction func openInExternalEditorButtonInteracted(_ sender: AnyObject) {
         // Open the notes in the external editor
         openExternally();
     }
@@ -57,7 +57,7 @@ class KMReaderNotesViewController: NSViewController, NSWindowDelegate, NSTextVie
         notesWindow.close();
         
         // Open the .notes.rtfd in the users chosen application(Default TextEdit)
-        NSWorkspace.sharedWorkspace().openFile(KMFileUtilities().folderPathForFile(manga.directory) + "Komikan/" + NSURL(fileURLWithPath: manga.directory).lastPathComponent!.stringByRemovingPercentEncoding! + ".notes.rtfd");
+        NSWorkspace.shared().openFile(KMFileUtilities().folderPathForFile(manga.directory) + "Komikan/" + URL(fileURLWithPath: manga.directory).lastPathComponent.removingPercentEncoding! + ".notes.rtfd");
     }
     
     func toggleEditingBar() {
@@ -87,7 +87,7 @@ class KMReaderNotesViewController: NSViewController, NSWindowDelegate, NSTextVie
         notesWindow.titlebarAppearsTransparent = true;
         
         // Set the scroll view content insets
-        notesScrollView.contentInsets = NSEdgeInsets(top: 59, left: 0, bottom: 0, right: 0);
+        notesScrollView.contentInsets = EdgeInsets(top: 59, left: 0, bottom: 0, right: 0);
     }
     
     func hideEditingBar() {
@@ -101,30 +101,30 @@ class KMReaderNotesViewController: NSViewController, NSWindowDelegate, NSTextVie
         notesWindow.titlebarAppearsTransparent = false;
         
        // Set the scroll view content insets
-        notesScrollView.contentInsets = NSEdgeInsets(top: 22, left: 0, bottom: 0, right: 0);
+        notesScrollView.contentInsets = EdgeInsets(top: 22, left: 0, bottom: 0, right: 0);
     }
     
-    func textViewDidChangeSelection(notification: NSNotification) {
+    func textViewDidChangeSelection(_ notification: Notification) {
         // If the selected range's length isnt 0(If it is we only moved the cursor)...
         if(notesTextField.selectedRange().length > 0) {
             /// The font of the selected text
-            let selectedFont : NSFont = notesTextField.textStorage?.attributedSubstringFromRange(notesTextField.selectedRange()).attribute(NSFontAttributeName, atIndex: 0, effectiveRange: nil) as! NSFont;
+            let selectedFont : NSFont = notesTextField.textStorage?.attributedSubstring(from: notesTextField.selectedRange()).attribute(NSFontAttributeName, at: 0, effectiveRange: nil) as! NSFont;
             
             // Set the sized font's size to the passed size
-            fontSizeTextField.stringValue = (selectedFont.fontDescriptor.objectForKey(NSFontSizeAttribute)?.stringValue)!;
+            fontSizeTextField.stringValue = ((selectedFont.fontDescriptor.object(forKey: NSFontSizeAttribute) as AnyObject).stringValue)!;
         }
     }
     
     /// Sets the font size for the selected text in the notes text view to the passed int
-    func setFontSizeForSelectedText(size : Int) {
+    func setFontSizeForSelectedText(_ size : Int) {
         // Remove the font attribute of the selected text
         notesTextField.textStorage?.removeAttribute(NSFontAttributeName, range: notesTextField.selectedRange());
         
         /// The font of the selected text that we will change the size of
-        var sizedFont : NSFont = notesTextField.textStorage?.attributedSubstringFromRange(notesTextField.selectedRange()).attribute(NSFontAttributeName, atIndex: 0, effectiveRange: nil) as! NSFont;
+        var sizedFont : NSFont = notesTextField.textStorage?.attributedSubstring(from: notesTextField.selectedRange()).attribute(NSFontAttributeName, at: 0, effectiveRange: nil) as! NSFont;
         
         // Set the sized font's size to the passed size
-        sizedFont = NSFontManager.sharedFontManager().convertFont(sizedFont, toSize: CGFloat(size));
+        sizedFont = NSFontManager.shared().convert(sizedFont, toSize: CGFloat(size));
         
         // Set the font of the selected text to the nwe sized font
         notesTextField.textStorage?.addAttribute(NSFontAttributeName, value: sizedFont, range: notesTextField.selectedRange());
@@ -136,16 +136,16 @@ class KMReaderNotesViewController: NSViewController, NSWindowDelegate, NSTextVie
     /// Saves the current notes in the text field
     func saveNotes() {
         // Print to the log that we are loading notes
-        print("KMReaderNotesViewController: Saving notes for \"" + manga.title + "\" to " + KMFileUtilities().folderPathForFile(manga.directory) + "Komikan/" + NSURL(fileURLWithPath: manga.directory).lastPathComponent!.stringByRemovingPercentEncoding! + ".notes.rtfd");
+        print("KMReaderNotesViewController: Saving notes for \"" + manga.title + "\" to " + KMFileUtilities().folderPathForFile(manga.directory) + "Komikan/" + URL(fileURLWithPath: manga.directory).lastPathComponent.removingPercentEncoding! + ".notes.rtfd");
         
         // Set the text color to black so we can see it in text edit
-        notesTextField.textColor = NSColor.blackColor();
+        notesTextField.textColor = NSColor.black;
         
         // Save the notes to a file with the same name as the archive with ".notes.rtfd" on the end to the Komikan folder
-        notesTextField.writeRTFDToFile(KMFileUtilities().folderPathForFile(manga.directory) + "Komikan/" + NSURL(fileURLWithPath: manga.directory).lastPathComponent!.stringByRemovingPercentEncoding! + ".notes.rtfd", atomically: true);
+        notesTextField.writeRTFD(toFile: KMFileUtilities().folderPathForFile(manga.directory) + "Komikan/" + URL(fileURLWithPath: manga.directory).lastPathComponent.removingPercentEncoding! + ".notes.rtfd", atomically: true);
         
         // Set the text color back to white
-        notesTextField.textColor = NSColor.whiteColor();
+        notesTextField.textColor = NSColor.white;
     }
     
     /// Loads the notes for this manga(Also if there is a (archive name).notes.txt it takes the text from that and then converts it to RTFD)
@@ -154,14 +154,14 @@ class KMReaderNotesViewController: NSViewController, NSWindowDelegate, NSTextVie
         print("KMReaderNotesViewController: Loading notes for \"" + manga.title + "\", looking in " + KMFileUtilities().folderPathForFile(manga.directory) + "Komikan/");
         
         // If there is a .notes.txt file...
-        if(NSFileManager.defaultManager().fileExistsAtPath(KMFileUtilities().folderPathForFile(manga.directory) + "Komikan/" + NSURL(fileURLWithPath: manga.directory).lastPathComponent!.stringByRemovingPercentEncoding! + ".notes.txt")) {
+        if(FileManager.default.fileExists(atPath: KMFileUtilities().folderPathForFile(manga.directory) + "Komikan/" + URL(fileURLWithPath: manga.directory).lastPathComponent.removingPercentEncoding! + ".notes.txt")) {
             // Load the files text into the notes text field
-            notesTextField.string = String(data: NSFileManager.defaultManager().contentsAtPath(KMFileUtilities().folderPathForFile(manga.directory) + "Komikan/" + NSURL(fileURLWithPath: manga.directory).lastPathComponent!.stringByRemovingPercentEncoding! + ".notes.txt")!, encoding: NSUTF8StringEncoding);
+            notesTextField.string = String(data: FileManager.default.contents(atPath: KMFileUtilities().folderPathForFile(manga.directory) + "Komikan/" + URL(fileURLWithPath: manga.directory).lastPathComponent.removingPercentEncoding! + ".notes.txt")!, encoding: String.Encoding.utf8);
             
             // Delete the .notes.txt file, were done here
             do {
                 // Try to remove the .notes.txt file
-                try NSFileManager.defaultManager().removeItemAtPath(KMFileUtilities().folderPathForFile(manga.directory) + "Komikan/" + NSURL(fileURLWithPath: manga.directory).lastPathComponent!.stringByRemovingPercentEncoding! + ".notes.txt");
+                try FileManager.default.removeItem(atPath: KMFileUtilities().folderPathForFile(manga.directory) + "Komikan/" + URL(fileURLWithPath: manga.directory).lastPathComponent.removingPercentEncoding! + ".notes.txt");
             }
             // If there is an error...
             catch let error as NSError {
@@ -171,24 +171,24 @@ class KMReaderNotesViewController: NSViewController, NSWindowDelegate, NSTextVie
         }
         
         // If the .notes.rtfd file exists...
-        if(NSFileManager.defaultManager().fileExistsAtPath(KMFileUtilities().folderPathForFile(manga.directory) + "Komikan/" + NSURL(fileURLWithPath: manga.directory).lastPathComponent!.stringByRemovingPercentEncoding! + ".notes.rtfd")) {
+        if(FileManager.default.fileExists(atPath: KMFileUtilities().folderPathForFile(manga.directory) + "Komikan/" + URL(fileURLWithPath: manga.directory).lastPathComponent.removingPercentEncoding! + ".notes.rtfd")) {
             // Load it into the text view
-            notesTextField.readRTFDFromFile(KMFileUtilities().folderPathForFile(manga.directory) + "Komikan/" + NSURL(fileURLWithPath: manga.directory).lastPathComponent!.stringByRemovingPercentEncoding! + ".notes.rtfd");
+            notesTextField.readRTFD(fromFile: KMFileUtilities().folderPathForFile(manga.directory) + "Komikan/" + URL(fileURLWithPath: manga.directory).lastPathComponent.removingPercentEncoding! + ".notes.rtfd");
         }
         
         // Set the notes text fields text color to white
-        notesTextField.textColor = NSColor.whiteColor();
+        notesTextField.textColor = NSColor.white;
     }
     
-    func windowWillClose(notification: NSNotification) {
+    func windowWillClose(_ notification: Notification) {
         // Save the notes
         saveNotes();
     }
     
-    func windowDidBecomeKey(notification: NSNotification) {
+    func windowDidBecomeKey(_ notification: Notification) {
         // Disable the next and previous menu items so we can use the arrow keys in text editing
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.nextPageMenubarItem.action = nil;
-        (NSApplication.sharedApplication().delegate as? AppDelegate)?.previousPageMenubarItem.action = nil;
+        (NSApplication.shared().delegate as? AppDelegate)?.nextPageMenubarItem.action = nil;
+        (NSApplication.shared().delegate as? AppDelegate)?.previousPageMenubarItem.action = nil;
     }
     
     /// Sets the notes window's title to the manga that we are editing notes for with "Notes" on the end
@@ -200,21 +200,21 @@ class KMReaderNotesViewController: NSViewController, NSWindowDelegate, NSTextVie
     /// Styles the window
     func styleWindow() {
         // Set the background to be more vibrant
-        backgroundVisualEffectView.material = .Dark;
+        backgroundVisualEffectView.material = .dark;
         
         // Set the editing bar to be more vibrant
-        editingBarVisualEffectView.material = .Dark;
+        editingBarVisualEffectView.material = .dark;
         
         // Set the notes text field's text color to white
-        notesTextField.textColor = NSColor.whiteColor();
+        notesTextField.textColor = NSColor.white;
         
         // Set the notes text field's delegate to this
         notesTextField.delegate = self;
         
         // Set the toggle edit bar menu item's action
-        (NSApplication.sharedApplication().delegate as! AppDelegate).readerToggleNotesEditBarMenuItem.action = Selector("toggleEditingBar");
+        (NSApplication.shared().delegate as! AppDelegate).readerToggleNotesEditBarMenuItem.action = #selector(KMReaderNotesViewController.toggleEditingBar);
         
         // Set the open in external editor menu item's action
-        (NSApplication.sharedApplication().delegate as! AppDelegate).openInExternalEditorMenuItem.action = Selector("openExternally");
+        (NSApplication.shared().delegate as! AppDelegate).openInExternalEditorMenuItem.action = #selector(KMReaderNotesViewController.openExternally);
     }
 }

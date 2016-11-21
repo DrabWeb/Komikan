@@ -33,7 +33,7 @@ class KMPreferencesKeeper {
     var pageIgnoreRegex : String = "";
     
     /// The background color for the reader window
-    var readerWindowBackgroundColor : NSColor = NSColor.blackColor();
+    var readerWindowBackgroundColor : NSColor = NSColor.black;
     
     /// The default screen to show at launch(0 is grid, 1 is list and 2 is groups)
     var defaultScreen : Int = 0;

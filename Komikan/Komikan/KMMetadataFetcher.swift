@@ -45,13 +45,13 @@ class KMMetadataFetcher {
     ///
     /// and the syntax for the completionHandler is
     /// func completionHandler(searchJSON : [KMMetadataInfo]?, error : NSError?))
-    func searchForManga(title : String, completionHandler: ([KMMetadataInfo]?, NSError?) -> ()) -> [KMMetadataInfo] {
+    func searchForManga(_ title : String, completionHandler: @escaping ([KMMetadataInfo]?, NSError?) -> ()) -> [KMMetadataInfo] {
         // Return the output of the searchForMangaRequest with the given values
         return searchForMangaRequest(title, completionHandler: completionHandler);
     }
     
     /// Makes the actual search request from searchForManga
-    private func searchForMangaRequest(title : String, completionHandler: ([KMMetadataInfo]?, NSError?) -> ()) -> [KMMetadataInfo] {
+    fileprivate func searchForMangaRequest(_ title : String, completionHandler: @escaping ([KMMetadataInfo]?, NSError?) -> ()) -> [KMMetadataInfo] {
         // Print to the log what we are searching for
         print("KMMetadataFetcher: Searching for \"" + title + "\"");
         
@@ -59,20 +59,20 @@ class KMMetadataFetcher {
         var metadataSearchItems : [KMMetadataInfo] = [];
         
         /// The SwiftyJSON object which holds the JSON result of the search
-        var searchJSON : JSON = JSON(data: NSData());
+        var searchJSON : JSON = JSON(data: Data());
         
         // Make the JSON post request to MCD with the title we want to search for...
-        Alamofire.request(.POST, "http://mcd.iosphe.re/api/v1/search/", parameters: ["Title": title], encoding: .JSON).responseJSON { (responseData) -> Void in
+        Alamofire.request("http://mcd.iosphe.re/api/v1/search/", method: .post, parameters: ["Title": title], encoding: JSONEncoding.default).responseJSON { (responseData) -> Void in
             /// The string of JSON that will be returned when the search completes
-            let responseJsonString : NSString = NSString(data: responseData.data!, encoding: NSUTF8StringEncoding)!;
+            let responseJsonString : NSString = NSString(data: responseData.data!, encoding: String.Encoding.utf8.rawValue)!;
             
             // If the response data and the response string converted to NSData are equal...
-            if let dataFromResponseJsonString = responseJsonString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
+            if let dataFromResponseJsonString = responseJsonString.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: false) {
                 // Set searchJSON to the JSON object from the response data
                 searchJSON = JSON(data: dataFromResponseJsonString);
                 
                 // For every item in the response JSON...
-                for(_, currentItem) in searchJSON["Results"].arrayValue.enumerate() {
+                for(_, currentItem) in searchJSON["Results"].arrayValue.enumerated() {
                     // Add the current item to the metadata search items
                     metadataSearchItems.append(KMMetadataInfo(title: currentItem[1].stringValue, id: currentItem[0].intValue));
                 }
@@ -94,13 +94,13 @@ class KMMetadataFetcher {
     
     /// Gets the metadata from a KMMetadataInfo and returns it as a KMSeriesMetadata
     /// Usage is the same as searchForManga,so look there for syntax
-    func getSeriesMetadata(metadata : KMMetadataInfo, completionHandler: (KMSeriesMetadata?, NSError?) -> ()) -> KMSeriesMetadata {
+    func getSeriesMetadata(_ metadata : KMMetadataInfo, completionHandler: @escaping (KMSeriesMetadata?, NSError?) -> ()) -> KMSeriesMetadata {
         // Return the output of the getSeriesMetadataRequest with the given values
         return getSeriesMetadataRequest(metadata, completionHandler: completionHandler);
     }
     
     /// Makes the actual search request from searchForManga
-    private func getSeriesMetadataRequest(metadata : KMMetadataInfo, completionHandler: (KMSeriesMetadata?, NSError?) -> ()) -> KMSeriesMetadata {
+    fileprivate func getSeriesMetadataRequest(_ metadata : KMMetadataInfo, completionHandler: @escaping (KMSeriesMetadata?, NSError?) -> ()) -> KMSeriesMetadata {
         // Print to the log what we are searching for
         print("KMMetadataFetcher: Getting metadata for \"" + metadata.title + "\"");
         
@@ -108,15 +108,15 @@ class KMMetadataFetcher {
         let seriesMetadata : KMSeriesMetadata = KMSeriesMetadata();
         
         /// The SwiftyJSON object which holds the JSON result of the GET request
-        var responseJSON : JSON = JSON(data: NSData());
+        var responseJSON : JSON = JSON(data: Data());
         
         // Make the get request to MCD with the series ID...
-        Alamofire.request(.GET, "http://mcd.iosphe.re/api/v1/series/" + String(metadata.id) + "/", encoding: .JSON).responseJSON { (responseData) -> Void in
+        Alamofire.request("http://mcd.iosphe.re/api/v1/series/\(String(metadata.id))/").responseJSON { (responseData) -> Void in
             /// The string of JSON that will be returned when the GET request finishes
-            let responseJsonString : NSString = NSString(data: responseData.data!, encoding: NSUTF8StringEncoding)!;
+            let responseJsonString : NSString = NSString(data: responseData.data!, encoding: String.Encoding.utf8.rawValue)!;
             
             // If the response data and the response string converted to NSData are equal...
-            if let dataFromResponseJsonString = responseJsonString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
+            if let dataFromResponseJsonString = responseJsonString.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: false) {
                 // Set responseJSON to the JSON object from the response data
                 responseJSON = JSON(data: dataFromResponseJsonString);
                 
@@ -124,44 +124,44 @@ class KMMetadataFetcher {
                 seriesMetadata.title = responseJSON["Title"].stringValue;
                 
                 // For every item in the series' alternate titles...
-                for(_, currentAlternateTitle) in responseJSON["AlternativeTitles"].arrayValue.enumerate() {
+                for(_, currentAlternateTitle) in responseJSON["AlternativeTitles"].arrayValue.enumerated() {
                     // Add the current alternate title
                     seriesMetadata.alternateTitles.append(currentAlternateTitle.stringValue);
                 }
                 
                 // For every item in the series' artists...
-                for(_, currentArtist) in responseJSON["Artists"].arrayValue.enumerate() {
+                for(_, currentArtist) in responseJSON["Artists"].arrayValue.enumerated() {
                     // Add the current artist
                     seriesMetadata.artists.append(currentArtist.stringValue);
                 }
                 
                 // For every item in the series' writers...
-                for(_, currentAuthor) in responseJSON["Authors"].arrayValue.enumerate() {
+                for(_, currentAuthor) in responseJSON["Authors"].arrayValue.enumerated() {
                     // Add the current author
                     seriesMetadata.writers.append(currentAuthor.stringValue);
                 }
                 
                 // For evert item in the Covers array...
-                for(_, currentCoverGroup) in responseJSON["Covers"].enumerate() {
+                for(_, currentCoverGroup) in responseJSON["Covers"].enumerated() {
                     // For every item the this cover group...
-                    for(_, currentCover) in currentCoverGroup.1.enumerate() {
+                    for(_, currentCover) in currentCoverGroup.1.enumerated() {
                         // If this is the front cover...
                         if(currentCover.1["Side"].stringValue == "front") {
                             // If there is a "Normal" object...
-                            if(currentCover.1["Normal"].isExists()) {
+                            if(currentCover.1["Normal"].exists()) {
                                 // Add the current cover URL to the series metadata
-                                seriesMetadata.coverURLs.append(NSURL(string: currentCover.1["Normal"].stringValue)!);
+                                seriesMetadata.coverURLs.append(URL(string: currentCover.1["Normal"].stringValue)!);
                             }
                             else {
                                 // Use the full size "Raw" URL
-                                seriesMetadata.coverURLs.append(NSURL(string: currentCover.1["Raw"].stringValue)!);
+                                seriesMetadata.coverURLs.append(URL(string: currentCover.1["Raw"].stringValue)!);
                             }
                         }
                     }
                 }
                 
                 // For every item in the series' tags...
-                for(_, currentTag) in responseJSON["Tags"].arrayValue.enumerate() {
+                for(_, currentTag) in responseJSON["Tags"].arrayValue.enumerated() {
                     // Add the current tag
                     seriesMetadata.tags.append(currentTag.stringValue);
                 }
@@ -209,7 +209,7 @@ class KMSeriesMetadata {
     var writers : [String] = [];
     
     /// The URLs to the compressed cover images
-    var coverURLs : [NSURL] = [];
+    var coverURLs : [URL] = [];
     
     /// All the tags of this series
     var tags : [String] = [];

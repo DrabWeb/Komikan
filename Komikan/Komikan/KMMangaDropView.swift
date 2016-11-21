@@ -9,8 +9,8 @@ import Cocoa
 
 class KMMangaDropView: NSVisualEffectView {
 
-    override func drawRect(dirtyRect: NSRect) {
-        super.drawRect(dirtyRect)
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
 
         // Drawing code here.
     }
@@ -19,42 +19,42 @@ class KMMangaDropView: NSVisualEffectView {
         super.init(coder: coder);
         
         // Register for dragging
-        self.registerForDraggedTypes(NSArray(objects: NSFilenamesPboardType) as! [String]);
+        self.register(forDraggedTypes: NSArray(objects: NSFilenamesPboardType) as! [String]);
         
         // Set the material to dark
-        self.material = NSVisualEffectMaterial.Dark;
+        self.material = NSVisualEffectMaterial.dark;
         
         // Hide the view
         self.alphaValue = 0;
     }
     
-    override func draggingEntered(sender: NSDraggingInfo) -> NSDragOperation {
+    override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
         // Bring the app to the front
-        NSApplication.sharedApplication().activateIgnoringOtherApps(true);
+        NSApplication.shared().activate(ignoringOtherApps: true);
         
         // Animate in the add symbol and vibrancy
         self.animator().alphaValue = 1;
         
-        return NSDragOperation.Copy;
+        return NSDragOperation.copy;
     }
     
-    override func draggingUpdated(sender: NSDraggingInfo) -> NSDragOperation {
-        return NSDragOperation.Copy;
+    override func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
+        return NSDragOperation.copy;
     }
     
-    override func draggingEnded(sender: NSDraggingInfo?) {
+    override func draggingEnded(_ sender: NSDraggingInfo?) {
         // Fade out the view
         self.animator().alphaValue = 0;
     }
     
-    override func draggingExited(sender: NSDraggingInfo?) {
+    override func draggingExited(_ sender: NSDraggingInfo?) {
         // Fade out the view
         self.animator().alphaValue = 0;
     }
     
-    override func prepareForDragOperation(sender: NSDraggingInfo) -> Bool {
+    override func prepareForDragOperation(_ sender: NSDraggingInfo) -> Bool {
         // Post the notification saying that we have dropped the files and to show the add / import popover with the files
-        NSNotificationCenter.defaultCenter().postNotificationName("MangaGrid.DropFiles", object: sender.draggingPasteboard().propertyListForType("NSFilenamesPboardType"));
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "MangaGrid.DropFiles"), object: sender.draggingPasteboard().propertyList(forType: "NSFilenamesPboardType"));
         
         return true;
     }

@@ -31,7 +31,7 @@ class KMSetSelectedItemsPropertiesViewController: NSViewController {
     @IBOutlet var releaseDateTextField: NSTextField!
     
     /// The date formatter for releaseDateTextField
-    @IBOutlet var releaseDateTextFieldDateFormatter: NSDateFormatter!
+    @IBOutlet var releaseDateTextFieldDateFormatter: DateFormatter!
     
     /// The button to set favourites
     @IBOutlet weak var favouriteButton: KMFavouriteButton!
@@ -46,7 +46,7 @@ class KMSetSelectedItemsPropertiesViewController: NSViewController {
     @IBOutlet var lewdCheckbox: NSButton!
     
     /// When we interact with lewdCheckbox...
-    @IBAction func lewdCheckboxInteracted(sender: AnyObject) {
+    @IBAction func lewdCheckboxInteracted(_ sender: AnyObject) {
         // Say we want to set the selected manga's lewd values
         setLewd = true;
     }
@@ -55,9 +55,9 @@ class KMSetSelectedItemsPropertiesViewController: NSViewController {
     var setLewd : Bool = false;
     
     /// When we click the "Set" button...
-    @IBAction func setButtonPressed(sender: AnyObject) {
+    @IBAction func setButtonPressed(_ sender: AnyObject) {
         // Dismiss the popover
-        self.dismissController(self);
+        self.dismiss(self);
         
         /// A properties holder to pass the data between the popover and the master View Controller
         let propertiesHolder : KMSetSelectedPropertiesHolder = KMSetSelectedPropertiesHolder();
@@ -66,17 +66,17 @@ class KMSetSelectedItemsPropertiesViewController: NSViewController {
         propertiesHolder.series = seriesTokenTextField.stringValue;
         propertiesHolder.artist = artistTokenTextField.stringValue;
         propertiesHolder.writer = writerTokenTextField.stringValue;
-        propertiesHolder.tags = tagsTextField.stringValue.componentsSeparatedByString(", ");
+        propertiesHolder.tags = tagsTextField.stringValue.components(separatedBy: ", ");
         propertiesHolder.group = groupTokenTextField.stringValue;
-        propertiesHolder.releaseDate = releaseDateTextFieldDateFormatter.dateFromString(releaseDateTextField.stringValue);
-        propertiesHolder.appendTags = Bool(appendTagsCheckbox.state);
-        propertiesHolder.favourite = Bool(favouriteButton.state);
-        propertiesHolder.setFavourite = Bool(modifyFavouriteCheckBox.state);
+        propertiesHolder.releaseDate = releaseDateTextFieldDateFormatter.date(from: releaseDateTextField.stringValue);
+        propertiesHolder.appendTags = Bool(appendTagsCheckbox.state as NSNumber);
+        propertiesHolder.favourite = Bool(favouriteButton.state as NSNumber);
+        propertiesHolder.setFavourite = Bool(modifyFavouriteCheckBox.state as NSNumber);
         propertiesHolder.setLewd = setLewd;
-        propertiesHolder.lewd = Bool(lewdCheckbox.state);
+        propertiesHolder.lewd = Bool(lewdCheckbox.state as NSNumber);
         
         // Post the notification to say we are done, with the properties holder
-        NSNotificationCenter.defaultCenter().postNotificationName("KMSetSelectedItemsPropertiesViewController.Finished", object: propertiesHolder);
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "KMSetSelectedItemsPropertiesViewController.Finished"), object: propertiesHolder);
     }
     
     override func viewDidLoad() {
@@ -89,16 +89,16 @@ class KMSetSelectedItemsPropertiesViewController: NSViewController {
         favouriteButton.updateButton();
         
         // Setup all the suggestions for the property text fields
-        seriesTokenTextField.suggestions = (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.allSeries();
-        artistTokenTextField.suggestions = (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.allArtists();
-        writerTokenTextField.suggestions = (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.allWriters();
-        groupTokenTextField.suggestions = (NSApplication.sharedApplication().delegate as! AppDelegate).mangaGridController.allGroups();
+        seriesTokenTextField.suggestions = (NSApplication.shared().delegate as! AppDelegate).mangaGridController.allSeries();
+        artistTokenTextField.suggestions = (NSApplication.shared().delegate as! AppDelegate).mangaGridController.allArtists();
+        writerTokenTextField.suggestions = (NSApplication.shared().delegate as! AppDelegate).mangaGridController.allWriters();
+        groupTokenTextField.suggestions = (NSApplication.shared().delegate as! AppDelegate).mangaGridController.allGroups();
     }
     
     /// Styles the view
     func styleWindow() {
         // Set the background visual effect views material to be the more vibrant dark
-        backgroundVisualEffectView.material = NSVisualEffectMaterial.Dark;
+        backgroundVisualEffectView.material = NSVisualEffectMaterial.dark;
     }
 }
 
@@ -120,7 +120,7 @@ class KMSetSelectedPropertiesHolder {
     var group : String = "";
     
     /// The published date
-    var releaseDate : NSDate? = nil;
+    var releaseDate : Date? = nil;
     
     /// Is this manga a favourite?
     var favourite : Bool = false;
@@ -138,7 +138,7 @@ class KMSetSelectedPropertiesHolder {
     var setLewd : Bool = false;
     
     /// Sets the passed manga's values to the ones stored inside this instance. Also appends instead of replacing based on appendTags
-    func applyValuesToManga(manga : KMManga) {
+    func applyValuesToManga(_ manga : KMManga) {
         // If there is a series value set...
         if(series != "") {
             // Set the mangas series to the series value
@@ -162,7 +162,7 @@ class KMSetSelectedPropertiesHolder {
             // If we said to append the tags...
             if(appendTags) {
                 // Append the tags to the mangas tags
-                manga.tags.appendContentsOf(tags);
+                manga.tags.append(contentsOf: tags);
             }
             else {
                 // Set the mangas tags to the tags value

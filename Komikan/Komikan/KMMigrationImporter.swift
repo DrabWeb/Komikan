@@ -13,17 +13,17 @@ class KMMigrationImporter {
     var mangaGridController : KMMangaGridController = KMMangaGridController();
     
     /// Imports all the manga in the passed folder and all it's subfolders. Only imports ones that have metadata exported
-    func importFolder(path : String) {
+    func importFolder(_ path : String) {
         // Print to the log that we are importing
         print("KMMigrationImporter: Trying to import files in \(path)");
         
         /// The file enumerator for the import folder
-        let importFolderFileEnumerator : NSDirectoryEnumerator = NSFileManager.defaultManager().enumeratorAtPath(path)!;
+        let importFolderFileEnumerator : FileManager.DirectoryEnumerator = FileManager.default.enumerator(atPath: path)!;
         
         // For every item in all the contents of the import path and its subfolders...
-        for(_, currentFilePath) in importFolderFileEnumerator.enumerate() {
+        for(_, currentFilePath) in importFolderFileEnumerator.enumerated() {
             /// The full path to the current file on the system
-            let currentFileFullPath : String = path + String(currentFilePath);
+            let currentFileFullPath : String = path + String(describing: currentFilePath);
             
             /// The extension of the current file
             let currentFileExtension : String = NSString(string: currentFileFullPath).pathExtension;
@@ -39,7 +39,7 @@ class KMMigrationImporter {
                     let manga : KMManga = KMManga();
                     
                     /// The SwiftyJSON object for the manga's JSON info
-                    let mangaJson = JSON(data: NSFileManager.defaultManager().contentsAtPath(KMFileUtilities().mangaFileJSONPath(currentFileFullPath))!);
+                    let mangaJson = JSON(data: FileManager.default.contents(atPath: KMFileUtilities().mangaFileJSONPath(currentFileFullPath))!);
                     
                     // If the title value from the JSON is not "auto" or blank...
                     if(mangaJson["title"].stringValue != "auto" && mangaJson["title"].stringValue != "") {
@@ -55,14 +55,14 @@ class KMMigrationImporter {
                     // If the cover image value from the JSON is not "auto" or blank...
                     if(mangaJson["cover-image"].stringValue != "auto" && mangaJson["cover-image"].stringValue != "") {
                         // If the first character is not a "/"...
-                        if(mangaJson["cover-image"].stringValue.substringToIndex(mangaJson["cover-image"].stringValue.startIndex.successor()) == "/") {
+                        if(mangaJson["cover-image"].stringValue.substring(to: mangaJson["cover-image"].stringValue.characters.index(after: mangaJson["cover-image"].stringValue.startIndex)) == "/") {
                             // Set the cover for this manga to the image file at cover-image
-                            manga.coverImage = NSImage(contentsOfURL: NSURL(fileURLWithPath: mangaJson["cover-image"].stringValue))!;
+                            manga.coverImage = NSImage(contentsOf: URL(fileURLWithPath: mangaJson["cover-image"].stringValue))!;
                         }
                         // If the cover-image value was local...
                         else {
                             // Get the relative image
-                            manga.coverImage = NSImage(contentsOfURL: NSURL(fileURLWithPath: KMFileUtilities().folderPathForFile(currentFileFullPath) + "Komikan/" + mangaJson["cover-image"].stringValue))!;
+                            manga.coverImage = NSImage(contentsOf: URL(fileURLWithPath: KMFileUtilities().folderPathForFile(currentFileFullPath) + "Komikan/" + mangaJson["cover-image"].stringValue))!;
                         }
                     }
                     
@@ -72,7 +72,7 @@ class KMMigrationImporter {
                     manga.writer = mangaJson["writer"].stringValue;
                     
                     // For every tag in the JSON's tags array...
-                    for(_, currentTag) in mangaJson["tags"].arrayValue.enumerate() {
+                    for(_, currentTag) in mangaJson["tags"].arrayValue.enumerated() {
                         // Add the current tag to the manga's tags
                         manga.tags.append(currentTag.stringValue);
                     }
@@ -87,7 +87,7 @@ class KMMigrationImporter {
                     manga.lewd = mangaJson["lewd"].boolValue;
                     
                     // If all the internal values are present...
-                    if(mangaJson["current-page"].isExists() && mangaJson["page-count"].isExists() && mangaJson["saturation"].isExists() && mangaJson["brightness"].isExists() && mangaJson["contrast"].isExists() && mangaJson["sharpness"].isExists()) {
+                    if(mangaJson["current-page"].exists() && mangaJson["page-count"].exists() && mangaJson["saturation"].exists() && mangaJson["brightness"].exists() && mangaJson["contrast"].exists() && mangaJson["sharpness"].exists()) {
                         // Set the current page
                         manga.currentPage = mangaJson["current-page"].intValue - 1;
                         
@@ -129,10 +129,10 @@ class KMMigrationImporter {
                     finishedNotification.informativeText = "Finished importing manga from \"" + currentFileFullPath + "\"";
                     
                     // Set the notifications identifier to be an obscure string, so we can show multiple at once
-                    finishedNotification.identifier = NSUUID().UUIDString;
+                    finishedNotification.identifier = UUID().uuidString;
                     
                     // Show the notification
-                    NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(finishedNotification);
+                    NSUserNotificationCenter.default.deliver(finishedNotification);
                 }
             }
         }

@@ -9,15 +9,15 @@ import Cocoa
 
 class KMCommandUtilities {
     // The NSTask for the last command we ran
-    var lastCommandTask : NSTask!;
+    var lastCommandTask : Process!;
     
     // Runs the specified command as a shell script, returns the output
-    func runCommand(launchPath : String, arguments : [String], waitUntilExit : Bool) -> String {
+    func runCommand(_ launchPath : String, arguments : [String], waitUntilExit : Bool) -> String {
         // Print to the log what command we are running
-        print("KMCommandUtilities: Running command \"" + launchPath + " " + String(arguments) + "\"");
+        print("KMCommandUtilities: Running command \"" + launchPath + " " + String(describing: arguments) + "\"");
         
         // Reset lastCommandTask
-        lastCommandTask = NSTask();
+        lastCommandTask = Process();
         
         // Set the launch path to the launch path we passed
         lastCommandTask.launchPath = launchPath;
@@ -26,7 +26,7 @@ class KMCommandUtilities {
         lastCommandTask.arguments = arguments;
         
         // Create a pipe to get the output
-        let pipe = NSPipe();
+        let pipe = Pipe();
         
         // Set the tasks output to our pipe
         lastCommandTask.standardOutput = pipe;
@@ -47,7 +47,7 @@ class KMCommandUtilities {
         let data = pipe.fileHandleForReading.readDataToEndOfFile();
         
         // Create an output variable to the output data as a UTF8 string
-        let output: String = NSString(data: data, encoding: NSUTF8StringEncoding) as! String;
+        let output: String = NSString(data: data, encoding: String.Encoding.utf8.rawValue) as! String;
         
         // Return the output
         return output;

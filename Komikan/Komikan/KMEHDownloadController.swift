@@ -23,14 +23,14 @@ class KMEHDownloadController : NSObject {
     var sendBackItem : KMEHDownloadItem = KMEHDownloadItem(url: "");
     
     // Adds the speicified URL to the download queue
-    func addItemToQueue(item : KMEHDownloadItem) {
+    func addItemToQueue(_ item : KMEHDownloadItem) {
         /// Was the URL for this download item invalid?
         var invalidURL : Bool = false;
         
         // If the URL exists...
-        if(NSData(contentsOfURL: NSURL(string: item.url)!) != nil) {
+        if((try? Data(contentsOf: URL(string: item.url)!)) != nil) {
             // If the URL is on ExHentai or E-Hentai...
-            if(NSURL(string: item.url)!.host!.containsString("exhentai.org") || NSURL(string: item.url)!.host!.containsString("g.e-hentai.org")) {
+            if(URL(string: item.url)!.host!.contains("exhentai.org") || URL(string: item.url)!.host!.contains("g.e-hentai.org")) {
                 // Print to the log what item was added to the queue
                 print("KMEHDownloadController: Added \"" + item.url + "\" to queue");
                 
@@ -43,7 +43,7 @@ class KMEHDownloadController : NSObject {
                 // If we arent currently downloading queue items...
                 if(!currentlyDownloading) {
                     // Spawn a new thread for downloading
-                    NSThread.detachNewThreadSelector(Selector("downloadThread"), toTarget: self, withObject: nil);
+                    Thread.detachNewThreadSelector(#selector(KMEHDownloadController.downloadThread), toTarget: self, with: nil);
                 }
                 else {
                     // Say there will be more to download
@@ -76,7 +76,7 @@ class KMEHDownloadController : NSObject {
         currentlyDownloading = true;
         
         // For every item in the download queue...
-        for(_, currentItem) in downloadQueue.enumerate() {
+        for(_, currentItem) in downloadQueue.enumerated() {
             // Say we are currently downloading something
             print("KMEHDownloadController: Downloading item: \(currentItem.url)");
             
@@ -90,10 +90,10 @@ class KMEHDownloadController : NSObject {
             startedNotification.informativeText = "Started download for \"" + currentItem.url + "\"";
             
             // Set the notifications identifier to be an obscure string, so we can show multiple at once
-            startedNotification.identifier = NSUUID().UUIDString;
+            startedNotification.identifier = UUID().uuidString;
             
             // Deliver the notification
-            NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(startedNotification);
+            NSUserNotificationCenter.default.deliver(startedNotification);
             
             // If its on ExHentai...
             if(currentItem.onExHentai) {
@@ -108,7 +108,7 @@ class KMEHDownloadController : NSObject {
             
             // Remove this item from the queue(Converts to an NSMutableArray first so it can remove objects and not just indexes)
             let downloadQueueNSArray : NSMutableArray = NSMutableArray(array: downloadQueue);
-            downloadQueueNSArray.removeObject(currentItem);
+            downloadQueueNSArray.remove(currentItem);
             downloadQueue = Array(downloadQueueNSArray) as! [KMEHDownloadItem];
         }
         
@@ -131,28 +131,28 @@ class KMEHDownloadController : NSObject {
     /// Sends the passed KMEHDownloadItem to the main View Controller
     func sendBackToMainThread() {
         // Post the notification saying we are done and sending back the manga
-        NSNotificationCenter.defaultCenter().postNotificationName("KMEHViewController.Finished", object: sendBackItem.manga);
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "KMEHViewController.Finished"), object: sendBackItem.manga);
     }
     
     // Adds the specified items manga from E-Hentai
-    func downloadFromEH(item : KMEHDownloadItem) {
+    func downloadFromEH(_ item : KMEHDownloadItem) {
         // A variable we will use so we can set the tasks finished action
         let commandUtilities : KMCommandUtilities = KMCommandUtilities();
         
         // Call the command
-        print("KMEHDownloadController: \(commandUtilities.runCommand(NSBundle.mainBundle().bundlePath + "/Contents/Resources/ehadd", arguments: [item.url, NSBundle.mainBundle().bundlePath + "/Contents/Resources/"], waitUntilExit: false))");
+        print("KMEHDownloadController: \(commandUtilities.runCommand(Bundle.main.bundlePath + "/Contents/Resources/ehadd", arguments: [item.url, Bundle.main.bundlePath + "/Contents/Resources/"], waitUntilExit: false))");
         
         // Create a variable to store the name of the new manga
         var newMangaFileName : String = "";
         
         // Try to get the contents of the newehpath in application support to fiure out what manga we are adding
-        newMangaFileName = String(data: NSFileManager().contentsAtPath(NSHomeDirectory() + "/Library/Application Support/Komikan/newehpath")!, encoding: NSUTF8StringEncoding)!;
+        newMangaFileName = String(data: FileManager().contents(atPath: NSHomeDirectory() + "/Library/Application Support/Komikan/newehpath")!, encoding: String.Encoding.utf8)!;
         
         // Create a variable to store the new mangas JSON
         var newMangaJson : JSON!;
         
         // Try to get the contents of the newehdata.json in application support to find the information we need
-        newMangaJson = JSON(data: NSFileManager().contentsAtPath(NSHomeDirectory() + "/Library/Application Support/Komikan/newehdata.json")!);
+        newMangaJson = JSON(data: FileManager().contents(atPath: NSHomeDirectory() + "/Library/Application Support/Komikan/newehdata.json")!);
         
         // If we want to use the Japanese title...
         if(item.useJapaneseTitle == true) {
@@ -165,7 +165,7 @@ class KMEHDownloadController : NSObject {
         }
         
         // Set the mangas cover image
-        item.manga.coverImage = NSImage(contentsOfURL: NSURL(fileURLWithPath: NSHomeDirectory() + "/Library/Application Support/Komikan/newehcover.jpg"))!;
+        item.manga.coverImage = NSImage(contentsOf: URL(fileURLWithPath: NSHomeDirectory() + "/Library/Application Support/Komikan/newehcover.jpg"))!;
         
         // Resize the cover image to be compressed for faster loading
         item.manga.coverImage = item.manga.coverImage.resizeToHeight(400);
@@ -174,10 +174,10 @@ class KMEHDownloadController : NSObject {
         item.manga.tags = (newMangaJson["gmetadata"][0]["tags"].arrayObject as? [String])!;
         
         // Set the release date
-        item.manga.releaseDate = NSDate(timeIntervalSince1970: NSTimeInterval(newMangaJson["gmetadata"][0]["posted"].intValue));
+        item.manga.releaseDate = Date(timeIntervalSince1970: TimeInterval(newMangaJson["gmetadata"][0]["posted"].intValue));
         
         // Add a day to the release date(NSDate is odd and is always a day off with these EH downloads)
-        item.manga.releaseDate = item.manga.releaseDate.dateByAddingTimeInterval(NSTimeInterval(60 * 60 * 24));
+        item.manga.releaseDate = item.manga.releaseDate.addingTimeInterval(TimeInterval(60 * 60 * 24));
         
         // If the item's group isnt blank...
         if(item.group != "") {
@@ -197,7 +197,7 @@ class KMEHDownloadController : NSObject {
         }
         
         // Remove all the new lines from newMangaFileName(It adds a new line onto the end for some reason)
-        newMangaFileName = newMangaFileName.stringByReplacingOccurrencesOfString("\n", withString: "");
+        newMangaFileName = newMangaFileName.replacingOccurrences(of: "\n", with: "");
         
         // Set the mangas path
         item.manga.directory = NSHomeDirectory() + "/Library/Application Support/Komikan/EH/" + newMangaFileName + ".cbz";
@@ -218,37 +218,37 @@ class KMEHDownloadController : NSObject {
         finishedNotification.informativeText = "Finished downloading \"" + item.manga.title + "\"";
         
         // Set the notifications identifier to be an obscure string, so we can show multiple at once
-        finishedNotification.identifier = NSUUID().UUIDString;
+        finishedNotification.identifier = UUID().uuidString;
         
         // Show the notification
-        NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(finishedNotification);
+        NSUserNotificationCenter.default.deliver(finishedNotification);
         
         // Set the send back item to the item we downloaded
         sendBackItem = item;
         
         // Send back the downloaded manga on the main thread
-        self.performSelectorOnMainThread(Selector("sendBackToMainThread"), withObject: nil, waitUntilDone: false);
+        self.performSelector(onMainThread: #selector(KMEHDownloadController.sendBackToMainThread), with: nil, waitUntilDone: false);
     }
     
     // Adds the specified items manga from ExHentai
-    func downloadFromEX(item : KMEHDownloadItem) {
+    func downloadFromEX(_ item : KMEHDownloadItem) {
         // A variable we will use so we can set the tasks finished action
         let commandUtilities : KMCommandUtilities = KMCommandUtilities();
         
         // Call the command
-        print("KMEHDownloadController: \(commandUtilities.runCommand(NSBundle.mainBundle().bundlePath + "/Contents/Resources/exadd", arguments: [item.url, NSBundle.mainBundle().bundlePath + "/Contents/Resources/"], waitUntilExit: false))");
+        print("KMEHDownloadController: \(commandUtilities.runCommand(Bundle.main.bundlePath + "/Contents/Resources/exadd", arguments: [item.url, Bundle.main.bundlePath + "/Contents/Resources/"], waitUntilExit: false))");
         
         // Create a variable to store the name of the new manga
         var newMangaFileName : String = "";
         
         // Try to get the contents of the newehpath in application support to fiure out what manga we are adding
-        newMangaFileName = String(data: NSFileManager().contentsAtPath(NSHomeDirectory() + "/Library/Application Support/Komikan/newehpath")!, encoding: NSUTF8StringEncoding)!;
+        newMangaFileName = String(data: FileManager().contents(atPath: NSHomeDirectory() + "/Library/Application Support/Komikan/newehpath")!, encoding: String.Encoding.utf8)!;
         
         // Create a variable to store the new mangas JSON
         var newMangaJson : JSON!;
         
         // Try to get the contents of the newehdata.json in application support to find the information we need
-        newMangaJson = JSON(data: NSFileManager().contentsAtPath(NSHomeDirectory() + "/Library/Application Support/Komikan/newehdata.json")!);
+        newMangaJson = JSON(data: FileManager().contents(atPath: NSHomeDirectory() + "/Library/Application Support/Komikan/newehdata.json")!);
         
         // If we want to use the Japanese title...
         if(item.useJapaneseTitle == true) {
@@ -261,7 +261,7 @@ class KMEHDownloadController : NSObject {
         }
         
         // Set the mangas cover image
-        item.manga.coverImage = NSImage(contentsOfURL: NSURL(fileURLWithPath: NSHomeDirectory() + "/Library/Application Support/Komikan/newehcover.jpg"))!;
+        item.manga.coverImage = NSImage(contentsOf: URL(fileURLWithPath: NSHomeDirectory() + "/Library/Application Support/Komikan/newehcover.jpg"))!;
         
         // Resize the cover image to be compressed for faster loading
         item.manga.coverImage = item.manga.coverImage.resizeToHeight(400);
@@ -270,10 +270,10 @@ class KMEHDownloadController : NSObject {
         getTagInfoFromEX(NSHomeDirectory() + "/Library/Application Support/Komikan/newehpage.xml", manga: item.manga);
         
         // Set the release date
-        item.manga.releaseDate = NSDate(timeIntervalSince1970: NSTimeInterval(newMangaJson["gmetadata"][0]["posted"].intValue));
+        item.manga.releaseDate = Date(timeIntervalSince1970: TimeInterval(newMangaJson["gmetadata"][0]["posted"].intValue));
         
         // Add a day to the release date(NSDate is odd and is always a day off with these EH downloads)
-        item.manga.releaseDate = item.manga.releaseDate.dateByAddingTimeInterval(NSTimeInterval(60 * 60 * 24));
+        item.manga.releaseDate = item.manga.releaseDate.addingTimeInterval(TimeInterval(60 * 60 * 24));
         
         // If the item's group isnt blank...
         if(item.group != "") {
@@ -293,7 +293,7 @@ class KMEHDownloadController : NSObject {
         }
         
         // Remove all the new lines from newMangaFileName(It adds a new line onto the end for some reason)
-        newMangaFileName = newMangaFileName.stringByReplacingOccurrencesOfString("\n", withString: "");
+        newMangaFileName = newMangaFileName.replacingOccurrences(of: "\n", with: "");
         
         // Set the mangas path
         item.manga.directory = NSHomeDirectory() + "/Library/Application Support/Komikan/EH/" + newMangaFileName + ".cbz";
@@ -314,53 +314,53 @@ class KMEHDownloadController : NSObject {
         finishedNotification.informativeText = "Finished downloading \"" + item.manga.title + "\"";
         
         // Set the notifications identifier to be an obscure string, so we can show multiple at once
-        finishedNotification.identifier = NSUUID().UUIDString;
+        finishedNotification.identifier = UUID().uuidString;
         
         // Show the notification
-        NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(finishedNotification);
+        NSUserNotificationCenter.default.deliver(finishedNotification);
         
         // Set the send back item to the item we downloaded
         sendBackItem = item;
         
         // Send back the downloaded manga on the main thread
-        self.performSelectorOnMainThread(Selector("sendBackToMainThread"), withObject: nil, waitUntilDone: false);
+        self.performSelector(onMainThread: #selector(KMEHDownloadController.sendBackToMainThread), with: nil, waitUntilDone: false);
     }
     
     /// Gets the tag info from ExHentai and sets the values accordingly on the passed manga(Like respecting artist namespace)
-    func getTagInfoFromEX(galleryPagePath : String, manga : KMManga) {
+    func getTagInfoFromEX(_ galleryPagePath : String, manga : KMManga) {
         /// The contents of the file at galleryPagePath, will escaoe ampersands
-        var pageData : String = String(data: NSFileManager.defaultManager().contentsAtPath(galleryPagePath)!, encoding: NSUTF8StringEncoding)!;
+        var pageData : String = String(data: FileManager.default.contents(atPath: galleryPagePath)!, encoding: String.Encoding.utf8)!;
         
         // Escape the ampersands
-        pageData = pageData.stringByReplacingOccurrencesOfString("&", withString: "(&amp;)");
+        pageData = pageData.replacingOccurrences(of: "&", with: "(&amp;)");
         
         /// The XML for the manga's EH gallery page's source code
-        let galleryPageXML = SWXMLHash.parse(pageData.dataUsingEncoding(NSUTF8StringEncoding)!);
+        let galleryPageXML = SWXMLHash.parse(pageData.data(using: String.Encoding.utf8)!);
         
         // Get the tags and tag namespace
         do {
             // For every element in the tag list on the gallery page...
-            for (_, currentElement) in try galleryPageXML["html"]["body"]["div"].withAttr("class", "gm")["div"].withAttr("id", "gmid")["div"].withAttr("id", "gd4")["div"].withAttr("id", "taglist")["table"].children.enumerate() {
+            for (_, currentElement) in try galleryPageXML["html"]["body"]["div"].withAttr("class", "gm")["div"].withAttr("id", "gmid")["div"].withAttr("id", "gd4")["div"].withAttr("id", "taglist")["table"].children.enumerated() {
                 // The current tag namespace
                 var tagNamespace : String = try currentElement["td"].withAttr("class", "tc").element!.text!;
                 
                 // Remove the : on the end that EH puts
-                tagNamespace = tagNamespace.substringToIndex(tagNamespace.endIndex.predecessor());
+                tagNamespace = tagNamespace.substring(to: tagNamespace.index(before: tagNamespace.endIndex));
                 
                 /// All the tags for this gallery under the current namespace
                 var tagsInNamespace : [String] = [];
                 
                 // For every tag in the current namespace...
-                for(_, currentTag) in currentElement["td"].children.enumerate() {
+                for(_, currentTag) in currentElement["td"].children.enumerated() {
                     /// The current tag
-                    var currentTagValue : String = currentTag.element!.attributes.first!.1;
+                    var currentTagValue : String = currentTag.element!.allAttributes.first!.value.text;
                     
                     /// Remove the td_ and : that EH adds
-                    currentTagValue = currentTagValue.stringByReplacingOccurrencesOfString("td_" + tagNamespace + ":", withString: "");
-                    currentTagValue = currentTagValue.stringByReplacingOccurrencesOfString("td_", withString: "");
+                    currentTagValue = currentTagValue.replacingOccurrences(of: "td_\(tagNamespace):", with: "");
+                    currentTagValue = currentTagValue.replacingOccurrences(of: "td_", with: "");
                     
                     // Replace underscores with spaces
-                    currentTagValue = currentTagValue.stringByReplacingOccurrencesOfString("_", withString: " ");
+                    currentTagValue = currentTagValue.replacingOccurrences(of: "_", with: " ");
                     
                     // Add the current tag to the tags namespace
                     tagsInNamespace.append(currentTagValue);
@@ -369,18 +369,18 @@ class KMEHDownloadController : NSObject {
                 // If this is the artist namespace...
                 if(tagNamespace == "artist") {
                     // Set the manga's artist and author to the artist tag(Capitalized and with spaces instead of underscores)
-                    manga.artist = tagsInNamespace[0].capitalizedString.stringByReplacingOccurrencesOfString("_", withString: " ");
-                    manga.writer = tagsInNamespace[0].capitalizedString.stringByReplacingOccurrencesOfString("_", withString: " ");
+                    manga.artist = tagsInNamespace[0].capitalized.replacingOccurrences(of: "_", with: " ");
+                    manga.writer = tagsInNamespace[0].capitalized.replacingOccurrences(of: "_", with: " ");
                 }
                 // If this is the parody namespace...
                 else if(tagNamespace == "parody") {
                     // Set the manga's series to the parody tag(Capitalized, with spaces instead of underscores, and with "Parody:" on the front)
-                    manga.series = "Parody: " + tagsInNamespace[0].capitalizedString.stringByReplacingOccurrencesOfString("_", withString: " ");
+                    manga.series = "Parody: " + tagsInNamespace[0].capitalized.replacingOccurrences(of: "_", with: " ");
                 }
                 // If its anything else...
                 else {
                     // Add the tags to the manga's tags
-                    manga.tags.appendContentsOf(tagsInNamespace);
+                    manga.tags.append(contentsOf: tagsInNamespace);
                 }
             }
         }

@@ -1,9 +1,12 @@
+ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
 CODE_SIGN_IDENTITY =
 EMBEDDED_CONTENT_CONTAINS_SWIFT = YES
+FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/Alamofire" "$PODS_CONFIGURATION_BUILD_DIR/SWXMLHash" "$PODS_CONFIGURATION_BUILD_DIR/UnrarKit" "$PODS_CONFIGURATION_BUILD_DIR/WPZipArchive"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/../Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -iquote "$CONFIGURATION_BUILD_DIR/Alamofire.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/SWXMLHash.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/UnrarKit.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/WPZipArchive.framework/Headers"
+OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/Alamofire/Alamofire.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/SWXMLHash/SWXMLHash.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/UnrarKit/UnrarKit.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/WPZipArchive/WPZipArchive.framework/Headers"
 OTHER_LDFLAGS = $(inherited) -framework "Alamofire" -framework "SWXMLHash" -framework "UnrarKit" -framework "WPZipArchive"
 OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
-PODS_FRAMEWORK_BUILD_PATH = $(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Pods-Komikan
+PODS_BUILD_DIR = $BUILD_DIR
+PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_ROOT = ${SRCROOT}/Pods
