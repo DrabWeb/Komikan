@@ -798,18 +798,21 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     
     /// Toggles between list and grid view
     func toggleView() {
-        // Toggle in list view
-        inListView = !inListView;
-        
-        // If we are now in list view...
-        if(inListView) {
-            // Display list view
-            displayListView();
-        }
-        // If we are now in grid view...
-        else {
-            // Display grid view
-            displayGridView();
+        // If the group view isn't open...
+        if(!groupViewOpen) {
+            // Toggle in list view
+            inListView = !inListView;
+            
+            // If we are now in list view...
+            if(inListView) {
+                // Display list view
+                displayListView();
+            }
+                // If we are now in grid view...
+            else {
+                // Display grid view
+                displayGridView();
+            }
         }
     }
     
