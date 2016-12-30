@@ -2927,17 +2927,6 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                             <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="xeH-9s-Llt" userLabel="Titlebar Visual Effect View">
                                 <rect key="frame" x="0.0" y="443" width="640" height="37"/>
                                 <subviews>
-                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="foJ-v5-5cU" userLabel="Gradient" customClass="KMGradientView" customModule="Komikan" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="640" height="37"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="endColor">
-                                                <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="startColor">
-                                                <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </customView>
                                     <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CDI-VA-JTT" userLabel="Add Manga Button">
                                         <rect key="frame" x="429" y="3" width="49" height="30"/>
                                         <constraints>
@@ -2971,7 +2960,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                         <tabViewItems>
                                             <tabViewItem label="Title" identifier="" id="g4h-0F-r9M">
                                                 <view key="view" id="EDE-Sz-sH4">
-                                                    <rect key="frame" x="10" y="18" width="634" height="50"/>
+                                                    <rect key="frame" x="10" y="18" width="634" height="71"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </view>
                                             </tabViewItem>
@@ -3058,18 +3047,14 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                     <constraint firstItem="QhM-D5-BGg" firstAttribute="leading" secondItem="xeH-9s-Llt" secondAttribute="leading" id="CmL-YF-LYE"/>
                                     <constraint firstAttribute="height" constant="37" id="Kdz-75-IVb"/>
                                     <constraint firstItem="3OY-Ks-0gq" firstAttribute="centerY" secondItem="xeH-9s-Llt" secondAttribute="centerY" id="M4u-Rn-Uzb"/>
-                                    <constraint firstItem="foJ-v5-5cU" firstAttribute="top" secondItem="xeH-9s-Llt" secondAttribute="top" id="MnN-p6-GoU"/>
                                     <constraint firstAttribute="bottom" secondItem="y9e-nS-8mf" secondAttribute="bottom" constant="7" id="POM-OE-vCT"/>
                                     <constraint firstItem="7Qu-LI-sn4" firstAttribute="centerY" secondItem="xeH-9s-Llt" secondAttribute="centerY" id="SXO-mj-5eF"/>
                                     <constraint firstItem="QhM-D5-BGg" firstAttribute="top" secondItem="xeH-9s-Llt" secondAttribute="top" constant="8" id="Ui1-Yu-246"/>
-                                    <constraint firstItem="foJ-v5-5cU" firstAttribute="leading" secondItem="xeH-9s-Llt" secondAttribute="leading" id="Y5P-vD-0Uz"/>
                                     <constraint firstItem="CDI-VA-JTT" firstAttribute="top" secondItem="xeH-9s-Llt" secondAttribute="top" constant="6" id="ZhV-D9-DFZ"/>
-                                    <constraint firstAttribute="bottom" secondItem="foJ-v5-5cU" secondAttribute="bottom" id="hYe-nB-znB"/>
                                     <constraint firstAttribute="bottom" secondItem="Ous-Wp-ftq" secondAttribute="bottom" constant="7" id="i1o-tf-Ie3"/>
                                     <constraint firstItem="y9e-nS-8mf" firstAttribute="top" secondItem="xeH-9s-Llt" secondAttribute="top" constant="7" id="p4P-qb-cdz"/>
                                     <constraint firstAttribute="trailing" secondItem="Ous-Wp-ftq" secondAttribute="trailing" constant="7" id="pxS-9u-cNV"/>
                                     <constraint firstItem="7Qu-LI-sn4" firstAttribute="centerX" secondItem="xeH-9s-Llt" secondAttribute="centerX" id="rwv-Z1-DJt"/>
-                                    <constraint firstAttribute="trailing" secondItem="foJ-v5-5cU" secondAttribute="trailing" id="sYe-7l-HHp"/>
                                     <constraint firstAttribute="bottom" secondItem="QhM-D5-BGg" secondAttribute="bottom" id="xez-YZ-833"/>
                                 </constraints>
                             </visualEffectView>
