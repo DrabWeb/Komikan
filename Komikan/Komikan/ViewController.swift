@@ -9,7 +9,7 @@
 import Cocoa
 import SWXMLHash
 
-class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
+class ViewController: NSViewController, NSWindowDelegate {
     
     // The main window of the application
     var window : NSWindow = NSWindow();
@@ -61,9 +61,6 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     
     /// The scroll view for mangaTableView
     @IBOutlet var mangaTableViewScrollView: NSScrollView!
-    
-    // The tab view for the titlebar that lets you sort
-    @IBOutlet weak var titlebarTabView: NSTabView!
     
     // The search field in the titlebar
     @IBOutlet weak var titlebarSearchField: NSTextField!
@@ -117,8 +114,14 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         showAddImportPopover(titlebarAddMangaButton.bounds, preferredEdge: NSRectEdge.maxY, fileUrls: []);
     }
     
-    // The tab view in the titlebar that lets us sort the manga grid
-    @IBOutlet weak var titlebarSortingTabView: NSTabView!
+    /// The segmented control in the titlebar that allows sorting the manga grid
+    @IBOutlet weak var titlebarSortingSegmentedControl: NSSegmentedControl!
+    
+    /// Called when the selected item in `titlebarSortingSegmentedControl` is changed
+    @IBAction func titlebarSortingSegmentedControlChanged(_ sender : NSSegmentedControl) {
+        // Sort the manga grid
+        mangaGridController.sort(KMMangaGridSortType(rawValue: sender.selectedSegment)!, ascending: Bool(titlebarToggleSortDirectionButton.state as NSNumber));
+    }
     
     /// The button in the titlebar that lets us toggle between list and grid view
     @IBOutlet var titlebarToggleListViewCheckbox: NSButton!
@@ -292,9 +295,6 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // Set the AppDelegate's main view controller
         (NSApplication.shared().delegate as! AppDelegate).mainViewController = self;
         
-        // Set the titlebar tab views delegate to self
-        titlebarTabView.delegate = self;
-        
         // Load the manga we had in the grid
         loadManga();
         
@@ -310,22 +310,8 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // Set the main windows delegate to this
         window.delegate = self;
         
-        // Sort the manga grid by the tab view item we have selected at start
-        // If the tab view item we have selected is the Title sort one...
-        if(titlebarTabView.selectedTabViewItem!.label == "Title") {
-            // Sort the manga grid by title
-            mangaGridController.sort(KMMangaGridSortType.title, ascending: true);
-        }
-        // If the tab view item we have selected is the Series sort one...
-        else if(titlebarTabView.selectedTabViewItem!.label == "Series") {
-            // Sort the manga grid by series
-            mangaGridController.sort(KMMangaGridSortType.series, ascending: true);
-        }
-        // If the tab view item we have selected is the Artist sort one...
-        else if(titlebarTabView.selectedTabViewItem!.label == "Artist") {
-            // Sort the manga grid by artist
-            mangaGridController.sort(KMMangaGridSortType.artist, ascending: true);
-        }
+        // Sort the manga grid
+        mangaGridController.sort(KMMangaGridSortType(rawValue: titlebarSortingSegmentedControl.selectedSegment)!, ascending: Bool(titlebarToggleSortDirectionButton.state as NSNumber));
         
         // Subscribe to the magnify event
         NSEvent.addLocalMonitorForEvents(matching: NSEventMask.magnify, handler: magnifyEvent);
@@ -495,7 +481,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             // Show the group
             showGroupView();
         }
-            // If the group view should now be closed...
+        // If the group view should now be closed...
         else {
             // Hide the group view
             hideGroupView();
@@ -530,37 +516,34 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             mangaCollectionViewScrollView.isHidden = true;
         }
         
-        // Swap search fields
+        // Disable/enable
         titlebarGroupViewSearchField.isEnabled = true;
-        titlebarGroupViewSearchField.isHidden = false;
-        
         titlebarSearchField.isEnabled = false;
-        titlebarSearchField.isHidden = true;
-        
-        // Disable the view switch button
         titlebarToggleListViewCheckbox.isEnabled = false;
         
-        // Set the select search field menu item's action
-        (NSApplication.shared().delegate as? AppDelegate)?.selectSearchFieldMenuItem.action = #selector(ViewController.selectGroupViewSearchField);
+        if(!inListView) {
+            titlebarSortingSegmentedControl.isEnabled = false;
+            titlebarToggleSortDirectionButton.isEnabled = false;
+        }
         
-        // Fade out the toggle view button
+        // Fade out/hide
         titlebarToggleListViewCheckbox.animator().alphaValue = 0;
-        
-        // Fade out the add button
         titlebarAddMangaButton.animator().alphaValue = 0;
         
-        // If we arent in grid view...
         if(!inListView) {
-            // Fade out the manga grid only titlebar items
-            titlebarSortingTabView.animator().alphaValue = 0;
+            titlebarSortingSegmentedControl.animator().alphaValue = 0;
             titlebarToggleSortDirectionButton.animator().alphaValue = 0;
         }
         
-        // Fade in titlebarGroupViewTypeSelectionSegmentedControl
+        titlebarGroupViewSearchField.isHidden = false;
+        titlebarSearchField.isHidden = true;
+        
+        // Fade in
         titlebarGroupViewTypeSelectionSegmentedControl.isEnabled = true;
         titlebarGroupViewTypeSelectionSegmentedControl.animator().alphaValue = 1;
         
-        // Set the open menubar items action
+        // Menubar actions
+        (NSApplication.shared().delegate as? AppDelegate)?.selectSearchFieldMenuItem.action = #selector(ViewController.selectGroupViewSearchField);
         (NSApplication.shared().delegate as? AppDelegate)?.openMenuItem.action = #selector(ViewController.openSelectedGroupItem);
     }
     
@@ -589,37 +572,36 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             self.window.makeFirstResponder(mangaCollectionView);
         }
         
-        // Swap search fields
+        // Disable/enable
         titlebarGroupViewSearchField.isEnabled = false;
-        titlebarGroupViewSearchField.isHidden = true;
-        
+        titlebarGroupViewTypeSelectionSegmentedControl.isEnabled = false;
         titlebarSearchField.isEnabled = true;
-        titlebarSearchField.isHidden = false;
-        
-        // Enable the view switch button
         titlebarToggleListViewCheckbox.isEnabled = true;
         
-        // Set the select search field menu item's action
-        (NSApplication.shared().delegate as? AppDelegate)?.selectSearchFieldMenuItem.action = #selector(ViewController.selectSearchField);
-        
-        // Fade in the toggle view button
-        titlebarToggleListViewCheckbox.animator().alphaValue = 1;
-        
-        // Fade in the add button
-        titlebarAddMangaButton.animator().alphaValue = 1;
-        
-        // If we arent in grid view...
         if(!inListView) {
-            // Fade in the manga grid only titlebar items
-            titlebarSortingTabView.animator().alphaValue = 1;
+            titlebarSortingSegmentedControl.isEnabled = true;
+            titlebarToggleSortDirectionButton.isEnabled = true;
+        }
+        
+        // Fade out/hide
+        titlebarToggleListViewCheckbox.animator().alphaValue = 1;
+        titlebarAddMangaButton.animator().alphaValue = 1;
+        titlebarGroupViewTypeSelectionSegmentedControl.animator().alphaValue = 0;
+        
+        if(!inListView) {
+            titlebarSortingSegmentedControl.animator().alphaValue = 1;
             titlebarToggleSortDirectionButton.animator().alphaValue = 1;
         }
         
-        // Fade out titlebarGroupViewTypeSelectionSegmentedControl
-        titlebarGroupViewTypeSelectionSegmentedControl.isEnabled = false;
-        titlebarGroupViewTypeSelectionSegmentedControl.animator().alphaValue = 0;
+        titlebarGroupViewSearchField.isHidden = true;
+        titlebarSearchField.isHidden = false;
         
-        // Set the open menubar items action back
+        // Fade in
+        titlebarToggleListViewCheckbox.animator().alphaValue = 1;
+        titlebarAddMangaButton.animator().alphaValue = 1;
+        
+        // Menubar actions
+        (NSApplication.shared().delegate as? AppDelegate)?.selectSearchFieldMenuItem.action = #selector(ViewController.selectSearchField);
         (NSApplication.shared().delegate as? AppDelegate)?.openMenuItem.action = #selector(ViewController.openSelectedManga);
     }
     
@@ -862,7 +844,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         thumbnailImageHoverController.hide();
         
         // Fade out the manga grid only titlebar items
-        titlebarSortingTabView.animator().alphaValue = 0;
+        titlebarSortingSegmentedControl.animator().alphaValue = 0;
         titlebarToggleSortDirectionButton.animator().alphaValue = 0;
         
         // Select the list view
@@ -909,7 +891,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         thumbnailImageHoverController.hide();
         
         // Fade in the manga grid only titlebar items
-        titlebarSortingTabView.animator().alphaValue = 1;
+        titlebarSortingSegmentedControl.animator().alphaValue = 1;
         titlebarToggleSortDirectionButton.animator().alphaValue = 1;
         
         // Select the grid view
@@ -1543,24 +1525,6 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     func windowDidResignKey(_ notification: Notification) {
         // Hide the thumbnail hover window
         thumbnailImageHoverController.hide();
-    }
-    
-    func tabView(_ tabView: NSTabView, didSelect tabViewItem: NSTabViewItem?) {
-        // If the tab view item we selected was the Title sort one...
-        if(tabViewItem!.label == "Title") {
-            // Sort the manga grid by title
-            mangaGridController.sort(KMMangaGridSortType.title, ascending: true);
-        }
-            // If the tab view item we selected was the Series sort one...
-        else if(tabViewItem!.label == "Series") {
-            // Sort the manga grid by series
-            mangaGridController.sort(KMMangaGridSortType.series, ascending: true);
-        }
-        // If the tab view item we selected was the Artist sort one...
-        else if(tabViewItem!.label == "Artist") {
-            // Sort the manga grid by artist
-            mangaGridController.sort(KMMangaGridSortType.artist, ascending: true);
-        }
     }
 
     override var representedObject: Any? {

@@ -8,7 +8,7 @@
 import Cocoa
 
 // Used to describe how to sort the manga grid
-enum KMMangaGridSortType {
+enum KMMangaGridSortType : Int {
     // Sorts by series
     case series
     
