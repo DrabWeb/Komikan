@@ -160,7 +160,7 @@ class KMManga {
                 // If the current file is an image and its not a dot file...
                 if(KMFileUtilities().isImage(tmpDirectory + (currentPage.element)) && ((currentPage.element).substring(to: (currentPage.element).characters.index(after: (currentPage.element).startIndex))) != ".") {
                     /// The regex for pages that we want to ignore if they match this regex
-                    let excludeRegexPattern : String = (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.pageIgnoreRegex;
+                    let excludeRegexPattern : String = (NSApplication.shared().delegate as! AppDelegate).preferences.pageIgnoreRegex;
                     
                     // If the current page's filename matched the ignore regex...
                     if let _ = (currentPage.element).range(of: excludeRegexPattern, options: .regularExpression) {

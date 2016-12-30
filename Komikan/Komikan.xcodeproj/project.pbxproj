@@ -57,7 +57,7 @@
 		5D96AFAF1C4A9EEC00120D70 /* ehadd in Resources */ = {isa = PBXBuildFile; fileRef = 5D96AFAC1C4A9EEC00120D70 /* ehadd */; };
 		5D96AFB01C4A9EEC00120D70 /* ehdownload in Resources */ = {isa = PBXBuildFile; fileRef = 5D96AFAD1C4A9EEC00120D70 /* ehdownload */; };
 		5D96AFB11C4A9EEC00120D70 /* ehinfo in Resources */ = {isa = PBXBuildFile; fileRef = 5D96AFAE1C4A9EEC00120D70 /* ehinfo */; };
-		5D96AFB31C4A9F4E00120D70 /* KMPreferencesKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D96AFB21C4A9F4E00120D70 /* KMPreferencesKeeper.swift */; };
+		5D96AFB31C4A9F4E00120D70 /* KMPreferencesObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D96AFB21C4A9F4E00120D70 /* KMPreferencesObject.swift */; };
 		5D96AFB61C4AAFCB00120D70 /* KMEHViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D96AFB51C4AAFCB00120D70 /* KMEHViewController.swift */; };
 		5D9912111C46A5A6008E6591 /* KMCommandUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9912101C46A5A6008E6591 /* KMCommandUtilities.swift */; };
 		5D9912141C46AE9B008E6591 /* cleanmangadir in Resources */ = {isa = PBXBuildFile; fileRef = 5D9912131C46AE9B008E6591 /* cleanmangadir */; };
@@ -161,7 +161,7 @@
 		5D96AFAC1C4A9EEC00120D70 /* ehadd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = ehadd; sourceTree = "<group>"; };
 		5D96AFAD1C4A9EEC00120D70 /* ehdownload */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = ehdownload; sourceTree = "<group>"; };
 		5D96AFAE1C4A9EEC00120D70 /* ehinfo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = ehinfo; sourceTree = "<group>"; };
-		5D96AFB21C4A9F4E00120D70 /* KMPreferencesKeeper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMPreferencesKeeper.swift; sourceTree = "<group>"; };
+		5D96AFB21C4A9F4E00120D70 /* KMPreferencesObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMPreferencesObject.swift; sourceTree = "<group>"; };
 		5D96AFB51C4AAFCB00120D70 /* KMEHViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMEHViewController.swift; sourceTree = "<group>"; };
 		5D9912101C46A5A6008E6591 /* KMCommandUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMCommandUtilities.swift; sourceTree = "<group>"; };
 		5D9912131C46AE9B008E6591 /* cleanmangadir */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cleanmangadir; sourceTree = "<group>"; };
@@ -236,7 +236,7 @@
 				5D7A74E61C7BA4130093EFEC /* Reader Page Jump */,
 				5DAC3ED21C70F87D00B77A19 /* Search List */,
 				5D0D2A4B1C39830D00E3B8D0 /* KMManga.swift */,
-				5D96AFB21C4A9F4E00120D70 /* KMPreferencesKeeper.swift */,
+				5D96AFB21C4A9F4E00120D70 /* KMPreferencesObject.swift */,
 				5D363FA61C5AC116004708FC /* KMEHDownloadItem.swift */,
 			);
 			name = Objects;
@@ -652,7 +652,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = DrabWeb;
 				TargetAttributes = {
 					5D5DBECA1C3584F5004D8C5D = {
@@ -909,7 +909,7 @@
 				5DAD51911C95A9A100AE9383 /* KMMigrationImporter.swift in Sources */,
 				5D2C37AB1C4C48070089B7E1 /* KMWindowDelegate.swift in Sources */,
 				5D39717B1C822CDE00FD77C5 /* KMMetadataFetcherViewController.swift in Sources */,
-				5D96AFB31C4A9F4E00120D70 /* KMPreferencesKeeper.swift in Sources */,
+				5D96AFB31C4A9F4E00120D70 /* KMPreferencesObject.swift in Sources */,
 				5DACB0AD1C80C1CB0065C5DA /* KMRasterizedViews.swift in Sources */,
 				5D8125901C4BEDB600E3B000 /* KMEnums.swift in Sources */,
 				5D0D2A4C1C39830D00E3B8D0 /* KMManga.swift in Sources */,
@@ -987,8 +987,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -1031,8 +1033,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -1051,6 +1055,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
 		};
@@ -1058,6 +1063,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DEE480FA9BDF4898C36F98B5 /* Pods-Komikan.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1076,6 +1082,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6DE865D0A6000596D688ED5B /* Pods-Komikan.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;

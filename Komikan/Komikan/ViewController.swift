@@ -202,9 +202,8 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        super.viewDidLoad();
+        
         // Style the window to be fancy
         styleWindow();
         
@@ -217,12 +216,13 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // Set the group collection view's item prototype
         groupCollectionView.itemPrototype = storyboard?.instantiateController(withIdentifier: "groupCollectionViewItem") as? NSCollectionViewItem;
         
-        // Set the max item size
+        // Set the min and max item size for the manga grid
+        mangaCollectionView.minItemSize = NSSize(width: 200, height: 200);
         mangaCollectionView.maxItemSize = NSSize(width: 300, height: 300);
         
-        // Set the max and min item sizes for the group view
-        groupCollectionView.maxItemSize = NSSize(width: 300, height: 300);
+        // Set the max and min item sizes for the group grid
         groupCollectionView.minItemSize = NSSize(width: 200, height: 200);
+        groupCollectionView.maxItemSize = NSSize(width: 300, height: 300);
         
         // Set the addFromEHMenuItem menu items action
         (NSApplication.shared().delegate as! AppDelegate).addFromEHMenuItem.action = #selector(ViewController.showAddFromEHPopover);
@@ -297,58 +297,17 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // Load the manga we had in the grid
         loadManga();
         
-        // Yes, I know I shouldnt do this here
-        // Make sure the preferences file exists
-        if(FileManager.default.fileExists(atPath: NSHomeDirectory() + "/Library/Application Support/Komikan/preferences")) {
-            // Create a variable to hold the preferences
-            var preferencesString : String = "";
-            
-            // Try to get the contents of the preferences file in our application support folder
-            preferencesString = String(data: FileManager.default.contents(atPath: NSHomeDirectory() + "/Library/Application Support/Komikan/preferences")!, encoding: String.Encoding.utf8)!;
-            
-            // For every line in the preferences string
-            for (currentIndex, currentElement) in preferencesString.components(separatedBy: "\n").enumerated() {
-                // If this is the tenth line...
-                if(currentIndex == 9) {
-                    // Set the default screen to be this lines value
-                    (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.defaultScreen = NSString(string: currentElement).integerValue;
-                }
-            }
-        }
-        
-        // If the default screen is the list...
-        if((NSApplication.shared().delegate as! AppDelegate).preferencesKepper.defaultScreen == 1) {
-            // Show the list
-            displayListView();
-        }
-        // If the default screen is the groups...
-        else if((NSApplication.shared().delegate as! AppDelegate).preferencesKepper.defaultScreen == 2) {
-            // Show the groups
-            showGroupView();
-        }
+        // Do application initialization
+        (NSApplication.shared().delegate as! AppDelegate).initialize();
         
         // Scroll to the top of the manga grid
         mangaCollectionViewScrollView.pageUp(self);
-        
-        // Select the manga grid
-        makeMangaGridFirstResponder();
         
         // Init the thumbnail image hover controller
         thumbnailImageHoverController.styleWindow();
         
         // Set the main windows delegate to this
         window.delegate = self;
-        
-        // If we arent in the group view...
-        if(!groupViewOpen) {
-            // Hide titlebarGroupViewTypeSelectionSegmentedControl
-            titlebarGroupViewTypeSelectionSegmentedControl.isEnabled = false;
-            titlebarGroupViewTypeSelectionSegmentedControl.alphaValue = 0;
-            
-            // Hide the group view search field
-            titlebarGroupViewSearchField.isEnabled = false;
-            titlebarGroupViewSearchField.alphaValue = 0;
-        }
         
         // Sort the manga grid by the tab view item we have selected at start
         // If the tab view item we have selected is the Title sort one...
@@ -398,6 +357,21 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.loadPreferenceValues), name:NSNotification.Name(rawValue: "Application.PreferencesLoaded"), object: nil);
     }
     
+    override func viewWillAppear() {
+        super.viewWillAppear();
+        
+        // If the default screen is the list...
+        if((NSApplication.shared().delegate as! AppDelegate).preferences.defaultScreen == 1) {
+            // Show the list
+            displayListView();
+        }
+        // If the default screen is the groups...
+        else if((NSApplication.shared().delegate as! AppDelegate).preferences.defaultScreen == 2) {
+            // Show the groups
+            showGroupView();
+        }
+    }
+    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         // If the keyPath is the one for the manga grids arranged objets...
         if(keyPath == "arrangedObjects") {
@@ -443,7 +417,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             mangaTableView.selectRowIndexes(storedListSelection, byExtendingSelection: false);
             
             // Restore the scroll position
-            mangaTableViewScrollView.contentView.scroll(to: storedListScrollPoint)
+            mangaTableViewScrollView.contentView.scroll(to: storedListScrollPoint);
         }
         // If we are in grid view...
         else {
@@ -872,6 +846,14 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         // Hide the grid view
         mangaCollectionViewScrollView.isHidden = true;
         
+        // Hide the group search field
+        titlebarGroupViewSearchField.isHidden = true;
+        titlebarGroupViewSearchField.isEnabled = false;
+        
+        // Hide the group view tabs
+        titlebarGroupViewTypeSelectionSegmentedControl.isEnabled = false;
+        titlebarGroupViewTypeSelectionSegmentedControl.alphaValue = 0;
+        
         // Hide the thumbnail window
         thumbnailImageHoverController.hide();
         
@@ -1015,7 +997,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     /// Called after AppDelegate has loaded the preferences from the preferences file
     func loadPreferenceValues() {
         // Load the manga grid scale
-        infoBarGridSizeSlider.integerValue = (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.mangaGridScale;
+        infoBarGridSizeSlider.integerValue = (NSApplication.shared().delegate as! AppDelegate).preferences.mangaGridScale;
         
         // Update the grid size with the grid size slider
         infoBarGridSizeSliderInteracted(infoBarGridSizeSlider);
@@ -1024,7 +1006,7 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     /// Saves the scale of the manga grid
     func saveMangaGridScale() {
         // Save the manga grid scale into AppDelegate
-        (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.mangaGridScale = infoBarGridSizeSlider.integerValue;
+        (NSApplication.shared().delegate as! AppDelegate).preferences.mangaGridScale = infoBarGridSizeSlider.integerValue;
     }
     
     /// Exports JSON for all the selected manga in the grid without internal information

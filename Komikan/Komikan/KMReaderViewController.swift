@@ -345,7 +345,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     /// Reloads the values needed from the preferences
     func reloadPreferences() {
         // Set the window background color
-        readerWindow.backgroundColor = (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.readerWindowBackgroundColor;
+        readerWindow.backgroundColor = (NSApplication.shared().delegate as! AppDelegate).preferences.readerWindowBackgroundColor;
     }
     
     /// Resets the zoom amount
@@ -399,7 +399,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         // If we arent dragging and the jump to page dialog isnt open...
         if(!dragging && !pageJumpOpen) {
             // If we said in the preferences to be able to drag the reader window without holding alt...
-            if((NSApplication.shared().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt) {
+            if((NSApplication.shared().delegate as! AppDelegate).preferences.dragReaderWindowByBackgroundWithoutHoldingAlt) {
                 // If the reader controls panel isnt open...
                 if(!readerControlsOpen) {
                     // Create a new CGEventRef, for the mouse position
@@ -544,7 +544,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         // If we arent dragging and the jump to page dialog is open...
         else if(!dragging && pageJumpOpen) {
             // If we said we could drag the window without holding alt...
-            if((NSApplication.shared().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt) {
+            if((NSApplication.shared().delegate as! AppDelegate).preferences.dragReaderWindowByBackgroundWithoutHoldingAlt) {
                 // Close the page jump view
                 closeJumpToPageDialog();
             }
@@ -564,7 +564,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
     
     override func mouseDragged(with theEvent: NSEvent) {
         // If we said in the preferences to be able to drag the reader window without holding alt...
-        if((NSApplication.shared().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt) {
+        if((NSApplication.shared().delegate as! AppDelegate).preferences.dragReaderWindowByBackgroundWithoutHoldingAlt) {
             // Perform a window drag with the drag event
             if #available(OSX 10.11, *) {
                 readerWindow.performDrag(with: theEvent);
@@ -1002,7 +1002,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
             }
             else {
                 // If we have mark as read when completed in reader enabled...
-                if((NSApplication.shared().delegate as! AppDelegate).preferencesKepper.markAsReadWhenCompletedInReader) {
+                if((NSApplication.shared().delegate as! AppDelegate).preferences.markAsReadWhenCompletedInReader) {
                     // Print to the log that we have finished the book and are marking it as read
                     print("KMReaderViewController: Finished \"" + manga.title + "\", marking it as read and exiting");
                     
@@ -1032,7 +1032,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
             }
             else {
                 // If we have mark as read when completed in reader enabled...
-                if((NSApplication.shared().delegate as! AppDelegate).preferencesKepper.markAsReadWhenCompletedInReader) {
+                if((NSApplication.shared().delegate as! AppDelegate).preferences.markAsReadWhenCompletedInReader) {
                     // Print to the log that we have finished the book and are marking it as read
                     print("KMReaderViewController: Finished \"" + manga.title + "\", marking it as read and exiting");
                     
@@ -1449,7 +1449,7 @@ class KMReaderViewController: NSViewController, NSWindowDelegate {
         readerWindow.delegate = self;
         
         // Set the window background color
-        readerWindow.backgroundColor = (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.readerWindowBackgroundColor;
+        readerWindow.backgroundColor = (NSApplication.shared().delegate as! AppDelegate).preferences.readerWindowBackgroundColor;
         
         // Set the background of the thumbnail page jump view to be dark
         thumbnailPageJumpVisualEffectView.material = NSVisualEffectMaterial.dark;

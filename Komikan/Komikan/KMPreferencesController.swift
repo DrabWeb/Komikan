@@ -69,15 +69,15 @@ class KMPreferencesController: NSViewController {
     
     override func viewWillDisappear() {
         // Set the global preferences keepers value to the preference value
-        (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.llewdModeEnabled = Bool(llewdModeEnabledCheckbox.state as NSNumber);
-        (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.deleteLLewdMangaWhenRemovingFromTheGrid = Bool(llewdModeDeleteWhenRemovingCheckbox.state as NSNumber);
-        (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.markAsReadWhenCompletedInReader = Bool(markAsReadWhenCompletedInReaderCheckbox.state as NSNumber);
-        (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.hideCursorInDistractionFreeMode = Bool(hideCursorInDistractionFreeModeCheckbox.state as NSNumber);
-        (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.distractionFreeModeDimAmount = CGFloat(distractionFreeModeDimAmountSlider.floatValue);
-        (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt = Bool(dragReaderWindowByBackgroundWithoutHoldingAltCheckbox.state as NSNumber);
-        (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.pageIgnoreRegex = ignorePagesMatchingRegexTextField.stringValue;
-        (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.readerWindowBackgroundColor = readerWindowBackgroundColorColorWell.color;
-        (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.defaultScreen = defaultScreenPopupButton.indexOfSelectedItem;
+        (NSApplication.shared().delegate as! AppDelegate).preferences.llewdModeEnabled = Bool(llewdModeEnabledCheckbox.state as NSNumber);
+        (NSApplication.shared().delegate as! AppDelegate).preferences.deleteLLewdMangaWhenRemovingFromTheGrid = Bool(llewdModeDeleteWhenRemovingCheckbox.state as NSNumber);
+        (NSApplication.shared().delegate as! AppDelegate).preferences.markAsReadWhenCompletedInReader = Bool(markAsReadWhenCompletedInReaderCheckbox.state as NSNumber);
+        (NSApplication.shared().delegate as! AppDelegate).preferences.hideCursorInDistractionFreeMode = Bool(hideCursorInDistractionFreeModeCheckbox.state as NSNumber);
+        (NSApplication.shared().delegate as! AppDelegate).preferences.distractionFreeModeDimAmount = distractionFreeModeDimAmountSlider.doubleValue;
+        (NSApplication.shared().delegate as! AppDelegate).preferences.dragReaderWindowByBackgroundWithoutHoldingAlt = Bool(dragReaderWindowByBackgroundWithoutHoldingAltCheckbox.state as NSNumber);
+        (NSApplication.shared().delegate as! AppDelegate).preferences.pageIgnoreRegex = ignorePagesMatchingRegexTextField.stringValue;
+        (NSApplication.shared().delegate as! AppDelegate).preferences.readerWindowBackgroundColor = readerWindowBackgroundColorColorWell.color;
+        (NSApplication.shared().delegate as! AppDelegate).preferences.defaultScreen = defaultScreenPopupButton.indexOfSelectedItem;
         
         // Tell AppDelegate to act upon the preferences
         (NSApplication.shared().delegate as! AppDelegate).actOnPreferences();
@@ -86,15 +86,15 @@ class KMPreferencesController: NSViewController {
     // Lods the preferences from the global preferences keeper object
     func loadPreferences() {
         // Load the checkbox values
-        llewdModeEnabledCheckbox.state = Int.fromBool(bool: (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.llewdModeEnabled);
-        llewdModeDeleteWhenRemovingCheckbox.state = Int.fromBool(bool: (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.deleteLLewdMangaWhenRemovingFromTheGrid);
-        markAsReadWhenCompletedInReaderCheckbox.state = Int.fromBool(bool: (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.markAsReadWhenCompletedInReader);
-        hideCursorInDistractionFreeModeCheckbox.state = Int.fromBool(bool: (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.hideCursorInDistractionFreeMode);
-        distractionFreeModeDimAmountSlider.floatValue = Float((NSApplication.shared().delegate as! AppDelegate).preferencesKepper.distractionFreeModeDimAmount);
-        dragReaderWindowByBackgroundWithoutHoldingAltCheckbox.state = Int.fromBool(bool: (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.dragReaderWindowByBackgroundWithoutHoldingAlt);
-        ignorePagesMatchingRegexTextField.stringValue = (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.pageIgnoreRegex;
-        readerWindowBackgroundColorColorWell.color = (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.readerWindowBackgroundColor;
-        defaultScreenPopupButton.selectItem(at: (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.defaultScreen);
+        llewdModeEnabledCheckbox.state = Int.fromBool(bool: (NSApplication.shared().delegate as! AppDelegate).preferences.llewdModeEnabled);
+        llewdModeDeleteWhenRemovingCheckbox.state = Int.fromBool(bool: (NSApplication.shared().delegate as! AppDelegate).preferences.deleteLLewdMangaWhenRemovingFromTheGrid);
+        markAsReadWhenCompletedInReaderCheckbox.state = Int.fromBool(bool: (NSApplication.shared().delegate as! AppDelegate).preferences.markAsReadWhenCompletedInReader);
+        hideCursorInDistractionFreeModeCheckbox.state = Int.fromBool(bool: (NSApplication.shared().delegate as! AppDelegate).preferences.hideCursorInDistractionFreeMode);
+        distractionFreeModeDimAmountSlider.doubleValue = (NSApplication.shared().delegate as! AppDelegate).preferences.distractionFreeModeDimAmount;
+        dragReaderWindowByBackgroundWithoutHoldingAltCheckbox.state = Int.fromBool(bool: (NSApplication.shared().delegate as! AppDelegate).preferences.dragReaderWindowByBackgroundWithoutHoldingAlt);
+        ignorePagesMatchingRegexTextField.stringValue = (NSApplication.shared().delegate as! AppDelegate).preferences.pageIgnoreRegex;
+        readerWindowBackgroundColorColorWell.color = (NSApplication.shared().delegate as! AppDelegate).preferences.readerWindowBackgroundColor;
+        defaultScreenPopupButton.selectItem(at: (NSApplication.shared().delegate as! AppDelegate).preferences.defaultScreen);
     }
     
     // Enables / disables all the checkboxes under the l-lewd... mode enabled checkbox

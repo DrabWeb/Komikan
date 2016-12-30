@@ -1,9 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
-        <plugIn identifier="com.apple.WebKitIBPlugin" version="9531"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="11762"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
+        <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Search List Window Controller-->
@@ -34,7 +37,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="463" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="9Fu-ry-D7s" userLabel="Background Visual Effect View">
+                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" material="appearanceBased" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="9Fu-ry-D7s" userLabel="Background Visual Effect View">
                                 <rect key="frame" x="0.0" y="0.0" width="463" height="270"/>
                                 <subviews>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="H3i-cj-EMB" userLabel="Filter Button">
@@ -57,7 +60,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" selectionHighlightStyle="sourceList" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="30" viewBased="YES" id="4XC-lO-Y0a" userLabel="Search List Table View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="459" height="0.0"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="463" height="229"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="0.0"/>
                                                     <color key="backgroundColor" red="0.48033760000000003" green="0.65488994721261851" blue="0.80000000000000004" alpha="0.0" colorSpace="deviceRGB"/>
@@ -758,7 +761,7 @@ CA
                         <rect key="frame" x="0.0" y="0.0" width="260" height="333"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="0Bv-o3-FrF" userLabel="Background Visual Effect View">
+                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="0Bv-o3-FrF" userLabel="Background Visual Effect View">
                                 <rect key="frame" x="0.0" y="0.0" width="260" height="333"/>
                                 <subviews>
                                     <tokenField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SIl-8N-LMq" userLabel="Series Text Field" customClass="KMSuggestionTokenField" customModule="Komikan" customModuleProvider="target">
@@ -941,7 +944,7 @@ CA
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="IA8-TE-Bvr" userLabel="Background Visual Effect View">
+                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="IA8-TE-Bvr" userLabel="Background Visual Effect View">
                                 <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                                 <subviews>
                                     <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cav-9Z-4OJ" userLabel="Hidden View Container">
@@ -952,6 +955,7 @@ CA
                                                 <subviews>
                                                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ndq-pf-0RI" userLabel="Series Popover">
                                                         <rect key="frame" x="18" y="226" width="184" height="26"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" id="ZbF-S1-IVi">
                                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="menu"/>
@@ -970,6 +974,7 @@ CA
                                                     </popUpButton>
                                                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jdv-JX-Cda" userLabel="Artists Popover">
                                                         <rect key="frame" x="18" y="180" width="184" height="26"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <popUpButtonCell key="cell" type="push" title="Artists" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" selectedItem="bdL-JZ-djP" id="5qW-zV-QZA">
                                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="menu"/>
@@ -988,6 +993,7 @@ CA
                                                     </popUpButton>
                                                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="doo-b7-VY8" userLabel="Writers Popover">
                                                         <rect key="frame" x="18" y="134" width="184" height="26"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" id="gJF-q4-XpJ">
                                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="menu"/>
@@ -1006,6 +1012,7 @@ CA
                                                     </popUpButton>
                                                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aff-Db-FC8" userLabel="Tags Popover">
                                                         <rect key="frame" x="18" y="88" width="184" height="26"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" id="wgf-HC-Rfw">
                                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="menu"/>
@@ -1024,6 +1031,7 @@ CA
                                                     </popUpButton>
                                                     <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AxN-aV-xnE" userLabel="Cover Selection" customClass="KMMetadataFetcherCoverSelectionPopUpButton" customModule="Komikan" customModuleProvider="target">
                                                         <rect key="frame" x="219" y="61" width="211" height="4"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <popUpButtonCell key="cell" type="bevel" title="Cover" bezelStyle="rounded" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyUpOrDown" inset="2" arrowPosition="noArrow" preferredEdge="minX" autoenablesItems="NO" selectedItem="gS9-As-tvn" id="NEu-Nj-RuS">
                                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="menu"/>
@@ -1043,6 +1051,7 @@ CA
                                                     </popUpButton>
                                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s31-cH-0Qs" userLabel="Apply Button">
                                                         <rect key="frame" x="355" y="13" width="81" height="32"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="push" title="Apply" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vYn-9P-awR">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
@@ -1089,7 +1098,7 @@ CA
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="32" viewBased="YES" id="93C-JF-C55" userLabel="Search Results Table View">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="410" height="0.0"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="410" height="230"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -1124,6 +1133,7 @@ CA
                                                                                         </button>
                                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ybZ-9J-NcV" userLabel="Label">
                                                                                             <rect key="frame" x="1" y="7" width="368" height="19"/>
+                                                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" usesSingleLineMode="YES" id="tSB-vA-4EK">
                                                                                                 <font key="font" metaFont="system"/>
                                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1152,7 +1162,7 @@ CA
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                                         </clipView>
-                                                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="oc5-sd-z5G">
+                                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="oc5-sd-z5G">
                                                             <rect key="frame" x="0.0" y="214" width="410" height="16"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
@@ -1272,7 +1282,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                         <rect key="frame" x="0.0" y="0.0" width="480" height="400"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="C6m-xo-AWz" userLabel="Background Visual Effect View">
+                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" material="appearanceBased" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="C6m-xo-AWz" userLabel="Background Visual Effect View">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="400"/>
                                 <subviews>
                                     <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nk2-o0-V3y" userLabel="Notes Text Field Scroll View">
@@ -1281,7 +1291,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <rect key="frame" x="0.0" y="0.0" width="480" height="400"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <textView drawsBackground="NO" findStyle="bar" continuousSpellChecking="YES" allowsUndo="YES" allowsImageEditing="YES" verticallyResizable="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="M3G-aB-o2U">
+                                                <textView drawsBackground="NO" findStyle="bar" continuousSpellChecking="YES" allowsUndo="YES" allowsImageEditing="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="M3G-aB-o2U">
                                                     <rect key="frame" x="0.0" y="0.0" width="480" height="400"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1289,8 +1299,6 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                     <size key="minSize" width="480" height="400"/>
                                                     <size key="maxSize" width="480" height="10000000"/>
                                                     <color key="insertionPointColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <size key="minSize" width="480" height="400"/>
-                                                    <size key="maxSize" width="480" height="10000000"/>
                                                 </textView>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1300,12 +1308,12 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <rect key="frame" x="-100" y="-100" width="480" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.94784583072778805" horizontal="NO" id="3Yh-Gd-dah">
+                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="3Yh-Gd-dah">
                                             <rect key="frame" x="464" y="22" width="16" height="378"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
-                                    <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="pkH-Jc-Z5r" userLabel="Editing Bar Visual Effect View">
+                                    <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="appearanceBased" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="pkH-Jc-Z5r" userLabel="Editing Bar Visual Effect View">
                                         <rect key="frame" x="0.0" y="344" width="480" height="56"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="kSt-VW-mwA" userLabel="Gradient View" customClass="KMGradientView" customModule="Komikan" customModuleProvider="target">
@@ -1433,11 +1441,13 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <visualEffectView appearanceType="vibrantDark" fixedFrame="YES" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="Koz-iq-GVn" userLabel="Background Visual Effect View">
+                            <visualEffectView appearanceType="vibrantDark" fixedFrame="YES" blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="Koz-iq-GVn" userLabel="Background Visual Effect View">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="248"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <tabView focusRingType="none" fixedFrame="YES" allowsTruncatedLabels="NO" initialItem="ura-Ce-PgE" translatesAutoresizingMaskIntoConstraints="NO" id="1HL-q2-fni" userLabel="Preferences Tab View">
                                         <rect key="frame" x="13" y="10" width="454" height="232"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <font key="font" metaFont="system"/>
                                         <tabViewItems>
                                             <tabViewItem label="General" identifier="1" id="ura-Ce-PgE">
@@ -1488,6 +1498,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                         </slider>
                                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ny6-37-a4E" userLabel="Default Screen Popover">
                                                             <rect key="frame" x="233" y="101" width="187" height="26"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="BQh-mR-3Zy">
                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="menu"/>
@@ -1502,6 +1513,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                         </popUpButton>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eH8-tm-Ynv" userLabel="Default Screen Label">
                                                             <rect key="frame" x="15" y="106" width="214" height="17"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Default Screen" id="1go-92-YgD">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1646,8 +1658,9 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                     </tabView>
                                 </subviews>
                             </visualEffectView>
-                            <visualEffectView appearanceType="vibrantDark" fixedFrame="YES" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="2kW-Hv-9Uh" userLabel="Titlebar Visual Effect View">
+                            <visualEffectView appearanceType="vibrantDark" fixedFrame="YES" blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="2kW-Hv-9Uh" userLabel="Titlebar Visual Effect View">
                                 <rect key="frame" x="0.0" y="248" width="480" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </visualEffectView>
                         </subviews>
                     </view>
@@ -1744,7 +1757,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                         <rect key="frame" x="0.0" y="0.0" width="400" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="ctz-I6-SEh" userLabel="Background Visual Effect View">
+                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="ctz-I6-SEh" userLabel="Background Visual Effect View">
                                 <rect key="frame" x="0.0" y="0.0" width="400" height="300"/>
                                 <subviews>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hx5-3c-F13" userLabel="Icon">
@@ -1786,6 +1799,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                     </textField>
                                     <imageView wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fjy-bb-QF2" userLabel="DrabWeb">
                                         <rect key="frame" x="176" y="20" width="48" height="48"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <shadow key="shadow" blurRadius="6">
                                             <size key="offset" width="0.0" height="-4"/>
                                             <color key="color" white="0.0" alpha="0.50361867331288346" colorSpace="calibratedWhite"/>
@@ -1863,7 +1877,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                     <nil key="identifier"/>
                                 </webPreferences>
                             </webView>
-                            <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="ALu-uL-kEw">
+                            <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="ALu-uL-kEw">
                                 <rect key="frame" x="0.0" y="478" width="480" height="22"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="cnt-6Q-iv5" userLabel="URL Label">
@@ -2029,11 +2043,11 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="6vR-dx-5nf">
-                                    <rect key="frame" x="465" y="0.0" width="15" height="270"/>
+                                    <rect key="frame" x="464" y="0.0" width="16" height="270"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <visualEffectView appearanceType="vibrantDark" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" blendingMode="withinWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="eRx-Sv-XZm">
+                            <visualEffectView appearanceType="vibrantDark" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" blendingMode="withinWindow" material="appearanceBased" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="eRx-Sv-XZm">
                                 <rect key="frame" x="0.0" y="248" width="480" height="22"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Q1k-9p-Ea7" userLabel="Window Title">
@@ -2059,7 +2073,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                             <customView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="td9-P8-Stw" userLabel="Reader Controls Panel Round Corners" customClass="KMReaderPanelView" customModule="Komikan" customModuleProvider="target">
                                 <rect key="frame" x="20" y="20" width="440" height="104"/>
                                 <subviews>
-                                    <visualEffectView appearanceType="vibrantDark" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" blendingMode="withinWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="Uv0-1J-uxr" userLabel="Reader Controls Panel">
+                                    <visualEffectView appearanceType="vibrantDark" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" blendingMode="withinWindow" material="appearanceBased" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="Uv0-1J-uxr" userLabel="Reader Controls Panel">
                                         <rect key="frame" x="0.0" y="0.0" width="440" height="104"/>
                                         <subviews>
                                             <stackView distribution="fillEqually" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MSw-7S-JQy">
@@ -2069,7 +2083,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                         <rect key="frame" x="0.0" y="0.0" width="94" height="50"/>
                                                         <subviews>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Avl-AI-b0f" userLabel="Saturation Label">
-                                                                <rect key="frame" x="-2" y="13" width="98" height="17"/>
+                                                                <rect key="frame" x="-2" y="13" width="98" height="19"/>
                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Saturation" id="lTO-EN-LZu">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -2077,7 +2091,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                                 </textFieldCell>
                                                             </textField>
                                                             <slider focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VBJ-h2-Ua4" userLabel="Saturation Slider">
-                                                                <rect key="frame" x="-2" y="31" width="98" height="21"/>
+                                                                <rect key="frame" x="-2" y="33" width="98" height="19"/>
                                                                 <sliderCell key="cell" state="on" focusRingType="none" alignment="left" minValue="-5" maxValue="5" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="ONG-dt-LIy"/>
                                                                 <connections>
                                                                     <action selector="readerControlPanelSaturationSliderInteracted:" target="OyT-nZ-UQJ" id="1u0-x0-Mdx"/>
@@ -2099,7 +2113,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                         <rect key="frame" x="102" y="0.0" width="94" height="50"/>
                                                         <subviews>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="z5B-U8-Yy2" userLabel="Brightness Label">
-                                                                <rect key="frame" x="-2" y="13" width="98" height="17"/>
+                                                                <rect key="frame" x="-2" y="13" width="98" height="19"/>
                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Brightness" id="w2g-eK-Vzo">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -2107,7 +2121,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                                 </textFieldCell>
                                                             </textField>
                                                             <slider focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kvG-pg-f6J" userLabel="Brightness Slider">
-                                                                <rect key="frame" x="-2" y="31" width="98" height="21"/>
+                                                                <rect key="frame" x="-2" y="33" width="98" height="19"/>
                                                                 <sliderCell key="cell" state="on" focusRingType="none" alignment="left" minValue="-1" maxValue="1" tickMarkPosition="above" sliderType="linear" id="WQi-lS-LUe"/>
                                                                 <connections>
                                                                     <action selector="readerControlPanelBrightnessSliderInteracted:" target="OyT-nZ-UQJ" id="3gg-mX-oc5"/>
@@ -2129,7 +2143,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                         <rect key="frame" x="204" y="0.0" width="94" height="50"/>
                                                         <subviews>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2O1-6Z-g7p" userLabel="Contrast Label">
-                                                                <rect key="frame" x="-2" y="13" width="98" height="17"/>
+                                                                <rect key="frame" x="-2" y="13" width="98" height="19"/>
                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Contrast" id="Wue-8Q-5h6">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -2137,7 +2151,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                                 </textFieldCell>
                                                             </textField>
                                                             <slider focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LId-WD-5l0" userLabel="Contrast Slider">
-                                                                <rect key="frame" x="-2" y="31" width="98" height="21"/>
+                                                                <rect key="frame" x="-2" y="33" width="98" height="19"/>
                                                                 <sliderCell key="cell" state="on" focusRingType="none" alignment="left" minValue="-5" maxValue="5" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="XYw-oy-Zlh"/>
                                                                 <connections>
                                                                     <action selector="readerControlPanelContrastSliderInteracted:" target="OyT-nZ-UQJ" id="AyX-22-a0J"/>
@@ -2159,7 +2173,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                         <rect key="frame" x="306" y="0.0" width="94" height="50"/>
                                                         <subviews>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xhv-l8-0hu" userLabel="Sharpness Label">
-                                                                <rect key="frame" x="-2" y="13" width="98" height="17"/>
+                                                                <rect key="frame" x="-2" y="13" width="98" height="19"/>
                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Sharpness" id="c2e-bI-ded">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -2167,7 +2181,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                                 </textFieldCell>
                                                             </textField>
                                                             <slider focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dfA-Fu-29e" userLabel="Sharpness Slider">
-                                                                <rect key="frame" x="-2" y="31" width="98" height="21"/>
+                                                                <rect key="frame" x="-2" y="33" width="98" height="19"/>
                                                                 <sliderCell key="cell" state="on" focusRingType="none" alignment="left" minValue="-5" maxValue="5" tickMarkPosition="above" sliderType="linear" id="J1h-rP-UMC"/>
                                                                 <connections>
                                                                     <action selector="readerControlPanelSharpnessSliderInteracted:" target="OyT-nZ-UQJ" id="hJn-VY-F9u"/>
@@ -2250,7 +2264,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                             <customView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="KGp-UH-dRu" userLabel="Reader Panel Container" customClass="KMReaderPanelView" customModule="Komikan" customModuleProvider="target">
                                 <rect key="frame" x="20" y="20" width="440" height="64"/>
                                 <subviews>
-                                    <visualEffectView appearanceType="vibrantDark" blendingMode="withinWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="T3C-g4-I63" userLabel="Reader Panel">
+                                    <visualEffectView appearanceType="vibrantDark" blendingMode="withinWindow" material="appearanceBased" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="T3C-g4-I63" userLabel="Reader Panel">
                                         <rect key="frame" x="0.0" y="0.0" width="440" height="64"/>
                                         <subviews>
                                             <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DZH-10-jIm" userLabel="Settings Button">
@@ -2331,7 +2345,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="440" id="yUB-Pj-IY6"/>
                                 </constraints>
                             </customView>
-                            <visualEffectView hidden="YES" appearanceType="vibrantDark" blendingMode="withinWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="nVv-Ns-s6i" userLabel="Page Jump Visual Effect View">
+                            <visualEffectView hidden="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="appearanceBased" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="nVv-Ns-s6i" userLabel="Page Jump Visual Effect View">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                 <subviews>
                                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zBw-DW-dsg">
@@ -2500,7 +2514,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                         <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="DI5-9c-AHp" userLabel="Background Visual Effect View">
+                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" material="appearanceBased" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="DI5-9c-AHp" userLabel="Background Visual Effect View">
                                 <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
                                 <subviews>
                                     <scrollView hidden="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="23" horizontalPageScroll="10" verticalLineScroll="23" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i4Y-xX-G2r" userLabel="Manga Table View">
@@ -2510,7 +2524,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" selectionHighlightStyle="sourceList" autosaveName="mangaTableViewSave" rowHeight="21" headerView="CYe-DP-BRz" viewBased="YES" id="T0V-x6-IZf" userLabel="Manga Table View" customClass="KMMangaListTableView" customModule="Komikan" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="729" height="0.0"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="729" height="420"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="0.0" height="2"/>
                                                     <color key="backgroundColor" red="0.48033760000000003" green="0.65488994721261851" blue="0.80000000000000004" alpha="0.0" colorSpace="deviceRGB"/>
@@ -2570,7 +2584,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="0DH-NF-m68">
-                                                                    <rect key="frame" x="178.16242839147708" y="1" width="151" height="21"/>
+                                                                    <rect key="frame" x="178" y="1" width="151" height="21"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="zyQ-jZ-jac">
@@ -2609,7 +2623,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="3SD-fB-Ent">
-                                                                    <rect key="frame" x="329.32485678295416" y="1" width="72" height="21"/>
+                                                                    <rect key="frame" x="329" y="1" width="72" height="21"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="wFJ-6F-8NK">
@@ -2648,7 +2662,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="c1m-yJ-JuX">
-                                                                    <rect key="frame" x="401.48728517443124" y="1" width="128" height="21"/>
+                                                                    <rect key="frame" x="401" y="1" width="128" height="21"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="yCJ-yA-I0n">
@@ -2687,7 +2701,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="PFy-Fv-lZd">
-                                                                    <rect key="frame" x="529.64971356590831" y="1" width="100" height="21"/>
+                                                                    <rect key="frame" x="529" y="1" width="100" height="21"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="UCd-J6-QMv">
@@ -2726,7 +2740,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="uKa-bX-Xes">
-                                                                    <rect key="frame" x="629.81214195738539" y="1" width="100" height="21"/>
+                                                                    <rect key="frame" x="629" y="1" width="100" height="21"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Zyu-LV-f8f">
@@ -2761,7 +2775,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                         </clipView>
                                         <edgeInsets key="contentInsets" left="0.0" right="0.0" top="37" bottom="0.0"/>
-                                        <scroller key="horizontalScroller" verticalHuggingPriority="750" doubleValue="0.035532903275023606" horizontal="YES" id="aW7-jK-d3M">
+                                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="aW7-jK-d3M">
                                             <rect key="frame" x="0.0" y="464" width="640" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
@@ -2770,7 +2784,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <tableHeaderView key="headerView" id="CYe-DP-BRz" customClass="KMMangaListTableHeaderView" customModule="Komikan" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="732" height="23"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="729" height="23"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>
@@ -2795,7 +2809,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <rect key="frame" x="1" y="144" width="233" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.9960164398921979" horizontal="NO" id="0wb-fr-0cq">
+                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="0wb-fr-0cq">
                                             <rect key="frame" x="624" y="37" width="16" height="443"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
@@ -2821,12 +2835,12 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                             <rect key="frame" x="1" y="144" width="233" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.99601643989219946" horizontal="NO" id="jaG-iJ-fFK">
+                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="jaG-iJ-fFK">
                                             <rect key="frame" x="624" y="37" width="16" height="443"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
-                                    <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="wkn-NV-D9G" userLabel="Manga Drop View" customClass="KMMangaDropView" customModule="Komikan" customModuleProvider="target">
+                                    <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" material="appearanceBased" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="wkn-NV-D9G" userLabel="Manga Drop View" customClass="KMMangaDropView" customModule="Komikan" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
                                         <subviews>
                                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mBV-Jm-rUw" userLabel="Add Symbol">
@@ -2866,7 +2880,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="bQW-e4-pbA" userLabel="Info Bar Container">
                                 <rect key="frame" x="0.0" y="0.0" width="640" height="22"/>
                                 <subviews>
-                                    <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="9bU-fV-uIZ" userLabel="Info Visual Effect View">
+                                    <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="9bU-fV-uIZ" userLabel="Info Visual Effect View">
                                         <rect key="frame" x="0.0" y="0.0" width="640" height="22"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uUd-gx-Gsh" userLabel="Manga Count">
@@ -2910,7 +2924,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                     <constraint firstItem="9bU-fV-uIZ" firstAttribute="top" secondItem="bQW-e4-pbA" secondAttribute="top" id="jX9-QP-o0N"/>
                                 </constraints>
                             </customView>
-                            <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="xeH-9s-Llt" userLabel="Titlebar Visual Effect View">
+                            <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="xeH-9s-Llt" userLabel="Titlebar Visual Effect View">
                                 <rect key="frame" x="0.0" y="443" width="640" height="37"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="foJ-v5-5cU" userLabel="Gradient" customClass="KMGradientView" customModule="Komikan" customModuleProvider="target">
@@ -2957,7 +2971,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                         <tabViewItems>
                                             <tabViewItem label="Title" identifier="" id="g4h-0F-r9M">
                                                 <view key="view" id="EDE-Sz-sH4">
-                                                    <rect key="frame" x="10" y="33" width="634" height="0.0"/>
+                                                    <rect key="frame" x="10" y="18" width="634" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </view>
                                             </tabViewItem>
@@ -2991,6 +3005,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                     </button>
                                     <button focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zJd-P9-Ls5" userLabel="Toggle List View Button">
                                         <rect key="frame" x="72" y="1" width="46" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSIconViewTemplate" imagePosition="overlaps" alignment="center" alternateImage="NSListViewTemplate" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="Byg-2V-uM6">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -3156,11 +3171,13 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                         <rect key="frame" x="0.0" y="0.0" width="450" height="175"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <visualEffectView appearanceType="vibrantDark" fixedFrame="YES" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="dhk-XQ-V9x">
+                            <visualEffectView appearanceType="vibrantDark" fixedFrame="YES" blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="dhk-XQ-V9x">
                                 <rect key="frame" x="0.0" y="0.0" width="450" height="175"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <tabView focusRingType="none" fixedFrame="YES" initialItem="0Qe-vd-MEq" translatesAutoresizingMaskIntoConstraints="NO" id="8uV-a8-opw" userLabel="Tab View">
                                         <rect key="frame" x="13" y="10" width="424" height="159"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <font key="font" metaFont="system"/>
                                         <tabViewItems>
                                             <tabViewItem label="ExHentai" identifier="2" id="0Qe-vd-MEq">
@@ -3341,7 +3358,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                         <rect key="frame" x="0.0" y="0.0" width="480" height="398"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="Zas-Qb-QC2" userLabel="Background Visual Effect View">
+                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="Zas-Qb-QC2" userLabel="Background Visual Effect View">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="398"/>
                                 <subviews>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aHF-zD-YNV">
@@ -3651,7 +3668,7 @@ AwEVARgBHQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAEfA
                         <rect key="frame" x="0.0" y="0.0" width="480" height="437"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="xDm-lb-sT6" userLabel="Background Visual Effect View">
+                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="xDm-lb-sT6" userLabel="Background Visual Effect View">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="437"/>
                                 <subviews>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YPg-C4-Ta2">

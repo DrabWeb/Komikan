@@ -71,7 +71,7 @@ class KMMangaGridController: NSObject {
         arrayController.removeObject(gridItem);
         
         // If the manga is from EH and we said in the preferences to delete them...
-        if(gridItem.manga.directory.contains("/Library/Application Support/Komikan/EH") && (NSApplication.shared().delegate as! AppDelegate).preferencesKepper.deleteLLewdMangaWhenRemovingFromTheGrid) {
+        if(gridItem.manga.directory.contains("/Library/Application Support/Komikan/EH") && (NSApplication.shared().delegate as! AppDelegate).preferences.deleteLLewdMangaWhenRemovingFromTheGrid) {
             // Also delete the file
             do {
                 // Move the manga file to the trash
@@ -105,7 +105,9 @@ class KMMangaGridController: NSObject {
     /// Clears the entire manga grid (If clearGridItems is true, it also clears gridItems)
     func removeAllGridItems(_ clearGridItems : Bool) {
         // Remove all objects from the array controller
-        arrayController.remove(contentsOf: arrayController.arrangedObjects as! [AnyObject]);
+        if(arrayController != nil) {
+            arrayController.remove(contentsOf: (arrayController.arrangedObjects as? [AnyObject]) ?? []);
+        }
         
         // If we said to clear gridItems...
         if(clearGridItems) {
@@ -128,14 +130,16 @@ class KMMangaGridController: NSObject {
     
     /// Shows all the items in objects to the manga grid
     func setGridToItems(_ objects : [KMMangaGridItem]) {
-        // Clear the grid
-        removeAllGridItems(false);
-        
-        // Add objects to the manga grid
-        arrayController.add(contentsOf: objects);
-        
-        // Resort the grid
-        resort();
+        if(arrayController != nil) {
+            // Clear the grid
+            removeAllGridItems(false);
+            
+            // Add objects to the manga grid
+            arrayController.add(contentsOf: objects);
+            
+            // Resort the grid
+            resort();
+        }
     }
     
     /// Adds the given manga to the manga grid, and redos the search / show/hide l-lewd... manga
@@ -1757,7 +1761,7 @@ class KMMangaGridController: NSObject {
     /// Shows/hides all the l-lewd... manga based on the preferences keeper in AppDelegate
     func displayLewdMangaAppDelegate() {
         // Display l-lewd... manga based on the AppDelegate's preferences keeper
-        displayLewdManga((NSApplication.shared().delegate as! AppDelegate).preferencesKepper.llewdModeEnabled);
+        displayLewdManga((NSApplication.shared().delegate as! AppDelegate).preferences.llewdModeEnabled);
     }
     
     /// Resort the manga grid(Based on the last chosen sorting method)
@@ -1796,16 +1800,22 @@ class KMMangaGridController: NSObject {
     
     /// Wrapper to ViewController.clearMangaSelection
     func clearMangaSelection() {
-        viewController.clearMangaSelection();
+        if(viewController != nil) {
+            viewController.clearMangaSelection();
+        }
     }
     
     /// Wrapper to ViewController.restoreSelection
     func restoreSelection() {
-        viewController.restoreSelection();
+        if(viewController != nil) {
+            viewController.restoreSelection();
+        }
     }
     
     /// Wrapper to ViewController.storeCurrentSelection
     func storeCurrentSelection() {
-        viewController.storeCurrentSelection();
+        if(viewController != nil) {
+            viewController.storeCurrentSelection();
+        }
     }
 }
