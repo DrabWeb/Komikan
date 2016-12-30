@@ -100,12 +100,13 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
     
     /// When the value for infoBarGridSizeSlider changes...
     @IBAction func infoBarGridSizeSliderInteracted(_ sender: AnyObject) {
-        // Set the manga collection view's item size to the sliders value(For both width and height so we get a square)
+        // Set the manga grid and group's min and max size to the sliders value
         mangaCollectionView.minItemSize = NSSize(width: infoBarGridSizeSlider.integerValue, height: infoBarGridSizeSlider.integerValue);
+        mangaCollectionView.maxItemSize = NSSize(width: infoBarGridSizeSlider.integerValue + 100, height: infoBarGridSizeSlider.integerValue + 100);
+        
+        groupCollectionView.minItemSize = NSSize(width: infoBarGridSizeSlider.integerValue, height: infoBarGridSizeSlider.integerValue);
+        groupCollectionView.maxItemSize = NSSize(width: infoBarGridSizeSlider.integerValue + 100, height: infoBarGridSizeSlider.integerValue + 100);
     }
-    
-    // Is the sidebar open?
-    var sidebarOpen : Bool = false;
     
     // The button in the titlebar that lets us add manga
     @IBOutlet weak var titlebarAddMangaButton: NSButton!
@@ -352,9 +353,6 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
         
         // Subscribe to the Drag and Drop add / import notification
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.showAddImportPopoverDragAndDrop(_:)), name:NSNotification.Name(rawValue: "MangaGrid.DropFiles"), object: nil);
-        
-        // Subscribe to the application's preferences saved notification
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.loadPreferenceValues), name:NSNotification.Name(rawValue: "Application.PreferencesLoaded"), object: nil);
     }
     
     override func viewWillAppear() {
@@ -370,6 +368,9 @@ class ViewController: NSViewController, NSTabViewDelegate, NSWindowDelegate {
             // Show the groups
             showGroupView();
         }
+        
+        // Load the preference values
+        loadPreferenceValues();
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
