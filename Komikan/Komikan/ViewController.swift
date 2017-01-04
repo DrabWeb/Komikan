@@ -344,15 +344,22 @@ class ViewController: NSViewController, NSWindowDelegate {
     override func viewWillAppear() {
         super.viewWillAppear();
         
-        // If the default screen is the list...
-        if((NSApplication.shared().delegate as! AppDelegate).preferences.defaultScreen == 1) {
-            // Show the list
-            displayListView();
-        }
-        // If the default screen is the groups...
-        else if((NSApplication.shared().delegate as! AppDelegate).preferences.defaultScreen == 2) {
-            // Show the groups
-            showGroupView();
+        // Switch on the default screen and act appropriately
+        switch((NSApplication.shared().delegate as! AppDelegate).preferences.defaultScreen) {
+            case 0:
+                displayGridView();
+                break;
+            
+            case 1:
+                displayListView();
+                break;
+            
+            case 2:
+                showGroupView();
+                break;
+            
+            default:
+                break;
         }
         
         // Load the preference values
@@ -791,7 +798,7 @@ class ViewController: NSViewController, NSWindowDelegate {
                 // Display list view
                 displayListView();
             }
-                // If we are now in grid view...
+            // If we are now in grid view...
             else {
                 // Display grid view
                 displayGridView();
@@ -856,6 +863,8 @@ class ViewController: NSViewController, NSWindowDelegate {
         // Print to the log that we are going into grid view
         print("ViewController: Switching to grid view");
         
+        hideGroupView();
+        
         // Say we arent in list view
         inListView = false;
         
@@ -886,6 +895,14 @@ class ViewController: NSViewController, NSWindowDelegate {
         
         // Show the grid view
         mangaCollectionViewScrollView.isHidden = false;
+        
+        // Hide the group search field
+        titlebarGroupViewSearchField.isHidden = true;
+        titlebarGroupViewSearchField.isEnabled = false;
+        
+        // Hide the group view tabs
+        titlebarGroupViewTypeSelectionSegmentedControl.isEnabled = false;
+        titlebarGroupViewTypeSelectionSegmentedControl.alphaValue = 0;
         
         // Hide the thumbnail window
         thumbnailImageHoverController.hide();
